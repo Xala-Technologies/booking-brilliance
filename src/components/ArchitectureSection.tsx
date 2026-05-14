@@ -1,102 +1,119 @@
 import { DiagramViewer } from "./DiagramViewer";
 import { DiagramData } from "../types/diagram";
+import {
+  SectionRule,
+  EditorialHeading,
+  EditorialCard,
+  Sidenote,
+} from "@/components/editorial";
+import { getFraunces } from "@/lib/fonts";
 
 const ArchitectureSection = () => {
   const diagramData: DiagramData = {
-    title: "DigiList Platform Architecture",
+    title: "Digilist plattformarkitektur",
     nodes: [
-      // Layer 0: Frontend Apps
-      { id: "webapp", label: "Web App", subLabel: "RR7/RC19", category: "client", layer: 0, icon: "React", color: "#61dafb" },
-      { id: "backoffice", label: "Backoffice", subLabel: "RR7", category: "client", layer: 0, icon: "React", color: "#61dafb" },
-      { id: "learning", label: "Learning Hub", subLabel: "RR7", category: "client", layer: 0, icon: "React", color: "#61dafb" },
-      { id: "docs", label: "Docs", subLabel: "RR7", category: "client", layer: 0, icon: "React", color: "#61dafb" },
-      
-      // Layer 1: API Server
-      { id: "api", label: "API Server", subLabel: "Fastify 5", category: "server", layer: 1, icon: "Fastify", color: "#000000" },
-      
-      // Layer 2: Backend Services
-      { id: "postgres", label: "PostgreSQL", subLabel: "16", category: "database", layer: 2, icon: "PostgreSQL", color: "#336791" },
-      { id: "redis", label: "Redis", subLabel: "7.x", category: "storage", layer: 2, icon: "Redis", color: "#D82C20" },
-      { id: "worker", label: "Worker", subLabel: "BullMQ", category: "worker", layer: 2, icon: "BullMQ", color: "#f59e0b" },
-      { id: "monitoring", label: "Monitoring", subLabel: "Audit Log - RR7", category: "general", layer: 2, icon: "Monitoring", color: "#8b5cf6" },
+      { id: "webapp", label: "Web", subLabel: "Digdir Designsystemet", category: "client", layer: 0, icon: "React", color: "#1F2F6E" },
+      { id: "dashboard", label: "Dashboard", subLabel: "Multi-tenant", category: "client", layer: 0, icon: "React", color: "#1F2F6E" },
+      { id: "mobile", label: "Mobil", subLabel: "Tablet · iOS · Android", category: "client", layer: 0, icon: "React", color: "#1F2F6E" },
+      { id: "convex", label: "Convex", subLabel: "Reaktiv runtime", category: "server", layer: 1, icon: "Convex", color: "#0A1228" },
+      { id: "postgres", label: "PostgreSQL", subLabel: "16 (NO/EU)", category: "database", layer: 2, icon: "PostgreSQL", color: "#1F2F6E" },
+      { id: "outbox", label: "Outbox Bus", subLabel: "Transaksjonelle hendelser", category: "worker", layer: 2, icon: "Bus", color: "#1F2F6E" },
+      { id: "audit", label: "Revisjon", subLabel: "Audit-log + RBAC", category: "general", layer: 2, icon: "Audit", color: "#1F2F6E" },
+      { id: "integrations", label: "Integrasjoner", subLabel: "Vipps · BankID · Visma · RCO · EHF", category: "storage", layer: 2, icon: "Plug", color: "#1F2F6E" },
     ],
     links: [
-      // Frontend → API Server
-      { source: "webapp", target: "api" },
-      { source: "backoffice", target: "api" },
-      { source: "learning", target: "api" },
-      { source: "docs", target: "api" },
-      
-      // API Server → Backend
-      { source: "api", target: "postgres" },
-      { source: "api", target: "redis" },
-      { source: "api", target: "worker" },
-      { source: "api", target: "monitoring" },
-      
-      // Worker → Redis
-      { source: "worker", target: "redis" },
+      { source: "webapp", target: "convex" },
+      { source: "dashboard", target: "convex" },
+      { source: "mobile", target: "convex" },
+      { source: "convex", target: "postgres" },
+      { source: "convex", target: "outbox" },
+      { source: "convex", target: "audit" },
+      { source: "convex", target: "integrations" },
     ],
   };
 
   return (
-    <section id="arkitektur" className="py-16 md:py-24 bg-secondary/30 relative section-border overflow-hidden">
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="section-heading mb-4">
-            Systemarkitektur
-          </h2>
-          <p className="section-subheading max-w-2xl mx-auto">
-            En robust og skalerbar plattform bygget med moderne teknologi
-          </p>
+    <section
+      id="arkitektur"
+      className="py-14 lg:py-20 bg-paper"
+    >
+      <div className="container mx-auto px-4">
+        <SectionRule label="VII. ARKITEKTUR" />
+
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-gutter mb-16">
+          <div className="lg:col-span-7">
+            <EditorialHeading as="h2" size="section">
+              Schema.
+            </EditorialHeading>
+          </div>
+          <div className="lg:col-span-5 flex items-end">
+            <p
+              className="text-xl text-ink-soft italic"
+              style={{ fontVariationSettings: getFraunces("sub") }}
+            >
+              Tre klienter mot én reaktiv runtime, med transaksjonell hendelsesbus og
+              fullstendig revisjon.
+            </p>
+          </div>
         </div>
 
-        {/* Interactive Diagram - Desktop Only */}
-        <div className="hidden md:block w-full h-[700px] md:h-[800px]">
-          <DiagramViewer data={diagramData} />
-        </div>
+        <div className="relative">
+          <EditorialCard bleed className="bg-paper-deep/40">
+            <div className="hidden md:block w-full h-[640px]">
+              <DiagramViewer data={diagramData} />
+            </div>
 
-        {/* Mobile - Simple List View */}
-        <div className="md:hidden space-y-6">
-          <div className="space-y-4">
-            <h3 className="text-xl font-bold text-foreground mb-4">Frontend Apps</h3>
-            <div className="grid grid-cols-2 gap-3">
-              {diagramData.nodes.filter(n => n.layer === 0).map(node => (
-                <div key={node.id} className="p-4 rounded-xl bg-card/80 border border-border/50">
-                  <div className="font-bold text-foreground mb-1">{node.label}</div>
-                  <div className="text-xs text-muted-foreground">{node.subLabel}</div>
+            <div className="md:hidden p-6 space-y-8">
+              {[0, 1, 2].map((layer) => (
+                <div key={layer}>
+                  <h3 className="editorial-mono-caption mb-4">
+                    {layer === 0
+                      ? "Klienter"
+                      : layer === 1
+                      ? "Reaktiv runtime"
+                      : "Lagring & samsvar"}
+                  </h3>
+                  <div className="grid grid-cols-2 gap-px bg-rule">
+                    {diagramData.nodes
+                      .filter((n) => n.layer === layer)
+                      .map((node) => (
+                        <div
+                          key={node.id}
+                          className="bg-paper p-4 flex flex-col"
+                        >
+                          <span
+                            className="font-serif text-lg text-ink"
+                            style={{
+                              fontVariationSettings: '"opsz" 36, "wght" 460',
+                            }}
+                          >
+                            {node.label}
+                          </span>
+                          <span className="text-xs text-ink-faint mt-1">
+                            {node.subLabel}
+                          </span>
+                        </div>
+                      ))}
+                  </div>
                 </div>
               ))}
             </div>
-          </div>
-
-          <div className="space-y-4">
-            <h3 className="text-xl font-bold text-foreground mb-4">API Server</h3>
-            <div className="p-4 rounded-xl bg-card/80 border border-primary/50">
-              <div className="font-bold text-foreground mb-1">API Server</div>
-              <div className="text-xs text-muted-foreground">Fastify 5</div>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <h3 className="text-xl font-bold text-foreground mb-4">Backend Services</h3>
-            <div className="grid grid-cols-2 gap-3">
-              {diagramData.nodes.filter(n => n.layer === 2).map(node => (
-                <div key={node.id} className="p-4 rounded-xl bg-card/80 border border-border/50">
-                  <div className="font-bold text-foreground mb-1">{node.label}</div>
-                  <div className="text-xs text-muted-foreground">{node.subLabel}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Description */}
-        <div className="mt-12 text-center">
-          <p className="text-muted-foreground max-w-3xl mx-auto text-sm md:text-base">
-            DigiList plattformen består av flere frontend-applikasjoner som kommuniserer med en sentral API-server, 
-            som igjen er koblet til PostgreSQL-databasen, Redis cache og BullMQ worker for bakgrunnsjobber.
+          </EditorialCard>
+          <p className="mt-3 editorial-mono-caption">
+            Fig. II — Systemarkitektur (forenklet)
           </p>
+
+          <div className="mt-10 grid lg:grid-cols-2 gap-6">
+            <Sidenote marker={1}>
+              Convex er en reaktiv runtime: spørringer abonnerer på data og
+              oppdateres umiddelbart når underliggende tabeller endres.
+            </Sidenote>
+            <Sidenote marker={2}>
+              Outbox-bussen sikrer transaksjonell publisering: hendelsen lagres
+              i samme transaksjon som mutasjonen, og distribueres deretter til
+              abonnenter med backoff og dead-letter.
+            </Sidenote>
+          </div>
         </div>
       </div>
     </section>

@@ -74,7 +74,7 @@ const BookDemo = () => {
           comment: "",
         });
       }, 3000);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error sending demo request:", error);
       toast({
         title: "Noe gikk galt",

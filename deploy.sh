@@ -17,7 +17,12 @@ NC='\033[0m'
 # Configuration
 VPS_USER="root"
 VPS_HOST="72.61.23.56"
-REMOTE_DIR="/var/www/digilist/main"
+# 2026-05-14: nginx for digilist.no points to the Hostinger per-domain
+# layout, not /var/www/digilist/main as the old DEPLOYMENT.md suggested.
+# That older path was a phantom — deploys landed there but nginx never
+# served them. Keep this in sync with
+# /etc/nginx/sites-enabled/digilist-apps.conf (server_name digilist.no → root).
+REMOTE_DIR="/home/root/domains/digilist.no/public_html"
 PROJECT_NAME="booking-brilliance"
 
 echo -e "${GREEN}========================================${NC}"

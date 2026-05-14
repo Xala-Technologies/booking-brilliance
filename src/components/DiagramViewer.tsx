@@ -19,6 +19,32 @@ const ICON_MAP: Record<string, React.FC> = {
   ),
   BullMQ: BullMQLogo,
   Monitoring: MonitoringLogo,
+  Convex: () => (
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#003057" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 3c4.97 0 9 4.03 9 9s-4.03 9-9 9-9-4.03-9-9" />
+      <path d="M3 12c0-4.97 4.03-9 9-9" strokeDasharray="2 3" />
+      <circle cx="12" cy="12" r="3.2" fill="#003057" stroke="none" />
+    </svg>
+  ),
+  Bus: () => (
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#003057" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="6" width="18" height="12" rx="1.5" />
+      <path d="M3 10h18M3 14h18M9 6v12M15 6v12" />
+    </svg>
+  ),
+  Plug: () => (
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#003057" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M9 2v6M15 2v6" />
+      <path d="M7 8h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V8z" />
+      <path d="M12 17v5" />
+    </svg>
+  ),
+  Audit: () => (
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#003057" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <path d="M14 2v6h6M9 13l2 2 4-4" />
+    </svg>
+  ),
 };
 
 export const DiagramViewer: React.FC<DiagramViewerProps> = ({ data }) => {
@@ -188,7 +214,7 @@ export const DiagramViewer: React.FC<DiagramViewerProps> = ({ data }) => {
       .attr("transform", d => `translate(${nodePositions[d.id].x}, ${nodePositions[d.id].y})`);
 
     const boxWidth = 240;
-    const boxHeight = 90;
+    const boxHeight = 100;
 
     // Get theme colors from CSS variables
     const cardColor = getColorValue('--card');
@@ -265,17 +291,46 @@ export const DiagramViewer: React.FC<DiagramViewerProps> = ({ data }) => {
       .attr("fill", isDarkMode ? '#f1f5f9' : '#0f172a')
       .attr("font-weight", "700")
       .attr("font-size", "18px")
-      .attr("font-family", "Inter, system-ui, sans-serif");
+      .attr("font-family", "Public Sans, system-ui, sans-serif");
 
-    // Sublabel - grey in both modes
-    nodeGroups.append("text")
-      .attr("x", -boxWidth / 2 + 95)
-      .attr("y", -boxHeight / 2 + 62)
-      .text(d => d.subLabel || d.category.toUpperCase())
-      .attr("fill", '#64748b')
-      .attr("font-size", "15px")
-      .attr("font-family", "Inter, system-ui, sans-serif")
-      .attr("font-weight", "500");
+    // Sublabel - wraps to 2 lines max if too wide
+    const subFontSize = 14;
+    const subX = -boxWidth / 2 + 95;
+    const subYStart = -boxHeight / 2 + 60;
+    const maxCharsPerLine = 22; // calibrated for boxWidth 240 minus icon column
+    nodeGroups.each(function(d) {
+      const text = d.subLabel || d.category.toUpperCase();
+      const lines: string[] = [];
+      const words = text.split(/\s+/);
+      let line = "";
+      for (const word of words) {
+        const candidate = line ? `${line} ${word}` : word;
+        if (candidate.length > maxCharsPerLine && line) {
+          lines.push(line);
+          line = word;
+        } else {
+          line = candidate;
+        }
+      }
+      if (line) lines.push(line);
+      const capped = lines.slice(0, 2);
+      if (capped.length === 2 && lines.length > 2) {
+        capped[1] = capped[1].replace(/.{2}$/, "…");
+      }
+      const sub = d3.select(this).append("text")
+        .attr("x", subX)
+        .attr("y", subYStart)
+        .attr("fill", '#64748b')
+        .attr("font-size", `${subFontSize}px`)
+        .attr("font-family", "Public Sans, system-ui, sans-serif")
+        .attr("font-weight", "500");
+      capped.forEach((ln, i) => {
+        sub.append("tspan")
+          .attr("x", subX)
+          .attr("dy", i === 0 ? 0 : subFontSize + 3)
+          .text(ln);
+      });
+    });
 
     // Initial center - zoom out to show everything
     const bounds = g.node()?.getBBox();

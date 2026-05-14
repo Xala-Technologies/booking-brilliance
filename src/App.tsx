@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import Index from "./pages/Index";
 import BookDemo from "./pages/BookDemo";
+import BookingsystemKommune from "./pages/BookingsystemKommune";
 import Salgsvilkar from "./pages/Salgsvilkar";
 import Personvern from "./pages/Personvern";
 import Cookies from "./pages/Cookies";
@@ -24,6 +25,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/book-demo" element={<BookDemo />} />
+            <Route path="/bookingsystem-kommune" element={<BookingsystemKommune />} />
             <Route path="/salgsvilkar" element={<Salgsvilkar />} />
             <Route path="/personvern" element={<Personvern />} />
             <Route path="/cookies" element={<Cookies />} />

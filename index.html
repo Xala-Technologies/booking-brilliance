@@ -1,19 +1,24 @@
 <!doctype html>
-<html lang="no">
+<html lang="nb-NO">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
     <!-- Favicons -->
     <link rel="icon" href="/icon.png" type="image/png" />
     <link rel="icon" href="/logo.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/icon.png" />
+
+    <!-- Editorial Nordic typography: Fraunces (variable serif display, opsz/wght/SOFT/WONK axes) + Public Sans (USWDS civic-tech body) + JetBrains Mono (specs) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Public+Sans:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" />
     
     <!-- Primary Meta Tags -->
-    <title>Digilist - Kommunal Bookingplattform | Enkel Booking for Norske Kommuner</title>
-    <meta name="title" content="Digilist - Kommunal Bookingplattform | Enkel Booking for Norske Kommuner" />
-    <meta name="description" content="Moderne SaaS-plattform for booking av kommunale anlegg og ressurser i Norge. Håndterer booking, betaling, kalender og rapportering i én plattform. GDPR-klar og universelt utformet." />
-    <meta name="keywords" content="booking, kommune, anlegg, idrettshall, svømmehall, kulturhus, møterom, digital booking, Vipps, Klarna, BankID, GDPR, universell utforming, kommunal booking, Norge, SaaS, bookingssystem, lokalbooking, ressurstyring" />
+    <title>Digilist — Én plattform for alt som leies ut</title>
+    <meta name="title" content="Digilist — Én plattform for alt som leies ut" />
+    <meta name="description" content="Digital bookingplattform for selskapslokaler, idrettshaller, møterom og kulturhus. Sanntidskalender, Vipps, BankID, EHF, sesongleie. ISO 27001-sertifisert." />
+    <meta name="keywords" content="booking, utleie, selskapslokale, kulturhus, idrettshall, møterom, kommune, kontorbygg, foreninger, Vipps, BankID, ID-porten, EHF, Peppol, ISO 27001, GDPR, universell utforming, bookingsystem, lokalbooking, ressurstyring, Norge" />
     <meta name="author" content="Xala Technologies AS" />
     <meta name="robots" content="index, follow" />
     <meta name="googlebot" content="index, follow" />
@@ -31,23 +36,28 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://digilist.no/" />
-    <meta property="og:title" content="Digilist - Kommunal Bookingplattform" />
-    <meta property="og:description" content="Moderne SaaS-plattform for booking av kommunale anlegg og ressurser i Norge. Håndterer booking, betaling, kalender og rapportering i én plattform." />
+    <meta property="og:title" content="Digilist — Én plattform for alt som leies ut" />
+    <meta property="og:description" content="Selskapslokaler, idrettshaller, møterom, kantiner og kulturhus. Sanntidskalender, betaling, sesongleie og fakturering — én digital plattform." />
     <meta property="og:image" content="https://digilist.no/og-image.png" />
     <meta property="og:locale" content="nb_NO" />
     <meta property="og:site_name" content="Digilist" />
-    
+
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://digilist.no/" />
-    <meta property="twitter:title" content="Digilist - Kommunal Bookingplattform" />
-    <meta property="twitter:description" content="Moderne SaaS-plattform for booking av kommunale anlegg og ressurser i Norge." />
+    <meta property="twitter:title" content="Digilist — Én plattform for alt som leies ut" />
+    <meta property="twitter:description" content="Selskapslokaler, idrettshaller, møterom, kantiner og kulturhus — én digital plattform med sanntidskalender og betaling." />
     <meta property="twitter:image" content="https://digilist.no/og-image.png" />
     
     <!-- Additional SEO -->
-    <meta name="theme-color" content="#0EA5E9" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#020817" media="(prefers-color-scheme: dark)" />
     <link rel="canonical" href="https://digilist.no/" />
-    
+
+    <!-- Plausible Analytics — privacy-first, no cookies, GDPR-compliant -->
+    <script defer data-domain="digilist.no" src="https://plausible.io/js/script.outbound-links.js"></script>
+    <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+
     <!-- Structured Data (JSON-LD) will be injected by SEO component -->
   </head>
 

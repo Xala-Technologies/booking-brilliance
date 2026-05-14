@@ -1,73 +1,64 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 import DockNavigation from "./DockNavigation";
+import { EditorialButton } from "@/components/editorial";
+import { cn } from "@/lib/utils";
+import { getFraunces } from "@/lib/fonts";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 section-border-bottom ${
+      className={cn(
+        "fixed top-0 left-0 right-0 z-40 bg-paper border-b transition-all duration-normal ease-editorial",
         isScrolled
-          ? "glass-effect py-2 shadow-lg"
-          : "bg-transparent py-3"
-      }`}
+          ? "border-rule-strong py-2 shadow-[0_1px_0_0_hsl(var(--rule))]"
+          : "border-rule py-3"
+      )}
     >
       <div className="container mx-auto px-4 flex items-center justify-between">
-        {/* Logo */}
-        <Link 
-          to="/" 
-          className="group flex items-center gap-2"
-          onClick={() => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
+        <Link
+          to="/"
+          className="group flex items-center gap-3"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         >
-          <img 
-            src="/logo.svg" 
-            alt="Digilist" 
-            className="h-14 md:h-16 w-auto transition-opacity group-hover:opacity-80"
+          <img
+            src="/logo.svg"
+            alt="Digilist"
+            className="h-10 md:h-11 w-auto transition-opacity group-hover:opacity-80"
           />
           <div className="flex flex-col leading-none">
-            <span className="text-xl md:text-2xl font-bold text-foreground tracking-tight">
+            <span className="text-xl md:text-2xl font-bold text-ink tracking-tight">
               DIGILIST
             </span>
-            <span className="text-xs md:text-sm text-muted-foreground mt-0.5">
-              ENKEL BOOKING
+            <span className="text-[0.65rem] md:text-xs text-ink-faint tracking-[0.18em] uppercase">
+              Enkel booking
             </span>
           </div>
         </Link>
 
-        {/* Dock Navigation */}
         <DockNavigation />
 
-        {/* CTA Button and Theme Toggle */}
         <div className="flex items-center gap-3">
           <ThemeToggle />
-          <Button 
-            variant="hero" 
-            size="xl" 
-            className="hidden md:inline-flex group shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 hover:scale-105 transition-all duration-300"
-            onClick={() => {
-              const element = document.getElementById('kontakt');
-              if (element) {
-                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }
-            }}
+          <EditorialButton
+            variant="primary"
+            size="md"
+            href="https://app.digilist.no"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden md:inline-flex"
           >
-            Book demo
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </Button>
+            Åpne plattformen
+          </EditorialButton>
         </div>
       </div>
     </nav>

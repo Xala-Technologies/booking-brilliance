@@ -1,59 +1,113 @@
-import offentligSektorImg from "@/assets/offentlig-sektor.jpg";
-import naeringOrganisasjonerImg from "@/assets/naering-organisasjoner.jpeg";
+import { motion } from "framer-motion";
+import {
+  SectionRule,
+  EditorialHeading,
+  DropCap,
+  PullQuote,
+} from "@/components/editorial";
+import { staggerParent, staggerChild, viewportOnce } from "@/lib/motion";
+import { getFraunces } from "@/lib/fonts";
+
+const segments = [
+  {
+    title: "Idrettshaller & svømmehaller",
+    body: "Hele eller halve haller, gymsaler, fotballbaner. Sanntid, sesongleie og lag-/foreningsfordeling.",
+  },
+  {
+    title: "Selskapslokaler & kulturhus",
+    body: "Selskap, bryllup, jubileer, konserter, kurs. Depositum, leieavtale og digital nøkkel.",
+  },
+  {
+    title: "Møterom & kantiner",
+    body: "Kommunale, næring og foreninger. Sambruk mellom avdelinger, prising og varsling av drift.",
+  },
+  {
+    title: "Ressurser & tjenester",
+    body: "AV-utstyr, instrumenter, kjøretøy, vaktmestertjenester. Pakker og legg-til-tjenester på booking.",
+  },
+];
 
 const AudienceSection = () => {
-  const audiences = [
-    {
-      image: offentligSektorImg,
-      title: "Offentlig sektor",
-    },
-    {
-      image: "https://images.unsplash.com/photo-1514306191717-452ec28c7814?w=500&h=400&fit=crop",
-      title: "Kultur og arrangement",
-    },
-    {
-      image: "https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=500&h=400&fit=crop",
-      title: "Idrett og aktivitet",
-    },
-    {
-      image: naeringOrganisasjonerImg,
-      title: "Næring og organisasjoner",
-    },
-  ];
-
   return (
-    <section id="bruksomrader" className="py-16 md:py-24 bg-secondary/30 relative section-border">
+    <section
+      id="bruksomrader"
+      className="py-14 lg:py-20 bg-paper-deep/40"
+    >
       <div className="container mx-auto px-4">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="section-heading mb-4">
-            En plattform. Mange bruksområder
-          </h2>
-          <p className="section-subheading max-w-2xl mx-auto">
-            Tilpasset kommuner, kulturhus, skoler, idrett og bedrifter
+        <SectionRule label="II. PUBLIKUM" />
+
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-gutter mb-10 lg:mb-14">
+          <div className="lg:col-span-8">
+            <EditorialHeading as="h2" size="section">
+              Én plattform.{" "}
+              <em
+                className="italic"
+                style={{
+                  fontVariationSettings: '"opsz" 96, "wght" 400, "SOFT" 30, "WONK" 0',
+                }}
+              >
+                Mange bruksområder.
+              </em>
+            </EditorialHeading>
+          </div>
+        </div>
+
+        <div className="columns-1 lg:columns-2 gap-12 mb-12 text-ink-soft">
+          <DropCap>
+            Digilist er bygd for norske utleiere — fra eieren av et selskapslokale med
+            bookinger til kommunale fritidsetater med tolv anlegg. Den samme plattformen
+            håndterer privatbookinger, sesongleie til lag og foreninger, sambruk mellom
+            avdelinger og offentlige bookinger med kommunal innbyggerautentisering via
+            ID-porten.
+          </DropCap>
+          <p className="mt-6 text-lg leading-relaxed">
+            Betaling tas direkte via Vipps eller kort med øyeblikkelig kvittering.
+            Driftsroller — vaktmestere, renholdspersonell, vektere — varsles
+            automatisk når en booking bekreftes. Faktura og bilag genereres til
+            ditt regnskapssystem (Visma, Tripletex, Fiken, PowerOffice, DNB
+            Regnskap eller EHF/Peppol).
+          </p>
+          <PullQuote
+            byline="Kommunal kulturkonsulent"
+            role="Bruker av Digilist"
+            className="my-10"
+          >
+            Vi har redusert dobbeltbookinger til null og fått tilbake fire timer i
+            uka som tidligere gikk til regnearkjusteringer.
+          </PullQuote>
+          <p className="text-lg leading-relaxed">
+            Plattformen er universelt utformet, oppfyller WCAG 2.0 AA, GDPR og er
+            ISO 27001/27701-sertifisert. Alle data lagres i Norge og Europa.
           </p>
         </div>
 
-        {/* Cards Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {audiences.map((item, index) => (
-            <div
-              key={index}
-              className="group card-gradient rounded-2xl overflow-hidden border border-border hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          variants={staggerParent}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-rule border border-rule"
+        >
+          {segments.map((s) => (
+            <motion.div
+              key={s.title}
+              variants={staggerChild}
+              className="bg-paper p-6 lg:p-8 min-h-[12rem] flex flex-col"
             >
-              <div className="h-64 overflow-hidden">
-                <img 
-                  src={item.image} 
-                  alt={item.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-foreground">{item.title}</h3>
-              </div>
-            </div>
+              <h3
+                className="font-serif text-xl lg:text-2xl text-ink mb-3"
+                style={{
+                  fontVariationSettings: getFraunces("sub"),
+                  fontStyle: "normal",
+                  letterSpacing: "0",
+                }}
+              >
+                {s.title}
+              </h3>
+              <p className="text-sm text-ink-soft leading-relaxed">{s.body}</p>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

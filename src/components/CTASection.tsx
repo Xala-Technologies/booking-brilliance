@@ -1,10 +1,13 @@
 import { useState } from "react";
-import { ArrowRight, User, Mail, Phone, Building2, MessageSquare, CheckCircle, Loader2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Loader2, CheckCircle2 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import {
+  SectionRule,
+  EditorialHeading,
+  EditorialButton,
+} from "@/components/editorial";
+import { getFraunces } from "@/lib/fonts";
 
 const CTASection = () => {
   const [formData, setFormData] = useState({
@@ -20,28 +23,23 @@ const CTASection = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
     try {
-      // Call the Supabase edge function to send email
-      const { data, error } = await supabase.functions.invoke('send-demo-request', {
+      const { error } = await supabase.functions.invoke("send-demo-request", {
         body: {
           name: formData.name,
           email: formData.email,
-          organizationType: formData.organizationType || formData.phone || "Ikke oppgitt",
-          message: formData.message || `Telefon: ${formData.phone || 'Ikke oppgitt'}`,
+          organizationType:
+            formData.organizationType || formData.phone || "Ikke oppgitt",
+          message:
+            formData.message || `Telefon: ${formData.phone || "Ikke oppgitt"}`,
         },
       });
-
       if (error) throw error;
-
       toast({
-        title: "Demo forespørsel sendt!",
-        description: "Vi tar kontakt med deg snart for å avtale en demo.",
+        title: "Demo-forespørsel sendt",
+        description: "Vi tar kontakt for å avtale en demo.",
       });
-
       setIsSubmitted(true);
-      
-      // Reset form after 3 seconds
       setTimeout(() => {
         setIsSubmitted(false);
         setFormData({
@@ -51,8 +49,8 @@ const CTASection = () => {
           organizationType: "",
           message: "",
         });
-      }, 3000);
-    } catch (error: any) {
+      }, 4000);
+    } catch (error) {
       console.error("Error sending demo request:", error);
       toast({
         title: "Noe gikk galt",
@@ -64,208 +62,225 @@ const CTASection = () => {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // Hairline-bottom inputs on light surface — AA contrast on ink text
+  const fieldClass =
+    "w-full bg-transparent border-0 border-b border-rule-strong focus:border-navy rounded-none px-0 py-3 text-base text-ink placeholder:text-ink-faint focus:outline-none focus:ring-0 transition-colors duration-quick";
+
   return (
-    <section id="kontakt" className="py-16 md:py-24 bg-gradient-to-br from-primary/5 via-background to-primary/5 relative overflow-hidden section-border">
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Animated gradient orbs */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-primary/20 via-purple-500/15 to-transparent rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-bl from-blue-500/15 via-primary/20 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-primary/10 via-transparent to-primary/10 rounded-full blur-3xl"></div>
-        
-        {/* Dot pattern overlay */}
-        <div 
-          className="absolute inset-0 opacity-20" 
-          style={{ 
-            backgroundImage: 'radial-gradient(circle, hsl(var(--primary) / 0.15) 1px, transparent 1px)',
-            backgroundSize: '40px 40px' 
-          }}
-        />
-        
-        {/* Diagonal stripes */}
-        <div 
-          className="absolute inset-0 opacity-5" 
-          style={{ 
-            backgroundImage: 'repeating-linear-gradient(45deg, hsl(var(--primary)) 0px, hsl(var(--primary)) 1px, transparent 1px, transparent 40px)',
-          }}
-        />
-      </div>
-      
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-          {/* Left Column - Content */}
-          <div>
-            <h2 className="section-heading mb-6">
-              Book en gratis demo
-            </h2>
-            
-            <p className="section-subheading mb-8">
-              Se hvordan Digilist kan forenkle booking og administrasjon for din kommune.
+    <section id="kontakt" className="relative py-14 lg:py-20 bg-accent-tinted">
+      <div className="container mx-auto px-4">
+        <SectionRule label="IX. KONTAKT" />
+
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-gutter">
+          <div className="lg:col-span-6">
+            <EditorialHeading as="h2" size="display" className="mb-6">
+              Book en{" "}
+              <em
+                className="italic"
+                style={{
+                  fontVariationSettings:
+                    '"opsz" 120, "wght" 380, "SOFT" 60, "WONK" 1',
+                }}
+              >
+                demo.
+              </em>
+            </EditorialHeading>
+
+            <p
+              className="text-xl text-ink-soft measure leading-relaxed mb-10"
+              style={{ fontVariationSettings: getFraunces("sub") }}
+            >
+              30–45 minutter, tilpasset deres bruksområde. Privat lokale, kommune,
+              kulturhus eller foreningsbygg — vi viser hvordan Digilist håndterer
+              det.
             </p>
 
-            <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center flex-shrink-0 shadow-lg">
-                  <CheckCircle className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-foreground mb-1 text-lg">Personlig gjennomgang</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">30-45 minutters live demo tilpasset deres behov</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center flex-shrink-0 shadow-lg">
-                  <CheckCircle className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-foreground mb-1 text-lg">Ingen forpliktelser</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">Gratis demo uten binding eller salgsprat</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center flex-shrink-0 shadow-lg">
-                  <CheckCircle className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-foreground mb-1 text-lg">Rask respons</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">Vi kontakter deg innen 24 timer</p>
-                </div>
-              </div>
-            </div>
+            <ul className="space-y-5">
+              {[
+                {
+                  label: "Personlig gjennomgang",
+                  caption: "Live demo med en av våre løsningsdesignere",
+                },
+                {
+                  label: "Ingen forpliktelser",
+                  caption: "Gratis demo uten binding eller salgsprat",
+                },
+                {
+                  label: "Rask respons",
+                  caption: "Vi tar kontakt innen 24 timer",
+                },
+              ].map((item) => (
+                <li key={item.label} className="flex items-start gap-4">
+                  <CheckCircle2
+                    className="h-5 w-5 mt-1 shrink-0 text-accent-text"
+                    strokeWidth={1.5}
+                    aria-hidden="true"
+                  />
+                  <div>
+                    <p
+                      className="font-serif text-lg text-ink"
+                      style={{
+                        fontVariationSettings: '"opsz" 36, "wght" 480',
+                      }}
+                    >
+                      {item.label}
+                    </p>
+                    <p className="text-base text-ink-soft">{item.caption}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Right Column - Form */}
-          <div className="relative">
-            <div className="bg-card/90 backdrop-blur-xl border-2 border-border/50 rounded-2xl p-8 shadow-2xl hover:shadow-3xl hover:border-primary/50 transition-all duration-300">
-              {isSubmitted ? (
-                <div className="text-center py-12">
-                  <div className="w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-6 shadow-lg shadow-green-500/30">
-                    <CheckCircle className="w-10 h-10 text-green-500" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-foreground mb-3">Takk for din interesse!</h3>
-                  <p className="text-muted-foreground text-lg">Vi kontakter deg snart.</p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div>
-                    <label className="block text-sm font-semibold text-foreground mb-2">
-                      Navn *
-                    </label>
-                    <div className="relative">
-                      <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
-                      <Input
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        placeholder="Ditt fulle navn"
-                        className="pl-11 h-12 text-base"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-foreground mb-2">
-                      E-post *
-                    </label>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
-                      <Input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        placeholder="din@epost.no"
-                        className="pl-11 h-12 text-base"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <div>
-                      <label className="block text-sm font-semibold text-foreground mb-2">
-                        Telefon
-                      </label>
-                      <div className="relative">
-                        <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
-                        <Input
-                          type="tel"
-                          name="phone"
-                          value={formData.phone}
-                          onChange={handleChange}
-                          placeholder="+47 123 45 678"
-                          className="pl-11 h-12 text-base"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-semibold text-foreground mb-2">
-                        Organisasjon
-                      </label>
-                      <div className="relative">
-                        <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
-                        <Input
-                          type="text"
-                          name="organization"
-                          value={formData.organization}
-                          onChange={handleChange}
-                          placeholder="Kommune/Org"
-                          className="pl-11 h-12 text-base"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-foreground mb-2">
-                      Melding (valgfritt)
-                    </label>
-                    <div className="relative">
-                      <MessageSquare className="absolute left-3 top-3 w-5 h-5 text-muted-foreground pointer-events-none" />
-                      <Textarea
-                        name="message"
-                        value={formData.message}
-                        onChange={handleChange}
-                        placeholder="Fortell oss om deres behov..."
-                        className="pl-11 min-h-[100px] resize-none text-base"
-                      />
-                    </div>
-                  </div>
-
-                  <Button 
-                    type="submit" 
-                    variant="hero" 
-                    size="lg" 
-                    className="w-full h-14 text-base group shadow-xl shadow-primary/30 hover:shadow-2xl hover:shadow-primary/40 transition-all duration-300"
-                    disabled={isSubmitting}
+          <div className="lg:col-span-6">
+            {isSubmitted ? (
+              <div className="border border-rule rounded-sm bg-paper p-10 lg:p-12">
+                <p className="editorial-mono-caption text-accent-text mb-4">
+                  Bekreftelse
+                </p>
+                <h3
+                  className="font-serif text-4xl text-ink mb-4"
+                  style={{ fontVariationSettings: getFraunces("section") }}
+                >
+                  Takk.
+                </h3>
+                <p className="text-lg text-ink-soft measure">
+                  Forespørselen er mottatt. Vi tar kontakt innen 24 timer.
+                </p>
+              </div>
+            ) : (
+              <form
+                onSubmit={handleSubmit}
+                className="border border-rule rounded-sm bg-paper p-8 lg:p-10 space-y-7"
+              >
+                <div>
+                  <label
+                    htmlFor="cta-name"
+                    className="editorial-mono-caption block mb-2"
                   >
-                    {isSubmitting ? (
-                      <>
-                        <Loader2 className="w-5 h-5 animate-spin" />
-                        Sender...
-                      </>
-                    ) : (
-                      <>
-                        Send forespørsel
-                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                      </>
-                    )}
-                  </Button>
+                    Navn
+                  </label>
+                  <input
+                    id="cta-name"
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Ditt fulle navn"
+                    className={fieldClass}
+                    required
+                  />
+                </div>
 
-                  <p className="text-xs text-center text-muted-foreground">
-                    Ved å sende inn dette skjemaet godtar du vår{" "}
-                    <a href="/personvern" className="text-primary hover:underline font-medium">personvernerklæring</a>
+                <div>
+                  <label
+                    htmlFor="cta-email"
+                    className="editorial-mono-caption block mb-2"
+                  >
+                    E-post
+                  </label>
+                  <input
+                    id="cta-email"
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="din@epost.no"
+                    className={fieldClass}
+                    required
+                  />
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label
+                      htmlFor="cta-phone"
+                      className="editorial-mono-caption block mb-2"
+                    >
+                      Telefon
+                    </label>
+                    <input
+                      id="cta-phone"
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      placeholder="+47 ..."
+                      className={fieldClass}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="cta-org"
+                      className="editorial-mono-caption block mb-2"
+                    >
+                      Organisasjon
+                    </label>
+                    <input
+                      id="cta-org"
+                      type="text"
+                      name="organizationType"
+                      value={formData.organizationType}
+                      onChange={handleChange}
+                      placeholder="Kommune / Selskap / Forening"
+                      className={fieldClass}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="cta-message"
+                    className="editorial-mono-caption block mb-2"
+                  >
+                    Melding (valgfritt)
+                  </label>
+                  <textarea
+                    id="cta-message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="Fortell oss om deres bruksområde..."
+                    rows={4}
+                    className={`${fieldClass} resize-none`}
+                  />
+                </div>
+
+                <div className="pt-2 flex items-center justify-between gap-4 flex-wrap">
+                  <EditorialButton
+                    type="submit"
+                    variant="primary"
+                    size="lg"
+                    disabled={isSubmitting}
+                    icon={
+                      isSubmitting ? (
+                        <Loader2
+                          className="h-4 w-4 animate-spin"
+                          aria-hidden="true"
+                        />
+                      ) : true
+                    }
+                  >
+                    {isSubmitting ? "Sender..." : "Send forespørsel"}
+                  </EditorialButton>
+                  <p className="editorial-mono-caption">
+                    Godtar{" "}
+                    <a
+                      href="/personvern"
+                      className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
+                    >
+                      personvernerklæringen
+                    </a>
                   </p>
-                </form>
-              )}
-            </div>
+                </div>
+              </form>
+            )}
           </div>
         </div>
       </div>

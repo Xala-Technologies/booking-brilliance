@@ -1,73 +1,107 @@
-import { FileText, CheckCircle, Mail, BarChart3 } from "lucide-react";
+import { motion } from "framer-motion";
+import { SectionRule, EditorialHeading } from "@/components/editorial";
+import { staggerParent, staggerChild, viewportOnce } from "@/lib/motion";
+import { getFraunces } from "@/lib/fonts";
+
+const steps = [
+  {
+    step: "01",
+    title: "Søknad",
+    description:
+      "Innbygger, lag, forening eller bedrift sender forespørsel via Digilist. Tilgjengelighet vises i sanntid; forespørsler innenfor regler bookes umiddelbart.",
+  },
+  {
+    step: "02",
+    title: "Godkjenning",
+    description:
+      "Forespørsler utenfor regelverket går til administrator. Godkjenning kan delegeres til driftsroller, og automatregler dekker repeterende mønstre som sesongleie.",
+  },
+  {
+    step: "03",
+    title: "Bekreftelse",
+    description:
+      "Automatisk bekreftelse med detaljer og betaling via Vipps eller kort. Driftsroller — vaktmester, renhold, vekter — varsles automatisk.",
+  },
+  {
+    step: "04",
+    title: "Oppfølging",
+    description:
+      "Faktura og bilag til Visma, Tripletex, Fiken, PowerOffice, DNB Regnskap eller EHF/Peppol. Rapportering, KPI-er og økonomisk avstemming i én plattform.",
+  },
+];
 
 const HowItWorksSection = () => {
-  const steps = [
-    {
-      step: 1,
-      icon: FileText,
-      title: "Søknad",
-      description: "Innbygger eller organisasjon sender søknad via nettsiden.",
-    },
-    {
-      step: 2,
-      icon: CheckCircle,
-      title: "Godkjenning",
-      description: "Administrator godkjenner eller avslår søknaden basert på regler.",
-    },
-    {
-      step: 3,
-      icon: Mail,
-      title: "Bekreftelse",
-      description: "Automatisk bekreftelse sendes med detaljer og betalingsinformasjon.",
-    },
-    {
-      step: 4,
-      icon: BarChart3,
-      title: "Oppfølging",
-      description: "Rapportering, fakturering og oppfølging skjer automatisk.",
-    },
-  ];
-
   return (
-    <section id="slik-fungerer-det" className="py-16 md:py-24 bg-background relative overflow-hidden section-border">
-      
+    <section
+      id="funksjonalitet"
+      className="py-14 lg:py-20 bg-paper-deep/40"
+    >
       <div className="container mx-auto px-4">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="section-heading mb-4">
-            Booking med få steg
-          </h2>
-          <p className="section-subheading max-w-2xl mx-auto">
-            Fire enkle steg fra søknad til oppfølging
-          </p>
-        </div>
+        <SectionRule label="IV. FUNKSJONALITET" />
 
-        {/* Steps */}
-        <div className="relative">
-          {/* Connection line */}
-          <div className="absolute top-24 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent hidden lg:block" />
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {steps.map((item, index) => (
-              <div key={index} className="relative text-center group">
-                {/* Step number */}
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 text-xs font-bold text-primary-foreground bg-primary px-4 py-1.5 rounded-full shadow-md">
-                  Steg {item.step}
-                </div>
-                
-                {/* Icon */}
-                <div className="relative mx-auto w-20 h-20 rounded-2xl bg-primary/20 flex items-center justify-center mb-6 group-hover:bg-primary/30 transition-all group-hover:scale-110 duration-300 shadow-lg">
-                  <item.icon className="w-10 h-10 text-primary" />
-                  {/* Glow effect */}
-                  <div className="absolute inset-0 rounded-2xl bg-primary/30 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                </div>
-
-                <h3 className="text-xl font-bold text-foreground mb-3">{item.title}</h3>
-                <p className="text-foreground/70 font-medium">{item.description}</p>
-              </div>
-            ))}
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-gutter mb-10 lg:mb-14">
+          <div className="lg:col-span-7">
+            <EditorialHeading as="h2" size="section">
+              Booking med{" "}
+              <em
+                className="italic"
+                style={{
+                  fontVariationSettings: '"opsz" 96, "wght" 400, "SOFT" 30, "WONK" 0',
+                }}
+              >
+                få steg.
+              </em>
+            </EditorialHeading>
+          </div>
+          <div className="lg:col-span-5 flex items-end">
+            <p
+              className="text-xl text-ink-soft italic"
+              style={{ fontVariationSettings: getFraunces("sub") }}
+            >
+              Fra forespørsel til oppgjør — én sammenhengende prosess.
+            </p>
           </div>
         </div>
+
+        <motion.ol
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          variants={staggerParent}
+          className="relative border-l border-rule pl-8 lg:pl-12 space-y-16"
+        >
+          {steps.map((s, idx) => (
+            <motion.li
+              key={s.step}
+              variants={staggerChild}
+              className="relative grid grid-cols-12 gap-6 lg:gap-gutter"
+            >
+              <span
+                aria-hidden="true"
+                className="absolute -left-[2.25rem] lg:-left-[3.25rem] top-1 font-mono text-xs tracking-widest text-ink-faint tabular-nums"
+              >
+                {s.step} / {String(steps.length).padStart(2, "0")}
+              </span>
+              <div className="col-span-12 lg:col-span-4">
+                <h3
+                  className="font-serif text-3xl lg:text-4xl text-ink"
+                  style={{
+                    fontVariationSettings: getFraunces("section"),
+                    lineHeight: 1.05,
+                    letterSpacing: "-0.015em",
+                  }}
+                >
+                  {s.title}
+                </h3>
+              </div>
+              <div className="col-span-12 lg:col-span-8">
+                <p className="text-lg text-ink-soft measure leading-relaxed">
+                  {s.description}
+                </p>
+              </div>
+            </motion.li>
+          ))}
+        </motion.ol>
       </div>
     </section>
   );
