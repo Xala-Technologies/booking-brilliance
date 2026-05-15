@@ -1,6 +1,6 @@
 ---
 slug: saksbehandler-godkjenne-avvise-kommunisere
-title: "Saksbehandler i Digilist — godkjenne, avvise og kommunisere på minutter"
+title: "Saksbehandler — godkjenne, avvise og kommunisere på minutter"
 description: "Innboks for forespørsler, regelbasert auto-godkjenning, samtaletråd per booking, og fullt revisjons­spor. Slik fungerer saks­behandlings­flyten i praksis."
 date: 2026-05-27
 author: "Ibrahim Rahmani"

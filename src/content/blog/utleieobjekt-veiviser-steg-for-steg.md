@@ -1,6 +1,6 @@
 ---
 slug: utleieobjekt-veiviser-steg-for-steg
-title: "Slik legger du til et nytt utleieobjekt — Digilist-veiviseren steg for steg"
+title: "Nytt utleieobjekt — Digilist-veiviseren steg for steg"
 description: "Seks steg, hjelpetekst i hvert felt, lagring underveis. Publisert på under tjue minutter — og du kan endre alt etter publisering."
 date: 2026-05-26
 author: "Ibrahim Rahmani"

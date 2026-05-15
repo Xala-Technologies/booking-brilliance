@@ -58,9 +58,16 @@ type Props = {
   source: string;
   /** Show the Ibrahim byline (used on the /book-demo page, hidden on homepage) */
   showByline?: boolean;
+  /** Heading level for the "Book en demo." title. Use h1 on /book-demo where
+   *  it's the primary heading; default h2 keeps the homepage's hero h1 dominant. */
+  headingAs?: "h1" | "h2";
 };
 
-export function BookDemoBlock({ source, showByline = false }: Props) {
+export function BookDemoBlock({
+  source,
+  showByline = false,
+  headingAs = "h2",
+}: Props) {
   const [form, setForm] = useState<FormState>(EMPTY);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -128,7 +135,7 @@ export function BookDemoBlock({ source, showByline = false }: Props) {
     <div className="grid lg:grid-cols-12 gap-10 lg:gap-gutter mt-10 lg:mt-14">
       {/* Left: editorial copy */}
       <div className="lg:col-span-5">
-        <EditorialHeading as="h2" size="display" className="mb-6">
+        <EditorialHeading as={headingAs} size="display" className="mb-6">
           Book en{" "}
           <em
             className="italic"

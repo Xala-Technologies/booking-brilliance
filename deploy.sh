@@ -24,6 +24,7 @@ VPS_HOST="72.61.23.56"
 # /etc/nginx/sites-enabled/digilist-apps.conf (server_name digilist.no → root).
 REMOTE_DIR="/home/root/domains/digilist.no/public_html"
 API_DIR="/var/www/digilist-api"
+AUDIT_DIR="/var/www/digilist-audit"
 PROJECT_NAME="booking-brilliance"
 
 echo -e "${GREEN}========================================${NC}"
@@ -92,6 +93,81 @@ if [ -d "server" ]; then
         fi
     " || echo -e "${YELLOW}⚠ API service restart skipped${NC}"
     echo -e "${GREEN}✓ Chatbot API deployed${NC}"
+fi
+
+# Deploy the site-intelligence audit bundle (tools/site-intelligence/)
+if [ -d "tools/site-intelligence" ]; then
+    echo -e "${BLUE}[2.7/3] Deploying audit infrastructure to ${AUDIT_DIR}...${NC}"
+    ssh ${VPS_USER}@${VPS_HOST} "mkdir -p ${AUDIT_DIR}/tools"
+
+    # Self-contained package.json for the audit bundle (only deps it needs).
+    cat > /tmp/digilist-audit-package.json <<'EOF'
+{
+  "name": "digilist-audit",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "audit:all": "tsx tools/site-intelligence/src/orchestrator.ts",
+    "audit:snapshot": "tsx tools/site-intelligence/src/snapshot.ts",
+    "audit:dashboard": "tsx tools/site-intelligence/src/dashboard.ts"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.10.0",
+    "cheerio": "^1.2.0",
+    "tsx": "^4.22.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13"
+  }
+}
+EOF
+
+    scp /tmp/digilist-audit-package.json ${VPS_USER}@${VPS_HOST}:${AUDIT_DIR}/package.json
+    rsync -avz --delete \
+        --exclude 'node_modules' \
+        --exclude 'reports/intelligence.sqlite' \
+        tools/site-intelligence/ ${VPS_USER}@${VPS_HOST}:${AUDIT_DIR}/tools/site-intelligence/
+
+    # site-intelligence/seo.ts cross-imports parse + rules from tools/seo-crawler/.
+    # Ship the source alongside (no node_modules, no DB).
+    if [ -d "tools/seo-crawler" ]; then
+        rsync -avz --delete \
+            --exclude 'node_modules' \
+            --exclude 'reports/*.sqlite' \
+            tools/seo-crawler/ ${VPS_USER}@${VPS_HOST}:${AUDIT_DIR}/tools/seo-crawler/
+    fi
+
+    # Bootstrap snapshot so /admin/intelligence renders data before first remote run
+    if [ -f "tools/site-intelligence/reports/state.json" ]; then
+        scp tools/site-intelligence/reports/state.json \
+            ${VPS_USER}@${VPS_HOST}:${AUDIT_DIR}/state.json
+    fi
+
+    # Install deps (rebuilds native better-sqlite3 for the VPS arch)
+    ssh ${VPS_USER}@${VPS_HOST} "
+        cd ${AUDIT_DIR}
+        if ! command -v pnpm >/dev/null 2>&1; then
+            echo 'Installing pnpm globally...'
+            npm install -g pnpm
+        fi
+        pnpm install --silent
+    " || echo -e "${YELLOW}⚠ Audit deps install failed${NC}"
+
+    # CRITICAL: rsync preserves local UID/GID (501:staff on Mac), which makes
+    # files un-writable by www-data on the VPS. Re-chown the entire audit dir
+    # to www-data after every deploy — otherwise scans + snapshot fail with
+    # SQLITE_READONLY_DIRECTORY.
+    ssh ${VPS_USER}@${VPS_HOST} "chown -R www-data:www-data ${AUDIT_DIR}"
+
+    # Restart digilist-api so it picks up env changes (if /etc/digilist-api.env updated)
+    ssh ${VPS_USER}@${VPS_HOST} "
+        if systemctl list-unit-files | grep -q '^digilist-api.service'; then
+            systemctl restart digilist-api && systemctl is-active digilist-api
+        fi
+    " || true
+
+    echo -e "${GREEN}✓ Audit infrastructure deployed${NC}"
 fi
 
 # Verify deployment

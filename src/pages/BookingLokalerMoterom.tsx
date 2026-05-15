@@ -8,6 +8,10 @@ import {
   Building2,
   ArrowUpRight,
   Sparkles,
+  Trophy,
+  Users2,
+  Theater,
+  GlassWater,
 } from "lucide-react";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
@@ -101,23 +105,31 @@ const BENEFITS = [
 const USE_CASES = [
   {
     title: "Selskapslokaler",
+    Icon: GlassWater,
     body: "Bryllup, jubileer, firmafester. Med depositum, leieavtale-signering og digital nøkkel.",
-    href: "/blogg/bookingkalender-for-innbygger-og-saksbehandler",
+    href: "/bruksomrader/selskapslokaler",
+    cta: "Les om selskapslokaler",
   },
   {
     title: "Møterom",
+    Icon: Users2,
     body: "Kommunale møterom, næringsbygg, foreningslokaler — med sambruk og pris per brukergruppe.",
-    href: "/blogg/en-plattform-mot-fem-verktoy",
+    href: "/bruksomrader/moterom",
+    cta: "Les om møterom",
   },
   {
     title: "Idrettshaller og gymsaler",
+    Icon: Trophy,
     body: "Halvhalls-, hel-halls- og blandingsbookinger med sesongleie til lag og foreninger.",
-    href: "/blogg/sesongleie-fordeling-lag-foreninger",
+    href: "/bruksomrader/idrettshaller-gymsaler",
+    cta: "Les om idrettshaller",
   },
   {
     title: "Kulturhus og kantiner",
+    Icon: Theater,
     body: "Forestillinger, konserter, åpne dager. Adgangskontroll via Salto KS og automatisk varsling av driftsroller.",
-    href: "/blogg/realtime-varsler-driftsroller",
+    href: "/bruksomrader/kulturhus-kantiner",
+    cta: "Les om kulturhus",
   },
 ];
 
@@ -166,7 +178,7 @@ const BookingLokalerMoterom = () => {
       <Navbar />
 
       <PageTransition>
-        <main>
+        <main id="main">
           <section className="pt-28 lg:pt-32 pb-14 lg:pb-20 bg-paper">
             <div className="container mx-auto px-4">
               <SectionRule label="BOOKING AV LOKALER OG MØTEROM" />
@@ -228,24 +240,25 @@ const BookingLokalerMoterom = () => {
                       key={title}
                       className="bg-paper p-7 lg:p-9 flex flex-col"
                     >
-                      <span className="inline-flex items-center justify-center w-12 h-12 border border-hairline-strong rounded-sm text-accent-text mb-5">
-                        <Icon
-                          className="h-6 w-6"
-                          strokeWidth={1.5}
-                          aria-hidden="true"
-                        />
-                      </span>
-                      <h3
-                        className="font-serif text-2xl text-ink mb-3"
-                        style={{
-                          fontVariationSettings: getFraunces("sub"),
-                          letterSpacing: "-0.015em",
-                          lineHeight: 1.15,
-                        }}
-                      >
-                        {title}
-                      </h3>
-                      <p className="text-base text-ink-soft leading-relaxed">
+                      <header className="flex items-center gap-3 mb-3">
+                        <span className="flex-shrink-0 inline-flex items-center justify-center w-11 h-11 bg-navy/5 border border-navy/15 rounded-sm text-navy">
+                          <Icon
+                            className="h-5 w-5"
+                            strokeWidth={1.5}
+                            aria-hidden="true"
+                          />
+                        </span>
+                        <h3
+                          className="font-serif text-2xl text-ink leading-tight flex-1"
+                          style={{
+                            fontVariationSettings: getFraunces("sub"),
+                            letterSpacing: "-0.015em",
+                          }}
+                        >
+                          {title}
+                        </h3>
+                      </header>
+                      <p className="text-base text-ink leading-relaxed">
                         {body}
                       </p>
                     </article>
@@ -263,31 +276,43 @@ const BookingLokalerMoterom = () => {
                     LOKALER · MØTEROM · IDRETT · KULTUR
                   </span>
                 </div>
-                <div className="grid lg:grid-cols-2 gap-6">
-                  {USE_CASES.map((u) => (
-                    <Link
-                      key={u.title}
-                      to={u.href}
-                      className="group block bg-paper border border-hairline-strong rounded-sm p-7 lg:p-8 transition-colors duration-quick ease-editorial hover:bg-paper-deep/40 hover:border-ink"
-                    >
-                      <h3
-                        className="font-serif text-2xl lg:text-3xl text-ink mb-3 inline-flex items-baseline gap-2"
-                        style={{
-                          fontVariationSettings: getFraunces("sub"),
-                          letterSpacing: "-0.015em",
-                        }}
+                <div className="grid sm:grid-cols-2 gap-px bg-rule border border-rule">
+                  {USE_CASES.map((u) => {
+                    const Icon = u.Icon;
+                    return (
+                      <Link
+                        key={u.title}
+                        to={u.href}
+                        className="group bg-paper p-7 lg:p-9 transition-colors duration-quick ease-editorial hover:bg-paper-deep/40 flex flex-col"
                       >
-                        {u.title}
-                        <ArrowUpRight
-                          className="h-5 w-5 text-accent-text transition-transform duration-quick ease-editorial group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                          aria-hidden="true"
-                        />
-                      </h3>
-                      <p className="text-base text-ink-soft leading-relaxed">
-                        {u.body}
-                      </p>
-                    </Link>
-                  ))}
+                        <header className="flex items-center gap-4 mb-4">
+                          <span className="flex-shrink-0 inline-flex items-center justify-center w-11 h-11 bg-navy/5 border border-navy/15 rounded-sm text-navy group-hover:bg-navy group-hover:text-on-navy transition-colors duration-quick ease-editorial">
+                            <Icon className="h-5 w-5" aria-hidden="true" />
+                          </span>
+                          <h3
+                            className="font-serif text-2xl lg:text-3xl text-ink leading-tight flex-1 inline-flex items-center gap-2"
+                            style={{
+                              fontVariationSettings: getFraunces("sub"),
+                              letterSpacing: "-0.015em",
+                            }}
+                          >
+                            {u.title}
+                          </h3>
+                          <ArrowUpRight
+                            className="h-5 w-5 text-ink-faint group-hover:text-accent-text transition-transform duration-quick ease-editorial group-hover:translate-x-0.5 group-hover:-translate-y-0.5 flex-shrink-0"
+                            aria-hidden="true"
+                          />
+                        </header>
+                        <p className="text-base text-ink leading-relaxed flex-1">
+                          {u.body}
+                        </p>
+                        <p className="mt-5 pt-4 border-t border-rule font-mono text-[0.65rem] uppercase tracking-widest text-accent-text inline-flex items-center gap-1.5">
+                          {u.cta}
+                          <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
+                        </p>
+                      </Link>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -347,7 +372,7 @@ const BookingLokalerMoterom = () => {
                         </h3>
                       </div>
                       <div className="col-span-12 lg:col-span-8">
-                        <p className="text-base lg:text-lg text-ink-soft leading-relaxed">
+                        <p className="text-base lg:text-lg text-ink leading-relaxed">
                           {s.body}
                         </p>
                       </div>
@@ -384,7 +409,7 @@ const BookingLokalerMoterom = () => {
                         </h3>
                       </dt>
                       <dd className="lg:col-span-7">
-                        <p className="text-base lg:text-lg text-ink-soft leading-relaxed">
+                        <p className="text-base lg:text-lg text-ink leading-relaxed">
                           {f.answer}
                         </p>
                       </dd>
@@ -407,7 +432,7 @@ const BookingLokalerMoterom = () => {
                     >
                       Klar til å digitalisere booking av lokaler og møterom?
                     </h2>
-                    <p className="text-base lg:text-lg text-ink-soft leading-relaxed">
+                    <p className="text-base lg:text-lg text-ink leading-relaxed">
                       Få en gratis 30-minutters demo for kommunen eller utleier.
                       Vi viser plattformen i ditt bruksområde — ingen
                       forpliktelser.

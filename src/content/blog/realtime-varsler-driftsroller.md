@@ -1,7 +1,7 @@
 ---
 slug: realtime-varsler-driftsroller
-title: "Realtime-varsler: når plattformen forteller deg det før noen ringer"
-description: "En vaktmester som får telefon søndag morgen om at noen står utenfor en låst dør er en kommunal arbeidsplass som mangler informasjonsflyt. Digilists varselsystem fjerner samtalen før den starter."
+title: "Realtime-varsler: plattformen forteller før noen ringer"
+description: "En vaktmester som får telefon søndag morgen fordi noen står ute, er en kommune som mangler informasjonsflyt. Digilist fjerner samtalen før den starter."
 date: 2026-05-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

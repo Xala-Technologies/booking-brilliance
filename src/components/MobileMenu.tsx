@@ -9,6 +9,7 @@ const ROUTES: Array<{ label: string; to: string; eyebrow?: string }> = [
   { label: "Forsiden", to: "/", eyebrow: "Hjem" },
   { label: "Blogg", to: "/blogg", eyebrow: "Artikler" },
   { label: "FAQ", to: "/faq", eyebrow: "Vanlige spørsmål" },
+  { label: "Transparens", to: "/transparens", eyebrow: "Live kvalitetsrapport" },
   {
     label: "Booking av lokaler og møterom",
     to: "/booking-av-lokaler-og-moterom",

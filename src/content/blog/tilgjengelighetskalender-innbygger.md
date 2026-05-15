@@ -1,7 +1,7 @@
 ---
 slug: tilgjengelighetskalender-innbygger
-title: "Tilgjengelighet på første blikk — slik leser innbyggeren kommunens kalender"
-description: "En kalender som krever forklaring er en kalender som har feilet. Vi går gjennom hvordan Digilist viser ledig, opptatt og blokkert tid på en måte enhver innbygger forstår uten å lese hjelp."
+title: "Tilgjengelighet på første blikk — innbyggerens kalender"
+description: "En kalender som krever forklaring har feilet. Slik viser Digilist ledig, opptatt og blokkert tid på en måte enhver innbygger forstår uten hjelp."
 date: 2026-05-23
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

@@ -1,7 +1,7 @@
 ---
 slug: hvorfor-digital-booking-2026
-title: "Hvorfor digital booking ikke lenger er valgfritt for norske kommuner i 2026"
-description: "Innbyggernes forventninger, anskaffelsesregelverket, og kostnadspresset peker alle samme vei. Vi går gjennom hvorfor 2026 er året kommunale bookingsystemer flyttet fra «nice to have» til «påkrevd»."
+title: "Hvorfor digital booking er påkrevd for kommuner i 2026"
+description: "Innbyggerforventninger, anskaffelsesregelverk og kostnadspress peker samme vei: 2026 er året kommunale bookingsystemer ble påkrevd, ikke valgfritt."
 date: 2026-05-22
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

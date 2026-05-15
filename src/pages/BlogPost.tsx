@@ -38,7 +38,7 @@ const BlogPost = () => {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <SEO
-        title={`${post.title} — Digilist Blogg`}
+        title={post.title.length > 50 ? post.title : `${post.title} — Digilist`}
         description={post.description}
         canonical={url}
         ogType="article"
@@ -70,7 +70,7 @@ const BlogPost = () => {
       <Navbar />
 
       <PageTransition>
-      <main>
+      <main id="main">
         <article className="pt-28 lg:pt-32 pb-16 lg:pb-24 bg-paper">
           <div className="container mx-auto px-4">
             <nav

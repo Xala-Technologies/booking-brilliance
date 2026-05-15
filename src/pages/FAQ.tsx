@@ -37,7 +37,7 @@ const FAQ = () => {
       <Navbar />
 
       <PageTransition>
-        <main>
+        <main id="main">
         <section className="pt-28 lg:pt-32 pb-14 lg:pb-20 bg-paper">
           <div className="container mx-auto px-4">
             <SectionRule label="DIGILIST · FAQ" />

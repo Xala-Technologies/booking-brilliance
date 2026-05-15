@@ -38,6 +38,8 @@ interface SEOProps {
   aboutPage?: boolean;
   /** Optional Service schema — for service offering pages */
   service?: boolean;
+  /** Robots meta content. Default behaves as "index,follow". Pass "noindex,nofollow" for admin/internal routes. */
+  robots?: string;
 }
 
 const DEFAULT_TITLE = "Digilist — Én plattform for alt som leies ut";
@@ -90,6 +92,7 @@ const SEO = ({
   article,
   aboutPage,
   service,
+  robots,
 }: SEOProps) => {
   useEffect(() => {
     document.title = title;
@@ -107,6 +110,7 @@ const SEO = ({
 
     setMeta("description", description);
     setMeta("keywords", keywords);
+    if (robots) setMeta("robots", robots);
     setMeta("og:type", ogType, true);
     setMeta("og:title", title, true);
     setMeta("og:description", description, true);

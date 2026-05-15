@@ -1,7 +1,7 @@
 ---
 slug: en-plattform-mot-fem-verktoy
-title: "Én plattform vs. fem integrerte verktøy — den skjulte kostnaden ved å koble"
-description: "Bookingsystem, kalender, betaling, regnskap, varsling, adgangskontroll. Hvert system fungerer isolert sett. Men det er ikke det som skaper friksjon. Det er det som skjer mellom dem."
+title: "Én plattform vs. fem verktøy — den skjulte kostnaden"
+description: "Bookingsystem, kalender, betaling, regnskap, varsling. Hvert system fungerer isolert — men friksjonen oppstår mellom dem. Det er der Digilist løser problemet."
 date: 2026-05-20
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

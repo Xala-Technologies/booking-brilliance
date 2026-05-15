@@ -1,7 +1,7 @@
 ---
 slug: bookingkalender-for-innbygger-og-saksbehandler
-title: "Bookingkalenderen: designet for innbyggere, bygget for saksbehandlere"
-description: "Det er ikke samme grensesnitt som tjener en bestemor som vil booke kantinen og en kulturkonsulent som godkjenner 1 200 søknader i måneden. Slik balanserer Digilist begge."
+title: "Bookingkalenderen: for innbyggere, bygget for saksbehandlere"
+description: "Bestemor som booker kantinen og kulturkonsulent som godkjenner 1 200 søknader i måneden trenger ulike grensesnitt. Slik balanserer Digilist begge."
 date: 2026-05-21
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

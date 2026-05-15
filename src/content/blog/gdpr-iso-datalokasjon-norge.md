@@ -1,7 +1,7 @@
 ---
 slug: gdpr-iso-datalokasjon-norge
-title: "GDPR, ISO 27001 og datalokasjon: Hva norske kommuner må vite om SaaS"
-description: "Norske kommuner stiller stadig høyere krav til hvor og hvordan persondata behandles. Vi går gjennom hvorfor datalokasjon i Norge og EU er kritisk — og hva sertifiseringer faktisk dekker."
+title: "GDPR, ISO 27001 og datalokasjon: hva kommuner må vite"
+description: "Norske kommuner stiller stadig høyere krav til persondata. Hva datalokasjon i Norge og EU dekker — og hva sertifiseringer faktisk ikke gjør."
 date: 2026-05-10
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

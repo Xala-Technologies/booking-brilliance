@@ -1,7 +1,7 @@
 ---
 slug: digilist-mobil-app
 title: "Digilist mobil — booking i lomma, drift på vaktrommet"
-description: "Innbyggerne booker fra mobil. Driftsrollene varsles på mobil. Saksbehandlerne signerer fra mobil. Digilists native iOS- og Android-apper er ikke en web-wrap — de er bygget for jobben."
+description: "Innbyggere booker fra mobil. Driftsroller varsles på mobil. Saksbehandlere signerer fra mobil. Digilists native iOS- og Android-apper er bygget for jobben."
 date: 2026-05-24
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
@@ -51,7 +51,7 @@ Capacitor og Cordova er praktiske for å gjenbruke webkoden. De har én avgjøre
 2. **Vipps-handover.** Native deep-linking gir glatt veksling mellom Digilist og Vipps-appen. Web-wraps må gå gjennom Safari/Chrome med ekstra friksjon.
 3. **Biometri og Secure Enclave.** Saksbehandlerens signatur må kunne lagres i telefonens sikkerhetsmodul — ikke i en `localStorage`-kopi som er sårbar for nettlesertilgang.
 
-Digilist-appene er bygget med [React Native 0.74](https://reactnative.dev/), publisert i App Store og Google Play under [no.digilist.app](https://apps.apple.com/no/app/digilist/) (bundle-ID). UI-komponentene er en parallell — _ikke_ en kopi — til web-systemet, designet for tommelnavigasjon og mindre skjermflate.
+Digilist-appene er bygget med [React Native 0.74](https://reactnative.dev/), publisert i App Store og Google Play under `no.digilist.app` (bundle-ID, planlagt App Store + Google Play). UI-komponentene er en parallell — _ikke_ en kopi — til web-systemet, designet for tommelnavigasjon og mindre skjermflate.
 
 ## Når app, når web
 

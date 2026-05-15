@@ -4,6 +4,37 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!--
+      One-time recovery: digilist.no previously hosted the app (now at
+      app.digilist.no). Browsers that visited the old app may still have a
+      stale service worker + caches that intercept fetches and serve the
+      old SPA. This snippet unregisters any registered SW and clears all
+      CacheStorage on page load. The marketing site does not use service
+      workers, so this is safe to run unconditionally.
+    -->
+    <script>
+      (function () {
+        try {
+          if ("serviceWorker" in navigator) {
+            navigator.serviceWorker
+              .getRegistrations()
+              .then(function (regs) {
+                regs.forEach(function (r) { r.unregister(); });
+              })
+              .catch(function () { /* ignore */ });
+          }
+          if ("caches" in window) {
+            caches
+              .keys()
+              .then(function (keys) {
+                keys.forEach(function (k) { caches.delete(k); });
+              })
+              .catch(function () { /* ignore */ });
+          }
+        } catch (_) { /* ignore */ }
+      })();
+    </script>
+
     <!-- Favicons -->
     <link rel="icon" href="/icon.png" type="image/png" />
     <link rel="icon" href="/logo.svg" type="image/svg+xml" />

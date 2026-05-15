@@ -1,6 +1,6 @@
 ---
 slug: booking-paa-90-sekunder-innbygger
-title: "Booking på 90 sekunder — slik ser innbyggerens reise ut, steg for steg"
+title: "Booking på 90 sekunder — innbyggerens reise, steg for steg"
 description: "Fra «trenger et møterom på torsdag» til bekreftelse i e-posten. Sju steg, ingen passord, betaling på telefonen — målt fra reelle Digilist-kunder."
 date: 2026-05-31
 author: "Ibrahim Rahmani"

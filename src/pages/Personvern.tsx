@@ -20,7 +20,8 @@ const Personvern = () => {
         ]}
       />
       <Navbar />
-      
+
+      <main id="main">
       {/* Content */}
       <section className="pt-32 pb-16">
         <div className="container mx-auto px-4">
@@ -246,6 +247,7 @@ const Personvern = () => {
           </div>
         </div>
       </section>
+      </main>
 
       <Footer />
     </div>

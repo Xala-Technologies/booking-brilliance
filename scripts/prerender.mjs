@@ -6,10 +6,59 @@
 
 import { promises as fs } from "node:fs";
 import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DIST = join(__dirname, "..", "dist");
+const DIST_SERVER = join(__dirname, "..", "dist-server");
+
+/**
+ * SSR renderer cache. The server bundle is loaded lazily on first use, so a
+ * failure to build/load it falls back gracefully to shell-only prerender.
+ */
+let ssrRenderer = null;
+let ssrLoadAttempted = false;
+async function loadSsr() {
+  if (ssrLoadAttempted) return ssrRenderer;
+  ssrLoadAttempted = true;
+  try {
+    const entry = join(DIST_SERVER, "entry-server.js");
+    await fs.access(entry);
+    const url = pathToFileURL(entry).href;
+    const mod = await import(url);
+    if (typeof mod.render === "function") {
+      ssrRenderer = mod.render;
+      console.log("  [ssr] entry loaded — bodies will be rendered to HTML");
+    } else {
+      console.warn("  [ssr] entry has no render() export — skipping");
+    }
+  } catch (err) {
+    console.warn(
+      "  [ssr] dist-server/entry-server.js not found — skipping body injection",
+      err?.message ?? err,
+    );
+  }
+  return ssrRenderer;
+}
+
+async function renderBody(route) {
+  const render = await loadSsr();
+  if (!render) return null;
+  try {
+    return render(route);
+  } catch (err) {
+    console.warn(`  [ssr] render(${route}) failed:`, err?.message ?? err);
+    return null;
+  }
+}
+
+function injectBody(html, body) {
+  if (!body) return html;
+  return html.replace(
+    /<div id="root"><\/div>/,
+    `<div id="root">${body}</div>`,
+  );
+}
 const CONTENT_DIR = join(__dirname, "..", "src", "content", "blog");
 const FAQ_FILE = join(__dirname, "..", "src", "content", "faq.ts");
 const BASE_URL = "https://digilist.no";
@@ -95,9 +144,9 @@ const ROUTES = [
   {
     route: "/booking-av-lokaler-og-moterom",
     title:
-      "Booking av lokaler og møterom — Digilist | Norsk bookingplattform for kommuner og utleiere",
+      "Booking av lokaler og møterom — Digilist",
     description:
-      "Booking av lokaler og møterom i Norge — sanntidskalender, Vipps, BankID, EHF og sesongleie. Bygget for kommuner, selskapslokaler, idrettshaller og kulturhus. SSA-L 2026-klar, ISO 27001-sertifisert.",
+      "Booking av lokaler og møterom — sanntidskalender, Vipps, BankID, EHF og sesongleie. Bygget for kommuner og utleiere. SSA-L 2026-klar.",
     ogType: "website",
     service: true,
     breadcrumbs: [
@@ -202,8 +251,8 @@ const ROUTES = [
   },
   {
     route: "/salgsvilkar",
-    title: "Salgsvilkår — Digilist",
-    description: "Salgs- og leveransevilkår for Digilist bookingplattform.",
+    title: "Salgsvilkår og leveransevilkår — Digilist",
+    description: "Salgs- og leveransevilkår for Digilist bookingplattform — gjeldende avtale mellom Digilist og kunder.",
     ogType: "website",
     breadcrumbs: [
       { name: "Hjem", url: `${BASE_URL}/` },
@@ -218,6 +267,69 @@ const ROUTES = [
     breadcrumbs: [
       { name: "Hjem", url: `${BASE_URL}/` },
       { name: "Cookies", url: `${BASE_URL}/cookies` },
+    ],
+  },
+  {
+    route: "/transparens",
+    title: "Transparens — live kvalitetsrapport — Digilist",
+    description:
+      "Live kvalitetsrapport: SEO, tilgjengelighet, sikkerhet, oppetid og lenker — automatisk skannet på tvers av Digilist-økosystemet.",
+    ogType: "website",
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Transparens", url: `${BASE_URL}/transparens` },
+    ],
+  },
+  {
+    route: "/bruksomrader/selskapslokaler",
+    title: "Selskapslokaler: bookingsystem for bryllup og selskap — Digilist",
+    description:
+      "Bookingplattform for selskapslokaler: sanntidskalender, depositum via Vipps, BankID-signert leieavtale, digital nøkkel og automatisk faktura.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Bruksområder", url: `${BASE_URL}/booking-av-lokaler-og-moterom` },
+      { name: "Selskapslokaler", url: `${BASE_URL}/bruksomrader/selskapslokaler` },
+    ],
+  },
+  {
+    route: "/bruksomrader/moterom",
+    title: "Møterom: bookingsystem for kommuner og næringsbygg — Digilist",
+    description:
+      "Bookingsystem for kommunale møterom, næringsbygg og foreningslokaler. Sanntidskalender, sambruk, prising per brukergruppe og Outlook-integrasjon.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Bruksområder", url: `${BASE_URL}/booking-av-lokaler-og-moterom` },
+      { name: "Møterom", url: `${BASE_URL}/bruksomrader/moterom` },
+    ],
+  },
+  {
+    route: "/bruksomrader/idrettshaller-gymsaler",
+    title: "Idrettshall booking: bookingsystem for kommuner og foreninger — Digilist",
+    description:
+      "Bookingsystem for idrettshaller og gymsaler. Sesongleie til lag og foreninger, halvhalls-bookinger, sambruk, kommunal innbyggerinnlogging via ID-porten.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Bruksområder", url: `${BASE_URL}/booking-av-lokaler-og-moterom` },
+      { name: "Idrettshaller og gymsaler", url: `${BASE_URL}/bruksomrader/idrettshaller-gymsaler` },
+    ],
+  },
+  {
+    route: "/bruksomrader/kulturhus-kantiner",
+    title: "Kulturhus og kantiner: bookingsystem for kommunale arenaer — Digilist",
+    description:
+      "Bookingsystem for kulturhus, kantiner og kommunale arenaer. Forestillinger, konserter, åpne dager. Adgangskontroll, driftsrolle-varsling, EHF-fakturering.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Bruksområder", url: `${BASE_URL}/booking-av-lokaler-og-moterom` },
+      { name: "Kulturhus og kantiner", url: `${BASE_URL}/bruksomrader/kulturhus-kantiner` },
     ],
   },
 ];
@@ -530,14 +642,16 @@ async function main() {
   const indexPath = join(DIST, "index.html");
   const template = await fs.readFile(indexPath, "utf-8");
 
-  // Patch the homepage in place — adds base JSON-LD so non-JS crawlers see it
-  const homepageHTML = patchHTML(template, HOMEPAGE);
+  // Patch the homepage in place — adds base JSON-LD + SSR'd body
+  let homepageHTML = patchHTML(template, HOMEPAGE);
+  homepageHTML = injectBody(homepageHTML, await renderBody("/"));
   await fs.writeFile(indexPath, homepageHTML, "utf-8");
   console.log(`  ✓ /index.html — base JSON-LD injected (${homepageHTML.length} bytes)`);
 
   // Pre-render per-route variants
   for (const route of ROUTES) {
-    const html = patchHTML(template, route);
+    let html = patchHTML(template, route);
+    html = injectBody(html, await renderBody(route.route));
     const outDir = join(DIST, route.route.replace(/^\//, ""));
     await fs.mkdir(outDir, { recursive: true });
     await fs.writeFile(join(outDir, "index.html"), html, "utf-8");
@@ -549,7 +663,7 @@ async function main() {
   const allFAQ = faqCategories.flatMap((c) => c.questions);
   const faqRoute = {
     route: "/faq",
-    title: "FAQ — Digilist | Vanlige spørsmål om kommunal booking, sesongleie og samsvar",
+    title: "FAQ — Vanlige spørsmål om Digilist",
     description:
       "Svar på de vanligste spørsmålene om Digilist — bookingsystem for kommuner og utleiere. SSA-L 2026, GDPR, ISO 27001, Vipps, BankID, sesongleie og mer.",
     breadcrumbs: [
@@ -558,7 +672,8 @@ async function main() {
     ],
     faq: allFAQ,
   };
-  const faqHTML = patchHTML(template, faqRoute);
+  let faqHTML = patchHTML(template, faqRoute);
+  faqHTML = injectBody(faqHTML, await renderBody("/faq"));
   const faqDir = join(DIST, "faq");
   await fs.mkdir(faqDir, { recursive: true });
   await fs.writeFile(join(faqDir, "index.html"), faqHTML, "utf-8");
@@ -568,14 +683,15 @@ async function main() {
   const posts = await loadBlogPosts();
   const blogIndex = {
     route: "/blogg",
-    title: "Blogg — Digilist | Innsikt om kommunal booking, sesongleie og samsvar",
+    title: "Blogg — Innsikt om norsk booking · Digilist",
     description: "Artikler om bookingsystem for kommuner, sesongleie, SSA-L 2026, GDPR og ISO 27001 — fra Digilists arbeid med norske kommuner og utleiere.",
     breadcrumbs: [
       { name: "Hjem", url: `${BASE_URL}/` },
       { name: "Blogg", url: `${BASE_URL}/blogg` },
     ],
   };
-  const blogIndexHTML = patchHTML(template, blogIndex);
+  let blogIndexHTML = patchHTML(template, blogIndex);
+  blogIndexHTML = injectBody(blogIndexHTML, await renderBody("/blogg"));
   const blogDir = join(DIST, "blogg");
   await fs.mkdir(blogDir, { recursive: true });
   await fs.writeFile(join(blogDir, "index.html"), blogIndexHTML, "utf-8");
@@ -605,9 +721,12 @@ async function main() {
       articleSection: post.tag || "Blogg",
       inLanguage: "nb-NO",
     };
+    // Only append " — Digilist" if it still fits inside ~65 chars total.
+    const postTitle =
+      post.title.length > 50 ? post.title : `${post.title} — Digilist`;
     let html = patchHTML(template, {
       route: postRoute,
-      title: `${post.title} — Digilist Blogg`,
+      title: postTitle,
       description: post.description,
       breadcrumbs: [
         { name: "Hjem", url: `${BASE_URL}/` },
@@ -631,6 +750,7 @@ async function main() {
       /<meta property="twitter:image" content="[^"]*"/,
       `<meta property="twitter:image" content="${coverUrl}"`,
     );
+    html = injectBody(html, await renderBody(postRoute));
     const dir = join(DIST, "blogg", post.slug);
     await fs.mkdir(dir, { recursive: true });
     await fs.writeFile(join(dir, "index.html"), html, "utf-8");
@@ -685,6 +805,7 @@ async function main() {
     { loc: `${BASE_URL}/personvern`, priority: "0.3", changefreq: "yearly" },
     { loc: `${BASE_URL}/salgsvilkar`, priority: "0.3", changefreq: "yearly" },
     { loc: `${BASE_URL}/cookies`, priority: "0.3", changefreq: "yearly" },
+    { loc: `${BASE_URL}/transparens`, priority: "0.7", changefreq: "daily" },
   ];
   const sitemapXML = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

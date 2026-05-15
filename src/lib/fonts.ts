@@ -15,16 +15,22 @@ export type FrauncesSize =
   | "dropcap"
   | "body-italic";
 
-// Unified Fraunces voice — keep WONK off, keep SOFT consistent (30).
-// Only opsz and wght vary across sizes; weight always 400.
+// Unified Fraunces voice — heavier than browser default for WCAG AA
+// legibility on cream paper, especially at sub/quote sizes where light
+// serifs read as anemic. Weight bumps:
+//   hero/display 400 → 460
+//   section 400 → 480
+//   sub 420 → 540 (small headings need most weight)
+//   quote 400 → 460
+//   dropcap 480 → 540
 const PRESETS: Record<FrauncesSize, string> = {
-  hero: '"opsz" 144, "wght" 400, "SOFT" 30, "WONK" 0',
-  display: '"opsz" 120, "wght" 400, "SOFT" 30, "WONK" 0',
-  section: '"opsz" 96, "wght" 400, "SOFT" 30, "WONK" 0',
-  sub: '"opsz" 36, "wght" 420, "SOFT" 30, "WONK" 0',
-  quote: '"opsz" 72, "wght" 400, "SOFT" 30, "WONK" 0',
-  dropcap: '"opsz" 144, "wght" 480, "SOFT" 30, "WONK" 0',
-  "body-italic": '"opsz" 16, "wght" 420, "SOFT" 30, "WONK" 0',
+  hero: '"opsz" 144, "wght" 460, "SOFT" 30, "WONK" 0',
+  display: '"opsz" 120, "wght" 460, "SOFT" 30, "WONK" 0',
+  section: '"opsz" 96, "wght" 480, "SOFT" 30, "WONK" 0',
+  sub: '"opsz" 36, "wght" 540, "SOFT" 30, "WONK" 0',
+  quote: '"opsz" 72, "wght" 460, "SOFT" 30, "WONK" 0',
+  dropcap: '"opsz" 144, "wght" 540, "SOFT" 30, "WONK" 0',
+  "body-italic": '"opsz" 16, "wght" 460, "SOFT" 30, "WONK" 0',
 };
 
 export function getFraunces(size: FrauncesSize): string {

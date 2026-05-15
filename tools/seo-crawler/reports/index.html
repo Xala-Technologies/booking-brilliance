@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<title>SEO-rapport · Digilist · 2026-05-15T08:16:19.977Z</title>
+<style>
+  :root {
+    --paper: #FBF8F3;
+    --paper-deep: #F4EFE6;
+    --ink: #0A1228;
+    --ink-soft: #424B66;
+    --ink-faint: #6C7387;
+    --navy: #1F2F6E;
+    --rule: rgba(10, 18, 40, 0.12);
+    --rule-strong: rgba(10, 18, 40, 0.24);
+    --error: #B00020;
+    --warn: #A57400;
+    --info: #1F2F6E;
+    --ok: #2D7A3A;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Public Sans", system-ui, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.55;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
+  h1, h2, h3 {
+    font-family: Fraunces, Georgia, serif;
+    font-weight: 460;
+    letter-spacing: -0.015em;
+    margin: 0;
+  }
+  h1 { font-size: 3rem; line-height: 1.05; }
+  h2 { font-size: 1.75rem; margin-top: 2.5rem; }
+  h3 { font-size: 1.25rem; margin-top: 1.5rem; }
+  .mono {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+  }
+  .lede { color: var(--ink-soft); font-size: 1.1rem; max-width: 60ch; }
+  .grid-4 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1px;
+    background: var(--rule-strong);
+    border: 1px solid var(--rule-strong);
+    margin: 2rem 0;
+  }
+  .stat { background: var(--paper); padding: 1.25rem 1.5rem; }
+  .stat .label { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 0.5rem; }
+  .stat .value { font-family: Fraunces, Georgia, serif; font-size: 2.5rem; font-weight: 460; line-height: 1; }
+  .stat .value.error { color: var(--error); }
+  .stat .value.warn { color: var(--warn); }
+  table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.95rem; }
+  th, td { text-align: left; padding: 0.65rem 0.5rem; border-bottom: 0.5px solid var(--rule); }
+  th { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); font-weight: 500; }
+  tr:hover td { background: var(--paper-deep); }
+  td.url { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 0.78rem; word-break: break-all; }
+  td.score { text-align: right; font-family: Fraunces, Georgia, serif; font-size: 1.15rem; font-weight: 460; }
+  .score-ok { color: var(--ok); }
+  .score-mid { color: var(--warn); }
+  .score-bad { color: var(--error); }
+  details { border-top: 0.5px solid var(--rule); padding: 1rem 0; }
+  details summary { cursor: pointer; list-style: none; display: flex; align-items: baseline; gap: 1rem; }
+  details summary::-webkit-details-marker { display: none; }
+  summary .u { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 0.85rem; flex: 1; word-break: break-all; }
+  summary .s { font-family: Fraunces, Georgia, serif; font-size: 1.2rem; }
+  .badge {
+    display: inline-block;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 2px;
+    border: 0.5px solid currentColor;
+  }
+  .badge.error { color: var(--error); }
+  .badge.warn { color: var(--warn); }
+  .badge.info { color: var(--info); }
+  .finding-list { margin: 0.75rem 0 0 0; padding: 0 0 0 1rem; }
+  .finding-list li { margin-bottom: 0.35rem; }
+  .reco { background: var(--paper-deep); border: 0.5px solid var(--rule-strong); border-radius: 2px; padding: 1.25rem 1.5rem; margin-top: 1rem; }
+  .reco h3 { margin-top: 0; }
+  .reco p { color: var(--ink-soft); margin: 0.35rem 0 0; }
+  .small { font-size: 0.8rem; color: var(--ink-faint); }
+  .pill-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0; }
+  .rule-pill {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.72rem;
+    padding: 4px 10px;
+    background: var(--paper-deep);
+    border: 0.5px solid var(--rule-strong);
+    border-radius: 999px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="mono">DIGILIST · SEO-RAPPORT · KJØRSEL #5</p>
+  <h1>SEO-helse: 100 / 100</h1>
+  <p class="lede">
+    Audit av <strong>https://digilist.no</strong> kjørt
+    2026-05-15T08:16:19.977Z. 31 sider analysert
+    mot 13 SEO-regler.
+  </p>
+
+  <div class="grid-4">
+    <div class="stat"><div class="label">Sider</div><div class="value">31</div></div>
+    <div class="stat"><div class="label">Funn (totalt)</div><div class="value">0</div></div>
+    <div class="stat"><div class="label">Feil</div><div class="value error">0</div></div>
+    <div class="stat"><div class="label">Advarsler</div><div class="value warn">0</div></div>
+  </div>
+
+  <h2>Anbefalinger</h2>
+  
+
+  <h2>Mest hyppige funn</h2>
+  <table>
+    <thead><tr><th>Regel</th><th>Antall</th></tr></thead>
+    <tbody>
+      
+    </tbody>
+  </table>
+
+  <h2>Sider — sortert etter score</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Side</th>
+        <th>Ord</th>
+        <th>JSON-LD</th>
+        <th>Status</th>
+        <th>Last (ms)</th>
+        <th style="text-align:right">Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+        <tr>
+          <td class="url">/</td>
+          <td>2179</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,FAQPage,Question,Answer,BreadcrumbList,ListItem,HowTo,HowToStep,AboutPage</td>
+          <td>200</td>
+          <td>82</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/blogg/</td>
+          <td>361</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,BreadcrumbList,ListItem</td>
+          <td>200</td>
+          <td>52</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/blogg/booking-paa-90-sekunder-innbygger/</td>
+          <td>929</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,BreadcrumbList,ListItem,Article,Person,WebPage</td>
+          <td>200</td>
+          <td>68</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/blogg/bookingkalender-for-innbygger-og-saksbehandler/</td>
+          <td>878</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,BreadcrumbList,ListItem,Article,Person,WebPage</td>
+          <td>200</td>
+          <td>58</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/blogg/digdir-designsystemet-kommunal-bookingplattform/</td>
+          <td>995</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,BreadcrumbList,ListItem,Article,Person,WebPage</td>
+          <td>200</td>
+          <td>59</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/blogg/digilist-mobil-app/</td>
+          <td>835</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,BreadcrumbList,ListItem,Article,Person,WebPage</td>
+          <td>200</td>
+          <td>53</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/blogg/en-plattform-mot-fem-verktoy/</td>
+          <td>866</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,BreadcrumbList,ListItem,Article,Person,WebPage</td>
+          <td>200</td>
+          <td>54</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/blogg/faktura-refusjon-avstemming/</td>
+          <td>1021</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,BreadcrumbList,ListItem,Article,Person,WebPage</td>
+          <td>200</td>
+          <td>61</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/blogg/foresporsel-chat-kommunikasjon/</td>
+          <td>867</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,BreadcrumbList,ListItem,Article,Person,WebPage</td>
+          <td>200</td>
+          <td>54</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/blogg/gdpr-iso-datalokasjon-norge/</td>
+          <td>873</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,BreadcrumbList,ListItem,Article,Person,WebPage</td>
+          <td>200</td>
+          <td>52</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/blogg/hvorfor-digital-booking-2026/</td>
+          <td>858</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,BreadcrumbList,ListItem,Article,Person,WebPage</td>
+          <td>200</td>
+          <td>54</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/blogg/idporten-bankid-kommunal-innlogging/</td>
+          <td>989</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,BreadcrumbList,ListItem,Article,Person,WebPage</td>
+          <td>200</td>
+          <td>53</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/blogg/magic-link-sms-bankid-sikker-innlogging/</td>
+          <td>954</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,BreadcrumbList,ListItem,Article,Person,WebPage</td>
+          <td>200</td>
+          <td>53</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/blogg/min-side-alle-bookinger-paa-ett-sted/</td>
+          <td>903</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,BreadcrumbList,ListItem,Article,Person,WebPage</td>
+          <td>200</td>
+          <td>55</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/blogg/onboarding-uke-til-live/</td>
+          <td>1019</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,BreadcrumbList,ListItem,Article,Person,WebPage</td>
+          <td>200</td>
+          <td>53</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/blogg/realtime-varsler-driftsroller/</td>
+          <td>887</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,BreadcrumbList,ListItem,Article,Person,WebPage</td>
+          <td>200</td>
+          <td>55</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/blogg/saksbehandler-godkjenne-avvise-kommunisere/</td>
+          <td>847</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,BreadcrumbList,ListItem,Article,Person,WebPage</td>
+          <td>200</td>
+          <td>54</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/blogg/sanntidskalender-kommunal-booking/</td>
+          <td>741</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,BreadcrumbList,ListItem,Article,Person,WebPage</td>
+          <td>200</td>
+          <td>57</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/blogg/sesongleie-fordeling-lag-foreninger/</td>
+          <td>785</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,BreadcrumbList,ListItem,Article,Person,WebPage</td>
+          <td>200</td>
+          <td>54</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/blogg/somlos-betaling-vipps-ehf/</td>
+          <td>810</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,BreadcrumbList,ListItem,Article,Person,WebPage</td>
+          <td>200</td>
+          <td>53</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/blogg/ssa-l-2026-bookingsystem-kommune/</td>
+          <td>748</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,BreadcrumbList,ListItem,Article,Person,WebPage</td>
+          <td>200</td>
+          <td>57</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/blogg/tilgjengelighetskalender-innbygger/</td>
+          <td>800</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,BreadcrumbList,ListItem,Article,Person,WebPage</td>
+          <td>200</td>
+          <td>53</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/blogg/universell-utforming-wcag-kommunal-booking/</td>
+          <td>919</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,BreadcrumbList,ListItem,Article,Person,WebPage</td>
+          <td>200</td>
+          <td>53</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/blogg/utleieobjekt-veiviser-steg-for-steg/</td>
+          <td>727</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,BreadcrumbList,ListItem,Article,Person,WebPage</td>
+          <td>200</td>
+          <td>55</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/book-demo/</td>
+          <td>243</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,BreadcrumbList,ListItem</td>
+          <td>200</td>
+          <td>53</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/booking-av-lokaler-og-moterom/</td>
+          <td>732</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,FAQPage,Question,Answer,BreadcrumbList,ListItem,HowTo,HowToStep</td>
+          <td>200</td>
+          <td>54</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/bookingsystem-kommune/</td>
+          <td>539</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,FAQPage,Question,Answer,BreadcrumbList,ListItem</td>
+          <td>200</td>
+          <td>54</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/cookies/</td>
+          <td>350</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,BreadcrumbList,ListItem</td>
+          <td>200</td>
+          <td>53</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/faq/</td>
+          <td>1221</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,FAQPage,Question,Answer,BreadcrumbList,ListItem</td>
+          <td>200</td>
+          <td>84</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/personvern/</td>
+          <td>638</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,BreadcrumbList,ListItem</td>
+          <td>200</td>
+          <td>55</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+        <tr>
+          <td class="url">/salgsvilkar/</td>
+          <td>763</td>
+          <td class="small">Organization,Service,PostalAddress,ContactPoint,WebSite,SearchAction,EntryPoint,SoftwareApplication,Offer,Country,BreadcrumbList,ListItem</td>
+          <td>200</td>
+          <td>54</td>
+          <td class="score score-ok">100</td>
+        </tr>
+      
+    </tbody>
+  </table>
+
+  <h2>Funn per side</h2>
+  
+
+  <p class="small" style="margin-top: 3rem; text-align: center;">
+    DIGILIST SEO-CRAWLER · v1 · 2026-05-15T08:16:19.977Z
+  </p>
+</div>
+</body>
+</html>

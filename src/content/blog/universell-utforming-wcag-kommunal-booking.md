@@ -1,7 +1,7 @@
 ---
 slug: universell-utforming-wcag-kommunal-booking
-title: "Universell utforming: WCAG 2.1 AA er minimumskravet, ikke ambisjonen"
-description: "Likestillings- og diskrimineringsloven § 17a gjør universell utforming pliktig for kommunale digitale tjenester. Slik bygger Digilist for å bestå både revisjon og en blind innbyggers første bestilling."
+title: "Universell utforming: WCAG 2.1 AA er minimumskravet"
+description: "Diskrimineringsloven § 17a gjør universell utforming pliktig for kommunale digitale tjenester. Slik bygger Digilist for revisjon og reell tilgjengelighet."
 date: 2026-05-15
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

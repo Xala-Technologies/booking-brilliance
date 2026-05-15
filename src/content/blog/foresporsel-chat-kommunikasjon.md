@@ -1,6 +1,6 @@
 ---
 slug: foresporsel-chat-kommunikasjon
-title: "Forespørsel og chat — slik kommuniserer leietaker og utleier i Digilist"
+title: "Forespørsel og chat — leietaker og utleier i Digilist"
 description: "To kanaler, samme dataspor: en strukturert forespørsel for nye bookinger, og en samtaletråd per booking for alt etterpå. Ingen tapte e-poster, ingen siloer."
 date: 2026-05-28
 author: "Ibrahim Rahmani"

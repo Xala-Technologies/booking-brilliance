@@ -1,7 +1,7 @@
 ---
 slug: idporten-bankid-kommunal-innlogging
-title: "ID-porten og BankID — slik fungerer pålitelig innlogging i kommunale tjenester"
-description: "ID-porten er Norges felles innloggingsløsning for offentlig sektor. Vi går gjennom hvordan Digilist integrerer ID-porten og BankID for å verifisere innbyggere, lag og foreninger uten å håndtere passord."
+title: "ID-porten og BankID — pålitelig innlogging i kommunale tjenester"
+description: "ID-porten er Norges felles innloggingsløsning for offentlig sektor. Slik integrerer Digilist ID-porten og BankID — uten å håndtere passord."
 date: 2026-05-16
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

@@ -1,7 +1,7 @@
 ---
 slug: sesongleie-fordeling-lag-foreninger
 title: "Sesongleie: Slik fordeler du kommunale lokaler rettferdig"
-description: "Sesongleie til lag og foreninger er kommunens største bookingoppgave — og kilden til flest klager. Slik håndterer Digilist regelstyrt fordeling med saksbehandlerverktøy."
+description: "Sesongleie er kommunens største bookingoppgave og kilden til flest klager. Slik håndterer Digilist regelstyrt fordeling og saksbehandling."
 date: 2026-05-12
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

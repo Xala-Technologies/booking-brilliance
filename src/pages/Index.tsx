@@ -112,7 +112,7 @@ const Index = () => {
       <GrainOverlay />
       <SideRails />
       <Navbar />
-      <main>
+      <main id="main">
         <HeroSection />
         <ValuePropositionSection />
         <AudienceSection />

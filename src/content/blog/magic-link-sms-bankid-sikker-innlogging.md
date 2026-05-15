@@ -1,7 +1,7 @@
 ---
 slug: magic-link-sms-bankid-sikker-innlogging
-title: "Magic link, SMS-engangskode og BankID — tre sikre innloggings­måter, én plattform"
-description: "Innbygger trenger ikke nytt passord. Magic link på e-post, engangs­kode på SMS, eller BankID via ID-porten — Digilist støtter alle tre, og kommunen velger hvilke som er pålagt for hvilke flyter."
+title: "Magic link, SMS og BankID — tre sikre innloggingsmåter"
+description: "Magic link på e-post, engangskode på SMS, eller BankID via ID-porten. Tre sikre innloggingsmåter — én plattform. Kommunen bestemmer hvilken som kreves."
 date: 2026-05-29
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

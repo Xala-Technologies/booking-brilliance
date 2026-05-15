@@ -23,7 +23,7 @@ const BookDemo = () => {
       <Navbar />
 
       <PageTransition>
-        <main>
+        <main id="main">
           <article className="pt-28 lg:pt-32 pb-16 lg:pb-24">
             <div className="container mx-auto px-4">
               <nav
@@ -45,7 +45,7 @@ const BookDemo = () => {
               </nav>
 
               <SectionRule label="IX. KONTAKT" />
-              <BookDemoBlock source="book-demo" showByline />
+              <BookDemoBlock source="book-demo" showByline headingAs="h1" />
             </div>
           </article>
         </main>

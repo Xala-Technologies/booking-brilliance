@@ -17,6 +17,14 @@ const Navbar = () => {
   }, []);
 
   return (
+    <>
+      {/* Skip-to-main link (WCAG 2.1.1 / 2.4.1) — visually hidden until focused */}
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-navy focus:text-on-navy focus:px-4 focus:py-2 focus:rounded-sm focus:outline-none focus:ring-2 focus:ring-navy focus:ring-offset-2"
+      >
+        Hopp til hovedinnhold
+      </a>
     <nav
       className={cn(
         "fixed top-0 left-0 right-0 z-40 bg-paper border-b transition-all duration-normal ease-editorial",
@@ -92,6 +100,7 @@ const Navbar = () => {
         </div>
       </div>
     </nav>
+    </>
   );
 };
 

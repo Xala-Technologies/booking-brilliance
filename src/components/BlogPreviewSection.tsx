@@ -92,7 +92,6 @@ const BlogPreviewSection = () => {
             <div className="flex items-center justify-between border-t border-rule pt-6">
               <EditorialButton variant="link" size="md" href="/blogg">
                 Se alle artikler
-                <ArrowUpRight className="ml-1 h-4 w-4" aria-hidden="true" />
               </EditorialButton>
               <div className="hidden lg:flex items-center gap-2">
                 <button

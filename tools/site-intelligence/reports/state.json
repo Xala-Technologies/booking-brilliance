@@ -1,0 +1,498 @@
+{
+  "generatedAt": "2026-05-15T08:55:03.563Z",
+  "targets": [
+    {
+      "id": 1,
+      "name": "marketing",
+      "label": "Marketing — digilist.no",
+      "origin": "https://digilist.no",
+      "description": "Public marketing site, blog, FAQ, landing pages.",
+      "is_active": 1,
+      "type": "marketing",
+      "environment": "production",
+      "indexable": true,
+      "requiresAuth": false,
+      "checks": [
+        "uptime",
+        "seo",
+        "a11y",
+        "security",
+        "links"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "marketing-dev",
+      "label": "Staging marketing — dev.digilist.no",
+      "origin": "https://dev.digilist.no",
+      "description": "Pre-production marketing site (mirror of digilist.no).",
+      "is_active": 0,
+      "type": "marketing",
+      "environment": "staging",
+      "indexable": false,
+      "requiresAuth": false,
+      "checks": [
+        "uptime",
+        "a11y",
+        "security",
+        "links"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "app",
+      "label": "App — app.digilist.no",
+      "origin": "https://app.digilist.no",
+      "description": "Production app — public surfaces only (login, signup).",
+      "is_active": 0,
+      "type": "app",
+      "environment": "production",
+      "indexable": false,
+      "requiresAuth": true,
+      "checks": [
+        "uptime",
+        "security",
+        "links"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "docs",
+      "label": "Docs — docs.digilist.no",
+      "origin": "https://docs.digilist.no",
+      "description": "Public documentation.",
+      "is_active": 0,
+      "type": "docs",
+      "environment": "production",
+      "indexable": true,
+      "requiresAuth": false,
+      "checks": [
+        "uptime",
+        "seo",
+        "a11y",
+        "security",
+        "links"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "dashboard",
+      "label": "Dashboard — dashboard.digilist.no",
+      "origin": "https://dashboard.digilist.no",
+      "description": "Tenant admin — public surfaces only.",
+      "is_active": 0,
+      "type": "dashboard",
+      "environment": "production",
+      "indexable": false,
+      "requiresAuth": true,
+      "checks": [
+        "uptime",
+        "security",
+        "a11y"
+      ]
+    },
+    {
+      "id": 11,
+      "name": "api",
+      "label": "API — api.digilist.no",
+      "origin": "https://api.digilist.no",
+      "description": "Public API surface — health, auth endpoints.",
+      "is_active": 0,
+      "type": "api",
+      "environment": "production",
+      "indexable": false,
+      "requiresAuth": true,
+      "checks": [
+        "uptime",
+        "security"
+      ]
+    },
+    {
+      "id": 12,
+      "name": "status",
+      "label": "Status — status.digilist.no",
+      "origin": "https://status.digilist.no",
+      "description": "Public status page.",
+      "is_active": 0,
+      "type": "status",
+      "environment": "production",
+      "indexable": true,
+      "requiresAuth": false,
+      "checks": [
+        "uptime",
+        "security"
+      ]
+    }
+  ],
+  "latest": [
+    {
+      "id": 7,
+      "target_id": 1,
+      "target_name": "marketing",
+      "target_label": "Marketing — digilist.no",
+      "target_origin": "https://digilist.no",
+      "audit_type": "a11y",
+      "started_at": "2026-05-15T08:50:55.551Z",
+      "finished_at": "2026-05-15T08:51:03.415Z",
+      "pages_scanned": 31,
+      "findings_total": 38,
+      "avg_score": 97.64516129032258,
+      "trigger": "cli",
+      "status": "ok"
+    },
+    {
+      "id": 9,
+      "target_id": 1,
+      "target_name": "marketing",
+      "target_label": "Marketing — digilist.no",
+      "target_origin": "https://digilist.no",
+      "audit_type": "links",
+      "started_at": "2026-05-15T08:51:13.003Z",
+      "finished_at": "2026-05-15T08:51:28.714Z",
+      "pages_scanned": 31,
+      "findings_total": 1,
+      "avg_score": 99.41935483870968,
+      "trigger": "cli",
+      "status": "ok"
+    },
+    {
+      "id": 8,
+      "target_id": 1,
+      "target_name": "marketing",
+      "target_label": "Marketing — digilist.no",
+      "target_origin": "https://digilist.no",
+      "audit_type": "security",
+      "started_at": "2026-05-15T08:51:03.415Z",
+      "finished_at": "2026-05-15T08:51:13.003Z",
+      "pages_scanned": 31,
+      "findings_total": 9,
+      "avg_score": 100,
+      "trigger": "cli",
+      "status": "ok"
+    },
+    {
+      "id": 6,
+      "target_id": 1,
+      "target_name": "marketing",
+      "target_label": "Marketing — digilist.no",
+      "target_origin": "https://digilist.no",
+      "audit_type": "seo",
+      "started_at": "2026-05-15T08:50:47.690Z",
+      "finished_at": "2026-05-15T08:50:55.551Z",
+      "pages_scanned": 31,
+      "findings_total": 0,
+      "avg_score": 100,
+      "trigger": "cli",
+      "status": "ok"
+    },
+    {
+      "id": 5,
+      "target_id": 1,
+      "target_name": "marketing",
+      "target_label": "Marketing — digilist.no",
+      "target_origin": "https://digilist.no",
+      "audit_type": "uptime",
+      "started_at": "2026-05-15T08:50:47.464Z",
+      "finished_at": "2026-05-15T08:50:47.690Z",
+      "pages_scanned": 1,
+      "findings_total": 1,
+      "avg_score": 94,
+      "trigger": "cli",
+      "status": "ok"
+    }
+  ],
+  "recent": [
+    {
+      "id": 9,
+      "target_name": "marketing",
+      "target_label": "Marketing — digilist.no",
+      "audit_type": "links",
+      "started_at": "2026-05-15T08:51:13.003Z",
+      "finished_at": "2026-05-15T08:51:28.714Z",
+      "pages_scanned": 31,
+      "findings_total": 1,
+      "avg_score": 99.41935483870968,
+      "status": "ok",
+      "trigger": "cli"
+    },
+    {
+      "id": 8,
+      "target_name": "marketing",
+      "target_label": "Marketing — digilist.no",
+      "audit_type": "security",
+      "started_at": "2026-05-15T08:51:03.415Z",
+      "finished_at": "2026-05-15T08:51:13.003Z",
+      "pages_scanned": 31,
+      "findings_total": 9,
+      "avg_score": 100,
+      "status": "ok",
+      "trigger": "cli"
+    },
+    {
+      "id": 7,
+      "target_name": "marketing",
+      "target_label": "Marketing — digilist.no",
+      "audit_type": "a11y",
+      "started_at": "2026-05-15T08:50:55.551Z",
+      "finished_at": "2026-05-15T08:51:03.415Z",
+      "pages_scanned": 31,
+      "findings_total": 38,
+      "avg_score": 97.64516129032258,
+      "status": "ok",
+      "trigger": "cli"
+    },
+    {
+      "id": 6,
+      "target_name": "marketing",
+      "target_label": "Marketing — digilist.no",
+      "audit_type": "seo",
+      "started_at": "2026-05-15T08:50:47.690Z",
+      "finished_at": "2026-05-15T08:50:55.551Z",
+      "pages_scanned": 31,
+      "findings_total": 0,
+      "avg_score": 100,
+      "status": "ok",
+      "trigger": "cli"
+    },
+    {
+      "id": 5,
+      "target_name": "marketing",
+      "target_label": "Marketing — digilist.no",
+      "audit_type": "uptime",
+      "started_at": "2026-05-15T08:50:47.464Z",
+      "finished_at": "2026-05-15T08:50:47.690Z",
+      "pages_scanned": 1,
+      "findings_total": 1,
+      "avg_score": 94,
+      "status": "ok",
+      "trigger": "cli"
+    },
+    {
+      "id": 4,
+      "target_name": "marketing",
+      "target_label": "Marketing — digilist.no",
+      "audit_type": "links",
+      "started_at": "2026-05-15T08:38:17.228Z",
+      "finished_at": "2026-05-15T08:38:32.382Z",
+      "pages_scanned": 31,
+      "findings_total": 1,
+      "avg_score": 99.41935483870968,
+      "status": "ok",
+      "trigger": "cli"
+    },
+    {
+      "id": 3,
+      "target_name": "marketing",
+      "target_label": "Marketing — digilist.no",
+      "audit_type": "security",
+      "started_at": "2026-05-15T08:38:07.625Z",
+      "finished_at": "2026-05-15T08:38:17.228Z",
+      "pages_scanned": 31,
+      "findings_total": 9,
+      "avg_score": 100,
+      "status": "ok",
+      "trigger": "cli"
+    },
+    {
+      "id": 2,
+      "target_name": "marketing",
+      "target_label": "Marketing — digilist.no",
+      "audit_type": "a11y",
+      "started_at": "2026-05-15T08:37:59.747Z",
+      "finished_at": "2026-05-15T08:38:07.625Z",
+      "pages_scanned": 31,
+      "findings_total": 38,
+      "avg_score": 97.64516129032258,
+      "status": "ok",
+      "trigger": "cli"
+    },
+    {
+      "id": 1,
+      "target_name": "marketing",
+      "target_label": "Marketing — digilist.no",
+      "audit_type": "seo",
+      "started_at": "2026-05-15T08:37:51.765Z",
+      "finished_at": "2026-05-15T08:37:59.747Z",
+      "pages_scanned": 31,
+      "findings_total": 0,
+      "avg_score": 100,
+      "status": "ok",
+      "trigger": "cli"
+    }
+  ],
+  "topFindings": [
+    {
+      "audit_type": "security",
+      "rule": "security.exposed-file",
+      "severity": "error",
+      "count": 6
+    },
+    {
+      "audit_type": "links",
+      "rule": "links.broken",
+      "severity": "error",
+      "count": 1
+    },
+    {
+      "audit_type": "security",
+      "rule": "security.header.strict-transport-security",
+      "severity": "error",
+      "count": 1
+    },
+    {
+      "audit_type": "a11y",
+      "rule": "a11y.heading.skip",
+      "severity": "warn",
+      "count": 4
+    },
+    {
+      "audit_type": "a11y",
+      "rule": "a11y.landmark.main",
+      "severity": "warn",
+      "count": 3
+    },
+    {
+      "audit_type": "security",
+      "rule": "security.header.content-security-policy",
+      "severity": "warn",
+      "count": 1
+    },
+    {
+      "audit_type": "uptime",
+      "rule": "uptime.ssl.expiry",
+      "severity": "warn",
+      "count": 1
+    },
+    {
+      "audit_type": "a11y",
+      "rule": "a11y.skip-link",
+      "severity": "info",
+      "count": 31
+    },
+    {
+      "audit_type": "security",
+      "rule": "security.header.permissions-policy",
+      "severity": "info",
+      "count": 1
+    }
+  ],
+  "issues": [
+    {
+      "surface": "marketing",
+      "surfaceLabel": "Marketing — digilist.no",
+      "surfaceType": "marketing",
+      "auditType": "security",
+      "rule": "security.exposed-file",
+      "severity": "error",
+      "message": "Sensitive path returns 200: /.DS_Store",
+      "url": "https://digilist.no/.DS_Store",
+      "lastSeen": "2026-05-15T08:51:03.415Z",
+      "affected": 6
+    },
+    {
+      "surface": "marketing",
+      "surfaceLabel": "Marketing — digilist.no",
+      "surfaceType": "marketing",
+      "auditType": "links",
+      "rule": "links.broken",
+      "severity": "error",
+      "message": "https://apps.apple.com/no/app/digilist/ returned 404",
+      "url": "https://digilist.no/blogg/digilist-mobil-app/",
+      "lastSeen": "2026-05-15T08:51:13.003Z",
+      "affected": 1
+    },
+    {
+      "surface": "marketing",
+      "surfaceLabel": "Marketing — digilist.no",
+      "surfaceType": "marketing",
+      "auditType": "security",
+      "rule": "security.header.strict-transport-security",
+      "severity": "error",
+      "message": "HSTS missing — TLS downgrade attack surface",
+      "url": "https://digilist.no/",
+      "lastSeen": "2026-05-15T08:51:03.415Z",
+      "affected": 1
+    },
+    {
+      "surface": "marketing",
+      "surfaceLabel": "Marketing — digilist.no",
+      "surfaceType": "marketing",
+      "auditType": "a11y",
+      "rule": "a11y.heading.skip",
+      "severity": "warn",
+      "message": "1 heading level skip(s) (e.g. h2 → h4)",
+      "url": "https://digilist.no/",
+      "lastSeen": "2026-05-15T08:50:55.551Z",
+      "affected": 4
+    },
+    {
+      "surface": "marketing",
+      "surfaceLabel": "Marketing — digilist.no",
+      "surfaceType": "marketing",
+      "auditType": "a11y",
+      "rule": "a11y.landmark.main",
+      "severity": "warn",
+      "message": "No <main> landmark",
+      "url": "https://digilist.no/cookies/",
+      "lastSeen": "2026-05-15T08:50:55.551Z",
+      "affected": 3
+    },
+    {
+      "surface": "marketing",
+      "surfaceLabel": "Marketing — digilist.no",
+      "surfaceType": "marketing",
+      "auditType": "security",
+      "rule": "security.header.content-security-policy",
+      "severity": "warn",
+      "message": "CSP missing — no in-browser policy guard",
+      "url": "https://digilist.no/",
+      "lastSeen": "2026-05-15T08:51:03.415Z",
+      "affected": 1
+    },
+    {
+      "surface": "marketing",
+      "surfaceLabel": "Marketing — digilist.no",
+      "surfaceType": "marketing",
+      "auditType": "uptime",
+      "rule": "uptime.ssl.expiry",
+      "severity": "warn",
+      "message": "SSL cert expires in 50d (Jul  4 20:18:07 2026 GMT)",
+      "url": "https://digilist.no",
+      "lastSeen": "2026-05-15T08:50:47.464Z",
+      "affected": 1
+    },
+    {
+      "surface": "marketing",
+      "surfaceLabel": "Marketing — digilist.no",
+      "surfaceType": "marketing",
+      "auditType": "a11y",
+      "rule": "a11y.skip-link",
+      "severity": "info",
+      "message": "No visible skip-to-main link",
+      "url": "https://digilist.no/",
+      "lastSeen": "2026-05-15T08:50:55.551Z",
+      "affected": 31
+    },
+    {
+      "surface": "marketing",
+      "surfaceLabel": "Marketing — digilist.no",
+      "surfaceType": "marketing",
+      "auditType": "security",
+      "rule": "security.header.permissions-policy",
+      "severity": "info",
+      "message": "Permissions-Policy missing (formerly Feature-Policy)",
+      "url": "https://digilist.no/",
+      "lastSeen": "2026-05-15T08:51:03.415Z",
+      "affected": 1
+    }
+  ],
+  "ecosystemSummary": {
+    "surfacesTotal": 1,
+    "surfacesHealthy": 0,
+    "surfacesWithErrors": 1,
+    "errorCount": 8,
+    "warnCount": 9,
+    "infoCount": 32,
+    "avgScore": 98.21290322580646
+  }
+}

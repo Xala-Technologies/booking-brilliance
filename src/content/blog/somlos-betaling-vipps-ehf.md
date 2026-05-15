@@ -1,7 +1,7 @@
 ---
 slug: somlos-betaling-vipps-ehf
-title: "Sømløs betaling: Vipps, kort, EHF — og hvorfor sammenheng slår valg"
-description: "En kommune som tilbyr fire betalingsmåter til innbyggerne, men ingen automatisk avstemming mot regnskap, har ikke moderne betaling — den har fire kanaler å feilsøke. Slik kobles betaling sammen ende til ende i Digilist."
+title: "Sømløs betaling: Vipps, kort, EHF — sammenheng slår valg"
+description: "En kommune med fire betalingsmåter, men uten avstemming, har bare fire kanaler å feilsøke. Slik kobler Digilist betaling sammen ende til ende."
 date: 2026-05-19
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

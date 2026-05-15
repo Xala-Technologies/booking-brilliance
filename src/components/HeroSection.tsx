@@ -64,9 +64,9 @@ const HeroSection = () => {
   return (
     <section
       id="hjem"
-      className="relative pt-28 lg:pt-32 pb-0 overflow-hidden"
+      className="relative pt-20 lg:pt-24 pb-0 overflow-hidden"
     >
-      <div className="container mx-auto px-4 pt-8 lg:pt-12 pb-20 lg:pb-28">
+      <div className="container mx-auto px-4 pt-4 lg:pt-6 pb-20 lg:pb-28">
         <motion.div
           initial="hidden"
           animate="visible"

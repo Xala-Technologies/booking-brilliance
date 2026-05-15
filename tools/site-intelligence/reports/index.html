@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Digilist Site Intelligence Dashboard</title>
+<style>
+  :root {
+    --paper:#FBF8F3; --paper-deep:#F4EFE6; --ink:#0A1228;
+    --ink-soft:#424B66; --ink-faint:#6C7387;
+    --navy:#1F2F6E; --rule:rgba(10,18,40,0.12); --rule-strong:rgba(10,18,40,0.24);
+    --ok:#2D7A3A; --mid:#A57400; --bad:#B00020; --none:#9CA3AF;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:"Public Sans",system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;}
+  .wrap{max-width:1280px;margin:0 auto;padding:2.5rem 1.5rem 5rem;}
+  h1{font-family:Fraunces,Georgia,serif;font-weight:460;letter-spacing:-0.015em;font-size:3rem;line-height:1.05;margin:0;}
+  h2{font-family:Fraunces,Georgia,serif;font-weight:460;letter-spacing:-0.01em;font-size:1.5rem;margin:0 0 0.5rem;}
+  h3{font-family:Fraunces,Georgia,serif;font-weight:460;font-size:1.25rem;margin:2.5rem 0 1rem;}
+  .lede{color:var(--ink-soft);font-size:1.05rem;max-width:62ch;}
+  .mono{font-family:"JetBrains Mono",ui-monospace,monospace;letter-spacing:0.08em;text-transform:uppercase;font-size:0.7rem;color:var(--ink-faint);}
+  .small{font-size:0.85rem;color:var(--ink-faint);}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--rule-strong);border:1px solid var(--rule-strong);margin:1.5rem 0 2.5rem;}
+  .target-card{background:var(--paper);padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:0.6rem;}
+  .target-card header{display:flex;justify-content:space-between;align-items:center;}
+  .target-card .status.active{color:var(--ok);}
+  .target-card .status.inactive{color:var(--ink-faint);}
+  .target-card .status{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:0.6rem;letter-spacing:0.08em;}
+  .overall{display:flex;align-items:baseline;gap:0.5rem;margin-top:0.5rem;}
+  .overall .num{font-family:Fraunces,Georgia,serif;font-size:3rem;font-weight:460;line-height:1;}
+  .overall .lbl{font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-faint);}
+  .overall.ok .num{color:var(--ok);}
+  .overall.mid .num{color:var(--mid);}
+  .overall.bad .num{color:var(--bad);}
+  .overall.none .num{color:var(--none);}
+  .audit-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:0.5px solid var(--rule);margin-top:0.5rem;}
+  .audit-cell{background:var(--paper);padding:0.5rem 0.65rem;display:flex;flex-direction:column;gap:0.15rem;}
+  .audit-cell .num{font-family:Fraunces,Georgia,serif;font-size:1.25rem;font-weight:460;}
+  .audit-cell.ok .num{color:var(--ok);}
+  .audit-cell.mid .num{color:var(--mid);}
+  .audit-cell.bad .num{color:var(--bad);}
+  .audit-cell.none .num{color:var(--none);}
+  .run-btn{appearance:none;background:var(--navy);color:var(--paper);border:none;border-radius:2px;padding:0.55rem 1rem;font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;font-family:"Public Sans",system-ui,sans-serif;}
+  .run-btn:hover{opacity:0.9;}
+  table{width:100%;border-collapse:collapse;margin-top:0.75rem;font-size:0.92rem;}
+  th,td{text-align:left;padding:0.55rem 0.4rem;border-bottom:0.5px solid var(--rule);}
+  th{font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-faint);font-weight:500;}
+  td.score{text-align:right;font-family:Fraunces,Georgia,serif;font-size:1.05rem;font-weight:460;}
+  td.score.ok{color:var(--ok);}td.score.mid{color:var(--mid);}td.score.bad{color:var(--bad);}
+  td.num{text-align:right;font-family:Fraunces,Georgia,serif;font-size:1.05rem;}
+  .badge{display:inline-block;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;padding:2px 6px;border-radius:2px;border:0.5px solid currentColor;}
+  .badge.error{color:var(--bad);} .badge.warn{color:var(--mid);} .badge.info{color:var(--navy);}
+  .links{margin-top:3rem;display:flex;gap:1rem;flex-wrap:wrap;}
+  .links a{color:var(--navy);text-decoration:none;border-bottom:0.5px solid var(--rule-strong);padding-bottom:2px;font-size:0.9rem;}
+  .links a:hover{border-bottom-color:var(--navy);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="mono">DIGILIST · SITE INTELLIGENCE · OPPDATERT 2026-05-15T08:38:38.897Z</p>
+  <h1>Quality &amp; Compliance Command Center</h1>
+  <p class="lede">
+    Overvåker SEO, tilgjengelighet, sikkerhet og lenker på tvers av Digilist-økosystemet.
+    Klikk «Kjør skanning» for å trigge en ny audit-runde mot et mål.
+  </p>
+
+  <h3>Mål</h3>
+  <div class="grid">
+        <article class="target-card" data-target="marketing">
+          <header>
+            <span class="mono">MARKETING</span>
+            <span class="status active">ACTIVE</span>
+          </header>
+          <h2>Marketing — digilist.no</h2>
+          <p class="small">Public marketing site, blog, FAQ, landing pages.</p>
+          <div class="overall ok">
+            <span class="num">99</span>
+            <span class="lbl">overall</span>
+          </div>
+          <div class="audit-row">
+            
+              <div class="audit-cell ok">
+                <span class="mono">SEO</span>
+                <span class="num">100</span>
+              </div>
+              <div class="audit-cell ok">
+                <span class="mono">Tilgjengelighet</span>
+                <span class="num">98</span>
+              </div>
+              <div class="audit-cell ok">
+                <span class="mono">Sikkerhet</span>
+                <span class="num">100</span>
+              </div>
+              <div class="audit-cell ok">
+                <span class="mono">Lenker</span>
+                <span class="num">99</span>
+              </div>
+          </div>
+          <footer class="small">
+            <button class="run-btn" type="button" data-target="marketing">Kjør skanning</button>
+          </footer>
+        </article>
+        <article class="target-card" data-target="marketing-dev">
+          <header>
+            <span class="mono">MARKETING-DEV</span>
+            <span class="status inactive">INAKTIV</span>
+          </header>
+          <h2>Staging marketing — dev.digilist.no</h2>
+          <p class="small">Pre-production marketing site (mirror of digilist.no).</p>
+          <div class="overall none">
+            <span class="num">—</span>
+            <span class="lbl">overall</span>
+          </div>
+          <div class="audit-row">
+            
+              <div class="audit-cell none">
+                <span class="mono">SEO</span>
+                <span class="num">—</span>
+              </div>
+              <div class="audit-cell none">
+                <span class="mono">Tilgjengelighet</span>
+                <span class="num">—</span>
+              </div>
+              <div class="audit-cell none">
+                <span class="mono">Sikkerhet</span>
+                <span class="num">—</span>
+              </div>
+              <div class="audit-cell none">
+                <span class="mono">Lenker</span>
+                <span class="num">—</span>
+              </div>
+          </div>
+          <footer class="small">
+            <button class="run-btn" type="button" data-target="marketing-dev">Kjør skanning</button>
+          </footer>
+        </article>
+        <article class="target-card" data-target="app">
+          <header>
+            <span class="mono">APP</span>
+            <span class="status inactive">INAKTIV</span>
+          </header>
+          <h2>App — app.digilist.no</h2>
+          <p class="small">Production app — public surfaces only (login, signup).</p>
+          <div class="overall none">
+            <span class="num">—</span>
+            <span class="lbl">overall</span>
+          </div>
+          <div class="audit-row">
+            
+              <div class="audit-cell none">
+                <span class="mono">SEO</span>
+                <span class="num">—</span>
+              </div>
+              <div class="audit-cell none">
+                <span class="mono">Tilgjengelighet</span>
+                <span class="num">—</span>
+              </div>
+              <div class="audit-cell none">
+                <span class="mono">Sikkerhet</span>
+                <span class="num">—</span>
+              </div>
+              <div class="audit-cell none">
+                <span class="mono">Lenker</span>
+                <span class="num">—</span>
+              </div>
+          </div>
+          <footer class="small">
+            <button class="run-btn" type="button" data-target="app">Kjør skanning</button>
+          </footer>
+        </article>
+        <article class="target-card" data-target="docs">
+          <header>
+            <span class="mono">DOCS</span>
+            <span class="status inactive">INAKTIV</span>
+          </header>
+          <h2>Docs — docs.digilist.no</h2>
+          <p class="small">Public documentation.</p>
+          <div class="overall none">
+            <span class="num">—</span>
+            <span class="lbl">overall</span>
+          </div>
+          <div class="audit-row">
+            
+              <div class="audit-cell none">
+                <span class="mono">SEO</span>
+                <span class="num">—</span>
+              </div>
+              <div class="audit-cell none">
+                <span class="mono">Tilgjengelighet</span>
+                <span class="num">—</span>
+              </div>
+              <div class="audit-cell none">
+                <span class="mono">Sikkerhet</span>
+                <span class="num">—</span>
+              </div>
+              <div class="audit-cell none">
+                <span class="mono">Lenker</span>
+                <span class="num">—</span>
+              </div>
+          </div>
+          <footer class="small">
+            <button class="run-btn" type="button" data-target="docs">Kjør skanning</button>
+          </footer>
+        </article>
+        <article class="target-card" data-target="dashboard">
+          <header>
+            <span class="mono">DASHBOARD</span>
+            <span class="status inactive">INAKTIV</span>
+          </header>
+          <h2>Dashboard — dashboard.digilist.no</h2>
+          <p class="small">Tenant admin — public surfaces only.</p>
+          <div class="overall none">
+            <span class="num">—</span>
+            <span class="lbl">overall</span>
+          </div>
+          <div class="audit-row">
+            
+              <div class="audit-cell none">
+                <span class="mono">SEO</span>
+                <span class="num">—</span>
+              </div>
+              <div class="audit-cell none">
+                <span class="mono">Tilgjengelighet</span>
+                <span class="num">—</span>
+              </div>
+              <div class="audit-cell none">
+                <span class="mono">Sikkerhet</span>
+                <span class="num">—</span>
+              </div>
+              <div class="audit-cell none">
+                <span class="mono">Lenker</span>
+                <span class="num">—</span>
+              </div>
+          </div>
+          <footer class="small">
+            <button class="run-btn" type="button" data-target="dashboard">Kjør skanning</button>
+          </footer>
+        </article></div>
+
+  <h3>Siste skanninger</h3>
+  <table>
+    <thead><tr><th>Mål</th><th>Type</th><th>Startet</th><th>Sider</th><th>Funn</th><th>Score</th><th>Status</th></tr></thead>
+    <tbody>
+    <tr>
+      <td class="mono">marketing</td>
+      <td class="mono">Lenker</td>
+      <td>2026-05-15T08:38:17.228Z</td>
+      <td>31</td>
+      <td>1</td>
+      <td class="score ok">99</td>
+      <td class="mono">ok</td>
+    </tr>
+    <tr>
+      <td class="mono">marketing</td>
+      <td class="mono">Sikkerhet</td>
+      <td>2026-05-15T08:38:07.625Z</td>
+      <td>31</td>
+      <td>9</td>
+      <td class="score ok">100</td>
+      <td class="mono">ok</td>
+    </tr>
+    <tr>
+      <td class="mono">marketing</td>
+      <td class="mono">Tilgjengelighet</td>
+      <td>2026-05-15T08:37:59.747Z</td>
+      <td>31</td>
+      <td>38</td>
+      <td class="score ok">98</td>
+      <td class="mono">ok</td>
+    </tr>
+    <tr>
+      <td class="mono">marketing</td>
+      <td class="mono">SEO</td>
+      <td>2026-05-15T08:37:51.765Z</td>
+      <td>31</td>
+      <td>0</td>
+      <td class="score ok">100</td>
+      <td class="mono">ok</td>
+    </tr></tbody>
+  </table>
+
+  <h3>Mest hyppige funn (tvers av siste skanninger)</h3>
+  <table>
+    <thead><tr><th>Severity</th><th>Audit</th><th>Regel</th><th>Antall</th></tr></thead>
+    <tbody>
+    <tr>
+      <td><span class="badge info">info</span></td>
+      <td class="mono">a11y</td>
+      <td class="mono">a11y.skip-link</td>
+      <td class="num">31</td>
+    </tr>
+    <tr>
+      <td><span class="badge error">error</span></td>
+      <td class="mono">security</td>
+      <td class="mono">security.exposed-file</td>
+      <td class="num">6</td>
+    </tr>
+    <tr>
+      <td><span class="badge warn">warn</span></td>
+      <td class="mono">a11y</td>
+      <td class="mono">a11y.heading.skip</td>
+      <td class="num">4</td>
+    </tr>
+    <tr>
+      <td><span class="badge warn">warn</span></td>
+      <td class="mono">a11y</td>
+      <td class="mono">a11y.landmark.main</td>
+      <td class="num">3</td>
+    </tr>
+    <tr>
+      <td><span class="badge error">error</span></td>
+      <td class="mono">links</td>
+      <td class="mono">links.broken</td>
+      <td class="num">1</td>
+    </tr>
+    <tr>
+      <td><span class="badge error">error</span></td>
+      <td class="mono">security</td>
+      <td class="mono">security.header.strict-transport-security</td>
+      <td class="num">1</td>
+    </tr>
+    <tr>
+      <td><span class="badge warn">warn</span></td>
+      <td class="mono">security</td>
+      <td class="mono">security.header.content-security-policy</td>
+      <td class="num">1</td>
+    </tr>
+    <tr>
+      <td><span class="badge info">info</span></td>
+      <td class="mono">security</td>
+      <td class="mono">security.header.permissions-policy</td>
+      <td class="num">1</td>
+    </tr></tbody>
+  </table>
+
+  <h3>Eksterne kontroller</h3>
+  <div class="links">
+    <a href="https://search.google.com/search-console" target="_blank" rel="noopener">Google Search Console ↗</a>
+    <a href="https://plausible.io/digilist.no" target="_blank" rel="noopener">Plausible ↗</a>
+    <a href="https://securityheaders.com/?q=https://digilist.no" target="_blank" rel="noopener">Security Headers ↗</a>
+    <a href="https://www.ssllabs.com/ssltest/analyze.html?d=digilist.no" target="_blank" rel="noopener">SSL Labs ↗</a>
+    <a href="https://search.google.com/test/rich-results?url=https%3A%2F%2Fdigilist.no" target="_blank" rel="noopener">Rich Results Test ↗</a>
+    <a href="https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fdigilist.no" target="_blank" rel="noopener">PageSpeed Insights ↗</a>
+  </div>
+</div>
+
+<script>
+  // Static HTML — the "run scan" button shows the CLI command to run.
+  // Live web dashboard replaces this with a POST to /api/audits/run.
+  document.querySelectorAll(".run-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const t = btn.getAttribute("data-target");
+      alert(`Kjør i terminalen:\n\n  pnpm audit:all -- --target ${t}\n\nDeretter:\n  pnpm audit:dashboard\n\n(Live re-run kommer i pass 2.)`);
+    });
+  });
+</script>
+</body>
+</html>
