@@ -16,6 +16,7 @@ import AboutUsSection from "@/components/AboutUsSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import { GrainOverlay, ProgressRail } from "@/components/editorial";
+import { SideRails } from "@/components/editorial/SideRails";
 
 const Index = () => {
   const location = useLocation();
@@ -109,6 +110,7 @@ const Index = () => {
       />
       <ProgressRail />
       <GrainOverlay />
+      <SideRails />
       <Navbar />
       <main>
         <HeroSection />

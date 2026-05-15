@@ -88,8 +88,8 @@ export function ChatPanel({ controller }: Props) {
             exit={reduced ? { opacity: 0 } : { opacity: 0, y: 24, scale: 0.98 }}
             transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
             className="fixed z-50 bg-paper border border-hairline-strong shadow-2xl rounded-sm flex flex-col overflow-hidden
-              inset-x-3 bottom-3 top-14 max-h-[calc(100vh-1.5rem)]
-              md:inset-auto md:right-6 md:bottom-24 md:top-auto md:w-[28rem] md:h-[36rem] md:max-h-[80vh]"
+              inset-x-3 bottom-3 top-10 max-h-[calc(100vh-1rem)]
+              md:inset-auto md:right-6 md:bottom-24 md:top-auto md:w-[30rem] md:h-[44rem] md:max-h-[90vh]"
           >
             {/* Header */}
             <header className="flex items-center justify-between gap-3 px-5 py-4 border-b border-rule bg-paper-deep/40">

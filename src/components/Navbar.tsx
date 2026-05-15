@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
-import DockNavigation from "./DockNavigation";
+import { GlobalSearch } from "./GlobalSearch";
+import { MobileMenu } from "./MobileMenu";
 import { EditorialButton } from "@/components/editorial";
 import { cn } from "@/lib/utils";
 import { getFraunces } from "@/lib/fonts";
@@ -71,7 +72,9 @@ const Navbar = () => {
           </span>
         </Link>
 
-        <DockNavigation />
+        <div className="hidden md:flex flex-1 justify-center px-6 lg:px-10 max-w-2xl mx-auto">
+          <GlobalSearch />
+        </div>
 
         <div className="flex items-center gap-3">
           <ThemeToggle />
@@ -85,6 +88,7 @@ const Navbar = () => {
           >
             Åpne plattformen
           </EditorialButton>
+          <MobileMenu />
         </div>
       </div>
     </nav>
