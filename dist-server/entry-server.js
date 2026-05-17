@@ -2,21 +2,21 @@ import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server.mjs";
 import * as React from "react";
-import { useEffect, useRef, useState, useMemo, forwardRef, useCallback, useReducer } from "react";
+import { useEffect, useRef, useState, useMemo, forwardRef, lazy, Suspense } from "react";
 import * as ToastPrimitives from "@radix-ui/react-toast";
 import { cva } from "class-variance-authority";
-import { X, Sun, Moon, Search, ArrowUpRight, Menu, MapPin, Heart, Share2, Users, Calendar, Star, Package, CheckCircle2, ClipboardList, ArrowLeft, ArrowRight, Activity, Database, RefreshCw, Shield, ScrollText, Lock, Eye, Building2, FileCheck, Layers, Server, ShieldCheck, Monitor, LayoutDashboard, Smartphone, Zap, GitBranch, Plug, Building, Languages, Code2, Flag, ClipboardCheck, Loader2, Home, Sparkles, BookOpen, Handshake, Newspaper, Cpu, Network, Info, Mail, CalendarCheck, CreditCard, GlassWater, Users2, Trophy, Theater, ChevronLeft, ChevronRight, FileText, LayoutGrid, AlertTriangle, Wifi, BarChart3, ShieldAlert, CircleGauge, Link2, Globe2, Bot, Settings, Compass, TrendingUp, Clock, Gauge, Wrench, Brain, Send, Construction, ExternalLink, Cookie, MessageSquare, RotateCcw } from "lucide-react";
+import { X, Sun, Moon, Search, ArrowUpRight, Menu, MapPin, Heart, Share2, Users, Calendar, Star, Package, CheckCircle2, ClipboardList, ArrowLeft, ArrowRight, Activity, Database, RefreshCw, Shield, ScrollText, Lock, Eye, Building2, FileCheck, Layers, Server, ShieldCheck, Monitor, LayoutDashboard, Smartphone, Zap, GitBranch, Plug, Building, Languages, Code2, Flag, ClipboardCheck, Loader2, Home, Sparkles, BookOpen, Handshake, Newspaper, Cpu, Network, Info, Mail, CalendarCheck, CreditCard, GlassWater, Users2, Trophy, Theater, ChevronLeft, ChevronRight, FileText, Cookie } from "lucide-react";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { useTheme, ThemeProvider } from "next-themes";
 import { Toaster as Toaster$2 } from "sonner";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useNavigate, useLocation, Link, useSearchParams, useParams, Navigate, NavLink, Outlet, useOutletContext, Routes, Route } from "react-router-dom";
-import { useScroll, useSpring, motion, useMotionValue, useTransform, useReducedMotion, AnimatePresence } from "framer-motion";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { useNavigate, useLocation, Link, useSearchParams, Routes, Route } from "react-router-dom";
+import { useConvex, ConvexReactClient, ConvexProvider } from "convex/react";
+import { useScroll, useSpring, motion, useMotionValue, useTransform, useReducedMotion, MotionConfig, AnimatePresence } from "framer-motion";
 import { Slot } from "@radix-ui/react-slot";
+import { componentsGeneric, anyApi } from "convex/server";
 const TOAST_LIMIT = 1;
 const TOAST_REMOVE_DELAY = 1e6;
 let count = 0;
@@ -38,7 +38,7 @@ const addToRemoveQueue = (toastId) => {
   }, TOAST_REMOVE_DELAY);
   toastTimeouts.set(toastId, timeout);
 };
-const reducer$1 = (state, action) => {
+const reducer = (state, action) => {
   switch (action.type) {
     case "ADD_TOAST":
       return {
@@ -85,7 +85,7 @@ const reducer$1 = (state, action) => {
 const listeners = [];
 let memoryState = { toasts: [] };
 function dispatch(action) {
-  memoryState = reducer$1(memoryState, action);
+  memoryState = reducer(memoryState, action);
   listeners.forEach((listener) => {
     listener(memoryState);
   });
@@ -2177,35 +2177,46 @@ function HeroPlatformPreview() {
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-3 grid-rows-2 gap-px bg-rule", children: [
         /* @__PURE__ */ jsxs("div", { className: "col-span-2 row-span-2 relative aspect-[16/10]", children: [
+          /* @__PURE__ */ jsxs("picture", { children: [
+            /* @__PURE__ */ jsx("source", { srcSet: "/hero/festsal-1.webp", type: "image/webp" }),
+            /* @__PURE__ */ jsx(
+              "img",
+              {
+                src: "/hero/festsal-1.jpg",
+                alt: "Festsal med lysekroner og runde bord",
+                className: "absolute inset-0 w-full h-full object-cover",
+                loading: "eager",
+                fetchPriority: "high",
+                decoding: "async"
+              }
+            )
+          ] }),
+          /* @__PURE__ */ jsx("span", { className: "absolute bottom-3 left-3 font-mono text-[0.65rem] uppercase tracking-widest text-ink bg-paper/90 px-2 py-1 rounded-sm backdrop-blur-sm", children: "Festsalen · 8 bilder" })
+        ] }),
+        /* @__PURE__ */ jsx("div", { className: "relative", children: /* @__PURE__ */ jsxs("picture", { children: [
+          /* @__PURE__ */ jsx("source", { srcSet: "/hero/festsal-2.webp", type: "image/webp" }),
           /* @__PURE__ */ jsx(
             "img",
             {
-              src: "/hero/festsal-1.jpg",
-              alt: "Festsal med lysekroner og runde bord",
+              src: "/hero/festsal-2.jpg",
+              alt: "Banquet med dekkede bord",
               className: "absolute inset-0 w-full h-full object-cover",
-              loading: "eager"
+              loading: "lazy"
             }
-          ),
-          /* @__PURE__ */ jsx("span", { className: "absolute bottom-3 left-3 font-mono text-[0.65rem] uppercase tracking-widest text-ink bg-paper/90 px-2 py-1 rounded-sm backdrop-blur-sm", children: "Festsalen · 8 bilder" })
-        ] }),
-        /* @__PURE__ */ jsx("div", { className: "relative", children: /* @__PURE__ */ jsx(
-          "img",
-          {
-            src: "/hero/festsal-2.jpg",
-            alt: "Banquet med dekkede bord",
-            className: "absolute inset-0 w-full h-full object-cover",
-            loading: "lazy"
-          }
-        ) }),
-        /* @__PURE__ */ jsx("div", { className: "relative", children: /* @__PURE__ */ jsx(
-          "img",
-          {
-            src: "/hero/festsal-3.jpg",
-            alt: "Selskap med dekorasjon",
-            className: "absolute inset-0 w-full h-full object-cover",
-            loading: "lazy"
-          }
-        ) })
+          )
+        ] }) }),
+        /* @__PURE__ */ jsx("div", { className: "relative", children: /* @__PURE__ */ jsxs("picture", { children: [
+          /* @__PURE__ */ jsx("source", { srcSet: "/hero/festsal-3.webp", type: "image/webp" }),
+          /* @__PURE__ */ jsx(
+            "img",
+            {
+              src: "/hero/festsal-3.jpg",
+              alt: "Selskap med dekorasjon",
+              className: "absolute inset-0 w-full h-full object-cover",
+              loading: "lazy"
+            }
+          )
+        ] }) })
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "p-5 lg:p-6 space-y-4", children: [
         /* @__PURE__ */ jsxs("div", { className: "flex items-start justify-between gap-3", children: [
@@ -2394,7 +2405,12 @@ const pageEnter = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, ease: editorialEase }
+    transition: { duration: 0.45, ease: editorialEase }
+  },
+  exit: {
+    opacity: 0,
+    y: -6,
+    transition: { duration: 0.2, ease: editorialEase }
   }
 };
 const customers = [
@@ -2457,8 +2473,6 @@ const HeroSection = () => {
         /* @__PURE__ */ jsx("div", { className: "container mx-auto px-4 pt-4 lg:pt-6 pb-20 lg:pb-28", children: /* @__PURE__ */ jsxs(
           motion.div,
           {
-            initial: "hidden",
-            animate: "visible",
             variants: staggerParent,
             className: "grid grid-cols-12 gap-6 lg:gap-gutter items-start",
             children: [
@@ -5695,14 +5709,18 @@ const Index = () => {
     /* @__PURE__ */ jsx(Footer, {})
   ] });
 };
+let hasMountedOnce = false;
 const PageTransition = ({ children, className }) => {
   const reduced = useReducedMotion();
+  const firstMountRef = useRef(!hasMountedOnce);
+  if (firstMountRef.current) hasMountedOnce = true;
   if (reduced) return /* @__PURE__ */ jsx(Fragment, { children });
   return /* @__PURE__ */ jsx(
     motion.div,
     {
-      initial: "hidden",
+      initial: firstMountRef.current ? "visible" : "hidden",
       animate: "visible",
+      exit: "exit",
       variants: pageEnter,
       className,
       children
@@ -6772,227 +6790,6 @@ const Blog = () => {
     /* @__PURE__ */ jsx(Footer, {})
   ] });
 };
-const CHAT_HREFS = /* @__PURE__ */ new Set([
-  "mailto:kontakt@digilist.no",
-  "#chat",
-  "#snakk-med-oss"
-]);
-const BlogPost = () => {
-  const { slug } = useParams();
-  const post = slug ? getPostBySlug(slug) : void 0;
-  if (!post) return /* @__PURE__ */ jsx(Navigate, { to: "/blogg", replace: true });
-  const url = `https://digilist.no/blogg/${post.slug}`;
-  const related = getAllPosts().filter((p) => p.slug !== post.slug).slice(0, 3);
-  return /* @__PURE__ */ jsxs("div", { className: "min-h-screen bg-background overflow-x-hidden", children: [
-    /* @__PURE__ */ jsx(
-      SEO,
-      {
-        title: post.title.length > 50 ? post.title : `${post.title} — Digilist`,
-        description: post.description,
-        canonical: url,
-        ogType: "article",
-        ogImage: post.cover ? post.cover.startsWith("http") ? post.cover : `https://digilist.no${post.cover}` : "https://digilist.no/og-image.png",
-        breadcrumbs: [
-          { name: "Hjem", url: "https://digilist.no/" },
-          { name: "Blogg", url: "https://digilist.no/blogg" },
-          { name: post.title, url }
-        ],
-        article: {
-          headline: post.title,
-          description: post.description,
-          datePublished: post.date,
-          author: post.author,
-          authorRole: post.role,
-          image: post.cover,
-          articleSection: post.tag,
-          keywords: post.keywords,
-          wordCount: post.content.split(/\s+/).filter(Boolean).length
-        }
-      }
-    ),
-    /* @__PURE__ */ jsx(ProgressRail, {}),
-    /* @__PURE__ */ jsx(Navbar, {}),
-    /* @__PURE__ */ jsx(PageTransition, { children: /* @__PURE__ */ jsxs("main", { id: "main", children: [
-      /* @__PURE__ */ jsx("article", { className: "pt-28 lg:pt-32 pb-16 lg:pb-24 bg-paper", children: /* @__PURE__ */ jsxs("div", { className: "container mx-auto px-4", children: [
-        /* @__PURE__ */ jsx(
-          "nav",
-          {
-            className: "editorial-mono-caption mb-10",
-            "aria-label": "Brødsmuler",
-            children: /* @__PURE__ */ jsxs(
-              Link,
-              {
-                to: "/blogg",
-                className: "group inline-flex items-center gap-2 text-accent-text",
-                children: [
-                  /* @__PURE__ */ jsx(
-                    ArrowLeft,
-                    {
-                      className: "h-3.5 w-3.5 transition-transform duration-quick ease-editorial group-hover:-translate-x-1",
-                      "aria-hidden": "true"
-                    }
-                  ),
-                  /* @__PURE__ */ jsx("span", { className: "group-hover:underline underline-offset-4 decoration-[0.5px]", children: "Tilbake til blogg" })
-                ]
-              }
-            )
-          }
-        ),
-        /* @__PURE__ */ jsxs("header", { className: "max-w-3xl mb-12", children: [
-          post.tag && /* @__PURE__ */ jsx("p", { className: "editorial-mono-caption text-accent-text mb-4", children: post.tag }),
-          /* @__PURE__ */ jsx(EditorialHeading, { as: "h1", size: "display", className: "mb-6", children: post.title }),
-          /* @__PURE__ */ jsx(
-            "p",
-            {
-              className: "text-xl text-ink-soft italic measure leading-relaxed mb-8",
-              style: { fontVariationSettings: getFraunces("sub") },
-              children: post.description
-            }
-          ),
-          /* @__PURE__ */ jsx(
-            Byline,
-            {
-              author: post.author,
-              role: post.role,
-              date: formatPostDate(post.date)
-            }
-          )
-        ] }),
-        post.cover && /* @__PURE__ */ jsxs("figure", { className: "max-w-4xl mb-14 lg:mb-20", children: [
-          /* @__PURE__ */ jsx("div", { className: "relative aspect-[16/9] overflow-hidden rounded-sm border border-hairline-strong bg-navy", children: /* @__PURE__ */ jsx(
-            "img",
-            {
-              src: post.cover,
-              alt: "",
-              className: "absolute inset-0 w-full h-full object-cover"
-            }
-          ) }),
-          /* @__PURE__ */ jsxs("figcaption", { className: "mt-3 editorial-mono-caption text-ink-faint", children: [
-            "FIG. — ",
-            post.tag ?? "Illustrasjon"
-          ] })
-        ] }),
-        /* @__PURE__ */ jsx("div", { className: "post-body max-w-3xl", children: /* @__PURE__ */ jsx(
-          ReactMarkdown,
-          {
-            remarkPlugins: [remarkGfm],
-            components: {
-              a: ({ href, children, ...props }) => {
-                if (href && CHAT_HREFS.has(href)) {
-                  return /* @__PURE__ */ jsx(
-                    "button",
-                    {
-                      type: "button",
-                      onClick: () => openChatbot({ mode: "chat" }),
-                      className: "underline underline-offset-4 decoration-[0.5px] text-accent-text hover:text-ink transition-colors",
-                      children
-                    }
-                  );
-                }
-                return /* @__PURE__ */ jsx("a", { href, ...props, children });
-              }
-            },
-            children: post.content
-          }
-        ) })
-      ] }) }),
-      /* @__PURE__ */ jsx(
-        "section",
-        {
-          "aria-label": "Neste steg",
-          className: "bg-accent-tinted border-t border-hairline-strong py-14 lg:py-20",
-          children: /* @__PURE__ */ jsx("div", { className: "container mx-auto px-4", children: /* @__PURE__ */ jsxs("div", { className: "grid lg:grid-cols-12 gap-6 lg:gap-gutter items-end", children: [
-            /* @__PURE__ */ jsxs("div", { className: "lg:col-span-8", children: [
-              /* @__PURE__ */ jsx("span", { className: "editorial-mono-caption text-accent-text", children: "NESTE STEG" }),
-              /* @__PURE__ */ jsx(
-                "h3",
-                {
-                  className: "mt-3 font-serif text-3xl lg:text-4xl text-ink leading-tight",
-                  style: {
-                    fontVariationSettings: getFraunces("section"),
-                    letterSpacing: "-0.015em"
-                  },
-                  children: "Klar for å se Digilist i praksis?"
-                }
-              ),
-              /* @__PURE__ */ jsx("p", { className: "mt-3 text-lg text-ink-soft measure leading-relaxed", children: "Book en personlig demo, eller still spørsmål direkte i chat — vi svarer på under et minutt i kontortid." })
-            ] }),
-            /* @__PURE__ */ jsxs("div", { className: "lg:col-span-4 flex flex-wrap gap-3 lg:justify-end", children: [
-              /* @__PURE__ */ jsx(EditorialButton, { variant: "primary", size: "md", href: "/book-demo", children: "Book demo" }),
-              /* @__PURE__ */ jsx(
-                EditorialButton,
-                {
-                  variant: "outline",
-                  size: "md",
-                  onClick: () => openChatbot({ mode: "chat" }),
-                  children: "Snakk med oss"
-                }
-              )
-            ] })
-          ] }) })
-        }
-      ),
-      related.length > 0 && /* @__PURE__ */ jsx("section", { className: "py-14 lg:py-20 bg-paper-deep/40 border-t border-rule", children: /* @__PURE__ */ jsxs("div", { className: "container mx-auto px-4", children: [
-        /* @__PURE__ */ jsx("p", { className: "editorial-mono-caption mb-8", children: "Fortsett å lese" }),
-        /* @__PURE__ */ jsx(
-          motion.ol,
-          {
-            initial: "hidden",
-            whileInView: "visible",
-            viewport: viewportOnce,
-            variants: staggerParent,
-            className: "grid md:grid-cols-3 gap-px bg-rule border border-rule",
-            children: related.map((p) => /* @__PURE__ */ jsx(
-              motion.li,
-              {
-                variants: staggerChild,
-                className: "bg-paper",
-                children: /* @__PURE__ */ jsxs(
-                  Link,
-                  {
-                    to: `/blogg/${p.slug}`,
-                    className: "group flex flex-col h-full p-6 lg:p-8 transition-colors duration-quick ease-editorial hover:bg-paper-deep/40",
-                    children: [
-                      p.tag && /* @__PURE__ */ jsx("span", { className: "editorial-mono-caption text-accent-text mb-3 inline-block", children: p.tag }),
-                      /* @__PURE__ */ jsx(
-                        "h3",
-                        {
-                          className: "font-serif text-2xl text-ink mb-3 transition-transform duration-normal ease-editorial group-hover:translate-x-1",
-                          style: {
-                            fontVariationSettings: getFraunces("section"),
-                            letterSpacing: "-0.015em",
-                            lineHeight: 1.15
-                          },
-                          children: p.title
-                        }
-                      ),
-                      /* @__PURE__ */ jsxs("p", { className: "text-base text-ink-soft leading-relaxed flex-1", children: [
-                        p.description.slice(0, 120),
-                        "..."
-                      ] }),
-                      /* @__PURE__ */ jsxs("span", { className: "mt-5 pt-4 border-t border-rule editorial-mono-caption text-accent-text inline-flex items-center gap-1", children: [
-                        "Les artikkel",
-                        /* @__PURE__ */ jsx(
-                          ArrowUpRight,
-                          {
-                            className: "h-3.5 w-3.5 transition-transform duration-quick ease-editorial group-hover:translate-x-1 group-hover:-translate-y-1",
-                            "aria-hidden": "true"
-                          }
-                        )
-                      ] })
-                    ]
-                  }
-                )
-              },
-              p.slug
-            ))
-          }
-        )
-      ] }) })
-    ] }) }),
-    /* @__PURE__ */ jsx(Footer, {})
-  ] });
-};
 const FAQ = () => {
   const faqForSEO = useMemo(
     () => allFAQEntries().map((e) => ({ question: e.q, answer: e.a })),
@@ -7546,7 +7343,12 @@ const NotFound = () => {
     /* @__PURE__ */ jsx(Footer, {})
   ] });
 };
-function scoreClass$1(s) {
+const POSTURE_LABEL = {
+  iso27001: "ISO 27001:2022",
+  soc2: "SOC 2",
+  gdpr: "GDPR"
+};
+function scoreClass(s) {
   if (s === null) return "text-ink-faint";
   if (s >= 85) return "text-green-700";
   if (s >= 60) return "text-amber-700";
@@ -7646,7 +7448,7 @@ function Transparens() {
               {
                 label: "Snittscore",
                 value: Math.round(data.ecosystem.avgScore),
-                tone: scoreClass$1(data.ecosystem.avgScore),
+                tone: scoreClass(data.ecosystem.avgScore),
                 sub: scoreLabel(data.ecosystem.avgScore)
               }
             ),
@@ -7677,6 +7479,48 @@ function Transparens() {
               }
             )
           ] })
+        ] }),
+        data.posture && data.posture.length > 0 && /* @__PURE__ */ jsxs("section", { className: "mb-14 lg:mb-20", children: [
+          /* @__PURE__ */ jsx("p", { className: "editorial-mono-caption text-accent-text mb-4", children: "ETTERLEVELSE" }),
+          /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-px bg-rule border border-rule", children: data.posture.map((p) => /* @__PURE__ */ jsxs(
+            "div",
+            {
+              className: "bg-paper px-6 py-5",
+              children: [
+                /* @__PURE__ */ jsx("p", { className: "editorial-mono-caption text-ink-faint", children: POSTURE_LABEL[p.framework] ?? p.framework }),
+                /* @__PURE__ */ jsxs("div", { className: "flex items-baseline gap-3 mt-3", children: [
+                  /* @__PURE__ */ jsxs(
+                    "span",
+                    {
+                      className: cn(
+                        "font-serif text-4xl leading-none tabular-nums",
+                        p.implementation_pct >= 80 ? "text-green-700" : p.implementation_pct >= 40 ? "text-amber-700" : "text-ink-soft"
+                      ),
+                      style: {
+                        fontVariationSettings: '"opsz" 144, "wght" 360'
+                      },
+                      children: [
+                        p.implementation_pct,
+                        "%"
+                      ]
+                    }
+                  ),
+                  /* @__PURE__ */ jsxs("span", { className: "text-sm text-ink-soft", children: [
+                    "av ",
+                    p.total,
+                    " kontroller"
+                  ] })
+                ] }),
+                /* @__PURE__ */ jsxs("p", { className: "mt-3 text-sm text-ink-soft leading-relaxed", children: [
+                  p.framework === "iso27001" && "Annex A — Organisatoriske, personell-, fysiske og teknologiske kontroller.",
+                  p.framework === "soc2" && "Common Criteria — kontrollmiljø, risiko, tilgang og systemoperasjoner.",
+                  p.framework === "gdpr" && "Kjerneartikler — personvern, lovlig grunnlag, sletting og brudd-håndtering."
+                ] })
+              ]
+            },
+            p.framework
+          )) }),
+          /* @__PURE__ */ jsx("p", { className: "mt-4 text-sm text-ink-faint italic max-w-3xl", children: "Tallene viser implementeringsgrad — andelen anvendelige kontroller med dokumentert tilstand «Implementert» (full kreditt) eller «Delvis» (halv). Detaljer over hver kontroll er tilgjengelig på forespørsel for kommunale kunder under NDA." })
         ] }),
         /* @__PURE__ */ jsxs("section", { className: "mb-14 lg:mb-20", children: [
           /* @__PURE__ */ jsx("p", { className: "editorial-mono-caption text-accent-text mb-4", children: "OVERFLATER · PRODUKSJON" }),
@@ -8003,7 +7847,7 @@ function ScoreChip({ value, label }) {
           {
             className: cn(
               "font-serif text-2xl leading-none font-medium",
-              scoreClass$1(value)
+              scoreClass(value)
             ),
             children: isNA ? "—" : value
           }
@@ -8021,7 +7865,7 @@ function SurfaceRow({ s }) {
         /* @__PURE__ */ jsx("h3", { className: "font-serif text-xl lg:text-2xl text-ink mt-0.5 leading-tight", children: originPretty(s.origin) }),
         /* @__PURE__ */ jsx("p", { className: "text-xs text-ink-soft mt-1 font-mono uppercase tracking-widest", children: scoreLabel(s.overall) })
       ] }),
-      /* @__PURE__ */ jsxs("div", { className: cn("flex items-baseline gap-2", scoreClass$1(s.overall)), children: [
+      /* @__PURE__ */ jsxs("div", { className: cn("flex items-baseline gap-2", scoreClass(s.overall)), children: [
         /* @__PURE__ */ jsx("span", { className: "font-serif text-5xl lg:text-6xl font-medium leading-none", children: s.overall ?? "—" }),
         /* @__PURE__ */ jsx("span", { className: "editorial-mono-caption text-ink-faint", children: "overall" })
       ] })
@@ -9089,2336 +8933,6 @@ function UseCaseKulturhus() {
     }
   );
 }
-const AUTH_KEY = "digilist-admin-basic-auth-v1";
-const AUDIT_LABEL = {
-  uptime: "Oppetid",
-  seo: "SEO",
-  a11y: "Tilgjengelighet",
-  security: "Sikkerhet",
-  links: "Lenker",
-  performance: "Ytelse",
-  vulns: "Sårbarheter"
-};
-const SURFACE_LABEL = {
-  marketing: "Markedsføring",
-  app: "App",
-  dashboard: "Dashbord",
-  docs: "Dokumentasjon",
-  api: "API",
-  status: "Status"
-};
-function scoreClass(s) {
-  if (s === null) return "text-ink-faint";
-  if (s >= 85) return "text-green-700 dark:text-green-400";
-  if (s >= 60) return "text-amber-700 dark:text-amber-400";
-  return "text-red-700 dark:text-red-400";
-}
-const NAV = [
-  {
-    group: "STATUS",
-    items: [
-      { to: "/admin/intelligence", label: "Oversikt", icon: LayoutGrid, end: true, hint: "Økosystem-rollup" },
-      { to: "/admin/intelligence/issues", label: "Hva gikk galt", icon: AlertTriangle, hint: "AI-fix-anbefalinger" },
-      { to: "/admin/intelligence/scans", label: "Skanninger", icon: Activity, hint: "Historikk" }
-    ]
-  },
-  {
-    group: "MONITORS",
-    items: [
-      { to: "/admin/intelligence/uptime", label: "Oppetid & SSL", icon: Wifi },
-      { to: "/admin/intelligence/seo", label: "SEO", icon: Search },
-      { to: "/admin/intelligence/wcag", label: "WCAG / UU", icon: BarChart3 },
-      { to: "/admin/intelligence/sikkerhet", label: "Sikkerhet", icon: ShieldAlert },
-      { to: "/admin/intelligence/ytelse", label: "Ytelse", icon: CircleGauge },
-      { to: "/admin/intelligence/lenker", label: "Lenker", icon: Link2 }
-    ]
-  },
-  {
-    group: "ECOSYSTEM",
-    items: [
-      { to: "/admin/intelligence/overflater", label: "Overflater", icon: Globe2, hint: "Per-surface" }
-    ]
-  },
-  {
-    group: "AI",
-    items: [
-      { to: "/admin/intelligence/agenter", label: "AI-agenter", icon: Bot, hint: "Multi-agent chat" }
-    ]
-  },
-  {
-    group: "REFERANSE",
-    items: [
-      { to: "/admin/intelligence/transparens", label: "Offentlig rapport", icon: Sparkles, hint: "/transparens" },
-      { to: "/admin/intelligence/innstillinger", label: "Innstillinger", icon: Settings }
-    ]
-  }
-];
-const FLAT_NAV = NAV.flatMap((g) => g.items);
-function IntelligenceShell() {
-  const [auth, setAuth] = useState(() => {
-    if (typeof window === "undefined") return null;
-    return localStorage.getItem(AUTH_KEY);
-  });
-  const [snap, setSnap] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [running, setRunning] = useState(null);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const fetchState = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await fetch("/api/audits/state", {
-        headers: auth ? { Authorization: `Basic ${auth}` } : {}
-      });
-      if (res.status === 401) {
-        setAuth(null);
-        localStorage.removeItem(AUTH_KEY);
-        throw new Error("Innlogging kreves");
-      }
-      if (!res.ok) throw new Error(`/api/audits/state returnerte ${res.status}`);
-      const data = await res.json();
-      setSnap(data);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : String(err));
-    } finally {
-      setLoading(false);
-    }
-  }, [auth]);
-  useEffect(() => {
-    if (auth) void fetchState();
-  }, [auth, fetchState]);
-  const handleLogin = (e) => {
-    e.preventDefault();
-    const fd = new FormData(e.currentTarget);
-    const u = String(fd.get("user") || "");
-    const p = String(fd.get("pass") || "");
-    if (!u || !p) return;
-    const b64 = btoa(`${u}:${p}`);
-    localStorage.setItem(AUTH_KEY, b64);
-    setAuth(b64);
-  };
-  const runScan = useCallback(
-    async (targetName) => {
-      var _a;
-      if (!auth) return;
-      setRunning(targetName || "__all__");
-      try {
-        const res = await fetch("/api/audits/run", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Basic ${auth}`
-          },
-          body: JSON.stringify(targetName ? { target: targetName } : {})
-        });
-        if (!res.ok) throw new Error(`Kunne ikke starte skanning (${res.status})`);
-        const startedAt = Date.now();
-        const beforeId = ((_a = snap == null ? void 0 : snap.latest.find((r) => !targetName || r.target_name === targetName)) == null ? void 0 : _a.id) ?? 0;
-        while (Date.now() - startedAt < 6 * 60 * 1e3) {
-          await new Promise((r) => setTimeout(r, 4e3));
-          await fetchState();
-          const after = await (await fetch("/api/audits/state", {
-            headers: { Authorization: `Basic ${auth}` }
-          })).json();
-          const next = after.latest.find(
-            (r) => !targetName || r.target_name === targetName
-          );
-          if (next && next.id > beforeId && next.status !== "running") break;
-        }
-      } catch (err) {
-        setError(err instanceof Error ? err.message : String(err));
-      } finally {
-        setRunning(null);
-      }
-    },
-    [auth, snap, fetchState]
-  );
-  const ctx = useMemo(
-    () => ({
-      snap,
-      loading,
-      refresh: fetchState,
-      running,
-      runScan
-    }),
-    [snap, loading, fetchState, running, runScan]
-  );
-  const activeItem = useMemo(() => {
-    const path = location.pathname.replace(/\/$/, "");
-    const exact = FLAT_NAV.find((i) => i.end && i.to === path);
-    if (exact) return exact;
-    return FLAT_NAV.filter((i) => !i.end).sort((a, b) => b.to.length - a.to.length).find((i) => path === i.to || path.startsWith(`${i.to}/`)) ?? FLAT_NAV[0];
-  }, [location.pathname]);
-  const summary = snap == null ? void 0 : snap.ecosystemSummary;
-  const liveCount = (snap == null ? void 0 : snap.targets.filter((t) => t.is_active).length) ?? 0;
-  if (!auth) {
-    return /* @__PURE__ */ jsxs("div", { className: "min-h-screen bg-paper flex items-center justify-center px-4 py-12", children: [
-      /* @__PURE__ */ jsx(
-        SEO,
-        {
-          title: "Intelligence — innlogging",
-          description: "Digilist Ecosystem Intelligence Center.",
-          robots: "noindex,nofollow"
-        }
-      ),
-      /* @__PURE__ */ jsxs("div", { className: "w-full max-w-5xl grid lg:grid-cols-[1fr_440px] gap-px bg-rule border border-hairline-strong", children: [
-        /* @__PURE__ */ jsxs("aside", { className: "bg-paper-deep/40 p-10 lg:p-12 hidden lg:flex flex-col", children: [
-          /* @__PURE__ */ jsx("p", { className: "editorial-mono-caption text-accent-text mb-2", children: "DIGILIST · VOL. 2026 · OSLO" }),
-          /* @__PURE__ */ jsxs(
-            "h1",
-            {
-              className: "font-serif text-5xl xl:text-6xl text-ink leading-[1.02] mt-2",
-              style: { fontVariationSettings: '"opsz" 96, "wght" 480' },
-              children: [
-                "Intelligence",
-                /* @__PURE__ */ jsx("br", {}),
-                "Center"
-              ]
-            }
-          ),
-          /* @__PURE__ */ jsx(
-            "p",
-            {
-              className: "font-serif italic text-xl text-ink leading-relaxed mt-6 max-w-prose",
-              style: { fontVariationSettings: '"opsz" 72, "wght" 460' },
-              children: "Ett kontrollrom for SEO, sikkerhet, WCAG og ytelse på tvers av hele Digilist-økosystemet."
-            }
-          ),
-          /* @__PURE__ */ jsxs("div", { className: "mt-auto pt-10", children: [
-            /* @__PURE__ */ jsx("p", { className: "font-mono text-[0.6rem] uppercase tracking-widest text-ink-faint mb-3", children: "OVERVÅKER" }),
-            /* @__PURE__ */ jsxs("ul", { className: "space-y-1.5 font-mono text-xs text-ink", children: [
-              /* @__PURE__ */ jsxs("li", { className: "flex items-center gap-2", children: [
-                /* @__PURE__ */ jsx("span", { className: "h-1 w-3 bg-navy" }),
-                " digilist.no"
-              ] }),
-              /* @__PURE__ */ jsxs("li", { className: "flex items-center gap-2", children: [
-                /* @__PURE__ */ jsx("span", { className: "h-1 w-3 bg-navy" }),
-                " app.digilist.no"
-              ] }),
-              /* @__PURE__ */ jsxs("li", { className: "flex items-center gap-2", children: [
-                /* @__PURE__ */ jsx("span", { className: "h-1 w-3 bg-navy" }),
-                " dashboard.digilist.no"
-              ] }),
-              /* @__PURE__ */ jsxs("li", { className: "flex items-center gap-2", children: [
-                /* @__PURE__ */ jsx("span", { className: "h-1 w-3 bg-navy" }),
-                " api.digilist.no"
-              ] })
-            ] })
-          ] })
-        ] }),
-        /* @__PURE__ */ jsxs(
-          "form",
-          {
-            onSubmit: handleLogin,
-            className: "bg-paper p-10 lg:p-12 flex flex-col",
-            children: [
-              /* @__PURE__ */ jsx("p", { className: "editorial-mono-caption text-accent-text mb-2", children: "INNLOGGING" }),
-              /* @__PURE__ */ jsx(
-                "h2",
-                {
-                  className: "font-serif text-3xl text-ink mb-2",
-                  style: { fontVariationSettings: '"opsz" 48, "wght" 540' },
-                  children: "Tilgang kreves"
-                }
-              ),
-              /* @__PURE__ */ jsx("p", { className: "text-base text-ink mb-8 leading-relaxed", children: "Bruk det interne brukernavnet og passordet (basic-auth). RBAC og SSO-integrasjon kommer i en senere fase." }),
-              /* @__PURE__ */ jsxs("label", { className: "block mb-5", children: [
-                /* @__PURE__ */ jsx("span", { className: "editorial-mono-caption text-ink-soft mb-1.5 block", children: "Brukernavn" }),
-                /* @__PURE__ */ jsx(
-                  "input",
-                  {
-                    name: "user",
-                    type: "text",
-                    autoComplete: "username",
-                    className: "w-full border-0 border-b border-hairline-strong rounded-none bg-transparent px-0 py-2 text-base text-ink focus:outline-none focus:border-navy",
-                    required: true
-                  }
-                )
-              ] }),
-              /* @__PURE__ */ jsxs("label", { className: "block mb-8", children: [
-                /* @__PURE__ */ jsx("span", { className: "editorial-mono-caption text-ink-soft mb-1.5 block", children: "Passord" }),
-                /* @__PURE__ */ jsx(
-                  "input",
-                  {
-                    name: "pass",
-                    type: "password",
-                    autoComplete: "current-password",
-                    className: "w-full border-0 border-b border-hairline-strong rounded-none bg-transparent px-0 py-2 text-base text-ink focus:outline-none focus:border-navy",
-                    required: true
-                  }
-                )
-              ] }),
-              /* @__PURE__ */ jsx(EditorialButton, { variant: "primary", size: "md", type: "submit", children: "Logg inn" }),
-              /* @__PURE__ */ jsx("p", { className: "font-mono text-[0.6rem] uppercase tracking-widest text-ink-faint mt-auto pt-8", children: "v2026.05 · phase 1.5 · digilist intelligence center" })
-            ]
-          }
-        )
-      ] })
-    ] });
-  }
-  return /* @__PURE__ */ jsxs("div", { className: "min-h-screen bg-paper", children: [
-    /* @__PURE__ */ jsx(
-      SEO,
-      {
-        title: "Digilist Intelligence Center",
-        description: "Quality, SEO & Compliance Command Center.",
-        canonical: "https://digilist.no/admin/intelligence",
-        robots: "noindex,nofollow"
-      }
-    ),
-    /* @__PURE__ */ jsxs("aside", { className: "fixed left-0 top-0 bottom-0 w-64 bg-paper-deep/40 border-r border-hairline-strong overflow-y-auto z-40 hidden lg:flex flex-col", children: [
-      /* @__PURE__ */ jsxs("div", { className: "px-5 py-5 border-b border-hairline-strong", children: [
-        /* @__PURE__ */ jsxs(
-          "button",
-          {
-            type: "button",
-            onClick: () => navigate("/"),
-            className: "flex items-center gap-2 text-ink-soft hover:text-ink transition-colors",
-            children: [
-              /* @__PURE__ */ jsx(ChevronLeft, { className: "h-4 w-4" }),
-              /* @__PURE__ */ jsx("span", { className: "font-mono text-[0.65rem] uppercase tracking-widest", children: "Tilbake til forsiden" })
-            ]
-          }
-        ),
-        /* @__PURE__ */ jsx(
-          "h1",
-          {
-            className: "font-serif text-[1.75rem] text-ink mt-3 leading-none",
-            style: { fontVariationSettings: '"opsz" 48, "wght" 540' },
-            children: "Intelligence"
-          }
-        ),
-        /* @__PURE__ */ jsx("p", { className: "text-xs text-ink mt-1.5", children: "Digilist økosystem" }),
-        summary && /* @__PURE__ */ jsxs("div", { className: "mt-4 grid grid-cols-2 gap-px bg-rule border border-rule", children: [
-          /* @__PURE__ */ jsxs("div", { className: "bg-paper px-2.5 py-2", children: [
-            /* @__PURE__ */ jsx("p", { className: "font-mono text-[0.55rem] uppercase tracking-widest text-ink-faint", children: "Snitt" }),
-            /* @__PURE__ */ jsx("p", { className: "font-serif text-xl text-ink leading-none mt-1", children: Math.round(summary.avgScore) })
-          ] }),
-          /* @__PURE__ */ jsxs("div", { className: "bg-paper px-2.5 py-2", children: [
-            /* @__PURE__ */ jsx("p", { className: "font-mono text-[0.55rem] uppercase tracking-widest text-ink-faint", children: "Feil" }),
-            /* @__PURE__ */ jsx(
-              "p",
-              {
-                className: cn(
-                  "font-serif text-xl leading-none mt-1",
-                  summary.errorCount > 0 ? "text-red-700" : "text-ink"
-                ),
-                children: summary.errorCount
-              }
-            )
-          ] })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsx("nav", { className: "flex-1 px-3 py-4 space-y-5", children: NAV.map((group) => /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsx("p", { className: "font-mono text-[0.6rem] uppercase tracking-widest text-ink-faint mb-2 px-2.5", children: group.group }),
-        /* @__PURE__ */ jsx("ul", { className: "space-y-0.5", children: group.items.map((item) => {
-          const Icon = item.icon;
-          return /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(
-            NavLink,
-            {
-              to: item.to,
-              end: item.end,
-              className: ({ isActive }) => cn(
-                "flex items-center gap-2.5 px-2.5 py-2 rounded-sm text-sm transition-colors group",
-                isActive ? "bg-navy text-on-navy font-medium" : "text-ink hover:bg-paper-deep/80"
-              ),
-              children: ({ isActive }) => /* @__PURE__ */ jsxs(Fragment, { children: [
-                /* @__PURE__ */ jsx(
-                  Icon,
-                  {
-                    className: cn(
-                      "h-4 w-4 flex-shrink-0",
-                      isActive ? "text-on-navy" : "text-ink-soft group-hover:text-ink"
-                    )
-                  }
-                ),
-                /* @__PURE__ */ jsx("span", { className: "flex-1 leading-tight", children: item.label }),
-                item.hint && !isActive && /* @__PURE__ */ jsx("span", { className: "font-mono text-[0.5rem] uppercase tracking-widest text-ink-faint", children: "›" })
-              ] })
-            }
-          ) }, item.to);
-        }) })
-      ] }, group.group)) }),
-      /* @__PURE__ */ jsxs("footer", { className: "px-5 py-4 border-t border-hairline-strong", children: [
-        /* @__PURE__ */ jsx("p", { className: "font-mono text-[0.55rem] uppercase tracking-widest text-ink-faint", children: "v2026.05 · phase 1.5" }),
-        /* @__PURE__ */ jsx("p", { className: "text-xs text-ink mt-1", children: (snap == null ? void 0 : snap.generatedAt) ? `Sist ${new Date(snap.generatedAt).toLocaleString("nb-NO", {
-          dateStyle: "short",
-          timeStyle: "short"
-        })}` : "Ingen data" })
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxs("header", { className: "lg:hidden sticky top-0 z-30 bg-paper border-b border-hairline-strong px-4 py-3 flex items-center justify-between", children: [
-      /* @__PURE__ */ jsx(
-        "button",
-        {
-          type: "button",
-          onClick: () => navigate("/"),
-          className: "font-mono text-xs uppercase tracking-widest text-ink",
-          children: "← Forsiden"
-        }
-      ),
-      /* @__PURE__ */ jsx(
-        "span",
-        {
-          className: "font-serif text-xl text-ink",
-          style: { fontVariationSettings: '"opsz" 36, "wght" 540' },
-          children: "Intelligence"
-        }
-      ),
-      /* @__PURE__ */ jsx(
-        "button",
-        {
-          type: "button",
-          onClick: fetchState,
-          className: "text-ink-soft",
-          "aria-label": "Oppdater",
-          children: loading ? /* @__PURE__ */ jsx(Loader2, { className: "h-4 w-4 animate-spin" }) : /* @__PURE__ */ jsx(RefreshCw, { className: "h-4 w-4" })
-        }
-      )
-    ] }),
-    /* @__PURE__ */ jsx("div", { className: "lg:hidden border-b border-hairline-strong bg-paper-deep/30 overflow-x-auto", children: /* @__PURE__ */ jsx("nav", { className: "flex gap-1 px-4 py-2 whitespace-nowrap", children: FLAT_NAV.map((item) => /* @__PURE__ */ jsx(
-      NavLink,
-      {
-        to: item.to,
-        end: item.end,
-        className: ({ isActive }) => cn(
-          "px-3 py-1.5 rounded-sm text-xs uppercase tracking-widest font-mono",
-          isActive ? "bg-navy text-on-navy" : "text-ink border border-hairline"
-        ),
-        children: item.label
-      },
-      item.to
-    )) }) }),
-    /* @__PURE__ */ jsxs("main", { className: "lg:ml-64 min-h-screen flex flex-col", children: [
-      /* @__PURE__ */ jsxs("div", { className: "hidden lg:flex sticky top-0 z-20 bg-paper/95 backdrop-blur border-b border-hairline-strong px-8 xl:px-12 py-4 items-center justify-between gap-6", children: [
-        /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3 min-w-0", children: [
-          /* @__PURE__ */ jsxs("p", { className: "font-mono text-[0.6rem] uppercase tracking-widest text-ink-faint flex-shrink-0", children: [
-            "INTELLIGENCE / ",
-            activeItem == null ? void 0 : activeItem.label.toUpperCase()
-          ] }),
-          snap && /* @__PURE__ */ jsx("span", { className: "font-mono text-[0.6rem] uppercase tracking-widest text-ink-faint flex-shrink-0", children: "·" }),
-          snap && /* @__PURE__ */ jsxs("p", { className: "font-mono text-[0.6rem] uppercase tracking-widest text-ink-faint truncate", children: [
-            "Sist oppdatert",
-            " ",
-            /* @__PURE__ */ jsx("time", { className: "text-ink", dateTime: snap.generatedAt, children: new Date(snap.generatedAt).toLocaleString("nb-NO", {
-              dateStyle: "short",
-              timeStyle: "short"
-            }) })
-          ] })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 flex-shrink-0", children: [
-          summary && /* @__PURE__ */ jsxs("div", { className: "hidden xl:flex items-center gap-2 mr-2", children: [
-            /* @__PURE__ */ jsx(
-              Chip,
-              {
-                label: "OVERFLATER",
-                value: `${summary.surfacesHealthy}/${summary.surfacesTotal}`,
-                tone: summary.surfacesWithErrors === 0 ? "good" : summary.surfacesWithErrors >= 2 ? "bad" : "warn"
-              }
-            ),
-            /* @__PURE__ */ jsx(
-              Chip,
-              {
-                label: "SNITT",
-                value: Math.round(summary.avgScore),
-                tone: summary.avgScore >= 85 ? "good" : summary.avgScore >= 60 ? "warn" : "bad"
-              }
-            ),
-            /* @__PURE__ */ jsx(
-              Chip,
-              {
-                label: "FEIL",
-                value: summary.errorCount,
-                tone: summary.errorCount === 0 ? "good" : "bad"
-              }
-            )
-          ] }),
-          /* @__PURE__ */ jsxs(
-            "button",
-            {
-              type: "button",
-              onClick: fetchState,
-              className: "inline-flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-widest text-ink hover:bg-paper-deep/60 border border-hairline rounded-sm px-2.5 py-1.5 disabled:opacity-50 transition-colors",
-              disabled: loading,
-              children: [
-                loading ? /* @__PURE__ */ jsx(Loader2, { className: "h-3.5 w-3.5 animate-spin" }) : /* @__PURE__ */ jsx(RefreshCw, { className: "h-3.5 w-3.5" }),
-                "Oppdater"
-              ]
-            }
-          ),
-          /* @__PURE__ */ jsx(
-            "button",
-            {
-              type: "button",
-              onClick: () => runScan(),
-              disabled: Boolean(running),
-              className: cn(
-                "inline-flex items-center gap-1.5 rounded-sm px-3 py-1.5 text-[0.65rem] uppercase tracking-widest font-medium transition-colors",
-                running ? "bg-paper-deep text-ink-faint cursor-not-allowed" : "bg-navy text-on-navy hover:bg-navy/90"
-              ),
-              children: running ? /* @__PURE__ */ jsxs(Fragment, { children: [
-                /* @__PURE__ */ jsx(Loader2, { className: "h-3.5 w-3.5 animate-spin" }),
-                "Skanner …"
-              ] }) : /* @__PURE__ */ jsxs(Fragment, { children: [
-                /* @__PURE__ */ jsx(Compass, { className: "h-3.5 w-3.5" }),
-                "Kjør full skanning"
-              ] })
-            }
-          )
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxs("div", { className: "flex-1 px-6 lg:px-8 xl:px-12 py-8 lg:py-10", children: [
-        error && /* @__PURE__ */ jsxs("div", { className: "border-l-2 border-red-700 bg-paper-deep/60 px-5 py-3 mb-6", children: [
-          /* @__PURE__ */ jsx("p", { className: "editorial-mono-caption text-red-700 mb-1", children: "FEIL" }),
-          /* @__PURE__ */ jsx("p", { className: "text-base text-ink", children: error })
-        ] }),
-        /* @__PURE__ */ jsx(Outlet, { context: ctx })
-      ] }),
-      /* @__PURE__ */ jsxs("p", { className: "hidden lg:block text-center font-mono text-[0.55rem] uppercase tracking-widest text-ink-faint border-t border-hairline px-8 xl:px-12 py-4", children: [
-        "Digilist Ecosystem Intelligence · ",
-        liveCount,
-        " aktive overflater · v2026.05"
-      ] })
-    ] })
-  ] });
-}
-function Chip({
-  label,
-  value,
-  tone
-}) {
-  return /* @__PURE__ */ jsxs(
-    "div",
-    {
-      className: cn(
-        "inline-flex items-center gap-2 rounded-sm px-2.5 py-1.5 border",
-        tone === "good" && "bg-green-50 border-green-700/40 dark:bg-green-950/40",
-        tone === "warn" && "bg-amber-50 border-amber-700/40 dark:bg-amber-950/40",
-        tone === "bad" && "bg-red-50 border-red-700/40 dark:bg-red-950/40"
-      ),
-      children: [
-        /* @__PURE__ */ jsx(
-          "span",
-          {
-            className: cn(
-              "font-mono text-[0.55rem] uppercase tracking-widest",
-              tone === "good" && "text-green-700 dark:text-green-400",
-              tone === "warn" && "text-amber-700 dark:text-amber-400",
-              tone === "bad" && "text-red-700 dark:text-red-400"
-            ),
-            children: label
-          }
-        ),
-        /* @__PURE__ */ jsx(
-          "span",
-          {
-            className: cn(
-              "font-serif text-base font-medium leading-none",
-              tone === "good" && "text-green-700 dark:text-green-400",
-              tone === "warn" && "text-amber-700 dark:text-amber-400",
-              tone === "bad" && "text-red-700 dark:text-red-400"
-            ),
-            children: value
-          }
-        )
-      ]
-    }
-  );
-}
-function IntelligenceOverview() {
-  const { snap, running, runScan } = useOutletContext();
-  const byTarget = useMemo(() => {
-    const m = /* @__PURE__ */ new Map();
-    if (!snap) return m;
-    for (const r of snap.latest) {
-      const arr = m.get(r.target_name) ?? [];
-      arr.push(r);
-      m.set(r.target_name, arr);
-    }
-    return m;
-  }, [snap]);
-  if (!snap) {
-    return /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 text-ink-soft", children: [
-      /* @__PURE__ */ jsx(Loader2, { className: "h-4 w-4 animate-spin" }),
-      " Henter status…"
-    ] });
-  }
-  const summary = snap.ecosystemSummary;
-  const activeCount = snap.targets.filter((t) => t.is_active).length;
-  return /* @__PURE__ */ jsxs("div", { children: [
-    /* @__PURE__ */ jsxs("header", { className: "mb-10 flex flex-wrap items-end justify-between gap-6", children: [
-      /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsx("p", { className: "editorial-mono-caption text-accent-text mb-2", children: "ØKOSYSTEM-OVERSIKT" }),
-        /* @__PURE__ */ jsx(
-          "h2",
-          {
-            className: "font-serif text-4xl lg:text-5xl xl:text-6xl text-ink leading-[1.04]",
-            style: { fontVariationSettings: '"opsz" 96, "wght" 480' },
-            children: "Oversikt"
-          }
-        ),
-        /* @__PURE__ */ jsxs("p", { className: "text-base text-ink mt-3 max-w-prose leading-relaxed", children: [
-          "Live status på tvers av ",
-          activeCount,
-          " aktive overflater i Digilist-økosystemet. Skanninger kjøres automatisk hver natt og kan startes manuelt per overflate eller for hele systemet."
-        ] })
-      ] }),
-      summary && /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
-        /* @__PURE__ */ jsx(
-          Badge,
-          {
-            icon: CheckCircle2,
-            label: "SUNNE",
-            value: `${summary.surfacesHealthy}/${summary.surfacesTotal}`,
-            tone: summary.surfacesWithErrors === 0 ? "good" : summary.surfacesWithErrors >= 2 ? "bad" : "warn"
-          }
-        ),
-        /* @__PURE__ */ jsx(
-          Badge,
-          {
-            icon: TrendingUp,
-            label: "SNITT",
-            value: Math.round(summary.avgScore),
-            tone: summary.avgScore >= 85 ? "good" : summary.avgScore >= 60 ? "warn" : "bad"
-          }
-        )
-      ] })
-    ] }),
-    summary && /* @__PURE__ */ jsx("section", { className: "mb-12", children: /* @__PURE__ */ jsx("div", { className: "grid grid-cols-2 lg:grid-cols-4 gap-px bg-rule border border-rule", children: [
-      {
-        label: "Overflater aktive",
-        value: summary.surfacesTotal,
-        sub: `${summary.surfacesHealthy} sunne · ${summary.surfacesWithErrors} med feil`,
-        tone: void 0
-      },
-      {
-        label: "Snittscore",
-        value: Math.round(summary.avgScore),
-        sub: "på tvers av siste skanninger",
-        tone: void 0
-      },
-      {
-        label: "Errors",
-        value: summary.errorCount,
-        sub: "krever umiddelbar handling",
-        tone: summary.errorCount > 0 ? "text-red-700 dark:text-red-400" : void 0
-      },
-      {
-        label: "Warnings",
-        value: summary.warnCount,
-        sub: "anbefalt utbedring",
-        tone: summary.warnCount > 0 ? "text-amber-700 dark:text-amber-400" : void 0
-      }
-    ].map((c) => /* @__PURE__ */ jsxs(
-      "div",
-      {
-        className: "bg-paper p-6 lg:p-7 flex flex-col gap-2",
-        children: [
-          /* @__PURE__ */ jsx("p", { className: "font-mono text-[0.6rem] tracking-widest uppercase text-ink-faint", children: c.label }),
-          /* @__PURE__ */ jsx(
-            "p",
-            {
-              className: cn(
-                "font-serif text-5xl lg:text-6xl font-medium leading-none mt-1",
-                c.tone ?? "text-ink"
-              ),
-              children: c.value
-            }
-          ),
-          /* @__PURE__ */ jsx("p", { className: "text-xs text-ink mt-1", children: c.sub })
-        ]
-      },
-      c.label
-    )) }) }),
-    snap.recent.length > 0 && /* @__PURE__ */ jsxs("section", { className: "mb-12", children: [
-      /* @__PURE__ */ jsxs("div", { className: "flex items-baseline justify-between mb-4 border-b border-rule pb-3", children: [
-        /* @__PURE__ */ jsxs("p", { className: "editorial-mono-caption text-accent-text inline-flex items-center gap-2", children: [
-          /* @__PURE__ */ jsx(Clock, { className: "h-3.5 w-3.5" }),
-          " SISTE AKTIVITET"
-        ] }),
-        /* @__PURE__ */ jsx(
-          "a",
-          {
-            href: "/admin/intelligence/scans",
-            className: "font-mono text-[0.6rem] uppercase tracking-widest text-accent-text hover:underline decoration-hairline underline-offset-4",
-            children: "SE ALLE SKANNINGER ›"
-          }
-        )
-      ] }),
-      /* @__PURE__ */ jsx("div", { className: "grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-px bg-rule border border-rule", children: snap.recent.slice(0, 6).map((r) => /* @__PURE__ */ jsx(ActivityTile, { run: r }, r.id)) })
-    ] }),
-    /* @__PURE__ */ jsxs("section", { children: [
-      /* @__PURE__ */ jsxs("div", { className: "flex items-baseline justify-between mb-4 border-b border-rule pb-3", children: [
-        /* @__PURE__ */ jsx("p", { className: "editorial-mono-caption text-accent-text", children: "OVERFLATER" }),
-        /* @__PURE__ */ jsxs("p", { className: "font-mono text-[0.6rem] uppercase tracking-widest text-ink-faint", children: [
-          snap.targets.length,
-          " TOTALT · ",
-          activeCount,
-          " AKTIVE"
-        ] })
-      ] }),
-      /* @__PURE__ */ jsx("div", { className: "grid sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-px bg-rule border border-rule", children: snap.targets.map((t) => {
-        const runs = byTarget.get(t.name) ?? [];
-        const cardChecks = t.checks && t.checks.length > 0 ? t.checks : ["uptime", "seo", "a11y", "security", "links"];
-        const scores = cardChecks.map((type) => ({
-          type,
-          run: runs.find((r) => r.audit_type === type)
-        }));
-        const have = scores.filter((s) => s.run);
-        const overall = have.length === 0 ? null : Math.round(
-          have.reduce((sum, s) => {
-            var _a;
-            return sum + (((_a = s.run) == null ? void 0 : _a.avg_score) ?? 0);
-          }, 0) / have.length
-        );
-        const isRunning = running === t.name;
-        return /* @__PURE__ */ jsxs(
-          "div",
-          {
-            className: "bg-paper p-6 lg:p-7 flex flex-col gap-3",
-            children: [
-              /* @__PURE__ */ jsxs("header", { className: "flex items-center justify-between", children: [
-                /* @__PURE__ */ jsx("span", { className: "editorial-mono-caption text-accent-text", children: t.name.toUpperCase() }),
-                /* @__PURE__ */ jsxs(
-                  "span",
-                  {
-                    className: cn(
-                      "font-mono text-[0.55rem] tracking-widest inline-flex items-center gap-1",
-                      t.is_active ? "text-green-700" : "text-ink-faint"
-                    ),
-                    children: [
-                      /* @__PURE__ */ jsx(
-                        "span",
-                        {
-                          className: cn(
-                            "h-1.5 w-1.5 rounded-full",
-                            t.is_active ? "bg-green-700" : "bg-ink-faint"
-                          )
-                        }
-                      ),
-                      t.is_active ? "LIVE" : "INAKTIV"
-                    ]
-                  }
-                )
-              ] }),
-              /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap items-center gap-1.5", children: [
-                t.type && /* @__PURE__ */ jsx("span", { className: "font-mono text-[0.55rem] tracking-widest uppercase border border-hairline rounded-sm px-1.5 py-0.5 text-ink", children: SURFACE_LABEL[t.type] }),
-                t.environment && /* @__PURE__ */ jsx(
-                  "span",
-                  {
-                    className: cn(
-                      "font-mono text-[0.55rem] tracking-widest uppercase border rounded-sm px-1.5 py-0.5",
-                      t.environment === "production" ? "border-green-700 text-green-700" : t.environment === "staging" ? "border-amber-700 text-amber-700" : "border-hairline text-ink-faint"
-                    ),
-                    children: t.environment
-                  }
-                ),
-                t.requiresAuth && /* @__PURE__ */ jsx("span", { className: "font-mono text-[0.55rem] tracking-widest uppercase border border-hairline rounded-sm px-1.5 py-0.5 text-ink", children: "auth-only" })
-              ] }),
-              /* @__PURE__ */ jsxs(
-                "a",
-                {
-                  href: t.origin,
-                  target: "_blank",
-                  rel: "noopener",
-                  className: "font-serif text-xl text-ink leading-tight inline-flex items-center gap-1 hover:underline decoration-hairline underline-offset-4 group",
-                  style: { fontVariationSettings: '"opsz" 36, "wght" 540' },
-                  children: [
-                    t.label,
-                    /* @__PURE__ */ jsx(ArrowUpRight, { className: "h-3.5 w-3.5 text-ink-faint group-hover:text-accent-text transition-colors" })
-                  ]
-                }
-              ),
-              /* @__PURE__ */ jsx("p", { className: "text-sm text-ink leading-snug min-h-[2.5em]", children: t.description }),
-              /* @__PURE__ */ jsxs("div", { className: "flex items-baseline justify-between gap-2 mt-2 pt-3 border-t border-rule", children: [
-                /* @__PURE__ */ jsxs("div", { className: "flex items-baseline gap-2", children: [
-                  /* @__PURE__ */ jsx(
-                    "span",
-                    {
-                      className: cn(
-                        "font-serif text-5xl lg:text-6xl font-medium leading-none",
-                        scoreClass(overall)
-                      ),
-                      children: overall === null ? "—" : overall
-                    }
-                  ),
-                  /* @__PURE__ */ jsx("span", { className: "font-mono text-[0.6rem] uppercase tracking-widest text-ink-faint", children: "/ 100" })
-                ] }),
-                /* @__PURE__ */ jsx("span", { className: "font-mono text-[0.55rem] uppercase tracking-widest text-ink-faint", children: "OVERALL" })
-              ] }),
-              /* @__PURE__ */ jsx(
-                "div",
-                {
-                  className: "grid gap-px bg-rule border border-rule mt-1",
-                  style: {
-                    gridTemplateColumns: `repeat(${Math.min(scores.length, 5)}, minmax(0, 1fr))`
-                  },
-                  children: scores.map((s) => {
-                    var _a;
-                    return /* @__PURE__ */ jsxs("div", { className: "bg-paper px-2 py-2", children: [
-                      /* @__PURE__ */ jsx("p", { className: "font-mono text-[0.55rem] tracking-widest text-ink-faint", children: AUDIT_LABEL[s.type] }),
-                      /* @__PURE__ */ jsx(
-                        "p",
-                        {
-                          className: cn(
-                            "font-serif text-lg font-medium",
-                            scoreClass(((_a = s.run) == null ? void 0 : _a.avg_score) ?? null)
-                          ),
-                          children: s.run ? Math.round(s.run.avg_score) : "—"
-                        }
-                      )
-                    ] }, s.type);
-                  })
-                }
-              ),
-              /* @__PURE__ */ jsx(
-                "button",
-                {
-                  type: "button",
-                  onClick: () => runScan(t.name),
-                  disabled: !t.is_active || isRunning,
-                  className: cn(
-                    "mt-2 inline-flex items-center justify-center gap-2 rounded-sm px-3 py-2 text-xs uppercase tracking-widest font-medium transition-colors",
-                    t.is_active ? "bg-navy text-on-navy hover:bg-navy/90" : "bg-paper-deep text-ink-faint cursor-not-allowed",
-                    isRunning && "opacity-60"
-                  ),
-                  children: isRunning ? /* @__PURE__ */ jsxs(Fragment, { children: [
-                    /* @__PURE__ */ jsx(Loader2, { className: "h-3.5 w-3.5 animate-spin" }),
-                    "Skanner …"
-                  ] }) : /* @__PURE__ */ jsxs(Fragment, { children: [
-                    /* @__PURE__ */ jsx(Activity, { className: "h-3.5 w-3.5" }),
-                    "Kjør skanning"
-                  ] })
-                }
-              )
-            ]
-          },
-          t.name
-        );
-      }) })
-    ] })
-  ] });
-}
-function ActivityTile({ run }) {
-  const score = Math.round(run.avg_score);
-  const minutesAgo = Math.max(
-    0,
-    Math.round((Date.now() - new Date(run.started_at).getTime()) / 6e4)
-  );
-  const when = minutesAgo < 60 ? `${minutesAgo} min siden` : minutesAgo < 60 * 24 ? `${Math.round(minutesAgo / 60)}t siden` : `${Math.round(minutesAgo / (60 * 24))}d siden`;
-  return /* @__PURE__ */ jsxs("div", { className: "bg-paper p-4 flex flex-col gap-1.5", children: [
-    /* @__PURE__ */ jsxs("div", { className: "flex items-baseline justify-between", children: [
-      /* @__PURE__ */ jsx("span", { className: "editorial-mono-caption text-accent-text truncate", children: run.target_name.toUpperCase() }),
-      /* @__PURE__ */ jsx(
-        "span",
-        {
-          className: cn(
-            "font-mono text-[0.55rem] uppercase tracking-widest",
-            run.status === "ok" ? "text-green-700" : run.status === "error" ? "text-red-700" : "text-ink-faint"
-          ),
-          children: run.status
-        }
-      )
-    ] }),
-    /* @__PURE__ */ jsx("p", { className: "text-xs text-ink", children: AUDIT_LABEL[run.audit_type] }),
-    /* @__PURE__ */ jsxs("div", { className: "flex items-baseline justify-between mt-1 pt-2 border-t border-rule", children: [
-      /* @__PURE__ */ jsx(
-        "span",
-        {
-          className: cn(
-            "font-serif text-2xl font-medium tabular-nums leading-none",
-            scoreClass(run.avg_score)
-          ),
-          children: score
-        }
-      ),
-      /* @__PURE__ */ jsx("span", { className: "font-mono text-[0.55rem] uppercase tracking-widest text-ink-faint", children: when })
-    ] })
-  ] });
-}
-function Badge({
-  icon: Icon,
-  label,
-  value,
-  tone
-}) {
-  return /* @__PURE__ */ jsxs(
-    "div",
-    {
-      className: cn(
-        "inline-flex items-center gap-3 rounded-sm px-4 py-3 border",
-        tone === "good" && "bg-green-50 border-green-700/40 dark:bg-green-950/40",
-        tone === "warn" && "bg-amber-50 border-amber-700/40 dark:bg-amber-950/40",
-        tone === "bad" && "bg-red-50 border-red-700/40 dark:bg-red-950/40"
-      ),
-      children: [
-        /* @__PURE__ */ jsx(
-          Icon,
-          {
-            className: cn(
-              "h-4 w-4 flex-shrink-0",
-              tone === "good" && "text-green-700",
-              tone === "warn" && "text-amber-700",
-              tone === "bad" && "text-red-700"
-            )
-          }
-        ),
-        /* @__PURE__ */ jsxs("div", { className: "flex flex-col leading-tight", children: [
-          /* @__PURE__ */ jsx(
-            "span",
-            {
-              className: cn(
-                "font-mono text-[0.55rem] uppercase tracking-widest",
-                tone === "good" && "text-green-700 dark:text-green-400",
-                tone === "warn" && "text-amber-700 dark:text-amber-400",
-                tone === "bad" && "text-red-700 dark:text-red-400"
-              ),
-              children: label
-            }
-          ),
-          /* @__PURE__ */ jsx(
-            "span",
-            {
-              className: cn(
-                "font-serif text-lg font-medium",
-                tone === "good" && "text-green-700 dark:text-green-400",
-                tone === "warn" && "text-amber-700 dark:text-amber-400",
-                tone === "bad" && "text-red-700 dark:text-red-400"
-              ),
-              children: value
-            }
-          )
-        ] })
-      ]
-    }
-  );
-}
-function IntelligenceIssues() {
-  const { snap } = useOutletContext();
-  const [filter, setFilter] = useState(
-    "error"
-  );
-  const [surface, setSurface] = useState("all");
-  const [active, setActive] = useState(null);
-  const issues = (snap == null ? void 0 : snap.issues) ?? [];
-  const surfaces = useMemo(() => {
-    const s = /* @__PURE__ */ new Set();
-    for (const i of issues) s.add(i.surface);
-    return Array.from(s).sort();
-  }, [issues]);
-  const visible = useMemo(
-    () => issues.filter(
-      (i) => (filter === "all" || i.severity === filter) && (surface === "all" || i.surface === surface)
-    ),
-    [issues, filter, surface]
-  );
-  const counts = useMemo(
-    () => ({
-      all: issues.length,
-      error: issues.filter((i) => i.severity === "error").length,
-      warn: issues.filter((i) => i.severity === "warn").length,
-      info: issues.filter((i) => i.severity === "info").length
-    }),
-    [issues]
-  );
-  return /* @__PURE__ */ jsxs("div", { children: [
-    /* @__PURE__ */ jsxs("header", { className: "mb-10", children: [
-      /* @__PURE__ */ jsx("p", { className: "editorial-mono-caption text-accent-text mb-2", children: "ISSUE-FEED" }),
-      /* @__PURE__ */ jsx(
-        "h2",
-        {
-          className: "font-serif text-4xl lg:text-5xl xl:text-6xl text-ink leading-[1.04]",
-          style: { fontVariationSettings: '"opsz" 96, "wght" 480' },
-          children: "Hva gikk galt"
-        }
-      ),
-      /* @__PURE__ */ jsx("p", { className: "text-base text-ink mt-3 max-w-prose leading-relaxed", children: "Issue-feed på tvers av økosystemet, rangert etter alvorlighetsgrad. Klikk en rad for AI-anbefaling om fiks — automatisk generert med kontekst fra hele systemet." })
-    ] }),
-    /* @__PURE__ */ jsx("section", { className: "mb-10", children: /* @__PURE__ */ jsx("div", { className: "grid grid-cols-2 lg:grid-cols-4 gap-px bg-rule border border-rule", children: [
-      { key: "error", label: "Errors", tone: "text-red-700", sub: "Krever handling" },
-      { key: "warn", label: "Warnings", tone: "text-amber-700", sub: "Anbefalt utbedring" },
-      { key: "info", label: "Info", tone: void 0, sub: "Til kjennskap" },
-      { key: "all", label: "Totalt", tone: void 0, sub: "Alle issues" }
-    ].map((k) => /* @__PURE__ */ jsxs(
-      "button",
-      {
-        type: "button",
-        onClick: () => setFilter(k.key),
-        className: cn(
-          "bg-paper p-6 lg:p-7 flex flex-col gap-2 text-left transition-colors",
-          filter === k.key ? "ring-2 ring-navy ring-inset" : "hover:bg-paper-deep/40"
-        ),
-        children: [
-          /* @__PURE__ */ jsx("p", { className: "font-mono text-[0.6rem] tracking-widest uppercase text-ink-faint", children: k.label }),
-          /* @__PURE__ */ jsx(
-            "p",
-            {
-              className: cn(
-                "font-serif text-5xl lg:text-6xl font-medium leading-none mt-1",
-                k.tone ?? "text-ink",
-                counts[k.key] === 0 && "text-ink-faint"
-              ),
-              children: counts[k.key]
-            }
-          ),
-          /* @__PURE__ */ jsx("p", { className: "text-xs text-ink mt-1", children: k.sub })
-        ]
-      },
-      k.key
-    )) }) }),
-    /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-3 mb-5 items-end justify-between border-b border-rule pb-3", children: [
-      /* @__PURE__ */ jsxs("p", { className: "editorial-mono-caption text-accent-text", children: [
-        filter === "all" ? "ALLE ISSUES" : `${filter.toUpperCase()}-ISSUES`,
-        " ",
-        "· ",
-        visible.length,
-        " VISES"
-      ] }),
-      /* @__PURE__ */ jsx("div", { className: "flex items-end gap-2", children: /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsx("p", { className: "font-mono text-[0.6rem] uppercase tracking-widest text-ink-faint mb-1", children: "Overflate" }),
-        /* @__PURE__ */ jsxs(
-          "select",
-          {
-            value: surface,
-            onChange: (e) => setSurface(e.target.value),
-            className: "font-mono text-xs border border-hairline rounded-sm px-2 py-1.5 bg-paper text-ink",
-            children: [
-              /* @__PURE__ */ jsx("option", { value: "all", children: "Alle" }),
-              surfaces.map((s) => /* @__PURE__ */ jsx("option", { value: s, children: s }, s))
-            ]
-          }
-        )
-      ] }) })
-    ] }),
-    /* @__PURE__ */ jsx("div", { className: "border border-rule rounded-sm overflow-hidden", children: /* @__PURE__ */ jsxs("table", { className: "w-full text-sm", children: [
-      /* @__PURE__ */ jsx("thead", { className: "bg-paper-deep/40", children: /* @__PURE__ */ jsxs("tr", { children: [
-        /* @__PURE__ */ jsx("th", { className: "text-left px-4 py-3 editorial-mono-caption text-ink w-24", children: "Severity" }),
-        /* @__PURE__ */ jsx("th", { className: "text-left px-4 py-3 editorial-mono-caption text-ink", children: "Overflate" }),
-        /* @__PURE__ */ jsx("th", { className: "text-left px-4 py-3 editorial-mono-caption text-ink", children: "Kategori" }),
-        /* @__PURE__ */ jsx("th", { className: "text-left px-4 py-3 editorial-mono-caption text-ink", children: "Regel" }),
-        /* @__PURE__ */ jsx("th", { className: "text-left px-4 py-3 editorial-mono-caption text-ink", children: "Detalj" }),
-        /* @__PURE__ */ jsx("th", { className: "text-right px-4 py-3 editorial-mono-caption text-ink w-24", children: "Berørte" }),
-        /* @__PURE__ */ jsx("th", { className: "text-left px-4 py-3 editorial-mono-caption text-ink", children: "Sist sett" })
-      ] }) }),
-      /* @__PURE__ */ jsx("tbody", { children: visible.length === 0 ? /* @__PURE__ */ jsx("tr", { children: /* @__PURE__ */ jsx("td", { colSpan: 7, className: "px-4 py-8 text-center text-ink-faint", children: "Ingen issues på dette nivået — pent ryddet" }) }) : visible.map((issue, i) => /* @__PURE__ */ jsxs(
-        "tr",
-        {
-          className: "border-t border-rule hover:bg-paper-deep/40 cursor-pointer",
-          onClick: () => setActive(issue),
-          children: [
-            /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: /* @__PURE__ */ jsx(
-              "span",
-              {
-                className: cn(
-                  "font-mono text-[0.6rem] tracking-widest px-2 py-1 border rounded-sm uppercase font-medium",
-                  issue.severity === "error" ? "text-red-700 border-red-700 bg-red-50 dark:bg-red-950/30" : issue.severity === "warn" ? "text-amber-700 border-amber-700 bg-amber-50 dark:bg-amber-950/30" : "text-navy border-navy bg-paper-deep/60"
-                ),
-                children: issue.severity
-              }
-            ) }),
-            /* @__PURE__ */ jsxs("td", { className: "px-4 py-3 font-mono text-xs text-ink", children: [
-              /* @__PURE__ */ jsx("div", { children: issue.surface }),
-              issue.surfaceType && /* @__PURE__ */ jsx("div", { className: "text-[0.6rem] text-ink-faint uppercase tracking-widest mt-0.5", children: SURFACE_LABEL[issue.surfaceType] })
-            ] }),
-            /* @__PURE__ */ jsx("td", { className: "px-4 py-3 text-ink", children: AUDIT_LABEL[issue.auditType] }),
-            /* @__PURE__ */ jsx("td", { className: "px-4 py-3 font-mono text-xs text-ink", children: issue.rule }),
-            /* @__PURE__ */ jsx("td", { className: "px-4 py-3 text-ink leading-snug", children: /* @__PURE__ */ jsx("span", { className: "line-clamp-2", children: issue.message }) }),
-            /* @__PURE__ */ jsx("td", { className: "px-4 py-3 text-right font-mono text-base tabular-nums text-ink", children: issue.affected }),
-            /* @__PURE__ */ jsx("td", { className: "px-4 py-3 font-mono text-[0.65rem] text-ink-soft", children: new Date(issue.lastSeen).toLocaleString("nb-NO", {
-              dateStyle: "short",
-              timeStyle: "short"
-            }) })
-          ]
-        },
-        `${issue.surface}-${issue.rule}-${i}`
-      )) })
-    ] }) }),
-    active && /* @__PURE__ */ jsx(AiFixDrawer, { issue: active, onClose: () => setActive(null) })
-  ] });
-}
-function AiFixDrawer({
-  issue,
-  onClose
-}) {
-  const [recommendation, setRecommendation] = useState(
-    null
-  );
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  useEffect(() => {
-    let cancelled = false;
-    setLoading(true);
-    setError(null);
-    setRecommendation(null);
-    const auth = localStorage.getItem(AUTH_KEY);
-    fetch("/api/audits/recommend", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...auth ? { Authorization: `Basic ${auth}` } : {}
-      },
-      body: JSON.stringify({
-        rule: issue.rule,
-        severity: issue.severity,
-        message: issue.message,
-        auditType: issue.auditType,
-        surface: issue.surface,
-        url: issue.url,
-        affected: issue.affected
-      })
-    }).then(async (r) => {
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      return await r.json();
-    }).then((data) => {
-      if (!cancelled) setRecommendation(data);
-    }).catch((e) => {
-      if (!cancelled) setError(e instanceof Error ? e.message : String(e));
-    }).finally(() => {
-      if (!cancelled) setLoading(false);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [issue]);
-  useEffect(() => {
-    const onEsc = (e) => {
-      if (e.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", onEsc);
-    return () => window.removeEventListener("keydown", onEsc);
-  }, [onClose]);
-  return /* @__PURE__ */ jsx(
-    "div",
-    {
-      className: "fixed inset-0 z-[60] bg-ink/40 flex justify-end",
-      onClick: onClose,
-      children: /* @__PURE__ */ jsxs(
-        "aside",
-        {
-          className: "bg-paper w-full max-w-2xl h-full overflow-y-auto p-8 lg:p-10 shadow-2xl border-l border-hairline-strong",
-          onClick: (e) => e.stopPropagation(),
-          children: [
-            /* @__PURE__ */ jsxs("header", { className: "flex items-start justify-between gap-4 mb-6 pb-4 border-b border-rule", children: [
-              /* @__PURE__ */ jsxs("div", { children: [
-                /* @__PURE__ */ jsxs("p", { className: "editorial-mono-caption text-accent-text flex items-center gap-1.5", children: [
-                  /* @__PURE__ */ jsx(Sparkles, { className: "h-3.5 w-3.5" }),
-                  " AI-ANBEFALING"
-                ] }),
-                /* @__PURE__ */ jsx("h2", { className: "font-serif text-2xl text-ink mt-1 leading-tight", children: issue.rule }),
-                /* @__PURE__ */ jsxs("p", { className: "text-sm text-ink-soft mt-1", children: [
-                  issue.surface,
-                  " · ",
-                  issue.auditType,
-                  " ·",
-                  " ",
-                  /* @__PURE__ */ jsx(
-                    "span",
-                    {
-                      className: cn(
-                        "font-mono uppercase tracking-widest",
-                        issue.severity === "error" ? "text-red-700" : issue.severity === "warn" ? "text-amber-700" : "text-navy"
-                      ),
-                      children: issue.severity
-                    }
-                  )
-                ] })
-              ] }),
-              /* @__PURE__ */ jsx(
-                "button",
-                {
-                  type: "button",
-                  onClick: onClose,
-                  className: "rounded-sm p-1 hover:bg-paper-deep text-ink-soft",
-                  "aria-label": "Lukk",
-                  children: /* @__PURE__ */ jsx(X, { className: "h-5 w-5" })
-                }
-              )
-            ] }),
-            /* @__PURE__ */ jsxs("section", { className: "mb-6", children: [
-              /* @__PURE__ */ jsx("p", { className: "editorial-mono-caption text-ink-soft mb-2", children: "FAKTA" }),
-              /* @__PURE__ */ jsxs("dl", { className: "text-sm", children: [
-                /* @__PURE__ */ jsxs("div", { className: "flex gap-3 py-1 border-b border-rule", children: [
-                  /* @__PURE__ */ jsx("dt", { className: "font-mono text-xs text-ink-faint w-24", children: "Melding" }),
-                  /* @__PURE__ */ jsx("dd", { className: "flex-1 text-ink", children: issue.message })
-                ] }),
-                issue.url && /* @__PURE__ */ jsxs("div", { className: "flex gap-3 py-1 border-b border-rule", children: [
-                  /* @__PURE__ */ jsx("dt", { className: "font-mono text-xs text-ink-faint w-24", children: "URL" }),
-                  /* @__PURE__ */ jsx("dd", { className: "flex-1 text-ink font-mono text-xs break-all", children: issue.url })
-                ] }),
-                /* @__PURE__ */ jsxs("div", { className: "flex gap-3 py-1 border-b border-rule", children: [
-                  /* @__PURE__ */ jsx("dt", { className: "font-mono text-xs text-ink-faint w-24", children: "Berørte" }),
-                  /* @__PURE__ */ jsxs("dd", { className: "flex-1 text-ink", children: [
-                    issue.affected,
-                    " sider"
-                  ] })
-                ] })
-              ] })
-            ] }),
-            /* @__PURE__ */ jsx("section", { children: loading ? /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 text-ink-soft", children: [
-              /* @__PURE__ */ jsx(Loader2, { className: "h-4 w-4 animate-spin" }),
-              " Henter AI-anbefaling…"
-            ] }) : error ? /* @__PURE__ */ jsxs("div", { className: "border-l-2 border-red-700 bg-paper-deep/60 px-4 py-3", children: [
-              /* @__PURE__ */ jsx("p", { className: "editorial-mono-caption text-red-700 mb-1", children: "AI-feil" }),
-              /* @__PURE__ */ jsx("p", { className: "text-sm text-ink", children: error })
-            ] }) : recommendation ? /* @__PURE__ */ jsxs(Fragment, { children: [
-              /* @__PURE__ */ jsx("div", { className: "prose prose-sm max-w-none text-ink", children: renderMarkdown(recommendation.recommendation) }),
-              /* @__PURE__ */ jsxs("p", { className: "mt-6 pt-4 border-t border-rule font-mono text-[0.65rem] tracking-widest text-ink-faint", children: [
-                "Generert",
-                " ",
-                new Date(recommendation.generatedAt).toLocaleString("nb-NO"),
-                " ·",
-                " ",
-                recommendation.model
-              ] })
-            ] }) : null })
-          ]
-        }
-      )
-    }
-  );
-}
-function renderMarkdown(md) {
-  const lines = md.split(/\r?\n/);
-  const out = [];
-  let listBuffer = [];
-  const flushList = () => {
-    if (listBuffer.length > 0) {
-      out.push(
-        /* @__PURE__ */ jsx(
-          "ul",
-          {
-            className: "my-3 list-disc list-inside text-sm text-ink space-y-1",
-            children: listBuffer.map((item, i) => /* @__PURE__ */ jsx("li", { children: item }, i))
-          },
-          `ul-${out.length}`
-        )
-      );
-      listBuffer = [];
-    }
-  };
-  for (const raw of lines) {
-    const line = raw.trim();
-    if (line.startsWith("## ")) {
-      flushList();
-      out.push(
-        /* @__PURE__ */ jsx(
-          "h3",
-          {
-            className: "font-serif text-lg text-ink mt-5 mb-2",
-            children: line.slice(3)
-          },
-          `h-${out.length}`
-        )
-      );
-    } else if (line.startsWith("- ") || line.startsWith("* ")) {
-      listBuffer.push(line.slice(2));
-    } else if (line === "") {
-      flushList();
-    } else {
-      flushList();
-      out.push(
-        /* @__PURE__ */ jsx(
-          "p",
-          {
-            className: "text-sm text-ink leading-relaxed my-2",
-            children: line
-          },
-          `p-${out.length}`
-        )
-      );
-    }
-  }
-  flushList();
-  return out;
-}
-const HISTORY_KEY = "digilist-agent-history-v1";
-function loadHistory() {
-  if (typeof window === "undefined") return {};
-  try {
-    const raw = localStorage.getItem(HISTORY_KEY);
-    if (!raw) return {};
-    const parsed = JSON.parse(raw);
-    return typeof parsed === "object" && parsed !== null ? parsed : {};
-  } catch {
-    return {};
-  }
-}
-function saveHistory(history) {
-  if (typeof window === "undefined") return;
-  try {
-    localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
-  } catch {
-  }
-}
-const AGENT_FALLBACK = [
-  {
-    id: "triage",
-    name: "Triage-agent",
-    description: "Klassifiserer og prioriterer funn. Start her hvis du er usikker.",
-    icon: Sparkles
-  },
-  {
-    id: "sikkerhet",
-    name: "Sikkerhets-rådgiver",
-    description: "OWASP, headers, secrets, supply chain, ISO 27001.",
-    icon: ShieldCheck
-  },
-  {
-    id: "seo",
-    name: "SEO-strateg",
-    description: "Kommune-søk, SSA-L, AI-search, llms.txt, Schema.org.",
-    icon: Search
-  },
-  {
-    id: "wcag",
-    name: "WCAG-revisor",
-    description: "Universell utforming, WCAG 2.1 AA, Digdir Designsystemet.",
-    icon: Eye
-  },
-  {
-    id: "ytelse",
-    name: "Ytelses-ingeniør",
-    description: "Core Web Vitals, bundle size, caching, CDN.",
-    icon: Gauge
-  }
-];
-const ICONS = {
-  triage: Sparkles,
-  sikkerhet: ShieldCheck,
-  seo: Search,
-  wcag: Eye,
-  ytelse: Gauge
-};
-const SAMPLE_PROMPTS = {
-  triage: [
-    "Hvilke 3 funn bør jeg fikse først?",
-    "Er noen av disse en compliance-blokker for SSA-L?",
-    "Lag en handlingsplan for de neste 2 ukene.",
-    "Hva er forskjellen på warn og error i denne kategorien?"
-  ],
-  sikkerhet: [
-    "Hvilke security headers mangler vi?",
-    "Vurder CSP-en min — er den trygg å stramme inn?",
-    "Hvordan kommer jeg fra B til A+ på Mozilla Observatory?",
-    "Hvilke OWASP topp 10 risikoer ser du i økosystemet?"
-  ],
-  seo: [
-    "Hvordan rangerer jeg bedre for 'bookingsystem kommune'?",
-    "Lag et JSON-LD-skjema for /transparens-siden.",
-    "Hvilke sider bør vi optimalisere først for GEO?",
-    "Skriv en bedre meta description for /bruksomrader/moterom."
-  ],
-  wcag: [
-    "Hva er kontrastkravet for body-tekst på paper bakgrunn?",
-    "Hvilke feilkilder gir flest WCAG-issues i økosystemet?",
-    "Sjekk skip-to-main implementasjonen min mot SC 2.4.1.",
-    "Hvordan kvalifiserer vi for tilsyn etter UU-loven?"
-  ],
-  ytelse: [
-    "Hva er våre største ytelsesbottlenecks?",
-    "Hvordan reduserer jeg JS-bundle med 30%?",
-    "Anbefal en cache-strategi for /transparens.",
-    "Hva bør LCP være for å score grønt i Core Web Vitals?"
-  ]
-};
-function IntelligenceAgents() {
-  const { snap } = useOutletContext();
-  const [agents, setAgents] = useState(null);
-  const [history, setHistory] = useState(
-    () => loadHistory()
-  );
-  const [activeAgent, setActiveAgent] = useState("triage");
-  const [input, setInput] = useState("");
-  const [pending, setPending] = useState(false);
-  const [error, setError] = useState(null);
-  const endRef = useRef(null);
-  const messages = history[activeAgent] ?? [];
-  const updateMessages = (next) => {
-    setHistory((prev) => {
-      const updated = { ...prev, [activeAgent]: next };
-      saveHistory(updated);
-      return updated;
-    });
-  };
-  const clearActive = () => {
-    setHistory((prev) => {
-      const updated = { ...prev };
-      delete updated[activeAgent];
-      saveHistory(updated);
-      return updated;
-    });
-    setError(null);
-  };
-  useEffect(() => {
-    const auth = localStorage.getItem(AUTH_KEY);
-    fetch("/api/agents", {
-      headers: auth ? { Authorization: `Basic ${auth}` } : {}
-    }).then(async (r) => {
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      const data = await r.json();
-      setAgents(data.agents);
-    }).catch(
-      () => setAgents(
-        AGENT_FALLBACK.map(({ id, name, description }) => ({
-          id,
-          name,
-          description
-        }))
-      )
-    );
-  }, []);
-  useEffect(() => {
-    var _a;
-    (_a = endRef.current) == null ? void 0 : _a.scrollIntoView({ behavior: "smooth" });
-  }, [messages, pending]);
-  const buildContext = () => {
-    if (!snap) return "";
-    const lines = [];
-    if (snap.ecosystemSummary) {
-      const s = snap.ecosystemSummary;
-      lines.push(
-        `# Økosystem-rollup`,
-        `Aktive overflater: ${s.surfacesTotal} (${s.surfacesHealthy} sunne, ${s.surfacesWithErrors} med feil)`,
-        `Snittscore: ${Math.round(s.avgScore)}/100`,
-        `Errors: ${s.errorCount} · Warnings: ${s.warnCount} · Info: ${s.infoCount}`,
-        ""
-      );
-    }
-    if (snap.targets.length > 0) {
-      lines.push(`# Overflater (live)`);
-      for (const t of snap.targets.filter((x) => x.is_active)) {
-        const runs = (snap.latest || []).filter(
-          (r) => r.target_name === t.name
-        );
-        const scoreSummary = runs.length === 0 ? "ingen data" : runs.map((r) => `${r.audit_type}=${Math.round(r.avg_score)}`).join(" ");
-        lines.push(`- ${t.name} (${t.origin}): ${scoreSummary}`);
-      }
-      lines.push("");
-    }
-    const errs = (snap.issues || []).filter((i) => i.severity === "error").slice(0, 8);
-    if (errs.length > 0) {
-      lines.push(`# Topp errors (${errs.length})`);
-      for (const e of errs) {
-        lines.push(
-          `- [${e.surface}/${e.auditType}/${e.rule}] ${e.message} (${e.affected} berørte)`
-        );
-      }
-      lines.push("");
-    }
-    const warns = (snap.issues || []).filter((i) => i.severity === "warn").slice(0, 5);
-    if (warns.length > 0) {
-      lines.push(`# Topp warnings (${warns.length})`);
-      for (const w of warns) {
-        lines.push(
-          `- [${w.surface}/${w.auditType}/${w.rule}] ${w.message} (${w.affected} berørte)`
-        );
-      }
-    }
-    return lines.join("\n");
-  };
-  const send = async () => {
-    const text = input.trim();
-    if (!text || pending) return;
-    setInput("");
-    setError(null);
-    const next = [...messages, { role: "user", content: text }];
-    updateMessages(next);
-    setPending(true);
-    try {
-      const auth = localStorage.getItem(AUTH_KEY);
-      const res = await fetch("/api/agents/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          ...auth ? { Authorization: `Basic ${auth}` } : {}
-        },
-        body: JSON.stringify({
-          agent: activeAgent,
-          messages: next.map(({ role, content }) => ({ role, content })),
-          context: buildContext()
-        })
-      });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      updateMessages([
-        ...next,
-        {
-          role: "assistant",
-          content: data.text,
-          model: data.model,
-          thinking: data.thinking ?? null,
-          toolTrace: data.toolTrace ?? []
-        }
-      ]);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : String(e));
-    } finally {
-      setPending(false);
-    }
-  };
-  const onKeyDown = (e) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      void send();
-    }
-  };
-  const activeMeta = (agents == null ? void 0 : agents.find((a) => a.id === activeAgent)) ?? AGENT_FALLBACK.find((a) => a.id === activeAgent);
-  const switchAgent = (id) => {
-    if (id === activeAgent) return;
-    setActiveAgent(id);
-    setError(null);
-  };
-  return /* @__PURE__ */ jsxs("div", { children: [
-    /* @__PURE__ */ jsxs("header", { className: "mb-10", children: [
-      /* @__PURE__ */ jsx("p", { className: "editorial-mono-caption text-accent-text mb-2", children: "MULTI-AGENT" }),
-      /* @__PURE__ */ jsx(
-        "h2",
-        {
-          className: "font-serif text-4xl lg:text-5xl xl:text-6xl text-ink leading-[1.04]",
-          style: { fontVariationSettings: '"opsz" 96, "wght" 480' },
-          children: "AI-agenter"
-        }
-      ),
-      /* @__PURE__ */ jsx("p", { className: "text-base text-ink mt-3 max-w-prose leading-relaxed", children: "Spesialiserte AI-agenter med dyp domenekunnskap. Hver agent har egen systemprompt og kontekst — velg en agent som matcher problemstillingen din. Skift agent for å nullstille samtalen." })
-    ] }),
-    /* @__PURE__ */ jsxs("div", { className: "grid lg:grid-cols-[280px_1fr] gap-px bg-rule border border-rule min-h-[70vh]", children: [
-      /* @__PURE__ */ jsxs("aside", { className: "bg-paper p-5", children: [
-        /* @__PURE__ */ jsxs("header", { className: "mb-4", children: [
-          /* @__PURE__ */ jsxs("p", { className: "editorial-mono-caption text-accent-text flex items-center gap-1.5", children: [
-            /* @__PURE__ */ jsx(Bot, { className: "h-3.5 w-3.5" }),
-            " AGENTER"
-          ] }),
-          /* @__PURE__ */ jsx("h2", { className: "font-serif text-2xl text-ink mt-1 leading-tight", children: "Spesialister" })
-        ] }),
-        /* @__PURE__ */ jsx("ul", { className: "space-y-2", children: (agents ?? AGENT_FALLBACK).map((a) => {
-          var _a;
-          const Icon = ICONS[a.id] ?? Code2;
-          const isActive = a.id === activeAgent;
-          const isExpert = "tier" in a && a.tier === "expert";
-          const msgCount = ((_a = history[a.id]) == null ? void 0 : _a.length) ?? 0;
-          return /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsxs(
-            "button",
-            {
-              type: "button",
-              onClick: () => switchAgent(a.id),
-              className: cn(
-                "w-full text-left px-3 py-2.5 rounded-sm border transition-colors",
-                isActive ? "border-navy bg-navy/5" : "border-hairline hover:bg-paper-deep/60"
-              ),
-              children: [
-                /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 mb-1", children: [
-                  /* @__PURE__ */ jsx(
-                    Icon,
-                    {
-                      className: cn(
-                        "h-4 w-4",
-                        isActive ? "text-navy" : "text-ink-soft"
-                      )
-                    }
-                  ),
-                  /* @__PURE__ */ jsx(
-                    "span",
-                    {
-                      className: cn(
-                        "font-serif text-base font-medium flex-1",
-                        isActive ? "text-navy" : "text-ink"
-                      ),
-                      children: a.name
-                    }
-                  ),
-                  isExpert && /* @__PURE__ */ jsx("span", { className: "font-mono text-[0.5rem] uppercase tracking-widest bg-navy text-on-navy rounded-sm px-1.5 py-0.5 leading-none", children: "EKSPERT" })
-                ] }),
-                /* @__PURE__ */ jsx("p", { className: "text-xs text-ink-soft leading-snug", children: a.description }),
-                msgCount > 0 && /* @__PURE__ */ jsxs("p", { className: "font-mono text-[0.55rem] uppercase tracking-widest text-accent-text mt-1.5", children: [
-                  Math.ceil(msgCount / 2),
-                  " samtale",
-                  Math.ceil(msgCount / 2) === 1 ? "" : "r"
-                ] })
-              ]
-            }
-          ) }, a.id);
-        }) }),
-        /* @__PURE__ */ jsx("p", { className: "font-mono text-[0.6rem] uppercase tracking-widest text-ink-faint mt-6", children: "Samtaler lagres lokalt per agent — tilgjengelig neste gang du besøker." })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "bg-paper flex flex-col", children: [
-        /* @__PURE__ */ jsxs("header", { className: "px-6 py-4 border-b border-rule flex items-center justify-between gap-4", children: [
-          /* @__PURE__ */ jsxs("div", { className: "min-w-0", children: [
-            /* @__PURE__ */ jsx("p", { className: "editorial-mono-caption text-accent-text", children: "SAMTALE" }),
-            /* @__PURE__ */ jsx("h3", { className: "font-serif text-xl text-ink mt-0.5", children: (activeMeta == null ? void 0 : activeMeta.name) || activeAgent }),
-            /* @__PURE__ */ jsx("p", { className: "text-xs text-ink-soft truncate", children: activeMeta == null ? void 0 : activeMeta.description })
-          ] }),
-          /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3 flex-shrink-0", children: [
-            (snap == null ? void 0 : snap.ecosystemSummary) && /* @__PURE__ */ jsxs("div", { className: "hidden md:block text-right", children: [
-              /* @__PURE__ */ jsx("p", { className: "font-mono text-[0.6rem] uppercase tracking-widest text-ink-faint", children: "Kontekst" }),
-              /* @__PURE__ */ jsxs("p", { className: "text-xs text-ink-soft", children: [
-                snap.ecosystemSummary.errorCount,
-                " errors ·",
-                " ",
-                snap.ecosystemSummary.warnCount,
-                " warns"
-              ] })
-            ] }),
-            messages.length > 0 && /* @__PURE__ */ jsx(
-              "button",
-              {
-                type: "button",
-                onClick: clearActive,
-                className: "inline-flex items-center gap-1.5 font-mono text-[0.6rem] uppercase tracking-widest text-ink hover:bg-paper-deep border border-hairline rounded-sm px-2.5 py-1.5 transition-colors",
-                title: "Nullstill denne samtalen",
-                children: "Tøm samtale"
-              }
-            )
-          ] })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "flex-1 overflow-y-auto px-6 lg:px-8 py-6 space-y-4 min-h-[40vh] max-h-[64vh]", children: [
-          messages.length === 0 ? /* @__PURE__ */ jsxs("div", { className: "py-10", children: [
-            /* @__PURE__ */ jsx("p", { className: "editorial-mono-caption text-accent-text mb-3", children: "START SAMTALE" }),
-            /* @__PURE__ */ jsx(
-              "h4",
-              {
-                className: "font-serif text-3xl lg:text-4xl text-ink leading-tight mb-3 max-w-prose",
-                style: { fontVariationSettings: '"opsz" 72, "wght" 480' },
-                children: "Hva trenger du hjelp med?"
-              }
-            ),
-            /* @__PURE__ */ jsxs("p", { className: "text-base text-ink max-w-prose leading-relaxed mb-8", children: [
-              "Spør om et funn, en compliance-vurdering eller en fiks-strategi.",
-              " ",
-              activeMeta == null ? void 0 : activeMeta.name,
-              " har tilgang til dagens skanning som kontekst."
-            ] }),
-            /* @__PURE__ */ jsxs("div", { className: "border-t border-rule pt-6", children: [
-              /* @__PURE__ */ jsx("p", { className: "font-mono text-[0.6rem] uppercase tracking-widest text-ink-faint mb-3", children: "EKSEMPELSPØRSMÅL" }),
-              /* @__PURE__ */ jsx("div", { className: "grid sm:grid-cols-2 gap-px bg-rule border border-rule", children: (SAMPLE_PROMPTS[activeAgent] ?? SAMPLE_PROMPTS.triage).map(
-                (q) => /* @__PURE__ */ jsxs(
-                  "button",
-                  {
-                    type: "button",
-                    onClick: () => setInput(q),
-                    className: "bg-paper p-4 text-left text-sm text-ink hover:bg-paper-deep/40 leading-snug",
-                    children: [
-                      /* @__PURE__ */ jsx("span", { className: "font-mono text-[0.6rem] uppercase tracking-widest text-accent-text block mb-1", children: "PROMPT" }),
-                      q
-                    ]
-                  },
-                  q
-                )
-              ) }),
-              /* @__PURE__ */ jsx("p", { className: "font-mono text-[0.6rem] uppercase tracking-widest text-ink-faint mt-4", children: "Klikk for å fylle inn — rediger før du sender." })
-            ] })
-          ] }) : messages.map((m, i) => /* @__PURE__ */ jsxs(
-            "div",
-            {
-              className: cn(
-                "max-w-[90%]",
-                m.role === "user" ? "ml-auto" : "mr-auto"
-              ),
-              children: [
-                /* @__PURE__ */ jsx("p", { className: "font-mono text-[0.6rem] uppercase tracking-widest text-ink-faint mb-1", children: m.role === "user" ? "Du" : (activeMeta == null ? void 0 : activeMeta.name) || "Agent" }),
-                m.role === "assistant" && m.toolTrace && m.toolTrace.length > 0 && /* @__PURE__ */ jsx("div", { className: "mb-2 space-y-1", children: m.toolTrace.map((t, ti) => /* @__PURE__ */ jsx(
-                  "div",
-                  {
-                    className: "border-l-2 border-accent-text/60 bg-paper-deep/30 px-3 py-1.5 text-xs",
-                    children: /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-1.5", children: [
-                      /* @__PURE__ */ jsx(Wrench, { className: "h-3 w-3 text-accent-text" }),
-                      /* @__PURE__ */ jsx("span", { className: "font-mono text-[0.6rem] uppercase tracking-widest text-accent-text", children: t.tool }),
-                      /* @__PURE__ */ jsx("span", { className: "font-mono text-[0.6rem] text-ink-faint truncate", children: Object.entries(t.input).map(([k, v]) => `${k}=${v}`).join(" · ") })
-                    ] })
-                  },
-                  ti
-                )) }),
-                m.role === "assistant" && m.thinking && /* @__PURE__ */ jsxs("details", { className: "mb-2", children: [
-                  /* @__PURE__ */ jsxs("summary", { className: "cursor-pointer inline-flex items-center gap-1.5 font-mono text-[0.6rem] uppercase tracking-widest text-ink-soft hover:text-ink border border-hairline rounded-sm px-2 py-1", children: [
-                    /* @__PURE__ */ jsx(Brain, { className: "h-3 w-3" }),
-                    "Vis resonnement (",
-                    m.thinking.length.toLocaleString("nb-NO"),
-                    " ",
-                    "tegn)"
-                  ] }),
-                  /* @__PURE__ */ jsx("div", { className: "mt-2 px-3 py-2 bg-paper-deep/40 border-l-2 border-navy text-xs text-ink-soft whitespace-pre-wrap leading-relaxed", children: m.thinking })
-                ] }),
-                /* @__PURE__ */ jsx(
-                  "div",
-                  {
-                    className: cn(
-                      "rounded-sm px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap",
-                      m.role === "user" ? "bg-navy text-on-navy" : "bg-paper-deep/40 border border-rule text-ink"
-                    ),
-                    children: m.content
-                  }
-                ),
-                m.role === "assistant" && m.model && /* @__PURE__ */ jsx("p", { className: "font-mono text-[0.55rem] uppercase tracking-widest text-ink-faint mt-1 px-1", children: m.model.includes("sonnet") ? "Powered by Claude Sonnet 4.6 · extended thinking" : m.model.includes("haiku") ? "Powered by Claude Haiku 4.5" : `Powered by ${m.model}` })
-              ]
-            },
-            i
-          )),
-          pending && /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 text-ink-soft", children: [
-            /* @__PURE__ */ jsx(Loader2, { className: "h-4 w-4 animate-spin" }),
-            " Agenten skriver…"
-          ] }),
-          error && /* @__PURE__ */ jsxs("div", { className: "border-l-2 border-red-700 bg-paper-deep/60 px-4 py-3", children: [
-            /* @__PURE__ */ jsx("p", { className: "editorial-mono-caption text-red-700 mb-1", children: "FEIL" }),
-            /* @__PURE__ */ jsx("p", { className: "text-sm text-ink", children: error })
-          ] }),
-          /* @__PURE__ */ jsx("div", { ref: endRef })
-        ] }),
-        /* @__PURE__ */ jsxs("footer", { className: "border-t border-rule p-4 bg-paper", children: [
-          /* @__PURE__ */ jsxs("div", { className: "flex gap-2 items-end", children: [
-            /* @__PURE__ */ jsx(
-              "textarea",
-              {
-                value: input,
-                onChange: (e) => setInput(e.target.value),
-                onKeyDown,
-                placeholder: `Spør ${(activeMeta == null ? void 0 : activeMeta.name) || "agenten"}…`,
-                rows: 2,
-                className: "flex-1 border border-hairline rounded-sm px-3 py-2 text-sm bg-paper text-ink resize-none focus:outline-none focus:border-navy",
-                disabled: pending
-              }
-            ),
-            /* @__PURE__ */ jsxs(
-              "button",
-              {
-                type: "button",
-                onClick: () => void send(),
-                disabled: pending || !input.trim(),
-                className: cn(
-                  "inline-flex items-center gap-1.5 rounded-sm px-4 py-2 text-xs uppercase tracking-widest font-medium h-fit",
-                  pending || !input.trim() ? "bg-paper-deep text-ink-faint cursor-not-allowed" : "bg-navy text-on-navy hover:bg-navy/90"
-                ),
-                children: [
-                  /* @__PURE__ */ jsx(Send, { className: "h-3.5 w-3.5" }),
-                  "Send"
-                ]
-              }
-            )
-          ] }),
-          /* @__PURE__ */ jsx("p", { className: "text-[0.65rem] text-ink-faint mt-2 font-mono uppercase tracking-widest", children: "Enter sender · Shift+Enter ny linje" })
-        ] })
-      ] })
-    ] })
-  ] });
-}
-function IntelligenceCategoryPage({
-  auditType,
-  title,
-  description,
-  placeholder
-}) {
-  const { snap } = useOutletContext();
-  const runs = useMemo(
-    () => ((snap == null ? void 0 : snap.latest) ?? []).filter((r) => r.audit_type === auditType),
-    [snap, auditType]
-  );
-  const issues = useMemo(
-    () => ((snap == null ? void 0 : snap.issues) ?? []).filter((i) => i.auditType === auditType),
-    [snap, auditType]
-  );
-  if (!snap) {
-    return /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 text-ink-soft", children: [
-      /* @__PURE__ */ jsx(Loader2, { className: "h-4 w-4 animate-spin" }),
-      " Henter status…"
-    ] });
-  }
-  const avg = runs.length === 0 ? null : Math.round(
-    runs.reduce((s, r) => s + r.avg_score, 0) / runs.length
-  );
-  const errors = issues.filter((i) => i.severity === "error").length;
-  const warns = issues.filter((i) => i.severity === "warn").length;
-  const infos = issues.filter((i) => i.severity === "info").length;
-  const surfacesScanned = runs.length;
-  const surfaceMap = new Map(snap.targets.map((t) => [t.name, t]));
-  return /* @__PURE__ */ jsxs("div", { children: [
-    /* @__PURE__ */ jsxs("header", { className: "mb-10 flex flex-wrap items-end justify-between gap-6", children: [
-      /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsx("p", { className: "editorial-mono-caption text-accent-text mb-2", children: AUDIT_LABEL[auditType].toUpperCase() }),
-        /* @__PURE__ */ jsx(
-          "h2",
-          {
-            className: "font-serif text-4xl lg:text-5xl xl:text-6xl text-ink leading-[1.04]",
-            style: { fontVariationSettings: '"opsz" 96, "wght" 480' },
-            children: title
-          }
-        ),
-        /* @__PURE__ */ jsx("p", { className: "text-base text-ink mt-3 max-w-prose leading-relaxed", children: description })
-      ] }),
-      !placeholder && avg !== null && /* @__PURE__ */ jsx("div", { className: "flex items-center gap-3", children: /* @__PURE__ */ jsxs(
-        "div",
-        {
-          className: cn(
-            "inline-flex items-center gap-3 rounded-sm px-4 py-3 border",
-            avg >= 85 ? "bg-green-50 border-green-700/40 dark:bg-green-950/40" : avg >= 60 ? "bg-amber-50 border-amber-700/40 dark:bg-amber-950/40" : "bg-red-50 border-red-700/40 dark:bg-red-950/40"
-          ),
-          children: [
-            /* @__PURE__ */ jsx(
-              TrendingUp,
-              {
-                className: cn(
-                  "h-4 w-4 flex-shrink-0",
-                  avg >= 85 ? "text-green-700" : avg >= 60 ? "text-amber-700" : "text-red-700"
-                )
-              }
-            ),
-            /* @__PURE__ */ jsxs("div", { className: "flex flex-col leading-tight", children: [
-              /* @__PURE__ */ jsx(
-                "span",
-                {
-                  className: cn(
-                    "font-mono text-[0.55rem] uppercase tracking-widest",
-                    avg >= 85 ? "text-green-700 dark:text-green-400" : avg >= 60 ? "text-amber-700 dark:text-amber-400" : "text-red-700 dark:text-red-400"
-                  ),
-                  children: "KATEGORISNITT"
-                }
-              ),
-              /* @__PURE__ */ jsxs(
-                "span",
-                {
-                  className: cn(
-                    "font-serif text-2xl font-medium",
-                    scoreClass(avg)
-                  ),
-                  children: [
-                    avg,
-                    /* @__PURE__ */ jsx("span", { className: "font-mono text-xs ml-1 text-ink-faint", children: "/100" })
-                  ]
-                }
-              )
-            ] })
-          ]
-        }
-      ) })
-    ] }),
-    placeholder ? /* @__PURE__ */ jsx("div", { className: "border border-hairline rounded-sm p-10 bg-paper-deep/30 max-w-4xl", children: /* @__PURE__ */ jsxs("div", { className: "flex items-start gap-4", children: [
-      /* @__PURE__ */ jsx(Construction, { className: "h-8 w-8 text-accent-text flex-shrink-0" }),
-      /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsx("h3", { className: "font-serif text-2xl text-ink mb-2", children: "Under arbeid" }),
-        /* @__PURE__ */ jsxs("p", { className: "text-base text-ink max-w-prose leading-relaxed", children: [
-          "Denne auditoren krever ekstern infrastruktur (Lighthouse CI, Playwright + Chromium, eller Snyk/Dependabot API). Se",
-          " ",
-          /* @__PURE__ */ jsx("code", { className: "font-mono text-xs bg-paper-deep px-1.5 py-0.5 rounded-sm", children: "tools/site-intelligence/PLAN.md" }),
-          " ",
-          "for phaset roadmap."
-        ] })
-      ] })
-    ] }) }) : /* @__PURE__ */ jsxs(Fragment, { children: [
-      /* @__PURE__ */ jsx("section", { className: "mb-10", children: /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-2 lg:grid-cols-5 gap-px bg-rule border border-rule", children: [
-        /* @__PURE__ */ jsx(
-          Tile,
-          {
-            label: "Snittscore",
-            value: avg ?? "—",
-            tone: scoreClass(avg)
-          }
-        ),
-        /* @__PURE__ */ jsx(
-          Tile,
-          {
-            label: "Overflater",
-            value: surfacesScanned,
-            sub: `/${snap.targets.filter((t) => t.is_active).length} aktive`
-          }
-        ),
-        /* @__PURE__ */ jsx(
-          Tile,
-          {
-            label: "Errors",
-            value: errors,
-            tone: errors > 0 ? "text-red-700" : void 0
-          }
-        ),
-        /* @__PURE__ */ jsx(
-          Tile,
-          {
-            label: "Warnings",
-            value: warns,
-            tone: warns > 0 ? "text-amber-700" : void 0
-          }
-        ),
-        /* @__PURE__ */ jsx(Tile, { label: "Info", value: infos })
-      ] }) }),
-      /* @__PURE__ */ jsxs("section", { className: "mb-10", children: [
-        /* @__PURE__ */ jsxs("div", { className: "flex items-baseline justify-between mb-4 border-b border-rule pb-3", children: [
-          /* @__PURE__ */ jsx("p", { className: "editorial-mono-caption text-accent-text", children: "PER OVERFLATE" }),
-          /* @__PURE__ */ jsxs("p", { className: "font-mono text-[0.6rem] uppercase tracking-widest text-ink-faint", children: [
-            runs.length,
-            " SKANNINGER"
-          ] })
-        ] }),
-        /* @__PURE__ */ jsx("div", { className: "border border-rule rounded-sm overflow-hidden", children: /* @__PURE__ */ jsxs("table", { className: "w-full text-sm", children: [
-          /* @__PURE__ */ jsx("thead", { className: "bg-paper-deep/40", children: /* @__PURE__ */ jsxs("tr", { children: [
-            /* @__PURE__ */ jsx("th", { className: "text-left px-4 py-3 editorial-mono-caption text-ink", children: "Overflate" }),
-            /* @__PURE__ */ jsx("th", { className: "text-left px-4 py-3 editorial-mono-caption text-ink", children: "Type" }),
-            /* @__PURE__ */ jsx("th", { className: "text-right px-4 py-3 editorial-mono-caption text-ink", children: "Sider" }),
-            /* @__PURE__ */ jsx("th", { className: "text-right px-4 py-3 editorial-mono-caption text-ink", children: "Funn" }),
-            /* @__PURE__ */ jsx("th", { className: "text-left px-4 py-3 editorial-mono-caption text-ink min-w-[180px]", children: "Score" }),
-            /* @__PURE__ */ jsx("th", { className: "text-left px-4 py-3 editorial-mono-caption text-ink", children: "Sist kjørt" })
-          ] }) }),
-          /* @__PURE__ */ jsx("tbody", { children: runs.length === 0 ? /* @__PURE__ */ jsx("tr", { children: /* @__PURE__ */ jsx(
-            "td",
-            {
-              colSpan: 6,
-              className: "px-4 py-8 text-center text-ink-faint",
-              children: "Ingen skanninger ennå for denne kategorien."
-            }
-          ) }) : runs.map((r) => {
-            const target = surfaceMap.get(r.target_name);
-            const score = Math.round(r.avg_score);
-            return /* @__PURE__ */ jsxs(
-              "tr",
-              {
-                className: "border-t border-rule hover:bg-paper-deep/40",
-                children: [
-                  /* @__PURE__ */ jsxs("td", { className: "px-4 py-3", children: [
-                    /* @__PURE__ */ jsx("div", { className: "font-mono text-xs text-ink font-medium", children: r.target_name }),
-                    /* @__PURE__ */ jsx("div", { className: "text-xs text-ink-faint mt-0.5 truncate max-w-[28ch]", children: target == null ? void 0 : target.origin.replace(/^https?:\/\//, "") })
-                  ] }),
-                  /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: /* @__PURE__ */ jsx("span", { className: "font-mono text-[0.55rem] tracking-widest uppercase border border-hairline rounded-sm px-1.5 py-0.5 text-ink", children: (target == null ? void 0 : target.type) ? SURFACE_LABEL[target.type] : "—" }) }),
-                  /* @__PURE__ */ jsx("td", { className: "px-4 py-3 text-right font-mono text-xs text-ink tabular-nums", children: r.pages_scanned }),
-                  /* @__PURE__ */ jsx(
-                    "td",
-                    {
-                      className: cn(
-                        "px-4 py-3 text-right font-mono text-xs tabular-nums",
-                        r.findings_total === 0 ? "text-ink-faint" : "text-ink"
-                      ),
-                      children: r.findings_total
-                    }
-                  ),
-                  /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
-                    /* @__PURE__ */ jsx(
-                      "span",
-                      {
-                        className: cn(
-                          "font-serif text-2xl font-medium leading-none tabular-nums w-12",
-                          scoreClass(r.avg_score)
-                        ),
-                        children: score
-                      }
-                    ),
-                    /* @__PURE__ */ jsx("div", { className: "flex-1 h-1 bg-paper-deep rounded-sm overflow-hidden max-w-[120px]", children: /* @__PURE__ */ jsx(
-                      "div",
-                      {
-                        className: cn(
-                          "h-full transition-all",
-                          score >= 85 ? "bg-green-700" : score >= 60 ? "bg-amber-600" : "bg-red-700"
-                        ),
-                        style: { width: `${score}%` }
-                      }
-                    ) })
-                  ] }) }),
-                  /* @__PURE__ */ jsx("td", { className: "px-4 py-3 font-mono text-[0.65rem] text-ink-soft", children: new Date(r.started_at).toLocaleString("nb-NO", {
-                    dateStyle: "short",
-                    timeStyle: "short"
-                  }) })
-                ]
-              },
-              r.id
-            );
-          }) })
-        ] }) })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { children: [
-        /* @__PURE__ */ jsxs("div", { className: "flex items-baseline justify-between mb-4 border-b border-rule pb-3", children: [
-          /* @__PURE__ */ jsx("p", { className: "editorial-mono-caption text-accent-text", children: "FUNN" }),
-          /* @__PURE__ */ jsxs("p", { className: "font-mono text-[0.6rem] uppercase tracking-widest text-ink-faint", children: [
-            issues.length,
-            " REGISTRERT · ",
-            errors,
-            " ERR · ",
-            warns,
-            " WARN"
-          ] })
-        ] }),
-        /* @__PURE__ */ jsx("div", { className: "border border-rule rounded-sm overflow-hidden", children: /* @__PURE__ */ jsxs("table", { className: "w-full text-sm", children: [
-          /* @__PURE__ */ jsx("thead", { className: "bg-paper-deep/40", children: /* @__PURE__ */ jsxs("tr", { children: [
-            /* @__PURE__ */ jsx("th", { className: "text-left px-4 py-3 editorial-mono-caption text-ink w-24", children: "Severity" }),
-            /* @__PURE__ */ jsx("th", { className: "text-left px-4 py-3 editorial-mono-caption text-ink", children: "Overflate" }),
-            /* @__PURE__ */ jsx("th", { className: "text-left px-4 py-3 editorial-mono-caption text-ink", children: "Regel" }),
-            /* @__PURE__ */ jsx("th", { className: "text-left px-4 py-3 editorial-mono-caption text-ink", children: "Detalj" }),
-            /* @__PURE__ */ jsx("th", { className: "text-right px-4 py-3 editorial-mono-caption text-ink w-24", children: "Berørte" })
-          ] }) }),
-          /* @__PURE__ */ jsx("tbody", { children: issues.length === 0 ? /* @__PURE__ */ jsx("tr", { children: /* @__PURE__ */ jsx(
-            "td",
-            {
-              colSpan: 5,
-              className: "px-4 py-8 text-center text-ink-faint",
-              children: "Ingen funn — pent ryddet"
-            }
-          ) }) : issues.map((i, idx) => /* @__PURE__ */ jsxs(
-            "tr",
-            {
-              className: "border-t border-rule hover:bg-paper-deep/40",
-              children: [
-                /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: /* @__PURE__ */ jsx(
-                  "span",
-                  {
-                    className: cn(
-                      "font-mono text-[0.6rem] tracking-widest px-2 py-1 border rounded-sm uppercase font-medium",
-                      i.severity === "error" ? "text-red-700 border-red-700 bg-red-50 dark:bg-red-950/30" : i.severity === "warn" ? "text-amber-700 border-amber-700 bg-amber-50 dark:bg-amber-950/30" : "text-navy border-navy bg-paper-deep/60"
-                    ),
-                    children: i.severity
-                  }
-                ) }),
-                /* @__PURE__ */ jsx("td", { className: "px-4 py-3 font-mono text-xs text-ink", children: i.surface }),
-                /* @__PURE__ */ jsx("td", { className: "px-4 py-3 font-mono text-xs text-ink", children: i.rule }),
-                /* @__PURE__ */ jsx("td", { className: "px-4 py-3 text-ink leading-snug", children: /* @__PURE__ */ jsx("span", { className: "line-clamp-2", children: i.message }) }),
-                /* @__PURE__ */ jsx("td", { className: "px-4 py-3 text-right font-mono text-base tabular-nums text-ink", children: i.affected })
-              ]
-            },
-            idx
-          )) })
-        ] }) }),
-        issues.some((i) => i.severity === "error") && /* @__PURE__ */ jsxs("p", { className: "mt-3 text-xs text-ink-soft flex items-center gap-1.5", children: [
-          /* @__PURE__ */ jsx(AlertTriangle, { className: "h-3.5 w-3.5 text-red-700" }),
-          "Trenger forslag til fiks? Gå til",
-          " ",
-          /* @__PURE__ */ jsx(
-            "a",
-            {
-              href: "/admin/intelligence/issues",
-              className: "underline decoration-hairline underline-offset-4 hover:text-ink",
-              children: "Hva gikk galt"
-            }
-          ),
-          " ",
-          "for AI-anbefaling per rad."
-        ] })
-      ] })
-    ] })
-  ] });
-}
-function Tile({
-  label,
-  value,
-  tone,
-  sub
-}) {
-  return /* @__PURE__ */ jsxs("div", { className: "bg-paper p-6 lg:p-7 flex flex-col gap-2", children: [
-    /* @__PURE__ */ jsx("p", { className: "font-mono text-[0.6rem] tracking-widest uppercase text-ink-faint", children: label }),
-    /* @__PURE__ */ jsx(
-      "p",
-      {
-        className: cn(
-          "font-serif text-5xl lg:text-6xl font-medium leading-none mt-1",
-          tone ?? "text-ink"
-        ),
-        children: value
-      }
-    ),
-    sub && /* @__PURE__ */ jsx("p", { className: "font-mono text-[0.6rem] uppercase tracking-widest text-ink-faint mt-1", children: sub })
-  ] });
-}
-const HEADING_STYLE = '"opsz" 96, "wght" 480';
-function PageHeader({
-  caption,
-  title,
-  description
-}) {
-  return /* @__PURE__ */ jsxs("header", { className: "mb-10", children: [
-    /* @__PURE__ */ jsx("p", { className: "editorial-mono-caption text-accent-text mb-2", children: caption }),
-    /* @__PURE__ */ jsx(
-      "h2",
-      {
-        className: "font-serif text-4xl lg:text-5xl xl:text-6xl text-ink leading-[1.04]",
-        style: { fontVariationSettings: HEADING_STYLE },
-        children: title
-      }
-    ),
-    /* @__PURE__ */ jsx("p", { className: "text-base text-ink mt-3 max-w-prose leading-relaxed", children: description })
-  ] });
-}
-function IntelligenceScans() {
-  const { snap } = useOutletContext();
-  if (!snap) {
-    return /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 text-ink-soft", children: [
-      /* @__PURE__ */ jsx(Loader2, { className: "h-4 w-4 animate-spin" }),
-      " Henter…"
-    ] });
-  }
-  return /* @__PURE__ */ jsxs("div", { children: [
-    /* @__PURE__ */ jsx(
-      PageHeader,
-      {
-        caption: "HISTORIKK",
-        title: "Skanninger",
-        description: `De ${snap.recent.length} siste skanningene på tvers av kategorier og overflater, sortert kronologisk.`
-      }
-    ),
-    /* @__PURE__ */ jsx("div", { className: "border border-rule rounded-sm overflow-hidden", children: /* @__PURE__ */ jsxs("table", { className: "w-full text-sm", children: [
-      /* @__PURE__ */ jsx("thead", { className: "bg-paper-deep/40", children: /* @__PURE__ */ jsxs("tr", { children: [
-        /* @__PURE__ */ jsx("th", { className: "text-left px-4 py-3 editorial-mono-caption text-ink", children: "Mål" }),
-        /* @__PURE__ */ jsx("th", { className: "text-left px-4 py-3 editorial-mono-caption text-ink", children: "Type" }),
-        /* @__PURE__ */ jsx("th", { className: "text-left px-4 py-3 editorial-mono-caption text-ink", children: "Trigger" }),
-        /* @__PURE__ */ jsx("th", { className: "text-left px-4 py-3 editorial-mono-caption text-ink", children: "Startet" }),
-        /* @__PURE__ */ jsx("th", { className: "text-right px-4 py-3 editorial-mono-caption text-ink", children: "Sider" }),
-        /* @__PURE__ */ jsx("th", { className: "text-right px-4 py-3 editorial-mono-caption text-ink", children: "Funn" }),
-        /* @__PURE__ */ jsx("th", { className: "text-right px-4 py-3 editorial-mono-caption text-ink", children: "Score" }),
-        /* @__PURE__ */ jsx("th", { className: "text-left px-4 py-3 editorial-mono-caption text-ink", children: "Status" })
-      ] }) }),
-      /* @__PURE__ */ jsx("tbody", { children: snap.recent.map((r) => /* @__PURE__ */ jsxs(
-        "tr",
-        {
-          className: "border-t border-rule hover:bg-paper-deep/40",
-          children: [
-            /* @__PURE__ */ jsx("td", { className: "px-4 py-3 font-mono text-xs text-ink", children: r.target_name }),
-            /* @__PURE__ */ jsx("td", { className: "px-4 py-3 text-ink", children: AUDIT_LABEL[r.audit_type] }),
-            /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: /* @__PURE__ */ jsx("span", { className: "font-mono text-[0.6rem] uppercase tracking-widest border border-hairline rounded-sm px-1.5 py-0.5 text-ink", children: r.trigger }) }),
-            /* @__PURE__ */ jsx("td", { className: "px-4 py-3 font-mono text-[0.65rem] text-ink-soft", children: new Date(r.started_at).toLocaleString("nb-NO", {
-              dateStyle: "short",
-              timeStyle: "short"
-            }) }),
-            /* @__PURE__ */ jsx("td", { className: "px-4 py-3 text-right font-mono text-xs text-ink tabular-nums", children: r.pages_scanned }),
-            /* @__PURE__ */ jsx(
-              "td",
-              {
-                className: cn(
-                  "px-4 py-3 text-right font-mono text-xs tabular-nums",
-                  r.findings_total === 0 ? "text-ink-faint" : "text-ink"
-                ),
-                children: r.findings_total
-              }
-            ),
-            /* @__PURE__ */ jsx(
-              "td",
-              {
-                className: cn(
-                  "px-4 py-3 text-right font-serif text-xl font-medium tabular-nums",
-                  scoreClass(r.avg_score)
-                ),
-                children: Math.round(r.avg_score)
-              }
-            ),
-            /* @__PURE__ */ jsx("td", { className: "px-4 py-3 font-mono text-xs", children: r.status === "ok" ? /* @__PURE__ */ jsxs("span", { className: "text-green-700 inline-flex items-center gap-1", children: [
-              /* @__PURE__ */ jsx(CheckCircle2, { className: "h-3.5 w-3.5" }),
-              " ok"
-            ] }) : r.status === "error" ? /* @__PURE__ */ jsxs("span", { className: "text-red-700 inline-flex items-center gap-1", children: [
-              /* @__PURE__ */ jsx(AlertTriangle, { className: "h-3.5 w-3.5" }),
-              " error"
-            ] }) : /* @__PURE__ */ jsx("span", { className: "text-ink-faint", children: r.status }) })
-          ]
-        },
-        r.id
-      )) })
-    ] }) })
-  ] });
-}
-function IntelligenceSurfaces() {
-  const { snap } = useOutletContext();
-  if (!snap) {
-    return /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 text-ink-soft", children: [
-      /* @__PURE__ */ jsx(Loader2, { className: "h-4 w-4 animate-spin" }),
-      " Henter…"
-    ] });
-  }
-  return /* @__PURE__ */ jsxs("div", { children: [
-    /* @__PURE__ */ jsx(
-      PageHeader,
-      {
-        caption: "DOMAIN-INVENTAR",
-        title: "Overflater",
-        description: /* @__PURE__ */ jsxs(Fragment, { children: [
-          "Hver Digilist-overflate, dens type, miljø, og hvilke audits som er aktivert. Redigeres i",
-          " ",
-          /* @__PURE__ */ jsx("code", { className: "font-mono text-xs bg-paper-deep px-1.5 py-0.5 rounded-sm", children: "tools/site-intelligence/src/targets.ts" }),
-          ". UI-redigering kommer i en senere fase."
-        ] })
-      }
-    ),
-    /* @__PURE__ */ jsx("div", { className: "border border-rule rounded-sm overflow-hidden", children: /* @__PURE__ */ jsxs("table", { className: "w-full text-sm", children: [
-      /* @__PURE__ */ jsx("thead", { className: "bg-paper-deep/40", children: /* @__PURE__ */ jsxs("tr", { children: [
-        /* @__PURE__ */ jsx("th", { className: "text-left px-4 py-3 editorial-mono-caption text-ink", children: "Navn" }),
-        /* @__PURE__ */ jsx("th", { className: "text-left px-4 py-3 editorial-mono-caption text-ink", children: "Type" }),
-        /* @__PURE__ */ jsx("th", { className: "text-left px-4 py-3 editorial-mono-caption text-ink", children: "Miljø" }),
-        /* @__PURE__ */ jsx("th", { className: "text-left px-4 py-3 editorial-mono-caption text-ink", children: "Origin" }),
-        /* @__PURE__ */ jsx("th", { className: "text-left px-4 py-3 editorial-mono-caption text-ink", children: "Audits" }),
-        /* @__PURE__ */ jsx("th", { className: "text-left px-4 py-3 editorial-mono-caption text-ink", children: "Status" })
-      ] }) }),
-      /* @__PURE__ */ jsx("tbody", { children: snap.targets.map((t) => /* @__PURE__ */ jsxs(
-        "tr",
-        {
-          className: "border-t border-rule hover:bg-paper-deep/40",
-          children: [
-            /* @__PURE__ */ jsxs("td", { className: "px-4 py-3", children: [
-              /* @__PURE__ */ jsx("div", { className: "font-mono text-xs text-ink font-medium", children: t.name }),
-              /* @__PURE__ */ jsx("div", { className: "text-xs text-ink-soft mt-0.5", children: t.label })
-            ] }),
-            /* @__PURE__ */ jsx("td", { className: "px-4 py-3 text-ink", children: t.type ? SURFACE_LABEL[t.type] : "—" }),
-            /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: /* @__PURE__ */ jsx(
-              "span",
-              {
-                className: cn(
-                  "font-mono text-[0.6rem] tracking-widest uppercase border rounded-sm px-1.5 py-0.5",
-                  t.environment === "production" ? "border-green-700 text-green-700" : t.environment === "staging" ? "border-amber-700 text-amber-700" : "border-hairline text-ink-faint"
-                ),
-                children: t.environment ?? "?"
-              }
-            ) }),
-            /* @__PURE__ */ jsx("td", { className: "px-4 py-3 font-mono text-xs", children: /* @__PURE__ */ jsxs(
-              "a",
-              {
-                href: t.origin,
-                target: "_blank",
-                rel: "noopener noreferrer",
-                className: "text-accent-text hover:underline inline-flex items-center gap-1",
-                children: [
-                  t.origin.replace("https://", ""),
-                  /* @__PURE__ */ jsx(ExternalLink, { className: "h-3 w-3" })
-                ]
-              }
-            ) }),
-            /* @__PURE__ */ jsx("td", { className: "px-4 py-3 font-mono text-[0.6rem] uppercase tracking-widest text-ink", children: /* @__PURE__ */ jsx("div", { className: "flex flex-wrap gap-1", children: t.checks.map((c) => /* @__PURE__ */ jsx(
-              "span",
-              {
-                className: "border border-hairline rounded-sm px-1.5 py-0.5",
-                children: c
-              },
-              c
-            )) }) }),
-            /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: /* @__PURE__ */ jsxs(
-              "span",
-              {
-                className: cn(
-                  "font-mono text-[0.6rem] tracking-widest uppercase inline-flex items-center gap-1",
-                  t.is_active ? "text-green-700" : "text-ink-faint"
-                ),
-                children: [
-                  /* @__PURE__ */ jsx(
-                    "span",
-                    {
-                      className: cn(
-                        "h-1.5 w-1.5 rounded-full",
-                        t.is_active ? "bg-green-700" : "bg-ink-faint"
-                      )
-                    }
-                  ),
-                  t.is_active ? "ACTIVE" : "INAKTIV"
-                ]
-              }
-            ) })
-          ]
-        },
-        t.name
-      )) })
-    ] }) })
-  ] });
-}
-function IntelligenceSettings() {
-  const logout = () => {
-    localStorage.removeItem(AUTH_KEY);
-    window.location.reload();
-  };
-  return /* @__PURE__ */ jsxs("div", { children: [
-    /* @__PURE__ */ jsx(
-      PageHeader,
-      {
-        caption: "KONFIGURASJON",
-        title: "Innstillinger",
-        description: "Konfigurasjon av Intelligence Center. RBAC + audit-logg kommer i en senere fase — i dag bruker vi basic-auth."
-      }
-    ),
-    /* @__PURE__ */ jsxs("div", { className: "grid lg:grid-cols-2 gap-px bg-rule border border-rule", children: [
-      /* @__PURE__ */ jsxs("section", { className: "bg-paper p-7", children: [
-        /* @__PURE__ */ jsx("p", { className: "editorial-mono-caption text-accent-text mb-2", children: "SESJON" }),
-        /* @__PURE__ */ jsx("h3", { className: "font-serif text-2xl text-ink mb-3", children: "Innlogging" }),
-        /* @__PURE__ */ jsxs("p", { className: "text-base text-ink mb-5 leading-relaxed", children: [
-          "Tilgang er beskyttet av basic-auth, satt i",
-          " ",
-          /* @__PURE__ */ jsx("code", { className: "font-mono text-xs bg-paper-deep px-1.5 py-0.5 rounded-sm", children: "/etc/digilist-api.env" }),
-          " ",
-          "på VPS-en. Logger du ut må du logge inn på nytt for å se data."
-        ] }),
-        /* @__PURE__ */ jsx(
-          "button",
-          {
-            type: "button",
-            onClick: logout,
-            className: "rounded-sm border border-hairline-strong px-4 py-2 text-xs uppercase tracking-widest font-mono hover:bg-paper-deep",
-            children: "Logg ut"
-          }
-        )
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "bg-paper p-7", children: [
-        /* @__PURE__ */ jsx("p", { className: "editorial-mono-caption text-accent-text mb-2", children: "PLANLAGTE SKANNINGER" }),
-        /* @__PURE__ */ jsx("h3", { className: "font-serif text-2xl text-ink mb-3", children: "Cron" }),
-        /* @__PURE__ */ jsxs("dl", { className: "text-sm space-y-2 mb-4", children: [
-          /* @__PURE__ */ jsxs("div", { className: "flex justify-between border-b border-rule pb-2", children: [
-            /* @__PURE__ */ jsx("dt", { className: "text-ink", children: "Oppetid + SSL" }),
-            /* @__PURE__ */ jsx("dd", { className: "font-mono text-xs text-ink", children: "hver 15. min" })
-          ] }),
-          /* @__PURE__ */ jsxs("div", { className: "flex justify-between border-b border-rule pb-2", children: [
-            /* @__PURE__ */ jsx("dt", { className: "text-ink", children: "Full skanning" }),
-            /* @__PURE__ */ jsx("dd", { className: "font-mono text-xs text-ink", children: "daglig 03:15 UTC" })
-          ] })
-        ] }),
-        /* @__PURE__ */ jsx("p", { className: "text-xs text-ink-faint font-mono uppercase tracking-widest leading-relaxed", children: "systemd-timer · digilist-audit-uptime.timer + digilist-audit-full.timer" })
-      ] }),
-      /* @__PURE__ */ jsxs("section", { className: "bg-paper p-7 lg:col-span-2", children: [
-        /* @__PURE__ */ jsx("p", { className: "editorial-mono-caption text-accent-text mb-2", children: "ENDPOINTS" }),
-        /* @__PURE__ */ jsx("h3", { className: "font-serif text-2xl text-ink mb-4", children: "API" }),
-        /* @__PURE__ */ jsx("div", { className: "grid sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-3 text-sm font-mono text-xs", children: [
-          ["GET /api/audits/state", "snapshot (auth)"],
-          ["POST /api/audits/run", "trigger scan (auth)"],
-          ["POST /api/audits/recommend", "AI fix-anbefaling (auth)"],
-          ["POST /api/agents/chat", "specialist chat (auth)"],
-          ["GET /api/agents", "agent-katalog (auth)"],
-          ["GET /api/audits/public-summary", "public scores (no auth)"]
-        ].map(([endpoint, hint]) => /* @__PURE__ */ jsxs("div", { className: "border-l-2 border-hairline pl-3", children: [
-          /* @__PURE__ */ jsx("code", { className: "text-ink block", children: endpoint }),
-          /* @__PURE__ */ jsx("span", { className: "text-[0.65rem] text-ink-faint uppercase tracking-widest", children: hint })
-        ] }, endpoint)) })
-      ] })
-    ] })
-  ] });
-}
-function IntelligenceTransparensPreview() {
-  return /* @__PURE__ */ jsxs("div", { children: [
-    /* @__PURE__ */ jsx(
-      PageHeader,
-      {
-        caption: "PUBLIC PREVIEW",
-        title: "Offentlig rapport",
-        description: /* @__PURE__ */ jsxs(Fragment, { children: [
-          "Forhåndsvisning av den offentlige transparens-siden på",
-          " ",
-          /* @__PURE__ */ jsx("code", { className: "font-mono text-xs bg-paper-deep px-1.5 py-0.5 rounded-sm", children: "/transparens" }),
-          ". Den viser rolled-up scores per overflate uten finnings-detaljer eller URLs — trygg å dele med kommune-CIOer."
-        ] })
-      }
-    ),
-    /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3 mb-4", children: [
-      /* @__PURE__ */ jsxs(
-        "a",
-        {
-          href: "/transparens",
-          target: "_blank",
-          rel: "noopener",
-          className: "inline-flex items-center gap-1.5 rounded-sm bg-navy text-on-navy px-3 py-1.5 text-[0.65rem] uppercase tracking-widest font-medium hover:bg-navy/90",
-          children: [
-            "Åpne i ny fane",
-            /* @__PURE__ */ jsx(ExternalLink, { className: "h-3 w-3" })
-          ]
-        }
-      ),
-      /* @__PURE__ */ jsx("p", { className: "font-mono text-[0.65rem] uppercase tracking-widest text-ink-faint", children: "Live, no-auth, scrubbed" })
-    ] }),
-    /* @__PURE__ */ jsx(
-      "iframe",
-      {
-        src: "/transparens",
-        title: "Offentlig rapport",
-        className: "w-full h-[80vh] border border-rule rounded-sm bg-paper"
-      }
-    ),
-    /* @__PURE__ */ jsxs("p", { className: "text-sm text-ink mt-3 max-w-prose leading-relaxed", children: [
-      "Sender du denne lenken til en kommune-CIO er den åpen — ingen innlogging kreves. Hvis du vil endre hva som vises, rediger",
-      " ",
-      /* @__PURE__ */ jsx("code", { className: "font-mono text-xs bg-paper-deep px-1.5 py-0.5 rounded-sm", children: "src/pages/Transparens.tsx" }),
-      "."
-    ] })
-  ] });
-}
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
@@ -11569,1305 +9083,172 @@ const ScrollToTop = () => {
   }, [pathname, hash, key]);
   return null;
 };
-const STOPWORDS = /* @__PURE__ */ new Set([
-  "og",
-  "i",
-  "på",
-  "av",
-  "for",
-  "til",
-  "en",
-  "et",
-  "som",
-  "er",
-  "med",
-  "den",
-  "det",
-  "de",
-  "et",
-  "kan",
-  "du",
-  "vi",
-  "jeg",
-  "har",
-  "hva",
-  "om",
-  "hvor",
-  "når",
-  "hvordan",
-  "the",
-  "and",
-  "or",
-  "of",
-  "to",
-  "in",
-  "is",
-  "are",
-  "for",
-  "with",
-  "what",
-  "how",
-  "where",
-  "when",
-  "do",
-  "does"
-]);
-function tokenize(text) {
-  return text.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^\p{L}\p{N}\s]/gu, " ").split(/\s+/).filter((t) => t.length > 1 && !STOPWORDS.has(t));
-}
-function retrieve(query, k = 3) {
-  const qTokens = tokenize(query);
-  if (qTokens.length === 0) return [];
-  const hits = [];
-  for (const cat of FAQ_CATEGORIES) {
-    for (const entry of cat.questions) {
-      const haystack = [
-        entry.q,
-        entry.a,
-        ...entry.keywords ?? []
-      ].join(" ");
-      const hayTokens = tokenize(haystack);
-      let score = 0;
-      for (const t of qTokens) {
-        if (hayTokens.includes(t)) score += 2;
-        else if (hayTokens.some((h) => h.startsWith(t) || t.startsWith(h)))
-          score += 1;
-      }
-      for (const kw of entry.keywords ?? []) {
-        if (qTokens.some((t) => kw.toLowerCase().includes(t))) score += 3;
-      }
-      if (score > 0) {
-        hits.push({ q: entry.q, a: entry.a, category: cat.label, score });
-      }
-    }
-  }
-  hits.sort((a, b) => b.score - a.score);
-  return hits.slice(0, k);
-}
-function followUpSuggestions(lastHit) {
-  const generic = [
-    "Hvilke kunder bruker Digilist?",
-    "Datasuverenitet og GDPR",
-    "Snakk med en rådgiver"
-  ];
-  if (!lastHit) return generic;
-  const cat = FAQ_CATEGORIES.find((c) => c.label === lastHit.category);
-  if (cat) {
-    const siblings = cat.questions.filter((q) => q.q !== lastHit.q).slice(0, 2).map((q) => q.q);
-    return [...siblings, "Snakk med en rådgiver"];
-  }
-  return generic;
-}
-const FALLBACK_NO_MATCH = [
-  "Jeg fant ikke svar på det i kunnskapsbasen min. Vil du snakke med en rådgiver, eller skal jeg sende en forespørsel på dine vegne?",
-  "Hmm — jeg er ikke sikker på det. Vil du at jeg setter deg i kontakt med en rådgiver?",
-  "Det er utenfor det jeg vet. Skal jeg lage en kort forespørsel til teamet for deg?"
-];
-function answerFrom(hit) {
-  return hit.a;
-}
-function buildLLMContext(query, hits, history) {
-  const corpus = hits.map(
-    (h, i) => `[${i + 1}] (${h.category})
-Spørsmål: ${h.q}
-Svar: ${h.a}`
-  ).join("\n\n");
-  const system = `Du er Digilist-assistenten — en norsk AI-rådgiver for Digilist, en bookingplattform for norske utleiere og kommuner. Svar kort, presist og på norsk bokmål. Hold deg til informasjonen i KILDER nedenfor og henvis til /faq for utfyllende svar. Hvis du ikke vet svaret, foreslå at brukeren snakker med en rådgiver via skjemaet.
-
-KILDER:
-${corpus || "(ingen relevante treff i kunnskapsbasen)"}
-
-REGLER:
-- Svar maks 3 setninger.
-- Bruk norsk bokmål.
-- Hvis spørsmålet ikke kan besvares fra KILDER, si det ærlig og foreslå skjemaet.
-- Ikke fabriker pris, dato, navn eller tall som ikke står i KILDER.`;
-  return {
-    system,
-    messages: [
-      ...history.map((m) => ({
-        role: m.role === "user" ? "user" : "assistant",
-        content: m.text
-      })),
-      { role: "user", content: query }
-    ]
-  };
-}
-const FAQ_COUNT = allFAQEntries().length;
-const PERSONA_OPTIONS = [
-  {
-    value: "kommune",
-    label: "Norsk kommune",
-    hint: "Booking, sesongleie, SSA-L, ID-porten"
-  },
-  {
-    value: "utleier",
-    label: "Privat utleier",
-    hint: "Selskapslokale, kulturhus, idrettshall"
-  },
-  {
-    value: "annet",
-    label: "Annet",
-    hint: "Konsulent, partner, presse"
-  }
-];
-const TOPIC_SUGGESTIONS = {
-  kommune: [
-    "Pilot for kommunen",
-    "Tilbud i SSA-L 2026-anskaffelse",
-    "Migrasjon fra RCO booking",
-    "Sesongleie og lag/foreninger",
-    "ID-porten og EHF",
-    "Demo for ledergruppen"
-  ],
-  utleier: [
-    "Bookingplattform for selskapslokale",
-    "Bookingplattform for kulturhus",
-    "Bookingplattform for idrettsanlegg",
-    "Vipps og automatisk fakturering",
-    "Sambruk mellom rom og ressurser",
-    "Demo og pristilbud"
-  ],
-  annet: [
-    "Partnerskap og integrasjon",
-    "Presse og medieforespørsler",
-    "Rekruttering og åpne stillinger",
-    "Generell informasjon"
-  ]
-};
-function topicSuggestionsFor(persona) {
-  if (!persona) return [];
-  return TOPIC_SUGGESTIONS[persona];
-}
-function summarizeInquiry(draft) {
-  var _a;
-  const personaLabel = ((_a = PERSONA_OPTIONS.find((p) => p.value === draft.persona)) == null ? void 0 : _a.label) ?? "Ukjent";
-  return `${personaLabel} · ${draft.organization || "—"} · ${draft.topic}`;
-}
-const STORAGE_KEY = "digilist-chat-v1";
-const emptyDraft = {
-  persona: null,
-  topic: "",
-  organization: "",
-  name: "",
-  email: "",
-  phone: "",
-  message: "",
-  contextSummary: ""
-};
-const greeting = () => ({
-  id: cryptoId(),
-  role: "assistant",
-  text: `Hei — jeg er Digilist-assistenten. Jeg kan svare på spørsmål om plattformen vår basert på ${FAQ_COUNT} ofte stilte spørsmål, eller sette deg i kontakt med en rådgiver.`,
-  suggestions: [
-    "Hva er Digilist?",
-    "Pris for kommuner",
-    "SSA-L 2026",
-    "Pilot for kommune",
-    "Sesongleie",
-    "Book demo"
-  ],
-  timestamp: Date.now()
-});
-const initialState = () => ({
-  open: false,
-  mode: "chat",
-  messages: [greeting()],
-  inquiry: { ...emptyDraft },
-  thinking: false,
-  error: null
-});
-function reducer(state, action) {
-  switch (action.type) {
-    case "TOGGLE_OPEN":
-      return { ...state, open: action.value ?? !state.open };
-    case "SET_MODE":
-      return { ...state, mode: action.mode };
-    case "ADD_MESSAGE":
-      return { ...state, messages: [...state.messages, action.message] };
-    case "SET_THINKING":
-      return { ...state, thinking: action.value };
-    case "SET_DRAFT":
-      return { ...state, inquiry: { ...state.inquiry, ...action.patch } };
-    case "RESET":
-      return initialState();
-    case "SET_ERROR":
-      return { ...state, error: action.error };
-    case "HYDRATE":
-      return { ...action.state, open: false, thinking: false };
-    default:
-      return state;
-  }
-}
-function cryptoId() {
-  if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
-    return crypto.randomUUID();
-  }
-  return `m_${Math.random().toString(36).slice(2)}_${Date.now()}`;
-}
-function buildContextSummary(messages) {
-  return messages.slice(-8).map((m) => `${m.role === "user" ? "Bruker" : "Bot"}: ${m.text}`).join("\n");
-}
-const CHAT_ENDPOINT = "/api/chat";
-const INQUIRY_ENDPOINT = "/api/inquiry";
-function useChatbot() {
-  const [state, dispatch2] = useReducer(reducer, void 0, initialState);
-  useEffect(() => {
+const api = anyApi;
+componentsGeneric();
+const VISITOR_KEY = "digilist-rum-visitor-v1";
+const SKIP_PATH_PREFIXES = ["/admin/", "/blogg/preview/"];
+function getVisitorId() {
+  if (typeof sessionStorage === "undefined") return crypto.randomUUID();
+  let id = sessionStorage.getItem(VISITOR_KEY);
+  if (!id) {
+    id = crypto.randomUUID();
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        const persisted = JSON.parse(raw);
-        if (persisted.inquiry) {
-          dispatch2({ type: "SET_DRAFT", patch: persisted.inquiry });
-        }
-      }
+      sessionStorage.setItem(VISITOR_KEY, id);
     } catch {
     }
-  }, []);
-  useEffect(() => {
-    try {
-      localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify({ inquiry: state.inquiry })
-      );
-    } catch {
-    }
-  }, [state.inquiry]);
-  useEffect(() => {
-    if (typeof document === "undefined") return;
-    if (state.open && window.innerWidth < 768) {
-      const original = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = original;
-      };
-    }
-  }, [state.open]);
-  const toggle = useCallback((value) => {
-    dispatch2({ type: "TOGGLE_OPEN", value });
-  }, []);
-  const setMode = useCallback((mode) => {
-    dispatch2({ type: "SET_MODE", mode });
-  }, []);
-  const send = useCallback(
-    async (text) => {
-      var _a;
-      const trimmed = text.trim();
-      if (!trimmed) return;
-      const userMsg = {
-        id: cryptoId(),
-        role: "user",
-        text: trimmed,
-        timestamp: Date.now()
-      };
-      dispatch2({ type: "ADD_MESSAGE", message: userMsg });
-      dispatch2({ type: "SET_THINKING", value: true });
-      dispatch2({ type: "SET_ERROR", error: null });
-      const hits = retrieve(trimmed, 3);
-      try {
-        const history = state.messages.filter((m) => m.role !== "system").slice(-8).map((m) => ({ role: m.role, text: m.text }));
-        const ctx = buildLLMContext(trimmed, hits, history);
-        const res = await fetch(CHAT_ENDPOINT, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            system: ctx.system,
-            messages: ctx.messages,
-            hits
-          })
-        });
-        if (res.ok) {
-          const payload = await res.json();
-          if (payload == null ? void 0 : payload.text) {
-            const assistantMsg2 = {
-              id: cryptoId(),
-              role: "assistant",
-              text: payload.text,
-              sourceQ: (_a = hits[0]) == null ? void 0 : _a.q,
-              suggestions: followUpSuggestions(hits[0]),
-              showInquiryCta: hits.length === 0,
-              timestamp: Date.now()
-            };
-            dispatch2({ type: "ADD_MESSAGE", message: assistantMsg2 });
-            dispatch2({ type: "SET_THINKING", value: false });
-            return;
-          }
-        }
-      } catch (err) {
-      }
-      const top = hits[0];
-      let assistantMsg;
-      if (top && top.score >= 2) {
-        const lead = top.score >= 5 ? "" : "Basert på det jeg vet: ";
-        assistantMsg = {
-          id: cryptoId(),
-          role: "assistant",
-          text: `${lead}${answerFrom(top)}`,
-          sourceQ: top.q,
-          suggestions: followUpSuggestions(top),
-          timestamp: Date.now()
-        };
-      } else {
-        const fallback = FALLBACK_NO_MATCH[Math.floor(Math.random() * FALLBACK_NO_MATCH.length)];
-        assistantMsg = {
-          id: cryptoId(),
-          role: "assistant",
-          text: fallback,
-          suggestions: ["Send forespørsel", "Book demo"],
-          showInquiryCta: true,
-          showDemoCta: true,
-          timestamp: Date.now()
-        };
-      }
-      setTimeout(() => {
-        dispatch2({ type: "ADD_MESSAGE", message: assistantMsg });
-        dispatch2({ type: "SET_THINKING", value: false });
-      }, 250);
-    },
-    [state.messages]
-  );
-  const startInquiry = useCallback(() => {
-    dispatch2({
-      type: "SET_DRAFT",
-      patch: { contextSummary: buildContextSummary(state.messages) }
-    });
-    dispatch2({ type: "SET_MODE", mode: "inquiry-persona" });
-  }, [state.messages]);
-  const setPersona = useCallback((p) => {
-    dispatch2({ type: "SET_DRAFT", patch: { persona: p } });
-    dispatch2({ type: "SET_MODE", mode: "inquiry-topic" });
-  }, []);
-  const setTopic = useCallback((topic) => {
-    dispatch2({ type: "SET_DRAFT", patch: { topic } });
-    dispatch2({ type: "SET_MODE", mode: "inquiry-contact" });
-  }, []);
-  const updateDraft = useCallback((patch) => {
-    dispatch2({ type: "SET_DRAFT", patch });
-  }, []);
-  const submitInquiry = useCallback(async () => {
-    dispatch2({ type: "SET_THINKING", value: true });
-    dispatch2({ type: "SET_ERROR", error: null });
-    const payload = {
-      ...state.inquiry,
-      summary: summarizeInquiry(state.inquiry),
-      source: "chatbot",
-      page: typeof window !== "undefined" ? window.location.pathname : "/",
-      userAgent: typeof navigator !== "undefined" ? navigator.userAgent : "unknown",
-      timestamp: (/* @__PURE__ */ new Date()).toISOString()
-    };
-    try {
-      const res = await fetch(INQUIRY_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
-      if (!res.ok) throw new Error(`Inquiry endpoint returned ${res.status}`);
-      dispatch2({ type: "SET_THINKING", value: false });
-      dispatch2({ type: "SET_MODE", mode: "inquiry-success" });
-    } catch (err) {
-      console.error("[chatbot] /api/inquiry failed:", err);
-      dispatch2({ type: "SET_THINKING", value: false });
-      dispatch2({
-        type: "SET_ERROR",
-        error: "Vi fikk ikke sendt forespørselen. Prøv igjen, eller send e-post direkte til kontakt@digilist.no."
-      });
-    }
-  }, [state.inquiry]);
-  const reset = useCallback(() => {
-    dispatch2({ type: "RESET" });
-  }, []);
-  const isConfigured = useMemo(() => ({ llm: true, inquiry: true }), []);
-  return {
-    state,
-    toggle,
-    send,
-    setMode,
-    startInquiry,
-    setPersona,
-    setTopic,
-    updateDraft,
-    submitInquiry,
-    reset,
-    isConfigured
-  };
-}
-function MessageBubble({ message }) {
-  const isUser = message.role === "user";
-  const time = useMemo(
-    () => new Date(message.timestamp).toLocaleTimeString("nb-NO", {
-      hour: "2-digit",
-      minute: "2-digit"
-    }),
-    [message.timestamp]
-  );
-  return /* @__PURE__ */ jsx(
-    "div",
-    {
-      className: `flex ${isUser ? "justify-end" : "justify-start"} px-1`,
-      role: "article",
-      "aria-label": isUser ? "Din melding" : "Svar fra Digilist-assistenten",
-      children: /* @__PURE__ */ jsxs(
-        "div",
-        {
-          className: `max-w-[85%] rounded-sm border ${isUser ? "bg-navy text-on-navy border-navy" : "bg-paper text-ink border-hairline-strong"} px-4 py-3`,
-          children: [
-            !isUser && /* @__PURE__ */ jsx("div", { className: "editorial-mono-caption text-accent-text mb-1.5", children: "DIGILIST-ASSISTENT" }),
-            /* @__PURE__ */ jsx(
-              "p",
-              {
-                className: `whitespace-pre-wrap leading-relaxed ${isUser ? "text-sm" : "text-base"}`,
-                style: isUser ? void 0 : {
-                  fontFamily: '"Fraunces", Georgia, serif',
-                  fontVariationSettings: getFraunces("sub"),
-                  letterSpacing: "-0.005em"
-                },
-                children: message.text
-              }
-            ),
-            message.sourceQ && !isUser && /* @__PURE__ */ jsxs("p", { className: "mt-2 pt-2 border-t border-rule editorial-mono-caption text-ink-faint", children: [
-              "Kilde: ",
-              message.sourceQ
-            ] }),
-            /* @__PURE__ */ jsx(
-              "div",
-              {
-                className: `mt-2 text-[10px] tracking-widest tabular-nums font-mono ${isUser ? "text-on-navy/70" : "text-ink-faint"}`,
-                children: time
-              }
-            )
-          ]
-        }
-      )
-    }
-  );
-}
-function QuickReplies({ suggestions, onPick, disabled }) {
-  if (suggestions.length === 0) return null;
-  return /* @__PURE__ */ jsx(
-    "div",
-    {
-      role: "group",
-      "aria-label": "Forslag til neste spørsmål",
-      className: "flex flex-wrap gap-2 px-1",
-      children: suggestions.map((s) => /* @__PURE__ */ jsxs(
-        "button",
-        {
-          type: "button",
-          disabled,
-          onClick: () => onPick(s),
-          className: "group inline-flex items-center gap-1.5 border border-hairline-strong bg-paper px-3 py-1.5 rounded-sm text-sm text-ink hover:bg-paper-deep hover:border-ink transition-colors disabled:opacity-50 disabled:cursor-not-allowed",
-          children: [
-            /* @__PURE__ */ jsx("span", { children: s }),
-            /* @__PURE__ */ jsx(
-              ArrowUpRight,
-              {
-                className: "h-3 w-3 text-accent-text transition-transform duration-quick ease-editorial group-hover:translate-x-0.5 group-hover:-translate-y-0.5",
-                "aria-hidden": "true"
-              }
-            )
-          ]
-        },
-        s
-      ))
-    }
-  );
-}
-function InquiryFlow({
-  mode,
-  draft,
-  thinking,
-  error,
-  onSetPersona,
-  onSetTopic,
-  onUpdate,
-  onBack,
-  onSubmit,
-  onClose
-}) {
-  const topics = useMemo(
-    () => topicSuggestionsFor(draft.persona),
-    [draft.persona]
-  );
-  const [customTopic, setCustomTopic] = useState("");
-  if (mode === "inquiry-success") {
-    return /* @__PURE__ */ jsxs("div", { className: "p-6 lg:p-8 flex flex-col items-start gap-5", children: [
-      /* @__PURE__ */ jsx("span", { className: "inline-flex items-center justify-center w-14 h-14 border border-hairline-strong rounded-sm text-accent-text", children: /* @__PURE__ */ jsx(CheckCircle2, { className: "h-7 w-7", strokeWidth: 1.5 }) }),
-      /* @__PURE__ */ jsxs(
-        "h3",
-        {
-          className: "font-serif text-2xl lg:text-3xl text-ink",
-          style: {
-            fontVariationSettings: getFraunces("sub"),
-            letterSpacing: "-0.015em"
-          },
-          children: [
-            "Takk — vi er på",
-            " ",
-            /* @__PURE__ */ jsx(
-              "em",
-              {
-                className: "italic",
-                style: {
-                  fontVariationSettings: '"opsz" 36, "wght" 420, "SOFT" 60'
-                },
-                children: "saken."
-              }
-            )
-          ]
-        }
-      ),
-      /* @__PURE__ */ jsx("p", { className: "text-base text-ink-soft leading-relaxed", children: "Vi har mottatt forespørselen din og svarer normalt innen én arbeidsdag. Hold gjerne et øye med innboksen din." }),
-      /* @__PURE__ */ jsx(
-        "button",
-        {
-          type: "button",
-          onClick: onClose,
-          className: "mt-2 inline-flex items-center gap-2 border border-hairline-strong bg-paper px-4 py-2 rounded-sm text-sm text-ink hover:bg-paper-deep hover:border-ink transition-colors",
-          children: "Lukk"
-        }
-      )
-    ] });
   }
-  return /* @__PURE__ */ jsxs("div", { className: "p-6 lg:p-8 flex flex-col gap-6", children: [
-    /* @__PURE__ */ jsxs("div", { className: "flex items-baseline justify-between", children: [
-      /* @__PURE__ */ jsxs(
-        "button",
-        {
-          type: "button",
-          onClick: onBack,
-          className: "inline-flex items-center gap-1.5 editorial-mono-caption text-ink-faint hover:text-ink transition-colors",
-          children: [
-            /* @__PURE__ */ jsx(ArrowLeft, { className: "h-3 w-3", "aria-hidden": "true" }),
-            "Tilbake"
-          ]
-        }
-      ),
-      /* @__PURE__ */ jsx("span", { className: "editorial-mono-caption text-accent-text", children: mode === "inquiry-persona" ? "STEG 1 / 3" : mode === "inquiry-topic" ? "STEG 2 / 3" : "STEG 3 / 3" })
-    ] }),
-    mode === "inquiry-persona" && /* @__PURE__ */ jsxs("fieldset", { className: "flex flex-col gap-4", children: [
-      /* @__PURE__ */ jsxs(
-        "legend",
-        {
-          className: "font-serif text-2xl lg:text-3xl text-ink mb-3",
-          style: {
-            fontVariationSettings: getFraunces("sub"),
-            letterSpacing: "-0.015em"
-          },
-          children: [
-            "Hvem",
-            " ",
-            /* @__PURE__ */ jsx(
-              "em",
-              {
-                className: "italic",
-                style: {
-                  fontVariationSettings: '"opsz" 36, "wght" 420, "SOFT" 60'
-                },
-                children: "spør"
-              }
-            ),
-            "?"
-          ]
-        }
-      ),
-      /* @__PURE__ */ jsx("div", { className: "grid gap-3", children: PERSONA_OPTIONS.map((p) => /* @__PURE__ */ jsxs(
-        "button",
-        {
-          type: "button",
-          onClick: () => onSetPersona(p.value),
-          className: "group flex items-center justify-between text-left border border-hairline-strong bg-paper p-4 rounded-sm hover:bg-paper-deep hover:border-ink transition-colors",
-          children: [
-            /* @__PURE__ */ jsxs("div", { children: [
-              /* @__PURE__ */ jsx(
-                "div",
-                {
-                  className: "font-serif text-lg text-ink",
-                  style: {
-                    fontVariationSettings: getFraunces("sub")
-                  },
-                  children: p.label
-                }
-              ),
-              /* @__PURE__ */ jsx("div", { className: "text-xs text-ink-faint mt-0.5", children: p.hint })
-            ] }),
-            /* @__PURE__ */ jsx(
-              ArrowRight,
-              {
-                className: "h-4 w-4 text-accent-text transition-transform duration-quick ease-editorial group-hover:translate-x-1",
-                "aria-hidden": "true"
-              }
-            )
-          ]
-        },
-        p.value
-      )) })
-    ] }),
-    mode === "inquiry-topic" && /* @__PURE__ */ jsxs("div", { className: "flex flex-col gap-4", children: [
-      /* @__PURE__ */ jsxs(
-        "h3",
-        {
-          className: "font-serif text-2xl lg:text-3xl text-ink",
-          style: {
-            fontVariationSettings: getFraunces("sub"),
-            letterSpacing: "-0.015em"
-          },
-          children: [
-            "Hva trenger du",
-            " ",
-            /* @__PURE__ */ jsx(
-              "em",
-              {
-                className: "italic",
-                style: {
-                  fontVariationSettings: '"opsz" 36, "wght" 420, "SOFT" 60'
-                },
-                children: "hjelp med"
-              }
-            ),
-            "?"
-          ]
-        }
-      ),
-      /* @__PURE__ */ jsx("div", { className: "grid gap-2.5", children: topics.map((t) => /* @__PURE__ */ jsxs(
-        "button",
-        {
-          type: "button",
-          onClick: () => onSetTopic(t),
-          className: "group flex items-center justify-between text-left border border-hairline-strong bg-paper px-4 py-2.5 rounded-sm hover:bg-paper-deep hover:border-ink transition-colors",
-          children: [
-            /* @__PURE__ */ jsx("span", { className: "text-sm lg:text-base text-ink", children: t }),
-            /* @__PURE__ */ jsx(
-              ArrowRight,
-              {
-                className: "h-3.5 w-3.5 text-accent-text transition-transform duration-quick ease-editorial group-hover:translate-x-1",
-                "aria-hidden": "true"
-              }
-            )
-          ]
-        },
-        t
-      )) }),
-      /* @__PURE__ */ jsxs("div", { className: "border-t border-rule pt-4", children: [
-        /* @__PURE__ */ jsx(
-          "label",
-          {
-            htmlFor: "chat-custom-topic",
-            className: "editorial-mono-caption text-ink-faint mb-2 block",
-            children: "ELLER SKRIV DITT EGET"
-          }
-        ),
-        /* @__PURE__ */ jsxs("div", { className: "flex gap-2", children: [
-          /* @__PURE__ */ jsx(
-            "input",
-            {
-              id: "chat-custom-topic",
-              type: "text",
-              value: customTopic,
-              onChange: (e) => setCustomTopic(e.target.value),
-              placeholder: "Hva trenger du hjelp med?",
-              className: "flex-1 border border-hairline-strong bg-paper px-3 py-2 rounded-sm text-sm text-ink focus:outline-none focus:border-ink"
-            }
-          ),
-          /* @__PURE__ */ jsx(
-            "button",
-            {
-              type: "button",
-              disabled: !customTopic.trim(),
-              onClick: () => onSetTopic(customTopic.trim()),
-              className: "inline-flex items-center justify-center px-3 py-2 bg-navy text-on-navy rounded-sm hover:bg-navy/90 transition-colors disabled:opacity-40",
-              children: /* @__PURE__ */ jsx(ArrowRight, { className: "h-4 w-4", "aria-hidden": "true" })
-            }
-          )
-        ] })
-      ] })
-    ] }),
-    mode === "inquiry-contact" && /* @__PURE__ */ jsxs(
-      "form",
-      {
-        onSubmit: (e) => {
-          e.preventDefault();
-          onSubmit();
-        },
-        className: "flex flex-col gap-4",
-        noValidate: true,
-        children: [
-          /* @__PURE__ */ jsxs(
-            "h3",
-            {
-              className: "font-serif text-2xl lg:text-3xl text-ink",
-              style: {
-                fontVariationSettings: getFraunces("sub"),
-                letterSpacing: "-0.015em"
-              },
-              children: [
-                "Hvor kan vi nå",
-                " ",
-                /* @__PURE__ */ jsx(
-                  "em",
-                  {
-                    className: "italic",
-                    style: {
-                      fontVariationSettings: '"opsz" 36, "wght" 420, "SOFT" 60'
-                    },
-                    children: "deg"
-                  }
-                ),
-                "?"
-              ]
-            }
-          ),
-          /* @__PURE__ */ jsxs("p", { className: "editorial-mono-caption text-ink-faint", children: [
-            draft.persona === "kommune" ? "KOMMUNE-FORESPØRSEL" : draft.persona === "utleier" ? "UTLEIER-FORESPØRSEL" : "GENERELL FORESPØRSEL",
-            " ",
-            "· ",
-            draft.topic
-          ] }),
-          /* @__PURE__ */ jsx(
-            Field,
-            {
-              label: "Organisasjon eller kommune",
-              id: "chat-org",
-              required: true,
-              value: draft.organization,
-              onChange: (v) => onUpdate({ organization: v }),
-              placeholder: draft.persona === "kommune" ? "F.eks. Nordre Follo kommune" : "F.eks. Rønningen Selskapslokale",
-              autoComplete: "organization"
-            }
-          ),
-          /* @__PURE__ */ jsx(
-            Field,
-            {
-              label: "Navn",
-              id: "chat-name",
-              required: true,
-              value: draft.name,
-              onChange: (v) => onUpdate({ name: v }),
-              autoComplete: "name"
-            }
-          ),
-          /* @__PURE__ */ jsx(
-            Field,
-            {
-              label: "E-post",
-              id: "chat-email",
-              type: "email",
-              required: true,
-              value: draft.email,
-              onChange: (v) => onUpdate({ email: v }),
-              autoComplete: "email"
-            }
-          ),
-          /* @__PURE__ */ jsx(
-            Field,
-            {
-              label: "Telefon (valgfritt)",
-              id: "chat-phone",
-              type: "tel",
-              value: draft.phone,
-              onChange: (v) => onUpdate({ phone: v }),
-              autoComplete: "tel"
-            }
-          ),
-          /* @__PURE__ */ jsxs("div", { children: [
-            /* @__PURE__ */ jsx(
-              "label",
-              {
-                htmlFor: "chat-message",
-                className: "editorial-mono-caption text-ink-faint mb-1.5 block",
-                children: "MELDING (VALGFRITT)"
-              }
-            ),
-            /* @__PURE__ */ jsx(
-              "textarea",
-              {
-                id: "chat-message",
-                rows: 3,
-                value: draft.message,
-                onChange: (e) => onUpdate({ message: e.target.value }),
-                placeholder: "Detaljer om behov, tidslinje eller spørsmål…",
-                className: "w-full border border-hairline-strong bg-paper px-3 py-2 rounded-sm text-sm text-ink focus:outline-none focus:border-ink resize-y"
-              }
-            )
-          ] }),
-          error && /* @__PURE__ */ jsx(
-            "div",
-            {
-              role: "alert",
-              className: "border border-hairline-strong bg-paper-deep px-3 py-2 rounded-sm text-sm text-ink",
-              children: error
-            }
-          ),
-          /* @__PURE__ */ jsx(
-            "button",
-            {
-              type: "submit",
-              disabled: thinking || !draft.organization.trim() || !draft.name.trim() || !draft.email.trim(),
-              className: "inline-flex items-center justify-center gap-2 bg-navy text-on-navy px-5 py-3 rounded-sm font-serif text-base disabled:opacity-50",
-              style: { fontVariationSettings: getFraunces("sub") },
-              children: thinking ? /* @__PURE__ */ jsx("span", { children: "Sender …" }) : /* @__PURE__ */ jsxs(Fragment, { children: [
-                /* @__PURE__ */ jsx(Send, { className: "h-4 w-4", "aria-hidden": "true" }),
-                /* @__PURE__ */ jsx("span", { children: "Send forespørsel" })
-              ] })
-            }
-          ),
-          /* @__PURE__ */ jsxs("p", { className: "editorial-mono-caption text-ink-faint", children: [
-            "VED Å SENDE GODTAR DU",
-            " ",
-            /* @__PURE__ */ jsx(
-              "a",
-              {
-                href: "/personvern",
-                target: "_blank",
-                rel: "noopener noreferrer",
-                className: "underline underline-offset-2 hover:text-ink",
-                children: "PERSONVERN­ERKLÆRINGEN"
-              }
-            ),
-            "."
-          ] })
-        ]
-      }
-    )
-  ] });
+  return id;
 }
-function Field({
-  label,
-  id,
-  value,
-  onChange,
-  type = "text",
-  required,
-  placeholder,
-  autoComplete
-}) {
-  return /* @__PURE__ */ jsxs("div", { children: [
-    /* @__PURE__ */ jsxs(
-      "label",
-      {
-        htmlFor: id,
-        className: "editorial-mono-caption text-ink-faint mb-1.5 block",
-        children: [
-          label.toUpperCase(),
-          required && /* @__PURE__ */ jsx("span", { className: "text-accent-text ml-1", children: "*" })
-        ]
-      }
-    ),
-    /* @__PURE__ */ jsx(
-      "input",
-      {
-        id,
-        type,
-        required,
-        autoComplete,
-        value,
-        onChange: (e) => onChange(e.target.value),
-        placeholder,
-        className: "w-full border border-hairline-strong bg-paper px-3 py-2 rounded-sm text-sm text-ink focus:outline-none focus:border-ink"
-      }
-    )
-  ] });
+function deviceBucket() {
+  if (typeof window === "undefined") return "desktop";
+  return window.innerWidth < 768 ? "mobile" : "desktop";
 }
-function ChatPanel({ controller }) {
-  const reduced = useReducedMotion();
-  const {
-    state,
-    toggle,
-    send,
-    startInquiry,
-    setMode,
-    setPersona,
-    setTopic,
-    updateDraft,
-    submitInquiry,
-    reset
-  } = controller;
-  const [input, setInput] = useState("");
-  const listRef = useRef(null);
-  const inputRef = useRef(null);
-  useEffect(() => {
-    if (state.open && state.mode === "chat") {
-      requestAnimationFrame(() => {
-        var _a;
-        (_a = inputRef.current) == null ? void 0 : _a.focus();
-      });
-    }
-  }, [state.open, state.mode]);
-  useEffect(() => {
-    if (listRef.current) {
-      listRef.current.scrollTop = listRef.current.scrollHeight;
-    }
-  }, [state.messages.length, state.thinking]);
-  const handleSend = async () => {
-    const text = input.trim();
-    if (!text) return;
-    setInput("");
-    await send(text);
-  };
-  const isInquiry = state.mode.startsWith("inquiry-");
-  const lastAssistant = [...state.messages].reverse().find((m) => m.role === "assistant");
-  return /* @__PURE__ */ jsx(AnimatePresence, { children: state.open && /* @__PURE__ */ jsxs(Fragment, { children: [
-    /* @__PURE__ */ jsx(
-      motion.div,
-      {
-        initial: { opacity: 0 },
-        animate: { opacity: reduced ? 1 : 1 },
-        exit: { opacity: 0 },
-        transition: { duration: 0.2 },
-        onClick: () => toggle(false),
-        className: "fixed inset-0 z-40 bg-ink/30 backdrop-blur-sm md:hidden",
-        "aria-hidden": "true"
-      },
-      "chat-backdrop"
-    ),
-    /* @__PURE__ */ jsxs(
-      motion.aside,
-      {
-        role: "dialog",
-        "aria-modal": "true",
-        "aria-label": "Digilist-assistenten",
-        initial: reduced ? { opacity: 0 } : { opacity: 0, y: 24, scale: 0.98 },
-        animate: { opacity: 1, y: 0, scale: 1 },
-        exit: reduced ? { opacity: 0 } : { opacity: 0, y: 24, scale: 0.98 },
-        transition: { duration: 0.32, ease: [0.22, 1, 0.36, 1] },
-        className: "fixed z-50 bg-paper border border-hairline-strong shadow-2xl rounded-sm flex flex-col overflow-hidden\n              inset-x-3 bottom-3 top-10 max-h-[calc(100vh-1rem)]\n              md:inset-auto md:right-6 md:bottom-24 md:top-auto md:w-[30rem] md:h-[44rem] md:max-h-[90vh]",
-        children: [
-          /* @__PURE__ */ jsxs("header", { className: "flex items-center justify-between gap-3 px-5 py-4 border-b border-rule bg-paper-deep/40", children: [
-            /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3 min-w-0", children: [
-              /* @__PURE__ */ jsx(
-                "span",
-                {
-                  "aria-hidden": "true",
-                  className: "inline-flex items-center justify-center w-9 h-9 bg-navy text-on-navy rounded-sm shrink-0",
-                  children: /* @__PURE__ */ jsx(MessageSquare, { className: "h-4 w-4" })
-                }
-              ),
-              /* @__PURE__ */ jsxs("div", { className: "min-w-0", children: [
-                /* @__PURE__ */ jsx(
-                  "p",
-                  {
-                    className: "font-serif text-lg text-ink leading-none",
-                    style: {
-                      fontVariationSettings: getFraunces("sub"),
-                      letterSpacing: "-0.015em"
-                    },
-                    children: "Digilist-assistent"
-                  }
-                ),
-                /* @__PURE__ */ jsx("p", { className: "editorial-mono-caption text-ink-faint mt-1", children: isInquiry ? "FORESPØRSEL · 3 STEG" : "AI + FAQ · NORSK" })
-              ] })
-            ] }),
-            /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-1.5 shrink-0", children: [
-              state.messages.length > 1 && state.mode === "chat" && /* @__PURE__ */ jsx(
-                "button",
-                {
-                  type: "button",
-                  "aria-label": "Start ny samtale",
-                  onClick: () => reset(),
-                  className: "inline-flex items-center justify-center w-8 h-8 rounded-sm text-ink-faint hover:text-ink hover:bg-paper-deep transition-colors",
-                  children: /* @__PURE__ */ jsx(RotateCcw, { className: "h-4 w-4", "aria-hidden": "true" })
-                }
-              ),
-              /* @__PURE__ */ jsx(
-                "button",
-                {
-                  type: "button",
-                  "aria-label": "Lukk samtale",
-                  onClick: () => toggle(false),
-                  className: "inline-flex items-center justify-center w-8 h-8 rounded-sm text-ink hover:bg-paper-deep transition-colors",
-                  children: /* @__PURE__ */ jsx(X, { className: "h-4 w-4", "aria-hidden": "true" })
-                }
-              )
-            ] })
-          ] }),
-          isInquiry ? /* @__PURE__ */ jsx("div", { className: "flex-1 overflow-y-auto", children: /* @__PURE__ */ jsx(
-            InquiryFlow,
-            {
-              mode: state.mode,
-              draft: state.inquiry,
-              thinking: state.thinking,
-              error: state.error,
-              onSetPersona: setPersona,
-              onSetTopic: setTopic,
-              onUpdate: updateDraft,
-              onBack: () => {
-                if (state.mode === "inquiry-contact")
-                  setMode("inquiry-topic");
-                else if (state.mode === "inquiry-topic")
-                  setMode("inquiry-persona");
-                else setMode("chat");
-              },
-              onSubmit: submitInquiry,
-              onClose: () => {
-                setMode("chat");
-                toggle(false);
-              }
-            }
-          ) }) : /* @__PURE__ */ jsxs(Fragment, { children: [
-            /* @__PURE__ */ jsxs(
-              "div",
-              {
-                ref: listRef,
-                className: "flex-1 overflow-y-auto px-4 py-4 space-y-4",
-                "aria-live": "polite",
-                children: [
-                  state.messages.map((m) => /* @__PURE__ */ jsx(MessageBubble, { message: m }, m.id)),
-                  state.thinking && /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 px-1 editorial-mono-caption text-ink-faint", children: [
-                    /* @__PURE__ */ jsx("span", { className: "inline-block w-1.5 h-1.5 rounded-full bg-accent-text animate-pulse" }),
-                    /* @__PURE__ */ jsx("span", { className: "inline-block w-1.5 h-1.5 rounded-full bg-accent-text animate-pulse [animation-delay:.18s]" }),
-                    /* @__PURE__ */ jsx("span", { className: "inline-block w-1.5 h-1.5 rounded-full bg-accent-text animate-pulse [animation-delay:.36s]" }),
-                    /* @__PURE__ */ jsx("span", { className: "ml-1", children: "SKRIVER" })
-                  ] }),
-                  (lastAssistant == null ? void 0 : lastAssistant.suggestions) && !state.thinking && /* @__PURE__ */ jsx(
-                    QuickReplies,
-                    {
-                      suggestions: lastAssistant.suggestions,
-                      onPick: (s) => {
-                        if (s.toLowerCase().includes("rådgiver") || s.toLowerCase().includes("forespørsel")) {
-                          startInquiry();
-                        } else {
-                          void send(s);
-                        }
-                      }
-                    }
-                  ),
-                  (lastAssistant == null ? void 0 : lastAssistant.showInquiryCta) && !state.thinking && /* @__PURE__ */ jsxs(
-                    "button",
-                    {
-                      type: "button",
-                      onClick: startInquiry,
-                      className: "group flex items-center gap-2 px-3 py-2 bg-navy text-on-navy rounded-sm hover:bg-navy/90 transition-colors",
-                      children: [
-                        /* @__PURE__ */ jsx(Send, { className: "h-4 w-4", "aria-hidden": "true" }),
-                        /* @__PURE__ */ jsx("span", { className: "font-serif text-sm", children: "Send forespørsel til oss" }),
-                        /* @__PURE__ */ jsx(
-                          ArrowRight,
-                          {
-                            className: "h-4 w-4 transition-transform duration-quick ease-editorial group-hover:translate-x-0.5",
-                            "aria-hidden": "true"
-                          }
-                        )
-                      ]
-                    }
-                  )
-                ]
-              }
-            ),
-            /* @__PURE__ */ jsxs(
-              "form",
-              {
-                onSubmit: (e) => {
-                  e.preventDefault();
-                  void handleSend();
-                },
-                className: "border-t border-rule p-3 bg-paper-deep/40",
-                children: [
-                  /* @__PURE__ */ jsxs("div", { className: "flex items-end gap-2", children: [
-                    /* @__PURE__ */ jsx("label", { htmlFor: "chat-input", className: "sr-only", children: "Skriv din melding" }),
-                    /* @__PURE__ */ jsx(
-                      "textarea",
-                      {
-                        ref: inputRef,
-                        id: "chat-input",
-                        rows: 1,
-                        value: input,
-                        onChange: (e) => setInput(e.target.value),
-                        onKeyDown: (e) => {
-                          if (e.key === "Enter" && !e.shiftKey) {
-                            e.preventDefault();
-                            void handleSend();
-                          }
-                        },
-                        placeholder: "Spør om Digilist …",
-                        disabled: state.thinking,
-                        className: "flex-1 resize-none border border-hairline-strong bg-paper px-3 py-2.5 rounded-sm text-sm text-ink focus:outline-none focus:border-ink max-h-32 disabled:opacity-50"
-                      }
-                    ),
-                    /* @__PURE__ */ jsx(
-                      "button",
-                      {
-                        type: "submit",
-                        "aria-label": "Send melding",
-                        disabled: !input.trim() || state.thinking,
-                        className: "inline-flex items-center justify-center w-10 h-10 bg-navy text-on-navy rounded-sm hover:bg-navy/90 disabled:opacity-40 transition-colors shrink-0",
-                        children: /* @__PURE__ */ jsx(Send, { className: "h-4 w-4", "aria-hidden": "true" })
-                      }
-                    )
-                  ] }),
-                  /* @__PURE__ */ jsx("p", { className: "editorial-mono-caption text-ink-faint mt-2 px-1", children: "SVAR ER BASERT PÅ DIGILISTS FAQ — FOR PERSONLIGE TILBUD, SEND FORESPØRSEL." })
-                ]
-              }
-            )
-          ] })
-        ]
-      },
-      "chat-panel"
-    )
-  ] }) });
-}
-const TEASER_DISMISSED_KEY = "digilist-chat-teaser-dismissed-v2";
-const TEASER_DELAY_MS = 4500;
-const TEASER_SUGGESTIONS = [
-  "Hva er Digilist?",
-  "SSA-L 2026",
-  "Book demo",
-  "Pris for kommuner"
-];
-function Chatbot() {
-  const reduced = useReducedMotion();
-  const controller = useChatbot();
-  const { state, toggle, setMode, startInquiry, send } = controller;
-  const [showTeaser, setShowTeaser] = useState(false);
+function RumReporter() {
+  const convex2 = useConvex();
   useEffect(() => {
     if (typeof window === "undefined") return;
-    try {
-      if (localStorage.getItem(TEASER_DISMISSED_KEY) === "1") return;
-    } catch {
+    if (SKIP_PATH_PREFIXES.some((p) => window.location.pathname.startsWith(p))) {
+      return;
     }
-    const t = window.setTimeout(() => setShowTeaser(true), TEASER_DELAY_MS);
-    return () => window.clearTimeout(t);
-  }, []);
-  useEffect(() => {
-    if (state.open) setShowTeaser(false);
-  }, [state.open]);
-  useEffect(() => {
-    function onOpen(e) {
-      const detail = e.detail ?? {};
-      toggle(true);
-      if (detail.mode === "inquiry-persona") {
-        setTimeout(() => startInquiry(), 80);
-      } else if (detail.mode === "chat") {
-        setMode("chat");
-      }
-    }
-    window.addEventListener(OPEN_CHAT_EVENT, onOpen);
-    return () => window.removeEventListener(OPEN_CHAT_EVENT, onOpen);
-  }, [toggle, setMode, startInquiry]);
-  const dismissTeaser = (persist) => {
-    setShowTeaser(false);
-    if (!persist) return;
-    try {
-      localStorage.setItem(TEASER_DISMISSED_KEY, "1");
-    } catch {
-    }
-  };
-  const pickSuggestion = (q) => {
-    dismissTeaser(false);
-    toggle(true);
-    setMode("chat");
-    setTimeout(() => {
-      void send(q);
-    }, 120);
-  };
-  return /* @__PURE__ */ jsxs(Fragment, { children: [
-    /* @__PURE__ */ jsx(AnimatePresence, { children: showTeaser && !state.open && /* @__PURE__ */ jsxs(
-      motion.div,
-      {
-        role: "dialog",
-        "aria-label": "Digilist-assistenten — forslag",
-        initial: reduced ? { opacity: 0 } : { opacity: 0, y: 12, scale: 0.96 },
-        animate: { opacity: 1, y: 0, scale: 1 },
-        exit: reduced ? { opacity: 0 } : { opacity: 0, y: 12, scale: 0.96 },
-        transition: { duration: 0.36, ease: [0.22, 1, 0.36, 1] },
-        className: "fixed bottom-20 right-4 lg:bottom-24 lg:right-6 z-40 w-[min(20rem,calc(100vw-2rem))] bg-paper border border-hairline-strong rounded-sm shadow-2xl overflow-hidden",
-        children: [
-          /* @__PURE__ */ jsxs("div", { className: "px-4 pt-4 pb-3 border-b border-rule bg-paper-deep/40 flex items-start justify-between gap-3", children: [
-            /* @__PURE__ */ jsxs("div", { className: "min-w-0", children: [
-              /* @__PURE__ */ jsx(
-                "p",
-                {
-                  className: "font-serif text-lg text-ink leading-snug",
-                  style: {
-                    fontVariationSettings: '"opsz" 48, "wght" 460, "SOFT" 30',
-                    letterSpacing: "-0.015em"
-                  },
-                  children: "Hei — lurer du på noe?"
-                }
-              ),
-              /* @__PURE__ */ jsx("p", { className: "editorial-mono-caption text-ink-faint mt-1", children: "DIGILIST-ASSISTENT · NORSK" })
-            ] }),
-            /* @__PURE__ */ jsx(
-              "button",
-              {
-                type: "button",
-                onClick: () => dismissTeaser(true),
-                "aria-label": "Lukk forslag",
-                className: "inline-flex items-center justify-center w-7 h-7 rounded-sm text-ink-faint hover:text-ink hover:bg-paper-deep transition-colors shrink-0",
-                children: /* @__PURE__ */ jsx(X, { className: "h-4 w-4", "aria-hidden": "true" })
-              }
-            )
-          ] }),
-          /* @__PURE__ */ jsxs("div", { className: "px-4 py-3 space-y-2", children: [
-            /* @__PURE__ */ jsx("p", { className: "text-sm text-ink-soft leading-relaxed", children: "Velg et raskt forslag — eller åpne chat for å spørre fritt." }),
-            /* @__PURE__ */ jsx("div", { className: "flex flex-wrap gap-2 pt-1", children: TEASER_SUGGESTIONS.map((q) => /* @__PURE__ */ jsx(
-              "button",
-              {
-                type: "button",
-                onClick: () => pickSuggestion(q),
-                className: "font-sans text-xs px-3 py-1.5 border border-rule rounded-full text-ink hover:bg-navy hover:text-on-navy hover:border-navy transition-colors duration-quick ease-editorial",
-                children: q
-              },
-              q
-            )) }),
-            /* @__PURE__ */ jsxs(
-              "button",
-              {
-                type: "button",
-                onClick: () => {
-                  dismissTeaser(false);
-                  toggle(true);
-                  setMode("chat");
-                },
-                className: "mt-2 w-full inline-flex items-center justify-center gap-2 bg-navy text-on-navy rounded-sm py-2.5 text-sm font-medium hover:bg-navy/90 transition-colors",
-                children: [
-                  /* @__PURE__ */ jsx(MessageSquare, { className: "h-4 w-4", "aria-hidden": "true" }),
-                  "Snakk med oss"
-                ]
-              }
-            )
-          ] })
-        ]
-      },
-      "chat-teaser"
-    ) }),
-    /* @__PURE__ */ jsxs(
-      motion.button,
-      {
-        type: "button",
-        "aria-label": state.open ? "Lukk Digilist-assistenten" : "Åpne Digilist-assistenten",
-        "aria-expanded": state.open,
-        "aria-controls": "digilist-chatbot-panel",
-        onClick: () => toggle(),
-        initial: reduced ? { opacity: 1 } : { opacity: 0, y: 12 },
-        animate: { opacity: 1, y: 0 },
-        transition: { delay: 0.6, duration: 0.4 },
-        className: `fixed bottom-4 right-4 lg:bottom-6 lg:right-6 z-40 inline-flex items-center gap-2 bg-navy text-on-navy rounded-full pl-4 pr-5 py-3 shadow-2xl border border-navy/30 hover:bg-navy/95 transition-all duration-quick ease-editorial ${state.open ? "scale-95" : ""}`,
-        children: [
-          state.open ? /* @__PURE__ */ jsx(X, { className: "h-4 w-4", "aria-hidden": "true" }) : /* @__PURE__ */ jsx(MessageSquare, { className: "h-4 w-4", "aria-hidden": "true" }),
-          /* @__PURE__ */ jsx("span", { className: "font-serif text-base leading-none", children: state.open ? "Lukk" : "Snakk med oss" })
-        ]
-      }
-    ),
-    /* @__PURE__ */ jsx(ChatPanel, { controller })
-  ] });
+    const origin = window.location.origin;
+    const pathname = window.location.pathname;
+    const visitor_id = getVisitorId();
+    const device = deviceBucket();
+    let cancelled = false;
+    const send = (metric, value, rating, nav_type) => {
+      if (cancelled) return;
+      convex2.mutation(api.audits.rum.ingest, {
+        origin,
+        pathname,
+        metric,
+        value,
+        rating,
+        nav_type,
+        device,
+        visitor_id
+      }).catch(() => {
+      });
+    };
+    void import("web-vitals").then((wv) => {
+      if (cancelled) return;
+      const handler = (name) => (m) => {
+        send(name, m.value, m.rating, m.navigationType);
+      };
+      wv.onLCP(handler("LCP"));
+      wv.onCLS(handler("CLS"));
+      wv.onINP(handler("INP"));
+      wv.onFCP(handler("FCP"));
+      wv.onTTFB(handler("TTFB"));
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [convex2]);
+  return null;
+}
+const BlogPost = lazy(() => import("./assets/BlogPost-DF6QvHzt.js"));
+const BlogPreview = lazy(() => import("./assets/BlogPreview-BV2sxmd6.js"));
+const Status = lazy(() => import("./assets/Status-ZIShWvnQ.js"));
+const IntelligenceShell = lazy(() => import("./assets/IntelligenceShell-DPlO75Nc.js"));
+const IntelligenceOverview = lazy(() => import("./assets/IntelligenceOverview-kiKsE6X6.js"));
+const IntelligenceIssues = lazy(() => import("./assets/IntelligenceIssues-DPfZk6Y3.js"));
+const IntelligenceAgents = lazy(() => import("./assets/IntelligenceAgents-CHZGZT6J.js"));
+const IntelligenceCompliance = lazy(() => import("./assets/IntelligenceCompliance-vmF0WwKw.js"));
+const IntelligenceCategoryPage = lazy(
+  () => import("./assets/IntelligenceCategory-BOluSrOi.js").then((m) => ({
+    default: m.IntelligenceCategoryPage
+  }))
+);
+const IntelligenceScans = lazy(
+  () => import("./assets/IntelligenceMisc-CYxO1UdO.js").then((m) => ({
+    default: m.IntelligenceScans
+  }))
+);
+const IntelligenceSurfaces = lazy(
+  () => import("./assets/IntelligenceMisc-CYxO1UdO.js").then((m) => ({
+    default: m.IntelligenceSurfaces
+  }))
+);
+const IntelligenceSettings = lazy(
+  () => import("./assets/IntelligenceMisc-CYxO1UdO.js").then((m) => ({
+    default: m.IntelligenceSettings
+  }))
+);
+const IntelligenceTransparensPreview = lazy(
+  () => import("./assets/IntelligenceMisc-CYxO1UdO.js").then((m) => ({
+    default: m.IntelligenceTransparensPreview
+  }))
+);
+const VekstOverview = lazy(
+  () => import("./assets/IntelligenceVekst-_UTW4x0l.js").then((m) => ({
+    default: m.VekstOverview
+  }))
+);
+const VekstKeywords = lazy(
+  () => import("./assets/IntelligenceVekst-_UTW4x0l.js").then((m) => ({
+    default: m.VekstKeywords
+  }))
+);
+const VekstDrafts = lazy(
+  () => import("./assets/IntelligenceVekst-_UTW4x0l.js").then((m) => ({
+    default: m.VekstDrafts
+  }))
+);
+const VekstConnections = lazy(
+  () => import("./assets/IntelligenceVekst-_UTW4x0l.js").then((m) => ({
+    default: m.VekstConnections
+  }))
+);
+const VekstAktivitet = lazy(
+  () => import("./assets/IntelligenceVekst-_UTW4x0l.js").then((m) => ({
+    default: m.VekstAktivitet
+  }))
+);
+const Chatbot = lazy(
+  () => import("./assets/index-C7MfRsM0.js").then((m) => ({ default: m.Chatbot }))
+);
+const RouteFallback = () => /* @__PURE__ */ jsx("div", { className: "min-h-[60vh] flex items-center justify-center", children: /* @__PURE__ */ jsx("span", { className: "font-mono text-xs uppercase tracking-widest text-ink-faint", children: "Laster…" }) });
+function ChatbotMount() {
+  const location = useLocation();
+  const skip = location.pathname.startsWith("/admin") || location.pathname.startsWith("/blogg/preview");
+  if (skip) return null;
+  return /* @__PURE__ */ jsx(Suspense, { fallback: null, children: /* @__PURE__ */ jsx(Chatbot, {}) });
+}
+function AnimatedRoutesWrap({ children }) {
+  const location = useLocation();
+  return /* @__PURE__ */ jsx(AnimatePresence, { mode: "wait", initial: false, children: /* @__PURE__ */ jsx("div", { children }, location.pathname) });
 }
 const queryClient = new QueryClient();
+const convexUrl = "https://colorful-frog-31.convex.cloud";
+const convex = new ConvexReactClient(convexUrl);
+function MotionFirstPaintShim({ children }) {
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setHydrated(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+  return /* @__PURE__ */ jsx(MotionConfig, { reducedMotion: hydrated ? "user" : "always", children });
+}
 function AppShell() {
-  return /* @__PURE__ */ jsx(QueryClientProvider, { client: queryClient, children: /* @__PURE__ */ jsx(ThemeProvider, { attribute: "class", defaultTheme: "light", enableSystem: false, children: /* @__PURE__ */ jsxs(TooltipProvider, { children: [
+  return /* @__PURE__ */ jsx(ConvexProvider, { client: convex, children: /* @__PURE__ */ jsx(QueryClientProvider, { client: queryClient, children: /* @__PURE__ */ jsx(ThemeProvider, { attribute: "class", defaultTheme: "light", enableSystem: false, children: /* @__PURE__ */ jsx(MotionFirstPaintShim, { children: /* @__PURE__ */ jsxs(TooltipProvider, { children: [
     /* @__PURE__ */ jsx(Toaster$1, {}),
     /* @__PURE__ */ jsx(Toaster, {}),
     /* @__PURE__ */ jsx(ScrollToTop, {}),
-    /* @__PURE__ */ jsxs(Routes, { children: [
+    /* @__PURE__ */ jsx(RumReporter, {}),
+    /* @__PURE__ */ jsx(Suspense, { fallback: /* @__PURE__ */ jsx(RouteFallback, {}), children: /* @__PURE__ */ jsx(AnimatedRoutesWrap, { children: /* @__PURE__ */ jsxs(Routes, { children: [
       /* @__PURE__ */ jsx(Route, { path: "/", element: /* @__PURE__ */ jsx(Index, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "/book-demo", element: /* @__PURE__ */ jsx(BookDemo, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "/bookingsystem-kommune", element: /* @__PURE__ */ jsx(BookingsystemKommune, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "/booking-av-lokaler-og-moterom", element: /* @__PURE__ */ jsx(BookingLokalerMoterom, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "/blogg", element: /* @__PURE__ */ jsx(Blog, {}) }),
+      /* @__PURE__ */ jsx(Route, { path: "/blogg/preview/:draftId", element: /* @__PURE__ */ jsx(BlogPreview, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "/blogg/:slug", element: /* @__PURE__ */ jsx(BlogPost, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "/faq", element: /* @__PURE__ */ jsx(FAQ, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "/salgsvilkar", element: /* @__PURE__ */ jsx(Salgsvilkar, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "/personvern", element: /* @__PURE__ */ jsx(Personvern, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "/cookies", element: /* @__PURE__ */ jsx(Cookies, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "/transparens", element: /* @__PURE__ */ jsx(Transparens, {}) }),
+      /* @__PURE__ */ jsx(Route, { path: "/status", element: /* @__PURE__ */ jsx(Status, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "/bruksomrader/selskapslokaler", element: /* @__PURE__ */ jsx(UseCaseSelskapslokaler, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "/bruksomrader/moterom", element: /* @__PURE__ */ jsx(UseCaseMoterom, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "/bruksomrader/idrettshaller-gymsaler", element: /* @__PURE__ */ jsx(UseCaseIdrettshaller, {}) }),
@@ -12941,8 +9322,7 @@ function AppShell() {
               {
                 auditType: "performance",
                 title: "Ytelse",
-                description: "Lighthouse CI + Core Web Vitals (LCP, CLS, INP, FCP, TTFB). Krever ekstern runner.",
-                placeholder: true
+                description: "Core Web Vitals (LCP, CLS, INP, FCP, TTFB) + Lighthouse-score. Hentet fra Google PageSpeed Insights — målt mot Chrome User Experience Report-data der det finnes RUM-data."
               }
             )
           }
@@ -12963,6 +9343,11 @@ function AppShell() {
         ),
         /* @__PURE__ */ jsx(Route, { path: "overflater", element: /* @__PURE__ */ jsx(IntelligenceSurfaces, {}) }),
         /* @__PURE__ */ jsx(Route, { path: "agenter", element: /* @__PURE__ */ jsx(IntelligenceAgents, {}) }),
+        /* @__PURE__ */ jsx(Route, { path: "vekst", element: /* @__PURE__ */ jsx(VekstOverview, {}) }),
+        /* @__PURE__ */ jsx(Route, { path: "vekst/keywords", element: /* @__PURE__ */ jsx(VekstKeywords, {}) }),
+        /* @__PURE__ */ jsx(Route, { path: "vekst/drafts", element: /* @__PURE__ */ jsx(VekstDrafts, {}) }),
+        /* @__PURE__ */ jsx(Route, { path: "vekst/connections", element: /* @__PURE__ */ jsx(VekstConnections, {}) }),
+        /* @__PURE__ */ jsx(Route, { path: "vekst/aktivitet", element: /* @__PURE__ */ jsx(VekstAktivitet, {}) }),
         /* @__PURE__ */ jsx(
           Route,
           {
@@ -12976,13 +9361,20 @@ function AppShell() {
             path: "innstillinger",
             element: /* @__PURE__ */ jsx(IntelligenceSettings, {})
           }
+        ),
+        /* @__PURE__ */ jsx(
+          Route,
+          {
+            path: "etterlevelse",
+            element: /* @__PURE__ */ jsx(IntelligenceCompliance, {})
+          }
         )
       ] }),
       /* @__PURE__ */ jsx(Route, { path: "*", element: /* @__PURE__ */ jsx(NotFound, {}) })
-    ] }),
+    ] }) }) }),
     /* @__PURE__ */ jsx(CookieConsent, {}),
-    /* @__PURE__ */ jsx(Chatbot, {})
-  ] }) }) });
+    /* @__PURE__ */ jsx(ChatbotMount, {})
+  ] }) }) }) }) });
 }
 function render(url) {
   return renderToString(
@@ -12990,5 +9382,27 @@ function render(url) {
   );
 }
 export {
-  render
+  Byline as B,
+  EditorialHeading as E,
+  Footer as F,
+  Navbar as N,
+  OPEN_CHAT_EVENT as O,
+  ProgressRail as P,
+  SEO as S,
+  getAllPosts as a,
+  PageTransition as b,
+  getFraunces as c,
+  EditorialButton as d,
+  staggerChild as e,
+  formatPostDate as f,
+  getPostBySlug as g,
+  api as h,
+  cn as i,
+  SectionRule as j,
+  allFAQEntries as k,
+  FAQ_CATEGORIES as l,
+  openChatbot as o,
+  render,
+  staggerParent as s,
+  viewportOnce as v
 };

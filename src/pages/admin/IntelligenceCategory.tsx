@@ -10,18 +10,22 @@
  * Each shows the latest runs of one audit type across all surfaces + the
  * findings filtered to that audit type.
  */
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useOutletContext } from "react-router-dom";
+import { useAction } from "convex/react";
 import {
   AlertTriangle,
   Construction,
+  Gauge,
   Loader2,
   TrendingUp,
 } from "lucide-react";
+import { api } from "../../../convex/_generated/api";
 import { cn } from "@/lib/utils";
 import {
   AUDIT_LABEL,
   SURFACE_LABEL,
+  adminToken,
   type AuditType,
   type IntelligenceCtx,
   type LatestRun,
@@ -73,6 +77,23 @@ export function IntelligenceCategoryPage({
   const surfacesScanned = runs.length;
   const surfaceMap = new Map(snap.targets.map((t) => [t.name, t]));
 
+  // Performance gets a "Run PSI" trigger since it bypasses the
+  // normal site-intelligence orchestrator (no Lighthouse on VPS).
+  const psiScan = useAction(api.audits.performance.scan);
+  const [psiBusy, setPsiBusy] = useState(false);
+  const [psiError, setPsiError] = useState<string | null>(null);
+  const runPsi = async () => {
+    setPsiBusy(true);
+    setPsiError(null);
+    try {
+      await psiScan({ adminToken: adminToken() });
+    } catch (e) {
+      setPsiError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setPsiBusy(false);
+    }
+  };
+
   return (
     <div>
       <header className="mb-10 flex flex-wrap items-end justify-between gap-6">
@@ -90,6 +111,31 @@ export function IntelligenceCategoryPage({
             {description}
           </p>
         </div>
+        {auditType === "performance" && (
+          <div className="flex flex-col items-end gap-2">
+            <button
+              type="button"
+              onClick={() => void runPsi()}
+              disabled={psiBusy}
+              className="font-mono text-[0.65rem] tracking-widest uppercase border border-hairline-strong rounded-sm px-3 py-2 hover:bg-paper-strong disabled:opacity-50 inline-flex items-center gap-1.5"
+            >
+              {psiBusy ? (
+                <>
+                  <Loader2 className="h-3 w-3 animate-spin" />
+                  KJØRER PSI…
+                </>
+              ) : (
+                <>
+                  <Gauge className="h-3 w-3" />
+                  KJØR PSI-SKANNING
+                </>
+              )}
+            </button>
+            {psiError && (
+              <p className="text-xs text-red-700 max-w-xs">{psiError}</p>
+            )}
+          </div>
+        )}
         {!placeholder && avg !== null && (
           <div className="flex items-center gap-3">
             <div
@@ -321,7 +367,7 @@ export function IntelligenceCategoryPage({
                 <thead className="bg-paper-deep/40">
                   <tr>
                     <th className="text-left px-4 py-3 editorial-mono-caption text-ink w-24">
-                      Severity
+                      Alvorsgrad
                     </th>
                     <th className="text-left px-4 py-3 editorial-mono-caption text-ink">
                       Overflate

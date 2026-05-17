@@ -1,6 +1,6 @@
 ---
-title: Driftsleder — konfigurer lokaler og fordelinger
-description: Slik setter en driftsleder opp lokaler, priser, godkjenningsregler og sesongleie.
+title: Driftsleder — konfigurer ressurser og fordelinger
+description: Slik setter en driftsleder opp lokaler, utstyr, priser, godkjenningsregler og sesongleie — for kommuner, foreninger og private utleiere.
 sidebar:
   order: 4
   label: Driftsleder
@@ -8,7 +8,7 @@ sidebar:
 
 import HowdygoDemo from "../../../components/widgets/HowdygoDemo.astro";
 
-Driftsleder eier ett eller flere lokaler. Konfigurasjonen styrer alt fra åpningstider til hvem som kan booke uten godkjenning.
+Driftsleder eier ett eller flere ressurser — lokaler, utstyr, tjenester. Konfigurasjonen styrer alt fra åpningstider til hvem som kan booke uten godkjenning. Samme veiviser-flyt brukes om utleier er en kommune, en idrettsforening eller en privat aktør.
 
 <HowdygoDemo
   caption="INTERAKTIV DEMO · DRIFTSLEDER"
@@ -27,20 +27,20 @@ Driftsleder eier ett eller flere lokaler. Konfigurasjonen styrer alt fra åpning
 
 ## Veiviseren steg for steg
 
-Når et nytt lokale registreres åpner en 6-stegs veiviser:
+Når en ny ressurs registreres åpner en 6-stegs veiviser:
 
-1. **Grunnopplysninger** — navn, adresse, kapasitet, kategori
+1. **Grunnopplysninger** — navn, adresse, kapasitet, kategori (lokale, utstyr, tjeneste)
 2. **Bilder og beskrivelse** — opptil 10 bilder, fritekst, fasiliteter
-3. **Tilgjengelighet** — åpningstider, ukeplan, ferier
-4. **Pris** — timepris, dagspris, helgepris, rabatter for foreninger
+3. **Tilgjengelighet** — åpningstider, ukeplan, ferier, hentested for utstyr
+4. **Pris** — timepris, dagspris, helgepris, rabatter for medlemmer/foreninger
 5. **Godkjenning** — krever saksbehandler? terskel-tid? hvem varsles?
 6. **Betaling** — Stripe-konto, Vipps-MVA, EHF-faktura
 
-Hvert steg lagres som utkast. Du kan publisere lokalet etter steg 1 og fortsette konfigurasjon i bakgrunnen.
+Hvert steg lagres som utkast. Du kan publisere ressursen etter steg 1 og fortsette konfigurasjon i bakgrunnen.
 
 ## Sesongleie
 
-For lag og foreninger som leier en idrettshall hele sesongen:
+For lag, foreninger eller faste kunder som leier en ressurs hele sesongen:
 
 - Definer **terminer** (f.eks. høst/vår)
 - Definer **fordelingsregler** (prioritet etter alder, geografi, historikk)

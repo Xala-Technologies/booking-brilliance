@@ -5,24 +5,44 @@
  */
 import { useOutletContext } from "react-router-dom";
 import { useMemo } from "react";
+import { useMutation, useQuery } from "convex/react";
 import {
   Activity,
+  AlertTriangle,
   ArrowUpRight,
   CheckCircle2,
   Clock,
   Loader2,
   TrendingUp,
 } from "lucide-react";
+import { api } from "../../../convex/_generated/api";
+import type { Id } from "../../../convex/_generated/dataModel";
 import { cn } from "@/lib/utils";
 import {
   AUDIT_LABEL,
+  ENV_LABEL,
   SURFACE_LABEL,
+  adminToken,
+  getEcosystemKpis,
   type AuditType,
   type IntelligenceCtx,
   type LatestRun,
   type RecentRun,
   scoreClass,
 } from "./intelligence-shared";
+
+interface AlertRow {
+  _id: Id<"alerts">;
+  kind: string;
+  surface: string;
+  audit_type: string;
+  severity: "error" | "warn";
+  title: string;
+  detail: string;
+  first_seen_at: string;
+  last_seen_at: string;
+  occurrence_count: number;
+}
 
 export default function IntelligenceOverview() {
   const { snap, running, runScan } = useOutletContext<IntelligenceCtx>();
@@ -46,8 +66,11 @@ export default function IntelligenceOverview() {
     );
   }
 
-  const summary = snap.ecosystemSummary;
-  const activeCount = snap.targets.filter((t) => t.is_active).length;
+  // SINGLE SOURCE OF TRUTH — every KPI on this page reads from the
+  // same helper that the shell's top bar + sidebar use. Numbers are
+  // computed once in Convex (convex/audits/state.ts).
+  const kpis = getEcosystemKpis(snap);
+  const activeCount = kpis?.surfacesTotal ?? 0;
 
   return (
     <div>
@@ -68,16 +91,16 @@ export default function IntelligenceOverview() {
             og kan startes manuelt per overflate eller for hele systemet.
           </p>
         </div>
-        {summary && (
+        {kpis && (
           <div className="flex items-center gap-3">
             <Badge
               icon={CheckCircle2}
               label="SUNNE"
-              value={`${summary.surfacesHealthy}/${summary.surfacesTotal}`}
+              value={`${kpis.surfacesHealthy}/${kpis.surfacesTotal}`}
               tone={
-                summary.surfacesWithErrors === 0
+                kpis.surfacesWithErrors === 0
                   ? "good"
-                  : summary.surfacesWithErrors >= 2
+                  : kpis.surfacesWithErrors >= 2
                     ? "bad"
                     : "warn"
               }
@@ -85,11 +108,11 @@ export default function IntelligenceOverview() {
             <Badge
               icon={TrendingUp}
               label="SNITT"
-              value={Math.round(summary.avgScore)}
+              value={kpis.avgScore}
               tone={
-                summary.avgScore >= 85
+                kpis.avgScore >= 85
                   ? "good"
-                  : summary.avgScore >= 60
+                  : kpis.avgScore >= 60
                     ? "warn"
                     : "bad"
               }
@@ -98,37 +121,37 @@ export default function IntelligenceOverview() {
         )}
       </header>
 
-      {summary && (
+      {kpis && (
         <section className="mb-12">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-rule border border-rule">
             {[
               {
                 label: "Overflater aktive",
-                value: summary.surfacesTotal,
-                sub: `${summary.surfacesHealthy} sunne · ${summary.surfacesWithErrors} med feil`,
+                value: kpis.surfacesTotal,
+                sub: `${kpis.surfacesHealthy} sunne · ${kpis.surfacesWithErrors} med feil`,
                 tone: undefined as string | undefined,
               },
               {
                 label: "Snittscore",
-                value: Math.round(summary.avgScore),
+                value: kpis.avgScore,
                 sub: "på tvers av siste skanninger",
                 tone: undefined,
               },
               {
-                label: "Errors",
-                value: summary.errorCount,
+                label: "Feil",
+                value: kpis.errorCount,
                 sub: "krever umiddelbar handling",
                 tone:
-                  summary.errorCount > 0
+                  kpis.errorCount > 0
                     ? "text-red-700 dark:text-red-400"
                     : undefined,
               },
               {
-                label: "Warnings",
-                value: summary.warnCount,
+                label: "Advarsler",
+                value: kpis.warnCount,
                 sub: "anbefalt utbedring",
                 tone:
-                  summary.warnCount > 0
+                  kpis.warnCount > 0
                     ? "text-amber-700 dark:text-amber-400"
                     : undefined,
               },
@@ -154,6 +177,8 @@ export default function IntelligenceOverview() {
           </div>
         </section>
       )}
+
+      <AlertsPanel />
 
       {snap.recent.length > 0 && (
         <section className="mb-12">
@@ -188,15 +213,31 @@ export default function IntelligenceOverview() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-rule border border-rule">
           {snap.targets.map((t) => {
             const runs = byTarget.get(t.name) ?? [];
-            const cardChecks: AuditType[] =
-              t.checks && t.checks.length > 0
-                ? t.checks
-                : (["uptime", "seo", "a11y", "security", "links"] as AuditType[]);
-            const scores = cardChecks.map((type) => ({
+            // Always render the canonical 6 audit columns so every card
+            // has identical structure (1 row × 6 cols on desktop, 2 × 3
+            // on mobile). Surfaces that don't run a given audit get an
+            // explicit "—" so the grid stays aligned across cards
+            // regardless of per-surface check profile.
+            const ALL_AUDITS: AuditType[] = [
+              "uptime",
+              "performance",
+              "seo",
+              "a11y",
+              "security",
+              "links",
+            ];
+            const enabled = new Set<AuditType>(
+              t.checks && t.checks.length > 0 ? t.checks : ALL_AUDITS,
+            );
+            const scores = ALL_AUDITS.map((type) => ({
               type,
+              enabled: enabled.has(type),
               run: runs.find((r) => r.audit_type === type),
             }));
-            const have = scores.filter((s) => s.run);
+            // Overall only averages audits the surface actually opts into
+            // — otherwise SPA-style surfaces (uptime+security only) get
+            // their score halved by phantom "—" cells.
+            const have = scores.filter((s) => s.enabled && s.run);
             const overall =
               have.length === 0
                 ? null
@@ -208,7 +249,7 @@ export default function IntelligenceOverview() {
             return (
               <div
                 key={t.name}
-                className="bg-paper p-6 lg:p-7 flex flex-col gap-3"
+                className="bg-paper p-6 lg:p-7 flex flex-col gap-3 h-full"
               >
                 <header className="flex items-center justify-between">
                   <span className="editorial-mono-caption text-accent-text">
@@ -226,7 +267,7 @@ export default function IntelligenceOverview() {
                         t.is_active ? "bg-green-700" : "bg-ink-faint",
                       )}
                     />
-                    {t.is_active ? "LIVE" : "INAKTIV"}
+                    {t.is_active ? "AKTIV" : "INAKTIV"}
                   </span>
                 </header>
 
@@ -247,12 +288,12 @@ export default function IntelligenceOverview() {
                             : "border-hairline text-ink-faint",
                       )}
                     >
-                      {t.environment}
+                      {ENV_LABEL[t.environment]}
                     </span>
                   )}
                   {t.requiresAuth && (
                     <span className="font-mono text-[0.55rem] tracking-widest uppercase border border-hairline rounded-sm px-1.5 py-0.5 text-ink">
-                      auth-only
+                      Innlogging
                     </span>
                   )}
                 </div>
@@ -261,82 +302,136 @@ export default function IntelligenceOverview() {
                   href={t.origin}
                   target="_blank"
                   rel="noopener"
-                  className="font-serif text-xl text-ink leading-tight inline-flex items-center gap-1 hover:underline decoration-hairline underline-offset-4 group"
+                  className="font-serif text-2xl text-ink leading-[1.1] inline-flex items-baseline gap-1.5 hover:underline decoration-hairline underline-offset-4 group transition-colors"
                   style={{ fontVariationSettings: '"opsz" 36, "wght" 540' }}
                 >
                   {t.label}
-                  <ArrowUpRight className="h-3.5 w-3.5 text-ink-faint group-hover:text-accent-text transition-colors" />
+                  <ArrowUpRight className="h-3.5 w-3.5 text-ink-faint group-hover:text-accent-text transition-colors flex-shrink-0" />
                 </a>
-                <p className="text-sm text-ink leading-snug min-h-[2.5em]">
+                <p className="text-sm text-ink-soft leading-relaxed line-clamp-2 min-h-[2.6em]">
                   {t.description}
                 </p>
 
-                <div className="flex items-baseline justify-between gap-2 mt-2 pt-3 border-t border-rule">
-                  <div className="flex items-baseline gap-2">
+                {/* Hero score block — left rail with the overall number,
+                    right rail with audit-type sparkline. Same layout in
+                    every card so the eye can compare surfaces by
+                    skimming vertically. */}
+                <div className="mt-auto pt-4 border-t border-rule">
+                  <div className="flex items-end justify-between gap-4 mb-3">
+                    <div className="flex items-baseline gap-1.5">
+                      <span
+                        className={cn(
+                          "font-serif text-[3.25rem] lg:text-6xl font-medium leading-none tabular-nums",
+                          scoreClass(overall),
+                        )}
+                        style={{
+                          fontVariationSettings: '"opsz" 96, "wght" 540',
+                        }}
+                      >
+                        {overall === null ? "—" : overall}
+                      </span>
+                      <span className="font-mono text-[0.55rem] uppercase tracking-widest text-ink-faint">
+                        /100
+                      </span>
+                    </div>
                     <span
                       className={cn(
-                        "font-serif text-5xl lg:text-6xl font-medium leading-none",
-                        scoreClass(overall),
+                        "font-mono text-[0.55rem] uppercase tracking-widest",
+                        overall === null
+                          ? "text-ink-faint"
+                          : overall >= 85
+                            ? "text-green-700"
+                            : overall >= 60
+                              ? "text-amber-700"
+                              : "text-red-700",
                       )}
                     >
-                      {overall === null ? "—" : overall}
-                    </span>
-                    <span className="font-mono text-[0.6rem] uppercase tracking-widest text-ink-faint">
-                      / 100
+                      {overall === null
+                        ? "Ingen data"
+                        : overall >= 85
+                          ? "Sunn"
+                          : overall >= 60
+                            ? "Krever oppfølging"
+                            : "Kritisk"}
                     </span>
                   </div>
-                  <span className="font-mono text-[0.55rem] uppercase tracking-widest text-ink-faint">
-                    OVERALL
-                  </span>
-                </div>
 
-                <div
-                  className="grid gap-px bg-rule border border-rule mt-1"
-                  style={{
-                    gridTemplateColumns: `repeat(${Math.min(scores.length, 5)}, minmax(0, 1fr))`,
-                  }}
-                >
-                  {scores.map((s) => (
-                    <div key={s.type} className="bg-paper px-2 py-2">
-                      <p className="font-mono text-[0.55rem] tracking-widest text-ink-faint">
-                        {AUDIT_LABEL[s.type]}
-                      </p>
-                      <p
+                  {/* Canonical 6-cell score row — uptime, performance,
+                      seo, a11y, security, links. Always six columns; the
+                      cells that don't apply to this surface render as a
+                      muted en-dash so cards line up vertically. */}
+                  <div className="grid grid-cols-3 lg:grid-cols-6 gap-px bg-rule border border-rule rounded-sm overflow-hidden">
+                    {scores.map((s) => (
+                      <div
+                        key={s.type}
                         className={cn(
-                          "font-serif text-lg font-medium",
-                          scoreClass(s.run?.avg_score ?? null),
+                          "px-2 py-2.5 flex flex-col gap-0.5",
+                          s.enabled
+                            ? "bg-paper"
+                            : "bg-paper-deep/40",
                         )}
+                        title={
+                          s.enabled
+                            ? AUDIT_LABEL[s.type]
+                            : `${AUDIT_LABEL[s.type]} — kjøres ikke på denne overflaten`
+                        }
                       >
-                        {s.run ? Math.round(s.run.avg_score) : "—"}
-                      </p>
-                    </div>
-                  ))}
-                </div>
+                        <p
+                          className={cn(
+                            "font-mono text-[0.5rem] tracking-widest uppercase truncate",
+                            s.enabled ? "text-ink-faint" : "text-ink-faint/50",
+                          )}
+                        >
+                          {AUDIT_LABEL[s.type].slice(0, 6)}
+                        </p>
+                        <p
+                          className={cn(
+                            "font-serif text-lg font-medium leading-none tabular-nums",
+                            !s.enabled
+                              ? "text-ink-faint/40"
+                              : s.run
+                                ? scoreClass(s.run.avg_score)
+                                : "text-ink-faint",
+                          )}
+                          style={{
+                            fontVariationSettings: '"opsz" 30, "wght" 520',
+                          }}
+                        >
+                          {!s.enabled
+                            ? "·"
+                            : s.run
+                              ? Math.round(s.run.avg_score)
+                              : "—"}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
 
-                <button
-                  type="button"
-                  onClick={() => runScan(t.name)}
-                  disabled={!t.is_active || isRunning}
-                  className={cn(
-                    "mt-2 inline-flex items-center justify-center gap-2 rounded-sm px-3 py-2 text-xs uppercase tracking-widest font-medium transition-colors",
-                    t.is_active
-                      ? "bg-navy text-on-navy hover:bg-navy/90"
-                      : "bg-paper-deep text-ink-faint cursor-not-allowed",
-                    isRunning && "opacity-60",
-                  )}
-                >
-                  {isRunning ? (
-                    <>
-                      <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                      Skanner …
-                    </>
-                  ) : (
-                    <>
-                      <Activity className="h-3.5 w-3.5" />
-                      Kjør skanning
-                    </>
-                  )}
-                </button>
+                  <button
+                    type="button"
+                    onClick={() => runScan(t.name)}
+                    disabled={!t.is_active || isRunning}
+                    className={cn(
+                      "w-full mt-3 inline-flex items-center justify-center gap-2 rounded-sm px-3 py-2.5 text-[0.65rem] uppercase tracking-widest font-medium transition-all",
+                      t.is_active
+                        ? "bg-navy text-on-navy hover:bg-navy/90 hover:shadow-sm"
+                        : "bg-paper-deep text-ink-faint cursor-not-allowed",
+                      isRunning && "opacity-60",
+                    )}
+                  >
+                    {isRunning ? (
+                      <>
+                        <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                        Skanner overflaten…
+                      </>
+                    ) : (
+                      <>
+                        <Activity className="h-3.5 w-3.5" />
+                        Kjør skanning
+                      </>
+                    )}
+                  </button>
+                </div>
               </div>
             );
           })}
@@ -446,5 +541,84 @@ function Badge({
         </span>
       </div>
     </div>
+  );
+}
+
+/**
+ * Live regression alerts panel — shown on the overview directly under
+ * the KPI strip so a slip is the first thing a reviewer sees. Reads
+ * from convex.audits.alerts.listOpen (reactive — auto-refreshes when
+ * the cron's detectRegressions runs).
+ */
+const ALERT_KIND_LABEL_NO: Record<string, string> = {
+  "score-drop": "POENGFALL",
+  "new-error": "NY FEIL",
+  "uptime-down": "NEDETID",
+  "ssl-expiring": "SSL UTLØPER",
+};
+
+function AlertsPanel() {
+  const alerts = useQuery(api.audits.alerts.listOpen, {
+    adminToken: adminToken(),
+  }) as AlertRow[] | undefined;
+  const resolve = useMutation(api.audits.alerts.resolve);
+  if (!alerts || alerts.length === 0) return null;
+  const errors = alerts.filter((a) => a.severity === "error");
+  const warns = alerts.filter((a) => a.severity === "warn");
+  return (
+    <section className="mb-12">
+      <div className="flex items-baseline justify-between mb-4 border-b border-rule pb-3">
+        <p className="editorial-mono-caption text-red-700 dark:text-red-400 inline-flex items-center gap-2">
+          <AlertTriangle className="h-3.5 w-3.5" /> ÅPNE VARSLER
+        </p>
+        <p className="font-mono text-[0.6rem] uppercase tracking-widest text-ink-faint">
+          {errors.length} FEIL · {warns.length} ADVARSEL
+        </p>
+      </div>
+      <ul className="divide-y divide-rule border-y border-rule">
+        {alerts.slice(0, 8).map((a) => (
+          <li
+            key={a._id}
+            className="grid grid-cols-1 md:grid-cols-[auto_1fr_auto] gap-3 md:gap-5 items-start py-4"
+          >
+            <span
+              className={cn(
+                "font-mono text-[0.55rem] tracking-widest uppercase rounded-sm px-2 py-1 inline-block w-fit",
+                a.severity === "error"
+                  ? "bg-red-700 text-on-navy"
+                  : "bg-amber-700 text-on-navy",
+              )}
+            >
+              {ALERT_KIND_LABEL_NO[a.kind] ?? a.kind}
+            </span>
+            <div className="min-w-0">
+              <p
+                className="font-serif text-base lg:text-lg text-ink leading-snug"
+                style={{ fontVariationSettings: '"opsz" 24, "wght" 540' }}
+              >
+                {a.title}
+              </p>
+              <p className="text-xs text-ink-soft mt-0.5 line-clamp-1">
+                {a.detail}
+              </p>
+              <p className="font-mono text-[0.55rem] tracking-widest uppercase text-ink-faint mt-1">
+                {a.surface} · {a.audit_type} · {a.occurrence_count}×
+                {a.first_seen_at !== a.last_seen_at &&
+                  ` · sist ${new Date(a.last_seen_at).toLocaleString("nb-NO")}`}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() =>
+                resolve({ adminToken: adminToken(), id: a._id }).catch(() => {})
+              }
+              className="justify-self-start md:justify-self-end font-mono text-[0.6rem] tracking-widest uppercase border border-hairline-strong rounded-sm px-2.5 py-1.5 hover:bg-paper-deep"
+            >
+              Resolve
+            </button>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }

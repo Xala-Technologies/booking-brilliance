@@ -16,6 +16,7 @@ import { cn } from "@/lib/utils";
 import {
   AUDIT_LABEL,
   AUTH_KEY,
+  ENV_LABEL,
   SURFACE_LABEL,
   type IntelligenceCtx,
   scoreClass,
@@ -233,7 +234,7 @@ export function IntelligenceSurfaces() {
                           : "border-hairline text-ink-faint",
                     )}
                   >
-                    {t.environment ?? "?"}
+                    {t.environment ? ENV_LABEL[t.environment] : "?"}
                   </span>
                 </td>
                 <td className="px-4 py-3 font-mono text-xs">
@@ -272,7 +273,7 @@ export function IntelligenceSurfaces() {
                         t.is_active ? "bg-green-700" : "bg-ink-faint",
                       )}
                     />
-                    {t.is_active ? "ACTIVE" : "INAKTIV"}
+                    {t.is_active ? "AKTIV" : "INAKTIV"}
                   </span>
                 </td>
               </tr>
@@ -370,7 +371,7 @@ export function IntelligenceTransparensPreview() {
   return (
     <div>
       <PageHeader
-        caption="PUBLIC PREVIEW"
+        caption="OFFENTLIG FORHÅNDSVISNING"
         title="Offentlig rapport"
         description={
           <>

@@ -24,3 +24,12 @@ if (
 }
 
 createRoot(document.getElementById("root")!).render(<App />);
+
+// Drop the SSR LCP guard (see index.css) on the next animation frame.
+// framer-motion's hydration runs its entry animations from the same
+// inline `opacity:0` styles the CSS rule was overriding, so the visual
+// effect is the editorial fade-in starting fresh — no flash of the
+// content disappearing, just an extra tick of "already visible".
+requestAnimationFrame(() => {
+  document.documentElement.dataset.hydrated = "true";
+});

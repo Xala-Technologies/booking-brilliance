@@ -5,6 +5,22 @@ sidebar:
   order: 1
 ---
 
+import HowdygoDemo from "../../../components/widgets/HowdygoDemo.astro";
+
+<HowdygoDemo
+  caption="INTERAKTIV DEMO · ADMIN"
+  title="En dag i adminsenteret"
+  description="Sjekk auditscores om morgenen, godkjenn drafts fra Vekst-harness, og fyr av en re-scan etter en deploy — alt i én flyt."
+  duration="3 min"
+  steps={[
+    { num: "01", label: "Logg på /admin/intelligence (Basic auth)" },
+    { num: "02", label: "Drill ned i nattens audit-feil" },
+    { num: "03", label: "Be Claude om en fiks-anbefaling" },
+    { num: "04", label: "Hopp til Vekst → approve 3 drafts" },
+    { num: "05", label: "Trigger Run scan etter deploy" },
+  ]}
+/>
+
 Digilist har to admin-overflater:
 
 - `/admin/intelligence` — site-intelligence (uptime, SEO, WCAG, sikkerhet, lenker)

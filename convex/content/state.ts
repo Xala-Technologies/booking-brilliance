@@ -98,6 +98,11 @@ export const snapshot = query({
       const cov = coverageByCluster.get(c._id);
       return {
         id: legacyOrLocal(c.legacyId, c._id),
+        // Real Convex document id — required by tools/content-agent/src/
+        // convex-write.ts:listClustersWithCoverage so the orchestrator
+        // can pass it to createBrief's v.id("keyword_clusters") validator.
+        // Dashboard ignores this field; it just reads `id` for display.
+        _id: c._id,
         label: c.label,
         centroid_term: c.centroid_term,
         composite_score: c.composite_score,

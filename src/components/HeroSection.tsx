@@ -67,9 +67,12 @@ const HeroSection = () => {
       className="relative pt-20 lg:pt-24 pb-0 overflow-hidden"
     >
       <div className="container mx-auto px-4 pt-4 lg:pt-6 pb-20 lg:pb-28">
+        {/* Hero is above-the-fold — paint in final state immediately so
+            Lighthouse measures LCP correctly. The on-mount fade-in was
+            blowing LCP up to 12.8s because framer-motion held the
+            content at opacity:0 until hydration + animation completed.
+            Children below the fold still use whileInView for scroll reveals. */}
         <motion.div
-          initial="hidden"
-          animate="visible"
           variants={staggerParent}
           className="grid grid-cols-12 gap-6 lg:gap-gutter items-start"
         >

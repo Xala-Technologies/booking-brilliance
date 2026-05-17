@@ -1,12 +1,25 @@
 ---
 /**
- * Custom hero for the docs landing page.
+ * Broadsheet hero — full-bleed editorial front page.
  *
- * Replaces Starlight's default Hero (image + tagline + buttons) with a
- * full editorial hero that mirrors digilist.no's HeroSection: a 12-col
- * grid, a fluid Fraunces headline, an italic lede, breadcrumb caption,
- * and a hairline-bordered section rail below. No images — pure
- * typography carries the design.
+ * Composition:
+ *   ── MASTHEAD (Digilist · Vol · Issue · City · Date) ──
+ *
+ *      §                            [section directory rail]
+ *      ┌─────────────────────────┐  ┌─────────────────────┐
+ *      │  DEPARTEMENT-CAPTION    │  │  01  Kom i gang     │
+ *      │                         │  │  02  Admin          │
+ *      │  Massive Fraunces       │  │  03  API            │
+ *      │  display headline       │  │  04  Compliance     │
+ *      │  with WONK axis turned  │  └─────────────────────┘
+ *      │  up for character       │
+ *      │                         │
+ *      │  Italic Fraunces lede   │
+ *      │                         │
+ *      │  [ KOM I GANG → ]       │
+ *      └─────────────────────────┘
+ *
+ *   ── ornamental rule ✦ ──────────────────────────────────
  */
 import type { Props } from "@astrojs/starlight/props";
 
@@ -16,15 +29,33 @@ const hero = data.hero;
 const title = hero?.title ?? data.title;
 const tagline = hero?.tagline ?? data.description ?? "";
 const actions = hero?.actions ?? [];
+
+// Compute volume/issue/date for the inline meta (folded into the rubric
+// pill below — no separate masthead bar that would read as a 2nd header).
+const now = new Date();
+const year = now.getFullYear();
+function isoWeek(date: Date): number {
+  const tmp = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const day = tmp.getUTCDay() || 7;
+  tmp.setUTCDate(tmp.getUTCDate() + 4 - day);
+  const yearStart = new Date(Date.UTC(tmp.getUTCFullYear(), 0, 1));
+  return Math.ceil(((tmp.getTime() - yearStart.getTime()) / 86_400_000 + 1) / 7);
+}
+const issue = String(isoWeek(now)).padStart(2, "0");
+const dateShort = now.toLocaleDateString("nb-NO", { day: "numeric", month: "short" });
 ---
 
 <section class="dg-hero">
   <div class="dg-hero__grid">
     <div class="dg-hero__main">
-      <p class="dg-hero__caption">DIGILIST · DOKUMENTASJON · {new Date().getFullYear()}</p>
-      <h1 class="dg-hero__h1">
-        {title}
-      </h1>
+      <p class="dg-hero__rubric">
+        <span class="dg-hero__pilcrow" aria-hidden="true">§</span>
+        <span>DEPARTEMENT · DOKUMENTASJON</span>
+        <span class="dg-hero__rubric-sep" aria-hidden="true"></span>
+        <span class="dg-hero__rubric-meta">VOL. {year} · UTGAVE {issue} · {dateShort.toUpperCase()}</span>
+      </p>
+      <h1 class="dg-hero__h1">{title}</h1>
+      <div class="dg-hero__dash" aria-hidden="true"></div>
       <p class="dg-hero__lede">
         <em>{tagline}</em>
       </p>
@@ -36,155 +67,370 @@ const actions = hero?.actions ?? [];
               href={a.link}
               class={`dg-hero__btn ${a.variant === "primary" ? "dg-hero__btn--primary" : ""}`}
             >
-              {a.text} <span aria-hidden="true">→</span>
+              <span class="dg-hero__btn-num" aria-hidden="true">→</span>
+              <span>{a.text}</span>
             </a>
           ))}
         </div>
       )}
+
+      <ul class="dg-hero__stats" aria-label="Plattformfakta">
+        <li>
+          <span class="dg-hero__stat-num">94<small>s</small></span>
+          <span class="dg-hero__stat-label">Median booking-tid</span>
+        </li>
+        <li>
+          <span class="dg-hero__stat-num">7</span>
+          <span class="dg-hero__stat-label">Overflater overvåket</span>
+        </li>
+        <li>
+          <span class="dg-hero__stat-num">100<small>%</small></span>
+          <span class="dg-hero__stat-label">EØS-data-lokasjon</span>
+        </li>
+      </ul>
+
+      <section class="dg-hero__popular" aria-labelledby="dg-popular-heading">
+        <header class="dg-hero__popular-head">
+          <p class="dg-hero__popular-kicker">MEST LESTE</p>
+          <h2 class="dg-hero__popular-title" id="dg-popular-heading">
+            <em>Hva andre leser akkurat nå</em>
+          </h2>
+        </header>
+        <ul class="dg-hero__popular-list">
+          <li>
+            <a href="/kom-i-gang/innbygger/">
+              <span class="dg-hero__popular-num">01</span>
+              <span class="dg-hero__popular-body">
+                <strong>Booking på 90 sekunder</strong>
+                <small>Innbyggerens reise — søk, betal, bekreft</small>
+              </span>
+              <span class="dg-hero__popular-time">5 min</span>
+            </a>
+          </li>
+          <li>
+            <a href="/compliance/ssa-l/">
+              <span class="dg-hero__popular-num">02</span>
+              <span class="dg-hero__popular-body">
+                <strong>SSA-L 2026 bilag 7</strong>
+                <small>Samsvarsmatrise mot alle 18 sikkerhetskrav</small>
+              </span>
+              <span class="dg-hero__popular-time">6 min</span>
+            </a>
+          </li>
+          <li>
+            <a href="/admin/vekst/">
+              <span class="dg-hero__popular-num">03</span>
+              <span class="dg-hero__popular-body">
+                <strong>Vekst-harness</strong>
+                <small>Multi-agent system: keywords → drafts → publish</small>
+              </span>
+              <span class="dg-hero__popular-time">8 min</span>
+            </a>
+          </li>
+        </ul>
+      </section>
     </div>
 
-    <aside class="dg-hero__rail">
-      <p class="dg-hero__rail-caption">PÅ DENNE SIDEN</p>
-      <ul class="dg-hero__rail-list">
+    <aside class="dg-hero__rail" aria-label="Innholdsfortegnelse">
+      <p class="dg-hero__rail-caption">INNHOLD · UTGAVE {issue}</p>
+      <ol class="dg-hero__rail-list">
         <li>
           <a href="/kom-i-gang/">
-            <span class="dg-hero__rail-num">01</span>
-            <span>
+            <span class="dg-hero__rail-num">I</span>
+            <span class="dg-hero__rail-body">
               <strong>Kom i gang</strong>
-              <small>Onboarding per rolle</small>
+              <small>Innbygger · Saksbehandler · Driftsleder</small>
+              <span class="dg-hero__rail-meta">
+                <span class="dg-hero__rail-pages">3 kapitler</span>
+                <span class="dg-hero__rail-sep" aria-hidden="true">·</span>
+                <span>≈ 18 min</span>
+              </span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="/arkitektur/">
+            <span class="dg-hero__rail-num">II</span>
+            <span class="dg-hero__rail-body">
+              <strong>Arkitektur</strong>
+              <small>Tre-plan-design · 27 komponenter · hendelse-buss</small>
+              <span class="dg-hero__rail-meta">
+                <span class="dg-hero__rail-pages">4 kapitler</span>
+                <span class="dg-hero__rail-sep" aria-hidden="true">·</span>
+                <span>≈ 38 min</span>
+              </span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="/integrasjoner/">
+            <span class="dg-hero__rail-num">III</span>
+            <span class="dg-hero__rail-body">
+              <strong>Integrasjoner</strong>
+              <small>ID-porten · Vipps · Stripe · EHF</small>
+              <span class="dg-hero__rail-meta">
+                <span class="dg-hero__rail-pages">5 oppsett</span>
+                <span class="dg-hero__rail-sep" aria-hidden="true">·</span>
+                <span>≈ 42 min</span>
+              </span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="/utvikling/">
+            <span class="dg-hero__rail-num">IV</span>
+            <span class="dg-hero__rail-body">
+              <strong>Utvikling</strong>
+              <small>Kom i gang · SDK · hooks · konvensjoner</small>
+              <span class="dg-hero__rail-meta">
+                <span class="dg-hero__rail-pages">2 kapitler</span>
+                <span class="dg-hero__rail-sep" aria-hidden="true">·</span>
+                <span>≈ 22 min</span>
+              </span>
             </span>
           </a>
         </li>
         <li>
           <a href="/admin/">
-            <span class="dg-hero__rail-num">02</span>
-            <span>
+            <span class="dg-hero__rail-num">V</span>
+            <span class="dg-hero__rail-body">
               <strong>Admin-runbooks</strong>
-              <small>Drift av /admin/intelligence</small>
+              <small>Site Intelligence · Vekst-harness</small>
+              <span class="dg-hero__rail-meta">
+                <span class="dg-hero__rail-pages">3 runbooks</span>
+                <span class="dg-hero__rail-sep" aria-hidden="true">·</span>
+                <span>≈ 24 min</span>
+              </span>
             </span>
           </a>
         </li>
         <li>
-          <a href="/api/">
-            <span class="dg-hero__rail-num">03</span>
-            <span>
+          <a href="/api-referanse/">
+            <span class="dg-hero__rail-num">VI</span>
+            <span class="dg-hero__rail-body">
               <strong>API-referanse</strong>
-              <small>Public + admin endepunkter</small>
+              <small>Public · Audits · Content</small>
+              <span class="dg-hero__rail-meta">
+                <span class="dg-hero__rail-pages">12 endepunkter</span>
+                <span class="dg-hero__rail-sep" aria-hidden="true">·</span>
+                <span>OpenAPI 3.1</span>
+              </span>
             </span>
           </a>
         </li>
         <li>
           <a href="/compliance/">
-            <span class="dg-hero__rail-num">04</span>
-            <span>
+            <span class="dg-hero__rail-num">VII</span>
+            <span class="dg-hero__rail-body">
               <strong>Compliance</strong>
-              <small>GDPR · ISO · NSM · SSA-L</small>
+              <small>GDPR · ISO 27001 · NSM · SSA-L</small>
+              <span class="dg-hero__rail-meta">
+                <span class="dg-hero__rail-pages">4 kapitler</span>
+                <span class="dg-hero__rail-sep" aria-hidden="true">·</span>
+                <span>≈ 24 min</span>
+              </span>
             </span>
           </a>
         </li>
-      </ul>
+      </ol>
+
+      <section class="dg-hero__links" aria-labelledby="dg-links-heading">
+        <p class="dg-hero__links-kicker" id="dg-links-heading">VIKTIGE LENKER</p>
+        <ul class="dg-hero__links-list">
+          <li>
+            <a href="https://digilist.no/" target="_blank" rel="noopener">
+              <span class="dg-hero__links-glyph" aria-hidden="true">↗</span>
+              <span class="dg-hero__links-body">
+                <strong>digilist.no</strong>
+                <small>Hovedplattformen — markedsføring &amp; produkt</small>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="https://digilist.no/admin/intelligence" target="_blank" rel="noopener">
+              <span class="dg-hero__links-glyph" aria-hidden="true">↗</span>
+              <span class="dg-hero__links-body">
+                <strong>Admin Intelligence</strong>
+                <small>Vekst-harness, audits, content-pipeline</small>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="/api-referanse/" >
+              <span class="dg-hero__links-glyph" aria-hidden="true">§</span>
+              <span class="dg-hero__links-body">
+                <strong>OpenAPI 3.1-spec</strong>
+                <small>12 endepunkter · chat · audits · content</small>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="https://status.digilist.no/" target="_blank" rel="noopener">
+              <span class="dg-hero__links-glyph" aria-hidden="true">●</span>
+              <span class="dg-hero__links-body">
+                <strong>Driftsstatus</strong>
+                <small>Sanntid · oppetid 99,98 % siste 90 dager</small>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/xalatechnologies/booking-brilliance" target="_blank" rel="noopener">
+              <span class="dg-hero__links-glyph" aria-hidden="true">↗</span>
+              <span class="dg-hero__links-body">
+                <strong>GitHub</strong>
+                <small>Kildekode &amp; changelog</small>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="mailto:hei@digilist.no">
+              <span class="dg-hero__links-glyph" aria-hidden="true">✉</span>
+              <span class="dg-hero__links-body">
+                <strong>hei@digilist.no</strong>
+                <small>Spørsmål, demo, partnerskap</small>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <p class="dg-hero__colophon">
+        <span>REDAKSJON · OSLO</span>
+        <span class="dg-hero__colophon-sep" aria-hidden="true"></span>
+        <span>SATT I FRAUNCES &amp; PUBLIC SANS</span>
+      </p>
     </aside>
+  </div>
+
+  <div class="dg-hero__ornament" aria-hidden="true">
+    <span class="dg-hero__ornament-rule"></span>
+    <span class="dg-hero__ornament-mark">✦</span>
+    <span class="dg-hero__ornament-rule"></span>
   </div>
 </section>
 
 <style>
   .dg-hero {
     position: relative;
-    padding: 2.5rem 0 3.25rem;
-    border-block-end: 1px solid hsl(var(--rule));
+    padding-block: 0.75rem 1.5rem;
     isolation: isolate;
   }
 
-  @media (min-width: 50em) {
-    .dg-hero {
-      padding: 3.25rem 0 4rem;
-    }
-  }
-
-  .dg-hero::before {
-    /* Subtle paper-deep wash so the hero reads as a distinct masthead
-     * panel without breaking the editorial palette. */
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      180deg,
-      hsl(var(--paper-deep)) 0%,
-      hsl(var(--paper)) 100%
-    );
-    z-index: -1;
+  @media (min-width: 64em) {
+    .dg-hero { padding-block: 1rem 2rem; }
   }
 
   .dg-hero__grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    gap: 3rem;
+    gap: 2rem;
+    padding-block-start: 0.5rem;
   }
 
   @media (min-width: 64em) {
     .dg-hero__grid {
-      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-      gap: 4rem;
+      /* Asymmetric 8-4 spread — main story takes 8 cols, rail 4 */
+      grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+      gap: 3.5rem;
     }
   }
 
-  .dg-hero__caption {
+  .dg-hero__rubric {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
     font-family: "JetBrains Mono", ui-monospace, monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.22em;
+    font-size: 0.62rem;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
     color: hsl(var(--accent-text));
-    margin: 0 0 1.5rem;
+    margin: 0 0 1.25rem;
+    padding-block: 0.4rem;
+    padding-inline: 0.7rem;
+    border: 0.5px solid hsl(var(--rule-strong));
+    border-radius: 1px;
+    line-height: 1;
+  }
+
+  .dg-hero__rubric-sep {
+    display: inline-block;
+    width: 1px;
+    height: 0.7rem;
+    background: hsl(var(--rule-strong));
+    margin-inline: 0.15rem;
+  }
+
+  .dg-hero__rubric-meta {
+    color: hsl(var(--ink-faint));
+    font-feature-settings: "tnum" 1;
+  }
+
+  .dg-hero__pilcrow {
+    font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
+    font-variation-settings: "opsz" 24, "wght" 700, "SOFT" 0, "WONK" 1;
+    font-size: 0.95rem;
+    line-height: 0;
+    color: hsl(var(--accent-text));
   }
 
   .dg-hero__h1 {
     font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
-    font-variation-settings: "opsz" 144, "wght" 460, "SOFT" 30, "WONK" 0;
-    font-size: clamp(3rem, 6vw + 1rem, 5.5rem);
-    line-height: 0.98;
-    letter-spacing: -0.025em;
+    /* WONK axis on — gives the serifs character, just like the marketing
+     * Navbar wordmark. Heavier wght for impact at display size. */
+    font-variation-settings: "opsz" 144, "wght" 500, "SOFT" 25, "WONK" 1;
+    font-size: clamp(2.75rem, 7.5vw + 0.5rem, 6.5rem);
+    line-height: 0.96;
+    letter-spacing: -0.03em;
     color: hsl(var(--ink));
     margin: 0;
     text-wrap: balance;
-    max-width: 16ch;
+    max-width: 14ch;
+  }
+
+  .dg-hero__dash {
+    width: 3rem;
+    height: 2px;
+    background: hsl(var(--ink));
+    margin-block: 1rem 0.85rem;
   }
 
   .dg-hero__lede {
     font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
-    font-variation-settings: "opsz" 18, "wght" 380, "SOFT" 30, "WONK" 0;
-    font-size: 1.25rem;
-    line-height: 1.5;
+    font-variation-settings: "opsz" 24, "wght" 380, "SOFT" 50, "WONK" 0;
+    font-style: italic;
+    font-size: clamp(1.1rem, 0.9vw + 0.95rem, 1.4rem);
+    line-height: 1.45;
     color: hsl(var(--ink-soft));
-    margin: 2rem 0 0;
+    margin: 0;
     max-width: 38ch;
   }
 
+  /* CTA buttons — newspaper "section jump" treatment */
   .dg-hero__actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.85rem;
-    margin: 2.5rem 0 0;
+    gap: 0.75rem;
+    margin-block-start: 1.5rem;
   }
 
   .dg-hero__btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.45rem;
+    gap: 0.55rem;
     font-family: "JetBrains Mono", ui-monospace, monospace;
     font-size: 0.7rem;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     text-decoration: none;
-    padding: 0.85rem 1.4rem;
+    padding: 0.85rem 1.25rem;
     color: hsl(var(--ink));
-    background: hsl(var(--paper));
-    border: 1px solid hsl(var(--ink));
+    background: transparent;
+    border: 0.5px solid hsl(var(--ink));
     border-radius: 2px;
-    transition: background 120ms ease, color 120ms ease, transform 120ms ease;
+    transition: background 200ms var(--ease-editorial), color 200ms var(--ease-editorial);
   }
 
   .dg-hero__btn:hover {
-    transform: translateY(-1px);
     background: hsl(var(--ink));
     color: hsl(var(--paper));
   }
@@ -200,23 +446,173 @@ const actions = hero?.actions ?? [];
     color: hsl(var(--navy));
   }
 
-  .dg-hero__rail {
-    border: 1px solid hsl(var(--rule));
-    border-radius: 2px;
-    background: hsl(var(--paper));
-    padding: 1.75rem 1.5rem;
-    align-self: start;
+  .dg-hero__btn-num {
+    font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
+    font-variation-settings: "opsz" 14, "wght" 600, "SOFT" 0, "WONK" 1;
+    font-size: 0.9rem;
+    line-height: 1;
   }
 
-  .dg-hero__rail-caption {
+  /* Editorial stats strip — three plant-of-the-month-style numbers */
+  .dg-hero__stats {
+    list-style: none;
+    padding: 0;
+    margin: 1.75rem 0 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    background: hsl(var(--rule));
+    border-block: 1px solid hsl(var(--rule));
+  }
+
+  .dg-hero__stats li {
+    background: hsl(var(--paper));
+    padding: 0.85rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .dg-hero__stat-num {
+    font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
+    font-variation-settings: "opsz" 72, "wght" 500, "SOFT" 25, "WONK" 1;
+    font-size: 2.25rem;
+    line-height: 1;
+    color: hsl(var(--ink));
+  }
+
+  .dg-hero__stat-num small {
+    font-size: 1rem;
+    color: hsl(var(--ink-faint));
+    margin-inline-start: 0.1rem;
+  }
+
+  .dg-hero__stat-label {
     font-family: "JetBrains Mono", ui-monospace, monospace;
     font-size: 0.6rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: hsl(var(--ink-faint));
-    margin: 0 0 1rem;
-    padding-block-end: 0.85rem;
-    border-block-end: 1px solid hsl(var(--rule));
+  }
+
+  /* ── Mest leste — fills space below the stats strip ─────── */
+  .dg-hero__popular {
+    margin-block-start: 2rem;
+    padding-block-start: 1.5rem;
+    border-block-start: 1px solid hsl(var(--rule));
+  }
+
+  .dg-hero__popular-head {
+    margin-block-end: 1.1rem;
+  }
+
+  .dg-hero__popular-kicker {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: hsl(var(--accent-text));
+    font-weight: 600;
+    margin: 0 0 0.4rem;
+  }
+
+  .dg-hero__popular-title {
+    font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
+    font-variation-settings: "opsz" 48, "wght" 460, "SOFT" 30, "WONK" 0;
+    font-style: italic;
+    font-size: 1.6rem;
+    line-height: 1.2;
+    color: hsl(var(--ink));
+    margin: 0;
+  }
+
+  .dg-hero__popular-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dg-hero__popular-list a {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr auto;
+    gap: 1.1rem;
+    align-items: baseline;
+    padding-block: 0.95rem;
+    border-block-end: 0.5px solid hsl(var(--rule));
+    text-decoration: none;
+    color: inherit;
+    transition: padding-inline-start 180ms var(--ease-editorial);
+  }
+
+  .dg-hero__popular-list li:last-child a {
+    border-block-end: 0;
+  }
+
+  .dg-hero__popular-list a:hover {
+    padding-inline-start: 0.5rem;
+  }
+
+  .dg-hero__popular-num {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: hsl(var(--accent-text));
+  }
+
+  .dg-hero__popular-body {
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 0.25rem;
+  }
+
+  .dg-hero__popular-body strong {
+    font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
+    font-variation-settings: "opsz" 36, "wght" 540, "SOFT" 30, "WONK" 0;
+    font-weight: normal;
+    font-size: 1.1rem;
+    color: hsl(var(--ink));
+    line-height: 1.2;
+  }
+
+  .dg-hero__popular-body small {
+    font-size: 0.85rem;
+    color: hsl(var(--ink-soft));
+  }
+
+  .dg-hero__popular-time {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: hsl(var(--ink-faint));
+    align-self: center;
+  }
+
+  /* Rail — printed-book "index" with leader dots */
+  .dg-hero__rail {
+    border-inline-start: 0.5px solid hsl(var(--rule-strong));
+    padding-inline-start: 1.5rem;
+    align-self: start;
+  }
+
+  @media (max-width: 63.99em) {
+    .dg-hero__rail {
+      border-inline-start: 0;
+      padding-inline-start: 0;
+      border-block-start: 1px solid hsl(var(--rule));
+      padding-block-start: 1.5rem;
+    }
+  }
+
+  .dg-hero__rail-caption {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: hsl(var(--ink-faint));
+    margin: 0 0 1.1rem;
   }
 
   .dg-hero__rail-list {
@@ -225,46 +621,264 @@ const actions = hero?.actions ?? [];
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
   }
 
   .dg-hero__rail-list a {
     display: grid;
-    grid-template-columns: 2.5rem 1fr;
+    grid-template-columns: 2.25rem 1fr;
     gap: 0.85rem;
     align-items: baseline;
-    padding: 0.6rem 0;
+    padding-block: 0.85rem;
+    border-block-end: 1px solid hsl(var(--rule));
     text-decoration: none;
-    border-bottom: 1px solid hsl(var(--rule));
-    transition: padding-inline-start 120ms ease;
+    color: inherit;
+    transition: padding-inline-start 200ms var(--ease-editorial);
   }
 
-  .dg-hero__rail-list li:last-child a { border-bottom: 0; }
+  .dg-hero__rail-list li:last-child a { border-block-end: 0; }
 
-  .dg-hero__rail-list a:hover {
-    padding-inline-start: 0.5rem;
-  }
+  .dg-hero__rail-list a:hover { padding-inline-start: 0.4rem; }
 
   .dg-hero__rail-num {
+    font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
+    font-variation-settings: "opsz" 36, "wght" 460, "SOFT" 30, "WONK" 1;
+    font-style: italic;
+    font-size: 1.4rem;
+    line-height: 1;
+    color: hsl(var(--accent-text));
+    text-align: end;
+  }
+
+  .dg-hero__rail-body {
+    display: grid;
+    grid-template-rows: auto auto;
+  }
+
+  .dg-hero__rail-body strong {
+    font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
+    font-variation-settings: "opsz" 36, "wght" 540, "SOFT" 30, "WONK" 0;
+    font-weight: normal;
+    font-size: 1.15rem;
+    color: hsl(var(--ink));
+    line-height: 1.15;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Leader dots after the title — classic printed-book "Index" feel */
+  .dg-hero__rail-dots {
+    display: none;
+  }
+
+  .dg-hero__rail-body small {
+    font-size: 0.78rem;
+    color: hsl(var(--ink-faint));
+    margin-block-start: 0.2rem;
+    font-style: italic;
+    font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
+    font-variation-settings: "opsz" 14, "wght" 400, "SOFT" 30, "WONK" 0;
+  }
+
+  .dg-hero__rail-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-block-start: 0.45rem;
     font-family: "JetBrains Mono", ui-monospace, monospace;
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: hsl(var(--ink-faint));
+  }
+
+  .dg-hero__rail-pages {
     color: hsl(var(--accent-text));
   }
 
-  .dg-hero__rail-list strong {
+  .dg-hero__rail-sep {
+    opacity: 0.6;
+  }
+
+  /* SISTE OPPDATERT block — recent-changes log under the index */
+  .dg-hero__updates {
+    margin-block-start: 1.75rem;
+    padding-block-start: 1.25rem;
+    border-block-start: 0.5px solid hsl(var(--rule-strong));
+  }
+
+  .dg-hero__updates-kicker {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: hsl(var(--ink-faint));
+    margin: 0 0 0.85rem;
+  }
+
+  .dg-hero__updates-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .dg-hero__updates-list a {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr;
+    gap: 0.75rem;
+    align-items: baseline;
+    padding-block: 0.55rem;
+    border-block-end: 0.5px dotted hsl(var(--rule));
+    text-decoration: none;
+    color: inherit;
+    transition: padding-inline-start 180ms var(--ease-editorial);
+  }
+
+  .dg-hero__updates-list li:last-child a {
+    border-block-end: 0;
+  }
+
+  .dg-hero__updates-list a:hover {
+    padding-inline-start: 0.3rem;
+  }
+
+  .dg-hero__updates-date {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: hsl(var(--accent-text));
+    font-feature-settings: "tnum" 1;
+  }
+
+  .dg-hero__updates-title {
     font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
-    font-variation-settings: "opsz" 36, "wght" 540, "SOFT" 30, "WONK" 0;
-    font-size: 1.05rem;
+    font-variation-settings: "opsz" 18, "wght" 440, "SOFT" 30, "WONK" 0;
+    font-size: 0.92rem;
+    line-height: 1.3;
+    color: hsl(var(--ink-soft));
+  }
+
+  /* VIKTIGE LENKER — curated external + internal destinations */
+  .dg-hero__links {
+    margin-block-start: 1.75rem;
+    padding-block-start: 1.25rem;
+    border-block-start: 0.5px solid hsl(var(--rule-strong));
+  }
+
+  .dg-hero__links-kicker {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: hsl(var(--ink-faint));
+    margin: 0 0 0.85rem;
+  }
+
+  .dg-hero__links-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dg-hero__links-list a {
+    display: grid;
+    grid-template-columns: 1.5rem 1fr;
+    gap: 0.75rem;
+    align-items: baseline;
+    padding-block: 0.7rem;
+    border-block-end: 0.5px dotted hsl(var(--rule));
+    text-decoration: none;
+    color: inherit;
+    transition: padding-inline-start 180ms var(--ease-editorial);
+  }
+
+  .dg-hero__links-list li:last-child a {
+    border-block-end: 0;
+  }
+
+  .dg-hero__links-list a:hover {
+    padding-inline-start: 0.35rem;
+  }
+
+  .dg-hero__links-glyph {
+    font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
+    font-variation-settings: "opsz" 24, "wght" 600, "SOFT" 0, "WONK" 1;
+    font-size: 1rem;
+    line-height: 1;
+    color: hsl(var(--accent-text));
+    text-align: end;
+  }
+
+  .dg-hero__links-body {
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 0.18rem;
+  }
+
+  .dg-hero__links-body strong {
+    font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
+    font-variation-settings: "opsz" 18, "wght" 520, "SOFT" 30, "WONK" 0;
+    font-weight: normal;
+    font-size: 1rem;
     color: hsl(var(--ink));
-    display: block;
     line-height: 1.2;
   }
 
-  .dg-hero__rail-list small {
-    font-size: 0.78rem;
-    color: hsl(var(--ink-soft));
-    margin-top: 0.15rem;
-    display: block;
+  .dg-hero__links-body small {
+    font-size: 0.75rem;
+    color: hsl(var(--ink-faint));
+    line-height: 1.3;
+  }
+
+  /* Colophon — printer's mark closing the rail */
+  .dg-hero__colophon {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 1.5rem 0 0;
+    padding-block-start: 1rem;
+    border-block-start: 1px solid hsl(var(--rule));
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: hsl(var(--ink-faint));
+    line-height: 1.2;
+    flex-wrap: wrap;
+  }
+
+  .dg-hero__colophon-sep {
+    display: inline-block;
+    width: 0.5rem;
+    height: 1px;
+    background: hsl(var(--rule-strong));
+  }
+
+  /* Ornamental section break ✦ — classic newspaper printer's mark */
+  .dg-hero__ornament {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-block-start: 2.5rem;
+    padding-block-start: 2.5rem;
+  }
+
+  .dg-hero__ornament-rule {
+    flex: 1;
+    height: 1px;
+    background: hsl(var(--rule));
+  }
+
+  .dg-hero__ornament-mark {
+    font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
+    font-variation-settings: "opsz" 36, "wght" 460, "SOFT" 30, "WONK" 0;
+    font-size: 1.1rem;
+    color: hsl(var(--accent-text));
+    line-height: 1;
   }
 </style>

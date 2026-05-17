@@ -1,0 +1,85 @@
+---
+title: Integrasjoner
+description: ID-porten, BankID, Feide, Vipps, Stripe, Nets, EHF, Fiken, Tripletex, Visma, PowerOffice. Slik kobler Digilist seg til alle de viktige norske systemene.
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+Digilist kjører på toppen av et nettverk av norske og europeiske tjenester.
+Alle integrasjoner er **adapter-bygget**: hver leverandør har en
+isolert modul med eget API-skjema, retry-policy og webhook-handler.
+Det gjør det enkelt å bytte leverandør per tenant eller per region.
+
+## Identitet
+
+<CardGrid>
+  <Card title="ID-porten" icon="approve-check">
+    Offentlig innlogging via Difi. OIDC-flyt, PID + navn fra Folkeregisteret.
+  </Card>
+  <Card title="BankID" icon="setting">
+    Sterk autentisering via Signicat. Påkrevd for godkjenning av sensitive bookinger.
+  </Card>
+  <Card title="Feide" icon="rocket">
+    Skole- og utdanningsinnlogging. For booking av skolelokaler og idrettshaller.
+  </Card>
+  <Card title="Magic-link / SMS" icon="document">
+    Alternativ for innbyggere uten norsk fødselsnummer eller BankID.
+  </Card>
+</CardGrid>
+
+## Betaling
+
+<CardGrid>
+  <Card title="Vipps Mobilepay" icon="approve-check">
+    Norges mest brukte mobilbetaling. Refusjon, gjentakende, e-faktura.
+  </Card>
+  <Card title="Stripe Connect" icon="rocket">
+    Kort, Apple Pay, Google Pay, SEPA. Provisjons-splitting til tenant.
+  </Card>
+  <Card title="Nets Easy" icon="setting">
+    Backup for kort-betaling, populær blant større kommuner.
+  </Card>
+  <Card title="EHF / Peppol" icon="document">
+    Elektronisk faktura til kommune, fylke, stat. Norm-format ISO20022.
+  </Card>
+</CardGrid>
+
+## Regnskap
+
+<CardGrid>
+  <Card title="Fiken" icon="approve-check">
+    Den mest brukte regnskap-tjenesten blant små og mellomstore tenants.
+  </Card>
+  <Card title="Tripletex" icon="rocket">
+    Større tenants — full ERP-integrasjon med kostsenter-routing.
+  </Card>
+  <Card title="Visma eAccounting" icon="setting">
+    Visma-økosystem for offentlige og halv-offentlige tenants.
+  </Card>
+  <Card title="PowerOffice" icon="document">
+    Bygg-bransje og service-orienterte tenants.
+  </Card>
+</CardGrid>
+
+## Detaljerte oppsett
+
+<LinkCard
+  title="ID-porten"
+  description="OIDC-konfig, scopes, PID-håndtering, sandbox vs prod."
+  href="/integrasjoner/id-porten/"
+/>
+<LinkCard
+  title="Vipps Mobilepay"
+  description="Salesunit-oppsett, callback-URLer, refusjons-flyt, e-faktura."
+  href="/integrasjoner/vipps/"
+/>
+<LinkCard
+  title="Stripe Connect"
+  description="Express-konto, KYC, provisjons-splitting, payout-skjema."
+  href="/integrasjoner/stripe/"
+/>
+<LinkCard
+  title="EHF / Peppol"
+  description="Access point, AS4-transport, validering, retransmittering."
+  href="/integrasjoner/ehf/"
+/>

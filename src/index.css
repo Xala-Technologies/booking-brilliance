@@ -152,6 +152,21 @@
     scroll-padding-top: 6rem;
   }
 
+  /*
+   * SSR LCP guard — framer-motion renders dozens of editorial sections
+   * with `initial={{ opacity: 0, y: 12-24 }}` which Lighthouse sees as
+   * invisible content on initial paint, blowing LCP up to 13s. While
+   * the document is still pre-hydration (no `data-hydrated` attribute
+   * on <html>) we force every framer-motion-style hidden block to
+   * paint as visible. After main.tsx flips data-hydrated, this rule
+   * drops and framer-motion's animation system takes over normally.
+   */
+  html:not([data-hydrated]) [style*="opacity:0"],
+  html:not([data-hydrated]) [style*="opacity: 0"] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
   body {
     @apply bg-background text-foreground;
     font-family: "Public Sans", system-ui, sans-serif;

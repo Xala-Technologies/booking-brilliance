@@ -38,6 +38,12 @@ interface PublicSurface {
   scores: Record<string, number>;
 }
 
+interface PostureFramework {
+  framework: string;
+  implementation_pct: number;
+  total: number;
+}
+
 interface PublicSummary {
   generatedAt: string;
   surfaces: PublicSurface[];
@@ -49,7 +55,14 @@ interface PublicSummary {
     warnCount: number;
     avgScore: number;
   } | null;
+  posture?: PostureFramework[] | null;
 }
+
+const POSTURE_LABEL: Record<string, string> = {
+  iso27001: "ISO 27001:2022",
+  soc2: "SOC 2",
+  gdpr: "GDPR",
+};
 
 const AUDIT_LABEL: Record<string, string> = {
   uptime: "Oppetid & SSL",
@@ -216,6 +229,63 @@ export default function Transparens() {
                           sub="Anbefalt forbedring"
                         />
                       </div>
+                    </section>
+                  )}
+
+                  {/* Trust posture — ISO 27001 / SOC 2 / GDPR */}
+                  {data.posture && data.posture.length > 0 && (
+                    <section className="mb-14 lg:mb-20">
+                      <p className="editorial-mono-caption text-accent-text mb-4">
+                        ETTERLEVELSE
+                      </p>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-rule border border-rule">
+                        {data.posture.map((p) => (
+                          <div
+                            key={p.framework}
+                            className="bg-paper px-6 py-5"
+                          >
+                            <p className="editorial-mono-caption text-ink-faint">
+                              {POSTURE_LABEL[p.framework] ?? p.framework}
+                            </p>
+                            <div className="flex items-baseline gap-3 mt-3">
+                              <span
+                                className={cn(
+                                  "font-serif text-4xl leading-none tabular-nums",
+                                  p.implementation_pct >= 80
+                                    ? "text-green-700"
+                                    : p.implementation_pct >= 40
+                                      ? "text-amber-700"
+                                      : "text-ink-soft",
+                                )}
+                                style={{
+                                  fontVariationSettings:
+                                    '"opsz" 144, "wght" 360',
+                                }}
+                              >
+                                {p.implementation_pct}%
+                              </span>
+                              <span className="text-sm text-ink-soft">
+                                av {p.total} kontroller
+                              </span>
+                            </div>
+                            <p className="mt-3 text-sm text-ink-soft leading-relaxed">
+                              {p.framework === "iso27001" &&
+                                "Annex A — Organisatoriske, personell-, fysiske og teknologiske kontroller."}
+                              {p.framework === "soc2" &&
+                                "Common Criteria — kontrollmiljø, risiko, tilgang og systemoperasjoner."}
+                              {p.framework === "gdpr" &&
+                                "Kjerneartikler — personvern, lovlig grunnlag, sletting og brudd-håndtering."}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                      <p className="mt-4 text-sm text-ink-faint italic max-w-3xl">
+                        Tallene viser implementeringsgrad — andelen
+                        anvendelige kontroller med dokumentert tilstand
+                        «Implementert» (full kreditt) eller «Delvis» (halv).
+                        Detaljer over hver kontroll er tilgjengelig på
+                        forespørsel for kommunale kunder under NDA.
+                      </p>
                     </section>
                   )}
 

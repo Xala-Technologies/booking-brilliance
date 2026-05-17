@@ -43,13 +43,14 @@ export interface TargetMeta {
 }
 
 const FULL_CHECKS: AuditType[] = [
+  "performance",
   "uptime",
   "seo",
   "a11y",
   "security",
   "links",
 ];
-const SPA_CHECKS: AuditType[] = ["uptime", "security"];
+const SPA_CHECKS: AuditType[] = ["uptime", "security", "performance"];
 const API_CHECKS: AuditType[] = ["uptime", "security"];
 
 export const TARGETS: TargetMeta[] = [
@@ -57,7 +58,7 @@ export const TARGETS: TargetMeta[] = [
     name: "marketing",
     label: "Marketing — digilist.no",
     origin: "https://digilist.no",
-    description: "Public marketing site, blog, FAQ, landing pages.",
+    description: "Offentlig markedsføringsside, blogg, FAQ og landingssider.",
     type: "marketing",
     environment: "production",
     indexable: true,
@@ -67,10 +68,10 @@ export const TARGETS: TargetMeta[] = [
   },
   {
     name: "marketing-dev",
-    label: "Staging app — dev.digilist.no",
+    label: "Pre-prod app — dev.digilist.no",
     origin: "https://dev.digilist.no",
     description:
-      "Pre-production booking app (SPA). Auth-gated routes plus public login/signup.",
+      "Pre-prod booking-app (SPA). Auth-beskyttede ruter pluss offentlig innlogging/registrering.",
     type: "app",
     environment: "staging",
     indexable: false,
@@ -82,7 +83,7 @@ export const TARGETS: TargetMeta[] = [
     name: "app",
     label: "App — app.digilist.no",
     origin: "https://app.digilist.no",
-    description: "Production app — public surfaces only (login, signup).",
+    description: "Produksjons-app — kun offentlige overflater (innlogging, registrering).",
     type: "app",
     environment: "production",
     indexable: false,
@@ -94,7 +95,7 @@ export const TARGETS: TargetMeta[] = [
     name: "docs",
     label: "Docs — docs.digilist.no",
     origin: "https://docs.digilist.no",
-    description: "Public documentation site (Astro Starlight, apps/docs/).",
+    description: "Offentlig dokumentasjonsside (Astro Starlight, apps/docs/).",
     type: "docs",
     environment: "production",
     indexable: true,
@@ -106,9 +107,22 @@ export const TARGETS: TargetMeta[] = [
     name: "dashboard",
     label: "Dashboard — dashboard.digilist.no",
     origin: "https://dashboard.digilist.no",
-    description: "Tenant admin — public surfaces only.",
+    description: "Tenant-administrasjon — kun offentlige overflater.",
     type: "dashboard",
     environment: "production",
+    indexable: false,
+    requiresAuth: true,
+    checks: SPA_CHECKS,
+    active: true,
+  },
+  {
+    name: "dashboard-dev",
+    label: "Pre-prod dashboard — dashboard.dev.digilist.no",
+    origin: "https://dashboard.dev.digilist.no",
+    description:
+      "Pre-prod tenant-administrasjon (SPA). Pre-prod-speil av dashboard.digilist.no.",
+    type: "dashboard",
+    environment: "staging",
     indexable: false,
     requiresAuth: true,
     checks: SPA_CHECKS,
@@ -118,7 +132,7 @@ export const TARGETS: TargetMeta[] = [
     name: "api",
     label: "API — api.digilist.no",
     origin: "https://api.digilist.no",
-    description: "Public API surface — health, auth endpoints.",
+    description: "Offentlig API-overflate — helsesjekk og auth-endepunkter.",
     type: "api",
     environment: "production",
     indexable: false,
@@ -130,7 +144,7 @@ export const TARGETS: TargetMeta[] = [
     name: "status",
     label: "Status — status.digilist.no",
     origin: "https://status.digilist.no",
-    description: "Public status page.",
+    description: "Offentlig driftsstatus-side.",
     type: "status",
     environment: "production",
     indexable: true,

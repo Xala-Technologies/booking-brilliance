@@ -1,0 +1,37 @@
+---
+title: Utvikling
+description: Forutsetninger, oppsett, kommandoer, monorepo-struktur, konvensjoner, SDK-hooks og test-lag for utviklere som bygger Digilist.
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+Digilist er et pnpm monorepo med 2 apper, 8 delte pakker, og en Convex-kontrollplan.
+Stack: TypeScript, React 18, Tailwind, Convex, Vitest, Playwright.
+
+<CardGrid>
+  <Card title="pnpm 9+" icon="rocket">
+    Workspace-protokoll for delte pakker. Ikke npm/yarn — pnpm er kanonisk.
+  </Card>
+  <Card title="Convex dev" icon="setting">
+    Schema, fasader og crons watcher live mot `convex dev`. Hot-reload på alt.
+  </Card>
+  <Card title="Source-only SDK" icon="puzzle">
+    `@digilist/sdk` har ingen byggesteg. Endre en hook → app ser endringen umiddelbart.
+  </Card>
+  <Card title="~2 044 tester" icon="approve-check">
+    SDK (281) + Convex unit (1 470) + Convex E2E (71) + Playwright (135) + A-krav (87).
+  </Card>
+</CardGrid>
+
+## Detaljerte guider
+
+<LinkCard
+  title="Kom i gang"
+  description="Forutsetninger, install, første lokale kjøring, seeding."
+  href="/utvikling/kom-i-gang/"
+/>
+<LinkCard
+  title="SDK & hooks"
+  description="Hook-mønstre, transforms, hvordan legge til en ny hook."
+  href="/utvikling/sdk/"
+/>

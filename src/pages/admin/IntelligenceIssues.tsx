@@ -4,15 +4,43 @@
  */
 import { useEffect, useMemo, useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import { Loader2, Sparkles, X } from "lucide-react";
+import { useAction, useMutation, useQuery } from "convex/react";
+import {
+  Check,
+  Hammer,
+  Loader2,
+  Sparkles,
+  X,
+  XCircle,
+} from "lucide-react";
+import { api } from "../../../convex/_generated/api";
+import type { Id } from "../../../convex/_generated/dataModel";
 import { cn } from "@/lib/utils";
 import {
   AUDIT_LABEL,
   AUTH_KEY,
   SURFACE_LABEL,
+  adminToken,
   type IntelligenceCtx,
   type IssueFeedItem,
 } from "./intelligence-shared";
+
+interface FixProposal {
+  _id: Id<"fix_proposals">;
+  surface: string;
+  audit_type: string;
+  rule: string | undefined;
+  agent_slug: string;
+  model: string;
+  rationale: string;
+  files_touched: string;
+  diff: string;
+  verification: string;
+  risk: string;
+  status: string;
+  created_at: string;
+  cost_usd: number;
+}
 
 interface AiRecommendation {
   recommendation: string;
@@ -78,8 +106,8 @@ export default function IntelligenceIssues() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-rule border border-rule">
           {(
             [
-              { key: "error", label: "Errors", tone: "text-red-700", sub: "Krever handling" },
-              { key: "warn", label: "Warnings", tone: "text-amber-700", sub: "Anbefalt utbedring" },
+              { key: "error", label: "Feil", tone: "text-red-700", sub: "Krever handling" },
+              { key: "warn", label: "Advarsler", tone: "text-amber-700", sub: "Anbefalt utbedring" },
               { key: "info", label: "Info", tone: undefined, sub: "Til kjennskap" },
               { key: "all", label: "Totalt", tone: undefined, sub: "Alle issues" },
             ] as const
@@ -142,7 +170,7 @@ export default function IntelligenceIssues() {
           <thead className="bg-paper-deep/40">
             <tr>
               <th className="text-left px-4 py-3 editorial-mono-caption text-ink w-24">
-                Severity
+                Alvorsgrad
               </th>
               <th className="text-left px-4 py-3 editorial-mono-caption text-ink">
                 Overflate
@@ -377,6 +405,8 @@ function AiFixDrawer({
             </>
           ) : null}
         </section>
+
+        <FixProposalPanel issue={issue} />
       </aside>
     </div>
   );
@@ -431,4 +461,248 @@ function renderMarkdown(md: string): React.ReactNode {
   }
   flushList();
   return out;
+}
+
+/**
+ * Foreslå konkret fiks-panel — shown inside the existing AI drawer.
+ *
+ * Distinct from the free-form recommendation above: this asks the
+ * matching specialist agent for a STRUCTURED proposal (rationale,
+ * files-touched, diff, verification, risk). Persisted in Convex so
+ * the same finding doesn't get regenerated on every open.
+ */
+function FixProposalPanel({ issue }: { issue: IssueFeedItem }) {
+  const findingRef = `feed:${issue.surface}:${issue.auditType}:${issue.rule}`;
+  const proposals = useQuery(api.agents.fixProposals.listForFinding, {
+    adminToken: adminToken(),
+    finding_ref: findingRef,
+  }) as FixProposal[] | undefined;
+  const propose = useAction(api.agents.fixProposals.propose);
+  const updateStatus = useMutation(api.agents.fixProposals.updateStatus);
+
+  const [generating, setGenerating] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const onGenerate = async () => {
+    setGenerating(true);
+    setError(null);
+    try {
+      await propose({
+        adminToken: adminToken(),
+        finding_ref: findingRef,
+        surface: issue.surface,
+        audit_type: issue.auditType,
+        rule: issue.rule,
+        message: issue.message,
+        url: issue.url,
+      });
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setGenerating(false);
+    }
+  };
+
+  return (
+    <section className="mt-8 pt-6 border-t border-rule">
+      <div className="flex items-baseline justify-between mb-4">
+        <p className="editorial-mono-caption text-accent-text inline-flex items-center gap-1.5">
+          <Hammer className="h-3.5 w-3.5" /> FORESLÅ KONKRET FIKS
+        </p>
+        <button
+          type="button"
+          onClick={() => void onGenerate()}
+          disabled={generating}
+          className="font-mono text-[0.65rem] tracking-widest uppercase bg-navy text-on-navy rounded-sm px-3 py-1.5 hover:bg-navy/90 disabled:opacity-50 inline-flex items-center gap-1.5"
+        >
+          {generating ? (
+            <>
+              <Loader2 className="h-3 w-3 animate-spin" />
+              Genererer…
+            </>
+          ) : (
+            <>
+              <Sparkles className="h-3 w-3" />
+              {proposals && proposals.length > 0
+                ? "Generer ny"
+                : "Foreslå fiks"}
+            </>
+          )}
+        </button>
+      </div>
+
+      {error && (
+        <p className="text-sm text-red-700 mb-3 break-words">{error}</p>
+      )}
+
+      {!proposals || proposals.length === 0 ? (
+        <p className="text-sm text-ink-soft">
+          Ingen fiks-forslag generert ennå. Klikk{" "}
+          <span className="font-mono text-xs">Foreslå fiks</span> for å la
+          spesialistagenten skrive en konkret remediering med kodediff.
+        </p>
+      ) : (
+        <div className="space-y-5">
+          {proposals.map((p) => (
+            <ProposalCard
+              key={p._id}
+              proposal={p}
+              onAccept={() =>
+                void updateStatus({
+                  adminToken: adminToken(),
+                  id: p._id,
+                  status: "accepted",
+                }).catch(() => {})
+              }
+              onReject={() =>
+                void updateStatus({
+                  adminToken: adminToken(),
+                  id: p._id,
+                  status: "rejected",
+                }).catch(() => {})
+              }
+            />
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
+
+function ProposalCard({
+  proposal,
+  onAccept,
+  onReject,
+}: {
+  proposal: FixProposal;
+  onAccept: () => void;
+  onReject: () => void;
+}) {
+  let files: string[] = [];
+  try {
+    files = JSON.parse(proposal.files_touched);
+  } catch {
+    /* ignore */
+  }
+  const statusTone =
+    proposal.status === "accepted"
+      ? "bg-green-700 text-on-navy"
+      : proposal.status === "rejected"
+        ? "bg-ink-faint text-on-navy"
+        : proposal.status === "applied"
+          ? "bg-blue-700 text-on-navy"
+          : "bg-amber-700 text-on-navy";
+  const riskTone =
+    proposal.risk === "high"
+      ? "border-red-700 text-red-700"
+      : proposal.risk === "med"
+        ? "border-amber-700 text-amber-700"
+        : "border-green-700 text-green-700";
+  return (
+    <article className="border border-rule rounded-sm p-5 bg-paper">
+      <header className="flex items-start justify-between gap-3 mb-3">
+        <div>
+          <div className="flex items-center gap-2 flex-wrap">
+            <span
+              className={cn(
+                "font-mono text-[0.55rem] tracking-widest uppercase rounded-sm px-1.5 py-0.5",
+                statusTone,
+              )}
+            >
+              {proposal.status === "proposed"
+                ? "Foreslått"
+                : proposal.status === "accepted"
+                  ? "Godkjent"
+                  : proposal.status === "rejected"
+                    ? "Avvist"
+                    : "Anvendt"}
+            </span>
+            <span
+              className={cn(
+                "font-mono text-[0.55rem] tracking-widest uppercase rounded-sm px-1.5 py-0.5 border",
+                riskTone,
+              )}
+            >
+              risiko: {proposal.risk}
+            </span>
+            <span className="font-mono text-[0.55rem] tracking-widest uppercase text-ink-faint">
+              {proposal.agent_slug} · {proposal.model}
+            </span>
+          </div>
+          <p className="text-xs text-ink-faint font-mono mt-1.5">
+            {new Date(proposal.created_at).toLocaleString("nb-NO")} ·{" "}
+            ${proposal.cost_usd.toFixed(4)}
+          </p>
+        </div>
+      </header>
+
+      <div className="space-y-4">
+        <div>
+          <p className="font-mono text-[0.6rem] tracking-widest uppercase text-ink-faint mb-1">
+            BEGRUNNELSE
+          </p>
+          <p className="text-sm text-ink leading-relaxed">{proposal.rationale}</p>
+        </div>
+
+        {files.length > 0 && (
+          <div>
+            <p className="font-mono text-[0.6rem] tracking-widest uppercase text-ink-faint mb-1">
+              BERØRTE FILER
+            </p>
+            <ul className="flex flex-wrap gap-1.5">
+              {files.map((f) => (
+                <li
+                  key={f}
+                  className="font-mono text-[0.65rem] bg-paper-deep border border-hairline rounded-sm px-1.5 py-0.5"
+                >
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <div>
+          <p className="font-mono text-[0.6rem] tracking-widest uppercase text-ink-faint mb-1">
+            FIKS
+          </p>
+          <pre className="text-xs bg-paper-deep border border-hairline rounded-sm p-3 overflow-x-auto whitespace-pre font-mono leading-relaxed">
+            {proposal.diff}
+          </pre>
+        </div>
+
+        {proposal.verification && (
+          <div>
+            <p className="font-mono text-[0.6rem] tracking-widest uppercase text-ink-faint mb-1">
+              VERIFISERING
+            </p>
+            <p className="text-sm text-ink leading-relaxed">
+              {proposal.verification}
+            </p>
+          </div>
+        )}
+      </div>
+
+      {proposal.status === "proposed" && (
+        <div className="flex gap-2 mt-5 pt-4 border-t border-rule">
+          <button
+            type="button"
+            onClick={onAccept}
+            className="flex-1 font-mono text-[0.65rem] tracking-widest uppercase bg-green-700 text-on-navy rounded-sm px-3 py-2 hover:opacity-90 inline-flex items-center justify-center gap-1.5"
+          >
+            <Check className="h-3 w-3" />
+            Godkjenn
+          </button>
+          <button
+            type="button"
+            onClick={onReject}
+            className="flex-1 font-mono text-[0.65rem] tracking-widest uppercase bg-red-700 text-on-navy rounded-sm px-3 py-2 hover:opacity-90 inline-flex items-center justify-center gap-1.5"
+          >
+            <XCircle className="h-3 w-3" />
+            Avvis
+          </button>
+        </div>
+      )}
+    </article>
+  );
 }

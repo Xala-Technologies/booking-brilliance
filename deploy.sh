@@ -51,14 +51,19 @@ echo -e "${BLUE}[1/3] Building project...${NC}"
 # VITE_CONVEX_URL must be set at build time — it's baked into the JS bundle
 # via import.meta.env.VITE_CONVEX_URL. The deploy aborts if missing so we
 # don't ship a broken admin dashboard.
-if [ -z "${VITE_CONVEX_URL:-}" ] && [ -f .env.local ]; then
-    export $(grep '^VITE_CONVEX_URL=' .env.local | xargs)
+# Load .env.local if present — needed for both VITE_CONVEX_URL (baked into
+# the JS bundle) AND the prerender script's keyword fetch from Convex
+# (uses ADMIN_BASIC_AUTH to authenticate the content/state:snapshot query).
+if [ -f .env.local ]; then
+    # shellcheck disable=SC2046
+    export $(grep -vE '^#|^\s*$' .env.local | sed 's/ #.*//' | xargs) || true
 fi
 if [ -z "${VITE_CONVEX_URL:-}" ]; then
     echo -e "${RED}VITE_CONVEX_URL not set — admin dashboard would have no Convex backend. Aborting.${NC}"
     exit 1
 fi
 echo -e "${BLUE}  Convex: ${VITE_CONVEX_URL}${NC}"
+echo -e "${BLUE}  Admin auth: ${ADMIN_BASIC_AUTH:+on}${NC}"
 npm run build
 
 # Verify build output
@@ -86,6 +91,13 @@ rsync -avz --delete --progress \
 
 echo -e "${GREEN}✓ Files deployed successfully${NC}"
 
+# Build the RAG docs index (chunks + optional embeddings) before
+# shipping the API so /api/docs-ask has fresh content to retrieve over.
+if [ -d "apps/docs/src/content/docs" ]; then
+    echo -e "${BLUE}[2.4/3] Building docs RAG index...${NC}"
+    pnpm docs:index || npm run docs:index || true
+fi
+
 # Deploy the chatbot API service (server/) if present
 if [ -d "server" ]; then
     echo -e "${BLUE}[2.5/3] Deploying chatbot API to ${API_DIR}...${NC}"
@@ -95,6 +107,20 @@ if [ -d "server" ]; then
         --exclude '.env' \
         --exclude 'README.md' \
         server/ ${VPS_USER}@${VPS_HOST}:${API_DIR}/
+
+    # Ship the RAG index alongside the API so the server picks it up
+    # via DOCS_RAG_INDEX. The file is gitignored locally but lives in
+    # apps/docs/dist-rag/ after `pnpm docs:index`.
+    if [ -f "apps/docs/dist-rag/docs-rag-index.json" ]; then
+        rsync -avz apps/docs/dist-rag/docs-rag-index.json \
+            ${VPS_USER}@${VPS_HOST}:${API_DIR}/docs-rag-index.json
+        ssh ${VPS_USER}@${VPS_HOST} "
+            chown www-data:www-data ${API_DIR}/docs-rag-index.json
+            grep -q DOCS_RAG_INDEX /etc/digilist-api.env || \
+                echo 'DOCS_RAG_INDEX=${API_DIR}/docs-rag-index.json' >> /etc/digilist-api.env
+        "
+        echo -e "${GREEN}✓ RAG index shipped${NC}"
+    fi
 
     # Restart if the systemd unit exists; otherwise tell the user to set it up.
     ssh ${VPS_USER}@${VPS_HOST} "
@@ -126,6 +152,9 @@ if [ -d "tools/site-intelligence" ]; then
   "type": "module",
   "scripts": {
     "audit:all": "tsx tools/site-intelligence/src/orchestrator.ts",
+    "audit:psi": "tsx tools/site-intelligence/src/run-performance.ts",
+    "audit:compliance": "tsx tools/site-intelligence/src/run-compliance.ts",
+    "audit:daily": "tsx tools/site-intelligence/src/orchestrator.ts --trigger cron && tsx tools/site-intelligence/src/run-performance.ts && tsx tools/site-intelligence/src/run-compliance.ts",
     "content:all": "tsx tools/content-agent/src/orchestrator.ts",
     "content:discover": "tsx tools/content-agent/src/orchestrator.ts --phase discover",
     "content:analyze": "tsx tools/content-agent/src/orchestrator.ts --phase analyze",
@@ -249,6 +278,62 @@ EOF
 
     rm -f /tmp/digilist-content.service /tmp/digilist-content.timer
     echo -e "${GREEN}✓ Content agent timer enabled (06:00 daily)${NC}"
+fi
+
+# Stage 2.85 — Daily audit timer: in-process auditors + PSI performance
+# Fires at 06:30 (30 min after the content agent so the two don't fight
+# for CPU). Writes everything to Convex; results land on
+# /admin/intelligence reactively.
+if [ -d "tools/site-intelligence" ]; then
+    echo -e "${BLUE}[2.85/3] Installing daily audit timer...${NC}"
+
+    cat > /tmp/digilist-audit.service <<'EOF'
+[Unit]
+Description=Digilist Site Intelligence — uptime, SEO, a11y, security, links, PSI
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/digilist-audit
+EnvironmentFile=/etc/digilist-api.env
+Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ExecStart=/usr/bin/env pnpm audit:daily
+Nice=10
+IOSchedulingClass=idle
+TimeoutStartSec=30min
+EOF
+
+    cat > /tmp/digilist-audit.timer <<'EOF'
+[Unit]
+Description=Run Digilist site intelligence audits daily at 06:30
+
+[Timer]
+OnCalendar=*-*-* 06:30:00
+RandomizedDelaySec=600
+Persistent=true
+Unit=digilist-audit.service
+
+[Install]
+WantedBy=timers.target
+EOF
+
+    scp /tmp/digilist-audit.service ${VPS_USER}@${VPS_HOST}:/tmp/digilist-audit.service
+    scp /tmp/digilist-audit.timer   ${VPS_USER}@${VPS_HOST}:/tmp/digilist-audit.timer
+
+    ssh ${VPS_USER}@${VPS_HOST} "
+        install -m 644 /tmp/digilist-audit.service /etc/systemd/system/digilist-audit.service
+        install -m 644 /tmp/digilist-audit.timer   /etc/systemd/system/digilist-audit.timer
+        rm /tmp/digilist-audit.service /tmp/digilist-audit.timer
+        systemctl daemon-reload
+        systemctl enable --now digilist-audit.timer
+        systemctl list-timers digilist-audit.timer --no-pager || true
+    " || echo -e "${YELLOW}⚠ audit timer install failed${NC}"
+
+    rm -f /tmp/digilist-audit.service /tmp/digilist-audit.timer
+    echo -e "${GREEN}✓ Audit timer enabled (06:30 daily — auditors + PSI)${NC}"
 fi
 
 # Stage 2.9 — Build + deploy the docs site (apps/docs) to docs.digilist.no

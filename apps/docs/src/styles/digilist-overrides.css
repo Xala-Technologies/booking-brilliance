@@ -66,6 +66,374 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Strip Starlight's 24px padding on <header.header> — our .dg-header
+ * inside handles its own padding via --dg-gutter. */
+header.header {
+  padding-inline: 0 !important;
+}
+
+/* ─── Pagefind search button — full-width, WCAG-tall, branded ─── */
+.dg-header__search site-search {
+  display: block !important;
+  width: 100% !important;
+}
+
+.dg-header__search site-search > button[data-open-modal] {
+  width: 100% !important;
+  max-width: none !important;              /* Starlight caps at 22rem — override */
+  min-height: 3rem !important;            /* 48px — clears WCAG 44×44 */
+  height: 3rem !important;
+  padding: 0 1.15rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 0.7rem !important;
+  font-family: "Public Sans", system-ui, sans-serif !important;
+  font-size: 1rem !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  color: hsl(var(--ink-soft)) !important;
+  background: hsl(var(--paper-deep)) !important;
+  border: 0.5px solid hsl(var(--rule-strong)) !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  transition:
+    border-color 160ms var(--ease-editorial),
+    background 160ms var(--ease-editorial),
+    box-shadow 160ms var(--ease-editorial);
+}
+
+.dg-header__search site-search > button[data-open-modal]:hover {
+  border-color: hsl(var(--accent-text)) !important;
+  background: hsl(var(--paper)) !important;
+  box-shadow: 0 0 0 4px hsl(var(--accent-tinted)) !important;
+}
+
+.dg-header__search site-search > button[data-open-modal] > svg {
+  width: 1.15rem !important;
+  height: 1.15rem !important;
+  color: hsl(var(--accent-text)) !important;
+  flex-shrink: 0;
+}
+
+.dg-header__search site-search > button[data-open-modal] > kbd {
+  margin-inline-start: auto;
+  font-family: "JetBrains Mono", ui-monospace, monospace !important;
+  font-size: 0.78rem !important;
+  background: hsl(var(--paper)) !important;
+  border: 0.5px solid hsl(var(--rule-strong)) !important;
+  border-radius: 4px !important;
+  padding: 0.3rem 0.55rem !important;
+  color: hsl(var(--ink-soft)) !important;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+/* WCAG 44×44 touch targets on header controls */
+.dg-theme-toggle {
+  height: 2.75rem !important;
+  width: 2.75rem !important;
+}
+
+.dg-header__cta {
+  min-height: 2.75rem !important;
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * Mobile (< 50em) hub-and-spoke pattern.
+ *
+ * Starlight ships a hamburger drawer that slides in from the top.
+ * We restyle it to read as a hub: full-viewport overlay, big
+ * section cards instead of nested tree, generous 56px+ touch
+ * targets, mono uppercase section labels followed by inline
+ * page lists. The Starlight default keeps working — we're
+ * just re-skinning the same DOM. */
+@media (max-width: 49.99em) {
+  /* Header: hide right-side button strip + Book demo CTA + theme
+   * toggle on mobile so brand + search + hamburger fit cleanly.
+   * Theme switching stays available via the menu drawer footer. */
+  .dg-header__links { display: none !important; }
+  .dg-header__cta   { display: none !important; }
+  .dg-theme-toggle  { display: none !important; }
+
+  /* Search collapses to icon-only on mobile. */
+  .dg-header__search {
+    max-width: 9rem;
+    margin-inline-start: auto;
+  }
+  .dg-search__inputwrap { padding-inline: 0.7rem 0.5rem; height: 2.5rem; }
+  .dg-search__input::placeholder { opacity: 0; }
+  .dg-search__kbd, .dg-search__ask { display: none; }
+
+  /* Hamburger: pin it inside the header on the far right, big enough
+   * to read as the primary nav handle. Starlight defaults to a
+   * position:fixed top-right placement that clashed with the theme
+   * toggle; we make it part of the header bar. */
+  starlight-menu-button {
+    order: 99;
+    margin-inline-start: 0.4rem;
+  }
+
+  starlight-menu-button > button {
+    position: static !important;
+    inset: auto !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+    border-radius: 6px !important;
+    box-shadow: none !important;
+  }
+
+  /* Mobile content gutter — 1rem inline padding so text and cards
+   * have breathing room from the viewport edge. */
+  main {
+    padding-inline: 1rem !important;
+  }
+
+  .dg-hero {
+    padding-inline: 0;
+  }
+
+  /* When the drawer is open, render it as a full-screen hub. */
+  mobile-starlight-toc,
+  .sidebar-pane {
+    background: hsl(var(--paper));
+    padding: 1.5rem var(--dg-gutter, 1rem) 2rem;
+    height: auto;
+  }
+
+  /* Group cards — each section becomes a tappable hub row. */
+  .sidebar-content > ul > li {
+    margin-block-end: 0.5rem;
+    border: 0.5px solid hsl(var(--rule-strong));
+    border-radius: 12px;
+    overflow: hidden;
+    background: hsl(var(--paper));
+  }
+
+  .sidebar-content details > summary {
+    padding: 1.1rem 1.25rem !important;
+    margin: 0 !important;
+    border: 0 !important;
+    cursor: pointer;
+  }
+
+  .sidebar-content details > summary .group-label > .large {
+    font-size: 0.85rem !important;
+    letter-spacing: 0.18em !important;
+    padding-inline: 0 !important;
+    margin-block-end: 0 !important;
+  }
+
+  .sidebar-content details > summary .group-label::before {
+    /* Hide chapter chip on mobile to keep rows tight */
+    content: none !important;
+  }
+
+  /* Reveal a chevron on each section row indicating it expands. */
+  .sidebar-content details > summary::after {
+    content: "+";
+    margin-inline-start: auto;
+    font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
+    font-variation-settings: "opsz" 36, "wght" 540, "SOFT" 30, "WONK" 0;
+    font-size: 1.5rem;
+    line-height: 0;
+    color: hsl(var(--accent-text));
+    transition: transform 200ms var(--ease-editorial);
+  }
+
+  .sidebar-content details > summary {
+    display: flex !important;
+    align-items: center;
+  }
+
+  .sidebar-content details[open] > summary::after {
+    transform: rotate(45deg);
+  }
+
+  /* Page list inside each open section. Tighter rhythm, full-bleed
+   * to the card edge so they read as the section's spokes. */
+  .sidebar-content details > ul {
+    padding: 0.25rem 0.5rem 0.85rem !important;
+    background: hsl(var(--paper-deep));
+    gap: 0 !important;
+  }
+
+  .sidebar-content details > ul > li > a {
+    min-height: 44px;
+    padding: 0.65rem 0.75rem !important;
+    border-radius: 8px !important;
+    font-size: 1rem !important;
+  }
+
+  /* Sticky breadcrumb back-bar on content pages — gives the user a
+   * persistent "← back to section" affordance, classic hub-spoke. */
+  .dg-page-title {
+    position: relative;
+  }
+
+  .dg-page-title__caption {
+    position: sticky;
+    top: 4.5rem;
+    background: hsl(var(--paper));
+    padding-block: 0.5rem;
+    padding-inline: var(--dg-gutter, 1rem);
+    margin-inline: calc(-1 * var(--dg-gutter, 1rem));
+    border-block-end: 0.5px solid hsl(var(--rule));
+    z-index: 10;
+    font-size: 0.7rem;
+  }
+
+  /* Pull content padding tighter on mobile */
+  main {
+    padding-block-start: 2rem !important;
+    padding-block-end: 2rem !important;
+  }
+
+  /* Right-rail toc moves under content on mobile — Starlight
+   * handles that, just trim its padding so it reads as a contained
+   * card not a viewport-edge strip. */
+  .right-sidebar-container {
+    padding-inline: var(--dg-gutter, 1rem) !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * Modern tech-docs polish — interactive details borrowed from
+ * Stripe/Linear/Vercel docs vocabulary. Calibrated to keep the
+ * Digilist editorial voice while adding density signals.
+ * ──────────────────────────────────────────────────────────── */
+
+/* 1. Section anchor links — appear on hover to the LEFT of every h2/h3.
+ *    Starlight auto-renders heading anchors as `.anchor` — restyle them. */
+.sl-markdown-content :is(h2, h3, h4, h5) {
+  scroll-margin-top: 6rem;
+}
+
+.sl-markdown-content :is(h2, h3, h4) > a[href^="#"]:first-child,
+.sl-markdown-content :is(h2, h3, h4) > .anchor {
+  opacity: 0;
+  margin-inline-start: -1.5rem;
+  margin-inline-end: 0.4rem;
+  width: 1.2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: hsl(var(--accent-text));
+  text-decoration: none;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-weight: normal;
+  font-size: 0.85em;
+  transition: opacity 160ms var(--ease-editorial);
+}
+
+.sl-markdown-content :is(h2, h3, h4):hover > a[href^="#"]:first-child,
+.sl-markdown-content :is(h2, h3, h4):hover > .anchor,
+.sl-markdown-content :is(h2, h3, h4):focus-within > a[href^="#"]:first-child {
+  opacity: 1;
+}
+
+.sl-markdown-content :is(h2, h3, h4) > a[href^="#"]:first-child::before {
+  content: "#";
+}
+
+/* 2. Sticky header gets a subtle elevation shadow once the user scrolls
+ *    past the hero — adds depth signal without losing the editorial calm.
+ *    The CSS-only trick: detect viewport scroll via the `top` of the
+ *    sticky element's bounding box.
+ */
+@supports (animation-timeline: scroll()) {
+  .dg-header {
+    box-shadow: var(--dg-elevation);
+    animation: dg-header-flat linear;
+    animation-timeline: scroll(root);
+    animation-range: 0 6rem;
+  }
+  @keyframes dg-header-flat {
+    from { box-shadow: 0 0 0 0 transparent; }
+    to   { box-shadow: var(--dg-elevation); }
+  }
+}
+
+/* Fallback for browsers without scroll-driven animations */
+@supports not (animation-timeline: scroll()) {
+  .dg-header {
+    box-shadow: 0 1px 0 0 hsl(var(--rule));
+  }
+}
+
+/* 3. Custom scrollbar — thin, branded, modern */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--ink-faint) / 0.4) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: hsl(var(--ink-faint) / 0.3);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--ink-faint) / 0.6);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+/* 4. Code-block hover: subtle ring + copy-button reveal */
+.expressive-code .frame {
+  transition: box-shadow 200ms var(--ease-editorial);
+}
+
+.expressive-code .frame:hover {
+  box-shadow: 0 0 0 1px hsl(var(--rule-strong));
+}
+
+/* 5. Selection color — branded */
+::selection {
+  background: hsl(var(--navy) / 0.18);
+  color: hsl(var(--ink));
+}
+
+/* 6. Focus rings — accessible + branded */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid hsl(var(--navy));
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * Grain texture — paper grain on light, ink-bleed grain on dark.
+ * Applied as a fixed pseudo-element over body so it follows the
+ * viewport, not the document scroll. Ported 1:1 from src/index.css. */
+body::after {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  opacity: 0.018;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 200px 200px;
+}
+
+:root[data-theme="dark"] body::after {
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+}
+
 /* Hide Starlight's default header bar since we replaced it. Starlight's
  * mobile-menu toggle is rendered alongside ours; keep just the mobile
  * one. */
@@ -96,57 +464,120 @@ html, body {
 }
 
 /* ─────────────────────────────────────────────────────────────
- * 3. Sidebar — editorial newspaper section feel
+ * 3. Sidebar — 1:1 match with src/pages/admin/IntelligenceShell.tsx.
+ *    Group label = font-mono [0.6rem] uppercase tracking-widest ink-faint.
+ *    Item = rounded-sm py-2 px-2.5 text-sm.
+ *    Active = bg-navy text-on-navy font-medium.
+ *    Hover = bg-paper-deep/80.
  */
-
-.sidebar-pane {
-  background: hsl(var(--paper));
-  border-inline-end: 1px solid hsl(var(--rule));
-}
 
 starlight-menu-button,
 mobile-starlight-toc {
   background: hsl(var(--paper));
 }
 
-/* Group headers use editorial mono caption treatment */
-.sidebar-content details > summary span.large,
-.sidebar-content .group-label > .large {
+/* Hide chevron carets and section-open dividers — admin sidebar is flat */
+.sidebar-content .caret { display: none !important; }
+
+.sidebar-content details > summary {
+  list-style: none;
+  cursor: default;
+  padding: 0;
+  border: 0;
+  margin-block: 0.25rem 0.5rem;
+}
+
+.sidebar-content details > summary::-webkit-details-marker { display: none; }
+
+/* Group label — mono caption with subtle accent + step count */
+.sidebar-content details > summary .group-label > .large {
   font-family: "JetBrains Mono", ui-monospace, monospace !important;
-  font-size: 0.65rem !important;
-  letter-spacing: 0.22em !important;
+  font-size: 0.78rem !important;
+  letter-spacing: 0.18em !important;
   text-transform: uppercase !important;
-  font-weight: 500 !important;
-  color: hsl(var(--ink-faint)) !important;
+  font-weight: 600 !important;
+  color: hsl(var(--accent-text)) !important;
+  display: block;
+  padding-inline: 0.95rem;
+  margin-block-end: 0.75rem;
 }
 
-/* Sidebar links — quiet by default, navy block on active */
-.sidebar-content a,
-.sidebar-content button {
-  font-family: "Public Sans", system-ui, sans-serif;
-  font-size: 0.92rem;
-  border-radius: 2px;
-  color: hsl(var(--ink));
-  transition: color 100ms ease, background 100ms ease;
+/* Group spacing */
+.sidebar-content > ul > li + li {
+  margin-block-start: 1.25rem;
 }
 
+.sidebar-content details > ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+/* Item link — matches admin IntelligenceShell's nav item rhythm:
+ * text-sm (14.5px), tight padding, hairline marker on hover. */
 .sidebar-content a {
-  padding-block: 0.4rem;
-  padding-inline-start: 0.85rem;
-  border-inline-start: 2px solid transparent;
-  margin-inline-start: -0.85rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-family: "Public Sans", system-ui, sans-serif;
+  font-size: 0.9125rem;           /* ~14.6px — matches admin text-sm scale */
+  line-height: 1.35;
+  color: hsl(var(--ink));
+  text-decoration: none;
+  padding: 0.55rem 0.825rem;
+  border-radius: 6px;
+  transition:
+    color 160ms var(--ease-editorial),
+    background 160ms var(--ease-editorial),
+    transform 160ms var(--ease-editorial);
+  will-change: transform;
+}
+
+/* Leading marker — small dot that materializes on hover, slides to
+ * a 2px navy bar when active. Modern docs vocabulary. */
+.sidebar-content a::before {
+  content: "";
+  position: absolute;
+  left: 0.25rem;
+  top: 50%;
+  width: 3px;
+  height: 0;
+  background: hsl(var(--ink-faint));
+  border-radius: 1.5px;
+  transform: translateY(-50%);
+  transition:
+    height 200ms var(--ease-editorial),
+    background 160ms var(--ease-editorial);
 }
 
 .sidebar-content a:hover {
-  color: hsl(var(--accent-text));
-  background: hsl(var(--accent-tinted));
+  color: hsl(var(--ink));
+  background: color-mix(in srgb, hsl(var(--paper-deep)) 90%, transparent);
 }
 
+.sidebar-content a:hover::before {
+  height: 0.55rem;
+}
+
+.sidebar-content a:active {
+  transform: scale(0.985);
+}
+
+/* Active = soft accent panel + navy left bar — softer than the full
+ * navy block, more "current page" than "selected button". */
 .sidebar-content a[aria-current="page"] {
   background: hsl(var(--accent-tinted));
   color: hsl(var(--accent-text));
-  border-inline-start-color: hsl(var(--navy));
   font-weight: 500;
+}
+
+.sidebar-content a[aria-current="page"]::before {
+  height: 1.4rem;
+  background: hsl(var(--navy));
 }
 
 .sidebar-content a[aria-current="page"]:hover {
@@ -154,16 +585,125 @@ mobile-starlight-toc {
   color: hsl(var(--accent-text));
 }
 
+/* Keyboard navigation: visible focus ring on sidebar links */
+.sidebar-content a:focus-visible {
+  outline: 2px solid hsl(var(--navy));
+  outline-offset: -2px;
+}
+
+/* Group counter — auto numbered as "01 / 02 / 03 / 04" mono caption
+ * trailing the group label. Modern docs use these for orientation. */
+.sidebar-content > ul {
+  counter-reset: dg-group;
+}
+.sidebar-content > ul > li > details {
+  counter-increment: dg-group;
+}
+.sidebar-content > ul > li > details > summary .group-label > .large::after {
+  content: " · " counter(dg-group, decimal-leading-zero);
+  color: hsl(var(--ink-faint));
+  margin-inline-start: 0.35rem;
+  opacity: 0.7;
+}
+
+/* Per-item step counters — each item in a group gets "01 / 02 / 03"
+ * mono prefix. Walkthrough/onboarding feel.
+ * Active item gets a small "→" indicator at the end. */
+.sidebar-content details > ul {
+  counter-reset: dg-step;
+}
+
+.sidebar-content details > ul > li {
+  counter-increment: dg-step;
+}
+
+.sidebar-content details > ul > li > a::after {
+  content: counter(dg-step, decimal-leading-zero);
+  margin-inline-start: auto;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: hsl(var(--ink-faint));
+  opacity: 0.7;
+  transition: opacity 160ms var(--ease-editorial), color 160ms var(--ease-editorial);
+}
+
+.sidebar-content details > ul > li > a:hover::after {
+  opacity: 1;
+  color: hsl(var(--ink));
+}
+
+.sidebar-content details > ul > li > a[aria-current="page"]::after {
+  content: "→";
+  font-size: 0.95rem;
+  opacity: 1;
+  color: hsl(var(--accent-text));
+  margin-inline-start: auto;
+}
+
 /* ─────────────────────────────────────────────────────────────
  * 4. Article — the prose container
  */
 
-/* Keep main-frame full-bleed (its natural Starlight behavior). The
- * header below is also full-bleed so the sidebar's left edge aligns
- * with the header brand's left edge, and the right-rail / CTA align
- * on the right. */
+/* Starlight's default page layout: .page is display:flex flex-column with
+ *   <header>, <nav.sidebar>, <div.main-frame> as direct siblings.
+ * The sidebar's left position is controlled by --sl-content-pad-x on the
+ * .sidebar element itself. We want the whole thing centered at the same
+ * 88rem max-width the editorial marketing site uses — so the trick is
+ * to give header + sidebar + main-frame the same calculated horizontal
+ * gutter (rather than capping .page, which breaks flex sticky math). */
 .main-frame {
   background: hsl(var(--paper));
+}
+
+/* Full-width docs with substantial breathing room + WCAG-compliant
+ * touch targets, padding and contrast. */
+:root {
+  --dg-gutter: 2.5rem;
+  --dg-pad-content: 4rem;            /* generous spacing past the sidebar */
+  --sl-sidebar-width: 20rem;         /* 320px — wider for clearer labels */
+  --dg-elevation: 0 1px 0 0 hsl(var(--rule)),
+                  0 8px 24px -16px hsla(var(--ink) / 0.08);
+  --dg-radius: 6px;
+}
+
+@media (max-width: 49.99em) {
+  :root {
+    --dg-gutter: 1rem;
+    --dg-pad-content: 1rem;
+  }
+}
+
+@media (min-width: 50em) {
+  /* Sidebar — full-bleed left rail like src/pages/admin/IntelligenceShell.tsx:
+   *   <aside fixed left-0 top-0 bottom-0 w-64 bg-paper-deep/40
+   *          border-r border-hairline-strong>
+   * It sits flush with the viewport left, BELOW the header, with the
+   * paper-deep/40 tint and hairline-strong right border. */
+  nav.sidebar,
+  .sidebar-pane {
+    inset-inline-start: 0 !important;
+    width: var(--sl-sidebar-width) !important;
+    background: color-mix(in srgb, hsl(var(--paper-deep)) 40%, hsl(var(--paper))) !important;
+    border-inline-end: 0.5px solid hsl(var(--rule-strong)) !important;
+    padding-inline: 0.75rem !important;
+    padding-block-start: 1rem !important;
+  }
+
+  /* Content gutter — same on home as docs pages. The sidebar handles
+   * its own offset so we just need consistent left/right padding here. */
+  .main-pane {
+    padding-inline: var(--dg-gutter);
+  }
+
+  .page:has(nav.sidebar) .main-pane {
+    padding-inline-start: var(--dg-pad-content);
+  }
+}
+
+/* Right-rail ToC respects the outer gutter too. */
+.right-sidebar-container {
+  padding-inline-end: var(--dg-gutter);
 }
 
 /* Right-rail / toc was previously overflowing the viewport via a
@@ -202,32 +742,70 @@ mobile-starlight-toc {
   margin: 0;
 }
 
-/* Hero on the splash-template index. The .sl-container parent already
- * caps it at --sl-content-width and the .content-panel handles padding;
- * we just want the hero to sit close-coupled with the header. */
-.content-panel:has(.dg-hero) {
-  padding-block-start: 0;
+/* ─────────────────────────────────────────────────────────────────
+ * ROOT CAUSE FIX — Strip every nested container's padding + max-width.
+ *
+ * Starlight wraps page content in 7 nested elements, each adding its
+ * own gutter:
+ *   .page → .main-frame → .lg:sl-flex → .main-pane → main →
+ *   .content-panel → .sl-container
+ *
+ * Marketing site uses ONE container (.container.mx-auto.max-w-6xl).
+ * To mirror that, we zero out every inner wrapper and apply the gutter
+ * + width control on a SINGLE level (.main-pane). All other containers
+ * just fill their parent.
+ * ──────────────────────────────────────────────────────────────── */
+
+.content-panel,
+.content-panel .sl-container,
+main > .content-panel {
+  padding: 0 !important;
+  max-width: none !important;
+  margin-inline: 0 !important;
+  width: 100% !important;
 }
 
-/* Editorial markdown body. Container is full-width (~80rem) but text
- * blocks (paragraphs, lists) still cap at 65ch for reading comfort.
- * Tables, code blocks and grid layouts get to use the full width. */
+/* Generous top + bottom padding so content breathes below the sticky
+ * header. Applied on .main-pane (since .content-panel block padding
+ * gets stripped by the "kill nested containers" rule above). */
+main {
+  display: block;
+  padding-block-start: 4rem !important;
+  padding-block-end: 3rem !important;
+}
+
+main:has(.dg-hero) {
+  padding-block-start: 2.5rem !important;
+}
+
+/* Restore any internal vertical rhythm Starlight expected. */
+.content-panel + .content-panel {
+  padding-block-start: 1rem !important;
+}
+
+/* Body typography — matches digilist.no exactly: 17px Public Sans
+ * with editorial 1.6 line-height. Keeps docs and marketing visually
+ * in lockstep. */
 .sl-markdown-content {
   font-family: "Public Sans", system-ui, sans-serif;
-  font-size: 1.0625rem;
-  line-height: 1.7;
+  font-size: 1.0625rem;         /* 17px — matches marketing body */
+  line-height: 1.6;
   color: hsl(var(--ink));
   max-width: none;
 }
 
+body, html {
+  font-size: 1.0625rem;
+}
+
 .sl-markdown-content > * + * {
-  margin-block-start: 1.1em;
+  margin-block-start: 1.15em;
 }
 
 .sl-markdown-content p,
 .sl-markdown-content ul,
 .sl-markdown-content ol {
-  max-width: 72ch;
+  max-width: 68ch;
 }
 
 /* Tables, code blocks, asides and pull quotes get to bleed wider. */
@@ -244,29 +822,47 @@ mobile-starlight-toc {
   font-weight: 600;
 }
 
-/* H1 is handled by our PageTitle override; only style h2-h5 here */
+/* H1 is handled by our PageTitle override; only style h2-h5 here.
+ * Bumped to 2rem to keep proportion against the new 18px body. */
 .sl-markdown-content h2 {
   font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
   font-variation-settings: "opsz" 72, "wght" 480, "SOFT" 30, "WONK" 0;
-  font-size: 1.65rem;
-  line-height: 1.2;
+  font-size: 2rem;
+  line-height: 1.18;
   margin-block-start: 2.5em;
-  margin-block-end: 0.55em;
+  margin-block-end: 0.6em;
   padding-block-end: 0.4em;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.012em;
   color: hsl(var(--ink));
   position: relative;
 }
 
 .sl-markdown-content h2::before {
-  /* A short editorial rule above each h2 — newspaper section break */
-  content: "";
+  /* Ornamental newspaper section break: hairline rule + printer's mark ✦
+   * + hairline rule. Sits above the H2 as its own visual band. */
+  content: "✦";
   position: absolute;
-  inset-block-start: -1.1em;
+  inset-block-start: -1.4em;
   inset-inline-start: 0;
-  width: 2.5rem;
-  height: 1px;
-  background: hsl(var(--ink));
+  width: 100%;
+  height: 1.2em;
+  text-align: start;
+  font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
+  font-variation-settings: "opsz" 36, "wght" 460, "SOFT" 30, "WONK" 0;
+  font-size: 0.85rem;
+  color: hsl(var(--accent-text));
+  line-height: 1;
+  background-image: linear-gradient(
+    to right,
+    hsl(var(--ink)) 2.5rem,
+    transparent 2.5rem,
+    transparent calc(2.5rem + 0.85rem + 0.5rem),
+    hsl(var(--rule)) calc(2.5rem + 0.85rem + 0.5rem)
+  );
+  background-repeat: no-repeat;
+  background-position: 0 50%;
+  background-size: 100% 1px;
+  padding-inline-start: calc(2.5rem + 0.5rem);
 }
 
 /* Suppress the section-break stub on the FIRST h2 (right after the page
@@ -285,7 +881,7 @@ mobile-starlight-toc {
 .sl-markdown-content h3 {
   font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
   font-variation-settings: "opsz" 36, "wght" 540, "SOFT" 30, "WONK" 0;
-  font-size: 1.25rem;
+  font-size: 1.45rem;
   line-height: 1.3;
   margin-block-start: 2em;
   letter-spacing: -0.005em;
@@ -295,7 +891,7 @@ mobile-starlight-toc {
 .sl-markdown-content h4 {
   font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
   font-variation-settings: "opsz" 24, "wght" 560, "SOFT" 30, "WONK" 0;
-  font-size: 1.05rem;
+  font-size: 1.2rem;
   letter-spacing: 0;
   color: hsl(var(--ink));
 }
@@ -310,26 +906,38 @@ mobile-starlight-toc {
   margin-block-start: 1.5em;
 }
 
-/* First paragraph gets an editorial dropcap — only when a sibling
- * comes right after the page title, not in nested contexts. Skipped
- * inside .dg-hero (it has its own treatment) and inside cards. */
+/* Drop-cap — full editorial feature with WONK axis on for character.
+ * Drops 3 lines, sits inside its own faint hairline rectangle on the
+ * left so it reads as a typographic woodcut, not just a big letter. */
 .sl-markdown-content > p:first-of-type:not(:empty)::first-letter {
   font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
-  font-variation-settings: "opsz" 144, "wght" 540, "SOFT" 30, "WONK" 0;
-  font-size: 4.25rem;
+  font-variation-settings: "opsz" 144, "wght" 540, "SOFT" 25, "WONK" 1;
+  font-size: 4.5rem;
   line-height: 0.85;
   float: left;
-  padding: 0.3rem 0.7rem 0.05rem 0;
+  padding: 0.45rem 0.85rem 0.15rem 0.55rem;
+  margin-inline-end: 0.85rem;
+  margin-block-start: 0.18rem;
   color: hsl(var(--accent-text));
+  background: linear-gradient(
+    180deg,
+    hsl(var(--paper-deep)) 0%,
+    hsl(var(--paper)) 100%
+  );
+  border: 0.5px solid hsl(var(--rule));
+  border-radius: 1px;
 }
 
-/* Suppress dropcap when the paragraph starts with a numeral — "1" or "2"
- * as a giant dropped char reads as a typo rather than editorial flourish. */
-.sl-markdown-content > p:first-of-type[data-starts-with="number"]::first-letter {
+/* Suppress dropcap when the paragraph starts with a numeral or symbol —
+ * "1" / "10" / "(" as a giant dropped char reads as a typo. */
+.sl-markdown-content > p:first-of-type[data-no-dropcap]::first-letter {
   float: none;
   font-size: inherit;
   line-height: inherit;
   padding: 0;
+  margin: 0;
+  background: none;
+  border: 0;
   color: inherit;
 }
 
@@ -396,42 +1004,74 @@ mobile-starlight-toc {
   margin-block: 2em;
 }
 
-/* Tables — newspaper data-table style with hairlines */
-.sl-markdown-content table {
-  border-collapse: collapse;
+/* Tables — newspaper data-table style with hairlines.
+ * Use `table-layout: auto` + explicit padding-inline so cells get
+ * generous breathing room even when content is short. The previous
+ * 1rem inline padding read as ~zero on dark mode because the
+ * cell borders ran to the edge — bumping to 1.5rem and adding a
+ * column-gap-style separator between columns. */
+.sl-markdown-content table,
+.sl-markdown-content :global(table),
+table {
+  border-collapse: separate;
+  border-spacing: 0;
   width: 100%;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   border: 1px solid hsl(var(--rule));
   border-radius: 2px;
   overflow: hidden;
-  margin: 1.5em 0;
+  margin: 1.75em 0;
+  table-layout: auto;
 }
 
-.sl-markdown-content thead {
+.sl-markdown-content thead,
+table thead {
   background: hsl(var(--paper-deep));
 }
 
-.sl-markdown-content thead th {
+.sl-markdown-content thead th,
+table thead th {
   font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: 0.65rem;
-  letter-spacing: 0.16em;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: hsl(var(--ink-faint));
   text-align: start;
-  padding: 0.85rem 1rem;
+  padding: 1rem 1.5rem;
   border-block-end: 1px solid hsl(var(--rule));
+  border-inline-end: 1px solid hsl(var(--rule));
   font-weight: 500;
+  vertical-align: middle;
 }
 
-.sl-markdown-content tbody td {
-  padding: 0.75rem 1rem;
+.sl-markdown-content thead th:last-child,
+table thead th:last-child {
+  border-inline-end: 0;
+}
+
+.sl-markdown-content tbody td,
+table tbody td {
+  padding: 1rem 1.5rem;
   border-block-end: 1px solid hsl(var(--rule));
+  border-inline-end: 1px solid hsl(var(--rule));
   color: hsl(var(--ink));
   vertical-align: top;
+  line-height: 1.55;
 }
 
-.sl-markdown-content tbody tr:last-child td {
+.sl-markdown-content tbody td:last-child,
+table tbody td:last-child {
+  border-inline-end: 0;
+}
+
+.sl-markdown-content tbody tr:last-child td,
+table tbody tr:last-child td {
   border-block-end: 0;
+}
+
+.sl-markdown-content tbody tr:hover td,
+table tbody tr:hover td {
+  background: hsl(var(--paper-deep) / 0.4);
 }
 
 /* Lists — keep tight, mark with hairline dashes for unordered */
@@ -543,37 +1183,108 @@ mobile-starlight-toc {
  * 6. Pagination
  */
 
+/* Walkthrough-style pagination — "Forrige steg" / "Neste steg" cards.
+ * When only one direction is available (start/end of section), that
+ * card stretches across the full row so it never sits alone half-width.
+ */
 .pagination-links {
   display: grid;
-  gap: 1px;
-  grid-template-columns: 1fr 1fr;
-  background: hsl(var(--rule));
-  border: 1px solid hsl(var(--rule));
-  border-radius: 2px;
-  overflow: hidden;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+  margin-block-start: 3rem;
 }
 
 .pagination-links a {
+  position: relative;
   background: hsl(var(--paper));
-  border: 0 !important;
-  border-radius: 0 !important;
-  padding: 1.25rem 1.5rem !important;
-  transition: background 120ms ease;
+  border: 0.5px solid hsl(var(--rule-strong)) !important;
+  border-radius: 12px !important;
+  padding: 1.5rem 1.75rem !important;
+  transition:
+    background 220ms var(--ease-editorial),
+    border-color 220ms var(--ease-editorial),
+    transform 220ms var(--ease-editorial),
+    box-shadow 220ms var(--ease-editorial);
+  display: flex !important;
+  flex-direction: column;
+  gap: 0.45rem;
+  text-decoration: none !important;
+  overflow: hidden;
 }
+
+/* Accent bar that slides in from the leading edge on hover */
+.pagination-links a::after {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  width: 4px;
+  background: linear-gradient(180deg, hsl(var(--accent-text)) 0%, hsl(var(--navy)) 100%);
+  opacity: 0;
+  transition: opacity 220ms var(--ease-editorial);
+}
+
+.pagination-links a[rel="prev"]::after { left: 0; }
+.pagination-links a[rel="next"]::after { right: 0; }
+
+.pagination-links a:hover::after { opacity: 1; }
+
+.pagination-links a::before {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: hsl(var(--accent-text));
+  font-weight: 600;
+  margin-block-end: 0.35rem;
+}
+
+.pagination-links a[rel="prev"]::before { content: "← FORRIGE STEG"; }
+.pagination-links a[rel="next"]::before { content: "NESTE STEG →"; text-align: end; }
+.pagination-links a[rel="next"] { text-align: end; align-items: flex-end; }
 
 .pagination-links a:hover {
-  background: hsl(var(--paper-deep));
+  background: color-mix(in srgb, hsl(var(--accent-tinted)) 70%, hsl(var(--paper)));
+  border-color: hsl(var(--accent-text)) !important;
+  transform: translateY(-3px);
+  box-shadow: 0 18px 36px -22px hsla(var(--navy) / 0.28);
 }
 
+/* Hide Starlight's chevron SVG */
 .pagination-links a > svg {
-  color: hsl(var(--accent-text));
+  display: none !important;
+}
+
+/* Starlight wraps the direction text and link title in one outer
+ * <span> with a <br> between them — there's no class on the
+ * "Previous"/"Next" text node to target. Zero the font-size on the
+ * outer span (hides the text) then restore on .link-title.
+ * Also drop the <br>. */
+.pagination-links a > span {
+  display: block;
+  font-size: 0;
+  line-height: 0;
+}
+
+.pagination-links a > span > br {
+  display: none;
+}
+
+.pagination-links a > span > .link-title {
+  font-size: 1.35rem !important;
+  line-height: 1.2 !important;
+  display: block;
 }
 
 .pagination-links .link-title {
-  font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
-  font-variation-settings: "opsz" 36, "wght" 540, "SOFT" 30, "WONK" 0;
-  font-size: 1.05rem;
-  color: hsl(var(--ink));
+  font-family: "Fraunces", "Iowan Old Style", Georgia, serif !important;
+  font-variation-settings: "opsz" 36, "wght" 540, "SOFT" 30, "WONK" 0 !important;
+  font-size: 1.35rem !important;
+  color: hsl(var(--ink)) !important;
+  line-height: 1.2 !important;
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -611,36 +1322,100 @@ mobile-starlight-toc {
 }
 
 /* ─────────────────────────────────────────────────────────────
- * 8. Cards (Starlight built-in <Card> + <CardGrid>)
+ * 8. Cards — high-contrast, interactive, modern.
+ *    Card (<Card>): icon chip + title + body.
+ *    CardGrid: row of Cards with consistent gap.
+ *    LinkCard: clickable nav row with chevron.
+ *    All use ink-soft (not ink-faint) for body so descriptions are
+ *    readable in both light + dark mode.
  */
 
 .sl-card,
 .card {
-  border: 1px solid hsl(var(--rule)) !important;
-  border-radius: 2px !important;
+  position: relative;
+  border: 0.5px solid hsl(var(--rule-strong)) !important;
+  border-radius: var(--dg-radius, 8px) !important;
   background: hsl(var(--paper));
-  padding: 1.5rem !important;
-  transition: border-color 120ms ease;
+  padding: 1.6rem 1.75rem !important;
+  transition:
+    border-color 200ms var(--ease-editorial),
+    background 200ms var(--ease-editorial),
+    transform 200ms var(--ease-editorial),
+    box-shadow 200ms var(--ease-editorial);
+  overflow: hidden;
+}
+
+/* Accent strip on the left — wakes the card up, signals interaction */
+.sl-card::before,
+.card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(
+    180deg,
+    hsl(var(--accent-text)) 0%,
+    hsl(var(--navy)) 100%
+  );
+  opacity: 0;
+  transition: opacity 200ms var(--ease-editorial);
 }
 
 .sl-card:hover,
 .card:hover {
-  border-color: hsl(var(--ink));
+  border-color: hsl(var(--accent-text)) !important;
+  background: color-mix(in srgb, hsl(var(--accent-tinted)) 60%, hsl(var(--paper)));
+  transform: translateY(-3px);
+  box-shadow: 0 18px 36px -22px hsla(var(--navy) / 0.28);
 }
 
+.sl-card:hover::before,
+.card:hover::before { opacity: 1; }
+
+/* Icon chip — bigger, framed in accent-tinted box so it reads as
+ * a visual "department" mark, not a tiny afterthought. */
 .sl-card .icon,
 .card .icon {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  margin-block-end: 0.85rem !important;
+  background: hsl(var(--accent-tinted)) !important;
   color: hsl(var(--accent-text)) !important;
+  border-radius: 6px !important;
+  border: 0.5px solid hsl(var(--rule-strong));
+  transition:
+    background 200ms var(--ease-editorial),
+    transform 200ms var(--ease-editorial);
+}
+
+.sl-card .icon svg,
+.card .icon svg {
+  width: 1.15rem !important;
+  height: 1.15rem !important;
+}
+
+.sl-card:hover .icon,
+.card:hover .icon {
+  background: hsl(var(--navy)) !important;
+  color: hsl(var(--on-navy)) !important;
+  transform: rotate(-4deg) scale(1.05);
 }
 
 .sl-card h2,
 .card h2 {
   font-family: "Fraunces", "Iowan Old Style", Georgia, serif !important;
   font-variation-settings: "opsz" 36, "wght" 540, "SOFT" 30, "WONK" 0 !important;
-  font-size: 1.15rem !important;
-  margin: 0 0 0.55em !important;
+  font-size: 1.35rem !important;
+  line-height: 1.2 !important;
+  margin: 0 0 0.5em !important;
   padding-block-end: 0 !important;
   border-block-end: 0 !important;
+  color: hsl(var(--ink)) !important;
 }
 
 .sl-card h2::before,
@@ -648,43 +1423,137 @@ mobile-starlight-toc {
   display: none;
 }
 
+/* Card description — high-contrast body text. Was inheriting
+ * --sl-text-muted which resolved to ink-faint in dark (low contrast).
+ * Now uses --ink-soft consistently across themes, with a slightly
+ * bumped line-height for easier reading at small sizes. */
+.sl-card,
+.card {
+  color: hsl(var(--ink)) !important;
+}
+
+.sl-card p,
+.card p,
+.sl-card *:not(h1):not(h2):not(h3):not(h4):not(.icon),
+.card *:not(h1):not(h2):not(h3):not(h4):not(.icon) {
+  color: hsl(var(--ink-soft)) !important;
+  font-size: 1rem !important;
+  line-height: 1.55 !important;
+}
+
+.sl-card p:last-child,
+.card p:last-child {
+  margin-block-end: 0 !important;
+}
+
+/* CardGrid — switch from hairline-divided grid to spaced cards with
+ * proper gap, gives each card breathing room and individual identity.
+ *
+ * Forced column counts: 1 (mobile) → 2 (tablet) → 4 (desktop). This
+ * prevents an awkward 3-cards-in-row-1-and-1-orphan-below layout when
+ * the page has exactly 4 cards. */
 .card-grid,
 .sl-card-grid {
-  gap: 1px !important;
-  background: hsl(var(--rule));
-  border: 1px solid hsl(var(--rule));
-  border-radius: 2px;
-  overflow: hidden;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: 1.25rem !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+}
+
+@media (min-width: 40em) {
+  .card-grid,
+  .sl-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (min-width: 72em) {
+  .card-grid,
+  .sl-card-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
 }
 
 .card-grid .sl-card,
-.sl-card-grid .sl-card {
-  border: 0 !important;
-  border-radius: 0 !important;
+.sl-card-grid .sl-card,
+.card-grid .card,
+.sl-card-grid .card {
+  border: 0.5px solid hsl(var(--rule-strong)) !important;
+  border-radius: var(--dg-radius, 8px) !important;
 }
 
-/* Link cards */
+/* ─── Link cards ───────────────────────────────────────────── */
+
 .sl-link-card {
-  border: 1px solid hsl(var(--rule)) !important;
-  border-radius: 2px !important;
+  position: relative;
+  border: 0.5px solid hsl(var(--rule-strong)) !important;
+  border-radius: var(--dg-radius, 8px) !important;
   padding: 1.25rem 1.5rem !important;
-  transition: background 120ms ease, border-color 120ms ease;
+  background: hsl(var(--paper));
+  transition:
+    background 200ms var(--ease-editorial),
+    border-color 200ms var(--ease-editorial),
+    transform 200ms var(--ease-editorial),
+    box-shadow 200ms var(--ease-editorial);
+  margin-block: 0.5rem !important;
 }
 
 .sl-link-card:hover {
-  background: hsl(var(--accent-tinted)) !important;
+  background: color-mix(in srgb, hsl(var(--accent-tinted)) 70%, hsl(var(--paper))) !important;
   border-color: hsl(var(--accent-text)) !important;
+  transform: translateX(4px);
+  box-shadow: 0 12px 28px -18px hsla(var(--navy) / 0.25);
 }
 
-.sl-link-card a {
-  font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
-  font-variation-settings: "opsz" 36, "wght" 540, "SOFT" 30, "WONK" 0;
-  font-size: 1.15rem;
-  color: hsl(var(--ink));
+.sl-link-card a,
+.sl-link-card a:visited,
+.sl-link-card .title,
+.sl-link-card .sl-link-card-title {
+  font-family: "Fraunces", "Iowan Old Style", Georgia, serif !important;
+  font-variation-settings: "opsz" 36, "wght" 540, "SOFT" 30, "WONK" 0 !important;
+  font-size: 1.3rem !important;
+  color: hsl(var(--ink)) !important;
+  line-height: 1.2 !important;
+  text-decoration: none !important;
 }
 
+.sl-link-card .stack > a {
+  background-image: none !important;
+}
+
+/* Chevron arrow on the right — animates on hover. Replaces
+ * Starlight's default svg with a styled stack so we control it. */
 .sl-link-card .icon {
+  width: 2.25rem !important;
+  height: 2.25rem !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 0.5px solid hsl(var(--rule-strong));
+  background: hsl(var(--paper-deep));
   color: hsl(var(--accent-text)) !important;
+  flex-shrink: 0;
+  transition:
+    background 200ms var(--ease-editorial),
+    color 200ms var(--ease-editorial),
+    transform 200ms var(--ease-editorial);
+}
+
+.sl-link-card:hover .icon {
+  background: hsl(var(--navy));
+  color: hsl(var(--on-navy)) !important;
+  transform: translateX(3px);
+}
+
+.sl-link-card .description {
+  color: hsl(var(--ink-soft)) !important;
+  font-size: 0.95rem;
+  margin-block-start: 0.4rem !important;
+  font-family: "Public Sans", system-ui, sans-serif;
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -752,26 +1621,11 @@ starlight-theme-select select {
   letter-spacing: 0.08em;
 }
 
-/* Theme picker — wide enough to show "Light"/"Dark"/"Auto" without
- * truncating to "LI…". Starlight inlines --sl-select-width: 6.25em
- * which is too narrow for our tracked-out mono. */
+/* Hide the legacy Starlight theme picker — replaced by our editorial
+ * sun/moon icon button (see ThemeToggle.astro). Keep the element in
+ * the DOM (some scripts read its <select>), just hide it visually. */
 starlight-theme-select {
-  --sl-select-width: 7rem !important;
-}
-
-starlight-theme-select label {
-  --sl-select-width: 7rem !important;
-  min-width: 7rem;
-  padding-inline: 0.6rem;
-}
-
-starlight-theme-select .icon.label-icon {
-  display: none;
-}
-
-starlight-theme-select select {
-  min-width: 5rem;
-  padding-inline-end: 1.5rem !important;
+  display: none !important;
 }
 
 /* ─────────────────────────────────────────────────────────────

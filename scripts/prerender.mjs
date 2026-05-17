@@ -13,6 +13,68 @@ const DIST = join(__dirname, "..", "dist");
 const DIST_SERVER = join(__dirname, "..", "dist-server");
 
 /**
+ * Pull the content-agent's high-quality keyword catalogue from Convex
+ * and merge it into the static metadata at build time.
+ *
+ * Sources we trust for SEO injection:
+ *   - cluster centroid_term (human-edited, high-signal)
+ *   - keyword.term where source is seed-expand / gtrends / serpapi
+ *     AND score ≥ 65 (filters HN/Reddit noise like "I believe entire
+ *     companies are under AI psychosis")
+ *
+ * Falls back to an empty list when Convex is unavailable — the build
+ * still succeeds, just without the live-discovered terms.
+ */
+async function fetchDiscoveredKeywords() {
+  const url = process.env.VITE_CONVEX_URL ?? process.env.CONVEX_URL ?? "";
+  const admin = process.env.ADMIN_BASIC_AUTH ?? "";
+  if (!url || !admin) {
+    console.log(
+      "[prerender] CONVEX env not set — skipping discovered-keywords injection.",
+    );
+    return { centroids: [], terms: [] };
+  }
+  try {
+    const { ConvexHttpClient } = await import("convex/browser");
+    const c = new ConvexHttpClient(url);
+    const token = Buffer.from(admin, "utf-8").toString("base64");
+    const snap = await c.query("content/state:snapshot", { adminToken: token });
+
+    const TRUSTED_SOURCES = new Set(["seed-expand", "gtrends", "serpapi"]);
+    const centroids = (snap.clusters ?? [])
+      .filter((c) => c.composite_score >= 60)
+      .map((c) => c.centroid_term.trim())
+      .filter(Boolean);
+    const terms = ((snap.keywords ?? {}).recent ?? [])
+      .filter((k) => TRUSTED_SOURCES.has(k.source) && k.score >= 65)
+      .sort((a, b) => b.score - a.score)
+      .map((k) => k.term.trim().toLowerCase())
+      .filter(Boolean);
+
+    // dedupe + cap
+    const seen = new Set();
+    const dedupedTerms = [];
+    for (const t of terms) {
+      const key = t.replace(/\s+/g, " ");
+      if (seen.has(key)) continue;
+      seen.add(key);
+      dedupedTerms.push(t);
+      if (dedupedTerms.length >= 40) break;
+    }
+    console.log(
+      `[prerender] live keywords: ${centroids.length} cluster centroids + ${dedupedTerms.length} terms`,
+    );
+    return { centroids, terms: dedupedTerms };
+  } catch (err) {
+    console.warn(
+      "[prerender] could not fetch discovered keywords from Convex:",
+      err?.message ?? err,
+    );
+    return { centroids: [], terms: [] };
+  }
+}
+
+/**
  * SSR renderer cache. The server bundle is loaded lazily on first use, so a
  * failure to build/load it falls back gracefully to shell-only prerender.
  */
@@ -363,6 +425,13 @@ const BRAND_KNOWS_ABOUT = [
   "PostgreSQL",
 ];
 
+/**
+ * Filled by main() from Convex content_state.snapshot. Merged into the
+ * <meta name="keywords"> tag of every prerendered route. Empty by
+ * default so a no-Convex build still works.
+ */
+let DISCOVERED_KEYWORDS = [];
+
 const BRAND_MENTIONS = [
   { "@type": "Service", name: "Vipps", url: "https://vipps.no" },
   { "@type": "Service", name: "BankID", url: "https://bankid.no" },
@@ -555,6 +624,32 @@ function patchHTML(template, meta) {
       /<meta\s+name="description"\s+content="[^"]*"\s*\/?>/,
       `<meta name="description" content="${meta.description}" />`,
     )
+    // Keywords — merge the hardcoded baseline with live-discovered terms
+    // from the content-agent (cluster centroids + high-signal seed-expand
+    // / gtrends / serpapi keywords). Capped + deduped above; here we just
+    // join into the comma-separated meta-content format.
+    .replace(
+      /<meta\s+name="keywords"\s+content="([^"]*)"\s*\/?>/,
+      (_, existing) => {
+        const baseline = existing
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean);
+        const merged = [...baseline];
+        const seen = new Set(merged.map((s) => s.toLowerCase()));
+        for (const t of DISCOVERED_KEYWORDS) {
+          if (!seen.has(t)) {
+            merged.push(t);
+            seen.add(t);
+          }
+        }
+        const escaped = merged
+          .join(", ")
+          .replace(/"/g, "&quot;")
+          .slice(0, 1800); // browsers ignore much beyond this; keep tag size sane
+        return `<meta name="keywords" content="${escaped}" />`;
+      },
+    )
     // OG
     .replace(
       /<meta\s+property="og:url"\s+content="[^"]*"\s*\/?>/,
@@ -650,6 +745,16 @@ const HOMEPAGE = {
 };
 
 async function main() {
+  // Pull live-discovered keywords from Convex and merge into the
+  // static SEO surface. Falls back to empty when env vars missing.
+  const discovered = await fetchDiscoveredKeywords();
+  // Mutate the module-level lists so downstream baseLD()/patchHTML()
+  // see the enriched values without threading args through.
+  for (const c of discovered.centroids) {
+    if (!BRAND_KNOWS_ABOUT.includes(c)) BRAND_KNOWS_ABOUT.push(c);
+  }
+  DISCOVERED_KEYWORDS = discovered.terms;
+
   const indexPath = join(DIST, "index.html");
   const template = await fs.readFile(indexPath, "utf-8");
 

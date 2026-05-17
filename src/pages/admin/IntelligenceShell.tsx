@@ -7,14 +7,14 @@
  * Sub-pages live in src/pages/admin/Intelligence*.tsx and consume the
  * snapshot via useOutletContext<IntelligenceCtx>().
  */
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   Activity,
   AlertTriangle,
+  ArrowUpRight,
   BarChart3,
   Bot,
-  ChevronLeft,
   CircleGauge,
   Compass,
   FileEdit,
@@ -29,6 +29,7 @@ import {
   Search,
   Settings,
   ShieldAlert,
+  ShieldCheck,
   Sparkles,
   TrendingUp,
   Wifi,
@@ -41,6 +42,7 @@ import { cn } from "@/lib/utils";
 import {
   AUTH_KEY,
   adminToken,
+  getEcosystemKpis,
   type IntelligenceCtx,
   type Snapshot,
 } from "./intelligence-shared";
@@ -66,7 +68,7 @@ const NAV: Array<{
     ],
   },
   {
-    group: "MONITORS",
+    group: "MONITORER",
     items: [
       { to: "/admin/intelligence/uptime", label: "Oppetid & SSL", icon: Wifi },
       { to: "/admin/intelligence/seo", label: "SEO", icon: Search },
@@ -77,25 +79,31 @@ const NAV: Array<{
     ],
   },
   {
-    group: "ECOSYSTEM",
+    group: "ØKOSYSTEM",
     items: [
-      { to: "/admin/intelligence/overflater", label: "Overflater", icon: Globe2, hint: "Per-surface" },
+      { to: "/admin/intelligence/overflater", label: "Overflater", icon: Globe2, hint: "Per overflate" },
     ],
   },
   {
     group: "AI",
     items: [
-      { to: "/admin/intelligence/agenter", label: "AI-agenter", icon: Bot, hint: "Multi-agent chat" },
+      { to: "/admin/intelligence/agenter", label: "AI-agenter", icon: Bot, hint: "Fler-agent samtale" },
+    ],
+  },
+  {
+    group: "ETTERLEVELSE",
+    items: [
+      { to: "/admin/intelligence/etterlevelse", label: "Kontroller & RoPA", icon: ShieldCheck, hint: "ISO 27001 · SOC 2 · GDPR" },
     ],
   },
   {
     group: "VEKST",
     items: [
-      { to: "/admin/intelligence/vekst", label: "Vekst-oversikt", icon: TrendingUp, end: true, hint: "Harness + org chart" },
-      { to: "/admin/intelligence/vekst/keywords", label: "Keywords", icon: KeyRound, hint: "Trender + gap" },
-      { to: "/admin/intelligence/vekst/drafts", label: "Drafts", icon: FileEdit, hint: "Approval queue" },
-      { to: "/admin/intelligence/vekst/connections", label: "Connections", icon: Plug, hint: "LinkedIn / X" },
-      { to: "/admin/intelligence/vekst/aktivitet", label: "Aktivitet", icon: ScrollText, hint: "Audit log" },
+      { to: "/admin/intelligence/vekst", label: "Vekst-oversikt", icon: TrendingUp, end: true, hint: "Agenter + org-kart" },
+      { to: "/admin/intelligence/vekst/keywords", label: "Nøkkelord", icon: KeyRound, hint: "Trender + gap" },
+      { to: "/admin/intelligence/vekst/drafts", label: "Utkast", icon: FileEdit, hint: "Godkjenningskø" },
+      { to: "/admin/intelligence/vekst/connections", label: "Tilkoblinger", icon: Plug, hint: "LinkedIn / X" },
+      { to: "/admin/intelligence/vekst/aktivitet", label: "Aktivitet", icon: ScrollText, hint: "Revisjonslogg" },
     ],
   },
   {
@@ -110,16 +118,48 @@ const NAV: Array<{
 const FLAT_NAV: NavItem[] = NAV.flatMap((g) => g.items);
 
 export default function IntelligenceShell() {
-  const [auth, setAuth] = useState<string | null>(() => {
-    if (typeof window === "undefined") return null;
-    return localStorage.getItem(AUTH_KEY);
-  });
+  // `auth` is never initialised straight from localStorage on mount —
+  // a stale cached token would make the synchronous useQuery below
+  // throw "Unauthorized" *during render*, above any error boundary,
+  // crashing the shell so the user can't even see the login card.
+  // Instead we validate the cached token via `convex.query()` in an
+  // effect first, and only setAuth() once it passes.
+  const [auth, setAuth] = useState<string | null>(null);
+  const [authChecked, setAuthChecked] = useState<boolean>(false);
   const [authError, setAuthError] = useState<string | null>(null);
   const convex = useConvex();
-  // useQuery throws on auth errors. To keep the login card renderable,
-  // skip the query until we have a token, and use the imperative
-  // `convex.query()` to validate new tokens at login time before
-  // persisting them.
+
+  useEffect(() => {
+    const cached =
+      typeof window !== "undefined" ? localStorage.getItem(AUTH_KEY) : null;
+    if (!cached) {
+      setAuthChecked(true);
+      return;
+    }
+    let cancelled = false;
+    convex
+      .query(api.audits.state.snapshot, { adminToken: cached })
+      .then(() => {
+        if (!cancelled) setAuth(cached);
+      })
+      .catch((err) => {
+        if (cancelled) return;
+        const msg = err instanceof Error ? err.message : String(err);
+        if (msg.includes("Unauthorized")) {
+          localStorage.removeItem(AUTH_KEY);
+          setAuthError("Sesjonen utløpte — logg inn på nytt.");
+        } else {
+          setAuthError(`Kunne ikke kontakte tjenesten: ${msg.slice(0, 160)}`);
+        }
+      })
+      .finally(() => {
+        if (!cancelled) setAuthChecked(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [convex]);
+
   const snap = useQuery(
     api.audits.state.snapshot,
     auth ? { adminToken: auth } : "skip",
@@ -164,10 +204,12 @@ export default function IntelligenceShell() {
     async (targetName?: string) => {
       if (!auth) return;
       setRunning(targetName || "__all__");
-      const beforeId =
-        snap?.latest.find(
-          (r) => !targetName || r.target_name === targetName,
-        )?.id ?? 0;
+      const scanStartedAt = Date.now();
+      // Count how many runs are already "fresh" before the trigger so
+      // we know when each new run lands.
+      const expectedSurfaces = targetName
+        ? 1
+        : (snap?.targets.filter((t) => t.is_active).length ?? 7);
       try {
         const res = await fetch("/api/audits/run", {
           method: "POST",
@@ -179,25 +221,34 @@ export default function IntelligenceShell() {
         });
         if (!res.ok)
           throw new Error(`Kunne ikke starte skanning (${res.status})`);
-        // The orchestrator now writes to Convex as it runs, so we just
-        // wait for the reactive snapshot to show a newer run id for this
-        // (target, audit_type). When that happens we drop the spinner.
-        const deadline = Date.now() + 6 * 60 * 1000;
-        const poll = () =>
-          new Promise<void>((resolve) => {
-            const tick = () => {
-              const newer = snap?.latest.find(
-                (r) =>
-                  (!targetName || r.target_name === targetName) &&
-                  r.id > beforeId &&
-                  r.status !== "running",
-              );
-              if (newer || Date.now() > deadline) resolve();
-              else setTimeout(tick, 1500);
-            };
-            tick();
-          });
-        await poll();
+        // For full scans we wait until either:
+        //   - we see fresh runs covering every active surface, OR
+        //   - 4 minutes have passed (orchestrator timeout)
+        // For per-target scans, first fresh non-running row drops the spinner.
+        const deadline = scanStartedAt + 4 * 60 * 1000;
+        const scanStartedIso = new Date(scanStartedAt - 500).toISOString();
+        await new Promise<void>((resolve) => {
+          const tick = () => {
+            const freshRuns = (snap?.latest ?? []).filter(
+              (r) =>
+                (!targetName || r.target_name === targetName) &&
+                r.started_at > scanStartedIso &&
+                r.status !== "running",
+            );
+            const distinctSurfaces = new Set(
+              freshRuns.map((r) => r.target_name),
+            ).size;
+            if (
+              distinctSurfaces >= expectedSurfaces ||
+              Date.now() > deadline
+            ) {
+              resolve();
+            } else {
+              setTimeout(tick, 2000);
+            }
+          };
+          tick();
+        });
       } finally {
         setRunning(null);
       }
@@ -227,8 +278,26 @@ export default function IntelligenceShell() {
     );
   }, [location.pathname]);
 
+  // SINGLE SOURCE OF TRUTH — every KPI in the shell (top sticky bar
+  // badges, sidebar mini-KPI, login card preview) reads from this
+  // helper. Underlying numbers are computed once in Convex
+  // (convex/audits/state.ts:snapshot.ecosystemSummary) so the header,
+  // sidebar, and Oversikt page can never drift apart.
+  const kpis = getEcosystemKpis(snap);
   const summary = snap?.ecosystemSummary;
-  const liveCount = snap?.targets.filter((t) => t.is_active).length ?? 0;
+  const liveCount = kpis?.surfacesTotal ?? 0;
+
+  // Hold render while we validate the cached token — prevents a flash
+  // of the login card for users who are already authenticated.
+  if (!authChecked) {
+    return (
+      <div className="min-h-screen bg-paper flex items-center justify-center px-4 py-12">
+        <p className="font-mono text-xs uppercase tracking-widest text-ink-faint">
+          Kontrollerer sesjon…
+        </p>
+      </div>
+    );
+  }
 
   if (!auth) {
     return (
@@ -352,33 +421,23 @@ export default function IntelligenceShell() {
       />
 
       {/* Sidebar */}
-      <aside className="fixed left-0 top-0 bottom-0 w-64 bg-paper-deep/40 border-r border-hairline-strong overflow-y-auto z-40 hidden lg:flex flex-col">
+      <aside className="fixed left-0 top-0 bottom-0 w-72 bg-paper-deep/40 border-r border-hairline-strong overflow-y-auto z-40 hidden lg:flex flex-col">
         <div className="px-5 py-5 border-b border-hairline-strong">
-          <button
-            type="button"
-            onClick={() => navigate("/")}
-            className="flex items-center gap-2 text-ink-soft hover:text-ink transition-colors"
-          >
-            <ChevronLeft className="h-4 w-4" />
-            <span className="font-mono text-[0.65rem] uppercase tracking-widest">
-              Tilbake til forsiden
-            </span>
-          </button>
           <h1
-            className="font-serif text-[1.75rem] text-ink mt-3 leading-none"
+            className="font-serif text-[1.75rem] text-ink leading-none"
             style={{ fontVariationSettings: '"opsz" 48, "wght" 540' }}
           >
             Intelligence
           </h1>
           <p className="text-xs text-ink mt-1.5">Digilist økosystem</p>
-          {summary && (
+          {kpis && (
             <div className="mt-4 grid grid-cols-2 gap-px bg-rule border border-rule">
               <div className="bg-paper px-2.5 py-2">
                 <p className="font-mono text-[0.55rem] uppercase tracking-widest text-ink-faint">
                   Snitt
                 </p>
-                <p className="font-serif text-xl text-ink leading-none mt-1">
-                  {Math.round(summary.avgScore)}
+                <p className="font-serif text-xl text-ink leading-none mt-1 tabular-nums">
+                  {kpis.avgScore}
                 </p>
               </div>
               <div className="bg-paper px-2.5 py-2">
@@ -387,11 +446,11 @@ export default function IntelligenceShell() {
                 </p>
                 <p
                   className={cn(
-                    "font-serif text-xl leading-none mt-1",
-                    summary.errorCount > 0 ? "text-red-700" : "text-ink",
+                    "font-serif text-xl leading-none mt-1 tabular-nums",
+                    kpis.errorCount > 0 ? "text-red-700" : "text-ink",
                   )}
                 >
-                  {summary.errorCount}
+                  {kpis.errorCount}
                 </p>
               </div>
             </div>
@@ -401,10 +460,10 @@ export default function IntelligenceShell() {
         <nav className="flex-1 px-3 py-4 space-y-5">
           {NAV.map((group) => (
             <div key={group.group}>
-              <p className="font-mono text-[0.6rem] uppercase tracking-widest text-ink-faint mb-2 px-2.5">
+              <p className="font-mono text-[0.65rem] uppercase tracking-widest text-ink-faint mb-3 px-3">
                 {group.group}
               </p>
-              <ul className="space-y-0.5">
+              <ul className="space-y-1">
                 {group.items.map((item) => {
                   const Icon = item.icon;
                   return (
@@ -414,9 +473,9 @@ export default function IntelligenceShell() {
                         end={item.end}
                         className={({ isActive }) =>
                           cn(
-                            "flex items-center gap-2.5 px-2.5 py-2 rounded-sm text-sm transition-colors group",
+                            "flex items-center gap-3 px-3 py-2.5 rounded-sm transition-colors group",
                             isActive
-                              ? "bg-navy text-on-navy font-medium"
+                              ? "bg-navy text-on-navy"
                               : "text-ink hover:bg-paper-deep/80",
                           )
                         }
@@ -425,16 +484,29 @@ export default function IntelligenceShell() {
                           <>
                             <Icon
                               className={cn(
-                                "h-4 w-4 flex-shrink-0",
+                                "h-[1.1rem] w-[1.1rem] flex-shrink-0",
                                 isActive ? "text-on-navy" : "text-ink-soft group-hover:text-ink",
                               )}
                             />
-                            <span className="flex-1 leading-tight">
+                            <span
+                              className={cn(
+                                "flex-1 leading-tight text-[0.9rem]",
+                                isActive ? "font-medium" : "",
+                              )}
+                            >
                               {item.label}
                             </span>
-                            {item.hint && !isActive && (
-                              <span className="font-mono text-[0.5rem] uppercase tracking-widest text-ink-faint">
-                                ›
+                            {item.hint && (
+                              <span
+                                className={cn(
+                                  "font-mono text-[0.55rem] uppercase tracking-widest truncate",
+                                  isActive
+                                    ? "text-on-navy/60"
+                                    : "text-ink-faint group-hover:text-ink-soft",
+                                )}
+                                title={item.hint}
+                              >
+                                {item.hint}
                               </span>
                             )}
                           </>
@@ -516,20 +588,15 @@ export default function IntelligenceShell() {
       </div>
 
       {/* Main column — full width, sticky topbar */}
-      <main className="lg:ml-64 min-h-screen flex flex-col">
-        {/* Sticky topbar (per-route title + ecosystem chips + actions) */}
-        <div className="hidden lg:flex sticky top-0 z-20 bg-paper/95 backdrop-blur border-b border-hairline-strong px-8 xl:px-12 py-4 items-center justify-between gap-6">
-          <div className="flex items-center gap-3 min-w-0">
-            <p className="font-mono text-[0.6rem] uppercase tracking-widest text-ink-faint flex-shrink-0">
-              INTELLIGENCE / {activeItem?.label.toUpperCase()}
-            </p>
+      <main className="lg:ml-72 min-h-screen flex flex-col">
+        {/* Sticky topbar — three slots: breadcrumb | search | actions.
+           Each slot is independent so they never overlap; the middle
+           shrinks first when the viewport is tight, the breadcrumb
+           truncates, and the actions cluster stays pinned right. */}
+        <div className="hidden lg:flex sticky top-0 z-20 bg-paper/95 backdrop-blur border-b border-hairline-strong px-8 xl:px-12 py-4 items-center gap-6">
+          <div className="flex items-center gap-3 min-w-0 flex-shrink overflow-hidden">
             {snap && (
-              <span className="font-mono text-[0.6rem] uppercase tracking-widest text-ink-faint flex-shrink-0">
-                ·
-              </span>
-            )}
-            {snap && (
-              <p className="font-mono text-[0.6rem] uppercase tracking-widest text-ink-faint truncate">
+              <p className="font-mono text-[0.65rem] uppercase tracking-widest text-ink-faint truncate">
                 Sist oppdatert{" "}
                 <time className="text-ink" dateTime={snap.generatedAt}>
                   {new Date(snap.generatedAt).toLocaleString("nb-NO", {
@@ -540,48 +607,51 @@ export default function IntelligenceShell() {
               </p>
             )}
           </div>
+          {/* Middle: flex-1 spacer pushes the actions cluster right. */}
+          <div className="hidden xl:block flex-1" />
           <div className="flex items-center gap-2 flex-shrink-0">
-            {summary && (
+            {kpis && (
               <div className="hidden xl:flex items-center gap-2 mr-2">
                 <Chip
                   label="OVERFLATER"
-                  value={`${summary.surfacesHealthy}/${summary.surfacesTotal}`}
+                  value={`${kpis.surfacesHealthy}/${kpis.surfacesTotal}`}
                   tone={
-                    summary.surfacesWithErrors === 0
+                    kpis.surfacesWithErrors === 0
                       ? "good"
-                      : summary.surfacesWithErrors >= 2
+                      : kpis.surfacesWithErrors >= 2
                         ? "bad"
                         : "warn"
                   }
                 />
                 <Chip
                   label="SNITT"
-                  value={Math.round(summary.avgScore)}
+                  value={kpis.avgScore}
                   tone={
-                    summary.avgScore >= 85
+                    kpis.avgScore >= 85
                       ? "good"
-                      : summary.avgScore >= 60
+                      : kpis.avgScore >= 60
                         ? "warn"
                         : "bad"
                   }
                 />
                 <Chip
                   label="FEIL"
-                  value={summary.errorCount}
-                  tone={summary.errorCount === 0 ? "good" : "bad"}
+                  value={kpis.errorCount}
+                  tone={kpis.errorCount === 0 ? "good" : "bad"}
                 />
               </div>
             )}
+            <EcosystemJump />
             <button
               type="button"
               onClick={fetchState}
-              className="inline-flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-widest text-ink hover:bg-paper-deep/60 border border-hairline rounded-sm px-2.5 py-1.5 disabled:opacity-50 transition-colors"
+              className="inline-flex items-center gap-2 font-mono text-[0.7rem] uppercase tracking-widest text-ink hover:bg-paper-deep/60 border border-hairline rounded-sm px-4 py-2.5 disabled:opacity-50 transition-colors"
               disabled={loading}
             >
               {loading ? (
-                <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                <Loader2 className="h-4 w-4 animate-spin" />
               ) : (
-                <RefreshCw className="h-3.5 w-3.5" />
+                <RefreshCw className="h-4 w-4" />
               )}
               Oppdater
             </button>
@@ -590,7 +660,7 @@ export default function IntelligenceShell() {
               onClick={() => runScan()}
               disabled={Boolean(running)}
               className={cn(
-                "inline-flex items-center gap-1.5 rounded-sm px-3 py-1.5 text-[0.65rem] uppercase tracking-widest font-medium transition-colors",
+                "inline-flex items-center gap-2 rounded-sm px-4 py-2.5 text-[0.7rem] uppercase tracking-widest font-medium transition-colors",
                 running
                   ? "bg-paper-deep text-ink-faint cursor-not-allowed"
                   : "bg-navy text-on-navy hover:bg-navy/90",
@@ -686,7 +756,7 @@ function Chip({
   return (
     <div
       className={cn(
-        "inline-flex items-center gap-2 rounded-sm px-2.5 py-1.5 border",
+        "inline-flex items-center gap-3 rounded-sm border px-3.5 py-2.5",
         tone === "good" && "bg-green-50 border-green-700/40 dark:bg-green-950/40",
         tone === "warn" && "bg-amber-50 border-amber-700/40 dark:bg-amber-950/40",
         tone === "bad" && "bg-red-50 border-red-700/40 dark:bg-red-950/40",
@@ -694,7 +764,7 @@ function Chip({
     >
       <span
         className={cn(
-          "font-mono text-[0.55rem] uppercase tracking-widest",
+          "font-mono text-[0.65rem] uppercase tracking-widest leading-none",
           tone === "good" && "text-green-700 dark:text-green-400",
           tone === "warn" && "text-amber-700 dark:text-amber-400",
           tone === "bad" && "text-red-700 dark:text-red-400",
@@ -704,7 +774,7 @@ function Chip({
       </span>
       <span
         className={cn(
-          "font-serif text-base font-medium leading-none",
+          "font-serif text-2xl font-medium leading-none",
           tone === "good" && "text-green-700 dark:text-green-400",
           tone === "warn" && "text-amber-700 dark:text-amber-400",
           tone === "bad" && "text-red-700 dark:text-red-400",
@@ -712,6 +782,36 @@ function Chip({
       >
         {value}
       </span>
+    </div>
+  );
+}
+
+/* ──────────────────────────────────────────────────────────────
+ * Ecosystem jump — quick links to public surfaces (matches the
+ * "Hjemmeside / Plattform" pattern on docs.digilist.no header).
+ * ────────────────────────────────────────────────────────────── */
+
+const ECOSYSTEM_LINKS: Array<{ label: string; href: string }> = [
+  { label: "Hjem", href: "https://digilist.no" },
+  { label: "Docs", href: "https://docs.digilist.no" },
+  { label: "Status", href: "https://status.digilist.no" },
+];
+
+function EcosystemJump() {
+  return (
+    <div className="hidden 2xl:flex items-center gap-1 mr-1">
+      {ECOSYSTEM_LINKS.map((l) => (
+        <a
+          key={l.href}
+          href={l.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 font-mono text-[0.7rem] uppercase tracking-widest text-ink-soft hover:text-ink hover:bg-paper-deep/60 rounded-sm px-3 py-2.5 transition-colors"
+        >
+          {l.label}
+          <ArrowUpRight className="h-3.5 w-3.5 opacity-60" />
+        </a>
+      ))}
     </div>
   );
 }

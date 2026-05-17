@@ -1,38 +1,53 @@
 ---
 title: Digilist Docs
-description: Kommunal booking-SaaS for idrettshaller, møterom, kulturhus og selskapslokaler.
+description: Booking-plattform for utleiere — idrettshaller, møterom, kulturhus, selskapslokaler, utstyr og tjenester. Bygd med kommune-klasse compliance som standard.
 template: splash
 hero:
-  tagline: Plattformen kommuner bruker for å booke lokaler — fra innbygger til saksbehandler, ID-porten til Stripe.
+  tagline: Booking-plattform for kommuner, foreninger og private utleiere — én sanntidskalender, samme godkjenningsflyt, kommune-klasse compliance som standard.
   actions:
     - text: Kom i gang
       link: /kom-i-gang/
       icon: right-arrow
       variant: primary
     - text: API-referanse
-      link: /api/
+      link: /api-referanse/
       icon: external
       variant: minimal
 ---
 
 import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import HowdygoDemo from "../../components/widgets/HowdygoDemo.astro";
 
 ## Hva er Digilist
 
-Digilist er en bookingplattform for offentlige og halv-offentlige lokaler. Innbyggere leier idrettshaller, møterom, kulturhus og selskapslokaler direkte fra kommunens nettside — med ID-porten-innlogging, Vipps eller EHF-betaling, og full saksbehandler-godkjenning der det trengs.
+Digilist er en booking-plattform for utleiere av lokaler, utstyr og tjenester — kommuner, lag og foreninger, idrettsklubber, kulturhus og private utleieobjekter. Innbyggere og medlemmer søker, betaler og bekrefter direkte, mens saksbehandler eller driftsleder godkjenner der det kreves. Plattformen er bygd til kommune-klasse compliance (ID-porten, BankID, SSA-L 2026, GDPR, EHF) — det gjør at det samme oppsettet også fungerer for private aktører som vil ha den profesjonelle modellen uten å bygge den selv.
+
+<HowdygoDemo
+  caption="INTERAKTIV DEMO · PLATTFORMEN"
+  title="Se hele Digilist på 3 minutter"
+  description="Klikk gjennom hele booking-flyten: bruker søker, betaler og bekrefter — så saksbehandler godkjenner der det kreves — så driftsleder ser rapporten."
+  duration="3 min"
+  steps={[
+    { num: "01", label: "Bruker søker lokale på Google eller utleiers nettside" },
+    { num: "02", label: "Velger slot, betaler med Vipps eller kort" },
+    { num: "03", label: "Saksbehandler godkjenner (hvis flyten krever det)" },
+    { num: "04", label: "Driftsleder ser bookingen i dashboardet" },
+    { num: "05", label: "Faktura genereres via EHF, Vipps eller Stripe" },
+  ]}
+/>
 
 <CardGrid>
   <Card title="For kommuner" icon="approve-check">
-    Erstatter manuelle skjemaer og papir-bookinger med en sanntidskalender. Saksbehandler godkjenner i Min side. SSA-L 2026, GDPR, ID-porten.
+    Erstatter manuelle skjemaer og papir-bookinger med en sanntidskalender. Saksbehandler godkjenner i Min side. SSA-L 2026, GDPR, ID-porten — alle A-krav dekket.
   </Card>
   <Card title="For lag og foreninger" icon="rocket">
-    Sesongleie, terminsoppsett, fordelingsregler. Tildeling sendes til kontaktperson, alle bookinger samlet på ett sted.
+    Sesongleie, terminsoppsett, fordelingsregler. Tildeling sendes til kontaktperson, alle bookinger samlet på ett sted — gratis for foreninger som leier av kommunen.
   </Card>
-  <Card title="For utleieobjekter" icon="setting">
-    Driftsleder konfigurerer åpningstider, priser, betalingstype og godkjenningsflyt per lokale.
+  <Card title="For private utleiere" icon="setting">
+    Idrettsanlegg, kulturhus, selskapslokaler, utstyr. Driftsleder konfigurerer åpningstider, priser, betalingstype og godkjenningsflyt per ressurs. Stripe Connect for direkte payout.
   </Card>
   <Card title="For utviklere" icon="document">
-    Convex-backend, REST-API med ID-porten/BankID-pålogging, webhooks for Stripe, Vipps og Signicat.
+    Convex-backend, REST-API med ID-porten/BankID-pålogging, webhooks for Stripe, Vipps og Signicat. Source-only SDK, ~870 hooks, 50 cron-jobber.
   </Card>
 </CardGrid>
 
@@ -51,7 +66,7 @@ Digilist er en bookingplattform for offentlige og halv-offentlige lokaler. Innby
 <LinkCard
   title="API-referanse"
   description="REST-endepunkter for chat, audits, content-agent og publish."
-  href="/api/"
+  href="/api-referanse/"
 />
 <LinkCard
   title="Compliance"

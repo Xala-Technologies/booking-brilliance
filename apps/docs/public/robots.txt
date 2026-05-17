@@ -1,0 +1,5 @@
+# https://docs.digilist.no/robots.txt
+User-agent: *
+Allow: /
+
+Sitemap: https://docs.digilist.no/sitemap-index.xml

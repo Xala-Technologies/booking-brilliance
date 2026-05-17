@@ -16,11 +16,15 @@
     "seo:open": "open tools/seo-crawler/reports/index.html",
     "seo:test": "vitest run tools/seo-crawler/src/__tests__",
     "audit:all": "tsx tools/site-intelligence/src/orchestrator.ts",
+    "audit:psi": "tsx tools/site-intelligence/src/run-performance.ts",
+    "audit:daily": "tsx tools/site-intelligence/src/orchestrator.ts --trigger cron && tsx tools/site-intelligence/src/run-performance.ts",
     "content:all": "tsx tools/content-agent/src/orchestrator.ts",
     "content:discover": "tsx tools/content-agent/src/orchestrator.ts --phase discover",
     "content:analyze": "tsx tools/content-agent/src/orchestrator.ts --phase analyze",
     "content:generate": "tsx tools/content-agent/src/orchestrator.ts --phase generate",
-    "convex:migrate": "tsx scripts/migrate-sqlite-to-convex.ts"
+    "convex:migrate": "tsx scripts/migrate-sqlite-to-convex.ts",
+    "content:sync": "tsx scripts/sync-convex-blog-to-fs.ts",
+    "docs:index": "tsx tools/docs-rag/src/index.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -80,6 +84,7 @@
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^0.9.9",
+    "web-vitals": "^5.2.0",
     "zod": "^3.25.76"
   },
   "devDependencies": {

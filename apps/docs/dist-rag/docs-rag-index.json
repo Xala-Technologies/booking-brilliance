@@ -1,0 +1,1756 @@
+{
+  "generatedAt": "2026-05-16T15:48:52.826Z",
+  "model": "tfidf",
+  "chunks": [
+    {
+      "id": "admin#oversikt",
+      "slug": "admin",
+      "href": "/admin/",
+      "pageTitle": "Admin-runbooks",
+      "section": "Oversikt",
+      "content": "Digilist har to admin-overflater:\n\n- `/admin/intelligence` — site-intelligence (uptime, SEO, WCAG, sikkerhet, lenker)\n- `/admin/intelligence/vekst` — Vekst-harness (keyword agent + content draft agent + approval queue)\n\nBegge bak HTTP Basic Auth. Credentials i `/etc/digilist-api.env`.",
+      "tokens": 72,
+      "embedding": null
+    },
+    {
+      "id": "admin#daglig-rutine",
+      "slug": "admin",
+      "href": "/admin/",
+      "pageTitle": "Admin-runbooks",
+      "section": "Daglig rutine",
+      "content": "1. **08:00** — Sjekk `/admin/intelligence` for errors fra nattens audits (kjørt 06:00 UTC)\n2. **08:15** — Sjekk `/admin/intelligence/vekst/drafts` for nye drafts (kjørt 06:00 UTC)\n3. **Approve / edit / reject** drafts som passer\n4. **Publish** approved drafts manuelt — én klikk per draft",
+      "tokens": 72,
+      "embedding": null
+    },
+    {
+      "id": "admin#nar-noe-gar-galt",
+      "slug": "admin",
+      "href": "/admin/",
+      "pageTitle": "Admin-runbooks",
+      "section": "Når noe går galt",
+      "content": "| Symptom | Sannsynlig årsak | Sjekk |\n|---|---|---|\n| Login-popup fra browser | `WWW-Authenticate: Basic` lekker | Server ikke restartet etter deploy |\n| `/api/content/state` returnerer 401 | Feil credentials i localStorage | Logg ut og inn igjen |\n| Drafts genereres ikke | Anthropic-nøkkel mangler eller utløpt | `curl -s digilist.no/api/health` — sjekk `anthropicConfigured: true` |\n| \"indexed 0 existing docs\" i logs | `src/content/blog/` ikke deployed til AUDIT_DIR | Re-kjør deploy.sh |\n| Cron firer ikke | systemd-timer disabled | `systemctl status digilist-content.timer` |\n\nUnderseksjoner:\n\n- [Site intelligence-runbook](/admin/intelligence/)\n- [Vekst-harness-runbook](/admin/vekst/)",
+      "tokens": 174,
+      "embedding": null
+    },
+    {
+      "id": "admin/intelligence#hva-dashboardet-viser",
+      "slug": "admin/intelligence",
+      "href": "/admin/intelligence/",
+      "pageTitle": "Site Intelligence-runbook",
+      "section": "Hva dashboardet viser",
+      "content": "- **Oversikt** — økosystem-rollup, snittscore, errors/warnings totalt\n- **Overflater** — én card per surface (max 2 per rad). Per-audit-score, \"Run scan\"-knapp.\n- **Hva gikk galt** — finding-feed sortert på severity, med AI-fiks-anbefalinger\n- **Skanninger** — historikk over kjøringer, status, varighet\n- **Per-audit-sider** — Uptime, SEO, WCAG, Sikkerhet, Ytelse, Lenker — drilldown per kategori\n- **Agenter** — multi-agent chat (sikkerhet, SEO, WCAG, ytelse, triage)",
+      "tokens": 118,
+      "embedding": null
+    },
+    {
+      "id": "admin/intelligence#surfaces-vi-overvaker",
+      "slug": "admin/intelligence",
+      "href": "/admin/intelligence/",
+      "pageTitle": "Site Intelligence-runbook",
+      "section": "Surfaces vi overvåker",
+      "content": "Definert i `tools/site-intelligence/src/targets.ts`:\n\n- `marketing` — digilist.no (full audits)\n- `marketing-dev` — dev.digilist.no (full audits, ikke-indekserbar)\n- `app` — app.digilist.no (login-side, auth-gated)\n- `dashboard` — dashboard.digilist.no (tenant admin, auth-gated)\n- `docs` — docs.digilist.no\n- `api` — api.digilist.no (HTTP-helse + sikkerhet)\n- `status` — status.digilist.no\n\nAlle aktive. Alle kjører `uptime, seo, a11y, security, links`.",
+      "tokens": 114,
+      "embedding": null
+    },
+    {
+      "id": "admin/intelligence#kjore-en-manuell-scan",
+      "slug": "admin/intelligence",
+      "href": "/admin/intelligence/",
+      "pageTitle": "Site Intelligence-runbook",
+      "section": "Kjøre en manuell scan",
+      "content": "Tre måter:\n\n1. **UI** — klikk \"Run scan\" på en surface-card\n2. **API** — `curl -X POST -u user:pass https://digilist.no/api/audits/run -d '{\"target\":\"marketing\"}'`\n3. **CLI på VPS** — `cd /var/www/digilist-audit && pnpm audit:all -- --target marketing`\n\nSnapshot regenereres automatisk etter run.",
+      "tokens": 74,
+      "embedding": null
+    },
+    {
+      "id": "admin/intelligence#daglig-cron",
+      "slug": "admin/intelligence",
+      "href": "/admin/intelligence/",
+      "pageTitle": "Site Intelligence-runbook",
+      "section": "Daglig cron",
+      "content": "`digilist-audit.timer` (definert i deploy.sh) fyrer 06:00 UTC daglig. Kjører:\n\n```bash\npnpm audit:all\npnpm audit:snapshot\n```\n\nOutput i `journalctl -u digilist-audit.service --since today`.",
+      "tokens": 48,
+      "embedding": null
+    },
+    {
+      "id": "admin/intelligence#ai-fiks-anbefalinger",
+      "slug": "admin/intelligence",
+      "href": "/admin/intelligence/",
+      "pageTitle": "Site Intelligence-runbook",
+      "section": "AI-fiks-anbefalinger",
+      "content": "Hver finding har en \"Anbefal fiks\"-knapp. Sender finding (rule + severity + message + url) til Claude som returnerer:\n\n- Problem (1-2 setninger)\n- Anbefalt fiks (konkret, med fil/komponent eller header-syntax)\n- Akseptansekriterier (2-4 sjekkbare punkter)\n- Prioritet (kritisk / høy / middels / lav)\n\nKostnad ~$0.002 per anbefaling (Claude haiku). Rate-limit 30/minutt.",
+      "tokens": 93,
+      "embedding": null
+    },
+    {
+      "id": "admin/vekst#hva-harness-gjor",
+      "slug": "admin/vekst",
+      "href": "/admin/vekst/",
+      "pageTitle": "Vekst-harness-runbook",
+      "section": "Hva harness gjør",
+      "content": "10 katalogiserte agenter, organisert i tre tiers:\n\n- **V1 (aktive runners)** — monitoring, seo, keyword, content-draft, approval-queue\n- **V1+1 (registrert)** — wcag, security, competitor\n- **Deferred (placeholder)** — feedback, task-generator\n\nOrg-chart, allowed-tools, budsjett og risk-default per agent vises i Vekst-oversikt.",
+      "tokens": 83,
+      "embedding": null
+    },
+    {
+      "id": "admin/vekst#pipeline",
+      "slug": "admin/vekst",
+      "href": "/admin/vekst/",
+      "pageTitle": "Vekst-harness-runbook",
+      "section": "Pipeline",
+      "content": "```\ndiscover  →  analyze       →  generate         →  approval-queue\ngtrends      cluster        brief + drafts       human review\nreddit       coverage       blog + LI + X\nhackernews\nrss\nserpapi\nseed-expand\n```\n\nDaglig cron 06:00 UTC kjører full pipeline. Manuelt: \"Kjør full pipeline\"-knappen i Vekst-oversikt.",
+      "tokens": 78,
+      "embedding": null
+    },
+    {
+      "id": "admin/vekst#approval-queue",
+      "slug": "admin/vekst",
+      "href": "/admin/vekst/",
+      "pageTitle": "Vekst-harness-runbook",
+      "section": "Approval Queue",
+      "content": "Hver draft har:\n\n- **Channel** — blog / linkedin / x\n- **Risk** — low / med / high\n- **Status** — pending / approved / rejected / published / failed\n- **Body** — full markdown (blog) eller plain text (LI/X)\n- **Provenance** — link tilbake til cluster + keywords som genererte den\n\n**Tre handlinger:**\n\n1. **Approve** — markerer som klar, men publiserer ikke\n2. **Reject** — beholdes i basen som negativ tilbakemelding\n3. **Publish** — *bare* etter approve. Eksplisitt klikk. Eneste vei til ekstern publisering.",
+      "tokens": 128,
+      "embedding": null
+    },
+    {
+      "id": "admin/vekst#hva-med-blog-drafts",
+      "slug": "admin/vekst",
+      "href": "/admin/vekst/",
+      "pageTitle": "Vekst-harness-runbook",
+      "section": "Hva med blog-drafts",
+      "content": "Blog-drafts publiseres ved å skrive markdown-filen til `src/content/blog/<slug>.md`. Filen bygges på neste deploy. Du må selv:\n\n1. Approve → Publish i dashboardet\n2. Commit den nye .md-filen til main\n3. Trigger deploy.sh",
+      "tokens": 55,
+      "embedding": null
+    },
+    {
+      "id": "admin/vekst#hva-med-linkedin-x",
+      "slug": "admin/vekst",
+      "href": "/admin/vekst/",
+      "pageTitle": "Vekst-harness-runbook",
+      "section": "Hva med LinkedIn/X",
+      "content": "Drafts blir bare drafts inntil:\n\n1. OAuth-app registrert hos provider\n2. Access token + URN lagt i `/etc/digilist-api.env`:\n   - `LINKEDIN_ACCESS_TOKEN`, `LINKEDIN_ORG_URN`\n   - `X_BEARER_TOKEN`\n3. `systemctl restart digilist-api`\n\nLinkedIn UGC API krever Marketing Developer Platform-godkjenning for Company Page (2-6 ukers ventetid). X Basic tier er $200/mnd som av 2025. Begge får refresh-token-rotasjon i V2.",
+      "tokens": 103,
+      "embedding": null
+    },
+    {
+      "id": "admin/vekst#kost-monitorering",
+      "slug": "admin/vekst",
+      "href": "/admin/vekst/",
+      "pageTitle": "Vekst-harness-runbook",
+      "section": "Kost-monitorering",
+      "content": "`Aktivitet`-fanen viser hver Claude-call med:\n\n- Tokens-in / tokens-out\n- Cost-USD per call\n- Risk-tag\n- Trace-ref (draft:N, cluster:N)\n\nSum spend per agent vises i Vekst-oversikt, sammenlignet med `budget_usd_month` fra registry. Overskridelse markeres rødt, men blokkerer ikke kjøring (hard-gating i V2 etter en måned med reelle tall).",
+      "tokens": 85,
+      "embedding": null
+    },
+    {
+      "id": "admin/vekst#nar-noe-rotner",
+      "slug": "admin/vekst",
+      "href": "/admin/vekst/",
+      "pageTitle": "Vekst-harness-runbook",
+      "section": "Når noe rotner",
+      "content": "| Symptom | Sannsynlig årsak | Fiks |\n|---|---|---|\n| 0 drafts generert | Anthropic-nøkkel utløpt | `curl /api/health` — sjekk `anthropicConfigured` |\n| \"gap_score = 100\" på alle clusters | Blog corpus ikke deployed | rsync `src/content/blog/` til `AUDIT_DIR/src/content/blog/` |\n| Reddit returnerer 0 terms | IP rate-limited | Vent 24t, eller skift `CONTENT_AGENT_UA` |\n| LinkedIn publish 401 | Token utløpt (60d TTL) | Re-kjør OAuth-flow, oppdater `LINKEDIN_ACCESS_TOKEN` |\n| X publish 429 | Tier-quota brukt opp | Sjekk developer.x.com dashboard, bytt til Pro-tier hvis nødvendig |",
+      "tokens": 146,
+      "embedding": null
+    },
+    {
+      "id": "api-referanse/audits#oversikt",
+      "slug": "api-referanse/audits",
+      "href": "/api-referanse/audits/",
+      "pageTitle": "Audits API",
+      "section": "Oversikt",
+      "content": "Alle endepunkter under `/api/audits/` (unntatt `public-summary`) krever Basic Auth.",
+      "tokens": 21,
+      "embedding": null
+    },
+    {
+      "id": "api-referanse/audits#get-api-audits-public-summary",
+      "slug": "api-referanse/audits",
+      "href": "/api-referanse/audits/",
+      "pageTitle": "Audits API",
+      "section": "GET /api/audits/public-summary",
+      "content": "**Offentlig, ingen auth.** Returnerer skrubbede score-tall per overflate for transparens-siden. Inneholder ingen URL-er, ingen finding-meldinger, ingen sensitive paths.\n\n```json\n{\n  \"generatedAt\": \"2026-05-15T13:00:00Z\",\n  \"surfaces\": [\n    { \"id\": \"marketing\", \"label\": \"Marketing — digilist.no\", \"type\": \"marketing\", \"environment\": \"production\", \"indexable\": true, \"origin\": \"https://digilist.no\", \"overall\": 92, \"scores\": { \"uptime\": 100, \"seo\": 88, \"a11y\": 95, \"security\": 84, \"links\": 100 } }\n  ],\n  \"ecosystem\": { \"avgScore\": 92, \"surfacesHealthy\": 4, \"surfacesWithErrors\": 0 }\n}\n```",
+      "tokens": 148,
+      "embedding": null
+    },
+    {
+      "id": "api-referanse/audits#get-api-audits-state",
+      "slug": "api-referanse/audits",
+      "href": "/api-referanse/audits/",
+      "pageTitle": "Audits API",
+      "section": "GET /api/audits/state",
+      "content": "**Basic auth.** Full snapshot for `/admin/intelligence`. Inneholder targets, latest runs per audit-type, recent runs, top findings, full per-issue details.\n\nReturnerer innholdet av JSON-snapshot-filen (`AUDIT_SNAPSHOT_PATH`).",
+      "tokens": 57,
+      "embedding": null
+    },
+    {
+      "id": "api-referanse/audits#post-api-audits-run",
+      "slug": "api-referanse/audits",
+      "href": "/api-referanse/audits/",
+      "pageTitle": "Audits API",
+      "section": "POST /api/audits/run",
+      "content": "**Basic auth.** Spawn-er `pnpm audit:all` på serveren. Async — returnerer 202 umiddelbart med et `runRequestId`.\n\n**Body (optional):**\n\n```json\n{ \"target\": \"marketing|app|dashboard|api|status|docs|marketing-dev\" }\n```\n\nUten `target` kjøres alle aktive overflater.\n\n**Returns:** `{ \"runRequestId\": \"1778...-abc\", \"status\": \"accepted\" }`\n\nProgress må sjekkes via `/api/audits/state` (regenerert etter run + snapshot).",
+      "tokens": 104,
+      "embedding": null
+    },
+    {
+      "id": "api-referanse/audits#post-api-audits-recommend",
+      "slug": "api-referanse/audits",
+      "href": "/api-referanse/audits/",
+      "pageTitle": "Audits API",
+      "section": "POST /api/audits/recommend",
+      "content": "**Basic auth.** Tar et enkelt finding (rule + severity + message + url + auditType) og spør Claude om en strukturert fiks-anbefaling.\n\n**Body:**\n\n```json\n{\n  \"rule\": \"string\",\n  \"severity\": \"error|warn|info\",\n  \"message\": \"string\",\n  \"auditType\": \"seo|a11y|security|uptime|links|performance|vulns\",\n  \"url\": \"string (optional)\",\n  \"surface\": \"string (optional, default 'marketing')\",\n  \"affected\": \"number (optional, default 1)\"\n}\n```\n\n**Returns:**\n\n```json\n{\n  \"recommendation\": \"## Problem\\n…\\n## Anbefalt fiks\\n…\\n## Akseptansekriterier\\n…\\n## Prioritet\\n…\",\n  \"model\": \"claude-haiku-4-5\",\n  \"generatedAt\": \"2026-05-15T13:00:00Z\"\n}\n```",
+      "tokens": 160,
+      "embedding": null
+    },
+    {
+      "id": "api-referanse/content#oversikt",
+      "slug": "api-referanse/content",
+      "href": "/api-referanse/content/",
+      "pageTitle": "Content Agent API",
+      "section": "Oversikt",
+      "content": "Endepunkter for Growth Intelligence Agent Harness. Alle krever Basic Auth.",
+      "tokens": 19,
+      "embedding": null
+    },
+    {
+      "id": "api-referanse/content#get-api-content-state",
+      "slug": "api-referanse/content",
+      "href": "/api-referanse/content/",
+      "pageTitle": "Content Agent API",
+      "section": "GET /api/content/state",
+      "content": "Snapshot av hele harness-state: agenter, keywords, klynger, drafts, runs, actions, connections, tasks.\n\n```json\n{\n  \"generatedAt\": \"2026-05-15T13:00:00Z\",\n  \"agents\": [\n    {\n      \"slug\": \"keyword\",\n      \"name\": \"Keyword Intelligence Agent\",\n      \"role\": \"Trend discovery + opportunity scoring\",\n      \"status\": \"active\",\n      \"tier\": \"v1\",\n      \"allowed_tools\": [\"gtrends:rising\", \"reddit:list\", \"...\"],\n      \"budget_usd_month\": 15,\n      \"monthly_spend_usd\": 0.04,\n      \"risk_default\": \"low\"\n    }\n  ],\n  \"clusters\": [{ \"id\": 1, \"label\": \"...\", \"composite_score\": 92, \"coverage\": { \"gap_score\": 80 } }],\n  \"drafts\": { \"pending\": [...], \"approved\": [...], \"published\": [...], \"rejected\": [...] },\n  \"keywords\": { \"recent\": [...] },\n  \"runs\": [...],\n  \"actions\": [...],\n  \"connections\": [...],\n  \"tasks\": [...]\n}\n```",
+      "tokens": 206,
+      "embedding": null
+    },
+    {
+      "id": "api-referanse/content#post-api-content-run",
+      "slug": "api-referanse/content",
+      "href": "/api-referanse/content/",
+      "pageTitle": "Content Agent API",
+      "section": "POST /api/content/run",
+      "content": "Trigger pipeline. Async — returnerer 202.\n\n**Body:**\n\n```json\n{ \"phase\": \"all|discover|analyze|generate\" }\n```\n\n`all` kjører discover → analyze → generate sekvensielt (~5-10 min på prod).",
+      "tokens": 47,
+      "embedding": null
+    },
+    {
+      "id": "api-referanse/content#post-api-content-drafts-id-approve",
+      "slug": "api-referanse/content",
+      "href": "/api-referanse/content/",
+      "pageTitle": "Content Agent API",
+      "section": "POST /api/content/drafts/:id/approve",
+      "content": "Marker en draft som godkjent. Påkrevd før publish.\n\n**Body (optional):** `{ \"note\": \"string\", \"reviewer\": \"string\" }`",
+      "tokens": 30,
+      "embedding": null
+    },
+    {
+      "id": "api-referanse/content#post-api-content-drafts-id-reject",
+      "slug": "api-referanse/content",
+      "href": "/api-referanse/content/",
+      "pageTitle": "Content Agent API",
+      "section": "POST /api/content/drafts/:id/reject",
+      "content": "Avvis en draft. Beholdes i basen for prompt-retraining.\n\n**Body (optional):** `{ \"note\": \"string\", \"reviewer\": \"string\" }`",
+      "tokens": 31,
+      "embedding": null
+    },
+    {
+      "id": "api-referanse/content#post-api-content-drafts-id-edit",
+      "slug": "api-referanse/content",
+      "href": "/api-referanse/content/",
+      "pageTitle": "Content Agent API",
+      "section": "POST /api/content/drafts/:id/edit",
+      "content": "Rediger draft før publish.\n\n**Body:**\n\n```json\n{ \"title\": \"string (optional)\", \"body\": \"string (optional)\" }\n```\n\nMinst én av `title` og `body` må være satt.",
+      "tokens": 40,
+      "embedding": null
+    },
+    {
+      "id": "api-referanse/content#post-api-content-drafts-id-publish",
+      "slug": "api-referanse/content",
+      "href": "/api-referanse/content/",
+      "pageTitle": "Content Agent API",
+      "section": "POST /api/content/drafts/:id/publish",
+      "content": "**Eksplisitt menneskelig handling.** Eneste vei ut av harness for ekstern publisering.\n\nKrever at draft har `status='approved'`.\n\nAvhengig av channel:\n\n- **blog** — skriver `<slug>.md` til `src/content/blog/` og bygges på neste deploy\n- **linkedin** — POST til `linkedin.com/v2/ugcPosts` (krever `LINKEDIN_ACCESS_TOKEN` + `LINKEDIN_ORG_URN`)\n- **x** — splitter `body` på `\\n---\\n`, posts som tråd via X v2 API (krever `X_BEARER_TOKEN`)\n\n**Returns ved success:**\n\n```json\n{ \"ok\": true, \"externalUrl\": \"https://...\", \"externalId\": \"...\" }\n```\n\n**Returns ved manglende credentials:**\n\n```json\n{ \"ok\": false, \"errorCode\": \"missing-credentials\", \"error\": \"LinkedIn credentials missing. Set LINKEDIN_ACCESS_TOKEN + LINKEDIN_ORG_URN in /etc/digilist-api.env.\" }\n```\n\nDraft beholdes som `approved` slik at en admin kan retry etter å ha satt credentials.",
+      "tokens": 212,
+      "embedding": null
+    },
+    {
+      "id": "api-referanse#oversikt",
+      "slug": "api-referanse",
+      "href": "/api-referanse/",
+      "pageTitle": "API-referanse",
+      "section": "Oversikt",
+      "content": "Digilist eksponerer tre kategorier endepunkter:\n\n- **Public** — chatbot, kontaktskjema. Same-origin via nginx på digilist.no.\n- **Admin** — site-intelligence, content-agent harness. Beskyttet med HTTP Basic Auth.\n- **Platform** — booking-API, betaling, identitet. Convex actions bak api.digilist.no.\n\nV1-dokumentasjonen dekker public + admin. Platform-API-et får egen seksjon når Convex-skjemaet er stabilt.",
+      "tokens": 102,
+      "embedding": null
+    },
+    {
+      "id": "api-referanse#authentisering",
+      "slug": "api-referanse",
+      "href": "/api-referanse/",
+      "pageTitle": "API-referanse",
+      "section": "Authentisering",
+      "content": "| Endepunkt-prefiks | Auth-modell | Header |\n|---|---|---|\n| `/api/chat`, `/api/inquiry` | Same-origin + rate-limiting | (ingen) |\n| `/api/audits/*` (unntatt `public-summary`) | HTTP Basic | `Authorization: Basic base64(user:pass)` |\n| `/api/agents`, `/api/agents/chat` | HTTP Basic | `Authorization: Basic …` |\n| `/api/content/*` | HTTP Basic | `Authorization: Basic …` |\n| `/api/audits/public-summary` | Offentlig, skrubbet | (ingen) |\n\nBasic-auth-credential er én streng `user:pass` lagret i `ADMIN_BASIC_AUTH` i `/etc/digilist-api.env`. Roteres manuelt — RBAC + flerbruker er planlagt for V2.",
+      "tokens": 149,
+      "embedding": null
+    },
+    {
+      "id": "api-referanse#rate-limiting",
+      "slug": "api-referanse",
+      "href": "/api-referanse/",
+      "pageTitle": "API-referanse",
+      "section": "Rate-limiting",
+      "content": "In-memory sliding window per klient-IP. Overstyringer som returnerer `429 Slow down`:\n\n- `/api/chat` — 30 requests/minutt\n- `/api/inquiry` — 10 requests/minutt\n- `/api/audits/recommend` — 30 requests/minutt\n\nIngen rate-limiting på admin GET-endepunkter (already auth-gated).",
+      "tokens": 69,
+      "embedding": null
+    },
+    {
+      "id": "api-referanse#endepunkter",
+      "slug": "api-referanse",
+      "href": "/api-referanse/",
+      "pageTitle": "API-referanse",
+      "section": "Endepunkter",
+      "content": "Se underseksjonene:\n\n- [Chat + Inquiry](/api/public/) — innbyggerverktøy\n- [Audits API](/api/audits/) — site-intelligence\n- [Content Agent API](/api/content/) — Vekst-harness",
+      "tokens": 44,
+      "embedding": null
+    },
+    {
+      "id": "api-referanse/public#post-api-chat",
+      "slug": "api-referanse/public",
+      "href": "/api-referanse/public/",
+      "pageTitle": "Chat + Inquiry",
+      "section": "POST /api/chat",
+      "content": "Anthropic Claude proxy med RAG-bygget system-prompt. Bruker `claude-haiku-4-5` for kostnadseffektivitet.\n\n**Body:**\n\n```json\n{\n  \"system\": \"string (max 8000 chars)\",\n  \"messages\": [{ \"role\": \"user|assistant\", \"content\": \"string\" }]\n}\n```\n\n**Begrensninger:** maks 16 meldinger per request, system-prompt ≤ 8 KB.\n\n**Returns:**\n\n```json\n{ \"text\": \"Generert svar fra Claude\" }\n```\n\n**Feil:** 503 hvis Anthropic-nøkkel ikke konfigurert, 429 ved rate-limit, 502 hvis Anthropic returnerer feil.",
+      "tokens": 122,
+      "embedding": null
+    },
+    {
+      "id": "api-referanse/public#post-api-inquiry",
+      "slug": "api-referanse/public",
+      "href": "/api-referanse/public/",
+      "pageTitle": "Chat + Inquiry",
+      "section": "POST /api/inquiry",
+      "content": "Sender booking-/demo-forespørsler via Resend til admin@digilist.no + cc info@xala.no.\n\n**Body:**\n\n```json\n{\n  \"name\": \"string\",\n  \"email\": \"string (valid e-mail)\",\n  \"organization\": \"string\",\n  \"topic\": \"string\",\n  \"phone\": \"string (optional)\",\n  \"persona\": \"innbygger|saksbehandler|driftsleder|...\",\n  \"summary\": \"string (optional)\",\n  \"message\": \"string (optional)\",\n  \"source\": \"chatbot|book-demo|kontakt-...\",\n  \"contextSummary\": \"string (optional — chatbot context)\"\n}\n```\n\n**Returns:** `{ \"ok\": true }` ved sendt e-post.\n\n**Feil:** 503 hvis Resend ikke konfigurert, 400 ved valideringsfeil, 502 hvis Resend feiler.",
+      "tokens": 155,
+      "embedding": null
+    },
+    {
+      "id": "api-referanse/public#get-api-health",
+      "slug": "api-referanse/public",
+      "href": "/api-referanse/public/",
+      "pageTitle": "Chat + Inquiry",
+      "section": "GET /api/health",
+      "content": "Public liveness-probe. Returnerer hvilke avhengigheter som er konfigurert.\n\n```json\n{\n  \"ok\": true,\n  \"uptime\": 12345.6,\n  \"anthropicConfigured\": true,\n  \"resendConfigured\": true,\n  \"auditConfigured\": true\n}\n```",
+      "tokens": 53,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/datamodell#oversikt",
+      "slug": "arkitektur/datamodell",
+      "href": "/arkitektur/datamodell/",
+      "pageTitle": "Datamodell",
+      "section": "Oversikt",
+      "content": "Convex-skjemaet inneholder ~80 kjernetabeller fordelt på 27 komponenter. Alle skriv-spørringer scopes til\n`tenantId` utledet fra sesjonen. Offentlige lese-spørringer (markedsplassen) er un-scoped.",
+      "tokens": 49,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/datamodell#identity-auth",
+      "slug": "arkitektur/datamodell",
+      "href": "/arkitektur/datamodell/",
+      "pageTitle": "Datamodell",
+      "section": "Identity & Auth",
+      "content": "| Tabell | Felter (utdrag) | Indekser |\n|---|---|---|\n| `users` | `id`, `email`, `name`, `role`, `mfaEnabled`, `idPortenPid` | `by_email`, `by_idPortenPid` |\n| `sessions` | `userId`, `token`, `expiresAt`, `device`, `ipHash` | `by_token`, `by_user` |\n| `mfaCredentials` | `userId`, `kind` (totp\\|webauthn), `secretEnc` | `by_user` |\n| `oauthAccounts` | `userId`, `provider` (id-porten\\|bankid\\|feide), `subject` | `by_provider_subject` |\n| `passwordResets` | `userId`, `token`, `expiresAt`, `usedAt` | `by_token` |",
+      "tokens": 129,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/datamodell#tenants-rbac",
+      "slug": "arkitektur/datamodell",
+      "href": "/arkitektur/datamodell/",
+      "pageTitle": "Datamodell",
+      "section": "Tenants & RBAC",
+      "content": "| Tabell | Felter (utdrag) | Indekser |\n|---|---|---|\n| `tenants` | `id`, `slug`, `name`, `plan`, `kind` (kommune\\|forening\\|privat), `orgnr` | `by_slug`, `by_orgnr` |\n| `tenantUsers` | `tenantId`, `userId`, `role`, `invitedAt`, `acceptedAt` | `by_tenant`, `by_user` |\n| `roles` | `tenantId`, `name`, `permissions[]`, `isSystem` | `by_tenant_name` |\n| `userRoles` | `userId`, `roleId`, `tenantId` | `by_user`, `by_role` |\n| `capabilities` | `kind`, `scope`, `enabledByDefault` | (system) |",
+      "tokens": 123,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/datamodell#booking-calendar",
+      "slug": "arkitektur/datamodell",
+      "href": "/arkitektur/datamodell/",
+      "pageTitle": "Datamodell",
+      "section": "Booking & Calendar",
+      "content": "| Tabell | Felter (utdrag) | Indekser |\n|---|---|---|\n| `resources` | `tenantId`, `slug`, `name`, `kind`, `state`, `openingHours` | `by_tenant_slug`, `by_state` |\n| `bookings` | `tenantId`, `resourceId`, `userId`, `startsAt`, `endsAt`, `state`, `priceCents` | `by_resource_time`, `by_user`, `by_tenant_state` |\n| `bookingApprovals` | `bookingId`, `approverId`, `decidedAt`, `decision`, `note` | `by_booking` |\n| `availabilityBlocks` | `resourceId`, `startsAt`, `endsAt`, `reason` | `by_resource_time` |\n| `seasons` | `tenantId`, `name`, `startsAt`, `endsAt`, `allocationRules` | `by_tenant_active` |\n| `recurringRules` | `bookingId`, `rrule`, `until` | `by_booking` |",
+      "tokens": 167,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/datamodell#payments-ledger",
+      "slug": "arkitektur/datamodell",
+      "href": "/arkitektur/datamodell/",
+      "pageTitle": "Datamodell",
+      "section": "Payments & Ledger",
+      "content": "| Tabell | Felter (utdrag) | Indekser |\n|---|---|---|\n| `payments` | `tenantId`, `bookingId`, `provider`, `intentId`, `state`, `amountCents` | `by_intent`, `by_booking` |\n| `refunds` | `paymentId`, `amountCents`, `reason`, `state` | `by_payment` |\n| `payouts` | `tenantId`, `provider`, `periodStart`, `periodEnd`, `amountCents`, `state` | `by_tenant_period` |\n| `ledgerEntries` | `tenantId`, `kind`, `bookingId`, `amountCents`, `account`, `ts` | `by_tenant_ts`, `by_booking` |\n| `commissions` | `tenantId`, `bookingId`, `rateBps`, `amountCents`, `snapshotAt` | `by_booking` |\n| `invoices` | `tenantId`, `customerId`, `kid`, `state`, `amountCents`, `ehfSentAt` | `by_kid`, `by_tenant_state` |",
+      "tokens": 173,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/datamodell#notifications-messaging",
+      "slug": "arkitektur/datamodell",
+      "href": "/arkitektur/datamodell/",
+      "pageTitle": "Datamodell",
+      "section": "Notifications & Messaging",
+      "content": "| Tabell | Felter (utdrag) | Indekser |\n|---|---|---|\n| `notifications` | `userId`, `kind`, `channel`, `payload`, `sentAt`, `readAt` | `by_user_sentAt` |\n| `notificationPrefs` | `userId`, `kind`, `channels[]` | `by_user_kind` |\n| `messages` | `tenantId`, `threadId`, `senderId`, `body`, `sentAt` | `by_thread_sentAt` |\n| `messageThreads` | `tenantId`, `bookingId`, `participantIds[]`, `lastMessageAt` | `by_booking`, `by_tenant_lastMsg` |",
+      "tokens": 110,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/datamodell#audit-gdpr",
+      "slug": "arkitektur/datamodell",
+      "href": "/arkitektur/datamodell/",
+      "pageTitle": "Datamodell",
+      "section": "Audit & GDPR",
+      "content": "| Tabell | Felter (utdrag) | Indekser |\n|---|---|---|\n| `auditEvents` | `tenantId`, `actorId`, `kind`, `targetType`, `targetId`, `payload`, `ts` | `by_tenant_ts`, `by_target` |\n| `dataExports` | `userId`, `requestedAt`, `completedAt`, `urlEnc`, `expiresAt` | `by_user` |\n| `dataDeletions` | `userId`, `requestedAt`, `scheduledAt`, `executedAt`, `gracePeriodEnd` | `by_user_state` |\n| `consents` | `userId`, `kind`, `givenAt`, `revokedAt`, `version` | `by_user_kind` |",
+      "tokens": 117,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/datamodell#outbox-hendelse-buss",
+      "slug": "arkitektur/datamodell",
+      "href": "/arkitektur/datamodell/",
+      "pageTitle": "Datamodell",
+      "section": "Outbox (Hendelse-buss)",
+      "content": "| Tabell | Felter (utdrag) | Indekser |\n|---|---|---|\n| `outboxEvents` | `topic`, `payload`, `producerComponentId`, `createdAt`, `state` | `by_topic_createdAt`, `by_state` |\n| `outboxDeliveries` | `eventId`, `subscriberId`, `attempt`, `nextAttemptAt`, `state` | `by_subscriber_state`, `by_event` |\n| `eventTopics` | `name`, `schema`, `producerComponent`, `subscriberComponents[]` | (system) |",
+      "tokens": 98,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/datamodell#tenant-forste-prinsipp",
+      "slug": "arkitektur/datamodell",
+      "href": "/arkitektur/datamodell/",
+      "pageTitle": "Datamodell",
+      "section": "Tenant-første-prinsipp",
+      "content": "Alle disse tabellene (med unntak av `capabilities`, `eventTopics`, og noen system-tabeller)\nhar `tenantId` som første index-felt. Alle skriv-fasader verifiserer\n`session.tenantId === input.tenantId` før de muterer noe. Lese-spørringer på markedsplassen\nbypasser scope-sjekk siden de er public.\n\n```ts\n// Eksempel: en skriv-fasade med tenant-scope\nexport const update = mutation({\n  args: { id: v.id(\"bookings\"), patch: v.object({ /* … */ }) },\n  handler: async (ctx, { id, patch }) => {\n    const session = await requireSession(ctx);\n    const booking = await ctx.db.get(id);\n    if (!booking || booking.tenantId !== session.tenantId) {\n      throw new ConvexError({ kind: \"not_found\", id });\n    }\n    await ctx.db.patch(id, patch);\n    await emit(ctx, \"booking.updated\", { id, by: session.userId });\n  },\n});\n```",
+      "tokens": 204,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/datamodell#beslektet",
+      "slug": "arkitektur/datamodell",
+      "href": "/arkitektur/datamodell/",
+      "pageTitle": "Datamodell",
+      "section": "Beslektet",
+      "content": "- [Arkitektur-oversikt](/arkitektur/oversikt/) · [Hendelse-buss](/arkitektur/event-bus/)\n- [API-referanse](/api-referanse/) · [Compliance · GDPR](/compliance/gdpr/)",
+      "tokens": 41,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/event-bus#oversikt",
+      "slug": "arkitektur/event-bus",
+      "href": "/arkitektur/event-bus/",
+      "pageTitle": "Hendelse-buss",
+      "section": "Oversikt",
+      "content": "Hendelse-bussen er **outbox-basert**: produsenter skriver hendelser inn i en `outboxEvents`-tabell\nsom del av samme transaksjon som forretningsskriven. En cron-jobb plukker dem opp og leverer\ntil abonnenter. Garanterer at hendelser aldri går tapt — selv hvis dispatch-jobben er nede.",
+      "tokens": 71,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/event-bus#1-mekanikk",
+      "slug": "arkitektur/event-bus",
+      "href": "/arkitektur/event-bus/",
+      "pageTitle": "Hendelse-buss",
+      "section": "1. Mekanikk",
+      "content": "```\n       PRODUSENT                        OUTBOX                          ABONNENT\n   ┌──────────────┐               ┌──────────────────┐              ┌──────────────┐\n   │  bookings    │               │  outboxEvents    │              │ notifications│\n   │  .create     │ ─── emit ──>  │  topic, payload  │ ─── relay ─> │ .send        │\n   │              │   (atomic)    │  state=pending   │   (5s cron)  │              │\n   └──────────────┘               └──────────────────┘              └──────────────┘\n                                         │\n                                         ▼\n                                  ┌──────────────────┐\n                                  │ outboxDeliveries │\n                                  │  per-subscriber  │\n                                  │  retry + state   │\n                                  └──────────────────┘\n```\n\n### Garantier\n\n| Garanti | Hvordan |\n|---|---|\n| **At-least-once** | Cron-relay leverer til alle abonnenter; abonnent må være idempotent. |\n| **Atomicitet** | `emit(ctx, ...)` skriver i samme Convex-mutasjon som forretningsskriven. |\n| **Ordring per topic** | Index `by_topic_createdAt`. Abonnent prosesserer i ts-rekkefølge. |\n| **Retry med backoff** | 1 min → 5 min → 30 min → 6 t → 1 d. Etter 5 forsøk → dead-letter. |\n| **Observabilitet** | `/platform/event-bus` viser pending, failing, dead-lettered per topic. |",
+      "tokens": 349,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/event-bus#2-topic-katalog-utdrag",
+      "slug": "arkitektur/event-bus",
+      "href": "/arkitektur/event-bus/",
+      "pageTitle": "Hendelse-buss",
+      "section": "2. Topic-katalog (utdrag)",
+      "content": "110+ topics er katalogisert i `eventTopics`. Tabellen under viser de mest aktive (>1 000 dispatches/dag i mai 2026):\n\n| Topic | Produsent | Abonnenter | Beskrivelse |\n|---|---|---|---|\n| `booking.created` | `bookings` | `notifications`, `audit`, `intelligence` | Ny booking opprettet (alle states inkl. pending_approval) |\n| `booking.approved` | `bookings` | `notifications`, `payments`, `calendar` | Saksbehandler har godkjent |\n| `booking.rejected` | `bookings` | `notifications`, `audit` | Saksbehandler har avvist |\n| `booking.cancelled` | `bookings` | `notifications`, `payments`, `ledger` | Avbestilt av innbygger eller saksbehandler |\n| `payment.intent.created` | `payments` | `bookings`, `audit` | Stripe/Vipps intent opprettet |\n| `payment.captured` | `payments` | `bookings`, `ledger`, `notifications`, `accounting` | Betaling fullført, klar til payout |\n| `payment.failed` | `payments` | `bookings`, `notifications`, `audit` | Betaling feilet (utløpt kort, avslag) |\n| `payment.refunded` | `payments` | `bookings`, `ledger`, `notifications` | Refusjon fullført |\n| `payout.completed` | `ledger` | `accounting`, `notifications` | Utbetaling til tenant fullført |\n| `user.signed_up` | `identity` | `notifications`, `audit`, `intelligence` | Ny bruker registrert (ID-porten\\|BankID\\|magic-link) |\n| `user.signed_in` | `identity` | `audit`, `intelligence` | Innlogging — feed for risiko-deteksjon |\n| `mfa.required` | `identity` | `notifications` | Step-up auth påkrevd for sensitiv handling |\n| `resource.published` | `resources` | `notifications`, `intelligence`, `audit` | Lokale eller event publisert til markedsplassen |\n| `message.posted` | `messaging` | `notifications`, `audit` | Ny melding i tråd innbygger ↔ saksbehandler |\n| `audit.gdpr.export_requested` | `audit` | `audit` (selv), `notifications` | DSAR-eksport startet |\n| `audit.gdpr.deletion_scheduled` | `audit` | `audit`, `notifications`, `identity` | Sletting planlagt etter grace-periode |\n| `season.allocation.computed` | `seasons` | `notifications`, `bookings` | Sesongleie-fordeling kjørt, lag/foreninger varslet |\n| `subscription.upgraded` | `subscriptions` | `tenants`, `accounting`, `notifications` | Tenant byttet til høyere plan |\n| `cron.daily.06_00` | (system) | `intelligence`, `reporting`, `accounting` | Daglig kl. 06:00 UTC — content-agent, audits, EHF-batching |\n| `webhook.stripe.received` | `http` | `payments` | Innkommende Stripe-webhook (deduplisering på `eventId`) |\n| `webhook.vipps.received` | `http` | `payments` | Innkommende Vipps-callback |\n| `webhook.signicat.received` | `http` | `identity` | ID-porten / BankID-callback |",
+      "tokens": 657,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/event-bus#3-webhook-routing",
+      "slug": "arkitektur/event-bus",
+      "href": "/arkitektur/event-bus/",
+      "pageTitle": "Hendelse-buss",
+      "section": "3. Webhook-routing",
+      "content": "Eksterne webhooks går via `http.ts` → topic på outbox-bussen → abonnent.\nDette dekobler eksterne tider fra interne mutasjoner og lar oss replay’e\nhele webhook-strømmen ved feil.\n\n```\nStripe / Vipps / Signicat\n        │\n        ▼ POST /webhooks/<provider>\n┌──────────────────────────┐\n│  http.ts                 │  Verifiser signatur → emit topic\n│  - verify HMAC           │\n│  - dedupe på eventId     │\n│  - emit \"webhook.<x>.received\"\n└──────────────────────────┘\n        │\n        ▼  (5s relay cron)\n┌──────────────────────────┐\n│  payments.handleWebhook  │  Idempotent abonnent\n│  - resolve intent → booking\n│  - emit \"payment.captured\"\n└──────────────────────────┘\n```",
+      "tokens": 169,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/event-bus#4-abonnement-og-idempotens",
+      "slug": "arkitektur/event-bus",
+      "href": "/arkitektur/event-bus/",
+      "pageTitle": "Hendelse-buss",
+      "section": "4. Abonnement og idempotens",
+      "content": "Abonnenter MÅ være idempotente — samme hendelse kan leveres flere ganger.\n\n```ts\n// God praksis: deduplisering på naturlig nøkkel\nexport const onPaymentCaptured = internalMutation({\n  args: { paymentId: v.id(\"payments\"), intentId: v.string() },\n  handler: async (ctx, { paymentId, intentId }) => {\n    // Idempotency-sjekk: har vi allerede prosessert denne intent?\n    const existing = await ctx.db\n      .query(\"ledgerEntries\")\n      .withIndex(\"by_intent\", (q) => q.eq(\"intentId\", intentId))\n      .first();\n    if (existing) return;\n\n    await ctx.db.insert(\"ledgerEntries\", { /* … */ intentId });\n  },\n});\n```",
+      "tokens": 154,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/event-bus#5-dead-letter-og-operasjon",
+      "slug": "arkitektur/event-bus",
+      "href": "/arkitektur/event-bus/",
+      "pageTitle": "Hendelse-buss",
+      "section": "5. Dead-letter og operasjon",
+      "content": "Hendelser som feiler 5 ganger flytter til **dead-letter**-tilstand. Operatør\nkan se og replay'e fra `/platform/event-bus/dead-letters`.\n\n```bash\n# Replay alle dead-letters for et topic siste 24t\ncurl -X POST https://api.digilist.no/platform/event-bus/replay \\\n  -H \"Authorization: Bearer $TOKEN\" \\\n  -d '{\"topic\":\"payment.captured\",\"since\":\"24h\"}'\n```",
+      "tokens": 88,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/event-bus#beslektet",
+      "slug": "arkitektur/event-bus",
+      "href": "/arkitektur/event-bus/",
+      "pageTitle": "Hendelse-buss",
+      "section": "Beslektet",
+      "content": "- [Datamodell · Outbox](/arkitektur/datamodell/#outbox-hendelse-buss)\n- [API · Webhooks](/api-referanse/) · [Operations runbooks](/admin/)",
+      "tokens": 35,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur#oversikt",
+      "slug": "arkitektur",
+      "href": "/arkitektur/",
+      "pageTitle": "Arkitektur",
+      "section": "Oversikt",
+      "content": "Digilist er en tenant-først plattform for booking, utleie, tjenester, billett­salg og medlemskap.\nPlattformen følger et **tre-plan-design**: tynne frontend-apper, en kilde-bare SDK,\nog en Convex-basert kontrollplan bygd av 27 isolerte komponenter som kommuniserer over\nen outbox hendelse-buss.\n\n  \n  \n  \n</CardGrid>",
+      "tokens": 79,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/komponenter#oversikt",
+      "slug": "arkitektur/komponenter",
+      "href": "/arkitektur/komponenter/",
+      "pageTitle": "Komponent-katalog",
+      "section": "Oversikt",
+      "content": "Hver komponent eier sine tabeller, fasader, schema og kontrakt. Komponenter\nspørrer aldri hverandres tabeller direkte — all kryss-komponent-tilgang\ngår via fasader eller hendelse-bussen.",
+      "tokens": 47,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/komponenter#plattform-lag-10-komponenter",
+      "slug": "arkitektur/komponenter",
+      "href": "/arkitektur/komponenter/",
+      "pageTitle": "Komponent-katalog",
+      "section": "Plattform-lag (10 komponenter)",
+      "content": "### identity\n\nBrukere, sesjoner, MFA, step-up auth, OAuth (ID-porten · BankID · Feide).\n\n| Tabeller | `users`, `sessions`, `mfaCredentials`, `oauthAccounts`, `passwordResets` |\n|---|---|\n| Fasader (utdrag) | `users.create`, `users.signInWithIdPorten`, `users.requireMfa`, `users.linkBankID` |\n| Hendelser emit | `user.signed_up`, `user.signed_in`, `mfa.required`, `password.reset_requested` |\n| Avhengigheter | `audit`, `notifications`, `secrets` |\n\n### rbac\n\nRoller, tillatelser, kapabilitet-resolver (3-lag: plattform → plan → tenant override).\n\n| Tabeller | `roles`, `userRoles`, `capabilities`, `capabilityOverrides` |\n|---|---|\n| Fasader | `rbac.createRole`, `rbac.assignRole`, `rbac.checkPermission`, `rbac.getUserPermissions` |\n| Hendelser emit | `role.created`, `role.assigned`, `role.revoked` |\n| Avhengigheter | `audit` |\n\n### tenants\n\nTenant-livssyklus, billing-binding, team-medlemskap, kundeforhold.\n\n| Tabeller | `tenants`, `tenantUsers`, `tenantInvites`, `tenantCustomers` |\n|---|---|\n| Fasader | `tenants.create`, `tenants.invite`, `tenants.addCustomer`, `tenants.changePlan` |\n| Hendelser emit | `tenant.created`, `subscription.upgraded`, `tenant.member_added` |\n| Avhengigheter | `identity`, `subscriptions`, `audit` |\n\n### audit\n\nHendelse-loggføring, retention, DSAR-eksport, GDPR-sletting.\n\n| Tabeller | `auditEvents`, `dataExports`, `dataDeletions`, `consents` |\n|---|---|\n| Fasader | `audit.log`, `audit.export`, `audit.scheduleDeletion`, `audit.consents.record` |\n| Hendelser emit | `audit.gdpr.export_requested`, `audit.gdpr.deletion_scheduled` |\n| Avhengigheter | (root) |\n\n### feature-flags · notifications · secrets · geo · media · i18n\n\n| Komponent | Hovedansvar |\n|---|---|\n| `feature-flags` | Plattform kill-switches, A/B-eksperimenter, tenant overrides |\n| `notifications` | E-post (Resend), SMS (Twilio), push (Expo), in-app, brukerprefs |\n| `secrets` | Kryptert nøkkel-lager med step-up auth-krav |\n| `geo` | Brreg-oppslag, adresse-normalisering, geocoding |\n| `media` | CDN-opplastinger (Cloudflare R2), bilde-transformasjoner |\n| `i18n` | Oversettelser, lokaliteter, RTL-håndtering |",
+      "tokens": 530,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/komponenter#forretnings-lag-12-komponenter",
+      "slug": "arkitektur/komponenter",
+      "href": "/arkitektur/komponenter/",
+      "pageTitle": "Komponent-katalog",
+      "section": "Forretnings-lag (12 komponenter)",
+      "content": "### resources\n\nLokaler, utleieobjekter, tjenester, events. State-maskin: draft → scheduled → published → archived.\n\n| Tabeller | `resources`, `resourceMedia`, `resourceCategories`, `resourceCustomFields` |\n|---|---|\n| Fasader | `resources.create`, `resources.publish`, `resources.archive`, `resources.search` |\n| Hendelser emit | `resource.created`, `resource.published`, `resource.unpublished`, `resource.archived` |\n| Avhengigheter | `media`, `geo`, `audit` |\n\n### bookings\n\nSlot-allokering, godkjenningsflyt (innbygger → saksbehandler → driftsleder), konflikt-deteksjon.\n\n| Tabeller | `bookings`, `bookingApprovals`, `bookingChanges`, `bookingAttendees` |\n|---|---|\n| Fasader | `bookings.create`, `bookings.approve`, `bookings.reject`, `bookings.cancel`, `bookings.reschedule` |\n| Hendelser emit | `booking.created`, `booking.approved`, `booking.rejected`, `booking.cancelled` |\n| Avhengigheter | `resources`, `calendar`, `payments`, `notifications`, `audit` |\n\n### calendar\n\nÅpningstider, blokker, sesonger, rekurrens. Beregner tilgjengelige slots i sanntid.\n\n| Tabeller | `availabilityBlocks`, `openingHours`, `seasons`, `recurringRules` |\n|---|---|\n| Fasader | `calendar.availability`, `calendar.block`, `calendar.unblock`, `calendar.computeSlots` |\n| Hendelser emit | `availability.blocked`, `season.started`, `season.ended` |\n| Avhengigheter | `resources` |\n\n### payments\n\nCheckout, Stripe Connect + Vipps + Nets routing, refusjon, dispute-håndtering.\n\n| Tabeller | `payments`, `refunds`, `disputes`, `paymentMethods` |\n|---|---|\n| Fasader | `payments.createIntent`, `payments.confirm`, `payments.refund`, `payments.handleWebhook` |\n| Hendelser emit | `payment.intent.created`, `payment.captured`, `payment.failed`, `payment.refunded` |\n| Avhengigheter | `bookings`, `ledger`, `notifications`, `accounting` |\n\n### ledger · subscriptions · tickets · memberships · messaging · reviews · seasons · accounting\n\n| Komponent | Hovedansvar |\n|---|---|\n| `ledger` | Provisjon-snapshot, payouts, escrow, double-entry bookkeeping |\n| `subscriptions` | Basis / Pluss / Premium-nivåer, plan-grinder, billing |\n| `tickets` | Event-billett-typer, kjøp, innsjekk, salg igjen, kiosk |\n| `memberships` | Medlemskap, kontingent, fornyelse, A-krav-medlems-styring |\n| `messaging` | Trådet kommunikasjon innbygger ↔ saksbehandler, vedlegg |\n| `reviews` | Vurderinger, moderasjon, eksterne kilder, A-krav |\n| `seasons` | Sesongleie-fordeling for lag/foreninger, prioritets-regler |\n| `accounting` | EHF, Fiken / Tripletex / Visma / PowerOffice / DNB-adaptere |",
+      "tokens": 637,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/komponenter#tjeneste-lag-5-komponenter",
+      "slug": "arkitektur/komponenter",
+      "href": "/arkitektur/komponenter/",
+      "pageTitle": "Komponent-katalog",
+      "section": "Tjeneste-lag (5 komponenter)",
+      "content": "| Komponent | Hovedansvar |\n|---|---|\n| `intelligence` | Site-audits, Vekst-harness (keywords → drafts → publish), content-pipeline |\n| `support` | Sak-håndtering, escalation, runbook-binding, on-call |\n| `admin` | Plattform-drift, tenant-tilsyn, kill-switches, support-impersonering |\n| `migrations` | Convex-skjema-migrering, datatransport, blue/green-bytter |\n| `reporting` | Aggregert tenant + plattform-rapportering, eksport |",
+      "tokens": 108,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/komponenter#avhengighet-graf-forenklet",
+      "slug": "arkitektur/komponenter",
+      "href": "/arkitektur/komponenter/",
+      "pageTitle": "Komponent-katalog",
+      "section": "Avhengighet-graf (forenklet)",
+      "content": "```\n                    ┌───────────────────────────────┐\n                    │           audit               │\n                    └──────────────▲────────────────┘\n                                   │ (alle komponenter logger)\n   ┌──────────┬───────────┬────────┴────────┬───────────┬──────────┐\n   │ identity │   rbac    │     tenants     │ payments  │ bookings │\n   └────▲─────┴────▲──────┴────▲────────────┴────▲──────┴────▲─────┘\n        │          │           │                 │           │\n        │  ┌───────┴───────────┴────┐    ┌───────┴───────────┴─┐\n        └──┤    notifications       │    │      ledger          │\n           └───────▲────────────────┘    └─────────────────────┘\n                   │\n        ┌──────────┴──────────────┐\n        │      messaging          │\n        └─────────────────────────┘\n```",
+      "tokens": 207,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/komponenter#beslektet",
+      "slug": "arkitektur/komponenter",
+      "href": "/arkitektur/komponenter/",
+      "pageTitle": "Komponent-katalog",
+      "section": "Beslektet",
+      "content": "- [Datamodell](/arkitektur/datamodell/) · [Hendelse-buss](/arkitektur/event-bus/)",
+      "tokens": 21,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/oversikt#oversikt",
+      "slug": "arkitektur/oversikt",
+      "href": "/arkitektur/oversikt/",
+      "pageTitle": "Arkitektur-oversikt",
+      "section": "Oversikt",
+      "content": "Digilist følger et tre-plan-design: **tynne frontend-apper**, en **kilde-bare SDK**, og en\n**Convex-basert kontrollplan** bygd av 27 isolerte komponenter.",
+      "tokens": 39,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/oversikt#1-tre-plan-design",
+      "slug": "arkitektur/oversikt",
+      "href": "/arkitektur/oversikt/",
+      "pageTitle": "Arkitektur-oversikt",
+      "section": "1. Tre-plan-design",
+      "content": "```\n┌────────────────────────────────────────────────────────────────────┐\n│  OPPLEVELSE-PLAN — 2 React-apper                                  │\n│                                                                    │\n│  apps/web       Offentlig markedsplass — søk, betaling, billett   │\n│                 Helt un-scoped (ingen tenantId på lese-spørringer)│\n│                                                                    │\n│  apps/dashboard Forent dashboard — /admin/* (tenant) + /platform/*│\n│                 (plattform-drift). users.role + tenantUsers.role  │\n│                 styrer hva hver person ser. ~126 ruter            │\n└────────────────────────────────────────────────────────────────────┘\n                                │\n                                ▼\n┌────────────────────────────────────────────────────────────────────┐\n│  SDK-PLAN — kilde-bare TypeScript-pakke (packages/sdk/)           │\n│                                                                    │\n│  convex-provider.tsx   XalaConvexProvider — klient + cache        │\n│  hooks/  (109 filer)   ~870 navngitte eksporter                   │\n│  transforms/  (16)     Convex-form ↔ Digilist-form                │\n└────────────────────────────────────────────────────────────────────┘\n                                │\n                                ▼\n┌────────────────────────────────────────────────────────────────────┐\n│  KONTROLL-PLAN — Convex                                           │\n│                                                                    │\n│  schema.ts            ~80 kjernetabeller                          │\n│  domain/  (103 filer) ~960 fasade-spørringer/mutasjoner/handlinger│\n│  components/  (27)    Isolerte, plug-and-play komponenter         │\n│  crons.ts             50 planlagte jobber                         │\n│  http.ts              Webhook-endepunkter (Stripe, Vipps, Signicat)│\n└────────────────────────────────────────────────────────────────────┘\n```",
+      "tokens": 494,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/oversikt#2-delte-pakker",
+      "slug": "arkitektur/oversikt",
+      "href": "/arkitektur/oversikt/",
+      "pageTitle": "Arkitektur-oversikt",
+      "section": "2. Delte pakker",
+      "content": "| Pakke | Rolle | Notater |\n|---|---|---|\n| `@digilist/sdk` | Type-trygt data-lag | Kilde-bare, ingen byggesteg. Provider + hooks + transforms. |\n| `@digilist/app-shell` | Provider-komposisjon + rutevakter | AuthProvider, RequireAuth, RoleProvider, FeatureGate, kapabiliteter. |\n| `@digilist/digilist` | Domene-UI-komponenter | Listings, bookings, calendar, reviews, cart. |\n| `@digilist/shared` | Plattform-typer + konstanter | Multi-entry: `./types`, `./constants`, `./navigation`. |\n| `@digilist/ds` | Designsystem | Digdir Designsystemet base, Digilist-tema, komponent-registry. |\n| `@digilist/i18n` | i18next-wrapper | Lokaliteter: `nb` (default), `en`, `ar` (RTL). |\n\n**Kanonisk regel.** Auth, realtime, RBAC og feature-flags må komme fra\n`@digilist/app-shell` (wrapping SDK). Ingen lokal `useAuth`, `AuthProvider`\neller `RealtimeProvider` i appene. Dette hindrer drift mellom apper.",
+      "tokens": 223,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/oversikt#3-komponent-arkitektur",
+      "slug": "arkitektur/oversikt",
+      "href": "/arkitektur/oversikt/",
+      "pageTitle": "Arkitektur-oversikt",
+      "section": "3. Komponent-arkitektur",
+      "content": "Hver Convex-komponent eier sine tabeller, funksjoner, schema og kontrakt.\nKomponenter **spørrer aldri hverandres tabeller direkte** — all kryss-komponent-tilgang\ngår via fasader i `convex/domain/` eller over hendelse-bussen.\n\n### 3.1 Plattform-lag (10 komponenter)\n\nIdentitet, infrastruktur, observabilitet — felles fundament for alle tenants.\n\n| Komponent | Ansvar |\n|---|---|\n| `identity` | Brukere, sesjoner, MFA, step-up auth |\n| `rbac` | Roller, tillatelser, kapabiliteter |\n| `tenants` | Tenant-livssyklus, billing-binding, team-medlemskap |\n| `audit` | Hendelse-loggføring, retention, DSAR-eksport |\n| `feature-flags` | Plattform kill-switches, tenant overrides |\n| `notifications` | E-post-pipeline, SMS, push, in-app |\n| `secrets` | Kryptert nøkkel-lager med step-up |\n| `geo` | Brreg, adresse-oppslag, kart |\n| `media` | CDN-opplastinger, transformasjoner |\n| `i18n` | Oversettelser, lokaliteter |\n\n### 3.2 Forretnings-lag (12 komponenter)\n\nBooking-motor, betalinger, ressurser — kjerne-domenet.\n\n| Komponent | Ansvar |\n|---|---|\n| `resources` | Lokaler, utleieobjekter, tjenester, events |\n| `bookings` | Slot-allokering, godkjenningsflyt, konflikter |\n| `calendar` | Åpningstider, blokker, sesonger, rekurrens |\n| `payments` | Checkout, Stripe/Vipps/Nets-routing, refusjon |\n| `ledger` | Provisjon-snapshot, payouts, escrow |\n| `subscriptions` | Basis/Pluss/Premium-nivåer, plan-grinder |\n| `tickets` | Event-billett-typer, kjøp, innsjekk, salg igjen |\n| `memberships` | Medlemskap, kontingent, fornyelse |\n| `messaging` | Trådet kommunikasjon innbygger ↔ saksbehandler |\n| `reviews` | Vurderinger, moderasjon, eksterne kilder |\n| `seasons` | Sesongleie, fordelings-regler for lag/foreninger |\n| `accounting` | EHF, Fiken/Tripletex/Visma/PowerOffice-adaptere |\n\n### 3.3 Tjeneste-lag (5 komponenter)\n\nOperatør-verktøy — bygd oppå plattform + forretning.\n\n| Komponent | Ansvar |\n|---|---|\n| `intelligence` | Site-audits, vekst-harness, content-pipeline |\n| `support` | Sak-håndtering, escalation, runbook-binding |\n| `admin` | Plattform-drift, tenant-tilsyn, kill-switches |\n| `migrations` | Convex-skjema-migrering, datatransport |\n| `reporting` | Aggregert tenant + plattform-rapportering |",
+      "tokens": 551,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/oversikt#4-operasjons-fakta",
+      "slug": "arkitektur/oversikt",
+      "href": "/arkitektur/oversikt/",
+      "pageTitle": "Arkitektur-oversikt",
+      "section": "4. Operasjons-fakta",
+      "content": "- **27 komponenter** · **~80 kjernetabeller** · **103 fasade-filer** · **~960 fasade-funksjoner**\n- **109 hook-filer** med ~870 eksporter\n- **2 apper** (web + dashboard) · **~126 ruter**\n- **50 cron-jobber** klassifisert i W3-A\n- **110+ hendelse-topics** på outbox-bussen",
+      "tokens": 68,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/oversikt#5-drift-og-test-tall",
+      "slug": "arkitektur/oversikt",
+      "href": "/arkitektur/oversikt/",
+      "pageTitle": "Arkitektur-oversikt",
+      "section": "5. Drift- og test-tall",
+      "content": "- **~2 044 tester** totalt: 281 SDK + 1 470 Convex unit + 71 Convex E2E + 135 Playwright + 87 A-krav\n- **99,98 % oppetid** siste 90 dager (mai 2026)\n- **94s median booking-tid** fra førstegangs-besøk til bekreftet betaling\n- **100 % EØS-data-lokasjon** (Frankfurt / Stockholm)",
+      "tokens": 69,
+      "embedding": null
+    },
+    {
+      "id": "arkitektur/oversikt#beslektet",
+      "slug": "arkitektur/oversikt",
+      "href": "/arkitektur/oversikt/",
+      "pageTitle": "Arkitektur-oversikt",
+      "section": "Beslektet",
+      "content": "- [Datamodell](/arkitektur/datamodell/) — alle 80 tabellene\n- [Hendelse-buss](/arkitektur/event-bus/) — outbox + topic-katalog\n- [Komponent-katalog](/arkitektur/komponenter/) — per-komponent dyp-dykk",
+      "tokens": 50,
+      "embedding": null
+    },
+    {
+      "id": "compliance/gdpr#oversikt",
+      "slug": "compliance/gdpr",
+      "href": "/compliance/gdpr/",
+      "pageTitle": "GDPR",
+      "section": "Oversikt",
+      "content": "Digilist er databehandler for kommuner (behandlingsansvarlige) som bruker plattformen. Vi behandler personopplysninger om kommunens innbyggere på vegne av kommunen.",
+      "tokens": 41,
+      "embedding": null
+    },
+    {
+      "id": "compliance/gdpr#databehandleravtale",
+      "slug": "compliance/gdpr",
+      "href": "/compliance/gdpr/",
+      "pageTitle": "GDPR",
+      "section": "Databehandleravtale",
+      "content": "Standard EU-DPA. Signeres digitalt ved onboarding. Tilgjengelig på forespørsel før kontraktsignering.",
+      "tokens": 26,
+      "embedding": null
+    },
+    {
+      "id": "compliance/gdpr#rettslig-grunnlag",
+      "slug": "compliance/gdpr",
+      "href": "/compliance/gdpr/",
+      "pageTitle": "GDPR",
+      "section": "Rettslig grunnlag",
+      "content": "| Behandlingsformål | Rettslig grunnlag (GDPR art. 6) |\n|---|---|\n| Leie av lokale (booking-flyten) | 6(1)(b) — avtaleoppfyllelse |\n| Faktura og regnskap | 6(1)(c) — rettslig plikt (bokføringslov) |\n| Saksbehandling i kommune | 6(1)(e) — offentlig myndighet |\n| Markedskommunikasjon | 6(1)(a) — samtykke |\n| Sikkerhetslogging | 6(1)(f) — berettiget interesse |",
+      "tokens": 90,
+      "embedding": null
+    },
+    {
+      "id": "compliance/gdpr#hva-vi-lagrer",
+      "slug": "compliance/gdpr",
+      "href": "/compliance/gdpr/",
+      "pageTitle": "GDPR",
+      "section": "Hva vi lagrer",
+      "content": "| Data | Formål | Retention |\n|---|---|---|\n| Navn, e-post, telefon | Bookingbekreftelse, faktura | 7 år (bokføringslov) |\n| Booking-historikk | Min side, fakturering | 7 år |\n| Saksbehandler-kommentarer | Saksbehandling | 7 år (arkivloven) |\n| ID-porten / BankID-claims | Identifisering ved innlogging | Ikke persistert utover sesjon |\n| Webhook-loggføring | Debugging Stripe/Vipps | 90 dager |\n| Audit-log (admin) | Sikkerhet, samsvar | 24 mnd |\n| Chatbot-samtaler | Statistikk, prompt-forbedring | 30 dager (kan slettes per forespørsel) |",
+      "tokens": 136,
+      "embedding": null
+    },
+    {
+      "id": "compliance/gdpr#rettigheter",
+      "slug": "compliance/gdpr",
+      "href": "/compliance/gdpr/",
+      "pageTitle": "GDPR",
+      "section": "Rettigheter",
+      "content": "Innbyggere kan utøve sine GDPR-rettigheter via Min side eller ved å kontakte kommunen (behandlingsansvarlig). Vi som databehandler bistår innen 72 timer.\n\n- **Innsyn** — eksport av all data tilknyttet innbygger som JSON + PDF\n- **Retting** — innbyggeren retter selv navn/kontaktinfo i Min side\n- **Sletting** — kommune godkjenner, vi sletter innen 30 dager (med unntak for data som må beholdes 7 år av bokføringsloven)\n- **Dataportabilitet** — JSON-eksport av alle bookinger, kommentarer, fakturaer\n- **Innsigelse** — direkte til kommunen, vi følger deres beslutning",
+      "tokens": 142,
+      "embedding": null
+    },
+    {
+      "id": "compliance/gdpr#brudd-handtering-art-33-34",
+      "slug": "compliance/gdpr",
+      "href": "/compliance/gdpr/",
+      "pageTitle": "GDPR",
+      "section": "Brudd-håndtering (art. 33-34)",
+      "content": "- **Internt:** brudd identifiseres via audit-log + Sentry + 24/7-oncall\n- **72 timer:** vi melder til behandlingsansvarlig (kommune)\n- **Kommunen:** melder til Datatilsynet innen 72 timer\n- **Berørte:** kommunen varsler direkte når sannsynligheten for skade er høy",
+      "tokens": 66,
+      "embedding": null
+    },
+    {
+      "id": "compliance/gdpr#internasjonale-overforinger",
+      "slug": "compliance/gdpr",
+      "href": "/compliance/gdpr/",
+      "pageTitle": "GDPR",
+      "section": "Internasjonale overføringer",
+      "content": "Alle primær-data behandles innenfor EØS. Anthropic (LLM-leverandør for chatbot + content agent) har EU-residency aktivert + zero-data-retention. Ingen Standard Contractual Clauses-overføringer til tredjeland.",
+      "tokens": 52,
+      "embedding": null
+    },
+    {
+      "id": "compliance/gdpr#dpo-kontakt",
+      "slug": "compliance/gdpr",
+      "href": "/compliance/gdpr/",
+      "pageTitle": "GDPR",
+      "section": "DPO-kontakt",
+      "content": "dpo@digilist.no — svarer innen 5 virkedager. PGP-fingerprint tilgjengelig ved forespørsel.",
+      "tokens": 23,
+      "embedding": null
+    },
+    {
+      "id": "compliance#oversikt",
+      "slug": "compliance",
+      "href": "/compliance/",
+      "pageTitle": "Compliance",
+      "section": "Oversikt",
+      "content": "Digilist leverer SaaS til norsk offentlig sektor. Vi tar samsvar på alvor — under er hva vi støtter, hvilke krav vi oppfyller, og hvor du finner bevis.",
+      "tokens": 38,
+      "embedding": null
+    },
+    {
+      "id": "compliance#rammeverk",
+      "slug": "compliance",
+      "href": "/compliance/",
+      "pageTitle": "Compliance",
+      "section": "Rammeverk",
+      "content": "| Rammeverk | Status | Dokumentasjon |\n|---|---|---|\n| GDPR + Personopplysningsloven | Aktiv etterlevelse | [GDPR-side](/compliance/gdpr/) |\n| ISO 27001:2022 | Implementert, sertifisering Q3 2026 | [ISO-side](/compliance/iso27001/) |\n| ISO 27701:2019 (PIMS) | Implementert som tillegg til 27001 | [ISO-side](/compliance/iso27001/#27701) |\n| NSM grunnprinsipper for IKT-sikkerhet v2.2 | Mapped 12/12 prinsipper | [NSM-side](/compliance/nsm/) |\n| SSA-L 2026 sikkerhetsbilag (bilag 7) | Full samsvarsmatrise | [SSA-L-side](/compliance/ssa-l/) |\n| Universell utforming (WCAG 2.1 AA) | Tilgjengelighetserklæring | [UU-side](/compliance/uu/) |",
+      "tokens": 160,
+      "embedding": null
+    },
+    {
+      "id": "compliance#datalokasjon",
+      "slug": "compliance",
+      "href": "/compliance/",
+      "pageTitle": "Compliance",
+      "section": "Datalokasjon",
+      "content": "Alle data lagres innenfor EØS:\n\n- **Primær drift** — Hostinger VPS, Tyskland (Frankfurt)\n- **Backup** — Hetzner, Tyskland (Falkenstein) — daglig krypert snapshot\n- **Convex** — selv-driftet på samme VPS, ingen utenlandske subprosessorer for kjernedata\n- **Stripe Connect** — EU-regulert, kortdata aldri på Digilists infrastruktur\n\nIngen data ut av EØS. Ingen \"US Cloud Act-eksponering\" — vi bruker ikke AWS/Azure/GCP for produksjonsdata.",
+      "tokens": 110,
+      "embedding": null
+    },
+    {
+      "id": "compliance#sub-processors",
+      "slug": "compliance",
+      "href": "/compliance/",
+      "pageTitle": "Compliance",
+      "section": "Sub-processors",
+      "content": "| Tjeneste | Formål | Lokasjon | DPA |\n|---|---|---|---|\n| Hostinger | Hosting | DE | Standard EU-DPA |\n| Resend | E-post transaksjonell | DE (Frankfurt) | Standard EU-DPA |\n| Stripe | Kortbetaling | IE (Dublin) | Standard EU-DPA |\n| Vipps Mobilepay | Mobil betaling | NO | Norsk leverandør, GDPR-pliktig |\n| Signicat | ID-porten / BankID | NO | Norsk leverandør |\n| Anthropic | LLM (chatbot, content agent) | EU residency available | Standard EU-DPA + zero-data-retention |\n\nFull liste i kommunens databehandleravtale. Endringer i sub-processors varsles 30 dager før effekt per art. 28 GDPR.",
+      "tokens": 148,
+      "embedding": null
+    },
+    {
+      "id": "compliance#sikkerhetsrutiner",
+      "slug": "compliance",
+      "href": "/compliance/",
+      "pageTitle": "Compliance",
+      "section": "Sikkerhetsrutiner",
+      "content": "- **Pen-test** — årlig av tredjepart, sist Q1 2026\n- **Vulnerability scanning** — daglig Snyk + Dependabot\n- **Backup-test** — månedlig full-restore-øvelse\n- **Incident response** — 72-timers GDPR-frist, 24-timers NIS2-frist for relevante hendelser\n- **Audit log** — all admin-aktivitet i `agent_actions`-tabellen, retention 24 mnd",
+      "tokens": 83,
+      "embedding": null
+    },
+    {
+      "id": "compliance#kontakt",
+      "slug": "compliance",
+      "href": "/compliance/",
+      "pageTitle": "Compliance",
+      "section": "Kontakt",
+      "content": "- **DPO** — dpo@digilist.no\n- **Sikkerhetshendelser** — security@digilist.no (PGP-key på samme adresse)\n- **Anskaffelse / samsvarsdokumenter** — tilbud@digilist.no",
+      "tokens": 41,
+      "embedding": null
+    },
+    {
+      "id": "compliance/iso27001#status",
+      "slug": "compliance/iso27001",
+      "href": "/compliance/iso27001/",
+      "pageTitle": "ISO 27001:2022 + 27701:2019",
+      "section": "Status",
+      "content": "Digilist har implementert ISO 27001:2022 Annex A-kontrollene. Sertifisering er planlagt **Q3 2026** av akkreditert sertifiseringsorgan (Nemko).",
+      "tokens": 36,
+      "embedding": null
+    },
+    {
+      "id": "compliance/iso27001#statement-of-applicability",
+      "slug": "compliance/iso27001",
+      "href": "/compliance/iso27001/",
+      "pageTitle": "ISO 27001:2022 + 27701:2019",
+      "section": "Statement of Applicability",
+      "content": "| Kontroll-kategori | Antall kontroller | Status |\n|---|---|---|\n| A.5 Organisatoriske | 37 | Implementert |\n| A.6 Personell | 8 | Implementert |\n| A.7 Fysisk | 14 | Implementert (cloud-modus) |\n| A.8 Teknologisk | 34 | Implementert |\n| **Totalt** | **93** | **93/93 implementert** |\n\nFull SoA tilgjengelig under NDA ved forespørsel.",
+      "tokens": 84,
+      "embedding": null
+    },
+    {
+      "id": "compliance/iso27001#sentrale-kontroller",
+      "slug": "compliance/iso27001",
+      "href": "/compliance/iso27001/",
+      "pageTitle": "ISO 27001:2022 + 27701:2019",
+      "section": "Sentrale kontroller",
+      "content": "| Kontroll | Implementasjon |\n|---|---|\n| A.5.1 Policy for informasjonssikkerhet | ISMS-håndbok, revideres årlig |\n| A.5.7 Trusselbilde | Månedlig review, NSM + CERT.no-feeds |\n| A.5.23 Skytjenester | Begrenset til EU-leverandører, DPA per leverandør |\n| A.8.2 Privilegert tilgang | RBAC + step-up auth for admin-handlinger |\n| A.8.5 Sikker autentisering | ID-porten OIDC, BankID, magic-link med signert JWT |\n| A.8.16 Logging og overvåking | Audit-log i `agent_actions`-tabell, Sentry, journalctl |\n| A.8.25 Sikker utvikling | Pre-commit pre-push hooks, Snyk SAST, kodegjennomgang for hver PR |\n| A.8.28 Sikker koding | Semgrep + CodeQL, OWASP Top 10-trening årlig |",
+      "tokens": 167,
+      "embedding": null
+    },
+    {
+      "id": "compliance/iso27001#iso-27701-pims-27701",
+      "slug": "compliance/iso27001",
+      "href": "/compliance/iso27001/",
+      "pageTitle": "ISO 27001:2022 + 27701:2019",
+      "section": "ISO 27701 (PIMS) {#27701}",
+      "content": "Tillegget til 27001 som dekker personopplysninger. Vi har implementert:\n\n- **Rolle** — Vi er PII-prosessor, kommunene er PII-controllers\n- **A.7 Prosessor-spesifikk** — alle 31 kontroller implementert\n- **Records of Processing Activities** — ROPA i Confluence, oppdatert per release\n- **PIA** — gjennomført for hver ny dataflyt før produksjon",
+      "tokens": 86,
+      "embedding": null
+    },
+    {
+      "id": "compliance/iso27001#audit-trail",
+      "slug": "compliance/iso27001",
+      "href": "/compliance/iso27001/",
+      "pageTitle": "ISO 27001:2022 + 27701:2019",
+      "section": "Audit-trail",
+      "content": "- Interne audits: kvartalsvis\n- Management review: halvårlig\n- Eksterne audits: årlig fra Q3 2026\n\nFunn lagres i tools/site-intelligence/ + tools/content-agent/ databasene med full sporbarhet.",
+      "tokens": 48,
+      "embedding": null
+    },
+    {
+      "id": "compliance/nsm#oversikt",
+      "slug": "compliance/nsm",
+      "href": "/compliance/nsm/",
+      "pageTitle": "NSM grunnprinsipper v2.2",
+      "section": "Oversikt",
+      "content": "NSMs grunnprinsipper for IKT-sikkerhet (versjon 2.2, sist revidert 2024) er Norges anbefalte rammeverk for offentlig sektor. Digilist har eksplisitt mappet alle 12 prinsipper.",
+      "tokens": 44,
+      "embedding": null
+    },
+    {
+      "id": "compliance/nsm#1-x-identifiser-og-kartlegg",
+      "slug": "compliance/nsm",
+      "href": "/compliance/nsm/",
+      "pageTitle": "NSM grunnprinsipper v2.2",
+      "section": "1.x Identifiser og kartlegg",
+      "content": "| ID | Tiltak |\n|---|---|\n| 1.1 | Asset-register over alle surfaces, miljøer, sub-processors |\n| 1.2 | Roller dokumentert per ansatt; tilgang grunnet need-to-know |\n| 1.3 | Risikovurdering årlig + ad-hoc ved store endringer |",
+      "tokens": 57,
+      "embedding": null
+    },
+    {
+      "id": "compliance/nsm#2-x-beskytt-og-oppretthold",
+      "slug": "compliance/nsm",
+      "href": "/compliance/nsm/",
+      "pageTitle": "NSM grunnprinsipper v2.2",
+      "section": "2.x Beskytt og oppretthold",
+      "content": "| ID | Tiltak |\n|---|---|\n| 2.1.1 | Patch SLA: kritiske 24t, høye 7d, middels 30d |\n| 2.1.3 | Privilegerte kontoer har step-up auth (ID-porten høyt nivå) |\n| 2.2.1 | TLS 1.3, HSTS preload-registry, OCSP stapling |\n| 2.3.1 | Backup daglig, krypert, off-site (Hetzner DE) |\n| 2.4.1 | Soneinndelt nettverk: marketing / app / dashboard / api adskilt |\n| 2.5.1 | Single Sign-On via ID-porten for admin, MFA påkrevd |",
+      "tokens": 103,
+      "embedding": null
+    },
+    {
+      "id": "compliance/nsm#3-x-oppdage-hendelser",
+      "slug": "compliance/nsm",
+      "href": "/compliance/nsm/",
+      "pageTitle": "NSM grunnprinsipper v2.2",
+      "section": "3.x Oppdage hendelser",
+      "content": "| ID | Tiltak |\n|---|---|\n| 3.1 | Sentry for app-feil, custom audit-log for admin-handlinger |\n| 3.2 | site-intelligence kjører daglig — uptime, security headers, vulns |\n| 3.3 | Brute-force-detection på login, automatic IP-bann via fail2ban |\n| 3.4 | content-agent monitorer trusler i sanntid (planlagt V2) |",
+      "tokens": 78,
+      "embedding": null
+    },
+    {
+      "id": "compliance/nsm#4-x-handtere-hendelser",
+      "slug": "compliance/nsm",
+      "href": "/compliance/nsm/",
+      "pageTitle": "NSM grunnprinsipper v2.2",
+      "section": "4.x Håndtere hendelser",
+      "content": "| ID | Tiltak |\n|---|---|\n| 4.1 | Incident response plan, oppdatert årlig |\n| 4.2 | On-call rotasjon, 24/7 dekning |\n| 4.3 | Tabletop-øvelser kvartalsvis |",
+      "tokens": 39,
+      "embedding": null
+    },
+    {
+      "id": "compliance/nsm#5-x-gjenopprette-etter-hendelser",
+      "slug": "compliance/nsm",
+      "href": "/compliance/nsm/",
+      "pageTitle": "NSM grunnprinsipper v2.2",
+      "section": "5.x Gjenopprette etter hendelser",
+      "content": "| ID | Tiltak |\n|---|---|\n| 5.1 | RTO 4 timer, RPO 1 time |\n| 5.2 | Backup-restore-test månedlig |\n| 5.3 | Disaster recovery plan dokumentert, sist testet 2026-Q1 |",
+      "tokens": 41,
+      "embedding": null
+    },
+    {
+      "id": "compliance/nsm#sertifisering",
+      "slug": "compliance/nsm",
+      "href": "/compliance/nsm/",
+      "pageTitle": "NSM grunnprinsipper v2.2",
+      "section": "Sertifisering",
+      "content": "Digilist har ikke en formell NSM-sertifisering (det finnes ikke som ordning), men vi følger prinsippene som kontroll-rammeverk og kan dokumentere samsvar per prinsipp på forespørsel. Brukes som vedlegg til SSA-L-tilbud.",
+      "tokens": 55,
+      "embedding": null
+    },
+    {
+      "id": "compliance/nsm#audit-vedlegg",
+      "slug": "compliance/nsm",
+      "href": "/compliance/nsm/",
+      "pageTitle": "NSM grunnprinsipper v2.2",
+      "section": "Audit-vedlegg",
+      "content": "På forespørsel leverer vi:\n\n- Risk register (oppdatert kvartalsvis)\n- Patch-log siste 12 mnd\n- Backup-test-rapporter\n- Incident response-rapporter (anonymisert)\n- Penetrasjonstest-sammendrag (siste)",
+      "tokens": 50,
+      "embedding": null
+    },
+    {
+      "id": "compliance/ssa-l#oversikt",
+      "slug": "compliance/ssa-l",
+      "href": "/compliance/ssa-l/",
+      "pageTitle": "SSA-L 2026 sikkerhetsbilag",
+      "section": "Oversikt",
+      "content": "SSA-L 2026 (Statens standardavtale L for langvarig tilvirkning av løsning) er Norges standard for SaaS-anskaffelser i offentlig sektor. Bilag 7 dekker sikkerhetskrav.",
+      "tokens": 42,
+      "embedding": null
+    },
+    {
+      "id": "compliance/ssa-l#samsvarsmatrise",
+      "slug": "compliance/ssa-l",
+      "href": "/compliance/ssa-l/",
+      "pageTitle": "SSA-L 2026 sikkerhetsbilag",
+      "section": "Samsvarsmatrise",
+      "content": "| Krav | Status | Bevis |\n|---|---|---|\n| 1.1 Generelt sikkerhetsnivå | ✅ Oppfylt | ISO 27001 (Q3 2026), NSM grunnprinsipper |\n| 1.2 Risikobasert tilnærming | ✅ Oppfylt | Risk register, årlig revurdering |\n| 2.1 Identitet og tilgang | ✅ Oppfylt | ID-porten OIDC, BankID, RBAC |\n| 2.2 Sterk autentisering | ✅ Oppfylt | ID-porten nivå 4 påkrevd for admin |\n| 2.3 Privilegert tilgang | ✅ Oppfylt | Step-up auth for skriving til sensitive felt |\n| 3.1 Kryptering i hvile | ✅ Oppfylt | AES-256-GCM, SECRETS_MASTER_KEY i env |\n| 3.2 Kryptering i transitt | ✅ Oppfylt | TLS 1.3, HSTS preload |\n| 3.3 Nøkkelhåndtering | ✅ Oppfylt | platformSecrets-tabell, separat fra hoveddata |\n| 4.1 Sikker utvikling | ✅ Oppfylt | Snyk, Semgrep, code review per PR |\n| 4.2 Sårbarhetshåndtering | ✅ Oppfylt | Dependabot + Snyk daglig, patch-SLA |\n| 5.1 Logging og overvåking | ✅ Oppfylt | audit-log, Sentry, journalctl |\n| 5.2 Hendelseshåndtering | ✅ Oppfylt | Incident response plan, 72t GDPR-frist |\n| 6.1 Backup | ✅ Oppfylt | Daglig kryptert, off-site, månedlig test |\n| 6.2 Gjenoppretting | ✅ Oppfylt | RTO 4t, RPO 1t |\n| 7.1 Driftsmiljø | ✅ Oppfylt | EU-only (DE), ingen US Cloud Act-eksponering |\n| 7.2 Sub-leverandører | ✅ Oppfylt | Liste i compliance/index, EU-DPA per leverandør |\n| 8.1 Personvern | ✅ Oppfylt | GDPR-side, DPA, DPO |\n| 9.1 Avtaleutløp | ✅ Oppfylt | Data-eksport-API, sletteplikt 30d etter avtale-slutt |",
+      "tokens": 352,
+      "embedding": null
+    },
+    {
+      "id": "compliance/ssa-l#avvik-forbehold",
+      "slug": "compliance/ssa-l",
+      "href": "/compliance/ssa-l/",
+      "pageTitle": "SSA-L 2026 sikkerhetsbilag",
+      "section": "Avvik / forbehold",
+      "content": "Ingen avvik fra bilag 7-krav per dagens dato.",
+      "tokens": 12,
+      "embedding": null
+    },
+    {
+      "id": "compliance/ssa-l#verifikasjon",
+      "slug": "compliance/ssa-l",
+      "href": "/compliance/ssa-l/",
+      "pageTitle": "SSA-L 2026 sikkerhetsbilag",
+      "section": "Verifikasjon",
+      "content": "Kommune som anskaffer kan verifisere samsvar via:\n\n1. **Selvdeklarasjon** — denne siden + signert SSA-L bilag 7 fra Digilist AS\n2. **Tredjeparts audit** — ISO 27001-sertifikat (Q3 2026)\n3. **Pen-test-rapport** — siste tredjeparts pen-test (årlig, sist Q1 2026)\n4. **Site-intelligence-dashboard** — public-summary på `/transparens` med oppdaterte score-tall per surface",
+      "tokens": 92,
+      "embedding": null
+    },
+    {
+      "id": "compliance/ssa-l#kontakt",
+      "slug": "compliance/ssa-l",
+      "href": "/compliance/ssa-l/",
+      "pageTitle": "SSA-L 2026 sikkerhetsbilag",
+      "section": "Kontakt",
+      "content": "For SSA-L-svar og fullstendig anbudsdokumentasjon: tilbud@digilist.no",
+      "tokens": 18,
+      "embedding": null
+    },
+    {
+      "id": "index#hva-er-digilist",
+      "slug": "index",
+      "href": "/",
+      "pageTitle": "Digilist Docs",
+      "section": "Hva er Digilist",
+      "content": "Digilist er en booking-plattform for utleiere av lokaler, utstyr og tjenester — kommuner, lag og foreninger, idrettsklubber, kulturhus og private utleieobjekter. Innbyggere og medlemmer søker, betaler og bekrefter direkte, mens saksbehandler eller driftsleder godkjenner der det kreves. Plattformen er bygd til kommune-klasse compliance (ID-porten, BankID, SSA-L 2026, GDPR, EHF) — det gjør at det samme oppsettet også fungerer for private aktører som vil ha den profesjonelle modellen uten å bygge den selv.\n\n  \n  \n  \n</CardGrid>",
+      "tokens": 133,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/ehf#oversikt",
+      "slug": "integrasjoner/ehf",
+      "href": "/integrasjoner/ehf/",
+      "pageTitle": "EHF / Peppol",
+      "section": "Oversikt",
+      "content": "EHF (Elektronisk Handelsformat) er det norske formatet for elektronisk faktura\ntil offentlige kjøpere. Digilist sender EHF-fakturaer via [Peppol](https://peppol.eu/)-nettverket gjennom\nen sertifisert access point.",
+      "tokens": 54,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/ehf#1-nar-ehf-brukes",
+      "slug": "integrasjoner/ehf",
+      "href": "/integrasjoner/ehf/",
+      "pageTitle": "EHF / Peppol",
+      "section": "1. Når EHF brukes",
+      "content": "| Scenario | Faktura-rute |\n|---|---|\n| Innbygger booker som privat-person | Vipps eller Stripe direkte. Ingen EHF. |\n| Innbygger booker på vegne av lag/forening | EHF til lagets eFaktura-adresse (orgnr + 0192 prefix) |\n| Innbygger booker fra kommunal kontekst | EHF til kommunens fakturasystem (UBL Invoice 2.1 → Peppol BIS Billing 3.0) |\n| Tenant (utleier) får payout | Stripe payout, ikke EHF |",
+      "tokens": 100,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/ehf#2-identifisering-av-mottaker",
+      "slug": "integrasjoner/ehf",
+      "href": "/integrasjoner/ehf/",
+      "pageTitle": "EHF / Peppol",
+      "section": "2. Identifisering av mottaker",
+      "content": "Norsk Peppol-mottaker har formatet **`0192:orgnr`**:\n\n```ts\nfunction peppolId(orgnr: string): string {\n  return `0192:${orgnr.replace(/\\s/g, \"\")}`;\n}\n\n// Eksempel: Oslo kommune\npeppolId(\"958935420\")  // → \"0192:958935420\"\n```\n\nVi slår opp tilgjengelig kapabiliteter i [Peppol Directory](https://directory.peppol.eu/):\n\n```ts\nasync function canReceiveEhf(orgnr: string): Promise<boolean> {\n  const id = peppolId(orgnr);\n  const res = await fetch(\n    `https://directory.peppol.eu/search/1.0/json?participant=${id}`\n  );\n  const data = await res.json();\n  return data.matches?.some((m) =>\n    m.docTypes?.includes(\n      \"busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017\"\n    )\n  );\n}\n```",
+      "tokens": 186,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/ehf#3-generere-ehf-xml",
+      "slug": "integrasjoner/ehf",
+      "href": "/integrasjoner/ehf/",
+      "pageTitle": "EHF / Peppol",
+      "section": "3. Generere EHF-XML",
+      "content": "Vi bruker UBL Invoice 2.1 med Peppol BIS Billing 3.0-profil:\n\n```xml\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n```",
+      "tokens": 28,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/ehf#4-kid-generering",
+      "slug": "integrasjoner/ehf",
+      "href": "/integrasjoner/ehf/",
+      "pageTitle": "EHF / Peppol",
+      "section": "4. KID-generering",
+      "content": "KID (Kunde-ID) genereres med [Mod-10 sjekksum](https://no.wikipedia.org/wiki/MOD_10):\n\n```ts\nfunction generateKid(bookingId: string): string {\n  // Booking-ID konverteres til numerisk + sjekksiffer\n  const numeric = bookingIdToNumeric(bookingId);    // 12 sifre\n  const checkDigit = mod10(numeric);\n  return `${numeric}${checkDigit}`;                 // 13 sifre\n}\n```\n\nKID lagres på `invoices`-tabellen med unique-index `by_kid` slik at\ninnbetalinger fra bank kan matches automatisk.",
+      "tokens": 121,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/ehf#5-as4-transport",
+      "slug": "integrasjoner/ehf",
+      "href": "/integrasjoner/ehf/",
+      "pageTitle": "EHF / Peppol",
+      "section": "5. AS4-transport",
+      "content": "EHF-XML sendes til Peppol-nettverket via AS4 (ebMS 3.0). Digilist er ikke et\naccess point selv — vi bruker [Sendregning](https://sendregning.no/) som AP.\n\n```\nDIGILIST                  SENDREGNING (AP)            PEPPOL-NETTVERK         MOTTAKER-AP\n   │                            │                           │                      │\n   │ ── POST /v1/invoices ────> │                           │                      │\n   │      (EHF-XML)             │                           │                      │\n   │                            │ ── AS4 over HTTPS ─────>  │                      │\n   │                            │                           │ ── ruting ────────>  │\n   │                            │ <── delivery receipt ──── │ <── receipt ──────── │\n   │ <── webhook /sendt ────────│                           │                      │\n   │   (eller /feilet)          │                           │                      │\n```",
+      "tokens": 233,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/ehf#6-validering",
+      "slug": "integrasjoner/ehf",
+      "href": "/integrasjoner/ehf/",
+      "pageTitle": "EHF / Peppol",
+      "section": "6. Validering",
+      "content": "Før vi sender, validerer vi mot Peppol BIS Billing 3.0-skjemaet\n([Schematron](https://docs.peppol.eu/poacc/billing/3.0/)):\n\n```ts\n\nconst xml = renderEhfInvoice({ booking, tenant, customer });\nconst result = await validateInvoice(xml);\nif (!result.ok) {\n  throw new ConvexError({\n    kind: \"ehf_validation_failed\",\n    errors: result.errors,\n  });\n}\n```\n\nVanlige feil:\n\n| Feil | Årsak |\n|---|---|\n| `BR-CO-15` | MVA-sum stemmer ikke med linje-sum |\n| `BR-DE-1` | Manglende `OrderReference` (BuyerRef) for offentlige kjøpere |\n| `BR-S-08` | Standard-MVA-sats brukt, men mottaker er fritatt (kultur) |\n| `PEPPOL-EN16931-R046` | KID lengre enn 25 tegn |",
+      "tokens": 163,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/ehf#7-retransmittering",
+      "slug": "integrasjoner/ehf",
+      "href": "/integrasjoner/ehf/",
+      "pageTitle": "EHF / Peppol",
+      "section": "7. Retransmittering",
+      "content": "Hvis Peppol-mottaker rapporterer feil, lagrer vi `invoices.state = \"failed\"` og\nviser en re-send-knapp i `/admin/invoices/{id}`. Driftsleder kan også\ngenerere PDF-kopi og sende manuelt via e-post som backup.",
+      "tokens": 52,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/ehf#8-sandbox-vs-produksjon",
+      "slug": "integrasjoner/ehf",
+      "href": "/integrasjoner/ehf/",
+      "pageTitle": "EHF / Peppol",
+      "section": "8. Sandbox vs produksjon",
+      "content": "| Miljø | Sendregning-prefix | Test-Peppol-mottaker |\n|---|---|---|\n| **Test** | `https://api-test.sendregning.no/` | `9908:990399123` (Sendregnings test-mottaker) |\n| **PROD** | `https://api.sendregning.no/` | Faktisk orgnr |",
+      "tokens": 57,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/ehf#9-operasjon",
+      "slug": "integrasjoner/ehf",
+      "href": "/integrasjoner/ehf/",
+      "pageTitle": "EHF / Peppol",
+      "section": "9. Operasjon",
+      "content": "- **Daglig batch:** Cron `cron.daily.06_00` batches alle EHF-klare fakturaer og sender til Sendregning.\n- **Feilrate-mål:** < 1 % retransmittering.\n- **Lagring:** Original XML lagres i `media`-komponenten 10 år (regnskapsloven § 13).",
+      "tokens": 59,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/ehf#beslektet",
+      "slug": "integrasjoner/ehf",
+      "href": "/integrasjoner/ehf/",
+      "pageTitle": "EHF / Peppol",
+      "section": "Beslektet",
+      "content": "- [Vipps · e-faktura](/integrasjoner/vipps/#5-e-faktura-via-vipps) (lett-versjon, ikke EHF)\n- [Accounting-komponent](/arkitektur/komponenter/#regnskap)",
+      "tokens": 38,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/id-porten#oversikt",
+      "slug": "integrasjoner/id-porten",
+      "href": "/integrasjoner/id-porten/",
+      "pageTitle": "ID-porten",
+      "section": "Oversikt",
+      "content": "ID-porten er Difi's nasjonale innloggings-løsning. Digilist bruker ID-porten\nsom primær innloggings-mekanisme for innbyggere — særlig der saksbehandling\nkrever sikker identifisering.",
+      "tokens": 46,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/id-porten#1-klient-oppsett",
+      "slug": "integrasjoner/id-porten",
+      "href": "/integrasjoner/id-porten/",
+      "pageTitle": "ID-porten",
+      "section": "1. Klient-oppsett",
+      "content": "Hver tenant har én ID-porten-klient registrert via Samarbeidsportalen.\nKonfigurasjonen ligger i `tenants.oauthConfig.idPorten`:\n\n```ts\n{\n  client_id: \"digilist-{tenant-slug}\",\n  issuer: \"https://oidc.difi.no/idporten-oidc-provider/\",\n  scopes: [\"openid\", \"profile\", \"pid\", \"krr\"],\n  redirect_uri: \"https://{tenant-slug}.digilist.no/auth/callback/id-porten\",\n  acr_values: \"idporten-loa-substantial\",  // eller \"idporten-loa-high\" for BankID\n  ui_locales: \"nb\",\n}\n```",
+      "tokens": 117,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/id-porten#2-oidc-flyt",
+      "slug": "integrasjoner/id-porten",
+      "href": "/integrasjoner/id-porten/",
+      "pageTitle": "ID-porten",
+      "section": "2. OIDC-flyt",
+      "content": "```\nINNBYGGER                  DIGILIST                   ID-PORTEN\n    │                         │                          │\n    │ ───── trykker \"Logg inn\" ────────────────────────> │\n    │                         │ ── 302 redirect to OIDC ─│\n    │ <───────── 302 ─────────│                          │\n    │ ── GET /authorize? ─────────────────────────────>  │\n    │ <── viser ID-porten innlogging ──────────────────  │\n    │ ── velger BankID, autentiserer ─────────────────>  │\n    │ <── 302 til redirect_uri med ?code=...  ─────────  │\n    │ ── GET /auth/callback?code=... ───>│              │\n    │                         │ ── POST /token ──────>  │\n    │                         │ <── id_token (JWT) ───  │\n    │                         │ Verifiser sig, hent PID │\n    │                         │ Slå opp/opprett user    │\n    │                         │ Set session cookie       │\n    │ <── 302 til /min-side ──│                          │\n```",
+      "tokens": 238,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/id-porten#3-scopes-vi-ber-om",
+      "slug": "integrasjoner/id-porten",
+      "href": "/integrasjoner/id-porten/",
+      "pageTitle": "ID-porten",
+      "section": "3. Scopes vi ber om",
+      "content": "| Scope | Hva vi får | Brukes til |\n|---|---|---|\n| `openid` | `sub` (subject identifier) | Påkrevd for OIDC |\n| `profile` | `name`, `given_name`, `family_name` | Visning i Min side |\n| `pid` | `pid` (norsk fødselsnummer) | Booking-bekreftelse, KYC for fakturering |\n| `krr` | `email`, `mobile` (fra Kontakt- og reservasjons-registeret) | Forhåndsutfylling, varsler |\n\nPID lagres aldri i klartekst i Digilist. Vi hash'er med per-tenant pepper og\nindekserer som `pidHash` på `users`-tabellen. Klartekst-PID lever bare i\nsesjonen og slettes når sesjonen utløper.",
+      "tokens": 140,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/id-porten#4-acr-nivaer",
+      "slug": "integrasjoner/id-porten",
+      "href": "/integrasjoner/id-porten/",
+      "pageTitle": "ID-porten",
+      "section": "4. ACR-nivåer",
+      "content": "| ACR | Sikkerhetsnivå | Brukes når |\n|---|---|---|\n| `idporten-loa-substantial` | MinID, BankID på Mobil, Buypass | Standard innbygger-innlogging |\n| `idporten-loa-high` | BankID, Commfides, Buypass | Saksbehandling, signering, refusjon > 5 000 kr |\n\nFor step-up: når innbygger må gjøre en sensitiv handling og er innlogget med\n`substantial`, ber vi om re-autentisering med `high`. Dette håndteres av\n`identity.requireMfa` → `acr_values=idporten-loa-high`.",
+      "tokens": 115,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/id-porten#5-webhook-back-channel-logout",
+      "slug": "integrasjoner/id-porten",
+      "href": "/integrasjoner/id-porten/",
+      "pageTitle": "ID-porten",
+      "section": "5. Webhook / back-channel logout",
+      "content": "ID-porten støtter [back-channel logout](https://docs.digdir.no/idporten_oidc_protocol.html#back-channel-logout). Digilist registrerer\n`backchannel_logout_uri = https://{tenant}.digilist.no/auth/idporten-logout` og\ninviterer alle sesjoner i `sessions`-tabellen som matcher `sid` i logout-token.\n\n```ts\n// convex/http.ts\nhttp.route({\n  path: \"/auth/idporten-logout\",\n  method: \"POST\",\n  handler: httpAction(async (ctx, request) => {\n    const logoutToken = await request.text();\n    const claims = await verifyIdPortenJWT(logoutToken);\n    await ctx.runMutation(internal.identity.invalidateSessionsBySid, {\n      sid: claims.sid,\n    });\n    return new Response(null, { status: 200 });\n  }),\n});\n```",
+      "tokens": 175,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/id-porten#6-sandbox-vs-produksjon",
+      "slug": "integrasjoner/id-porten",
+      "href": "/integrasjoner/id-porten/",
+      "pageTitle": "ID-porten",
+      "section": "6. Sandbox vs produksjon",
+      "content": "| Miljø | Issuer | Brukes |\n|---|---|---|\n| **VER1 (test)** | `https://oidc-ver1.difi.no/idporten-oidc-provider/` | All utvikling og staging. Test-PID som `04031049739`. |\n| **PROD** | `https://oidc.difi.no/idporten-oidc-provider/` | Kun for tenants som har gjennomført Difi-godkjenning. |",
+      "tokens": 73,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/id-porten#7-operasjon",
+      "slug": "integrasjoner/id-porten",
+      "href": "/integrasjoner/id-porten/",
+      "pageTitle": "ID-porten",
+      "section": "7. Operasjon",
+      "content": "- **Sirkulasjon av client_secret:** Hver 6. måned via cron `cron.weekly.06_monthly_secret_rotation`.\n- **Overvåking:** `/platform/integrations/id-porten` viser feilrate, latency p95, og siste 100 callbacks.\n- **Feil-respons:** Hvis ID-porten er nede, faller vi tilbake til magic-link/SMS for innlogging og viser en banner på Min side.",
+      "tokens": 84,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/id-porten#beslektet",
+      "slug": "integrasjoner/id-porten",
+      "href": "/integrasjoner/id-porten/",
+      "pageTitle": "ID-porten",
+      "section": "Beslektet",
+      "content": "- [BankID + Signicat](/integrasjoner/) (kommer)\n- [Identity-komponent](/arkitektur/komponenter/#identity)\n- [Audit · GDPR](/compliance/gdpr/)",
+      "tokens": 36,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner#oversikt",
+      "slug": "integrasjoner",
+      "href": "/integrasjoner/",
+      "pageTitle": "Integrasjoner",
+      "section": "Oversikt",
+      "content": "Digilist kjører på toppen av et nettverk av norske og europeiske tjenester.\nAlle integrasjoner er **adapter-bygget**: hver leverandør har en\nisolert modul med eget API-skjema, retry-policy og webhook-handler.\nDet gjør det enkelt å bytte leverandør per tenant eller per region.",
+      "tokens": 69,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner#identitet",
+      "slug": "integrasjoner",
+      "href": "/integrasjoner/",
+      "pageTitle": "Integrasjoner",
+      "section": "Identitet",
+      "content": "</CardGrid>",
+      "tokens": 3,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner#betaling",
+      "slug": "integrasjoner",
+      "href": "/integrasjoner/",
+      "pageTitle": "Integrasjoner",
+      "section": "Betaling",
+      "content": "</CardGrid>",
+      "tokens": 3,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner#regnskap",
+      "slug": "integrasjoner",
+      "href": "/integrasjoner/",
+      "pageTitle": "Integrasjoner",
+      "section": "Regnskap",
+      "content": "</CardGrid>",
+      "tokens": 3,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/stripe#oversikt",
+      "slug": "integrasjoner/stripe",
+      "href": "/integrasjoner/stripe/",
+      "pageTitle": "Stripe Connect",
+      "section": "Oversikt",
+      "content": "Stripe håndterer alle kort-betalinger, internasjonal valuta, Apple Pay, Google Pay\nog SEPA. Vi bruker **Stripe Connect Express** — tenant får sin egen Stripe-konto\nmed KYC, men onboardingen er forenklet og embedded i Digilist.",
+      "tokens": 57,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/stripe#1-onboarding-flyt",
+      "slug": "integrasjoner/stripe",
+      "href": "/integrasjoner/stripe/",
+      "pageTitle": "Stripe Connect",
+      "section": "1. Onboarding-flyt",
+      "content": "```\nDRIFTSLEDER             DIGILIST             STRIPE\n    │                      │                    │\n    │ ── /admin/payouts ──>│                    │\n    │ <── viser \"Koble til Stripe\"-knapp        │\n    │                      │                    │\n    │ ── klikker ─────────>│ ── accounts.create │\n    │                      │ <── { id: acct_… } │\n    │                      │ ── accountLinks    │\n    │                      │ <── { url }        │\n    │ <── 302 til Stripe ──│                    │\n    │ ── KYC: orgnr, eier,──────────────────>   │\n    │   konto, ID-bilde                         │\n    │ <── 302 til /admin/payouts?return ─────── │\n    │                      │ <── webhook account.updated\n    │                      │ Set tenants.stripeAccountId\n    │ <── viser \"Aktivert\" │                    │\n```",
+      "tokens": 206,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/stripe#2-konfigurasjon",
+      "slug": "integrasjoner/stripe",
+      "href": "/integrasjoner/stripe/",
+      "pageTitle": "Stripe Connect",
+      "section": "2. Konfigurasjon",
+      "content": "```ts\n// tenants.paymentConfig.stripe\n{\n  accountId: \"acct_1Q…\",\n  capabilities: [\"card_payments\", \"transfers\", \"sepa_debit_payments\"],\n  payoutSchedule: {\n    interval: \"weekly\",          // daily | weekly | monthly | manual\n    weeklyAnchor: \"thursday\",\n  },\n  defaultCurrency: \"NOK\",\n  bankAccount: \"encrypted-last-4-only\",\n}\n```",
+      "tokens": 83,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/stripe#3-provisjons-splitting",
+      "slug": "integrasjoner/stripe",
+      "href": "/integrasjoner/stripe/",
+      "pageTitle": "Stripe Connect",
+      "section": "3. Provisjons-splitting",
+      "content": "For hver booking deler Digilist beløpet:\n\n```\n                    Innbygger betaler 800,00 kr\n                            │\n                            ▼\n                    ┌───────────────┐\n                    │   Stripe      │\n                    │   trekker     │\n                    │   2,9 % + 2 kr│\n                    │   = 25,20 kr  │\n                    └───────┬───────┘\n                            │\n                  Stripe-saldo: 774,80 kr\n                            │\n              ┌─────────────┴──────────────┐\n              ▼                            ▼\n      Digilist (5 %)                Tenant (95 %)\n      = 38,74 kr                    = 736,06 kr\n      (transferred to              (utbetales ifølge\n       digilist-platform-acct)      payoutSchedule)\n```\n\nProvisjons-snapshot tas på `payment.captured` og lagres i `commissions`-tabellen\nmed en `rateBps` (basispunkter) og `snapshotAt`. Dette gjør at en historisk\nrevisjon vil regne provisjon på samme måte som da bookingen ble fullført,\nselv om plattformens provisjon-sats endres senere.",
+      "tokens": 266,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/stripe#4-betalings-flyt",
+      "slug": "integrasjoner/stripe",
+      "href": "/integrasjoner/stripe/",
+      "pageTitle": "Stripe Connect",
+      "section": "4. Betalings-flyt",
+      "content": "```ts\n// 1) Lag PaymentIntent (capture senere)\nconst intent = await stripe.paymentIntents.create({\n  amount: 80000,                       // 800,00 kr i øre\n  currency: \"nok\",\n  capture_method: \"manual\",            // Vent på saksbehandler-godkjenning\n  application_fee_amount: 4000,        // 40 kr (vår 5 %)\n  transfer_data: {\n    destination: tenant.stripeAccountId,\n  },\n  metadata: { bookingId, tenantId },\n});\n\n// 2) Saksbehandler godkjenner → capture\nawait stripe.paymentIntents.capture(intent.id);\n// → emit \"payment.captured\"\n\n// 3) Webhook from Stripe → ledger entry + payout\n```",
+      "tokens": 148,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/stripe#5-webhook-handling",
+      "slug": "integrasjoner/stripe",
+      "href": "/integrasjoner/stripe/",
+      "pageTitle": "Stripe Connect",
+      "section": "5. Webhook-handling",
+      "content": "Stripe sender webhooks til `https://api.digilist.no/webhooks/stripe`. Vi:\n\n1. Verifiserer signatur med `STRIPE_WEBHOOK_SECRET`\n2. Dedupliserer på `event.id` (cached i Convex 30 dager)\n3. Emit'er `webhook.stripe.received` på outbox-bussen\n\nTopics vi håndterer:\n\n| Stripe-event | Digilist-handling |\n|---|---|\n| `payment_intent.succeeded` | Set booking til `paid`, emit `payment.captured` |\n| `payment_intent.payment_failed` | Set booking til `payment_failed`, emit `payment.failed` |\n| `charge.refunded` | Set refund til `succeeded`, emit `payment.refunded` |\n| `charge.dispute.created` | Opprett dispute-sak, varsle support |\n| `payout.paid` | Set payout til `completed`, oppdater ledger |\n| `account.updated` | Re-sync tenant.stripeCapabilities |",
+      "tokens": 187,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/stripe#6-dispute-handtering",
+      "slug": "integrasjoner/stripe",
+      "href": "/integrasjoner/stripe/",
+      "pageTitle": "Stripe Connect",
+      "section": "6. Dispute-håndtering",
+      "content": "Når Stripe mottar en dispute (chargeback):\n\n1. `charge.dispute.created` → opprett sak i `support`-komponenten\n2. Send Slack-varsling til `#disputes` (hvis tenant > 1 dispute siste 90 dager → alert)\n3. Driftsleder må laste opp evidens via `/admin/disputes/{id}` innen 7 dager\n4. Stripe svarer; emit `payment.dispute.resolved`",
+      "tokens": 81,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/stripe#7-sandbox-vs-produksjon",
+      "slug": "integrasjoner/stripe",
+      "href": "/integrasjoner/stripe/",
+      "pageTitle": "Stripe Connect",
+      "section": "7. Sandbox vs produksjon",
+      "content": "Bruk Stripes [test-kort](https://stripe.com/docs/testing) i sandbox:\n\n| Test-kort | Brukes til |\n|---|---|\n| `4242 4242 4242 4242` | Vanlig OK |\n| `4000 0027 6000 3184` | 3D Secure 2 påkrevd |\n| `4000 0000 0000 9995` | Insufficient funds |\n| `4000 0000 0000 0341` | Attached til kunde feiler |",
+      "tokens": 74,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/stripe#8-operasjon",
+      "slug": "integrasjoner/stripe",
+      "href": "/integrasjoner/stripe/",
+      "pageTitle": "Stripe Connect",
+      "section": "8. Operasjon",
+      "content": "- **Webhook-feilrate:** Mål < 0,5 %. Spike → side på `#oncall`.\n- **Payout-frekvens:** Konfigurerbart per tenant. Default ukentlig (torsdag).\n- **Compliance:** SCA (Strong Customer Authentication) håndteres av Stripe Elements + `payment_method_types: [\"card\"]`.",
+      "tokens": 66,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/stripe#beslektet",
+      "slug": "integrasjoner/stripe",
+      "href": "/integrasjoner/stripe/",
+      "pageTitle": "Stripe Connect",
+      "section": "Beslektet",
+      "content": "- [Vipps Mobilepay](/integrasjoner/vipps/) · [EHF](/integrasjoner/ehf/)\n- [Payments-komponent](/arkitektur/komponenter/#payments) · [Ledger](/arkitektur/datamodell/#payments--ledger)",
+      "tokens": 46,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/vipps#oversikt",
+      "slug": "integrasjoner/vipps",
+      "href": "/integrasjoner/vipps/",
+      "pageTitle": "Vipps Mobilepay",
+      "section": "Oversikt",
+      "content": "Vipps er den dominerende mobil-betalingen i Norge med >85 % markedsandel\nblant Digilists innbyggere. Vi integrerer via [Vipps eCom v2](https://developer.vippsmobilepay.com/) og bruker\n**capture-on-confirm**-mønster — innbygger autoriserer ved booking, vi capturer\nførst når saksbehandler har godkjent (eller umiddelbart for selvbetjente bookinger).",
+      "tokens": 87,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/vipps#1-salesunit-oppsett",
+      "slug": "integrasjoner/vipps",
+      "href": "/integrasjoner/vipps/",
+      "pageTitle": "Vipps Mobilepay",
+      "section": "1. Salesunit-oppsett",
+      "content": "Hver tenant har én Vipps \"salesunit\" registrert hos Vipps. Konfig ligger i\n`tenants.paymentConfig.vipps`:\n\n```ts\n{\n  msn: \"123456\",                          // Merchant Serial Number\n  subscriptionKey: \"encrypted-via-secrets-component\",\n  clientId: \"...\",\n  clientSecret: \"encrypted-via-secrets-component\",\n  callbackPrefix: \"https://api.digilist.no/webhooks/vipps\",\n  fallbackUrl: \"https://{tenant}.digilist.no/booking/{bookingId}/return\",\n  isApplePay: false,\n  authMode: \"MERCHANT_HOSTED\",  // vs. VIPPS_HOSTED\n}\n```",
+      "tokens": 130,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/vipps#2-betalings-flyt",
+      "slug": "integrasjoner/vipps",
+      "href": "/integrasjoner/vipps/",
+      "pageTitle": "Vipps Mobilepay",
+      "section": "2. Betalings-flyt",
+      "content": "```\nINNBYGGER             DIGILIST              VIPPS-API\n    │                    │                     │\n    │ ── velger slot ──> │                     │\n    │ ── klikker betal ─>│ ── POST /payments ─>│\n    │                    │ <── { url, ref } ─  │\n    │ <── 302 til Vipps ─│                     │\n    │ ── auth i Vipps-app ──────────────────>  │\n    │ <── 302 til fallbackUrl?ref=... ─────── │\n    │                    │ <── webhook /v2/payments/{ref}/status\n    │                    │ Verifiser sig, upd booking\n    │ <── viser bekreft ─│                     │\n```\n\n### State-overgangsmatrise\n\n```\n   INITIATE → RESERVE → CAPTURE → (REFUND)\n                ↓\n              CANCEL\n                ↓\n              EXPIRE (etter 24t hvis ikke auth)\n```\n\n| Booking-state | Vipps-action |\n|---|---|\n| `pending_approval` (saksbehandler skal godkjenne) | `INITIATE` + `RESERVE` (innbygger har autorisert, vi capturer ikke ennå) |\n| `approved` | `CAPTURE` (saksbehandler godkjent → trekker beløpet) |\n| `rejected` eller `cancelled_before_capture` | `CANCEL` (release reservasjon, ingen trekk) |\n| `cancelled_after_capture` | `REFUND` (helt eller delvis) |",
+      "tokens": 289,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/vipps#3-callback-webhook",
+      "slug": "integrasjoner/vipps",
+      "href": "/integrasjoner/vipps/",
+      "pageTitle": "Vipps Mobilepay",
+      "section": "3. Callback / webhook",
+      "content": "Vipps sender callbacks til `https://api.digilist.no/webhooks/vipps/{ref}`.\nVi verifiserer HMAC, dedupliserer på `ref` (transactionId), og emit'er\n`webhook.vipps.received` på outbox-bussen.\n\n```ts\n// convex/http.ts\nhttp.route({\n  path: \"/webhooks/vipps/:ref\",\n  method: \"POST\",\n  handler: httpAction(async (ctx, request) => {\n    const body = await request.text();\n    const hmac = request.headers.get(\"authorization\");\n    if (!verifyVippsHmac(body, hmac)) {\n      return new Response(\"invalid signature\", { status: 401 });\n    }\n    const ref = request.params.ref;\n    await ctx.runMutation(internal.payments.handleVippsCallback, {\n      ref,\n      body: JSON.parse(body),\n    });\n    return new Response(null, { status: 200 });\n  }),\n});\n```",
+      "tokens": 186,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/vipps#4-refusjon",
+      "slug": "integrasjoner/vipps",
+      "href": "/integrasjoner/vipps/",
+      "pageTitle": "Vipps Mobilepay",
+      "section": "4. Refusjon",
+      "content": "Refusjon kan utløses av:\n\n- **Saksbehandler** kansellerer en godkjent booking via `/admin/bookings/{id}/cancel`\n- **Innbygger** kansellerer (hvis lokalets kanselleringspolitikk tillater)\n- **System** ved force-majeure (stengt lokale)\n\n```ts\nawait payments.refund({\n  paymentId: payment._id,\n  amountCents: payment.amountCents, // hel eller delvis\n  reason: \"Lokale stengt grunnet vannlekkasje\",\n});\n// → POST /v2/payments/{ref}/refund\n// → emit \"payment.refunded\"\n// → notifications.sendRefundConfirmation\n```",
+      "tokens": 128,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/vipps#5-e-faktura-via-vipps",
+      "slug": "integrasjoner/vipps",
+      "href": "/integrasjoner/vipps/",
+      "pageTitle": "Vipps Mobilepay",
+      "section": "5. E-faktura via Vipps",
+      "content": "For tenants som tilbyr \"betal senere\" støtter Vipps e-faktura\n(`OPTIONS: [\"VIPPS_INVOICE\"]` i `initiatePayment`). Beløpet sendes til\ninnbyggers nettbank uten kort-trekk.\n\n| Egenskap | Verdi |\n|---|---|\n| Forfall | 14 dager (konfigurerbart) |\n| Begrensning | Min 100 kr, maks 30 000 kr |\n| KID-generering | Mod-10 fra `bookingId` |\n| Påminnelse | Auto fra Vipps + duplikat fra Digilist `notifications` |",
+      "tokens": 101,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/vipps#6-sandbox-vs-produksjon",
+      "slug": "integrasjoner/vipps",
+      "href": "/integrasjoner/vipps/",
+      "pageTitle": "Vipps Mobilepay",
+      "section": "6. Sandbox vs produksjon",
+      "content": "| Miljø | Base URL | Brukes |\n|---|---|---|\n| **Test** | `https://apitest.vipps.no/` | All utvikling og staging. Test-MSN 654321. |\n| **PROD** | `https://api.vipps.no/` | Etter merchant-aktivering hos Vipps. |",
+      "tokens": 53,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/vipps#7-operasjon",
+      "slug": "integrasjoner/vipps",
+      "href": "/integrasjoner/vipps/",
+      "pageTitle": "Vipps Mobilepay",
+      "section": "7. Operasjon",
+      "content": "- **Token-fornyelse:** Access-tokens varer 1 time. Vi cacher i `secrets`-komponenten og fornyer 5 min før utløp.\n- **Overvåking:** `/platform/integrations/vipps` viser dispatch-rate, callback-feilrate, latency p50/p95/p99.\n- **Avbruddshåndtering:** Hvis Vipps er nede > 5 min → fallback til Stripe-kort, banner på checkout.",
+      "tokens": 81,
+      "embedding": null
+    },
+    {
+      "id": "integrasjoner/vipps#beslektet",
+      "slug": "integrasjoner/vipps",
+      "href": "/integrasjoner/vipps/",
+      "pageTitle": "Vipps Mobilepay",
+      "section": "Beslektet",
+      "content": "- [Stripe Connect](/integrasjoner/stripe/) · [EHF](/integrasjoner/ehf/)\n- [Payments-komponent](/arkitektur/komponenter/#payments)",
+      "tokens": 33,
+      "embedding": null
+    },
+    {
+      "id": "kom-i-gang/driftsleder#oversikt",
+      "slug": "kom-i-gang/driftsleder",
+      "href": "/kom-i-gang/driftsleder/",
+      "pageTitle": "Driftsleder — konfigurer ressurser og fordelinger",
+      "section": "Oversikt",
+      "content": "Driftsleder eier ett eller flere ressurser — lokaler, utstyr, tjenester. Konfigurasjonen styrer alt fra åpningstider til hvem som kan booke uten godkjenning. Samme veiviser-flyt brukes om utleier er en kommune, en idrettsforening eller en privat aktør.",
+      "tokens": 63,
+      "embedding": null
+    },
+    {
+      "id": "kom-i-gang/driftsleder#veiviseren-steg-for-steg",
+      "slug": "kom-i-gang/driftsleder",
+      "href": "/kom-i-gang/driftsleder/",
+      "pageTitle": "Driftsleder — konfigurer ressurser og fordelinger",
+      "section": "Veiviseren steg for steg",
+      "content": "Når en ny ressurs registreres åpner en 6-stegs veiviser:\n\n1. **Grunnopplysninger** — navn, adresse, kapasitet, kategori (lokale, utstyr, tjeneste)\n2. **Bilder og beskrivelse** — opptil 10 bilder, fritekst, fasiliteter\n3. **Tilgjengelighet** — åpningstider, ukeplan, ferier, hentested for utstyr\n4. **Pris** — timepris, dagspris, helgepris, rabatter for medlemmer/foreninger\n5. **Godkjenning** — krever saksbehandler? terskel-tid? hvem varsles?\n6. **Betaling** — Stripe-konto, Vipps-MVA, EHF-faktura\n\nHvert steg lagres som utkast. Du kan publisere ressursen etter steg 1 og fortsette konfigurasjon i bakgrunnen.",
+      "tokens": 153,
+      "embedding": null
+    },
+    {
+      "id": "kom-i-gang/driftsleder#sesongleie",
+      "slug": "kom-i-gang/driftsleder",
+      "href": "/kom-i-gang/driftsleder/",
+      "pageTitle": "Driftsleder — konfigurer ressurser og fordelinger",
+      "section": "Sesongleie",
+      "content": "For lag, foreninger eller faste kunder som leier en ressurs hele sesongen:\n\n- Definer **terminer** (f.eks. høst/vår)\n- Definer **fordelingsregler** (prioritet etter alder, geografi, historikk)\n- Send ut **tildelingsrunden** — alle søkere får svar samtidig\n\nInnbyggere/foreninger sender søknad én gang. Plattformen kjører fordelingsalgoritmen, og foreslår tildeling som du godkjenner. Konflikter vises eksplisitt.",
+      "tokens": 103,
+      "embedding": null
+    },
+    {
+      "id": "kom-i-gang/driftsleder#rapporter",
+      "slug": "kom-i-gang/driftsleder",
+      "href": "/kom-i-gang/driftsleder/",
+      "pageTitle": "Driftsleder — konfigurer ressurser og fordelinger",
+      "section": "Rapporter",
+      "content": "Driftsleder-dashboardet viser:\n\n- **Utleiegrad** — prosent av tilgjengelige timer som faktisk er booket\n- **Omsetning** — månedlig, kvartal, år\n- **Top-leietakere** — hvem leier mest\n- **No-show-rate** — booking gjort men ikke betalt/møtt\n\nRapporter eksporteres som PDF eller SAF-T.",
+      "tokens": 71,
+      "embedding": null
+    },
+    {
+      "id": "kom-i-gang/driftsleder#eskaleringer",
+      "slug": "kom-i-gang/driftsleder",
+      "href": "/kom-i-gang/driftsleder/",
+      "pageTitle": "Driftsleder — konfigurer ressurser og fordelinger",
+      "section": "Eskaleringer",
+      "content": "Saksbehandler kan eskalere konflikter til driftsleder. Disse vises i en egen kø i driftsleder-konsollen og må håndteres innen 24 timer (SLA-konfigurerbar).",
+      "tokens": 39,
+      "embedding": null
+    },
+    {
+      "id": "kom-i-gang#oversikt",
+      "slug": "kom-i-gang",
+      "href": "/kom-i-gang/",
+      "pageTitle": "Kom i gang",
+      "section": "Oversikt",
+      "content": "Digilist har tre primære brukerroller — samme hierarki uavhengig av om utleier er\nen kommune, en idrettsforening, et kulturhus eller en privat aktør.\nVelg din rolle nedenfor.",
+      "tokens": 44,
+      "embedding": null
+    },
+    {
+      "id": "kom-i-gang#innbygger-kunde",
+      "slug": "kom-i-gang",
+      "href": "/kom-i-gang/",
+      "pageTitle": "Kom i gang",
+      "section": "Innbygger / kunde",
+      "content": "Du vil leie et lokale, utstyr eller en tjeneste — et møterom, en idrettshall, et kulturhus, et selskapslokale, et lydanlegg.\n\n- [Booking på 90 sekunder](/kom-i-gang/innbygger/) — slik fungerer leieflyten fra søk til bekreftelse\n- ID-porten, BankID eller magic-link for innlogging — utleier velger nivå\n- Vipps, kort eller EHF som betalingsmåte\n- Min side viser alle dine bookinger samlet — på tvers av utleiere",
+      "tokens": 103,
+      "embedding": null
+    },
+    {
+      "id": "kom-i-gang#saksbehandler",
+      "slug": "kom-i-gang",
+      "href": "/kom-i-gang/",
+      "pageTitle": "Kom i gang",
+      "section": "Saksbehandler",
+      "content": "Du godkjenner bookinger som krever vurdering — om du er saksbehandler i en kommune,\nbooking-ansvarlig i en idrettsforening eller leder i en privat utleieforretning.\n\n- [Saksbehandler-flyten](/kom-i-gang/saksbehandler/) — godkjenne, avvise og kommunisere\n- Filtrering på lokale, dato, status\n- Chat med bruker uten å forlate plattformen\n- Eskalering til driftsleder ved konflikter",
+      "tokens": 95,
+      "embedding": null
+    },
+    {
+      "id": "kom-i-gang#driftsleder",
+      "slug": "kom-i-gang",
+      "href": "/kom-i-gang/",
+      "pageTitle": "Kom i gang",
+      "section": "Driftsleder",
+      "content": "Du eier eller drifter ett eller flere lokaler eller utstyrs-pooler — idrettsanlegg,\nkulturhus, kantine, konferansesenter, utstyr-utleie.\n\n- [Driftsleder-veiviseren](/kom-i-gang/driftsleder/) — konfigurer åpningstider, priser, godkjenningsregler\n- Sesongleie og fordelingsregler for lag, foreninger og faste kunder\n- Rapporter på utleiegrad, omsetning, avvik",
+      "tokens": 90,
+      "embedding": null
+    },
+    {
+      "id": "kom-i-gang/innbygger#oversikt",
+      "slug": "kom-i-gang/innbygger",
+      "href": "/kom-i-gang/innbygger/",
+      "pageTitle": "Booking på 90 sekunder",
+      "section": "Oversikt",
+      "content": "Median tid fra en bruker lander på siden til bekreftelse er sendt: **94 sekunder** målt på reelle Digilist-bookinger. Flyten er identisk om utleier er en kommune, en idrettsforening eller en privat aktør — det er bare betalings- og godkjenningsoppsettet som varierer.",
+      "tokens": 67,
+      "embedding": null
+    },
+    {
+      "id": "kom-i-gang/innbygger#1-sok-og-filtrer",
+      "slug": "kom-i-gang/innbygger",
+      "href": "/kom-i-gang/innbygger/",
+      "pageTitle": "Booking på 90 sekunder",
+      "section": "1. Søk og filtrer",
+      "content": "Brukeren kommer typisk fra Google (\"møterom Lillestrøm\", \"leie lydanlegg Bergen\") eller direkte fra utleiers nettside. Søkefilteret viser ressurser som matcher område, dato og kapasitet. Kartvisning er standard når geografi betyr noe.\n\nFiltrering er live — uten å klikke «Søk». Skriv inn antall personer eller utstyrs-type, plattformen filtrerer øyeblikkelig.",
+      "tokens": 90,
+      "embedding": null
+    },
+    {
+      "id": "kom-i-gang/innbygger#2-velg-ressurs-og-tid",
+      "slug": "kom-i-gang/innbygger",
+      "href": "/kom-i-gang/innbygger/",
+      "pageTitle": "Booking på 90 sekunder",
+      "section": "2. Velg ressurs og tid",
+      "content": "Sanntidskalenderen viser ledige slots i grønn, opptatte i rød, holdt-for-godkjenning i gul. Brukeren klikker et slot. Pris vises umiddelbart (timepris × varighet, dags-pris, eller flat pris hvis konfigurert slik).",
+      "tokens": 54,
+      "embedding": null
+    },
+    {
+      "id": "kom-i-gang/innbygger#3-logg-pa",
+      "slug": "kom-i-gang/innbygger",
+      "href": "/kom-i-gang/innbygger/",
+      "pageTitle": "Booking på 90 sekunder",
+      "section": "3. Logg på",
+      "content": "Tre innloggingsalternativer — utleier velger hvilke som tilbys:\n\n- **ID-porten** (anbefalt for kommunale bookinger) — Signicat OIDC, full identitetsbekreftelse\n- **BankID** — for tenants som krever sterk autentisering\n- **Magic link** — e-post-lenke for førstegangs-brukere uten norsk fødselsnummer\n\nMagic-link bruker signert JWT (HS256) med 15-minutters TTL.",
+      "tokens": 90,
+      "embedding": null
+    },
+    {
+      "id": "kom-i-gang/innbygger#4-betal",
+      "slug": "kom-i-gang/innbygger",
+      "href": "/kom-i-gang/innbygger/",
+      "pageTitle": "Booking på 90 sekunder",
+      "section": "4. Betal",
+      "content": "- **Vipps Mobilepay** — for kort booking, åpnes i Vipps-appen\n- **Kort** — Stripe Checkout (Apple Pay, Google Pay, kortbetaling), lagrer ikke kortdata\n- **EHF / Peppol** — for organisasjoner og lag/foreninger, elektronisk faktura\n\nStripe Connect Express betyr at hver utleier får sin egen tenant-konto — penger går direkte til utleiers bankkonto, ikke via Digilist.",
+      "tokens": 92,
+      "embedding": null
+    },
+    {
+      "id": "kom-i-gang/innbygger#5-bekreftelse",
+      "slug": "kom-i-gang/innbygger",
+      "href": "/kom-i-gang/innbygger/",
+      "pageTitle": "Booking på 90 sekunder",
+      "section": "5. Bekreftelse",
+      "content": "E-post + SMS sendes umiddelbart. Brukeren får:\n\n- Bookings-ID\n- Avbestillings-link (med selvbetjening hvis konfigurert)\n- Veibeskrivelse til lokalet eller hentested for utstyr\n- Kontaktinfo til driftsleder\n\nAlt synlig på Min side under digilist.no/min-side — på tvers av alle utleiere brukeren har bestilt hos.",
+      "tokens": 78,
+      "embedding": null
+    },
+    {
+      "id": "kom-i-gang/innbygger#tilgjengelighet",
+      "slug": "kom-i-gang/innbygger",
+      "href": "/kom-i-gang/innbygger/",
+      "pageTitle": "Booking på 90 sekunder",
+      "section": "Tilgjengelighet",
+      "content": "Digilist er bygget mot WCAG 2.1 AA. Tastatur-navigasjon, skjermleser-støtte, kontrastforhold ≥ 4.5:1 på alt interaktivt. Se [Compliance / Universell utforming](/compliance/uu/) for fullstendig samsvarserklæring.",
+      "tokens": 53,
+      "embedding": null
+    },
+    {
+      "id": "kom-i-gang/saksbehandler#oversikt",
+      "slug": "kom-i-gang/saksbehandler",
+      "href": "/kom-i-gang/saksbehandler/",
+      "pageTitle": "Saksbehandler — godkjenne, avvise og kommunisere",
+      "section": "Oversikt",
+      "content": "Saksbehandler-konsollen er der bookinger som krever vurdering lander. Bookinger som ikke krever godkjenning (åpne tider, fri-til-booking-ressurser) går aldri innom konsollen. Konsollen fungerer likt om utleier er en kommune, en idrettsforening eller en privat aktør — det er bare beslutnings-kriteriene som varierer.",
+      "tokens": 79,
+      "embedding": null
+    },
+    {
+      "id": "kom-i-gang/saksbehandler#koen",
+      "slug": "kom-i-gang/saksbehandler",
+      "href": "/kom-i-gang/saksbehandler/",
+      "pageTitle": "Saksbehandler — godkjenne, avvise og kommunisere",
+      "section": "Køen",
+      "content": "Forespørsler vises som rader sortert på:\n\n- **Frist** (eldste forespørsel først)\n- **Lokale** (filter)\n- **Kategori** (idrettshall, møterom, etc.)\n- **Status** (ny / under behandling / venter på tilleggsinfo)\n\nHver rad viser leietakers navn, ønsket tid, formål og ev. tidligere bookinger.",
+      "tokens": 72,
+      "embedding": null
+    },
+    {
+      "id": "kom-i-gang/saksbehandler#tre-handlinger",
+      "slug": "kom-i-gang/saksbehandler",
+      "href": "/kom-i-gang/saksbehandler/",
+      "pageTitle": "Saksbehandler — godkjenne, avvise og kommunisere",
+      "section": "Tre handlinger",
+      "content": "1. **Godkjenn** — bekreftelse sendes umiddelbart til innbygger, faktura genereres\n2. **Avvis** — påkrevd kommentar som vises til leietakeren\n3. **Be om mer info** — chat-tråd åpnes direkte i konsollen\n\nChat er ikke e-post — meldinger er strukturert under bookingen, persisteres i SAF-T, og innbyggeren får varsel.",
+      "tokens": 79,
+      "embedding": null
+    },
+    {
+      "id": "kom-i-gang/saksbehandler#eskalering",
+      "slug": "kom-i-gang/saksbehandler",
+      "href": "/kom-i-gang/saksbehandler/",
+      "pageTitle": "Saksbehandler — godkjenne, avvise og kommunisere",
+      "section": "Eskalering",
+      "content": "Konflikter mellom flere bookinger på samme tid eskaleres til driftsleder via en `Eskaler`-knapp. Eskalerte saker forblir i køen til driftsleder har bekreftet ny tildeling.",
+      "tokens": 43,
+      "embedding": null
+    },
+    {
+      "id": "kom-i-gang/saksbehandler#eksport",
+      "slug": "kom-i-gang/saksbehandler",
+      "href": "/kom-i-gang/saksbehandler/",
+      "pageTitle": "Saksbehandler — godkjenne, avvise og kommunisere",
+      "section": "Eksport",
+      "content": "Hver kø kan eksporteres som CSV (kolonner: tidspunkt, lokale, leietaker, status, saksbehandler, kommentar) for rapportering. Også tilgjengelig som SAF-T XML for revisjon.",
+      "tokens": 43,
+      "embedding": null
+    },
+    {
+      "id": "kom-i-gang/saksbehandler#tastatur",
+      "slug": "kom-i-gang/saksbehandler",
+      "href": "/kom-i-gang/saksbehandler/",
+      "pageTitle": "Saksbehandler — godkjenne, avvise og kommunisere",
+      "section": "Tastatur",
+      "content": "Saksbehandlere bruker Digilist hele dagen. Tastatur-snarveier:\n\n- `g` `g` — gå til kø\n- `g` `m` — gå til Min side\n- `enter` — åpne valgt rad\n- `a` — godkjenn (krever bekreftelse)\n- `r` — avvis (åpner kommentar-felt)\n- `c` — start chat med leietaker\n- `?` — vis alle snarveier",
+      "tokens": 69,
+      "embedding": null
+    },
+    {
+      "id": "utvikling#oversikt",
+      "slug": "utvikling",
+      "href": "/utvikling/",
+      "pageTitle": "Utvikling",
+      "section": "Oversikt",
+      "content": "Digilist er et pnpm monorepo med 2 apper, 8 delte pakker, og en Convex-kontrollplan.\nStack: TypeScript, React 18, Tailwind, Convex, Vitest, Playwright.\n\n  \n  \n  \n</CardGrid>",
+      "tokens": 44,
+      "embedding": null
+    },
+    {
+      "id": "utvikling/kom-i-gang#forutsetninger",
+      "slug": "utvikling/kom-i-gang",
+      "href": "/utvikling/kom-i-gang/",
+      "pageTitle": "Kom i gang som utvikler",
+      "section": "Forutsetninger",
+      "content": "- **Node.js** 20+\n- **pnpm** 9+ (`corepack enable && corepack prepare pnpm@latest --activate`)\n- **Convex** konto og CLI (`npm i -g convex`)",
+      "tokens": 35,
+      "embedding": null
+    },
+    {
+      "id": "utvikling/kom-i-gang#oppsett",
+      "slug": "utvikling/kom-i-gang",
+      "href": "/utvikling/kom-i-gang/",
+      "pageTitle": "Kom i gang som utvikler",
+      "section": "Oppsett",
+      "content": "```bash\n# Klon\ngit clone git@github.com:xalatechnologies/booking-brilliance.git\ncd booking-brilliance\n\n# Installer\npnpm install\n\n# Start Convex dev server (watcher schema + funksjoner + komponenter)\npnpm dev:convex\n\n# Seed databasen (kun første gang)\nnpx convex run seeds:seedAll\nnpx convex run seedComponents:seedAll\n\n# Start web-appen (i et annet terminal-vindu)\npnpm dev:web\n```",
+      "tokens": 96,
+      "embedding": null
+    },
+    {
+      "id": "utvikling/kom-i-gang#dev-kommandoer",
+      "slug": "utvikling/kom-i-gang",
+      "href": "/utvikling/kom-i-gang/",
+      "pageTitle": "Kom i gang som utvikler",
+      "section": "Dev-kommandoer",
+      "content": "| Kommando | Beskrivelse |\n|---|---|\n| `pnpm dev` | Alle tjenester (Convex + web + docs + monitoring + dashboard) |\n| `pnpm dev:convex` | Convex dev server alene |\n| `pnpm dev:web` | Web-appen (port 5190) |\n| `pnpm dev:dashboard` | Dashboard-appen (port 5191) |\n| `pnpm dev:docs` | Astro Starlight docs (port 4321) |",
+      "tokens": 79,
+      "embedding": null
+    },
+    {
+      "id": "utvikling/kom-i-gang#test-kommandoer",
+      "slug": "utvikling/kom-i-gang",
+      "href": "/utvikling/kom-i-gang/",
+      "pageTitle": "Kom i gang som utvikler",
+      "section": "Test-kommandoer",
+      "content": "| Kommando | Beskrivelse | Antall tester |\n|---|---|---|\n| `pnpm sdk:test` | SDK hook unit-tester (Vitest, jsdom) | ~281 |\n| `pnpm test:convex` | Convex-funksjon-tester (Vitest, edge-runtime) | ~1 470 |\n| `pnpm test:convex:watch` | Convex-tester i watch-modus | — |\n| `pnpm test:convex:e2e` | Backend E2E-tester | ~71 |\n| `pnpm test:e2e` | Playwright browser E2E | ~135 |\n| `pnpm test:e2e:a-krav` | Compliance E2E-suiter (A–K) | ~87 |\n| `pnpm test:all` | Hele suiten | ~2 044 |\n\nKjøre én test-fil:\n\n```bash\npnpm sdk:test packages/sdk/src/hooks/use-bookings.test.ts\npnpm test:convex convex/components/bookings/__tests__/bookings.test.ts\n```",
+      "tokens": 160,
+      "embedding": null
+    },
+    {
+      "id": "utvikling/kom-i-gang#monorepo-struktur",
+      "slug": "utvikling/kom-i-gang",
+      "href": "/utvikling/kom-i-gang/",
+      "pageTitle": "Kom i gang som utvikler",
+      "section": "Monorepo-struktur",
+      "content": "```\nbooking-brilliance/\n├── apps/\n│   ├── web/                          Markedsplassen (Astro + React)\n│   ├── dashboard/                    Forent dashboard (/admin + /platform)\n│   └── docs/                         Disse docs (Astro Starlight)\n├── packages/\n│   ├── sdk/                          Source-only Convex SDK\n│   ├── app-shell/                    Provider-komposisjon, rutevakter\n│   ├── digilist/                     Domene-UI-komponenter\n│   ├── shared/                       Plattform-typer + konstanter\n│   ├── ds/                           Designsystem (Digdir-base + Digilist-tema)\n│   ├── ds-themes/                    Tema-tokens\n│   ├── i18n/                         i18next-wrapper\n│   └── eslint-config/                Delt ESLint-config\n├── convex/\n│   ├── schema.ts                     ~80 kjernetabeller\n│   ├── domain/                       103 fasade-filer, ~960 fasade-funksjoner\n│   ├── components/                   27 isolerte komponenter\n│   ├── lib/                          Hendelse-buss, audit, middleware, rate-limits\n│   ├── crons.ts                      50 planlagte jobber\n│   └── http.ts                       Webhook-endepunkter\n└── tools/\n    ├── content-agent/                Vekst-harness multi-agent system\n    └── docs-rag/                     RAG-indeks-builder for docs.digilist.no\n```",
+      "tokens": 334,
+      "embedding": null
+    },
+    {
+      "id": "utvikling/kom-i-gang#konvensjoner-kort-versjon",
+      "slug": "utvikling/kom-i-gang",
+      "href": "/utvikling/kom-i-gang/",
+      "pageTitle": "Kom i gang som utvikler",
+      "section": "Konvensjoner — kort versjon",
+      "content": "1. **Auth fra `@digilist/app-shell` — aldri lokalt.** `useAuth`, `RequireAuth`, `RoleProvider` kommer derfra. Hindrer drift mellom apper.\n2. **Skriv-fasader scopes alltid til `session.tenantId`.** Lese-fasader på markedsplassen kan være un-scoped.\n3. **Hendelser emit'es i samme transaksjon som forretningsskriven** (`emit(ctx, \"topic\", payload)`). Aldri etterpå.\n4. **Abonnenter MÅ være idempotente.** Hendelser kan leveres mer enn én gang.\n5. **Komponenter krysser ikke tabeller direkte.** Bruk fasader eller hendelse-bussen.\n6. **i18n via `@digilist/i18n`** — aldri hardkodet streng-litteral. Default-lokalitet er `nb`.",
+      "tokens": 156,
+      "embedding": null
+    },
+    {
+      "id": "utvikling/kom-i-gang#vanlige-feil",
+      "slug": "utvikling/kom-i-gang",
+      "href": "/utvikling/kom-i-gang/",
+      "pageTitle": "Kom i gang som utvikler",
+      "section": "Vanlige feil",
+      "content": "| Symptom | Sannsynlig årsak |\n|---|---|\n| `Cannot read property 'tenantId' of undefined` | Glemt `requireSession(ctx)` før skriv |\n| Hot-reload hopper ikke | Convex dev server stoppet — start `pnpm dev:convex` på nytt |\n| `pnpm install` feiler | Slett `node_modules` + `pnpm-lock.yaml`, kjør `pnpm install --force` |\n| Tester henger | Convex test-runtime trenger `setupConvexTest()` i `beforeAll` |",
+      "tokens": 100,
+      "embedding": null
+    },
+    {
+      "id": "utvikling/kom-i-gang#beslektet",
+      "slug": "utvikling/kom-i-gang",
+      "href": "/utvikling/kom-i-gang/",
+      "pageTitle": "Kom i gang som utvikler",
+      "section": "Beslektet",
+      "content": "- [SDK & hooks](/utvikling/sdk/) — hvordan legge til en ny hook\n- [Arkitektur-oversikt](/arkitektur/oversikt/) — systemkart\n- [API-referanse](/api-referanse/) — public + admin-endepunkter",
+      "tokens": 47,
+      "embedding": null
+    },
+    {
+      "id": "utvikling/sdk#oversikt",
+      "slug": "utvikling/sdk",
+      "href": "/utvikling/sdk/",
+      "pageTitle": "SDK & hooks",
+      "section": "Oversikt",
+      "content": "`@digilist/sdk` er pakken som binder frontend-apper til Convex-kontrollplanet.\nPakken er **kilde-bare** — ingen byggesteg. Den eksporterer:\n\n- **`XalaConvexProvider`** — Convex-klient + cache-singleton\n- **Hooks** (109 filer, ~870 navngitte eksporter) — `use\n        </RealtimeProvider>\n      </AuthProvider>\n    </XalaConvexProvider>\n  );\n}\n```",
+      "tokens": 87,
+      "embedding": null
+    },
+    {
+      "id": "utvikling/sdk#7-vanlige-feil",
+      "slug": "utvikling/sdk",
+      "href": "/utvikling/sdk/",
+      "pageTitle": "SDK & hooks",
+      "section": "7. Vanlige feil",
+      "content": "| Feil | Sannsynlig årsak |\n|---|---|\n| `useQuery returned undefined` | Query argumenter er `undefined` — Convex hopper over kjøring. Sjekk default-args. |\n| `Mutation not found` | Glemt å re-eksportere i `convex/_generated/api`. Kjør `npx convex codegen`. |\n| Cache flapper | To hooks bruker samme query med litt forskjellige args. Konsolider eller bruk `useStableQuery`. |\n| `TypeError: Cannot read property 'pid' of undefined` | Bruker ikke `RequireAuth` rundt komponenten. |",
+      "tokens": 120,
+      "embedding": null
+    },
+    {
+      "id": "utvikling/sdk#beslektet",
+      "slug": "utvikling/sdk",
+      "href": "/utvikling/sdk/",
+      "pageTitle": "SDK & hooks",
+      "section": "Beslektet",
+      "content": "- [Kom i gang som utvikler](/utvikling/kom-i-gang/)\n- [Arkitektur · Datamodell](/arkitektur/datamodell/)\n- [API-referanse](/api-referanse/)",
+      "tokens": 35,
+      "embedding": null
+    }
+  ]
+}

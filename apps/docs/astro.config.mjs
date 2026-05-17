@@ -9,10 +9,17 @@ export default defineConfig({
     starlight({
       title: "Digilist Docs",
       description:
-        "Dokumentasjon for Digilist — kommunal booking-SaaS for idrettshaller, møterom, kulturhus og selskapslokaler.",
+        "Dokumentasjon for Digilist — booking-plattform for kommuner, foreninger og private utleiere. Idrettshaller, møterom, kulturhus, utstyr og tjenester. Bygd med kommune-klasse compliance som standard.",
+      // Set html lang="nb" so Google + screen readers know this is
+      // Norwegian content. Without locales the default is "en".
+      defaultLocale: "root",
+      locales: {
+        root: { label: "Norsk bokmål", lang: "nb" },
+      },
       // No Starlight `logo` here — the custom Header (src/components/starlight/Header.astro)
       // renders the marketing /logo.svg + Fraunces wordmark directly to
       // match digilist.no's Navbar exactly.
+      favicon: "/icon.png",
       social: {
         linkedin: "https://www.linkedin.com/company/digilistno",
       },
@@ -29,6 +36,7 @@ export default defineConfig({
       components: {
         // Editorial overrides — replace Starlight's stock components with
         // ones styled to match digilist.no. See apps/docs/src/components/starlight/.
+        Head: "./src/components/starlight/Head.astro",
         Header: "./src/components/starlight/Header.astro",
         PageTitle: "./src/components/starlight/PageTitle.astro",
         Hero: "./src/components/starlight/Hero.astro",
@@ -40,12 +48,24 @@ export default defineConfig({
           autogenerate: { directory: "kom-i-gang" },
         },
         {
+          label: "Arkitektur",
+          autogenerate: { directory: "arkitektur" },
+        },
+        {
+          label: "Integrasjoner",
+          autogenerate: { directory: "integrasjoner" },
+        },
+        {
+          label: "Utvikling",
+          autogenerate: { directory: "utvikling" },
+        },
+        {
           label: "Admin-runbooks",
           autogenerate: { directory: "admin" },
         },
         {
           label: "API-referanse",
-          autogenerate: { directory: "api" },
+          autogenerate: { directory: "api-referanse" },
         },
         {
           label: "Compliance",
@@ -53,6 +73,19 @@ export default defineConfig({
         },
       ],
       head: [
+        // Favicons — mirror marketing site's index.html exactly.
+        {
+          tag: "link",
+          attrs: { rel: "icon", href: "/icon.png", type: "image/png" },
+        },
+        {
+          tag: "link",
+          attrs: { rel: "icon", href: "/logo.svg", type: "image/svg+xml" },
+        },
+        {
+          tag: "link",
+          attrs: { rel: "apple-touch-icon", href: "/icon.png" },
+        },
         {
           tag: "meta",
           attrs: {
@@ -107,13 +140,18 @@ export default defineConfig({
             url: "https://digilist.no/",
             logo: "https://digilist.no/logo.svg",
             description:
-              "Bookingplattform for norske kommuner og utleiere — lokaler, møterom, idrettshaller, kulturhus.",
+              "Bookingplattform for kommuner, foreninger og private utleiere i Norge — lokaler, møterom, idrettshaller, kulturhus, utstyr og tjenester. Bygd med kommune-klasse compliance.",
             areaServed: "Norway",
             knowsAbout: [
+              "venue booking",
               "municipal booking",
+              "association rentals",
+              "private venue rentals",
               "SSA-L compliance",
               "ID-porten integration",
               "EHF invoicing",
+              "Stripe Connect",
+              "Vipps Mobilepay",
             ],
             sameAs: ["https://digilist.no/"],
           }),

@@ -1,4 +1,5 @@
 {
+  "convex/_generated/api.js": [],
   "src/App.tsx": [],
   "src/components/AboutUsSection.tsx": [],
   "src/components/ArchitectureSection.tsx": [],
@@ -18,17 +19,31 @@
   "src/components/Navbar.tsx": [],
   "src/components/PageTransition.tsx": [],
   "src/components/PilotInvitationSection.tsx": [],
+  "src/components/RumReporter.tsx": [],
   "src/components/SEO.tsx": [],
   "src/components/ScrollToTop.tsx": [],
   "src/components/TechnologyStackSection.tsx": [],
   "src/components/ThemeToggle.tsx": [],
   "src/components/UseCasePage.tsx": [],
   "src/components/ValuePropositionSection.tsx": [],
-  "src/components/chatbot/ChatPanel.tsx": [],
-  "src/components/chatbot/Chatbot.tsx": [],
-  "src/components/chatbot/InquiryFlow.tsx": [],
-  "src/components/chatbot/MessageBubble.tsx": [],
-  "src/components/chatbot/QuickReplies.tsx": [],
+  "src/components/chatbot/ChatPanel.tsx": [
+    "/assets/index-C7MfRsM0.js"
+  ],
+  "src/components/chatbot/Chatbot.tsx": [
+    "/assets/index-C7MfRsM0.js"
+  ],
+  "src/components/chatbot/InquiryFlow.tsx": [
+    "/assets/index-C7MfRsM0.js"
+  ],
+  "src/components/chatbot/MessageBubble.tsx": [
+    "/assets/index-C7MfRsM0.js"
+  ],
+  "src/components/chatbot/QuickReplies.tsx": [
+    "/assets/index-C7MfRsM0.js"
+  ],
+  "src/components/chatbot/index.ts": [
+    "/assets/index-C7MfRsM0.js"
+  ],
   "src/components/editorial/Byline.tsx": [],
   "src/components/editorial/DropCap.tsx": [],
   "src/components/editorial/EditorialButton.tsx": [],
@@ -79,17 +94,28 @@
   "src/entry-server.tsx": [],
   "src/hooks/use-toast.ts": [],
   "src/hooks/useActiveSection.ts": [],
-  "src/hooks/useChatbot.ts": [],
-  "src/lib/chatbot/inquiry.ts": [],
+  "src/hooks/useChatbot.ts": [
+    "/assets/index-C7MfRsM0.js"
+  ],
+  "src/lib/chatbot/inquiry.ts": [
+    "/assets/index-C7MfRsM0.js"
+  ],
   "src/lib/chatbot/open.ts": [],
-  "src/lib/chatbot/rag.ts": [],
+  "src/lib/chatbot/rag.ts": [
+    "/assets/index-C7MfRsM0.js"
+  ],
   "src/lib/fonts.ts": [],
   "src/lib/motion.ts": [],
   "src/lib/posts.ts": [],
   "src/lib/search/corpus.ts": [],
   "src/lib/utils.ts": [],
   "src/pages/Blog.tsx": [],
-  "src/pages/BlogPost.tsx": [],
+  "src/pages/BlogPost.tsx": [
+    "/assets/BlogPost-DF6QvHzt.js"
+  ],
+  "src/pages/BlogPreview.tsx": [
+    "/assets/BlogPreview-BV2sxmd6.js"
+  ],
   "src/pages/BookDemo.tsx": [],
   "src/pages/BookingLokalerMoterom.tsx": [],
   "src/pages/BookingsystemKommune.tsx": [],
@@ -99,16 +125,39 @@
   "src/pages/NotFound.tsx": [],
   "src/pages/Personvern.tsx": [],
   "src/pages/Salgsvilkar.tsx": [],
+  "src/pages/Status.tsx": [
+    "/assets/Status-ZIShWvnQ.js"
+  ],
   "src/pages/Transparens.tsx": [],
   "src/pages/UseCaseIdrettshaller.tsx": [],
   "src/pages/UseCaseKulturhus.tsx": [],
   "src/pages/UseCaseMoterom.tsx": [],
   "src/pages/UseCaseSelskapslokaler.tsx": [],
-  "src/pages/admin/IntelligenceAgents.tsx": [],
-  "src/pages/admin/IntelligenceCategory.tsx": [],
-  "src/pages/admin/IntelligenceIssues.tsx": [],
-  "src/pages/admin/IntelligenceMisc.tsx": [],
-  "src/pages/admin/IntelligenceOverview.tsx": [],
-  "src/pages/admin/IntelligenceShell.tsx": [],
-  "src/pages/admin/intelligence-shared.ts": []
+  "src/pages/admin/IntelligenceAgents.tsx": [
+    "/assets/IntelligenceAgents-CHZGZT6J.js"
+  ],
+  "src/pages/admin/IntelligenceCategory.tsx": [
+    "/assets/IntelligenceCategory-BOluSrOi.js"
+  ],
+  "src/pages/admin/IntelligenceCompliance.tsx": [
+    "/assets/IntelligenceCompliance-vmF0WwKw.js"
+  ],
+  "src/pages/admin/IntelligenceIssues.tsx": [
+    "/assets/IntelligenceIssues-DPfZk6Y3.js"
+  ],
+  "src/pages/admin/IntelligenceMisc.tsx": [
+    "/assets/IntelligenceMisc-CYxO1UdO.js"
+  ],
+  "src/pages/admin/IntelligenceOverview.tsx": [
+    "/assets/IntelligenceOverview-kiKsE6X6.js"
+  ],
+  "src/pages/admin/IntelligenceShell.tsx": [
+    "/assets/IntelligenceShell-DPlO75Nc.js"
+  ],
+  "src/pages/admin/IntelligenceVekst.tsx": [
+    "/assets/IntelligenceVekst-_UTW4x0l.js"
+  ],
+  "src/pages/admin/intelligence-shared.ts": [
+    "/assets/intelligence-shared-BI9y8Ril.js"
+  ]
 }

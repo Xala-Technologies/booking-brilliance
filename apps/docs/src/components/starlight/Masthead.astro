@@ -1,0 +1,82 @@
+---
+/**
+ * Masthead — the editorial date plate that sits between the page-title
+ * caption and the page-title headline on every docs page. Mirrors
+ * src/components/editorial/Masthead.tsx of the marketing site.
+ *
+ *   ┌──────────────────────────────────────────────────────────────┐
+ *   │  DIGILIST  ·  VOL.2026  ·  UTGAVE 05  ·  OSLO  ·  15. MAI    │
+ *   └──────────────────────────────────────────────────────────────┘
+ *
+ * The volume + issue numbers are deterministic — calendar-year is the
+ * volume, ISO week is the "utgave" (issue). Computed at build time.
+ */
+const now = new Date();
+const year = now.getFullYear();
+// ISO week — adapted from the marketing site's helper.
+function isoWeek(date: Date): number {
+  const tmp = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const day = tmp.getUTCDay() || 7;
+  tmp.setUTCDate(tmp.getUTCDate() + 4 - day);
+  const yearStart = new Date(Date.UTC(tmp.getUTCFullYear(), 0, 1));
+  return Math.ceil(((tmp.getTime() - yearStart.getTime()) / 86_400_000 + 1) / 7);
+}
+const issue = String(isoWeek(now)).padStart(2, "0");
+const dateLong = now.toLocaleDateString("nb-NO", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+---
+
+<div class="dg-masthead">
+  <span class="dg-masthead__brand">Digilist</span>
+  <span class="dg-masthead__pipe" aria-hidden="true"></span>
+  <span class="dg-masthead__meta">VOL. {year}</span>
+  <span class="dg-masthead__pipe" aria-hidden="true"></span>
+  <span class="dg-masthead__meta">UTGAVE {issue}</span>
+  <span class="dg-masthead__pipe" aria-hidden="true"></span>
+  <span class="dg-masthead__meta">OSLO</span>
+  <span class="dg-masthead__spacer"></span>
+  <span class="dg-masthead__date">{dateLong}</span>
+</div>
+
+<style>
+  .dg-masthead {
+    /* Inline kicker — sits at the top of the hero column, not as a
+     * separate full-width band. Single hairline rule below, no top
+     * border so it doesn't read as a second header. */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.7rem;
+    padding-block: 0 0.75rem;
+    border-block-end: 1px solid hsl(var(--rule));
+    margin-block-end: 1.5rem;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: hsl(var(--ink-faint));
+  }
+
+  .dg-masthead__brand {
+    color: hsl(var(--ink));
+    font-weight: 500;
+  }
+
+  .dg-masthead__pipe {
+    display: inline-block;
+    width: 1px;
+    height: 0.7rem;
+    background: hsl(var(--rule-strong));
+  }
+
+  .dg-masthead__spacer { flex: 1; }
+
+  .dg-masthead__date {
+    color: hsl(var(--ink));
+    letter-spacing: 0.18em;
+    font-feature-settings: "tnum" 1;
+  }
+</style>

@@ -5,8 +5,42 @@
 import { v } from "convex/values";
 import { mutation } from "../_generated/server";
 import { requireAdmin } from "../auth";
+import { TARGETS } from "./targets";
 
 const ISO = () => new Date().toISOString();
+
+/**
+ * One-shot reseed — re-upserts every TARGETS entry from the runtime
+ * catalog so the audit_targets table picks up Norwegian description /
+ * label changes made in convex/audits/targets.ts. Called once after a
+ * copy change, instead of waiting for the next full audit run.
+ */
+export const reseedTargetsFromCatalog = mutation({
+  args: { adminToken: v.string() },
+  handler: async (ctx, args) => {
+    requireAdmin(args.adminToken);
+    let updated = 0;
+    for (const t of TARGETS) {
+      const existing = await ctx.db
+        .query("audit_targets")
+        .withIndex("by_name", (q) => q.eq("name", t.name))
+        .first();
+      const fields = {
+        label: t.label,
+        origin: t.origin,
+        description: t.description,
+        is_active: t.active,
+      };
+      if (existing) {
+        await ctx.db.patch(existing._id, fields);
+      } else {
+        await ctx.db.insert("audit_targets", { ...fields, name: t.name });
+      }
+      updated++;
+    }
+    return { updated };
+  },
+});
 
 export const upsertTarget = mutation({
   args: {

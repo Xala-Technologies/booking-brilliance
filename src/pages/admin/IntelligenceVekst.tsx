@@ -25,6 +25,7 @@ import {
   ClipboardCopy,
   Coins,
   ExternalLink,
+  Eye,
   FileEdit,
   Hash,
   KeyRound,
@@ -222,7 +223,7 @@ function PageHeader({
         </div>
         <div>
           <p className="editorial-mono-caption text-accent-text mb-1">
-            VEKST · GROWTH INTELLIGENCE
+            VEKST · INNHOLDSAGENT
           </p>
           <h1
             className="font-serif text-3xl lg:text-4xl text-ink leading-tight"
@@ -252,7 +253,7 @@ function RiskBadge({ risk }: { risk: "low" | "med" | "high" }) {
         tone,
       )}
     >
-      {risk}
+      { {low:"lav",med:"middels",high:"høy"}[risk] }
     </span>
   );
 }
@@ -266,6 +267,14 @@ function ChannelBadge({ channel }: { channel: Channel }) {
     </span>
   );
 }
+
+const STATUS_LABEL_NO: Record<DraftStatus, string> = {
+  pending: "Avventer",
+  approved: "Godkjent",
+  rejected: "Avvist",
+  published: "Publisert",
+  failed: "Feilet",
+};
 
 function StatusPill({ status }: { status: DraftStatus }) {
   const tone =
@@ -285,7 +294,7 @@ function StatusPill({ status }: { status: DraftStatus }) {
         tone,
       )}
     >
-      {status}
+      {STATUS_LABEL_NO[status]}
     </span>
   );
 }
@@ -797,7 +806,7 @@ export function VekstKeywords() {
         <section>
           <div className="flex items-baseline justify-between mb-4 border-b border-rule pb-3">
             <p className="editorial-mono-caption text-accent-text">
-              RECENT KEYWORDS
+              SISTE NØKKELORD
             </p>
             <p className="font-mono text-[0.6rem] uppercase tracking-widest text-ink-faint">
               {snap.keywords.recent.length} SISTE 14D
@@ -1006,8 +1015,8 @@ export function VekstDrafts() {
     <div className="px-6 lg:px-10 py-8 max-w-[1600px] mx-auto">
       <PageHeader
         icon={FileEdit}
-        title="Approval Queue"
-        caption="Hver generert draft venter her på menneskelig godkjenning. Ingenting publiseres automatisk — selv etter approve må Publish-knappen trykkes eksplisitt."
+        title="Godkjenningskø"
+        caption="Hver generert draft venter her på menneskelig godkjenning. Ingenting publiseres automatisk — selv etter godkjenning må Publiser-knappen trykkes eksplisitt."
         actions={
           <button
             type="button"
@@ -1063,7 +1072,7 @@ export function VekstDrafts() {
                   : "border-hairline-strong hover:bg-paper-strong",
               )}
             >
-              {s} · {counts[s]}
+              {STATUS_LABEL_NO[s]} · {counts[s]}
             </button>
           ),
         )}
@@ -1071,7 +1080,7 @@ export function VekstDrafts() {
 
       {list.length === 0 ? (
         <EmptyState
-          note={`Ingen drafts med status="${filter}".`}
+          note={`Ingen utkast med status "${STATUS_LABEL_NO[filter]}".`}
           refresh={refresh}
         />
       ) : (
@@ -1162,7 +1171,7 @@ export function VekstDrafts() {
                         htmlFor={`note-${d.id}`}
                         className="font-mono text-[0.6rem] uppercase tracking-widest text-ink-faint mb-1.5 block"
                       >
-                        REVIEWER-NOTAT (VALGFRITT)
+                        VURDERINGSNOTAT (VALGFRITT)
                       </label>
                       <textarea
                         id={`note-${d.id}`}
@@ -1175,6 +1184,17 @@ export function VekstDrafts() {
                         className="w-full text-sm bg-paper-strong border border-hairline rounded-sm px-2 py-1.5 mb-3 focus:outline-none focus:ring-1 focus:ring-accent-text resize-y"
                       />
                       <div className="flex flex-wrap gap-2">
+                        {d._id && (
+                          <a
+                            href={`/blogg/preview/${d._id}`}
+                            target="_blank"
+                            rel="noopener"
+                            className="font-mono text-[0.65rem] tracking-widest uppercase border border-hairline-strong rounded-sm px-3 py-2 hover:bg-paper-strong inline-flex items-center justify-center"
+                          >
+                            <Eye className="h-3 w-3 inline mr-1.5" />
+                            PREVIEW
+                          </a>
+                        )}
                         <button
                           type="button"
                           onClick={() => void copyBody(d.id, d.body)}
@@ -1222,6 +1242,17 @@ export function VekstDrafts() {
 
                   {filter === "approved" && (
                     <div className="border-t border-rule pt-3 mt-auto flex flex-wrap gap-2">
+                      {d._id && (
+                        <a
+                          href={`/blogg/preview/${d._id}`}
+                          target="_blank"
+                          rel="noopener"
+                          className="font-mono text-[0.65rem] tracking-widest uppercase border border-hairline-strong rounded-sm px-3 py-2 hover:bg-paper-strong inline-flex items-center justify-center"
+                        >
+                          <Eye className="h-3 w-3 inline mr-1.5" />
+                          PREVIEW
+                        </a>
+                      )}
                       <button
                         type="button"
                         onClick={() => void copyBody(d.id, d.body)}
@@ -1420,8 +1451,8 @@ export function VekstConnections() {
         </p>
         <p className="text-sm text-ink-soft">
           Selv når tilkoblinger er aktive, publiseres ingenting automatisk.
-          Hver draft må eksplisitt godkjennes i Approval Queue og deretter
-          få Publish-knappen trykket av en menneskelig admin. Dette er
+          Hver draft må eksplisitt godkjennes i godkjenningskøen og deretter
+          få Publiser-knappen trykket av en menneskelig admin. Dette er
           tilsiktet og endres tidligst etter 10+ vellykkede manuelle
           publiseringer.
         </p>

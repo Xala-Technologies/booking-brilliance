@@ -217,7 +217,7 @@ export default function IntelligenceAgents() {
         `# Økosystem-rollup`,
         `Aktive overflater: ${s.surfacesTotal} (${s.surfacesHealthy} sunne, ${s.surfacesWithErrors} med feil)`,
         `Snittscore: ${Math.round(s.avgScore)}/100`,
-        `Errors: ${s.errorCount} · Warnings: ${s.warnCount} · Info: ${s.infoCount}`,
+        `Feil: ${s.errorCount} · Advarsler: ${s.warnCount} · Info: ${s.infoCount}`,
         "",
       );
     }
@@ -565,9 +565,9 @@ export default function IntelligenceAgents() {
                 {m.role === "assistant" && m.model && (
                   <p className="font-mono text-[0.55rem] uppercase tracking-widest text-ink-faint mt-1 px-1">
                     {m.model.includes("sonnet")
-                      ? "Powered by Claude Sonnet 4.6 · extended thinking"
+                      ? "Drevet av Claude Sonnet 4.6 · utvidet resonering"
                       : m.model.includes("haiku")
-                        ? "Powered by Claude Haiku 4.5"
+                        ? "Drevet av Claude Haiku 4.5"
                         : `Powered by ${m.model}`}
                   </p>
                 )}

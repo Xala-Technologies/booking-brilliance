@@ -51,13 +51,17 @@ export const publish = action({
 
     let result: PublishResult;
     if (draft.channel === "blog") {
-      // Blog publish needs filesystem write — handled by the tsx CLI
-      // path; from the dashboard we just flag intent.
+      // Blog publish — Convex is the source of truth. The draft body
+      // already contains the full markdown (frontmatter inline); we
+      // just flip status to published and stamp the public URL. The
+      // operator pulls the markdown into src/content/blog/ via
+      // `pnpm content:sync` on next deploy, OR uses the preview URL
+      // (/blogg/preview/<id>) to review live.
+      const slug = extractSlug(draft);
       result = {
-        ok: false,
-        errorCode: "unsupported-channel",
-        error:
-          "Blog publish runs via `pnpm tsx tools/content-agent/src/cli.ts publish --id <N>` on the VPS. The markdown file is written there and shipped via rsync on next deploy.",
+        ok: true,
+        externalId: slug,
+        externalUrl: `https://digilist.no/blogg/${slug}`,
       };
     } else if (draft.channel === "linkedin") {
       result = await publishLinkedIn(draft);
@@ -239,4 +243,41 @@ function safeJsonArray(s: string): string[] {
   } catch {
     return [];
   }
+}
+
+/**
+ * Extract the public slug for a blog draft. Generators inject the
+ * slug into either `frontmatter_json.slug` or the leading YAML
+ * frontmatter of the body. Fallback: kebab-case the title.
+ */
+function extractSlug(draft: {
+  body: string;
+  title: string;
+  frontmatter_json: string;
+}): string {
+  try {
+    const fm = JSON.parse(draft.frontmatter_json) as Record<string, unknown>;
+    if (typeof fm.slug === "string" && fm.slug) return fm.slug;
+  } catch {
+    /* ignore */
+  }
+  const yamlMatch = draft.body.match(
+    /^---\r?\n([\s\S]*?)\r?\n---\r?\n/,
+  );
+  if (yamlMatch) {
+    const slugLine = yamlMatch[1]
+      .split(/\r?\n/)
+      .find((l) => /^slug:\s*/.test(l));
+    if (slugLine) {
+      const v = slugLine.replace(/^slug:\s*/, "").replace(/^["']|["']$/g, "").trim();
+      if (v) return v;
+    }
+  }
+  return draft.title
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
+    .slice(0, 80);
 }

@@ -39,11 +39,43 @@
     <link rel="icon" href="/icon.png" type="image/png" />
     <link rel="icon" href="/logo.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
 
-    <!-- Editorial Nordic typography: Fraunces (variable serif display, opsz/wght/SOFT/WONK axes) + Public Sans (USWDS civic-tech body) + JetBrains Mono (specs) -->
+    <!-- LCP hero — preload festsal-1.jpg with fetchpriority="high" so the
+         browser starts the download in parallel with the JS bundle.
+         Lighthouse mobile measured 13.7s LCP without this; the image
+         was waiting for both the render-blocking font CSS and the 1.2MB
+         JS bundle to finish before downloading. -->
+    <link
+      rel="preload"
+      as="image"
+      href="/hero/festsal-1.webp"
+      type="image/webp"
+      imagesrcset="/hero/festsal-1.webp"
+      fetchpriority="high"
+    />
+
+    <!-- Editorial Nordic typography: Fraunces (variable serif display) +
+         Public Sans (body) + JetBrains Mono (specs).
+         Non-blocking load via media="print" trick so the hero image isn't
+         held back by font CSS. `display=optional` ensures text renders
+         immediately in the fallback stack while the variable font streams. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Public+Sans:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Public+Sans:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=optional"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Public+Sans:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=optional"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Public+Sans:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=optional" />
+    </noscript>
     
     <!-- Primary Meta Tags -->
     <title>Digilist — Én plattform for alt som leies ut</title>

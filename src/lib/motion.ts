@@ -44,13 +44,18 @@ export const viewportOnce = {
   margin: "0px 0px 0px 0px",
 };
 
-/** Page-enter transition for routed pages */
+/** Page-enter and exit transitions for routed pages */
 export const pageEnter: Variants = {
   hidden: { opacity: 0, y: 12 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, ease: editorialEase },
+    transition: { duration: 0.45, ease: editorialEase },
+  },
+  exit: {
+    opacity: 0,
+    y: -6,
+    transition: { duration: 0.2, ease: editorialEase },
   },
 };
 

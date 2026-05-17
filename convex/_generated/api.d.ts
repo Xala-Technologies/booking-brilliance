@@ -8,11 +8,20 @@
  * @module
  */
 
+import type * as agents_fixProposals from "../agents/fixProposals.js";
+import type * as audits_alerts from "../audits/alerts.js";
+import type * as audits_performance from "../audits/performance.js";
 import type * as audits_public from "../audits/public.js";
+import type * as audits_rum from "../audits/rum.js";
 import type * as audits_runs from "../audits/runs.js";
 import type * as audits_state from "../audits/state.js";
 import type * as audits_targets from "../audits/targets.js";
 import type * as auth from "../auth.js";
+import type * as compliance_baseline from "../compliance/baseline.js";
+import type * as compliance_collectors from "../compliance/collectors.js";
+import type * as compliance_mutations from "../compliance/mutations.js";
+import type * as compliance_seed from "../compliance/seed.js";
+import type * as compliance_state from "../compliance/state.js";
 import type * as content_agents from "../content/agents.js";
 import type * as content_drafts from "../content/drafts.js";
 import type * as content_keywords from "../content/keywords.js";
@@ -27,11 +36,20 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  "agents/fixProposals": typeof agents_fixProposals;
+  "audits/alerts": typeof audits_alerts;
+  "audits/performance": typeof audits_performance;
   "audits/public": typeof audits_public;
+  "audits/rum": typeof audits_rum;
   "audits/runs": typeof audits_runs;
   "audits/state": typeof audits_state;
   "audits/targets": typeof audits_targets;
   auth: typeof auth;
+  "compliance/baseline": typeof compliance_baseline;
+  "compliance/collectors": typeof compliance_collectors;
+  "compliance/mutations": typeof compliance_mutations;
+  "compliance/seed": typeof compliance_seed;
+  "compliance/state": typeof compliance_state;
   "content/agents": typeof content_agents;
   "content/drafts": typeof content_drafts;
   "content/keywords": typeof content_keywords;

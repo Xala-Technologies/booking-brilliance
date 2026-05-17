@@ -128,6 +128,56 @@ export function adminToken(): string {
   return localStorage.getItem(AUTH_KEY) ?? "";
 }
 
+/**
+ * Single source of truth for the ecosystem KPIs shown on the header
+ * badges, the sidebar mini-KPI, the Oversikt tile strip, and any
+ * future panel. ALL surface-rollup numbers should be computed once in
+ * Convex (convex/audits/state.ts:snapshot's ecosystemSummary) and read
+ * via this helper — no per-component re-derivation, no drift.
+ *
+ * Returns null when the snapshot hasn't loaded yet.
+ */
+export interface EcosystemKpis {
+  /** Rounded average score across every active surface's latest audits */
+  avgScore: number;
+  /** Number of active surfaces */
+  surfacesTotal: number;
+  /** Active surfaces whose latest scans have zero error-severity findings */
+  surfacesHealthy: number;
+  /** Active surfaces with one or more error findings */
+  surfacesWithErrors: number;
+  /** Total error-severity findings across all surfaces */
+  errorCount: number;
+  /** Total warn-severity findings */
+  warnCount: number;
+  /** Total info-severity findings (lowest priority) */
+  infoCount: number;
+  /** Health bucket — drives the global tone (banner color, badge tint) */
+  health: "good" | "warn" | "bad";
+}
+
+export function getEcosystemKpis(
+  snap: { ecosystemSummary?: EcosystemSummary } | null | undefined,
+): EcosystemKpis | null {
+  const s = snap?.ecosystemSummary;
+  if (!s) return null;
+  return {
+    avgScore: Math.round(s.avgScore),
+    surfacesTotal: s.surfacesTotal,
+    surfacesHealthy: s.surfacesHealthy,
+    surfacesWithErrors: s.surfacesWithErrors,
+    errorCount: s.errorCount,
+    warnCount: s.warnCount,
+    infoCount: s.infoCount,
+    health:
+      s.errorCount > 0 || s.avgScore < 60
+        ? "bad"
+        : s.avgScore < 85 || s.warnCount > 0
+          ? "warn"
+          : "good",
+  };
+}
+
 export const AUDIT_LABEL: Record<AuditType, string> = {
   uptime: "Oppetid",
   seo: "SEO",
@@ -136,6 +186,12 @@ export const AUDIT_LABEL: Record<AuditType, string> = {
   links: "Lenker",
   performance: "Ytelse",
   vulns: "Sårbarheter",
+};
+
+export const ENV_LABEL: Record<Environment, string> = {
+  production: "Produksjon",
+  staging: "Pre-prod",
+  preview: "Forhåndsvisning",
 };
 
 export const SURFACE_LABEL: Record<SurfaceType, string> = {

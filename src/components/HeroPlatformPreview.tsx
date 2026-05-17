@@ -48,31 +48,42 @@ export function HeroPlatformPreview() {
         {/* Listing image grid — real venue photos */}
         <div className="grid grid-cols-3 grid-rows-2 gap-px bg-rule">
           <div className="col-span-2 row-span-2 relative aspect-[16/10]">
-            <img
-              src="/hero/festsal-1.jpg"
-              alt="Festsal med lysekroner og runde bord"
-              className="absolute inset-0 w-full h-full object-cover"
-              loading="eager"
-            />
+            <picture>
+              <source srcSet="/hero/festsal-1.webp" type="image/webp" />
+              <img
+                src="/hero/festsal-1.jpg"
+                alt="Festsal med lysekroner og runde bord"
+                className="absolute inset-0 w-full h-full object-cover"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+              />
+            </picture>
             <span className="absolute bottom-3 left-3 font-mono text-[0.65rem] uppercase tracking-widest text-ink bg-paper/90 px-2 py-1 rounded-sm backdrop-blur-sm">
               Festsalen · 8 bilder
             </span>
           </div>
           <div className="relative">
-            <img
-              src="/hero/festsal-2.jpg"
-              alt="Banquet med dekkede bord"
-              className="absolute inset-0 w-full h-full object-cover"
-              loading="lazy"
-            />
+            <picture>
+              <source srcSet="/hero/festsal-2.webp" type="image/webp" />
+              <img
+                src="/hero/festsal-2.jpg"
+                alt="Banquet med dekkede bord"
+                className="absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
+              />
+            </picture>
           </div>
           <div className="relative">
-            <img
-              src="/hero/festsal-3.jpg"
-              alt="Selskap med dekorasjon"
-              className="absolute inset-0 w-full h-full object-cover"
-              loading="lazy"
-            />
+            <picture>
+              <source srcSet="/hero/festsal-3.webp" type="image/webp" />
+              <img
+                src="/hero/festsal-3.jpg"
+                alt="Selskap med dekorasjon"
+                className="absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
+              />
+            </picture>
           </div>
         </div>
 

@@ -22,7 +22,7 @@
 //   pm2 save
 
 import { createServer } from "node:http";
-import { readFileSync, writeFileSync, existsSync, unlinkSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, unlinkSync, readdirSync, statSync } from "node:fs";
 import { spawn } from "node:child_process";
 import path from "node:path";
 
@@ -209,6 +209,292 @@ async function handleChat(req, res, body, ip) {
   }
 }
 
+// ---------- /api/docs-ask (real RAG over docs corpus via Claude)
+//
+// Pipeline:
+//   1. Boot:  load docs-rag-index.json (89 chunks of ~700 tokens each)
+//             produced by `pnpm docs:index`. If embeddings are present
+//             (Voyage was available at index time) use them; otherwise
+//             build a TF-IDF index in memory on the chunk content.
+//   2. Query: embed the user's query (Voyage if available, else TF-IDF
+//             vector). Cosine-similarity scan against all chunks. Take
+//             top-K (K=5).
+//   3. Augment: build a system prompt containing ONLY the K retrieved
+//               chunks, with explicit slug citations.
+//   4. Generate: Claude Haiku produces a Norwegian answer ending with
+//                citations as [Title](slug).
+
+const DOCS_RAG_INDEX_CANDIDATES = [
+  process.env.DOCS_RAG_INDEX || "",
+  "/var/www/digilist-api/docs-rag-index.json",
+  path.resolve(
+    path.dirname(new URL(import.meta.url).pathname),
+    "../apps/docs/dist-rag/docs-rag-index.json",
+  ),
+].filter(Boolean);
+
+const VOYAGE_API_KEY = process.env.VOYAGE_API_KEY || "";
+const VOYAGE_MODEL = process.env.VOYAGE_MODEL || "voyage-3-lite";
+const RAG_TOP_K = Number(process.env.RAG_TOP_K) || 5;
+
+// Norwegian + English stopwords for TF-IDF.
+const RAG_STOPWORDS = new Set([
+  "og", "i", "en", "et", "på", "for", "til", "av", "med", "som", "er", "den",
+  "det", "de", "har", "ikke", "kan", "vi", "du", "din", "om", "fra", "ved",
+  "men", "eller", "der", "her", "ble", "blir", "vil", "skal", "også", "etter",
+  "før", "noen", "andre", "alle", "mer", "mest", "kun", "bare", "slik", "denne",
+  "dette", "disse", "hva", "hvor", "hvordan",
+  "the", "a", "and", "to", "of", "in", "is", "it", "for", "with", "on", "or",
+  "as", "by", "be", "are", "this", "that", "from",
+]);
+
+let RAG_INDEX = null; // { generatedAt, model, chunks: [...] }
+let RAG_IDF = null;   // Map<term, idf>
+let RAG_TFIDF = null; // Array<Map<term, weight>> aligned to chunks
+
+function tokenize(s) {
+  return String(s)
+    .toLowerCase()
+    .normalize("NFC")
+    .replace(/[^a-zà-ÿæøå0-9\s]/gi, " ")
+    .split(/\s+/)
+    .filter((w) => w.length >= 2 && !RAG_STOPWORDS.has(w));
+}
+
+function loadRagIndex() {
+  if (RAG_INDEX) return RAG_INDEX;
+  let file = null;
+  for (const c of DOCS_RAG_INDEX_CANDIDATES) {
+    if (existsSync(c)) { file = c; break; }
+  }
+  if (!file) {
+    console.warn("[docs-ask] No docs-rag-index.json found. Run `pnpm docs:index`.");
+    RAG_INDEX = { chunks: [], model: "none" };
+    return RAG_INDEX;
+  }
+  const raw = readFileSync(file, "utf-8");
+  RAG_INDEX = JSON.parse(raw);
+  console.log(
+    `[docs-ask] loaded ${RAG_INDEX.chunks.length} chunks (model=${RAG_INDEX.model}) from ${file}`,
+  );
+
+  // Build TF-IDF index if no embeddings shipped.
+  const hasEmbeddings = RAG_INDEX.chunks.some(
+    (c) => c.embedding && c.embedding.length > 0,
+  );
+  if (!hasEmbeddings) {
+    const df = new Map();
+    const tfs = RAG_INDEX.chunks.map((c) => {
+      const text = `${c.pageTitle} ${c.section} ${c.content}`;
+      const toks = tokenize(text);
+      const tf = new Map();
+      for (const t of toks) tf.set(t, (tf.get(t) || 0) + 1);
+      for (const t of new Set(toks)) df.set(t, (df.get(t) || 0) + 1);
+      return tf;
+    });
+    const N = RAG_INDEX.chunks.length || 1;
+    RAG_IDF = new Map();
+    for (const [t, d] of df) RAG_IDF.set(t, Math.log((N + 1) / (d + 1)) + 1);
+    RAG_TFIDF = tfs.map((tf) => {
+      const v = new Map();
+      for (const [t, c] of tf) v.set(t, c * (RAG_IDF.get(t) || 0));
+      return v;
+    });
+    console.log(`[docs-ask] built TF-IDF index over ${df.size} unique terms`);
+  }
+
+  return RAG_INDEX;
+}
+
+function cosine(a, b) {
+  // Both are Map<string, number>. Normalize on the fly.
+  let dot = 0;
+  let na = 0;
+  let nb = 0;
+  for (const v of a.values()) na += v * v;
+  for (const v of b.values()) nb += v * v;
+  if (na === 0 || nb === 0) return 0;
+  const [small, big] = a.size < b.size ? [a, b] : [b, a];
+  for (const [k, v] of small) {
+    const w = big.get(k);
+    if (w !== undefined) dot += v * w;
+  }
+  return dot / (Math.sqrt(na) * Math.sqrt(nb));
+}
+
+function cosineVec(a, b) {
+  // a, b: number[]
+  const n = Math.min(a.length, b.length);
+  let dot = 0;
+  let na = 0;
+  let nb = 0;
+  for (let i = 0; i < n; i++) {
+    dot += a[i] * b[i];
+    na += a[i] * a[i];
+    nb += b[i] * b[i];
+  }
+  if (na === 0 || nb === 0) return 0;
+  return dot / (Math.sqrt(na) * Math.sqrt(nb));
+}
+
+async function embedQueryVoyage(q) {
+  if (!VOYAGE_API_KEY) return null;
+  const r = await fetch("https://api.voyageai.com/v1/embeddings", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${VOYAGE_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      input: [q],
+      model: VOYAGE_MODEL,
+      input_type: "query",
+    }),
+  });
+  if (!r.ok) {
+    console.warn("[docs-ask] Voyage embed failed:", r.status);
+    return null;
+  }
+  const j = await r.json();
+  return j.data?.[0]?.embedding ?? null;
+}
+
+async function retrieveTopK(query, k) {
+  const idx = loadRagIndex();
+  if (idx.chunks.length === 0) return [];
+  const usingEmbeddings = idx.chunks.some(
+    (c) => c.embedding && c.embedding.length > 0,
+  );
+  let scores;
+  if (usingEmbeddings) {
+    const qvec = await embedQueryVoyage(query);
+    if (!qvec) return [];
+    scores = idx.chunks.map((c, i) => ({
+      i,
+      s: c.embedding && c.embedding.length > 0 ? cosineVec(qvec, c.embedding) : 0,
+    }));
+  } else {
+    const qTokens = tokenize(query);
+    const qTf = new Map();
+    for (const t of qTokens) qTf.set(t, (qTf.get(t) || 0) + 1);
+    const qVec = new Map();
+    for (const [t, c] of qTf) qVec.set(t, c * (RAG_IDF?.get(t) || 0));
+    scores = RAG_TFIDF.map((cvec, i) => ({ i, s: cosine(qVec, cvec) }));
+  }
+  scores.sort((a, b) => b.s - a.s);
+  return scores
+    .slice(0, k)
+    .filter((x) => x.s > 0)
+    .map((x) => ({ ...idx.chunks[x.i], _score: x.s }));
+}
+
+async function handleDocsAsk(req, res, body, ip) {
+  if (!ANTHROPIC_API_KEY) {
+    return json(res, 503, { error: "AI search not configured" });
+  }
+  if (rateLimited(ip, 20)) {
+    return json(res, 429, { error: "Slow down" });
+  }
+  const query = typeof body?.query === "string" ? body.query.trim() : "";
+  if (!query || query.length > 500) {
+    return json(res, 400, { error: "Ugyldig søk" });
+  }
+
+  const top = await retrieveTopK(query, RAG_TOP_K);
+  if (top.length === 0) {
+    return json(res, 200, {
+      answer:
+        "Beklager — jeg fant ingen relevante seksjoner i dokumentasjonen for spørsmålet. Prøv å omformulere, eller bla i sidemenyen.",
+      citations: [],
+      retrieved: [],
+      model: "claude-haiku-4-5",
+      generatedAt: new Date().toISOString(),
+    });
+  }
+
+  const contextBlock = top
+    .map(
+      (c, i) =>
+        `[#${i + 1}] (slug=${c.href}) ${c.pageTitle} — ${c.section}\n${c.content}`,
+    )
+    .join("\n\n---\n\n");
+
+  const system = `Du er Digilists dokumentasjons-assistent. Du svarer ALLTID på norsk bokmål basert KUN på utdragene under, som er hentet via semantisk søk i dokumentasjonen.
+
+Krav:
+- Hold svaret kort og handlingsorientert (1-3 korte avsnitt).
+- Bruk konkrete eksempler fra utdragene — aldri generelle SaaS-fraser.
+- Avslutt med "Kilder:" og en kort liste med [TITLE](slug) for de utdragene du faktisk brukte.
+- Hvis utdragene ikke besvarer spørsmålet, si det rett ut og foreslå hvilken side brukeren bør lese.
+- Aldri finn opp funksjoner, endepunkter eller fakta som ikke er i utdragene.
+
+Utdrag (rangert etter relevans):
+
+${contextBlock}`;
+
+  try {
+    const upstream = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "x-api-key": ANTHROPIC_API_KEY,
+        "anthropic-version": "2023-06-01",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "claude-haiku-4-5-20251001",
+        max_tokens: 800,
+        system,
+        messages: [{ role: "user", content: query }],
+      }),
+    });
+    if (!upstream.ok) {
+      const errText = await upstream.text();
+      console.error("docs-ask anthropic error:", upstream.status, errText.slice(0, 200));
+      return json(res, 502, { error: "AI-tjenesten svarte med feil" });
+    }
+    const data = await upstream.json();
+    const answer = (data.content || [])
+      .filter((c) => c.type === "text")
+      .map((c) => c.text)
+      .join("\n")
+      .trim();
+
+    const citations = [];
+    const seen = new Set();
+    const re = /\[([^\]]+)\]\((\/[^\s)]+)\)/g;
+    let m;
+    while ((m = re.exec(answer))) {
+      const href = m[2];
+      if (seen.has(href)) continue;
+      seen.add(href);
+      const chunk = top.find((c) => c.href === href || c.href === href.replace(/\/$/, ""));
+      citations.push({
+        title: m[1],
+        href,
+        page_title: chunk?.pageTitle ?? m[1],
+        section: chunk?.section ?? null,
+      });
+    }
+
+    return json(res, 200, {
+      answer,
+      citations,
+      retrieved: top.map((c) => ({
+        href: c.href,
+        page_title: c.pageTitle,
+        section: c.section,
+        score: Number(c._score?.toFixed(4) || 0),
+      })),
+      model: "claude-haiku-4-5",
+      retrieval: RAG_INDEX?.model || "tfidf",
+      generatedAt: new Date().toISOString(),
+    });
+  } catch (e) {
+    console.error("/api/docs-ask error:", e);
+    return json(res, 500, { error: "Intern feil" });
+  }
+}
+
 // ---------- /api/inquiry (Resend email delivery)
 async function handleInquiry(req, res, body, ip) {
   if (!RESEND_API_KEY) {
@@ -308,6 +594,34 @@ const server = createServer(async (req, res) => {
     return;
   }
 
+  if (req.method === "GET" && (pathname === "/api" || pathname === "/api/")) {
+    return json(res, 200, {
+      service: "digilist-api",
+      docs: "https://docs.digilist.no/api/",
+      endpoints: {
+        "GET  /api/health": "Liveness + which integrations are configured",
+        "POST /api/chat": "Chatbot (Anthropic Claude proxy, same-origin only)",
+        "POST /api/inquiry": "Send a contact / book-demo form via Resend",
+        "POST /api/docs-ask":
+          "RAG over docs corpus → Claude answer + citations",
+        "GET  /api/audits/public-summary":
+          "Scrubbed surface scores for the public Transparens page",
+        "GET  /api/audits/state":
+          "Full audit snapshot (admin basic-auth required)",
+        "POST /api/audits/run":
+          "Trigger a fresh audit run (admin basic-auth required)",
+        "POST /api/audits/recommend":
+          "Claude fix recommendation for a single finding (admin)",
+        "GET  /api/content/state": "Vekst-harness state (admin basic-auth)",
+        "POST /api/content/run": "Trigger content pipeline (admin)",
+        "POST /api/content/drafts/:id/{approve,reject,edit,publish}":
+          "Draft mutations (admin)",
+        "GET  /api/agents": "Specialist agent catalog (admin)",
+        "POST /api/agents/chat": "Multi-agent chat (admin)",
+      },
+    });
+  }
+
   if (req.method === "GET" && (pathname === "/api/health" || pathname === "/health")) {
     return json(res, 200, {
       ok: true,
@@ -340,14 +654,41 @@ const server = createServer(async (req, res) => {
     // Public, no-auth, scrubbed summary for /transparens. Returns only:
     //  - per-target scores (no findings, no URLs)
     //  - ecosystem roll-up
+    //  - compliance posture (implementation % per framework)
     //  - generatedAt
     // Never includes specific finding messages, URLs, or sensitive paths.
     try {
+      // Fetch compliance posture from Convex (public, no-auth query).
+      // Best-effort — if Convex is unreachable, we omit posture rather
+      // than failing the whole endpoint.
+      let posture = null;
+      const convexUrl = process.env.VITE_CONVEX_URL || process.env.CONVEX_URL;
+      if (convexUrl) {
+        try {
+          const r = await fetch(`${convexUrl.replace(/\/$/, "")}/api/query`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              path: "compliance/state:publicSummary",
+              args: {},
+              format: "json",
+            }),
+          });
+          if (r.ok) {
+            const body = await r.json();
+            if (body.status === "success") posture = body.value;
+          }
+        } catch {
+          /* silent fallback */
+        }
+      }
+
       if (!existsSync(AUDIT_SNAPSHOT_PATH)) {
         return json(res, 200, {
           generatedAt: new Date().toISOString(),
           surfaces: [],
           ecosystem: null,
+          posture,
         });
       }
       const raw = readFileSync(AUDIT_SNAPSHOT_PATH, "utf-8");
@@ -387,6 +728,7 @@ const server = createServer(async (req, res) => {
         generatedAt: snap.generatedAt,
         surfaces,
         ecosystem: snap.ecosystemSummary || null,
+        posture,
       });
     } catch (e) {
       return json(res, 500, { error: String(e?.message || e) });
@@ -415,6 +757,9 @@ const server = createServer(async (req, res) => {
   }
   if (pathname === "/api/inquiry" || pathname === "/inquiry") {
     return handleInquiry(req, res, body, ip);
+  }
+  if (pathname === "/api/docs-ask") {
+    return handleDocsAsk(req, res, body, ip);
   }
   if (pathname === "/api/audits/run") {
     if (!authorized(req)) {
@@ -1261,11 +1606,20 @@ function handleAuditRun(res, body) {
     if (!state) return;
     state.status = code === 0 ? "ok" : "error";
     state.finishedAt = new Date().toISOString();
-    // No snapshot regen needed — the orchestrator writes directly to
-    // Convex and the dashboard re-renders reactively. Old behaviour
-    // (regen JSON, copy to AUDIT_SNAPSHOT_PATH) was removed with the
-    // SQLite cleanup.
   });
+
+  // Fire PSI performance scan in parallel — runs in Convex (talks to
+  // Google PageSpeed Insights API directly). The dashboard's "Kjør
+  // full skanning" expects "everything" to run, including CWV.
+  const psiArgs = ["audit:psi"];
+  if (target) psiArgs.push("--", "--target", target);
+  const psiChild = spawn("pnpm", psiArgs, {
+    cwd: AUDIT_REPO_DIR,
+    env: { ...process.env, FORCE_COLOR: "0" },
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+  psiChild.stdout.on("data", (c) => append(`[psi] ${c.toString()}`));
+  psiChild.stderr.on("data", (c) => append(`[psi:err] ${c.toString()}`));
   // Reap older entries
   if (auditRuns.size > 50) {
     const first = auditRuns.keys().next().value;

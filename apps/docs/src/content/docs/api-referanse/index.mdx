@@ -5,6 +5,22 @@ sidebar:
   order: 1
 ---
 
+import HowdygoDemo from "../../../components/widgets/HowdygoDemo.astro";
+
+<HowdygoDemo
+  caption="INTERAKTIV DEMO · API"
+  title="Første API-kall på 90 sekunder"
+  description="curl mot /api/docs-ask, autentiser admin-endepunkter med Basic auth, og book en demo via /api/inquiry — alt i én klikkbar flyt."
+  duration="1 min 30 s"
+  steps={[
+    { num: "01", label: "GET /api/health — sjekk hva som er konfigurert" },
+    { num: "02", label: "POST /api/docs-ask — RAG-svar med kilder" },
+    { num: "03", label: "Basic auth med admin:passord" },
+    { num: "04", label: "POST /api/audits/run — trigger ny scan" },
+    { num: "05", label: "Webhooks: Stripe, Vipps, Signicat" },
+  ]}
+/>
+
 Digilist eksponerer tre kategorier endepunkter:
 
 - **Public** — chatbot, kontaktskjema. Same-origin via nginx på digilist.no.

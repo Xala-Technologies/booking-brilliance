@@ -1,13 +1,8 @@
 ---
 /**
- * Editorial footer — mirrors digilist.no marketing-site footer:
- *   - hairline rule above
- *   - three column grid: brand / sitemap / colophon
- *   - JetBrains Mono captions in uppercase
- *   - Fraunces wordmark, opsz 36
- *
- * Pagination links from Starlight are rendered inside the article (above
- * this component) so we don't pull <Pagination /> in here.
+ * Engaging footer — "Fortsett å lese" related-topic cards instead of
+ * the duplicate sidebar nav. Pagination is rendered above by Starlight's
+ * default. The footer shows curated related docs + a minimal colophon.
  */
 import type { Props } from "@astrojs/starlight/props";
 import Pagination from "@astrojs/starlight/components/Pagination.astro";
@@ -15,6 +10,58 @@ import LastUpdated from "@astrojs/starlight/components/LastUpdated.astro";
 import EditLink from "@astrojs/starlight/components/EditLink.astro";
 
 const year = new Date().getFullYear();
+
+// "Continue reading" curated cross-links — surfaced beneath every page.
+// Each card has caption, title, blurb, link. Filtered to exclude the
+// current page so users always see something new.
+const currentSlug = Astro.props.entry?.id ?? "";
+
+const ALL_RELATED = [
+  {
+    slug: "kom-i-gang/innbygger",
+    caption: "GUIDE",
+    title: "Booking på 90 sekunder",
+    blurb: "Følg en innbygger fra Google-søk til bekreftelse på e-post.",
+    href: "/kom-i-gang/innbygger/",
+    duration: "5 min lesning",
+  },
+  {
+    slug: "admin/vekst",
+    caption: "RUNBOOK",
+    title: "Growth Intelligence-harness",
+    blurb: "Multi-agent system som finner keyword-muligheter og skriver drafts.",
+    href: "/admin/vekst/",
+    duration: "8 min lesning",
+  },
+  {
+    slug: "compliance/ssa-l",
+    caption: "SAMSVAR",
+    title: "SSA-L 2026 sikkerhetsbilag",
+    blurb: "Statens standardavtale-L bilag 7 — Digilists samsvarsmatrise.",
+    href: "/compliance/ssa-l/",
+    duration: "6 min lesning",
+  },
+  {
+    slug: "api/content",
+    caption: "API",
+    title: "Content Agent API",
+    blurb: "Vekst-harness — keyword discovery, draft generation, approval queue.",
+    href: "/api-referanse/content/",
+    duration: "4 min lesning",
+  },
+  {
+    slug: "kom-i-gang/saksbehandler",
+    caption: "GUIDE",
+    title: "Saksbehandler-konsollen",
+    blurb: "Godkjenn, avvis og åpne chat med innbygger uten å forlate køen.",
+    href: "/kom-i-gang/saksbehandler/",
+    duration: "5 min lesning",
+  },
+];
+
+const related = ALL_RELATED.filter(
+  (r) => !currentSlug.startsWith(r.slug),
+).slice(0, 3);
 ---
 
 <Pagination {...Astro.props} />
@@ -24,47 +71,42 @@ const year = new Date().getFullYear();
   <EditLink {...Astro.props} />
 </div>
 
-<footer class="dg-footer">
-  <div class="dg-footer__rule"></div>
-  <div class="dg-footer__grid">
-    <div class="dg-footer__brand">
-      <p class="dg-footer__wordmark">Digilist</p>
-      <p class="dg-footer__tagline">
-        Booking-plattformen norske kommuner og utleiere stoler på.
-      </p>
-    </div>
-
-    <nav class="dg-footer__nav" aria-label="Docs sections">
-      <p class="dg-footer__heading">DOKUMENTASJON</p>
-      <ul>
-        <li><a href="/kom-i-gang/">Kom i gang</a></li>
-        <li><a href="/admin/">Admin-runbooks</a></li>
-        <li><a href="/api/">API-referanse</a></li>
-        <li><a href="/compliance/">Compliance</a></li>
-      </ul>
-    </nav>
-
-    <nav class="dg-footer__nav" aria-label="External">
-      <p class="dg-footer__heading">EKSTERNT</p>
-      <ul>
-        <li><a href="https://digilist.no/">digilist.no →</a></li>
-        <li><a href="https://digilist.no/transparens">Transparens →</a></li>
-        <li><a href="https://digilist.no/admin/intelligence">Intelligence-dashbord →</a></li>
-        {/* LinkedIn company page not yet provisioned — re-enable once the URL
-            (e.g. https://www.linkedin.com/company/<slug>) is confirmed. */}
-        {/* <li><a href="https://www.linkedin.com/company/digilistno">LinkedIn →</a></li> */}
-      </ul>
-    </nav>
+<section class="dg-related" aria-labelledby="dg-related-heading">
+  <header class="dg-related__head">
+    <p class="dg-related__kicker">FORTSETT Å LESE</p>
+    <h2 class="dg-related__title" id="dg-related-heading">
+      Beslektede emner
+    </h2>
+  </header>
+  <div class="dg-related__grid">
+    {related.map((r, i) => (
+      <a class="dg-related__card" href={r.href}>
+        <span class="dg-related__num">0{i + 1}</span>
+        <span class="dg-related__body">
+          <span class="dg-related__caption">{r.caption}</span>
+          <span class="dg-related__name">{r.title}</span>
+          <span class="dg-related__blurb">{r.blurb}</span>
+          <span class="dg-related__meta">
+            <span class="dg-related__time">{r.duration}</span>
+            <span class="dg-related__arrow" aria-hidden="true">→</span>
+          </span>
+        </span>
+      </a>
+    ))}
   </div>
+</section>
 
+<footer class="dg-footer">
   <div class="dg-footer__colophon">
     <span>© {year} DIGILIST AS</span>
     <span class="dg-footer__sep" aria-hidden="true">·</span>
-    <span>BYGGET MED OMHU I NORGE</span>
+    <span>BYGGET I NORGE</span>
     <span class="dg-footer__sep" aria-hidden="true">·</span>
     <a href="https://digilist.no/personvern">PERSONVERN</a>
     <span class="dg-footer__sep" aria-hidden="true">·</span>
     <a href="https://digilist.no/salgsvilkar">SALGSVILKÅR</a>
+    <span class="dg-footer__sep" aria-hidden="true">·</span>
+    <a href="https://digilist.no/transparens">TRANSPARENS</a>
   </div>
 </footer>
 
@@ -79,87 +121,154 @@ const year = new Date().getFullYear();
     margin-block-start: 3rem;
     border-block-start: 1px solid hsl(var(--rule));
     font-family: "JetBrains Mono", ui-monospace, monospace;
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     letter-spacing: 0.1em;
     color: hsl(var(--ink-faint));
   }
 
-  .dg-footer {
-    margin-block-start: 4rem;
-    padding: 3rem 0 2rem;
+  /* ── Related topics ─────────────────────────────────────── */
+  .dg-related {
+    margin-block-start: 3.5rem;
+    padding-block: 3rem;
+    border-block-start: 1px solid hsl(var(--rule));
   }
 
-  .dg-footer__rule {
-    height: 1px;
-    background: hsl(var(--rule));
-    margin-block-end: 3rem;
+  .dg-related__head {
+    margin-block-end: 2rem;
   }
 
-  .dg-footer__grid {
+  .dg-related__kicker {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: hsl(var(--accent-text));
+    margin: 0 0 0.55rem;
+  }
+
+  .dg-related__title {
+    font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
+    font-variation-settings: "opsz" 72, "wght" 480, "SOFT" 30, "WONK" 0;
+    font-size: 2rem;
+    line-height: 1.15;
+    color: hsl(var(--ink));
+    margin: 0;
+  }
+
+  .dg-related__grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    gap: 2.5rem;
+    gap: 1rem;
   }
 
   @media (min-width: 50em) {
-    .dg-footer__grid {
-      grid-template-columns: minmax(0, 1.5fr) repeat(2, minmax(0, 1fr));
-      gap: 3rem;
+    .dg-related__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.25rem;
     }
   }
 
-  .dg-footer__wordmark {
+  .dg-related__card {
+    position: relative;
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: 1.1rem;
+    padding: 1.75rem 1.5rem;
+    border: 0.5px solid hsl(var(--rule-strong));
+    border-radius: var(--dg-radius, 8px);
+    background: hsl(var(--paper));
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+    transition:
+      background 200ms var(--ease-editorial),
+      border-color 200ms var(--ease-editorial),
+      transform 200ms var(--ease-editorial),
+      box-shadow 200ms var(--ease-editorial);
+  }
+
+  /* Hover lift + accent border + shifted arrow */
+  .dg-related__card:hover {
+    background: color-mix(in srgb, hsl(var(--accent-tinted)) 70%, hsl(var(--paper)));
+    border-color: hsl(var(--accent-text));
+    transform: translateY(-3px);
+    box-shadow: 0 18px 36px -22px hsla(var(--navy) / 0.25);
+  }
+
+  .dg-related__num {
     font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
-    font-variation-settings: "opsz" 36, "wght" 540, "SOFT" 30, "WONK" 0;
-    font-size: 1.75rem;
+    font-variation-settings: "opsz" 72, "wght" 480, "SOFT" 30, "WONK" 1;
+    font-size: 2.5rem;
     line-height: 1;
-    margin: 0;
-    color: hsl(var(--ink));
-  }
-
-  .dg-footer__tagline {
-    font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
+    color: hsl(var(--accent-text));
+    align-self: start;
     font-style: italic;
-    font-variation-settings: "opsz" 18, "wght" 380, "SOFT" 30, "WONK" 0;
-    font-size: 0.95rem;
-    color: hsl(var(--ink-soft));
-    margin: 0.85rem 0 0;
-    max-width: 32ch;
   }
 
-  .dg-footer__heading {
+  .dg-related__body {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .dg-related__caption {
     font-family: "JetBrains Mono", ui-monospace, monospace;
     font-size: 0.6rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: hsl(var(--accent-text));
-    margin: 0 0 1rem;
-    padding-block-end: 0.6rem;
-    border-block-end: 1px solid hsl(var(--rule));
+    margin-block-end: 0.4rem;
   }
 
-  .dg-footer__nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-  }
-
-  .dg-footer__nav a {
-    font-family: "Public Sans", system-ui, sans-serif;
-    font-size: 0.9rem;
+  .dg-related__name {
+    font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
+    font-variation-settings: "opsz" 36, "wght" 540, "SOFT" 30, "WONK" 0;
+    font-size: 1.2rem;
+    line-height: 1.2;
     color: hsl(var(--ink));
-    text-decoration: none;
-    line-height: 1.5;
-    transition: color 120ms ease;
+    margin-block-end: 0.5rem;
   }
 
-  .dg-footer__nav a:hover { color: hsl(var(--accent-text)); }
+  .dg-related__blurb {
+    font-family: "Public Sans", system-ui, sans-serif;
+    font-size: 0.92rem;
+    line-height: 1.45;
+    color: hsl(var(--ink-soft));
+    margin-block-end: 1rem;
+  }
+
+  .dg-related__meta {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding-block-start: 0.85rem;
+    border-block-start: 0.5px solid hsl(var(--rule));
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: hsl(var(--ink-faint));
+  }
+
+  .dg-related__arrow {
+    font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
+    font-variation-settings: "opsz" 24, "wght" 540, "SOFT" 25, "WONK" 1;
+    font-size: 1.1rem;
+    color: hsl(var(--accent-text));
+    transition: transform 200ms var(--ease-editorial);
+  }
+
+  .dg-related__card:hover .dg-related__arrow {
+    transform: translateX(4px);
+  }
+
+  /* ── Footer colophon — single line at very bottom ────── */
+  .dg-footer {
+    padding-block: 2rem 2.5rem;
+  }
 
   .dg-footer__colophon {
-    margin-block-start: 3rem;
     padding-block-start: 1.5rem;
     border-block-start: 1px solid hsl(var(--rule));
     display: flex;
@@ -167,7 +276,7 @@ const year = new Date().getFullYear();
     gap: 0.65rem;
     align-items: center;
     font-family: "JetBrains Mono", ui-monospace, monospace;
-    font-size: 0.6rem;
+    font-size: 0.65rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: hsl(var(--ink-faint));
@@ -176,7 +285,7 @@ const year = new Date().getFullYear();
   .dg-footer__colophon a {
     color: hsl(var(--ink-faint));
     text-decoration: none;
-    transition: color 120ms ease;
+    transition: color 120ms var(--ease-editorial);
   }
 
   .dg-footer__colophon a:hover { color: hsl(var(--accent-text)); }

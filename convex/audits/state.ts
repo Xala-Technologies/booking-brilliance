@@ -182,7 +182,16 @@ export const snapshot = query({
         a.surface.localeCompare(b.surface),
     );
 
-    // Ecosystem roll-up
+    // Ecosystem roll-up.
+    //
+    // KPI semantics — explicit so the header chips don't drift again:
+    //   • errorCount / warnCount / infoCount count DISTINCT issues
+    //     (one row in `issues`, grouped by surface + rule + severity).
+    //     Sum-of-affected-pages was confusing on the header — one
+    //     missing security header on 6 pages reads as 6 "errors" which
+    //     overstates the failure surface vs. a single broken anchor on
+    //     a single page.
+    //   • surfacesWithErrors counts surfaces with ≥1 distinct error row.
     const surfaceScores = new Map<string, number[]>();
     const surfaceErrorCount = new Map<string, number>();
     let errorCount = 0;
@@ -195,13 +204,13 @@ export const snapshot = query({
     }
     for (const issue of issues) {
       if (issue.severity === "error") {
-        errorCount += issue.affected;
+        errorCount += 1;
         surfaceErrorCount.set(
           issue.surface,
-          (surfaceErrorCount.get(issue.surface) ?? 0) + issue.affected,
+          (surfaceErrorCount.get(issue.surface) ?? 0) + 1,
         );
-      } else if (issue.severity === "warn") warnCount += issue.affected;
-      else infoCount += issue.affected;
+      } else if (issue.severity === "warn") warnCount += 1;
+      else infoCount += 1;
     }
     const surfacesTotal = enrichedTargets.filter((t) => t.is_active).length;
     const surfacesWithErrors = Array.from(surfaceErrorCount.values()).filter(

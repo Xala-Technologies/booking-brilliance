@@ -1,0 +1,731 @@
+---
+/**
+ * DocsSearch — inline dropdown search matching src/components/GlobalSearch.tsx
+ * on the marketing site:
+ *
+ *   - Real <input> styled as the search box
+ *   - On focus / click: dropdown panel anchored to the input shows
+ *     SNARVEIER + POPULÆRE SØK chip groups
+ *   - On typing: live results via Pagefind (loaded lazily)
+ *   - Keyboard: ↑/↓ navigate, ↵ select, esc close
+ *   - Click outside: close
+ *
+ * Hand-off: when the user picks a popular-search chip we open the
+ * existing Pagefind dialog pre-populated with the query so the actual
+ * search corpus + UI stays Starlight-native. The dropdown is just the
+ * empty-state and quick-pick surface.
+ *
+ * Future (v2): wire to /api/docs-ask for RAG / Claude-backed semantic
+ * search. The script below already exposes the input value as
+ * `dgSearchHandleAsk(query)` so the integration point is ready.
+ */
+---
+
+<div class="dg-search" data-dg-search>
+  <div class="dg-search__inputwrap">
+    <svg class="dg-search__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="11" cy="11" r="8"></circle>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+    <input
+      class="dg-search__input"
+      type="search"
+      placeholder="Spør AI, eller søk i Digilist…"
+      aria-label="Spør AI eller søk i dokumentasjonen"
+      autocomplete="off"
+      spellcheck="false"
+      data-dg-search-input
+    />
+    <button
+      type="button"
+      class="dg-search__ask"
+      data-dg-ask
+      aria-label="Spør AI om dette"
+      title="Spør AI (Enter)"
+    >
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 2 14.5 8.5 21 11 14.5 13.5 12 20 9.5 13.5 3 11 9.5 8.5Z"/>
+      </svg>
+      Spør AI
+    </button>
+    <kbd class="dg-search__kbd" aria-hidden="true">⌘ K</kbd>
+  </div>
+
+  <div class="dg-search__panel" data-dg-search-panel hidden>
+    <!-- Empty-state chip groups -->
+    <div class="dg-search__empty" data-dg-search-empty>
+      <section class="dg-search__group">
+        <p class="dg-search__heading">SNARVEIER</p>
+        <ul class="dg-search__chips">
+          <li><a href="/kom-i-gang/" class="dg-search__chip" data-dg-chip>Kom i gang</a></li>
+          <li><a href="/admin/" class="dg-search__chip" data-dg-chip>Admin-runbooks</a></li>
+          <li><a href="/api-referanse/" class="dg-search__chip" data-dg-chip>API-referanse</a></li>
+          <li><a href="/compliance/" class="dg-search__chip" data-dg-chip>Compliance</a></li>
+        </ul>
+      </section>
+      <section class="dg-search__group">
+        <p class="dg-search__heading">POPULÆRE SØK</p>
+        <ul class="dg-search__chips">
+          <li><button type="button" class="dg-search__chip" data-dg-query="sesongleie">Sesongleie</button></li>
+          <li><button type="button" class="dg-search__chip" data-dg-query="vipps">Vipps</button></li>
+          <li><button type="button" class="dg-search__chip" data-dg-query="SSA-L 2026">SSA-L 2026</button></li>
+          <li><button type="button" class="dg-search__chip" data-dg-query="BankID">BankID</button></li>
+          <li><button type="button" class="dg-search__chip" data-dg-query="EHF">EHF</button></li>
+          <li><button type="button" class="dg-search__chip" data-dg-query="ID-porten">ID-porten</button></li>
+          <li><button type="button" class="dg-search__chip" data-dg-query="kommune">Kommune</button></li>
+          <li><button type="button" class="dg-search__chip" data-dg-query="vekst harness">Vekst-harness</button></li>
+        </ul>
+      </section>
+      <footer class="dg-search__footer">
+        <span><kbd>↓</kbd> bla</span>
+        <span><kbd>↵</kbd> velg</span>
+        <span><kbd>esc</kbd> lukk</span>
+      </footer>
+    </div>
+
+    <!-- AI answer pane (Claude RAG over docs corpus). -->
+    <div class="dg-search__ai" data-dg-search-ai hidden></div>
+
+    <!-- Live results (Pagefind handoff). -->
+    <div class="dg-search__results" data-dg-search-results hidden></div>
+  </div>
+</div>
+
+<script is:inline>
+  (function(){
+    const root = document.querySelector('[data-dg-search]');
+    if (!root) return;
+    const input = root.querySelector('[data-dg-search-input]');
+    const panel = root.querySelector('[data-dg-search-panel]');
+    const emptyEl = root.querySelector('[data-dg-search-empty]');
+    const resultsEl = root.querySelector('[data-dg-search-results]');
+
+    function open() {
+      panel.hidden = false;
+      root.classList.add('dg-search--open');
+    }
+    function close() {
+      panel.hidden = true;
+      root.classList.remove('dg-search--open');
+    }
+
+    input.addEventListener('focus', open);
+    input.addEventListener('click', open);
+
+    // Click outside closes the panel.
+    document.addEventListener('click', (e) => {
+      if (!root.contains(e.target)) close();
+    });
+
+    // ⌘K / Ctrl+K focuses the input (matches Pagefind default).
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        input.focus();
+        input.select();
+      }
+      if (e.key === 'Escape' && root.classList.contains('dg-search--open')) {
+        close();
+        input.blur();
+      }
+    });
+
+    // Chip clicks — popular-search chips run a live search via Pagefind.
+    // Snarvei chips are plain <a> links → browser handles navigation.
+    root.querySelectorAll('[data-dg-query]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const q = btn.getAttribute('data-dg-query') || '';
+        input.value = q;
+        runSearch(q);
+      });
+    });
+
+    let pagefindReady = null;
+    async function ensurePagefind() {
+      if (pagefindReady) return pagefindReady;
+      pagefindReady = (async () => {
+        // Pagefind ships JS + WASM at /pagefind/ when Starlight builds.
+        // Note: the docs nginx vhost CSP must include 'wasm-unsafe-eval'.
+        try {
+          const mod = await import('/pagefind/pagefind.js');
+          if (typeof mod.init === 'function') {
+            await mod.init();
+          }
+          return mod;
+        } catch (e) {
+          console.warn('[docs-search] Pagefind unavailable', e);
+          return null;
+        }
+      })();
+      return pagefindReady;
+    }
+
+    async function runSearch(query) {
+      open();
+      if (!query.trim()) {
+        emptyEl.hidden = false;
+        resultsEl.hidden = true;
+        resultsEl.innerHTML = '';
+        return;
+      }
+      emptyEl.hidden = true;
+      resultsEl.hidden = false;
+      resultsEl.innerHTML = '<p class="dg-search__loading">Søker …</p>';
+      const pf = await ensurePagefind();
+      if (!pf) {
+        resultsEl.innerHTML = '<p class="dg-search__empty-msg">Søk er ikke tilgjengelig akkurat nå.</p>';
+        return;
+      }
+      try {
+        const search = await pf.search(query);
+        const items = await Promise.all(search.results.slice(0, 6).map((r) => r.data()));
+        if (items.length === 0) {
+          resultsEl.innerHTML = '<p class="dg-search__empty-msg">Ingen treff for «' + escape(query) + '».</p>';
+          return;
+        }
+        resultsEl.innerHTML = items.map((it) => {
+          const title = it.meta?.title || it.url;
+          const url = it.url;
+          const excerpt = it.excerpt || '';
+          return '<a class="dg-search__result" href="' + url + '">'
+               +   '<span class="dg-search__result-title">' + escape(title) + '</span>'
+               +   '<span class="dg-search__result-excerpt">' + excerpt + '</span>'
+               + '</a>';
+        }).join('');
+      } catch (e) {
+        console.warn('[docs-search] search failed', e);
+        resultsEl.innerHTML = '<p class="dg-search__empty-msg">Kunne ikke søke akkurat nå.</p>';
+      }
+    }
+
+    function escape(s) {
+      return String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#x27;'}[c]));
+    }
+
+    let timer;
+    input.addEventListener('input', () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => runSearch(input.value), 140);
+    });
+
+    // ── RAG / AI ask ────────────────────────────────────────────
+    const askBtn = root.querySelector('[data-dg-ask]');
+    const aiEl = root.querySelector('[data-dg-search-ai]');
+
+    async function ask(query) {
+      const q = (query || input.value).trim();
+      if (!q) {
+        input.focus();
+        return;
+      }
+      open();
+      emptyEl.hidden = true;
+      resultsEl.hidden = true;
+      aiEl.hidden = false;
+      aiEl.innerHTML =
+        '<div class="dg-search__ai-head">' +
+          '<span class="dg-search__ai-badge">SPØR AI</span>' +
+          '<span class="dg-search__ai-q">' + escape(q) + '</span>' +
+        '</div>' +
+        '<p class="dg-search__loading">Tenker …</p>';
+      try {
+        const r = await fetch('/api/docs-ask', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query: q }),
+        });
+        if (!r.ok) {
+          const e = await r.json().catch(() => ({}));
+          aiEl.querySelector('.dg-search__loading').textContent =
+            e.error || 'AI-svaret feilet.';
+          return;
+        }
+        const data = await r.json();
+        var html = '<div class="dg-search__ai-head">' +
+            '<span class="dg-search__ai-badge">SPØR AI</span>' +
+            '<span class="dg-search__ai-q">' + escape(q) + '</span>' +
+          '</div>' +
+          '<div class="dg-search__ai-body">' + renderMd(data.answer || '') + '</div>';
+        if (data.citations && data.citations.length) {
+          html += '<div class="dg-search__ai-cites">' +
+            '<p class="dg-search__ai-cites-head">KILDER</p>' +
+            '<ul>' +
+              data.citations.map(function(c){
+                return '<li><a href="' + c.href + '">' + escape(c.page_title || c.title) + ' <span aria-hidden="true">→</span></a></li>';
+              }).join('') +
+            '</ul></div>';
+        }
+        aiEl.innerHTML = html;
+      } catch (e) {
+        aiEl.querySelector('.dg-search__loading').textContent = 'AI er ikke tilgjengelig akkurat nå.';
+      }
+    }
+
+    // Minimal markdown renderer — handles bold, italic, links, lists, paragraphs.
+    function renderMd(s) {
+      var lines = s.split(/\r?\n/);
+      var out = [];
+      var inList = false;
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        var li = line.match(/^\s*[-*]\s+(.*)$/);
+        if (li) {
+          if (!inList) { out.push('<ul>'); inList = true; }
+          out.push('<li>' + inlineMd(li[1]) + '</li>');
+          continue;
+        }
+        if (inList) { out.push('</ul>'); inList = false; }
+        if (!line.trim()) { out.push(''); continue; }
+        out.push('<p>' + inlineMd(line) + '</p>');
+      }
+      if (inList) out.push('</ul>');
+      return out.join('\n');
+    }
+    function inlineMd(s) {
+      return escape(s)
+        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+        .replace(/`([^`]+)`/g, '<code>$1</code>')
+        .replace(/\[([^\]]+)\]\((\/[^\s)]+)\)/g,
+          '<a href="$2">$1</a>');
+    }
+
+    if (askBtn) askBtn.addEventListener('click', () => ask());
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        ask();
+      }
+    });
+
+    window.dgSearchHandleAsk = ask;
+  })();
+</script>
+
+<style is:global>
+  /* Global scope so dynamic innerHTML (Pagefind result rows + AI answer
+   * markdown) gets styled. Astro's default scoped CSS only applies to
+   * tags rendered at component-build time. */
+  .dg-search {
+    position: relative;
+    width: 100%;
+    max-width: 35rem;          /* +10% over the previous 32rem cap */
+    margin-inline: auto;
+  }
+
+  .dg-search__inputwrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 3rem;
+    padding-inline: 1rem 0.6rem;
+    background: hsl(var(--paper-deep));
+    border: 0.5px solid hsl(var(--rule-strong));
+    border-radius: 8px;
+    transition:
+      border-color 160ms var(--ease-editorial),
+      background 160ms var(--ease-editorial),
+      box-shadow 160ms var(--ease-editorial);
+  }
+
+  .dg-search--open .dg-search__inputwrap,
+  .dg-search__inputwrap:focus-within {
+    border-color: hsl(var(--accent-text));
+    background: hsl(var(--paper));
+    box-shadow: 0 0 0 4px hsl(var(--accent-tinted));
+  }
+
+  .dg-search__icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    color: hsl(var(--accent-text));
+    margin-inline-end: 0.6rem;
+  }
+
+  .dg-search__input {
+    flex: 1;
+    height: 100%;
+    background: transparent;
+    border: 0;
+    outline: 0 !important;
+    box-shadow: none !important;
+    font-family: "Public Sans", system-ui, sans-serif;
+    font-size: 1rem;
+    color: hsl(var(--ink));
+  }
+
+  /* The wrap is the focus indicator, not the input — kill any browser
+   * default ring/highlight on the input itself. */
+  .dg-search__input:focus,
+  .dg-search__input:focus-visible {
+    outline: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .dg-search__input::placeholder {
+    color: hsl(var(--ink-faint));
+  }
+
+  /* Remove the native clear button on type=search */
+  .dg-search__input::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .dg-search__kbd {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.72rem;
+    background: hsl(var(--paper));
+    border: 0.5px solid hsl(var(--rule-strong));
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+    color: hsl(var(--ink-soft));
+    flex-shrink: 0;
+    line-height: 1;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── Dropdown panel ──────────────────────────────────────── */
+  .dg-search__panel {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    inset-inline: 0;
+    padding: 1.25rem;
+    background: hsl(var(--paper));
+    border: 0.5px solid hsl(var(--rule-strong));
+    border-radius: 10px;
+    box-shadow: 0 24px 60px -28px hsla(var(--navy) / 0.28);
+    z-index: 60;
+  }
+
+  .dg-search__group + .dg-search__group {
+    margin-block-start: 1rem;
+  }
+
+  .dg-search__heading {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: hsl(var(--accent-text));
+    font-weight: 600;
+    margin: 0 0 0.65rem;
+  }
+
+  .dg-search__chips {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .dg-search__chip {
+    display: inline-flex;
+    align-items: center;
+    font-family: "Public Sans", system-ui, sans-serif;
+    font-size: 0.875rem;
+    line-height: 1.2;
+    color: hsl(var(--ink));
+    background: hsl(var(--paper));
+    border: 0.5px solid hsl(var(--rule-strong));
+    border-radius: 999px;
+    padding: 0.45rem 0.9rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background 140ms var(--ease-editorial),
+      color 140ms var(--ease-editorial),
+      border-color 140ms var(--ease-editorial),
+      transform 140ms var(--ease-editorial);
+  }
+
+  .dg-search__chip:hover,
+  .dg-search__chip:focus-visible {
+    background: hsl(var(--accent-tinted));
+    color: hsl(var(--accent-text));
+    border-color: hsl(var(--accent-text));
+    outline: 0;
+  }
+
+  .dg-search__chip:active { transform: scale(0.97); }
+
+  .dg-search__footer {
+    margin-block-start: 1rem;
+    padding-block-start: 0.85rem;
+    border-block-start: 0.5px solid hsl(var(--rule));
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: hsl(var(--ink-faint));
+  }
+
+  .dg-search__footer kbd {
+    font-family: inherit;
+    font-size: inherit;
+    background: hsl(var(--paper-deep));
+    border: 0.5px solid hsl(var(--rule));
+    border-radius: 3px;
+    padding: 0.1rem 0.35rem;
+    margin-inline-end: 0.4rem;
+    color: hsl(var(--ink));
+  }
+
+  /* ── Live results ────────────────────────────────────────── */
+  .dg-search__loading,
+  .dg-search__empty-msg {
+    font-family: "Public Sans", system-ui, sans-serif;
+    font-size: 0.9rem;
+    color: hsl(var(--ink-soft));
+    padding: 0.5rem 0;
+    margin: 0;
+  }
+
+  .dg-search__results {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .dg-search__result {
+    display: block;
+    padding: 0.75rem 0.85rem;
+    border-radius: 6px;
+    border: 0.5px solid transparent;
+    text-decoration: none;
+    color: inherit;
+    transition:
+      background 120ms var(--ease-editorial),
+      border-color 120ms var(--ease-editorial);
+  }
+
+  .dg-search__result + .dg-search__result {
+    border-block-start: 0.5px solid hsl(var(--rule));
+    border-radius: 0;
+  }
+
+  .dg-search__result:hover,
+  .dg-search__result:focus-visible {
+    background: hsl(var(--accent-tinted));
+    border-color: hsl(var(--accent-text));
+    outline: 0;
+  }
+
+  .dg-search__result-title {
+    display: block;
+    font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
+    font-variation-settings: "opsz" 24, "wght" 540, "SOFT" 30, "WONK" 0;
+    font-size: 1.05rem;
+    color: hsl(var(--ink));
+    line-height: 1.25;
+    margin-block-end: 0.3rem;
+  }
+
+  .dg-search__result-excerpt {
+    display: block;
+    font-family: "Public Sans", system-ui, sans-serif;
+    font-size: 0.875rem;
+    color: hsl(var(--ink-soft));
+    line-height: 1.45;
+  }
+
+  .dg-search__result-excerpt :global(mark) {
+    background: hsl(var(--accent-tinted));
+    color: hsl(var(--accent-text));
+    font-weight: 600;
+    padding: 0 0.15em;
+    border-radius: 2px;
+  }
+
+  /* ── Ask AI button (inline, right of the input) ──────────── */
+  .dg-search__ask {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    height: 2rem;
+    padding: 0 0.7rem;
+    margin-inline-end: 0.4rem;
+    font-family: "Public Sans", system-ui, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: hsl(var(--accent-text));
+    background: hsl(var(--accent-tinted));
+    border: 0.5px solid hsl(var(--accent-text));
+    border-radius: 999px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition:
+      background 140ms var(--ease-editorial),
+      color 140ms var(--ease-editorial);
+  }
+
+  .dg-search__ask:hover,
+  .dg-search__ask:focus-visible {
+    background: hsl(var(--navy));
+    color: hsl(var(--on-navy));
+    outline: 0;
+  }
+
+  .dg-search__ask svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* ── AI answer pane ──────────────────────────────────────── */
+  .dg-search__ai {
+    padding: 0.25rem 0;
+  }
+
+  .dg-search__ai-head {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-block-end: 0.85rem;
+  }
+
+  .dg-search__ai-badge {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: hsl(var(--accent-text));
+    font-weight: 600;
+    background: hsl(var(--accent-tinted));
+    border: 0.5px solid hsl(var(--accent-text));
+    border-radius: 999px;
+    padding: 0.2rem 0.55rem;
+  }
+
+  .dg-search__ai-q {
+    font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
+    font-variation-settings: "opsz" 24, "wght" 540, "SOFT" 30, "WONK" 0;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: hsl(var(--ink));
+    line-height: 1.3;
+  }
+
+  .dg-search__ai-body {
+    font-family: "Public Sans", system-ui, sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: hsl(var(--ink));
+  }
+
+  .dg-search__ai-body :global(p) {
+    margin: 0 0 0.7em;
+  }
+
+  .dg-search__ai-body :global(p:last-child) {
+    margin-block-end: 0;
+  }
+
+  .dg-search__ai-body :global(strong) {
+    color: hsl(var(--ink));
+    font-weight: 600;
+  }
+
+  .dg-search__ai-body :global(em) {
+    color: hsl(var(--ink-soft));
+  }
+
+  .dg-search__ai-body :global(code) {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.85em;
+    background: hsl(var(--paper-deep));
+    border: 0.5px solid hsl(var(--rule));
+    border-radius: 3px;
+    padding: 0.1em 0.35em;
+  }
+
+  .dg-search__ai-body :global(ul) {
+    list-style: none;
+    padding: 0;
+    margin: 0.55em 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+  }
+
+  .dg-search__ai-body :global(ul li) {
+    position: relative;
+    padding-inline-start: 1.1em;
+  }
+
+  .dg-search__ai-body :global(ul li::before) {
+    content: "";
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block-start: 0.7em;
+    width: 0.55em;
+    height: 1px;
+    background: hsl(var(--accent-text));
+  }
+
+  .dg-search__ai-body :global(a) {
+    color: hsl(var(--accent-text));
+    text-decoration: underline;
+    text-decoration-color: hsl(var(--rule));
+    text-underline-offset: 3px;
+  }
+
+  .dg-search__ai-body :global(a:hover) {
+    text-decoration-color: hsl(var(--accent-text));
+  }
+
+  .dg-search__ai-cites {
+    margin-block-start: 1.1rem;
+    padding-block-start: 0.85rem;
+    border-block-start: 0.5px solid hsl(var(--rule));
+  }
+
+  .dg-search__ai-cites-head {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: hsl(var(--accent-text));
+    font-weight: 600;
+    margin: 0 0 0.55rem;
+  }
+
+  .dg-search__ai-cites ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .dg-search__ai-cites a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    font-family: "Public Sans", system-ui, sans-serif;
+    font-size: 0.92rem;
+    color: hsl(var(--ink));
+    text-decoration: none;
+    padding: 0.35rem 0.5rem;
+    margin-inline-start: -0.5rem;
+    border-radius: 4px;
+    transition: background 140ms var(--ease-editorial), color 140ms var(--ease-editorial);
+  }
+
+  .dg-search__ai-cites a:hover {
+    background: hsl(var(--accent-tinted));
+    color: hsl(var(--accent-text));
+  }
+
+  .dg-search__ai-cites a span {
+    color: hsl(var(--accent-text));
+  }
+</style>

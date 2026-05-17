@@ -10,8 +10,8 @@
  * inherit the stock SiteTitle treatment.
  */
 import type { Props } from "@astrojs/starlight/props";
-import Search from "@astrojs/starlight/components/Search.astro";
-import ThemeSelect from "@astrojs/starlight/components/ThemeSelect.astro";
+import DocsSearch from "./DocsSearch.astro";
+import ThemeToggle from "./ThemeToggle.astro";
 ---
 
 <div class="dg-header">
@@ -35,19 +35,52 @@ import ThemeSelect from "@astrojs/starlight/components/ThemeSelect.astro";
       </span>
     </a>
 
-    <nav class="dg-header__nav" aria-label="Primary">
-      <a href="/kom-i-gang/" class="dg-header__link">KOM I GANG</a>
-      <span class="dg-header__sep" aria-hidden="true">·</span>
-      <a href="/admin/" class="dg-header__link">ADMIN</a>
-      <span class="dg-header__sep" aria-hidden="true">·</span>
-      <a href="/api/" class="dg-header__link">API</a>
-      <span class="dg-header__sep" aria-hidden="true">·</span>
-      <a href="/compliance/" class="dg-header__link">COMPLIANCE</a>
-    </nav>
+    <div class="dg-header__search">
+      <DocsSearch />
+    </div>
+
+    <script is:inline>
+      // Norwegianize Starlight's built-in English labels left elsewhere.
+      (function(){
+        var SWAPS = [
+          { sel: 'a', match: /^\s*Edit page\s*$/i, to: 'Rediger side' },
+          { sel: 'p, span', textIncludes: 'Last updated:',
+            replace: ['Last updated:', 'Sist oppdatert:'] },
+          { sel: 'a', match: /^\s*Skip to content\s*$/i, to: 'Hopp til innhold' },
+          { sel: '.right-sidebar h2', match: /^\s*On this page\s*$/i, to: 'På denne siden' },
+          { sel: '.right-sidebar a, .right-sidebar li',
+            match: /^\s*Overview\s*$/i, to: 'Oversikt' },
+        ];
+        function walk() {
+          SWAPS.forEach(function(s){
+            document.querySelectorAll(s.sel).forEach(function(el){
+              var t = el.textContent;
+              if (!t) return;
+              if (s.match && s.match.test(t.trim())) {
+                el.textContent = s.to;
+              } else if (s.textIncludes && t.indexOf(s.textIncludes) !== -1 && s.replace) {
+                el.textContent = t.replace(s.replace[0], s.replace[1]);
+              }
+            });
+          });
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', walk, { once: true });
+        } else { walk(); }
+        new MutationObserver(walk).observe(document.body, { childList: true, subtree: true });
+      })();
+    </script>
 
     <div class="dg-header__actions">
-      <Search {...Astro.props} />
-      <ThemeSelect {...Astro.props} />
+      <nav class="dg-header__links" aria-label="Eksternt">
+        <a href="https://digilist.no/" class="dg-header__btn dg-header__btn--ghost">
+          Hjemmeside <span aria-hidden="true">↗</span>
+        </a>
+        <a href="https://app.digilist.no/" class="dg-header__btn dg-header__btn--ghost">
+          Plattform <span aria-hidden="true">↗</span>
+        </a>
+      </nav>
+      <ThemeToggle />
       <a class="dg-header__cta" href="https://digilist.no/book-demo">
         Book demo <span aria-hidden="true">→</span>
       </a>
@@ -66,23 +99,21 @@ import ThemeSelect from "@astrojs/starlight/components/ThemeSelect.astro";
   }
 
   .dg-header__inner {
-    /* Full-bleed header — left brand aligns with sidebar's left edge,
-     * right CTA aligns with toc's right edge. No max-width cap because
-     * the docs chrome below is also full-bleed by default in Starlight. */
+    /* Header padding follows --dg-gutter so its left/right edges align
+     * with the sidebar + content below. brand · search · actions. */
     max-width: none;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding-block: 0;
+    padding-inline: var(--dg-gutter, 1.5rem);
     display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 2rem;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 1.25rem;
     align-items: center;
     min-height: 4.5rem;
   }
 
-  @media (min-width: 50em) {
-    .dg-header__inner {
-      padding: 0 1.5rem 0 1.5rem;
-    }
+  @media (min-width: 64em) {
+    .dg-header__inner { gap: 2rem; }
   }
 
   .dg-header__brand {
@@ -161,44 +192,74 @@ import ThemeSelect from "@astrojs/starlight/components/ThemeSelect.astro";
     opacity: 0.6;
   }
 
-  .dg-header__nav {
-    display: none;
-    justify-content: center;
-    align-items: baseline;
-    gap: 0.75rem;
-    font-family: "JetBrains Mono", ui-monospace, monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.18em;
+  /* Search wrapper — centered in the middle column. The DocsSearch
+   * component caps itself at 35rem; this wrap just lets it grow. */
+  .dg-header__search {
+    justify-self: center;
+    width: 100%;
+    max-width: 35rem;
+    display: flex;
+    align-items: center;
   }
 
-  @media (min-width: 64em) {
-    .dg-header__nav { display: inline-flex; }
-  }
-
-  .dg-header__link {
-    color: hsl(var(--ink-soft));
-    text-decoration: none;
-    padding: 0.25rem 0;
-    border-bottom: 1px solid transparent;
-    transition: color 120ms ease, border-color 120ms ease;
-    white-space: nowrap;
-  }
-
-  .dg-header__link:hover {
-    color: hsl(var(--accent-text));
-    border-bottom-color: hsl(var(--accent-text));
-  }
-
-  .dg-header__sep {
-    color: hsl(var(--ink-faint));
-    font-weight: 700;
-    opacity: 0.55;
+  .dg-header__search > :global(site-search) {
+    width: 100%;
+    display: block;
   }
 
   .dg-header__actions {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+  }
+
+  .dg-header__links {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+    padding-inline-end: 0.5rem;
+    margin-inline-end: 0.25rem;
+    border-inline-end: 0.5px solid hsl(var(--rule-strong));
+  }
+
+  @media (min-width: 64em) {
+    .dg-header__links { display: inline-flex; }
+  }
+
+  /* Header buttons — proper buttons, hairline-bordered, mirrors the
+   * marketing EditorialButton "ghost" variant. WCAG 44px tall. */
+  .dg-header__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    min-height: 2.75rem;
+    padding: 0 1rem;
+    font-family: "Public Sans", system-ui, sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1;
+    color: hsl(var(--ink));
+    background: transparent;
+    border: 0.5px solid hsl(var(--rule-strong));
+    border-radius: 6px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      color 160ms var(--ease-editorial),
+      background 160ms var(--ease-editorial),
+      border-color 160ms var(--ease-editorial);
+  }
+
+  .dg-header__btn:hover {
+    color: hsl(var(--accent-text));
+    background: hsl(var(--accent-tinted));
+    border-color: hsl(var(--accent-text));
+  }
+
+  .dg-header__btn span {
+    font-size: 0.75rem;
+    color: hsl(var(--accent-text));
   }
 
   .dg-header__cta {

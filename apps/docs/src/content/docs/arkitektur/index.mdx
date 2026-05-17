@@ -1,0 +1,49 @@
+---
+title: Arkitektur
+description: Tre-plan-design, 27 isolerte komponenter, hendelse-buss, tenant-først datamodell — fra apps til Convex-kontrollplan.
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+Digilist er en tenant-først plattform for booking, utleie, tjenester, billett­salg og medlemskap.
+Plattformen følger et **tre-plan-design**: tynne frontend-apper, en kilde-bare SDK,
+og en Convex-basert kontrollplan bygd av 27 isolerte komponenter som kommuniserer over
+en outbox hendelse-buss.
+
+<CardGrid>
+  <Card title="Tre-plan-design" icon="puzzle">
+    Frontend → SDK → kontrollplan. Klare grenser, ingen lekkasje på tvers.
+  </Card>
+  <Card title="27 komponenter" icon="setting">
+    Hver komponent eier sine tabeller, fasader og kontrakter. Aldri på tvers.
+  </Card>
+  <Card title="Hendelse-buss" icon="rocket">
+    Outbox-pattern. 110+ topics. Garantert leveranse, retry, observabilitet.
+  </Card>
+  <Card title="Tenant-først" icon="approve-check">
+    Alle skriv scopes til `tenantId`. Offentlig markedsplass leser un-scoped.
+  </Card>
+</CardGrid>
+
+## Hva du finner her
+
+<LinkCard
+  title="Oversikt"
+  description="Tre-plan-design, 27 komponenter, delte pakker, kanoniske regler."
+  href="/arkitektur/oversikt/"
+/>
+<LinkCard
+  title="Datamodell"
+  description="~80 kjernetabeller. Identity, infra, commerce, payments, ledger, GDPR."
+  href="/arkitektur/datamodell/"
+/>
+<LinkCard
+  title="Hendelse-buss"
+  description="Outbox-mekanikk, topic-katalog, abonnent-kart, retries."
+  href="/arkitektur/event-bus/"
+/>
+<LinkCard
+  title="Komponent-katalog"
+  description="Plattform-lag (10) · Forretnings-lag (12) · Tjeneste-lag (5)."
+  href="/arkitektur/komponenter/"
+/>

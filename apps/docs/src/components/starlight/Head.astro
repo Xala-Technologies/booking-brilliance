@@ -1,0 +1,82 @@
+---
+/**
+ * Custom <head> additions for docs.digilist.no:
+ *   - BreadcrumbList JSON-LD (per page) so Google can render breadcrumbs
+ *     in search results.
+ *   - TechArticle JSON-LD (per page) tying the article to the
+ *     Organization, with author + publish/update dates.
+ *   - Norwegian `meta name=robots` defaults (index,follow,max-image-preview:large).
+ *
+ * Starlight already emits canonical, og:*, twitter:*, lang attr via its
+ * own Head — we only add what's missing. Render Starlight's default
+ * <Head> via the slot so we don't drop any of its tags.
+ */
+import Default from "@astrojs/starlight/components/Head.astro";
+
+const { entry } = Astro.props;
+const site = (Astro.site ?? new URL("https://docs.digilist.no/")).toString().replace(/\/$/, "");
+const url = new URL(Astro.url.pathname, Astro.site ?? "https://docs.digilist.no/").toString();
+const data = entry?.data ?? {};
+const pageTitle: string = data.title ?? "Digilist Docs";
+const pageDescription: string =
+  data.description ??
+  "Dokumentasjon for Digilist — booking-plattform for kommuner, foreninger og private utleiere. Idrettshaller, møterom, kulturhus, utstyr og tjenester. Bygd med kommune-klasse compliance.";
+
+// Build a breadcrumb trail from the slug. /admin/vekst → [Docs, Admin, Vekst].
+const segments = (entry?.id ?? "").replace(/\.(md|mdx)$/, "").split("/").filter(Boolean);
+const breadcrumbs = [
+  { name: "Digilist Docs", url: `${site}/` },
+];
+let acc = "";
+for (let i = 0; i < segments.length; i++) {
+  const seg = segments[i];
+  if (seg === "index") continue;
+  acc += "/" + seg;
+  const label =
+    i === segments.length - 1
+      ? pageTitle
+      : seg.replace(/-/g, " ").replace(/^\w/, (c) => c.toUpperCase());
+  breadcrumbs.push({ name: label, url: `${site}${acc}/` });
+}
+
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: breadcrumbs.map((b, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: b.name,
+    item: b.url,
+  })),
+};
+
+const articleLd = {
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  headline: pageTitle,
+  description: pageDescription,
+  inLanguage: "nb",
+  url,
+  isPartOf: { "@type": "WebSite", name: "Digilist Docs", url: site },
+  author: {
+    "@type": "Organization",
+    name: "Digilist",
+    url: "https://digilist.no/",
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "Digilist",
+    url: "https://digilist.no/",
+    logo: { "@type": "ImageObject", url: "https://digilist.no/logo.svg" },
+  },
+};
+---
+
+<Default {...Astro.props} />
+
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+<link rel="alternate" hreflang="nb" href={url} />
+<link rel="alternate" hreflang="x-default" href={url} />
+
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
+<script type="application/ld+json" set:html={JSON.stringify(articleLd)} />
