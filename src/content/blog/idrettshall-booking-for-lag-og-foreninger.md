@@ -7,7 +7,7 @@ author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 6
 tag: "Lag og foreninger"
-cover: "/images/blog/idrettshall.webp"
+cover: "/images/blog/sesongleie_hero_no.webp"
 keywords: ["idrettshall booking", "kommunale lokaler tildeling", "sesongleie idrettshall", "lag og foreninger booking", "kalenderbasert booking", "kommunal utleie", "dobbeltbooking"]
 ---
 

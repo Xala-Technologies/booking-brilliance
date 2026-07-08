@@ -25,6 +25,42 @@ import { api } from "../convex/_generated/api";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const BLOG_DIR = path.resolve(__dirname, "..", "src", "content", "blog");
+const PUBLIC_BLOG_IMG = path.resolve(__dirname, "..", "public", "images", "blog");
+
+/** Real cover images shipped in public/images/blog (excludes placeholders). */
+function availableCovers(): string[] {
+  try {
+    return fs
+      .readdirSync(PUBLIC_BLOG_IMG)
+      .filter((f) => /\.(webp|jpg|png)$/i.test(f) && !/placeholder/i.test(f))
+      .sort();
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * The generator often invents a cover path (e.g. /images/blog/idrettshall.webp)
+ * that doesn't exist, so the post renders a broken image. If the cover is
+ * missing or points at a non-existent file, swap in a real library image
+ * chosen deterministically by slug (stable across re-syncs).
+ */
+function ensureValidCover(body: string, slug: string): string {
+  const covers = availableCovers();
+  if (covers.length === 0) return body;
+  const m = body.match(/^cover:\s*["']?([^"'\n]+)["']?\s*$/m);
+  const currentFile = m?.[1]
+    ? path.basename(m[1].trim().split(/[?#]/)[0])
+    : null;
+  if (currentFile && fs.existsSync(path.join(PUBLIC_BLOG_IMG, currentFile))) {
+    return body;
+  }
+  const hash = [...slug].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
+  const pick = `/images/blog/${covers[hash % covers.length]}`;
+  return m
+    ? body.replace(m[0], `cover: "${pick}"`)
+    : body.replace(/^(---\r?\n)/, `$1cover: "${pick}"\n`);
+}
 
 const CONVEX_URL = process.env.VITE_CONVEX_URL ?? process.env.CONVEX_URL ?? "";
 const ADMIN = process.env.ADMIN_BASIC_AUTH ?? "";
@@ -141,6 +177,8 @@ async function main() {
         /* fall through and write as-is */
       }
     }
+    // Guarantee a real cover image so auto-published posts never render broken.
+    body = ensureValidCover(body, slug);
     const existing = fs.existsSync(target)
       ? fs.readFileSync(target, "utf-8")
       : null;

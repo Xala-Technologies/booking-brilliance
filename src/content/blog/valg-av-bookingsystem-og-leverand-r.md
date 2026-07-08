@@ -7,7 +7,7 @@ author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 6
 tag: "IT-leder"
-cover: "/images/blog/booking-hero.webp"
+cover: "/images/blog/en_plattform_hero_no.webp"
 keywords: ["bookingsystem kommune", "bookingsoftware sammenligning", "pris bookingløsning", "kommunalt bookingsystem", "leverandørvalg IT", "GDPR bookingsystem", "Digilist pris"]
 ---
 

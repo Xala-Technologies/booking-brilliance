@@ -7,7 +7,7 @@ author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 6
 tag: "Saksbehandler"
-cover: "/images/blog/saksbehandler-booking.webp"
+cover: "/images/blog/somlos_betaling_hero_no.webp"
 keywords: ["avbooking", "refusjon", "saksbehandling", "kommunal booking", "automatisering", "leietaker", "betalingsintegrasjon"]
 ---
 
