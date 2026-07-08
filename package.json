@@ -24,6 +24,7 @@
     "content:generate": "tsx tools/content-agent/src/orchestrator.ts --phase generate",
     "convex:migrate": "tsx scripts/migrate-sqlite-to-convex.ts",
     "content:sync": "tsx scripts/sync-convex-blog-to-fs.ts",
+    "content:autopublish": "tsx scripts/auto-publish-blogs.ts",
     "docs:index": "tsx tools/docs-rag/src/index.ts"
   },
   "dependencies": {

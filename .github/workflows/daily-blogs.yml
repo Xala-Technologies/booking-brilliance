@@ -1,0 +1,87 @@
+name: Daily blog agent
+
+# Generates N blogs/day on searched-keyword gaps, auto-publishes them, and
+# ships them to digilist.no/blogg — fully hands-free.
+#   discover+analyze+generate → auto-publish → sync (fence-strip + cover) →
+#   date to today → commit → deploy
+on:
+  schedule:
+    - cron: "0 5 * * *" # 05:00 UTC daily
+  workflow_dispatch:
+    inputs:
+      count:
+        description: "How many blogs to generate"
+        default: "3"
+
+concurrency:
+  group: daily-blogs
+  cancel-in-progress: false
+
+jobs:
+  generate-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      # 1. discover (searched keywords) → analyze (gap-rank) → generate N drafts
+      - name: Generate blogs on top searched-keyword gaps
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
+          VITE_CONVEX_URL: ${{ secrets.VITE_CONVEX_URL }}
+          ADMIN_BASIC_AUTH: ${{ secrets.ADMIN_BASIC_AUTH }}
+          CONTENT_AGENT_DRAFTS_PER_RUN: ${{ github.event.inputs.count || '3' }}
+        run: pnpm content:all -- --trigger cron
+
+      # 2. auto-approve + publish the new blog drafts (Convex source of truth)
+      - name: Auto-publish
+        env:
+          VITE_CONVEX_URL: ${{ secrets.VITE_CONVEX_URL }}
+          ADMIN_BASIC_AUTH: ${{ secrets.ADMIN_BASIC_AUTH }}
+        run: pnpm content:autopublish
+
+      # 3. pull published markdown into the repo (strips code fences, guarantees
+      #    a real cover image)
+      - name: Sync to repo
+        env:
+          VITE_CONVEX_URL: ${{ secrets.VITE_CONVEX_URL }}
+          ADMIN_BASIC_AUTH: ${{ secrets.ADMIN_BASIC_AUTH }}
+        run: pnpm content:sync
+
+      # 4. date the new posts to today so they surface at the top of /blogg, commit
+      - name: Date + commit new posts
+        id: commit
+        run: |
+          changed=$(git status --porcelain src/content/blog | awk '{print $2}')
+          if [ -z "$changed" ]; then echo "none=1" >> "$GITHUB_OUTPUT"; echo "No new blogs today."; exit 0; fi
+          today=$(date -u +%F)
+          for f in $changed; do sed -i "s/^date:.*/date: $today/" "$f"; done
+          git config user.name "digilist-blog-agent"
+          git config user.email "bot@digilist.no"
+          git add src/content/blog
+          git commit -m "Daily blog agent: $(echo "$changed" | wc -w | tr -d ' ') new post(s) [$today]"
+          git push
+
+      # 5. build + deploy to Hostinger (self-contained; doesn't rely on the
+      #    separate deploy workflow triggering off the bot push)
+      - name: Deploy
+        if: steps.commit.outputs.none != '1'
+        env:
+          VITE_CONVEX_URL: ${{ secrets.VITE_CONVEX_URL }}
+          ADMIN_BASIC_AUTH: ${{ secrets.ADMIN_BASIC_AUTH }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.HOSTINGER_SSH_KEY }}" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          ssh-keyscan -H 72.61.23.56 >> ~/.ssh/known_hosts 2>/dev/null
+          eval "$(ssh-agent -s)"; ssh-add ~/.ssh/id_deploy
+          ./deploy.sh
