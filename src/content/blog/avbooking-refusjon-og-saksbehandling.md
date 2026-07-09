@@ -1,13 +1,13 @@
 ---
 slug: automatisert-avbooking-og-refusjon-kommunal-saksbehandling
 title: "Slik sparer saksbehandlere timer på avbooking og refusjon"
-description: "Automatisert regelbasert refusjonslogikk reduserer manuelle saksbehandlingstimer og minimerer tvister. Slik fungerer det i praksis."
-date: 2026-07-08
+description: "Automatisert regelbasert refusjonslogikk reduserer manuelle saksbehandlingstimer og minimerer tvister, slik fungerer det i praksis."
+date: 2026-07-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 6
 tag: "Saksbehandler"
-cover: "/images/blog/somlos_betaling_hero_no.webp"
+cover: "/images/blog/integrations_idporten_hero_no.webp"
 keywords: ["avbooking", "refusjon", "saksbehandling", "kommunal booking", "automatisering", "leietaker", "betalingsintegrasjon"]
 ---
 
@@ -31,13 +31,13 @@ Avbooking høres enkelt ut, men regelverket er sammensatt. Kommuner må typisk h
 De fleste kommuner opererer med differensierte frister, for eksempel full refusjon ved kansellering mer enn 14 dager før, 50 prosent refusjon mellom 7 og 14 dager, og ingen refusjon under 7 dager. Noen lokaler har egne regler basert på størrelse eller leieformål.
 
 ### Gebyrstrukturer
-Et administrasjonsgebyr kan trekkes fra uansett når kanselleringen skjer. Gebyret varierer gjerne mellom lokaler og brukergrupper. Lag og foreninger kan ha gunstigere vilkår enn kommersielle aktører.
+Et administrasjonsgebyr kan trekkes fra uansett når kanselleringen skjer. Gebyret varierer gjerne mellom lokaler og brukergrupper, lag og foreninger kan ha gunstigere vilkår enn kommersielle aktører.
 
 ### Full og delvis refusjon
 Beregningen av delvis refusjon må være presis og dokumentert. Hvis leietaker har betalt 2 400 kroner og har krav på 50 prosent refusjon minus 150 kroner i gebyr, skal det stå svart på hvitt hvordan dette er regnet ut.
 
 ### Tvangsavbookinger
-Noen ganger er det kommunen som initierer kanselleringen: vedlikehold, dobbeltbooking eller endret bruk av lokalet. Her gjelder egne regler: leietaker har som regel krav på full refusjon, og kommunen kan ha plikt til å tilby alternativt tidspunkt.
+Noen ganger er det kommunen som initierer kanselleringen, vedlikehold, dobbeltbooking eller endret bruk av lokalet. Her gjelder egne regler: leietaker har som regel krav på full refusjon, og kommunen kan ha plikt til å tilby alternativt tidspunkt.
 
 Uten et system som kjenner og håndhever disse reglene konsekvent, er saksbehandleren den eneste bufferen mot feil og ulikebehandling.
 
@@ -51,7 +51,7 @@ Saksbehandler kan godkjenne anbefalingen med ett klikk, eller overstyre med begr
 
 ## Arbeidsflyt fra kansellering til refusjon
 
-Slik ser en typisk avbooking ut i Digilist:
+Her er hvordan en typisk avbooking ser ut i Digilist:
 
 **1. Innbygger kansellerer**
 Innbygger logger inn i portalen og kansellerer sin reservasjon. Systemet viser umiddelbart hvilken refusjon de har krav på, basert på gjeldende regler.
