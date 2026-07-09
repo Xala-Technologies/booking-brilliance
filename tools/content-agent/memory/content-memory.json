@@ -10,6 +10,15 @@
     {
       "date": "2026-07-09",
       "slug": "unknown",
+      "score": 90,
+      "verdict": "pass",
+      "issues": [
+        "ingen vesentlige; strøk et par overflødige fyllformuleringer og strammet inn, ingen tankestrek funnet, frontmatter intakt"
+      ]
+    },
+    {
+      "date": "2026-07-09",
+      "slug": "unknown",
       "score": 84,
       "verdict": "revise",
       "issues": [
