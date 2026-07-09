@@ -67,6 +67,11 @@ export async function anthropic(
     body: JSON.stringify({
       model: opts.model,
       max_tokens: opts.maxTokens ?? 4096,
+      // Sonnet 5 / Opus 4.8 default to extended thinking, which returns a
+      // thinking block and, on a tight max_tokens, no text block at all — the
+      // structured JSON/markdown calls here just need direct output, so turn
+      // it off for deterministic responses.
+      thinking: { type: "disabled" },
       system: opts.systemPrompt,
       messages: [{ role: "user", content: opts.userMessage }],
     }),
