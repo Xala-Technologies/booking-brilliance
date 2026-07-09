@@ -83,8 +83,18 @@ jobs:
             exit 0
           fi
           # Slugs of the posts that genuinely changed, for the live-verify gate.
-          slugs=$(git diff --cached --name-only -- src/content/blog | sed -n 's#.*/\(.*\)\.md$#\1#p' | tr '\n' ' ')
-          n=$(git diff --cached --name-only -- src/content/blog | grep -c '\.md$' || true)
+          # The live URL is the frontmatter `slug:` (src/lib/posts.ts falls back
+          # to the filename only when it's absent), which can differ from the
+          # filename — so read the frontmatter, not the path, or verify-live
+          # would probe a 404.
+          staged=$(git diff --cached --name-only -- src/content/blog | grep '\.md$' || true)
+          slugs=""
+          for f in $staged; do
+            s=$(sed -n 's/^slug:[[:space:]]*//p' "$f" | head -1 | tr -d '\042\047[:space:]')
+            [ -z "$s" ] && s=$(basename "$f" .md)
+            slugs="$slugs $s"
+          done
+          n=$(printf '%s\n' $staged | grep -c '\.md$' || true)
           echo "slugs=$slugs" >> "$GITHUB_OUTPUT"
           git config user.name "digilist-blog-agent"
           git config user.email "bot@digilist.no"
