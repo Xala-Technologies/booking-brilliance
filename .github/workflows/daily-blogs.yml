@@ -5,8 +5,12 @@ name: Daily blog agent
 #   discover+analyze+generate → auto-publish → sync (fence-strip + cover) →
 #   date to today → commit → deploy
 on:
-  schedule:
-    - cron: "0 5 * * *" # 05:00 UTC daily
+  # Daily generation now runs on the VPS on the Claude Max subscription
+  # (systemd digilist-blog.timer, 05:30 UTC) — no per-token API cost. The cron
+  # here is disabled to avoid double-generation; kept as a manual fallback that
+  # still uses the ANTHROPIC_API_KEY secret if the VPS runner is ever down.
+  # schedule:
+  #   - cron: "0 5 * * *" # 05:00 UTC daily (moved to VPS+Max)
   workflow_dispatch:
     inputs:
       count:
