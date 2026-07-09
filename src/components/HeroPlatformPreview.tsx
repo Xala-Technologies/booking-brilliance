@@ -61,7 +61,6 @@ export function HeroPlatformPreview() {
                 height={662}
                 className="absolute inset-0 w-full h-full object-cover"
                 loading="eager"
-                fetchPriority="high"
                 decoding="async"
               />
             </picture>

@@ -44,19 +44,11 @@
     <link rel="apple-touch-icon" href="/icon.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
 
-    <!-- LCP hero — preload the responsive festsal-1 webp with fetchpriority
-         so the browser starts the download in parallel with the JS bundle.
-         The image is now sized to its slot (512w mobile ≈ 32KB, 1024w desktop
-         ≈ 91KB) instead of the old 236KB full-res webp — mobile LCP was
-         download-bound on slow 4G. imagesizes must match the <picture> sizes. -->
-    <link
-      rel="preload"
-      as="image"
-      type="image/webp"
-      imagesrcset="/hero/festsal-1-512.webp 512w, /hero/festsal-1-1024.webp 1024w"
-      imagesizes="(max-width: 768px) 66vw, 500px"
-      fetchpriority="high"
-    />
+    <!-- No hero preload: the LCP element is the H1 headline text (measured
+         203k px² vs the hero image's 109k px²), not the festsal image. On
+         slow 4G a high-priority hero preload just stole bandwidth from the
+         text-render critical path (HTML + inlined critical CSS + font). The
+         hero loads at normal priority during parse instead. -->
 
     <!-- Editorial Nordic typography: Fraunces (variable serif display) +
          Public Sans (body) + JetBrains Mono (specs).
