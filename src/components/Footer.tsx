@@ -58,11 +58,16 @@ const Footer = () => {
   const linkUnderline =
     "border-b border-rule group-hover:border-ink transition-colors duration-quick ease-editorial pb-0.5";
 
+  // Footer nav sections are top-level page landmarks — use h2, not h3. On
+  // pages whose main content is client-fetched (e.g. /transparens renders a
+  // loading spinner during prerender), the footer headings are the first
+  // headings after the page h1, so h3 here produced an h1→h3 outline skip
+  // that the a11y auditor flags. h2 is a clean, skip-free level everywhere.
   const ColumnHeading = ({ children }: { children: React.ReactNode }) => (
-    <h3 className="flex items-center gap-3 mb-6 editorial-mono-caption text-accent-text">
+    <h2 className="flex items-center gap-3 mb-6 editorial-mono-caption text-accent-text">
       <span aria-hidden="true" className="w-6 h-px bg-accent-text" />
       {children}
-    </h3>
+    </h2>
   );
 
   return (
