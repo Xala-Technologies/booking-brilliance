@@ -111,6 +111,25 @@ export const AGENT_REGISTRY: AgentDefinition[] = [
     source: "content-agent",
   },
   {
+    slug: "content-review",
+    name: "Content Review Agent",
+    role: "Editor-in-chief — deep review before publish",
+    description:
+      "Critically reviews each blog draft against an editorial rubric (factual specificity, cluster coverage, brand voice, structure, accuracy, CTA), rewrites it to publication quality, and gates weak drafts so auto-publish skips them. Runs on the best model.",
+    status: "active",
+    tier: "v1",
+    owner: "Digilist Marketing",
+    allowed_tools: [
+      "anthropic:messages",
+      "drafts:edit",
+      "drafts:reject",
+    ],
+    reports_to: "content-draft",
+    budget_usd_month: 60,
+    risk_default: "med",
+    source: "content-agent",
+  },
+  {
     slug: "approval-queue",
     name: "Approval Queue",
     role: "Human review gateway",
