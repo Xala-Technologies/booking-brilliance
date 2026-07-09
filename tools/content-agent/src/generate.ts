@@ -40,7 +40,7 @@ interface AnthropicResponse {
   model?: string;
 }
 
-interface AnthropicCallResult {
+export interface AnthropicCallResult {
   text: string;
   inputTokens: number;
   outputTokens: number;
@@ -48,7 +48,7 @@ interface AnthropicCallResult {
   model: string;
 }
 
-async function anthropic(
+export async function anthropic(
   cfg: ContentAgentConfig,
   opts: {
     model: string;

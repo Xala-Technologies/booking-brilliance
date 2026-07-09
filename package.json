@@ -25,6 +25,7 @@
     "convex:migrate": "tsx scripts/migrate-sqlite-to-convex.ts",
     "content:sync": "tsx scripts/sync-convex-blog-to-fs.ts",
     "content:autopublish": "tsx scripts/auto-publish-blogs.ts",
+    "content:ideas": "tsx scripts/generate-feature-ideas.ts",
     "docs:index": "tsx tools/docs-rag/src/index.ts"
   },
   "dependencies": {

@@ -26,6 +26,8 @@ jobs:
     # `git push` failed with exit 128.
     permissions:
       contents: write
+      # The idea agent files GitHub issues when Linear isn't configured.
+      issues: write
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -147,3 +149,24 @@ jobs:
       - name: Verify live
         if: steps.commit.outputs.none != '1'
         run: ./scripts/verify-live-posts.sh https://digilist.no ${{ steps.commit.outputs.slugs }}
+
+      # 7. propose product features from the same keyword research + content
+      #    gaps, filed into Linear (or GitHub issues), deduped so it converges.
+      #    Weekly cadence (Mondays) or any manual dispatch, so it doesn't spam
+      #    the backlog daily. Runs regardless of whether a post shipped today.
+      - name: Propose feature ideas
+        if: always()
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          VITE_CONVEX_URL: ${{ secrets.VITE_CONVEX_URL }}
+          ADMIN_BASIC_AUTH: ${{ secrets.ADMIN_BASIC_AUTH }}
+          LINEAR_API_KEY: ${{ secrets.LINEAR_API_KEY }}
+          LINEAR_TEAM_KEY: ${{ vars.LINEAR_TEAM_KEY }}
+          CONTENT_IDEAS_TARGET: ${{ vars.CONTENT_IDEAS_TARGET || 'auto' }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          if [ "${{ github.event_name }}" != "workflow_dispatch" ] && [ "$(date -u +%u)" != "1" ]; then
+            echo "Skipping idea generation (runs Mondays or on manual dispatch)."; exit 0
+          fi
+          pnpm content:ideas
