@@ -5,7 +5,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
-import { ConvexProvider, ConvexReactClient } from "convex/react";
 import { AnimatePresence, MotionConfig } from "framer-motion";
 
 // Eagerly bundled — small marketing pages prerendered by SSR. Suspense
@@ -32,6 +31,9 @@ import UseCaseKulturhus from "./pages/UseCaseKulturhus";
 //   - Blog detail page + preview: react-markdown + remark-gfm
 //   - Status page: Convex client + Recharts-adjacent code paths
 //   - All /admin/intelligence/* routes: dashboard, Vekst, charts, etc.
+// Scoped Convex provider — lazy so `convex/react` stays out of the marketing
+// entry bundle; wraps only the routes below that call Convex.
+const ConvexScope = lazy(() => import("./components/ConvexScope"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
 const BlogPreview = lazy(() => import("./pages/BlogPreview"));
 const Status = lazy(() => import("./pages/Status"));
@@ -149,15 +151,11 @@ function AnimatedRoutesWrap({ children }: { children: ReactNode }) {
 
 const queryClient = new QueryClient();
 
-// Convex client. The URL is injected at build time via VITE_CONVEX_URL
-// (set by `npx convex dev` into .env.local or via Vercel/CI env). When
-// unset (e.g. SSR prerender, public site builds without admin needs),
-// we still create a client to avoid crashing — Convex hooks will just
-// be in a perpetual loading state on those builds, which is fine
-// because non-admin pages don't call them.
-const convexUrl = import.meta.env.VITE_CONVEX_URL ?? "";
-const convex = new ConvexReactClient(convexUrl || "https://placeholder.convex.cloud");
-
+// Convex is no longer provided at the app root — only the routes that call it
+// (status, blog preview, admin dashboard) are wrapped in <ConvexScope>, which
+// lazy-imports `convex/react`. This keeps the ~69KB Convex client out of the
+// marketing entry bundle. RUM reporting loads its own HTTP client on demand.
+//
 // Auth: we don't use Convex's JWT-based `setAuth()` — instead, every
 // admin query/mutation takes an explicit `adminToken` arg pulled from
 // localStorage (key: digilist-admin-basic-auth-v1, value: base64 of
@@ -197,7 +195,6 @@ function MotionFirstPaintShim({ children }: { children: ReactNode }) {
 
 export function AppShell() {
   return (
-    <ConvexProvider client={convex}>
     <QueryClientProvider client={queryClient}>
       <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
         <MotionFirstPaintShim>
@@ -214,19 +211,40 @@ export function AppShell() {
             <Route path="/bookingsystem-kommune" element={<BookingsystemKommune />} />
             <Route path="/booking-av-lokaler-og-moterom" element={<BookingLokalerMoterom />} />
             <Route path="/blogg" element={<Blog />} />
-            <Route path="/blogg/preview/:draftId" element={<BlogPreview />} />
+            <Route
+              path="/blogg/preview/:draftId"
+              element={
+                <ConvexScope>
+                  <BlogPreview />
+                </ConvexScope>
+              }
+            />
             <Route path="/blogg/:slug" element={<BlogPost />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/salgsvilkar" element={<Salgsvilkar />} />
             <Route path="/personvern" element={<Personvern />} />
             <Route path="/cookies" element={<Cookies />} />
             <Route path="/transparens" element={<Transparens />} />
-            <Route path="/status" element={<Status />} />
+            <Route
+              path="/status"
+              element={
+                <ConvexScope>
+                  <Status />
+                </ConvexScope>
+              }
+            />
             <Route path="/bruksomrader/selskapslokaler" element={<UseCaseSelskapslokaler />} />
             <Route path="/bruksomrader/moterom" element={<UseCaseMoterom />} />
             <Route path="/bruksomrader/idrettshaller-gymsaler" element={<UseCaseIdrettshaller />} />
             <Route path="/bruksomrader/kulturhus-kantiner" element={<UseCaseKulturhus />} />
-            <Route path="/admin/intelligence" element={<IntelligenceShell />}>
+            <Route
+              path="/admin/intelligence"
+              element={
+                <ConvexScope>
+                  <IntelligenceShell />
+                </ConvexScope>
+              }
+            >
               <Route index element={<IntelligenceOverview />} />
               <Route path="issues" element={<IntelligenceIssues />} />
               <Route path="scans" element={<IntelligenceScans />} />
@@ -321,7 +339,6 @@ export function AppShell() {
         </MotionFirstPaintShim>
       </ThemeProvider>
     </QueryClientProvider>
-    </ConvexProvider>
   );
 }
 

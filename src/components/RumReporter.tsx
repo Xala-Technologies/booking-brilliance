@@ -17,8 +17,6 @@
  * deferred — none block first paint.
  */
 import { useEffect } from "react";
-import { useConvex } from "convex/react";
-import { api } from "../../convex/_generated/api";
 
 const VISITOR_KEY = "digilist-rum-visitor-v1";
 const SKIP_PATH_PREFIXES = ["/admin/", "/blogg/preview/"];
@@ -43,8 +41,6 @@ function deviceBucket(): "mobile" | "desktop" {
 }
 
 export default function RumReporter() {
-  const convex = useConvex();
-
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (SKIP_PATH_PREFIXES.some((p) => window.location.pathname.startsWith(p))) {
@@ -54,22 +50,45 @@ export default function RumReporter() {
     const pathname = window.location.pathname;
     const visitor_id = getVisitorId();
     const device = deviceBucket();
+    const convexUrl = import.meta.env.VITE_CONVEX_URL ?? "";
+    if (!convexUrl) return;
 
     let cancelled = false;
+    // Lazy-load the Convex HTTP client + api only when we actually have a
+    // metric to report (after load). This keeps `convex` out of the critical
+    // marketing bundle — RUM is fire-and-forget and never blocks paint.
+    let clientPromise: Promise<{
+      client: { mutation: (ref: unknown, args: unknown) => Promise<unknown> };
+      ingestRef: unknown;
+    }> | null = null;
+    const getClient = () => {
+      if (!clientPromise) {
+        clientPromise = Promise.all([
+          import("convex/browser"),
+          import("../../convex/_generated/api"),
+        ]).then(([{ ConvexHttpClient }, { api }]) => ({
+          client: new ConvexHttpClient(convexUrl),
+          ingestRef: api.audits.rum.ingest,
+        }));
+      }
+      return clientPromise;
+    };
     const send = (metric: string, value: number, rating: string, nav_type?: string) => {
       if (cancelled) return;
       // Fire-and-forget. Errors are silenced — RUM is best-effort.
-      convex
-        .mutation(api.audits.rum.ingest, {
-          origin,
-          pathname,
-          metric,
-          value,
-          rating,
-          nav_type,
-          device,
-          visitor_id,
-        })
+      void getClient()
+        .then(({ client, ingestRef }) =>
+          client.mutation(ingestRef, {
+            origin,
+            pathname,
+            metric,
+            value,
+            rating,
+            nav_type,
+            device,
+            visitor_id,
+          }),
+        )
         .catch(() => {
           /* silent */
         });
@@ -95,7 +114,7 @@ export default function RumReporter() {
     return () => {
       cancelled = true;
     };
-  }, [convex]);
+  }, []);
 
   return null;
 }
