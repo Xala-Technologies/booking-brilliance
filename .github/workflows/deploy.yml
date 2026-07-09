@@ -40,9 +40,13 @@ jobs:
 
       - name: Configure SSH access to the VPS
         run: |
-          mkdir -p ~/.ssh
-          printf '%s\n' "${{ secrets.HOSTINGER_SSH_KEY }}" > ~/.ssh/id_deploy
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          # HOSTINGER_SSH_KEY holds the authorized deploy key (id_ed25519)
+          # base64-encoded on one line, so GitHub's multi-line-secret handling
+          # can't mangle the PEM. Decode + validate it.
+          echo "${{ secrets.HOSTINGER_SSH_KEY }}" | base64 -d > ~/.ssh/id_deploy
           chmod 600 ~/.ssh/id_deploy
+          ssh-keygen -y -f ~/.ssh/id_deploy > /dev/null
           # deploy.sh connects to root@72.61.23.56 — pin its host key so ssh
           # never prompts. (Host is already public in deploy.sh.)
           ssh-keyscan -H 72.61.23.56 >> ~/.ssh/known_hosts 2>/dev/null
