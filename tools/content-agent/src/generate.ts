@@ -121,8 +121,17 @@ async function claudeCli(opts: {
   const { promisify } = await import("node:util");
   const run = promisify(execFile);
   // Prompt as the -p argument (execFile has no stdin `input`); system + model
-  // as flags. Prompts here are a few KB, well under ARG_MAX.
-  const args = ["-p", opts.userMessage, "--output-format", "text", "--model", opts.model];
+  // as flags. `--max-turns 1 --allowedTools ""` constrains it to a single,
+  // tool-free completion — `claude -p` is otherwise a full agent that would try
+  // to use tools / iterate, which breaks pure text generation. Prompts are a
+  // few KB, well under ARG_MAX.
+  const args = [
+    "-p", opts.userMessage,
+    "--output-format", "text",
+    "--model", opts.model,
+    "--max-turns", "1",
+    "--allowedTools", "",
+  ];
   if (opts.systemPrompt) args.push("--append-system-prompt", opts.systemPrompt);
   const { stdout } = await run("claude", args, {
     maxBuffer: 64 * 1024 * 1024,
