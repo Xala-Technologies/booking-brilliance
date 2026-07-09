@@ -614,7 +614,19 @@ function patchHTML(template, meta) {
     )
     .join("\n    ");
 
-  return template
+  // The homepage hero preload (festsal-1, fetchpriority=high) only helps "/".
+  // On every other route it high-priority-fetches an image the page never
+  // renders, competing with the real LCP element on slow connections — so
+  // strip it from non-home routes (status, blogg, use-cases, …).
+  const base =
+    meta.route === "/"
+      ? template
+      : template.replace(
+          /\n\s*<link\b(?=[^>]*rel="preload")(?=[^>]*as="image")[^>]*>/,
+          "",
+        );
+
+  return base
     // Title
     .replace(/<title>[^<]*<\/title>/, `<title>${meta.title}</title>`)
     .replace(

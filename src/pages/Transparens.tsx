@@ -327,9 +327,9 @@ export default function Transparens() {
                     <SectionRule label="METODE" />
                     <div className="mt-8 grid lg:grid-cols-2 gap-8">
                       <div>
-                        <h3 className="font-serif text-2xl text-ink mb-3">
+                        <h2 className="font-serif text-2xl text-ink mb-3">
                           Hva vi måler
-                        </h3>
+                        </h2>
                         <ul className="space-y-3 text-base text-ink-soft">
                           <li>
                             <strong className="text-ink">Oppetid & SSL.</strong>{" "}
@@ -360,9 +360,9 @@ export default function Transparens() {
                         </ul>
                       </div>
                       <div>
-                        <h3 className="font-serif text-2xl text-ink mb-3">
+                        <h2 className="font-serif text-2xl text-ink mb-3">
                           Score-tolkning
-                        </h3>
+                        </h2>
                         <ul className="space-y-2 text-base">
                           <li>
                             <span className="font-serif text-lg font-medium text-green-700">

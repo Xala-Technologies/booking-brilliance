@@ -49,10 +49,16 @@ export function HeroPlatformPreview() {
         <div className="grid grid-cols-3 grid-rows-2 gap-px bg-rule">
           <div className="col-span-2 row-span-2 relative aspect-[16/10]">
             <picture>
-              <source srcSet="/hero/festsal-1.webp" type="image/webp" />
+              <source
+                type="image/webp"
+                srcSet="/hero/festsal-1-512.webp 512w, /hero/festsal-1-1024.webp 1024w"
+                sizes="(max-width: 768px) 66vw, 500px"
+              />
               <img
-                src="/hero/festsal-1.jpg"
+                src="/hero/festsal-1-512.jpg"
                 alt="Festsal med lysekroner og runde bord"
+                width={1024}
+                height={662}
                 className="absolute inset-0 w-full h-full object-cover"
                 loading="eager"
                 fetchPriority="high"
@@ -65,10 +71,12 @@ export function HeroPlatformPreview() {
           </div>
           <div className="relative">
             <picture>
-              <source srcSet="/hero/festsal-2.webp" type="image/webp" />
+              <source srcSet="/hero/festsal-2-384.webp" type="image/webp" />
               <img
-                src="/hero/festsal-2.jpg"
+                src="/hero/festsal-2-384.jpg"
                 alt="Banquet med dekkede bord"
+                width={384}
+                height={248}
                 className="absolute inset-0 w-full h-full object-cover"
                 loading="lazy"
               />
@@ -76,10 +84,12 @@ export function HeroPlatformPreview() {
           </div>
           <div className="relative">
             <picture>
-              <source srcSet="/hero/festsal-3.webp" type="image/webp" />
+              <source srcSet="/hero/festsal-3-384.webp" type="image/webp" />
               <img
-                src="/hero/festsal-3.jpg"
+                src="/hero/festsal-3-384.jpg"
                 alt="Selskap med dekorasjon"
+                width={384}
+                height={248}
                 className="absolute inset-0 w-full h-full object-cover"
                 loading="lazy"
               />

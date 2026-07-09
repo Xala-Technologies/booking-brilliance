@@ -41,17 +41,17 @@
     <link rel="apple-touch-icon" href="/icon.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
 
-    <!-- LCP hero — preload festsal-1.jpg with fetchpriority="high" so the
-         browser starts the download in parallel with the JS bundle.
-         Lighthouse mobile measured 13.7s LCP without this; the image
-         was waiting for both the render-blocking font CSS and the 1.2MB
-         JS bundle to finish before downloading. -->
+    <!-- LCP hero — preload the responsive festsal-1 webp with fetchpriority
+         so the browser starts the download in parallel with the JS bundle.
+         The image is now sized to its slot (512w mobile ≈ 32KB, 1024w desktop
+         ≈ 91KB) instead of the old 236KB full-res webp — mobile LCP was
+         download-bound on slow 4G. imagesizes must match the <picture> sizes. -->
     <link
       rel="preload"
       as="image"
-      href="/hero/festsal-1.webp"
       type="image/webp"
-      imagesrcset="/hero/festsal-1.webp"
+      imagesrcset="/hero/festsal-1-512.webp 512w, /hero/festsal-1-1024.webp 1024w"
+      imagesizes="(max-width: 768px) 66vw, 500px"
       fetchpriority="high"
     />
 

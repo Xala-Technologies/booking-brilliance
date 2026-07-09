@@ -16,6 +16,7 @@
   "src/components/HowItWorksSection.tsx": [],
   "src/components/IntegrationsSection.tsx": [],
   "src/components/MobileMenu.tsx": [],
+  "src/components/NavLink.tsx": [],
   "src/components/Navbar.tsx": [],
   "src/components/PageTransition.tsx": [],
   "src/components/PilotInvitationSection.tsx": [],
@@ -27,22 +28,22 @@
   "src/components/UseCasePage.tsx": [],
   "src/components/ValuePropositionSection.tsx": [],
   "src/components/chatbot/ChatPanel.tsx": [
-    "/assets/index-C7MfRsM0.js"
+    "/assets/index-Dm3u9bzg.js"
   ],
   "src/components/chatbot/Chatbot.tsx": [
-    "/assets/index-C7MfRsM0.js"
+    "/assets/index-Dm3u9bzg.js"
   ],
   "src/components/chatbot/InquiryFlow.tsx": [
-    "/assets/index-C7MfRsM0.js"
+    "/assets/index-Dm3u9bzg.js"
   ],
   "src/components/chatbot/MessageBubble.tsx": [
-    "/assets/index-C7MfRsM0.js"
+    "/assets/index-Dm3u9bzg.js"
   ],
   "src/components/chatbot/QuickReplies.tsx": [
-    "/assets/index-C7MfRsM0.js"
+    "/assets/index-Dm3u9bzg.js"
   ],
   "src/components/chatbot/index.ts": [
-    "/assets/index-C7MfRsM0.js"
+    "/assets/index-Dm3u9bzg.js"
   ],
   "src/components/editorial/Byline.tsx": [],
   "src/components/editorial/DropCap.tsx": [],
@@ -60,10 +61,12 @@
   "src/components/editorial/StoryCard.tsx": [],
   "src/components/editorial/TrustBadge.tsx": [],
   "src/components/ui/button.tsx": [],
+  "src/components/ui/dropdown-menu.tsx": [],
   "src/components/ui/sonner.tsx": [],
   "src/components/ui/toast.tsx": [],
   "src/components/ui/toaster.tsx": [],
   "src/components/ui/tooltip.tsx": [],
+  "src/content/blog/avbooking-refusjon-og-saksbehandling.md?raw": [],
   "src/content/blog/booking-paa-90-sekunder-innbygger.md?raw": [],
   "src/content/blog/bookingkalender-for-innbygger-og-saksbehandler.md?raw": [],
   "src/content/blog/cyberangrep-norske-kommuner-bookingsystem.md?raw": [],
@@ -76,6 +79,7 @@
   "src/content/blog/gdpr-iso-datalokasjon-norge.md?raw": [],
   "src/content/blog/hvorfor-digital-booking-2026.md?raw": [],
   "src/content/blog/idporten-bankid-kommunal-innlogging.md?raw": [],
+  "src/content/blog/idrettshall-booking-for-lag-og-foreninger.md?raw": [],
   "src/content/blog/magic-link-sms-bankid-sikker-innlogging.md?raw": [],
   "src/content/blog/min-side-alle-bookinger-paa-ett-sted.md?raw": [],
   "src/content/blog/onboarding-uke-til-live.md?raw": [],
@@ -90,19 +94,20 @@
   "src/content/blog/tilgjengelighetskalender-innbygger.md?raw": [],
   "src/content/blog/universell-utforming-wcag-kommunal-booking.md?raw": [],
   "src/content/blog/utleieobjekt-veiviser-steg-for-steg.md?raw": [],
+  "src/content/blog/valg-av-bookingsystem-og-leverand-r.md?raw": [],
   "src/content/faq.ts": [],
   "src/entry-server.tsx": [],
   "src/hooks/use-toast.ts": [],
   "src/hooks/useActiveSection.ts": [],
   "src/hooks/useChatbot.ts": [
-    "/assets/index-C7MfRsM0.js"
+    "/assets/index-Dm3u9bzg.js"
   ],
   "src/lib/chatbot/inquiry.ts": [
-    "/assets/index-C7MfRsM0.js"
+    "/assets/index-Dm3u9bzg.js"
   ],
   "src/lib/chatbot/open.ts": [],
   "src/lib/chatbot/rag.ts": [
-    "/assets/index-C7MfRsM0.js"
+    "/assets/index-Dm3u9bzg.js"
   ],
   "src/lib/fonts.ts": [],
   "src/lib/motion.ts": [],
@@ -111,10 +116,10 @@
   "src/lib/utils.ts": [],
   "src/pages/Blog.tsx": [],
   "src/pages/BlogPost.tsx": [
-    "/assets/BlogPost-DF6QvHzt.js"
+    "/assets/BlogPost-Bb0MAVKl.js"
   ],
   "src/pages/BlogPreview.tsx": [
-    "/assets/BlogPreview-BV2sxmd6.js"
+    "/assets/BlogPreview-Cn2ejzyL.js"
   ],
   "src/pages/BookDemo.tsx": [],
   "src/pages/BookingLokalerMoterom.tsx": [],
@@ -126,7 +131,7 @@
   "src/pages/Personvern.tsx": [],
   "src/pages/Salgsvilkar.tsx": [],
   "src/pages/Status.tsx": [
-    "/assets/Status-ZIShWvnQ.js"
+    "/assets/Status-BBrhkon_.js"
   ],
   "src/pages/Transparens.tsx": [],
   "src/pages/UseCaseIdrettshaller.tsx": [],
@@ -134,28 +139,28 @@
   "src/pages/UseCaseMoterom.tsx": [],
   "src/pages/UseCaseSelskapslokaler.tsx": [],
   "src/pages/admin/IntelligenceAgents.tsx": [
-    "/assets/IntelligenceAgents-CHZGZT6J.js"
+    "/assets/IntelligenceAgents-BXcHVVjF.js"
   ],
   "src/pages/admin/IntelligenceCategory.tsx": [
-    "/assets/IntelligenceCategory-BOluSrOi.js"
+    "/assets/IntelligenceCategory-BYsnKJ8Z.js"
   ],
   "src/pages/admin/IntelligenceCompliance.tsx": [
-    "/assets/IntelligenceCompliance-vmF0WwKw.js"
+    "/assets/IntelligenceCompliance-DNL9YINU.js"
   ],
   "src/pages/admin/IntelligenceIssues.tsx": [
-    "/assets/IntelligenceIssues-DPfZk6Y3.js"
+    "/assets/IntelligenceIssues-C-cXIOyV.js"
   ],
   "src/pages/admin/IntelligenceMisc.tsx": [
-    "/assets/IntelligenceMisc-CYxO1UdO.js"
+    "/assets/IntelligenceMisc-Cv1IhsjG.js"
   ],
   "src/pages/admin/IntelligenceOverview.tsx": [
-    "/assets/IntelligenceOverview-kiKsE6X6.js"
+    "/assets/IntelligenceOverview-JSYxyUek.js"
   ],
   "src/pages/admin/IntelligenceShell.tsx": [
-    "/assets/IntelligenceShell-DPlO75Nc.js"
+    "/assets/IntelligenceShell-lfp6Wq2j.js"
   ],
   "src/pages/admin/IntelligenceVekst.tsx": [
-    "/assets/IntelligenceVekst-_UTW4x0l.js"
+    "/assets/IntelligenceVekst-DtQiFEtc.js"
   ],
   "src/pages/admin/intelligence-shared.ts": [
     "/assets/intelligence-shared-BI9y8Ril.js"
