@@ -120,30 +120,31 @@ async function claudeCli(opts: {
   const { execFile } = await import("node:child_process");
   const { promisify } = await import("node:util");
   const run = promisify(execFile);
-  // Prompt as the -p argument (execFile has no stdin `input`); system + model
-  // as flags. `--max-turns 1 --allowedTools ""` constrains it to a single,
-  // tool-free completion — `claude -p` is otherwise a full agent that would try
-  // to use tools / iterate, which breaks pure text generation. Prompts are a
-  // few KB, well under ARG_MAX.
+  // `claude -p` is a full agent, so constrain it hard to a single tool-free
+  // turn and read the structured JSON envelope (`.result` = final text), which
+  // is more robust than text mode. A per-call timeout + one retry handles the
+  // occasional hang. Prompt is the -p arg (execFile has no stdin `input`).
   const args = [
     "-p", opts.userMessage,
-    "--output-format", "text",
+    "--output-format", "json",
     "--model", opts.model,
     "--max-turns", "1",
     "--allowedTools", "",
   ];
   if (opts.systemPrompt) args.push("--append-system-prompt", opts.systemPrompt);
-  const { stdout } = await run("claude", args, {
-    maxBuffer: 64 * 1024 * 1024,
-    timeout: 8 * 60_000,
-  });
-  return {
-    text: String(stdout).trim(),
-    inputTokens: 0,
-    outputTokens: 0,
-    costUsd: 0,
-    model: `${opts.model} (max-cli)`,
+  const call = async (): Promise<string> => {
+    const { stdout } = await run("claude", args, { maxBuffer: 64 * 1024 * 1024, timeout: 4 * 60_000 });
+    const env = JSON.parse(String(stdout)) as { result?: string; is_error?: boolean };
+    if (env.is_error) throw new Error(`claude -p returned is_error`);
+    return (env.result ?? "").trim();
   };
+  let text: string;
+  try {
+    text = await call();
+  } catch {
+    text = await call(); // one retry on hang/parse failure
+  }
+  return { text, inputTokens: 0, outputTokens: 0, costUsd: 0, model: `${opts.model} (max-cli)` };
 }
 
 function tryExtractJson<T>(text: string): T | null {
