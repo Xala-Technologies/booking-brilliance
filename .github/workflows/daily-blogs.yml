@@ -162,7 +162,9 @@ jobs:
           ADMIN_BASIC_AUTH: ${{ secrets.ADMIN_BASIC_AUTH }}
           LINEAR_API_KEY: ${{ secrets.LINEAR_API_KEY }}
           LINEAR_TEAM_KEY: ${{ vars.LINEAR_TEAM_KEY }}
-          CONTENT_IDEAS_TARGET: ${{ vars.CONTENT_IDEAS_TARGET || 'auto' }}
+          # 'both' files to Linear + GitHub; until LINEAR_API_KEY is set the
+          # Linear path safely warns and skips, so it degrades to GitHub-only.
+          CONTENT_IDEAS_TARGET: ${{ vars.CONTENT_IDEAS_TARGET || 'both' }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
