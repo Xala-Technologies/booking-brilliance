@@ -165,6 +165,11 @@ async function main() {
     body = body
       .replace(/^﻿?[ \t]*```(?:markdown|md)?[ \t]*\r?\n/, "")
       .replace(/\r?\n```[ \t]*\r?\n?[ \t]*$/, "\n");
+    // Belt-and-suspenders: an em/en-dash used as punctuation (spaced) reads as
+    // AI-generated. The generation prompt no longer produces them, but strip
+    // any that slip through so a sync can never re-introduce the tell. Only
+    // spaced dashes are touched, so numeric ranges (95–100) are left intact.
+    body = body.replace(/[  ]+[—–][  ]+/g, ", ");
     if (!/^---\r?\n/.test(body)) {
       try {
         const fm = JSON.parse(d.frontmatter_json) as Record<string, unknown>;
