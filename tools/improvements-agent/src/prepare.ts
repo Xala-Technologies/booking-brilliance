@@ -9,6 +9,7 @@
 import { execFile } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 import type { LinearClient, LinearIssue } from "../../content-agent/src/linear";
 import { OpenBrain } from "./brain";
@@ -44,9 +45,28 @@ export interface PrepareResult {
   worktree: string;
 }
 
+/**
+ * The repo path is baked into the issue body at filing time (from the filing
+ * machine), but prepare may run elsewhere (e.g. the VPS). Resolve it to where
+ * the repo actually is on THIS machine: honour it if it exists, else map by
+ * name to DIGILIST_REPO_PATH / the local booking-brilliance checkout.
+ */
+export function resolveRepoPath(p: string): string {
+  if (fs.existsSync(path.join(p, ".git"))) return p;
+  const lower = p.toLowerCase();
+  if (lower.includes("digilist") && !lower.includes("booking-brilliance")) {
+    return process.env.DIGILIST_REPO_PATH ?? "/root/Digilist";
+  }
+  if (lower.includes("booking-brilliance")) {
+    return path.resolve(fileURLToPath(import.meta.url), "..", "..", "..", "..");
+  }
+  return p;
+}
+
 /** Create an isolated worktree + branch with the goal as a task file. */
 export async function prepareBranch(issue: LinearIssue, parsed: ParsedGoal): Promise<PrepareResult> {
-  const { repoPath, goal } = parsed;
+  const repoPath = resolveRepoPath(parsed.repoPath);
+  const { goal } = parsed;
   const branch = `agent/${slugify(issue.identifier)}-${slugify(issue.title)}`;
   const worktree = path.resolve(repoPath, "..", `${path.basename(repoPath)}--${slugify(issue.identifier)}`);
   const base = await git(repoPath, ["symbolic-ref", "refs/remotes/origin/HEAD"])
