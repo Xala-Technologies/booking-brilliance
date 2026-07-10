@@ -17,6 +17,7 @@ import { promisify } from "node:util";
 import { runCapableAgent } from "../../content-agent/src/claude-agent";
 import type { ContentAgentConfig } from "../../content-agent/src/config";
 import { anthropic } from "../../content-agent/src/generate";
+import { parallel, runStructured } from "../../content-agent/src/orchestrate";
 
 const exec = promisify(execFile);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -237,4 +238,82 @@ Gi en grundig review. Din SISTE melding skal være KUN JSON-objektet (ingen pros
     tests: parsed?.tests ?? "",
   };
   return { pr, verdict, model };
+}
+
+// ── Multi-lens review (fleet multi-agent orchestration) ─────────────────────
+
+interface LensResult {
+  summary: string;
+  findings: { severity: string; file?: string; note: string }[];
+  strengths: string[];
+}
+
+const LENSES: { key: string; focus: string }[] = [
+  { key: "korrekthet", focus: "korrekthet og regresjoner: gjør endringen det den påstår? Sjekk kallere (trace_path/search_graph), grenseverdier, null/undefined, ruting (redirect-løkker, at målruten matcher)." },
+  { key: "sikkerhet-rbac", focus: "sikkerhet og RBAC: platform admin + tenant-roller (tenant_admin>saksbehandler>finance>support), cross-tenant-lekkasje, auth (ID-porten/BankID/Entra), secrets/PII i kode/logg/URL." },
+  { key: "wcag-ux", focus: "universell utforming (WCAG 2.1 AA) og norsk UX når UI endres: semantikk/aria, tastatur, fokus, kontrast (Digdir), og bokmål-kopi uten AI-klisjeer." },
+  { key: "tester-ci", focus: "testdekning og CI: dekkes de risikofylte stiene (ikke bare happy-util)? Grenseverdi-/komponent-/rutetester. VERIFISER at testene faktisk kjøres i CI (rot-package.json test-scripts)." },
+];
+
+/**
+ * Multi-agent review: one capable agent per lens runs concurrently (each grounds
+ * in the repo map / docs / code for its dimension), then the findings are merged
+ * deterministically. More thorough than a single reviewer, and a concrete use of
+ * the fleet's orchestration primitives.
+ */
+export async function reviewPrMultiLens(
+  cfg: ContentAgentConfig,
+  repo: string,
+  number: number,
+): Promise<{ pr: PullRequest; verdict: ReviewVerdict; model: string }> {
+  const pr = await fetchPr(repo, number);
+  let diff = await fetchDiff(repo, number);
+  if (diff.length > MAX_DIFF) diff = diff.slice(0, MAX_DIFF);
+  const checkout = localCheckout(repo);
+  const context = `PR #${pr.number}: ${pr.title}\n${pr.headRefName} → ${pr.baseRefName} · +${pr.additions}/-${pr.deletions}\n\nBESKRIVELSE:\n${(pr.body || "(ingen)").slice(0, 2000)}\n\nDIFF:\n\`\`\`diff\n${diff}\n\`\`\``;
+
+  const lensResults = await parallel(
+    LENSES.map((lens) => async (): Promise<{ key: string } & LensResult> => {
+      const r = await runStructured<LensResult>({
+        prompt: `${context}\n\nDu er én av flere reviewers. DIN linse: ${lens.focus}\nBruk repository-map + Read for å verifisere i den faktiske koden. Rapporter KUN funn innenfor din linse som JSON:\n{"summary":"1-2 setninger for din linse","findings":[{"severity":"blocker|major|minor|nit","file":"sti","note":"konkret funn + forslag"}],"strengths":["..."]}`,
+        systemPrompt: `Du er en senior Digilist-reviewer med spesialansvar for: ${lens.key}. Vær presis, kodegrunnet, ingen oppfinnelser.`,
+        model: cfg.anthropicReviewModel,
+        cwd: checkout,
+        maxTurns: 30,
+        timeoutMin: 10,
+      });
+      return { key: lens.key, summary: r?.summary ?? "", findings: r?.findings ?? [], strengths: r?.strengths ?? [] };
+    }),
+  );
+
+  const okSev = ["blocker", "major", "minor", "nit"];
+  const findings: ReviewFinding[] = [];
+  const strengths: string[] = [];
+  const summaries: string[] = [];
+  for (const lr of lensResults) {
+    if (!lr) continue;
+    if (lr.summary) summaries.push(`**${lr.key}:** ${lr.summary}`);
+    for (const f of lr.findings) {
+      if (f && typeof f.note === "string") {
+        findings.push({ severity: (okSev.includes(f.severity) ? f.severity : "minor") as ReviewFinding["severity"], file: f.file, note: f.note });
+      }
+    }
+    for (const s of lr.strengths) if (typeof s === "string") strengths.push(s);
+  }
+  if (findings.length === 0 && summaries.length === 0) {
+    throw new Error("multi-lens review produced no output");
+  }
+  const order = { blocker: 0, major: 1, minor: 2, nit: 3 } as const;
+  findings.sort((a, b) => order[a.severity] - order[b.severity]);
+  const hasBlocker = findings.some((f) => f.severity === "blocker");
+  const hasMajor = findings.some((f) => f.severity === "major");
+  const verdict: ReviewVerdict = {
+    summary: summaries.join(" "),
+    risk: hasBlocker ? "high" : hasMajor ? "medium" : "low",
+    blocking: hasBlocker,
+    findings: findings.slice(0, 16),
+    strengths: [...new Set(strengths)].slice(0, 6),
+    tests: lensResults.find((l) => l?.key === "tester-ci")?.summary ?? "",
+  };
+  return { pr, verdict, model: `${cfg.anthropicReviewModel} (max-cli · ${LENSES.length}-lens)` };
 }

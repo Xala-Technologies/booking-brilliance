@@ -20,15 +20,17 @@
  *   PR_REVIEW_ORGS       comma-separated orgs to auto-discover open-PR repos in
  *   PR_REVIEW_ONLY_AGENT =1 → only review agent/* branches
  *   PR_REVIEW_INCLUDE_BOTS=1 → also review bot PRs (dependabot etc.)
+ *   PR_REVIEW_MULTILENS=1 → multi-agent review (one capable agent per lens:
+ *                           correctness, security/RBAC, WCAG/UX, tests/CI)
  * Flags: --dry-run · --limit N (PRs per repo) · --all (include drafts) ·
  *        --repo <slug|name> (restrict to one) · --org <owner> (discover) ·
- *        --pr N (one specific PR — needs --repo) · --include-bots
+ *        --pr N (one specific PR — needs --repo) · --include-bots · --multi-lens
  */
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { loadConfig } from "../../content-agent/src/config";
 import { alreadyReviewed, postReview, renderReview } from "./post";
-import { reviewPr } from "./review";
+import { reviewPr, reviewPrMultiLens } from "./review";
 import { ReviewStore } from "./store";
 
 const exec = promisify(execFile);
@@ -104,6 +106,7 @@ async function main() {
   const args = process.argv.slice(2);
   const dryRun = args.includes("--dry-run");
   const includeDrafts = args.includes("--all");
+  const multiLens = args.includes("--multi-lens") || process.env.PR_REVIEW_MULTILENS === "1";
   const includeBots = args.includes("--include-bots") || process.env.PR_REVIEW_INCLUDE_BOTS === "1";
   const onlyAgent = process.env.PR_REVIEW_ONLY_AGENT === "1";
   const flag = (name: string) => {
@@ -153,8 +156,9 @@ async function main() {
     }
 
     try {
-      console.log(`  ⚙ reviewing ${key}${pr.headRefName ? ` (${pr.headRefName})` : ""}…`);
-      const { pr: full, verdict, model } = await reviewPr(cfg, pr.repo, pr.number);
+      console.log(`  ⚙ reviewing ${key}${pr.headRefName ? ` (${pr.headRefName})` : ""}${multiLens ? " [multi-lens]" : ""}…`);
+      const reviewer = multiLens && cfg.llmProvider === "claude-cli" ? reviewPrMultiLens : reviewPr;
+      const { pr: full, verdict, model } = await reviewer(cfg, pr.repo, pr.number);
       const body = renderReview(full, verdict, model);
       if (dryRun) {
         console.log(`\n----- ${key} — ${full.title} -----\n${body}\n`);
