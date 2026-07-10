@@ -36,3 +36,8 @@ tools/site-intelligence/reports/
 
 # Improvements-agent local operational brain (machine-specific)
 tools/improvements-agent/brain/
+
+# E2E agent artifacts
+tools/e2e-agent/report.json
+tools/e2e-agent/test-results/
+tools/e2e-agent/playwright-report/

@@ -29,7 +29,9 @@
     "improvements:run": "tsx tools/improvements-agent/src/run.ts",
     "improvements:prepare": "tsx tools/improvements-agent/src/prepare-run.ts",
     "improvements:install-timer": "bash scripts/install-improvements-timer.sh",
-    "docs:index": "tsx tools/docs-rag/src/index.ts"
+    "docs:index": "tsx tools/docs-rag/src/index.ts",
+    "e2e:test": "playwright test --config tools/e2e-agent/playwright.config.ts",
+    "e2e:run": "tsx tools/e2e-agent/src/run.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -94,6 +96,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",
+    "@playwright/test": "^1.61.1",
     "@tailwindcss/typography": "^0.5.16",
     "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^22.16.5",
