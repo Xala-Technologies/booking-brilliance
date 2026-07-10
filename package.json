@@ -30,6 +30,7 @@
     "improvements:prepare": "tsx tools/improvements-agent/src/prepare-run.ts",
     "improvements:implement": "tsx tools/improvements-agent/src/implement-run.ts",
     "improvements:install-timer": "bash scripts/install-improvements-timer.sh",
+    "pr-review:run": "tsx tools/pr-review-agent/src/run.ts",
     "docs:index": "tsx tools/docs-rag/src/index.ts",
     "e2e:test": "playwright test --config tools/e2e-agent/playwright.config.ts",
     "e2e:run": "tsx tools/e2e-agent/src/run.ts"

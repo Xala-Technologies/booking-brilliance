@@ -1,0 +1,168 @@
+/**
+ * PR-review agent — the reviewer core. Given a repo checkout + PR number, it
+ * pulls the PR metadata and diff via `gh`, then asks Claude (best model, on the
+ * Max subscription when LLM_PROVIDER=claude-cli) for a senior code review of the
+ * change. Returns a structured verdict the poster turns into a GitHub review.
+ *
+ * Deliberately diff-based and read-only: it reviews the patch + PR context, does
+ * not check out or run the code, and never approves or merges — it posts an
+ * advisory COMMENT review only.
+ */
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
+import type { ContentAgentConfig } from "../../content-agent/src/config";
+import { anthropic } from "../../content-agent/src/generate";
+
+const exec = promisify(execFile);
+
+/** gh needs a valid token; a broken GITHUB_TOKEN in env shadows the keyring. */
+function ghEnv(): NodeJS.ProcessEnv {
+  return { ...process.env, GITHUB_TOKEN: process.env.GH_TOKEN ?? process.env.GITHUB_TOKEN ?? "" };
+}
+
+export interface PullRequest {
+  number: number;
+  title: string;
+  body: string;
+  headRefName: string;
+  headRefOid: string;
+  baseRefName: string;
+  author: string;
+  isDraft: boolean;
+  additions: number;
+  deletions: number;
+  changedFiles: number;
+  url: string;
+  files: string[];
+}
+
+export interface ReviewFinding {
+  severity: "blocker" | "major" | "minor" | "nit";
+  file?: string;
+  note: string;
+}
+
+export interface ReviewVerdict {
+  summary: string;
+  risk: "low" | "medium" | "high";
+  blocking: boolean; // true → the reviewer thinks changes are needed before merge
+  findings: ReviewFinding[];
+  strengths: string[];
+  tests: string; // note on test coverage / whether tests were added
+}
+
+const MAX_DIFF = 60_000; // chars — keep the prompt within a single turn
+
+const SYSTEM = `Du er en senior kode-reviewer for Digilist (norsk kommunal booking-SaaS: Vite+React marketing-site og en Convex-basert app). Du gjør grundige, presise PR-reviews.
+
+Vurder endringen for: korrekthet og regresjoner, sikkerhet (auth/RBAC, injection, secrets, PII), tilgjengelighet (WCAG) der UI endres, ytelse, testdekning, og om PR-en faktisk løser det den sier. Vær konkret og pek på fil/linje når du kan. Ikke finn opp problemer — hvis endringen er god, si det.
+
+Svar KUN med JSON på dette skjemaet:
+{
+  "summary": "2-4 setninger: hva PR-en gjør og din helhetsvurdering",
+  "risk": "low|medium|high",
+  "blocking": true|false,
+  "findings": [{"severity":"blocker|major|minor|nit","file":"sti (valgfritt)","note":"konkret funn + forslag"}],
+  "strengths": ["det som er bra"],
+  "tests": "vurdering av testdekning"
+}
+blocking=true kun ved reelle blocker/major-funn. Maks 12 findings, viktigst først.`;
+
+/** Fetch a PR's metadata + file list via gh. */
+export async function fetchPr(repoPath: string, number: number): Promise<PullRequest> {
+  const { stdout } = await exec(
+    "gh",
+    ["pr", "view", String(number), "--json",
+      "number,title,body,headRefName,headRefOid,baseRefName,author,isDraft,additions,deletions,changedFiles,url,files"],
+    { cwd: repoPath, env: ghEnv(), timeout: 30_000, maxBuffer: 16 * 1024 * 1024 },
+  );
+  const j = JSON.parse(stdout) as Record<string, unknown>;
+  return {
+    number: j.number as number,
+    title: (j.title as string) ?? "",
+    body: (j.body as string) ?? "",
+    headRefName: (j.headRefName as string) ?? "",
+    headRefOid: (j.headRefOid as string) ?? "",
+    baseRefName: (j.baseRefName as string) ?? "",
+    author: (j.author as { login?: string })?.login ?? "",
+    isDraft: Boolean(j.isDraft),
+    additions: (j.additions as number) ?? 0,
+    deletions: (j.deletions as number) ?? 0,
+    changedFiles: (j.changedFiles as number) ?? 0,
+    url: (j.url as string) ?? "",
+    files: Array.isArray(j.files) ? (j.files as { path: string }[]).map((f) => f.path) : [],
+  };
+}
+
+/** Fetch the unified diff for a PR (capped). */
+export async function fetchDiff(repoPath: string, number: number): Promise<string> {
+  const { stdout } = await exec("gh", ["pr", "diff", String(number)], {
+    cwd: repoPath, env: ghEnv(), timeout: 40_000, maxBuffer: 64 * 1024 * 1024,
+  });
+  return stdout;
+}
+
+function tryJson<T>(text: string): T | null {
+  const m = text.match(/\{[\s\S]*\}/);
+  if (!m) return null;
+  try {
+    return JSON.parse(m[0]) as T;
+  } catch {
+    return null;
+  }
+}
+
+/** Review one PR: pull metadata + diff, ask Claude, return a structured verdict. */
+export async function reviewPr(
+  cfg: ContentAgentConfig,
+  repoPath: string,
+  number: number,
+): Promise<{ pr: PullRequest; verdict: ReviewVerdict; model: string }> {
+  const pr = await fetchPr(repoPath, number);
+  let diff = await fetchDiff(repoPath, number);
+  let truncated = "";
+  if (diff.length > MAX_DIFF) {
+    diff = diff.slice(0, MAX_DIFF);
+    truncated = `\n\n[diff avkortet ved ${MAX_DIFF} tegn — ${pr.changedFiles} filer totalt]`;
+  }
+
+  const userMessage = `PR #${pr.number}: ${pr.title}
+Forfatter: ${pr.author} · ${pr.headRefName} → ${pr.baseRefName}
+Endringer: +${pr.additions} / -${pr.deletions} i ${pr.changedFiles} filer
+
+BESKRIVELSE:
+${(pr.body || "(ingen)").slice(0, 3000)}
+
+FILER:
+${pr.files.slice(0, 60).join("\n")}
+
+DIFF:
+\`\`\`diff
+${diff}
+\`\`\`${truncated}
+
+Gi en grundig review. Returner JSON.`;
+
+  const call = await anthropic(cfg, {
+    model: cfg.anthropicReviewModel,
+    systemPrompt: SYSTEM,
+    userMessage,
+    maxTokens: 3072,
+  });
+  const parsed = tryJson<Partial<ReviewVerdict>>(call.text);
+  const okSev = ["blocker", "major", "minor", "nit"];
+  const verdict: ReviewVerdict = {
+    summary: parsed?.summary ?? "Klarte ikke å produsere et sammendrag.",
+    risk: (["low", "medium", "high"].includes(parsed?.risk as string) ? parsed!.risk : "medium") as ReviewVerdict["risk"],
+    blocking: Boolean(parsed?.blocking),
+    findings: Array.isArray(parsed?.findings)
+      ? parsed!.findings!
+          .filter((f) => f && typeof f.note === "string")
+          .map((f) => ({ severity: (okSev.includes(f.severity as string) ? f.severity : "minor") as ReviewFinding["severity"], file: f.file, note: f.note }))
+          .slice(0, 12)
+      : [],
+    strengths: Array.isArray(parsed?.strengths) ? parsed!.strengths!.filter((s) => typeof s === "string").slice(0, 6) : [],
+    tests: parsed?.tests ?? "",
+  };
+  return { pr, verdict, model: call.model };
+}
