@@ -10,11 +10,29 @@
  * advisory COMMENT review only.
  */
 import { execFile } from "node:child_process";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
+import { runCapableAgent } from "../../content-agent/src/claude-agent";
 import type { ContentAgentConfig } from "../../content-agent/src/config";
 import { anthropic } from "../../content-agent/src/generate";
 
 const exec = promisify(execFile);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+/** Local checkout for a repo slug, if present — lets the reviewer use the
+ *  repository map (codebase-memory) + Read to ground the review in real code. */
+export function localCheckout(repo: string): string | undefined {
+  const name = (repo.split("/")[1] ?? repo).toLowerCase();
+  const candidates =
+    name === "digilist"
+      ? [process.env.DIGILIST_REPO_PATH ?? "/root/Digilist"]
+      : name === "booking-brilliance"
+        ? [path.resolve(__dirname, "..", "..", ".."), "/root/booking-brilliance"]
+        : [];
+  return candidates.find((p) => p && fs.existsSync(path.join(p, ".git")));
+}
 
 /** gh needs a valid token; a broken GITHUB_TOKEN in env shadows the keyring. */
 function ghEnv(): NodeJS.ProcessEnv {
@@ -127,6 +145,10 @@ export async function reviewPr(
     truncated = `\n\n[diff avkortet ved ${MAX_DIFF} tegn — ${pr.changedFiles} filer totalt]`;
   }
 
+  const checkout = localCheckout(repo);
+  const groundingNote = checkout
+    ? `\nDu står i repoet (${repo}). Du HAR verktøy: repository-map (codebase-memory: search_graph/get_code_snippet/get_architecture), Read/Grep/Glob, og docs-RAG. Bruk dem til å verifisere at diffen henger sammen med resten av koden (kallere, typer, tester, RBAC) før du konkluderer. Kun review — ikke endre filer.`
+    : "";
   const userMessage = `PR #${pr.number}: ${pr.title}
 Forfatter: ${pr.author} · ${pr.headRefName} → ${pr.baseRefName}
 Endringer: +${pr.additions} / -${pr.deletions} i ${pr.changedFiles} filer
@@ -141,16 +163,30 @@ DIFF:
 \`\`\`diff
 ${diff}
 \`\`\`${truncated}
+${groundingNote}
+Gi en grundig review. Din SISTE melding skal være KUN JSON-objektet (ingen prosa rundt).`;
 
-Gi en grundig review. Returner JSON.`;
-
-  const call = await anthropic(cfg, {
-    model: cfg.anthropicReviewModel,
-    systemPrompt: SYSTEM,
-    userMessage,
-    maxTokens: 3072,
-  });
-  const parsed = tryJson<Partial<ReviewVerdict>>(call.text);
+  let text: string;
+  let model: string;
+  if (cfg.llmProvider === "claude-cli") {
+    // Capable mode: full tools + the repository map, grounded in the checkout.
+    const r = await runCapableAgent({
+      prompt: userMessage,
+      systemPrompt: SYSTEM,
+      model: cfg.anthropicReviewModel,
+      cwd: checkout,
+      maxTurns: 40,
+      timeoutMin: 12,
+    });
+    text = r.text;
+    model = r.model;
+  } else {
+    // Local/API fallback: tool-free single call over the diff.
+    const call = await anthropic(cfg, { model: cfg.anthropicReviewModel, systemPrompt: SYSTEM, userMessage, maxTokens: 3072 });
+    text = call.text;
+    model = call.model;
+  }
+  const parsed = tryJson<Partial<ReviewVerdict>>(text);
   const okSev = ["blocker", "major", "minor", "nit"];
   const verdict: ReviewVerdict = {
     summary: parsed?.summary ?? "Klarte ikke å produsere et sammendrag.",
@@ -165,5 +201,5 @@ Gi en grundig review. Returner JSON.`;
     strengths: Array.isArray(parsed?.strengths) ? parsed!.strengths!.filter((s) => typeof s === "string").slice(0, 6) : [],
     tests: parsed?.tests ?? "",
   };
-  return { pr, verdict, model: call.model };
+  return { pr, verdict, model };
 }
