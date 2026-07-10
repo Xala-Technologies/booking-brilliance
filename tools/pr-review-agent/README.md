@@ -17,14 +17,32 @@ reviews the diff with Claude (best model, on the Max subscription), and posts an
 3. Renders the structured verdict as markdown and posts it with
    `gh pr review --comment`.
 
+## Verdicts
+
+The review event reflects the verdict (default on; the agent **never merges**):
+- **blocker finding → `REQUEST_CHANGES`** (a proper change request)
+- **clean / only minor·nit → `APPROVE`** (a review state, not a merge)
+- **major finding / high risk → `COMMENT`** (advisory)
+
+`PR_REVIEW_VERDICTS=0` or `--comment-only` restricts it to advisory comments.
+Approve/request-changes falls back to a comment if GitHub rejects it (e.g. you
+can't formally approve your own PR). **Approval is not a merge** — merging still
+needs a human (or your own branch-protection/auto-merge config, which the agent
+never touches).
+
+## Re-review on new commits
+
+Dedup is on the PR **head commit**: if new commits land after a review, the head
+moves, and the next run **re-reviews** and posts an updated review ("oppdatert
+etter nye commits"). Unchanged head → skipped. A hidden marker handles first-run
+adoption on a fresh machine.
+
 ## Safety
 
-- **Advisory only.** It posts a `COMMENT` review — never `--approve`,
-  `--request-changes`, or a merge. A human still decides.
-- **Diff-based & read-only.** It reviews the patch; it does not run the code.
-- **Idempotent.** Dedupes on the PR head commit (re-reviews only when new
-  commits land) and on a hidden marker in its own prior review.
-- `--dry-run` prints the review and posts nothing.
+- **Never merges.** Approve/request-changes are review states only.
+- **Diff-based, read-only review.** It reads the patch + code (repo map); it does
+  not run or modify the code.
+- `--dry-run` prints the review (with the chosen event) and posts nothing.
 
 ## Run
 
