@@ -1,8 +1,9 @@
 /**
- * PR-review agent — the reviewer core. Given a repo checkout + PR number, it
- * pulls the PR metadata and diff via `gh`, then asks Claude (best model, on the
- * Max subscription when LLM_PROVIDER=claude-cli) for a senior code review of the
- * change. Returns a structured verdict the poster turns into a GitHub review.
+ * PR-review agent — the reviewer core. Given a GitHub repo slug (owner/name) +
+ * PR number, it pulls the PR metadata and diff via `gh --repo <slug>` (no local
+ * checkout needed — it scans GitHub directly), then asks Claude (best model, on
+ * the Max subscription when LLM_PROVIDER=claude-cli) for a senior code review of
+ * the change. Returns a structured verdict the poster turns into a GitHub review.
  *
  * Deliberately diff-based and read-only: it reviews the patch + PR context, does
  * not check out or run the code, and never approves or merges — it posts an
@@ -68,13 +69,13 @@ Svar KUN med JSON på dette skjemaet:
 }
 blocking=true kun ved reelle blocker/major-funn. Maks 12 findings, viktigst først.`;
 
-/** Fetch a PR's metadata + file list via gh. */
-export async function fetchPr(repoPath: string, number: number): Promise<PullRequest> {
+/** Fetch a PR's metadata + file list via gh (by repo slug, no checkout). */
+export async function fetchPr(repo: string, number: number): Promise<PullRequest> {
   const { stdout } = await exec(
     "gh",
-    ["pr", "view", String(number), "--json",
+    ["pr", "view", String(number), "--repo", repo, "--json",
       "number,title,body,headRefName,headRefOid,baseRefName,author,isDraft,additions,deletions,changedFiles,url,files"],
-    { cwd: repoPath, env: ghEnv(), timeout: 30_000, maxBuffer: 16 * 1024 * 1024 },
+    { env: ghEnv(), timeout: 30_000, maxBuffer: 16 * 1024 * 1024 },
   );
   const j = JSON.parse(stdout) as Record<string, unknown>;
   return {
@@ -95,9 +96,9 @@ export async function fetchPr(repoPath: string, number: number): Promise<PullReq
 }
 
 /** Fetch the unified diff for a PR (capped). */
-export async function fetchDiff(repoPath: string, number: number): Promise<string> {
-  const { stdout } = await exec("gh", ["pr", "diff", String(number)], {
-    cwd: repoPath, env: ghEnv(), timeout: 40_000, maxBuffer: 64 * 1024 * 1024,
+export async function fetchDiff(repo: string, number: number): Promise<string> {
+  const { stdout } = await exec("gh", ["pr", "diff", String(number), "--repo", repo], {
+    env: ghEnv(), timeout: 40_000, maxBuffer: 64 * 1024 * 1024,
   });
   return stdout;
 }
@@ -115,11 +116,11 @@ function tryJson<T>(text: string): T | null {
 /** Review one PR: pull metadata + diff, ask Claude, return a structured verdict. */
 export async function reviewPr(
   cfg: ContentAgentConfig,
-  repoPath: string,
+  repo: string,
   number: number,
 ): Promise<{ pr: PullRequest; verdict: ReviewVerdict; model: string }> {
-  const pr = await fetchPr(repoPath, number);
-  let diff = await fetchDiff(repoPath, number);
+  const pr = await fetchPr(repo, number);
+  let diff = await fetchDiff(repo, number);
   let truncated = "";
   if (diff.length > MAX_DIFF) {
     diff = diff.slice(0, MAX_DIFF);

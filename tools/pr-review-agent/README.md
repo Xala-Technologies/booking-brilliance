@@ -7,8 +7,10 @@ reviews the diff with Claude (best model, on the Max subscription), and posts an
 
 ## What it does
 
-1. Lists open PRs in `booking-brilliance` (this repo) and `Digilist`
-   (`DIGILIST_REPO_PATH`) via `gh pr list`.
+1. **Scans GitHub** for open PRs (no local checkout needed — `gh --repo
+   owner/name`). By default it scans `xalatechnologies/booking-brilliance` and
+   `Xala-Technologies/Digilist`; `PR_REVIEW_ORGS`/`--org` discovers every repo
+   in an org that has open PRs. Bot PRs (dependabot etc.) are skipped by default.
 2. For each PR not yet reviewed at its current head commit: pulls the diff +
    metadata and asks Claude for a senior review (correctness, security/RBAC,
    a11y, performance, tests, does-it-do-what-it-says).
@@ -28,14 +30,17 @@ reviews the diff with Claude (best model, on the Max subscription), and posts an
 
 ```bash
 # LLM_PROVIDER=claude-cli uses the Max login (no ANTHROPIC_API_KEY)
-pnpm pr-review:run -- --dry-run          # preview, post nothing
-pnpm pr-review:run                       # review + post
-pnpm pr-review:run -- --repo digilist --limit 10
+pnpm pr-review:run -- --dry-run                    # preview, post nothing
+pnpm pr-review:run                                 # review + post (default repos)
+pnpm pr-review:run -- --repo Digilist --pr 42      # one specific PR
+pnpm pr-review:run -- --org xalatechnologies       # discover + review org-wide
 ```
 
-Env: `GH_TOKEN` (repo access) · `DIGILIST_REPO_PATH` · `PR_REVIEW_ONLY_AGENT=1`
-(only review `agent/*` branches). Flags: `--dry-run`, `--limit N`, `--all`
-(include drafts), `--repo <label>`.
+Env: `GH_TOKEN` (repo access) · `PR_REVIEW_REPOS` (comma slugs `owner/name`) ·
+`PR_REVIEW_ORGS` (comma orgs to auto-discover) · `PR_REVIEW_ONLY_AGENT=1` (only
+`agent/*` branches) · `PR_REVIEW_INCLUDE_BOTS=1` (also review dependabot etc.).
+Flags: `--dry-run`, `--limit N`, `--all` (drafts), `--repo <slug|name>`,
+`--org <owner>`, `--pr N`, `--include-bots`.
 
 ## On the VPS
 

@@ -59,10 +59,10 @@ export function renderReview(pr: PullRequest, v: ReviewVerdict, model: string): 
 }
 
 /** Has our agent already posted a review on this PR? (marker match). */
-export async function alreadyReviewed(repoPath: string, number: number): Promise<boolean> {
+export async function alreadyReviewed(repo: string, number: number): Promise<boolean> {
   try {
-    const { stdout } = await exec("gh", ["pr", "view", String(number), "--json", "reviews,comments"], {
-      cwd: repoPath, env: ghEnv(), timeout: 30_000, maxBuffer: 16 * 1024 * 1024,
+    const { stdout } = await exec("gh", ["pr", "view", String(number), "--repo", repo, "--json", "reviews,comments"], {
+      env: ghEnv(), timeout: 30_000, maxBuffer: 16 * 1024 * 1024,
     });
     const j = JSON.parse(stdout) as { reviews?: { body?: string }[]; comments?: { body?: string }[] };
     const bodies = [...(j.reviews ?? []), ...(j.comments ?? [])].map((x) => x.body ?? "");
@@ -73,8 +73,8 @@ export async function alreadyReviewed(repoPath: string, number: number): Promise
 }
 
 /** Post the review to GitHub as a COMMENT (advisory, non-gating). */
-export async function postReview(repoPath: string, number: number, body: string): Promise<void> {
-  await exec("gh", ["pr", "review", String(number), "--comment", "--body", body], {
-    cwd: repoPath, env: ghEnv(), timeout: 40_000, maxBuffer: 16 * 1024 * 1024,
+export async function postReview(repo: string, number: number, body: string): Promise<void> {
+  await exec("gh", ["pr", "review", String(number), "--repo", repo, "--comment", "--body", body], {
+    env: ghEnv(), timeout: 40_000, maxBuffer: 16 * 1024 * 1024,
   });
 }
