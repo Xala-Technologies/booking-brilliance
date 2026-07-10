@@ -130,9 +130,15 @@ async function claudeCli(opts: {
     "--allowedTools", "",
   ];
   if (opts.systemPrompt) args.push("--append-system-prompt", opts.systemPrompt);
+  // An ANTHROPIC_API_KEY in the environment takes precedence over the claude.ai
+  // (Max) login and makes `claude -p` use the API key instead — so strip it and
+  // other API auth sources so the subscription login is used.
+  const cliEnv = { ...process.env };
+  delete cliEnv.ANTHROPIC_API_KEY;
+  delete cliEnv.ANTHROPIC_AUTH_TOKEN;
   const call = () =>
     new Promise<string>((resolve, reject) => {
-      const child = spawn("claude", args, { stdio: ["pipe", "pipe", "pipe"] });
+      const child = spawn("claude", args, { stdio: ["pipe", "pipe", "pipe"], env: cliEnv });
       let out = "";
       let err = "";
       const timer = setTimeout(() => {
