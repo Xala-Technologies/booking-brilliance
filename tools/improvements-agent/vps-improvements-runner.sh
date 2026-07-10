@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 # Improvements agent on the VPS, powered by the Claude Max subscription (no API
-# key). Usage: vps-improvements-runner.sh <run|prepare>
-#   run     — index Digilist + booking-brilliance, analyze ideas/findings vs the
-#             code graph, file genuine work as Linear /loop goals.
-#   prepare — set up an isolated implementation branch for each approved issue.
+# key). Usage: vps-improvements-runner.sh <run|prepare|implement> [extra args…]
+#   run       — index Digilist + booking-brilliance, analyze ideas/findings vs the
+#               code graph, file genuine work as Linear /loop goals.
+#   prepare   — set up an isolated implementation branch for each approved issue.
+#   implement — run Claude in each prepared worktree to build the goal → PR,
+#               moving the Linear issue Todo→In Progress→In Review (or Blocked).
+# Extra args after the mode are forwarded to the npm script (e.g. --limit 1).
 # Run by systemd (digilist-improvements-*.timer).
 set -uo pipefail
 export PATH="/root/.local/bin:/usr/local/bin:/usr/bin:/bin"
@@ -22,5 +25,10 @@ if [ "${1:-run}" = "run" ] && [ -d "$DIGILIST_REPO_PATH/.git" ]; then
   git -C "$DIGILIST_REPO_PATH" fetch origin --quiet 2>/dev/null || true
 fi
 
-echo "[vps-improvements] ${1:-run} on Claude Max…"
-pnpm "improvements:${1:-run}"
+MODE="${1:-run}"
+echo "[vps-improvements] ${MODE} on Claude Max…"
+if [ "$#" -gt 1 ]; then
+  pnpm "improvements:${MODE}" -- "${@:2}"
+else
+  pnpm "improvements:${MODE}"
+fi
