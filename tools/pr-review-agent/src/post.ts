@@ -1,8 +1,11 @@
 /**
  * PR-review agent — the poster. Renders a ReviewVerdict as markdown and submits
- * it to GitHub as a COMMENT review (advisory only — never --approve, never
- * --request-changes that gates a merge, never a merge). A hidden marker lets us
- * detect our own prior review so re-runs don't duplicate.
+ * it to GitHub as a review. The review EVENT reflects the verdict:
+ *   - blocker finding      → REQUEST_CHANGES (a proper change request)
+ *   - clean / only minor   → APPROVE
+ *   - otherwise (major…)   → COMMENT (advisory)
+ * The agent NEVER merges — approval is a review state, not a merge. A hidden
+ * marker lets us detect our own prior review so re-runs don't duplicate.
  */
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
@@ -10,6 +13,18 @@ import type { PullRequest, ReviewVerdict } from "./review";
 
 const exec = promisify(execFile);
 const MARKER = "<!-- digilist-pr-review -->";
+
+export type ReviewEvent = "approve" | "request-changes" | "comment";
+
+/** Map a verdict to a GitHub review event. Gated: when verdicts are disabled we
+ *  only ever COMMENT (advisory). Blocker → change request; major → comment;
+ *  otherwise (clean / minor / nit) → approve. */
+export function verdictEvent(v: ReviewVerdict, allowVerdicts: boolean): ReviewEvent {
+  if (!allowVerdicts) return "comment";
+  if (v.blocking || v.findings.some((f) => f.severity === "blocker")) return "request-changes";
+  if (v.findings.some((f) => f.severity === "major") || v.risk === "high") return "comment";
+  return "approve";
+}
 
 function ghEnv(): NodeJS.ProcessEnv {
   return { ...process.env, GITHUB_TOKEN: process.env.GH_TOKEN ?? process.env.GITHUB_TOKEN ?? "" };
@@ -23,15 +38,19 @@ const SEV_ICON: Record<string, string> = {
 };
 
 /** Render the verdict as a GitHub-flavoured markdown review body. */
-export function renderReview(pr: PullRequest, v: ReviewVerdict, model: string): string {
+export function renderReview(pr: PullRequest, v: ReviewVerdict, model: string, event: ReviewEvent = "comment", isUpdate = false): string {
   const riskBadge = v.risk === "high" ? "🔴 Høy" : v.risk === "medium" ? "🟡 Middels" : "🟢 Lav";
+  const eventLabel =
+    event === "request-changes" ? "🔴 Endringer forespurt (blocker)" :
+    event === "approve" ? "🟢 Godkjent (rådgivende — ingen auto-merge)" :
+    "💬 Kommentar (rådgivende)";
   const lines: string[] = [
     MARKER,
-    `## 🤖 Automatisk kode-review`,
+    `## 🤖 Automatisk kode-review${isUpdate ? " — oppdatert etter nye commits" : ""}`,
     ``,
     v.summary,
     ``,
-    `**Risiko:** ${riskBadge} · **Vurdering:** ${v.blocking ? "⛔ Bør adresseres før merge" : "✅ Ser greit ut å merge etter en titt"}`,
+    `**Risiko:** ${riskBadge} · **Konklusjon:** ${eventLabel}`,
     ``,
   ];
 
@@ -72,9 +91,24 @@ export async function alreadyReviewed(repo: string, number: number): Promise<boo
   }
 }
 
-/** Post the review to GitHub as a COMMENT (advisory, non-gating). */
-export async function postReview(repo: string, number: number, body: string): Promise<void> {
-  await exec("gh", ["pr", "review", String(number), "--repo", repo, "--comment", "--body", body], {
-    env: ghEnv(), timeout: 40_000, maxBuffer: 16 * 1024 * 1024,
-  });
+/** Post the review to GitHub with the given event. Never merges. Falls back to
+ *  a COMMENT if approve/request-changes is rejected (e.g. can't review own PR,
+ *  or the token lacks the permission). */
+export async function postReview(repo: string, number: number, body: string, event: ReviewEvent = "comment"): Promise<ReviewEvent> {
+  const flag = event === "approve" ? "--approve" : event === "request-changes" ? "--request-changes" : "--comment";
+  try {
+    await exec("gh", ["pr", "review", String(number), "--repo", repo, flag, "--body", body], {
+      env: ghEnv(), timeout: 40_000, maxBuffer: 16 * 1024 * 1024,
+    });
+    return event;
+  } catch (e) {
+    if (event === "comment") throw e;
+    // GitHub blocks approving/requesting-changes on your own PR (and needs write
+    // perms). Fall back to an advisory comment so the review still lands.
+    await exec("gh", ["pr", "review", String(number), "--repo", repo, "--comment", "--body", body], {
+      env: ghEnv(), timeout: 40_000, maxBuffer: 16 * 1024 * 1024,
+    });
+    console.warn(`[pr-review] ${repo}#${number}: ${event} rejected (${String(e).slice(0, 80)}) — posted as comment`);
+    return "comment";
+  }
 }

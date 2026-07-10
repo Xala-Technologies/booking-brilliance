@@ -22,14 +22,17 @@
  *   PR_REVIEW_INCLUDE_BOTS=1 → also review bot PRs (dependabot etc.)
  *   PR_REVIEW_MULTILENS=1 → multi-agent review (one capable agent per lens:
  *                           correctness, security/RBAC, WCAG/UX, tests/CI)
+ *   PR_REVIEW_VERDICTS=0 → advisory comments only (default: post approve on a
+ *                          clean PR, request-changes on a blocker). NEVER merges.
  * Flags: --dry-run · --limit N (PRs per repo) · --all (include drafts) ·
  *        --repo <slug|name> (restrict to one) · --org <owner> (discover) ·
  *        --pr N (one specific PR — needs --repo) · --include-bots · --multi-lens
+ *        · --comment-only (advisory comments, never approve/request-changes)
  */
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { loadConfig } from "../../content-agent/src/config";
-import { alreadyReviewed, postReview, renderReview } from "./post";
+import { alreadyReviewed, postReview, renderReview, verdictEvent } from "./post";
 import { reviewPr, reviewPrMultiLens } from "./review";
 import { ReviewStore } from "./store";
 
@@ -107,6 +110,10 @@ async function main() {
   const dryRun = args.includes("--dry-run");
   const includeDrafts = args.includes("--all");
   const multiLens = args.includes("--multi-lens") || process.env.PR_REVIEW_MULTILENS === "1";
+  // Post proper review verdicts (approve / request-changes) rather than only
+  // advisory comments. Default ON; the agent still NEVER merges. --comment-only
+  // or PR_REVIEW_VERDICTS=0 restricts it to advisory comments.
+  const allowVerdicts = !args.includes("--comment-only") && process.env.PR_REVIEW_VERDICTS !== "0";
   const includeBots = args.includes("--include-bots") || process.env.PR_REVIEW_INCLUDE_BOTS === "1";
   const onlyAgent = process.env.PR_REVIEW_ONLY_AGENT === "1";
   const flag = (name: string) => {
@@ -148,24 +155,31 @@ async function main() {
     if (onlyAgent && !pr.headRefName.startsWith("agent/")) { skipped++; continue; }
     if (pr.authorIsBot && !includeBots) { console.log(`  · ${pr.repo}#${pr.number} bot PR (${pr.author}) — skip`); skipped++; continue; }
     const key = `${pr.repo}#${pr.number}`;
-    if (store.reviewedAt(key, pr.headRefOid)) { console.log(`  · ${key} unchanged since last review — skip`); continue; }
-    if (!dryRun && (await alreadyReviewed(pr.repo, pr.number))) {
+    const prior = store.get(key);
+    // Same head commit as our last review → nothing changed → skip.
+    if (prior?.headOid === pr.headRefOid && !onePr) { console.log(`  · ${key} unchanged since last review — skip`); continue; }
+    // No local record but our marker is already on the PR (fresh machine): adopt
+    // it, but ONLY when the head hasn't moved past what the marker reviewed. If we
+    // have a prior record with a different head, new commits landed → re-review.
+    if (!prior && !onePr && !dryRun && (await alreadyReviewed(pr.repo, pr.number))) {
       store.record(key, { headOid: pr.headRefOid, url: "", reviewed_at: nowIso(), blocking: false });
       console.log(`  · ${key} already has our review — adopt & skip`);
       continue;
     }
+    const isUpdate = Boolean(prior && prior.headOid !== pr.headRefOid);
 
     try {
-      console.log(`  ⚙ reviewing ${key}${pr.headRefName ? ` (${pr.headRefName})` : ""}${multiLens ? " [multi-lens]" : ""}…`);
+      console.log(`  ⚙ reviewing ${key}${pr.headRefName ? ` (${pr.headRefName})` : ""}${isUpdate ? " [re-review: new commits]" : ""}${multiLens ? " [multi-lens]" : ""}…`);
       const reviewer = multiLens && cfg.llmProvider === "claude-cli" ? reviewPrMultiLens : reviewPr;
       const { pr: full, verdict, model } = await reviewer(cfg, pr.repo, pr.number);
-      const body = renderReview(full, verdict, model);
+      const event = verdictEvent(verdict, allowVerdicts);
+      const body = renderReview(full, verdict, model, event, isUpdate);
       if (dryRun) {
-        console.log(`\n----- ${key} — ${full.title} -----\n${body}\n`);
+        console.log(`\n----- ${key} — ${full.title} [${event}${isUpdate ? ", update" : ""}] -----\n${body}\n`);
       } else {
-        await postReview(pr.repo, pr.number, body);
+        const posted = await postReview(pr.repo, pr.number, body, event);
         store.record(key, { headOid: pr.headRefOid, url: full.url, reviewed_at: nowIso(), blocking: verdict.blocking });
-        console.log(`  ✓ posted review on ${key} — risk=${verdict.risk} blocking=${verdict.blocking} (${verdict.findings.length} findings)`);
+        console.log(`  ✓ ${posted.toUpperCase()} on ${key} — risk=${verdict.risk} blocking=${verdict.blocking} (${verdict.findings.length} findings)${isUpdate ? " [update]" : ""}`);
       }
       reviewed++;
     } catch (e) {

@@ -34,6 +34,10 @@ export class ReviewStore {
   reviewedAt(key: string, headOid: string): boolean {
     return this.data[key]?.headOid === headOid;
   }
+  /** Our prior review record for a PR, if any (regardless of head commit). */
+  get(key: string): Reviewed | undefined {
+    return this.data[key];
+  }
   record(key: string, r: Reviewed): void {
     this.data[key] = r;
   }
