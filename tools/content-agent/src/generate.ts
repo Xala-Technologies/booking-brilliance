@@ -150,14 +150,15 @@ async function claudeCli(opts: {
       child.on("error", reject);
       child.on("close", (code) => {
         clearTimeout(timer);
-        if (code !== 0) return reject(new Error(`claude -p exit ${code}: ${err.slice(0, 200)}`));
+        // claude may exit non-zero (a warning) yet still emit a valid result
+        // envelope on stdout — use it. Only reject when there's no usable result.
         try {
           const env = JSON.parse(out) as { result?: string; is_error?: boolean };
-          if (env.is_error) return reject(new Error("claude -p is_error"));
-          resolve((env.result ?? "").trim());
+          if (env.result && !env.is_error) return resolve(String(env.result).trim());
         } catch {
-          reject(new Error(`claude -p parse fail: ${out.slice(0, 160)}`));
+          /* fall through to reject with diagnostics */
         }
+        reject(new Error(`claude -p exit ${code}: ${(err || out || "no output").slice(0, 240)}`));
       });
       child.stdin.write(opts.userMessage);
       child.stdin.end();
