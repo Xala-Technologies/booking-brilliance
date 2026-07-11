@@ -40,7 +40,11 @@ export function implementGoal(
     const child = spawn("claude", args, { cwd: worktree, env, stdio: ["pipe", "pipe", "pipe"] });
     let out = "";
     let err = "";
-    const timer = setTimeout(() => child.kill("SIGKILL"), (opts.timeoutMin ?? 45) * 60_000);
+    // Large goals (migrations, refactors) can legitimately run for hours — a
+    // timeoutMin of 0 (or negative) disables the kill timer entirely so the
+    // agent runs to completion; a positive value caps it.
+    const tmoMin = opts.timeoutMin ?? 45;
+    const timer = tmoMin > 0 ? setTimeout(() => child.kill("SIGKILL"), tmoMin * 60_000) : null;
     child.stdout.on("data", (d) => (out += d));
     child.stderr.on("data", (d) => (err += d));
     child.on("error", (e) => {
