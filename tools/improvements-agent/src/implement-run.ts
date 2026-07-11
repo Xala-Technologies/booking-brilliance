@@ -13,7 +13,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import { LinearClient } from "../../content-agent/src/linear";
-import { OpenBrain } from "./brain";
+import { parallel } from "../../content-agent/src/orchestrate";
+import { OpenBrain, type Prepared } from "./brain";
 import { findPrForBranch, implementGoal } from "./implement";
 
 const nowIso = () => new Date().toISOString();
@@ -41,42 +42,43 @@ export async function implementPending(opts: { dryRun?: boolean; limit?: number 
     if (linear && id && body) await linear.addComment(id, body).catch(() => {});
   };
 
-  for (const p of pending) {
+  const numEnv = (k: string, d: number) => {
+    const v = process.env[k];
+    return v !== undefined && v !== "" ? Number(v) : d;
+  };
+  // Model-per-task: coding defaults to Sonnet 5 (cost-efficient); override to Opus
+  // for complex builds via env. Idle-watchdog kills only genuine stalls; no total
+  // cap by default. CONCURRENCY runs N builds at once — keep it modest (one Max
+  // login + shared VPS: 2-3 is a sane ceiling; each build can spike ~4 GB).
+  const model = process.env.IMPROVEMENTS_IMPLEMENT_MODEL || "claude-sonnet-5";
+  const timeoutMin = numEnv("IMPROVEMENTS_IMPLEMENT_TIMEOUT_MIN", 0);
+  const idleMin = numEnv("IMPROVEMENTS_IMPLEMENT_IDLE_MIN", 25);
+  const concurrency = Math.max(1, numEnv("IMPROVEMENTS_IMPLEMENT_CONCURRENCY", 1));
+  console.log(`  (model: ${model} · cap: ${timeoutMin > 0 ? timeoutMin + "m" : "none"} · idle: ${idleMin}m · concurrency: ${concurrency})`);
+
+  // Serialize Open Brain writes — concurrent builds share one brain.json and
+  // would otherwise race and lose each other's records. Chain writes on a lock.
+  let brainLock: Promise<void> = Promise.resolve();
+  const saveBrain = (p: Prepared, pr?: string): Promise<void> => {
+    brainLock = brainLock.then(() => {
+      brain.recordPrepared({ ...p, implemented_at: nowIso(), pr_url: pr });
+      brain.save(nowIso());
+    });
+    return brainLock;
+  };
+
+  const runOne = async (p: Prepared): Promise<void> => {
     const goal = p.goal ?? readGoalFile(p.worktree_path, p.goal_file);
-    if (!goal) {
-      console.warn(`[implement] ${p.branch}: no goal — skip`);
-      continue;
-    }
-    if (!fs.existsSync(p.worktree_path)) {
-      console.warn(`[implement] ${p.branch}: worktree ${p.worktree_path} missing — skip`);
-      continue;
-    }
-    if (dryRun) {
-      console.log(`  ▸ would implement ${p.branch} in ${p.worktree_path}`);
-      continue;
-    }
+    if (!goal) { console.warn(`[implement] ${p.branch}: no goal — skip`); return; }
+    if (!fs.existsSync(p.worktree_path)) { console.warn(`[implement] ${p.branch}: worktree ${p.worktree_path} missing — skip`); return; }
+    if (dryRun) { console.log(`  ▸ would implement ${p.branch} in ${p.worktree_path}`); return; }
 
     await move(p.linear_id, S_PROGRESS); // board reflects: agent is coding
     console.log(`  ⚙ implementing ${p.branch} (Claude Max, this can take a while)…`);
-    // Long migrations run for hours: no total cap by default — the idle watchdog
-    // (IMPROVEMENTS_IMPLEMENT_IDLE_MIN, default 25) kills only genuine stalls.
-    // Model + optional absolute cap are configurable per the model-per-task policy.
-    const numEnv = (k: string, d: number) => {
-      const v = process.env[k];
-      return v !== undefined && v !== "" ? Number(v) : d;
-    };
-    // Model-per-task: coding defaults to Sonnet 5 (strong + cost-efficient at
-    // implementation); override to Opus for complex/critical migrations via env.
-    // (Review/analysis run on Opus for deep reasoning; clustering on Haiku.)
-    const model = process.env.IMPROVEMENTS_IMPLEMENT_MODEL || "claude-sonnet-5";
-    const timeoutMin = numEnv("IMPROVEMENTS_IMPLEMENT_TIMEOUT_MIN", 0);
-    const idleMin = numEnv("IMPROVEMENTS_IMPLEMENT_IDLE_MIN", 25);
-    console.log(`     (model: ${model} · cap: ${timeoutMin > 0 ? timeoutMin + "m" : "none"} · idle-watchdog: ${idleMin}m)`);
     const { ok, result } = await implementGoal(p.worktree_path, goal, { model, timeoutMin, idleMin });
     const pr = await findPrForBranch(p.worktree_path, p.branch);
     const blocked = /^(blokkert|avklaring)\b/i.test(result.trim());
-    brain.recordPrepared({ ...p, implemented_at: nowIso(), pr_url: pr ?? undefined });
-    brain.save(nowIso());
+    await saveBrain(p, pr ?? undefined);
 
     if (pr && !blocked) {
       console.log(`  ✓ ${p.branch} → ${pr}`);
@@ -94,7 +96,14 @@ export async function implementPending(opts: { dryRun?: boolean; limit?: number 
       console.log(`  ⚠ ${p.branch} — ran, no PR detected`);
       await comment(p.linear_id, `🤖 Agenten kjørte på branch \`${p.branch}\`${ok ? "" : " (stoppet underveis)"}, men ingen PR ble oppdaget. Kort logg:\n\n> ${result.slice(0, 500).replace(/\n/g, " ")}`);
     }
-  }
+  };
+
+  // Run the queue with bounded concurrency; a thrown task never sinks the batch.
+  await parallel(
+    pending.map((p) => () => runOne(p).catch((e) => console.error(`  ✗ ${p.branch}: ${String(e).slice(0, 200)}`))),
+    concurrency,
+  );
+  await brainLock; // flush any pending brain write
   console.log(`[implement] done.`);
   return pending.length;
 }
