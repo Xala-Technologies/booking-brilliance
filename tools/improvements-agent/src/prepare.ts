@@ -106,10 +106,14 @@ export async function prepareBranch(issue: LinearIssue, parsed: ParsedGoal): Pro
   await git(worktree, ["-c", "user.name=digilist-improvements-agent", "-c", "user.email=bot@digilist.no",
     "commit", "-m", `chore(agent): prepare ${issue.identifier} — ${issue.title.slice(0, 60)}`]);
 
-  // Push so it's a remote branch you can pull + work on from anywhere.
+  // Push so it's a remote branch you can pull + work on from anywhere. Use
+  // --force-with-lease: a re-prepare rebuilds the branch fresh off origin/main,
+  // so a stale remote branch from a prior prepare would otherwise reject the
+  // push non-fast-forward. It's the agent's own branch (no PR until implement),
+  // so overwriting a stale prepared version is safe.
   let pushed = false;
   try {
-    await git(worktree, ["push", "-u", "origin", branch]);
+    await git(worktree, ["push", "-u", "origin", branch, "--force-with-lease"]);
     pushed = true;
   } catch (e) {
     console.warn(`[prepare] ${issue.identifier}: push failed (branch is local only) — ${String(e).slice(0, 120)}`);
