@@ -11,6 +11,7 @@ node_modules
 dist
 dist-ssr
 dist-server
+*.tsbuildinfo
 *.local
 
 # Local secrets — never commit. Production uses /etc/digilist-api.env on VPS.
