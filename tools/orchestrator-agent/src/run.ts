@@ -95,16 +95,16 @@ async function applySafe(
 
   // Record the situation + blockers as compounding learnings.
   if (plan.summary) brain.addLearning(`CTO ${nowIso().slice(0, 10)}: ${plan.summary.slice(0, 200)}`);
-  for (const b of plan.blockers) brain.addLearning(`BLOKKERT ${b.item}: ${b.question}`.slice(0, 200));
+  for (const b of plan.blockers) brain.addLearning(`BLOCKED ${b.item}: ${b.question}`.slice(0, 200));
 
   // Optional: post the briefing summary as a comment on a designated issue.
   const briefTo = process.env.CTO_BRIEFING_ISSUE;
   if (!dryRun && briefTo && plan.summary) {
     const target = byIdent.get(briefTo.toLowerCase())?.id ?? briefTo;
     const blockerLines = plan.blockers.length
-      ? `\n\n**Blokkeringer:**\n${plan.blockers.map((b) => `- ${b.item}: ${b.question}`).join("\n")}`
+      ? `\n\n**Blockers:**\n${plan.blockers.map((b) => `- ${b.item}: ${b.question}`).join("\n")}`
       : "";
-    await client.addComment(target, `🧭 **CTO-briefing**\n\n${plan.summary}${blockerLines}`).catch(() => {});
+    await client.addComment(target, `🧭 **CTO briefing**\n\n${plan.summary}${blockerLines}`).catch(() => {});
   }
 }
 
@@ -125,7 +125,7 @@ export async function runCycle(opts: CycleOptions = {}): Promise<CycleResult> {
   const project = await client.ensureProject(projectName, team.id);
   const brain = OpenBrain.load();
 
-  console.log(`[cto] heartbeat @ ${nowIso()} - project "${project.name}", modus ${autopilot ? "autopilot" : "rådgivende"}${dryRun ? " (dry run)" : ""}`);
+  console.log(`[cto] heartbeat @ ${nowIso()} - project "${project.name}", mode ${autopilot ? "autopilot" : "advisory"}${dryRun ? " (dry run)" : ""}`);
 
   // 1. drive the approved queue toward PRs (the active part).
   const drive = await driveTodo({
@@ -162,14 +162,14 @@ export async function runCycle(opts: CycleOptions = {}): Promise<CycleResult> {
     `[cto] done - drove ${drive.enhanced} enhanced / ${drive.prepared} prepared / ${drive.implemented} implemented; ${plan.assignments.length} assignment(s), ${plan.blockers.length} blocker(s). Briefing: ${briefingPath}`,
   );
   if (plan.blockers.length) {
-    console.log(`[cto] BLOKKERINGER som trenger deg:`);
+    console.log(`[cto] BLOCKERS that need you:`);
     for (const b of plan.blockers) console.log(`  - ${b.item}: ${b.question}`);
   }
   return { drive, state, plan, briefingPath };
 }
 
 function summarizeAssignments(as: Assignment[]): string {
-  return as.map((a) => `${a.item}->${a.specialist}`).join(", ") || "(ingen)";
+  return as.map((a) => `${a.item}->${a.specialist}`).join(", ") || "(none)";
 }
 
 // CLI entry (skipped when imported, e.g. by loop.ts).

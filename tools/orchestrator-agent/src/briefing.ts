@@ -17,38 +17,38 @@ export const STATE_DIR = path.resolve(__dirname, "..", "state");
 /** Render the briefing markdown (pure). */
 export function renderBriefing(state: FleetState, plan: Plan, drive: DriveResult, autopilot: boolean): string {
   const lines: string[] = [
-    `# CTO-briefing ${state.generatedAt}`,
+    `# CTO briefing ${state.generatedAt}`,
     ``,
-    `Modus: ${autopilot ? "autopilot" : "rådgivende"} (aldri merge eller deploy).`,
+    `Mode: ${autopilot ? "autopilot" : "advisory"} (never merge or deploy).`,
     ``,
-    `## Todo-driver`,
-    `- Godkjente saker: ${drive.todoCount}`,
-    `- Utdypet (nye /loop-mål): ${drive.enhanced}`,
-    `- Klargjorte brancher: ${drive.prepared}`,
-    `- Kjørte implementasjoner: ${drive.implemented}`,
+    `## Todo driver`,
+    `- Approved issues: ${drive.todoCount}`,
+    `- Enhanced (new /loop goals): ${drive.enhanced}`,
+    `- Prepared branches: ${drive.prepared}`,
+    `- Implementations run: ${drive.implemented}`,
     ``,
-    `## Situasjonsvurdering`,
-    plan.summary || "(ingen)",
+    `## Situation assessment`,
+    plan.summary || "(none)",
     ``,
-    `## Tildelinger`,
+    `## Assignments`,
     ...(plan.assignments.length
       ? plan.assignments.map(
           (a) =>
-            `- **${a.item}** -> ${a.specialist}${a.priority ? ` · ${a.priority}` : ""}${a.severity ? ` · ${a.severity}` : ""}${a.promote ? " · foreslått godkjent" : ""}${a.rationale ? `\n  ${a.rationale}` : ""}`,
+            `- **${a.item}** -> ${a.specialist}${a.priority ? ` · ${a.priority}` : ""}${a.severity ? ` · ${a.severity}` : ""}${a.promote ? " · suggested for approval" : ""}${a.rationale ? `\n  ${a.rationale}` : ""}`,
         )
-      : ["- (ingen)"]),
+      : ["- (none)"]),
     ``,
-    `## Blokkeringer (trenger et menneske)`,
+    `## Blockers (needs a human)`,
     ...(plan.blockers.length
-      ? plan.blockers.map((b) => `- **${b.item || "generelt"}**: ${b.question}`)
-      : ["- (ingen)"]),
+      ? plan.blockers.map((b) => `- **${b.item || "general"}**: ${b.question}`)
+      : ["- (none)"]),
     ``,
-    `## Åpne PR-er (${state.prs.length})`,
+    `## Open PRs (${state.prs.length})`,
     ...(state.prs.length
       ? state.prs.map(
           (p) => `- ${p.repo}#${p.number} ${p.title.slice(0, 70)} (${p.checks.passed}✓/${p.checks.failed}✗/${p.checks.pending}…)${p.reviewDecision ? ` · ${p.reviewDecision}` : ""}`,
         )
-      : ["- (ingen)"]),
+      : ["- (none)"]),
     ``,
   ];
   return lines.join("\n");

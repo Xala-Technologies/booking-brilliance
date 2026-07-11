@@ -1,90 +1,89 @@
 # CTO / orchestrator-agent
 
-Den tekniske sjefen i Digilist-agentflåten. Kjører på en HEARTBEAT: leser
-flåtetilstanden, driver den menneskegodkjente arbeidskøen mot PR, resonnerer om
-prioriteringer med Opus, og tildeler arbeid til riktig spesialist.
+The technical lead of the Digilist agent fleet. Runs on a HEARTBEAT: reads the
+fleet state, drives the human-approved work queue toward PRs, reasons about
+priorities with Opus, and assigns work to the right specialist.
 
-Den bygger ikke kode på nytt: den gjenbruker de eksisterende primitivene
-(`runClaudeAgent`, `OpenBrain`, `LinearClient`, og spesielt `prepareApproved` +
-`implementPending` fra improvements-agent). CTO-en er dirigenten, ikke en ny
-utfører.
+It does not rebuild code: it reuses the existing primitives (`runClaudeAgent`,
+`OpenBrain`, `LinearClient`, and especially `prepareApproved` +
+`implementPending` from the improvements agent). The CTO is the conductor, not a
+new implementer.
 
-## Heartbeat-loopen
+## The heartbeat loop
 
-Hver syklus (`cto:run`, eller `cto:loop` med intervall):
+Each cycle (`cto:run`, or `cto:loop` with an interval):
 
-1. **Todo-driver (den aktive delen).** Les Linear "Todo" - alt du har godkjent.
-   Sorter etter Linear-prioritet (Urgent=1 forst, sa High=2, Normal=3, Low=4,
-   uavgjort etter `createdAt`). For HVER Todo-sak, i prioritetsrekkefolge:
-   - **Utdyp forst** nar saken er tynn eller mangler et `/loop`-mål (det normale:
-     et menneske slipper en enlinjes sak i Todo). CTO-en bygger et emne fra
-     tittel + beskrivelse, kjorer analyze-steget (`analyzeItem`, grunnet i
-     kodegrafen via codebase-memory), og skriver en ordentlig detaljert
-     beskrivelse + en selvstendig `/loop`-GOAL tilbake pa Linear-saken i
-     agent-formatet (`Kjør som Claude-loop (i <repo>)` + \`\`\``/loop …`\`\`\`).
-     En Todo-sak blir aldri hoppet over for manglende mål: den far et.
-   - **Driv den:** `prepareApproved` lager branchen og flytter Todo -> In
-     Progress, `implementPending` kjorer kodeagenten pa den delte runneren, apner
-     en PR og flytter -> In Review (eller legger igjen en BLOKKERT/AVKLARING-
-     kommentar + etikett hvis den star fast).
-2. **Les resten av flåtetilstanden** inn i et `FleetState`-objekt: Linear-saker
-   (alle tilstander, etiketter, prioritet), Open Brain (emner/vurderinger/
-   forberedte/lærdommer), apne PR-er pa tvers av Digilist-repoene via `gh`
-   (sjekker, review-verdikt).
-3. **Resonnering (Opus via `runClaudeAgent`).** Avgjor hva som betyr noe nå,
-   hvilken spesialist som bor eie hver ikke-Todo-sak, foreslatt prioritet/
-   alvorlighet, og blokkeringer som trenger deg. Returnerer en strukturert plan
+1. **Todo driver (the active part).** Read Linear "Todo" - everything you have
+   approved. Sort by Linear priority (Urgent=1 first, then High=2, Normal=3,
+   Low=4, ties by `createdAt`). For EVERY Todo issue, in priority order:
+   - **Enhance first** when the issue is thin or lacks a `/loop` goal (the
+     normal case: a human drops a one-line issue into Todo). The CTO builds an
+     item from title + description, runs the analyze stage (`analyzeItem`,
+     grounded in the code graph via codebase-memory), and writes a properly
+     detailed description + a self-contained `/loop` GOAL back onto the Linear
+     issue in the agent format (`Run as a Claude loop (in <repo>)` + \`\`\``/loop …`\`\`\`).
+     A Todo issue is never skipped for lacking a goal: it gets one.
+   - **Drive it:** `prepareApproved` creates the branch and moves Todo -> In
+     Progress, `implementPending` runs the coding agent on the shared runner,
+     opens a PR and moves it -> In Review (or leaves a BLOCKED/CLARIFICATION
+     comment + label if it gets stuck).
+2. **Read the rest of the fleet state** into a `FleetState` object: Linear
+   issues (all states, labels, priority), Open Brain (items/verdicts/prepared/
+   learnings), open PRs across the Digilist repos via `gh` (checks, review
+   decision).
+3. **Reasoning (Opus via `runClaudeAgent`).** Decide what matters now, which
+   specialist should own each non-Todo issue, suggested priority/severity, and
+   blockers that need you. Returns a structured plan
    `{ assignments, blockers, summary }`.
-4. **Handlinger - kun de trygge delene.** Sett Linear-prioritet/etiketter,
-   skriv en CTO-briefing, lagre plan + lærdommer i Open Brain, og loft
-   blokkeringer opp til deg. Den driver Todo -> PR, men **merger eller deployer
-   aldri**, og flytter aldri noe INN i Todo (det er din beslutning) med mindre
-   `CTO_AUTOPILOT=1`.
+4. **Actions - only the safe parts.** Set Linear priority/labels, write a CTO
+   briefing, save the plan + learnings to Open Brain, and raise blockers up to
+   you. It drives Todo -> PR, but **never merges or deploys**, and never moves
+   anything INTO Todo (that is your decision) unless `CTO_AUTOPILOT=1`.
 
-## Rådgivende vs autopilot
+## Advisory vs autopilot
 
-- **Rådgivende (standard):** trygg by design. Todo er den menneskelige
-  godkjenningsporten. CTO-en driver godkjent arbeid til en PR du gjennomgar, og
-  gir rad om alt annet (tildelinger, prioritet, blokkeringer) uten a flytte noe
-  inn i koen selv.
-- **Autopilot (`CTO_AUTOPILOT=1`):** CTO-en far i tillegg lov til a flytte saker
-  den anbefaler inn i Todo (`promote`). Den merger og deployer fortsatt aldri -
-  utfallet er alltid en PR.
+- **Advisory (default):** safe by design. Todo is the human approval gate. The
+  CTO drives approved work to a PR you review, and advises on everything else
+  (assignments, priority, blockers) without moving anything into the queue
+  itself.
+- **Autopilot (`CTO_AUTOPILOT=1`):** the CTO is additionally allowed to move
+  issues it recommends into Todo (`promote`). It still never merges or deploys -
+  the outcome is always a PR.
 
-## Kommandoer
+## Commands
 
 ```bash
-pnpm cto:run                 # en syklus
-pnpm cto:run -- --dry-run    # les + resonner, endre ingenting
-pnpm cto:run -- --no-reason  # bare driv Todo-koen (hopp over Opus-passet)
-pnpm cto:run -- --limit 1    # bygg maks 1 sak denne syklusen
-pnpm cto:loop                # heartbeat (CTO_INTERVAL_MIN, standard 20)
-pnpm cto:test                # enhetstester (normalisering + plan-parsing)
+pnpm cto:run                 # one cycle
+pnpm cto:run -- --dry-run    # read + reason, change nothing
+pnpm cto:run -- --no-reason  # only drive the Todo queue (skip the Opus pass)
+pnpm cto:run -- --limit 1    # build at most 1 issue this cycle
+pnpm cto:loop                # heartbeat (CTO_INTERVAL_MIN, default 20)
+pnpm cto:test                # unit tests (normalization + plan parsing)
 ```
 
-## Miljøvariabler
+## Environment variables
 
-| Variabel | Standard | Beskrivelse |
+| Variable | Default | Description |
 | --- | --- | --- |
-| `LINEAR_API_KEY` | (påkrevd) | Personlig Linear-nøkkel |
+| `LINEAR_API_KEY` | (required) | Personal Linear key |
 | `LINEAR_TEAM_KEY` | `XAL` | Team |
-| `IMPROVEMENTS_LINEAR_PROJECT` | `Digilist - Improvements Agent` | Prosjektet CTO-en styrer |
-| `IMPROVEMENTS_APPROVE_STATE` | `Todo` | Godkjenningsporten |
-| `LLM_PROVIDER` | `api` | Sett `claude-cli` for Claude Max-abonnementet |
-| `CTO_REASON_MODEL` | review-modellen (Opus) | Modell for resonneringspasset |
-| `CTO_INTERVAL_MIN` | `20` | Heartbeat-intervall (`<=0` = én syklus) |
-| `CTO_MAX_CYCLES` | `0` | Maks antall sykluser i loopen (0 = ubegrenset) |
-| `CTO_AUTOPILOT` | (av) | `1` lar CTO-en flytte saker inn i Todo |
-| `CTO_REPOS` | `xalatechnologies/booking-brilliance,xalatechnologies/Digilist` | Repoer den skanner for apne PR-er |
-| `CTO_BRIEFING_ISSUE` | (av) | Linear-sak (id/identifikator) å poste briefing-sammendraget som kommentar på |
-| `DIGILIST_REPO_PATH` | `/root/Digilist` | Digilist-utsjekk for prepare/implement |
+| `IMPROVEMENTS_LINEAR_PROJECT` | `Digilist - Improvements Agent` | The project the CTO manages |
+| `IMPROVEMENTS_APPROVE_STATE` | `Todo` | The approval gate |
+| `LLM_PROVIDER` | `api` | Set `claude-cli` for the Claude Max subscription |
+| `CTO_REASON_MODEL` | the review model (Opus) | Model for the reasoning pass |
+| `CTO_INTERVAL_MIN` | `20` | Heartbeat interval (`<=0` = one cycle) |
+| `CTO_MAX_CYCLES` | `0` | Max number of cycles in the loop (0 = unbounded) |
+| `CTO_AUTOPILOT` | (off) | `1` lets the CTO move issues into Todo |
+| `CTO_REPOS` | `xalatechnologies/booking-brilliance,xalatechnologies/Digilist` | Repos it scans for open PRs |
+| `CTO_BRIEFING_ISSUE` | (off) | Linear issue (id/identifier) to post the briefing summary as a comment on |
+| `DIGILIST_REPO_PATH` | `/root/Digilist` | Digilist checkout for prepare/implement |
 
-Briefinger skrives til `tools/orchestrator-agent/state/briefing-<sha>.md` (og
-`briefing-latest.md`). Katalogen er gitignorert.
+Briefings are written to `tools/orchestrator-agent/state/briefing-<sha>.md` (and
+`briefing-latest.md`). The directory is gitignored.
 
-## Kjøring på VPS + systemd-timer
+## Running on the VPS + systemd timer
 
-Runneren speiler de andre VPS-runnerne (git reset origin/main, `load-env.sh`,
+The runner mirrors the other VPS runners (git reset origin/main, `load-env.sh`,
 `LLM_PROVIDER=claude-cli`, `unset ANTHROPIC_API_KEY`):
 
 ```bash
@@ -92,8 +91,8 @@ tools/orchestrator-agent/vps-cto-runner.sh run
 tools/orchestrator-agent/vps-cto-runner.sh loop
 ```
 
-Kjor Todo-driver-heartbeaten hyppig med en systemd-timer, f.eks. hvert 20.
-minutt:
+Run the Todo driver heartbeat frequently with a systemd timer, e.g. every 20
+minutes:
 
 ```ini
 # /etc/systemd/system/digilist-cto.service
@@ -110,7 +109,7 @@ TimeoutStartSec=0
 ```ini
 # /etc/systemd/system/digilist-cto.timer
 [Unit]
-Description=Kjør Digilist CTO-heartbeat hvert 20. minutt
+Description=Run the Digilist CTO heartbeat every 20 minutes
 
 [Timer]
 OnBootSec=5min
@@ -126,33 +125,37 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now digilist-cto.timer
 ```
 
-### Forholdet til improvements-timerne
+### Relationship to the improvements timers
 
-Denne heartbeaten driver hele Todo -> prepare -> implement -> PR-kjeden selv, og
-kan derfor **erstatte** de separate `digilist-improvements-prepare`- og
-`digilist-improvements-implement`-timerne: nar CTO-en kjorer hvert 20. minutt,
-plukker den opp godkjente saker, klargjor branchene og bygger dem, akkurat som de
-to timerne gjorde hver for seg.
+This heartbeat drives the whole Todo -> prepare -> implement -> PR chain itself,
+and can therefore **replace** the separate `digilist-improvements-prepare` and
+`digilist-improvements-implement` timers: when the CTO runs every 20 minutes, it
+picks up approved issues, prepares the branches and builds them, exactly as the
+two timers did separately.
 
-Denne PR-en avinstallerer dem ikke. Nar du har verifisert at CTO-heartbeaten
-gjor jobben i produksjon, kan du deaktivere de to gamle timerne:
+This PR does not uninstall them. Running the old
+`digilist-improvements-implement` timer alongside the CTO heartbeat is now safe:
+`implementPending` holds a cross-process lock, so the two serialize and never
+double-build. Once you have verified the CTO heartbeat does the job in
+production, disable the old improvements-implement timer so the CTO is the single
+driver:
 
 ```bash
 sudo systemctl disable --now digilist-improvements-prepare.timer
 sudo systemctl disable --now digilist-improvements-implement.timer
 ```
 
-`digilist-improvements-run.timer` (analyse + arkivering av nye forslag) er et
-eget steg og bor sta.
+`digilist-improvements-run.timer` (analysis + archiving of new proposals) is a
+separate step and should stay.
 
 ## Design
 
-- `src/state.ts` - samler `FleetState` (Linear + Open Brain + `gh`-PR-er) og
-  normaliserer det. Rene hjelpere (`normalizeIssue`, `sortIssuesByPriority`,
-  `classifyChecks`, `normalizePr`) er enhetstestet uten nettverk.
-- `src/drive.ts` - Todo -> utdyp -> prepare -> implement-loopen. Gjenbruker
-  `analyzeItem`, `goalMarkdown`, `prepareApproved` og `implementPending`.
-- `src/orchestrate.ts` - Opus-resonnering -> plan. `buildReasoningPrompt` og
-  `parsePlan` er rene og testet.
-- `src/briefing.ts` - skriver den menneskelesbare briefingen.
-- `src/run.ts` - `cto:run`, en syklus. `src/loop.ts` - `cto:loop`, heartbeaten.
+- `src/state.ts` - gathers `FleetState` (Linear + Open Brain + `gh` PRs) and
+  normalizes it. Pure helpers (`normalizeIssue`, `sortIssuesByPriority`,
+  `classifyChecks`, `normalizePr`) are unit-tested with no network.
+- `src/drive.ts` - the Todo -> enhance -> prepare -> implement loop. Reuses
+  `analyzeItem`, `goalMarkdown`, `prepareApproved` and `implementPending`.
+- `src/orchestrate.ts` - Opus reasoning -> plan. `buildReasoningPrompt` and
+  `parsePlan` are pure and tested.
+- `src/briefing.ts` - writes the human-readable briefing.
+- `src/run.ts` - `cto:run`, one cycle. `src/loop.ts` - `cto:loop`, the heartbeat.

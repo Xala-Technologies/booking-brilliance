@@ -13,7 +13,7 @@
  *      as the improvements agent does: prepareApproved creates the branch and
  *      moves Todo -> In Progress; implementPending runs the coding agent on the
  *      shared runner, opens a PR, and moves the issue -> In Review (or flags it
- *      BLOKKERT). We never merge or deploy - the output is always a PR to review.
+ *      BLOCKED). We never merge or deploy - the output is always a PR to review.
  *
  * Todo is the human approval gate, so this whole loop is safe by design.
  */
@@ -119,7 +119,7 @@ export async function enhanceIssue(
   );
   await client.addComment(
     issue.id,
-    `🧭 **CTO** har utdypet saken: lagt til en detaljert beskrivelse og et selvstendig \`/loop\`-mål (i \`${repo.path}\`). Agenten klargjor en branch og bygger den nå. Se beskrivelsen for hele målet.`,
+    `🧭 **CTO** has enhanced the issue: added a detailed description and a self-contained \`/loop\` goal (in \`${repo.path}\`). The agent is preparing a branch and building it now. See the description for the full goal.`,
   );
   console.log(`  [enhance] ✓ ${issue.identifier} enriched with a /loop goal (${item.target_repo})`);
   return true;
@@ -167,9 +167,9 @@ export async function driveTodo(opts: {
   console.log(`[cto] Todo-driver: ${todo.length} approved issue(s) in "${approveState}"${dryRun ? " (dry run)" : ""}`);
   let enhanced = 0;
   for (const issue of todo) {
-    const label = PRIORITY_LABEL[issue.priority ?? 0] ?? "Ingen";
+    const label = PRIORITY_LABEL[issue.priority ?? 0] ?? "None";
     const needsGoal = parseGoal(issue.description ?? "") === null;
-    console.log(`  · ${issue.identifier} [${label}] "${issue.title.slice(0, 60)}"${needsGoal ? " - trenger mål, utdyper" : " - har mål"}`);
+    console.log(`  · ${issue.identifier} [${label}] "${issue.title.slice(0, 60)}"${needsGoal ? " - needs a goal, enhancing" : " - has a goal"}`);
     if (!needsGoal) continue;
     try {
       if (await enhanceIssue(client, cfg, issue, brain, dryRun)) enhanced++;

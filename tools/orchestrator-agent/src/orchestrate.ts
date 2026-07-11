@@ -45,26 +45,26 @@ export interface Plan {
 
 export const EMPTY_PLAN: Plan = { assignments: [], blockers: [], summary: "" };
 
-const SYSTEM = `Du er teknisk sjef (CTO) for Digilist, en kommunal SaaS-bookingplattform. Du styrer en flåte av spesialistagenter:
-- content-agent: blogg og markedsinnhold.
-- improvements-agent: analyserer koden, foreslår og bygger forbedringer (analyze/prepare/implement).
-- pr-review-agent: gjennomgår åpne PR-er.
-- e2e-agent: ende-til-ende-tester av produktet.
-- docs-rag: dokumentasjon og kunnskapsoppslag.
+const SYSTEM = `You are the technical lead (CTO) for Digilist, a municipal SaaS booking platform. You run a fleet of specialist agents:
+- content-agent: blog and marketing content.
+- improvements-agent: analyzes the code, proposes and builds improvements (analyze/prepare/implement).
+- pr-review-agent: reviews open PRs.
+- e2e-agent: end-to-end tests of the product.
+- docs-rag: documentation and knowledge lookup.
 
-Du får en FLÅTETILSTAND (Linear-saker, Open Brain, åpne PR-er). Todo-køen drives allerede automatisk mot PR, så IKKE tildel Todo-saker. Fokuser på ALT ANNET:
-- Hvilken spesialist bør eie hver sak som IKKE er i Todo, og hvorfor.
-- Foreslått prioritet (Urgent/High/Normal/Low) og alvorlighet (critical/major/minor).
-- Ekte blokkeringer som trenger et menneske: still ETT presist sporsmål per blokkering.
-- promote=true kun for saker du mener burde godkjennes (flyttes til Todo). Dette skjer bare i autopilot.
+You are given a FLEET STATE (Linear issues, Open Brain, open PRs). The Todo queue is already driven automatically toward PRs, so do NOT assign Todo issues. Focus on EVERYTHING ELSE:
+- Which specialist should own each issue that is NOT in Todo, and why.
+- Suggested priority (Urgent/High/Normal/Low) and severity (critical/major/minor).
+- Real blockers that need a human: ask ONE precise question per blocker.
+- promote=true only for issues you think should be approved (moved to Todo). This happens only in autopilot.
 
-Vær kortfattet og konkret. Norsk bokmål, ingen tankestrek som skilletegn.
+Be concise and concrete. English, no em dash as a separator.
 
-Returner KUN gyldig JSON, ingenting annet:
-{"summary":"kort situasjonsvurdering","assignments":[{"item":"XAL-123 eller kort etikett","specialist":"improvements-agent","priority":"High","severity":"major","rationale":"kort","promote":false}],"blockers":[{"item":"XAL-124","question":"presist sporsmål"}]}`;
+Return ONLY valid JSON, nothing else:
+{"summary":"brief situation assessment","assignments":[{"item":"XAL-123 or short label","specialist":"improvements-agent","priority":"High","severity":"major","rationale":"brief","promote":false}],"blockers":[{"item":"XAL-124","question":"precise question"}]}`;
 
 function issueLine(i: FleetState["issues"][number]): string {
-  const flags = [i.hasGoal ? "har-mål" : "mangler-mål", ...i.labels].join(", ");
+  const flags = [i.hasGoal ? "has-goal" : "missing-goal", ...i.labels].join(", ");
   return `- ${i.identifier} [${i.stateName} · ${i.priorityLabel}] ${i.title.slice(0, 80)}${flags ? ` (${flags})` : ""}`;
 }
 
@@ -73,24 +73,24 @@ export function buildReasoningPrompt(state: FleetState): string {
   const nonTodo = state.issues.filter((i) => i.stateName.toLowerCase() !== "todo");
   const prLines = state.prs.map(
     (p) =>
-      `- ${p.repo}#${p.number} "${p.title.slice(0, 70)}" [${p.isDraft ? "draft" : "open"}${p.reviewDecision ? ` · ${p.reviewDecision}` : ""}] sjekker ${p.checks.passed}✓/${p.checks.failed}✗/${p.checks.pending}…`,
+      `- ${p.repo}#${p.number} "${p.title.slice(0, 70)}" [${p.isDraft ? "draft" : "open"}${p.reviewDecision ? ` · ${p.reviewDecision}` : ""}] checks ${p.checks.passed}✓/${p.checks.failed}✗/${p.checks.pending}…`,
   );
   return [
-    `FLÅTETILSTAND (${state.generatedAt})`,
+    `FLEET STATE (${state.generatedAt})`,
     ``,
-    `TODO (drives allerede mot PR, ${state.todo.length} sak(er) - IKKE tildel disse):`,
+    `TODO (already driven toward PRs, ${state.todo.length} issue(s) - do NOT assign these):`,
     ...state.todo.map((i) => `- ${i.identifier} [${i.priorityLabel}] ${i.title.slice(0, 80)}`),
     ``,
-    `ANDRE SAKER (${nonTodo.length}):`,
-    ...(nonTodo.length ? nonTodo.map(issueLine) : ["- (ingen)"]),
+    `OTHER ISSUES (${nonTodo.length}):`,
+    ...(nonTodo.length ? nonTodo.map(issueLine) : ["- (none)"]),
     ``,
-    `ÅPNE PR-ER (${state.prs.length}):`,
-    ...(prLines.length ? prLines : ["- (ingen)"]),
+    `OPEN PRs (${state.prs.length}):`,
+    ...(prLines.length ? prLines : ["- (none)"]),
     ``,
-    `OPEN BRAIN: ${state.brain.items} emner, ${state.brain.verdicts} vurderinger, ${state.brain.prepared} forberedte brancher.`,
-    state.brain.learnings.length ? `Lærdommer: ${state.brain.learnings.slice(0, 6).join(" | ")}` : "",
+    `OPEN BRAIN: ${state.brain.items} items, ${state.brain.verdicts} verdicts, ${state.brain.prepared} prepared branches.`,
+    state.brain.learnings.length ? `Learnings: ${state.brain.learnings.slice(0, 6).join(" | ")}` : "",
     ``,
-    `Vurder situasjonen, tildel spesialister til ikke-Todo-saker, flagg blokkeringer. Siste melding skal være KUN JSON-objektet.`,
+    `Assess the situation, assign specialists to non-Todo issues, flag blockers. The last message must be ONLY the JSON object.`,
   ]
     .filter((l) => l !== "")
     .join("\n");

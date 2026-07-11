@@ -28,7 +28,7 @@ async function main() {
     return;
   }
 
-  console.log(`[cto-loop] heartbeat hvert ${intervalMin}. minutt${maxCycles ? `, maks ${maxCycles} sykluser` : ""}`);
+  console.log(`[cto-loop] heartbeat every ${intervalMin} minutes${maxCycles ? `, max ${maxCycles} cycles` : ""}`);
   let n = 0;
   for (;;) {
     n++;
@@ -36,15 +36,15 @@ async function main() {
     try {
       await runCycle(opts);
     } catch (e) {
-      console.error(`[cto-loop] syklus ${n} feilet: ${String(e).slice(0, 200)}`);
+      console.error(`[cto-loop] cycle ${n} failed: ${String(e).slice(0, 200)}`);
     }
     if (maxCycles && n >= maxCycles) {
-      console.log(`[cto-loop] nådde ${maxCycles} sykluser, stopper.`);
+      console.log(`[cto-loop] reached ${maxCycles} cycles, stopping.`);
       return;
     }
     const elapsed = Date.now() - started;
     const wait = Math.max(0, intervalMin * 60_000 - elapsed);
-    console.log(`[cto-loop] syklus ${n} ferdig på ${Math.round(elapsed / 1000)}s, venter ${Math.round(wait / 1000)}s…`);
+    console.log(`[cto-loop] cycle ${n} done in ${Math.round(elapsed / 1000)}s, waiting ${Math.round(wait / 1000)}s…`);
     await sleep(wait);
   }
 }

@@ -17,7 +17,7 @@ const exec = promisify(execFile);
 
 /** Linear native priority (0 none, 1 urgent, 2 high, 3 normal, 4 low) to label. */
 export const PRIORITY_LABEL: Record<number, string> = {
-  0: "Ingen",
+  0: "None",
   1: "Urgent",
   2: "High",
   3: "Normal",
@@ -110,7 +110,7 @@ export function normalizeIssue(raw: RawLinearIssue): FleetIssue {
     stateName: raw.state?.name ?? "",
     stateType: raw.state?.type ?? "",
     priority,
-    priorityLabel: PRIORITY_LABEL[priority] ?? "Ingen",
+    priorityLabel: PRIORITY_LABEL[priority] ?? "None",
     labels: (raw.labels?.nodes ?? []).map((l) => l.name),
     createdAt: raw.createdAt ?? "",
     hasGoal: parseGoal(description) !== null,

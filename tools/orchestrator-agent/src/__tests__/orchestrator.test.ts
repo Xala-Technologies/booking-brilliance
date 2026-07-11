@@ -13,9 +13,9 @@ import {
 } from "../state";
 
 const GOAL_BODY = [
-  "## Kjør som Claude-loop (i `/root/Digilist`, på en ny branch)",
+  "## Run as a Claude loop (in `/root/Digilist`, on a new branch)",
   "```",
-  "/loop Bygg noe konkret og kjør testene grønne.",
+  "/loop Build something concrete and get the tests green.",
   "```",
 ].join("\n");
 
@@ -23,13 +23,13 @@ function raw(over: Partial<RawLinearIssue> = {}): RawLinearIssue {
   return {
     id: "id-1",
     identifier: "XAL-1",
-    title: "Legg til eksport av bookinger",
+    title: "Add export of bookings",
     url: "https://linear.app/x/XAL-1",
     priority: 3,
     createdAt: "2026-07-01T00:00:00.000Z",
     state: { name: "Todo", type: "unstarted" },
     labels: { nodes: [{ name: "feature" }] },
-    description: "En kort setning.",
+    description: "A short sentence.",
     ...over,
   };
 }
@@ -48,10 +48,10 @@ describe("normalizeIssue", () => {
     expect(i.hasGoal).toBe(true);
   });
 
-  it("treats null priority as 'Ingen' (0)", () => {
+  it("treats null priority as 'None' (0)", () => {
     const i = normalizeIssue(raw({ priority: null }));
     expect(i.priority).toBe(0);
-    expect(i.priorityLabel).toBe("Ingen");
+    expect(i.priorityLabel).toBe("None");
   });
 });
 
@@ -94,7 +94,7 @@ describe("classifyChecks / normalizePr", () => {
   it("normalizes a raw PR", () => {
     const pr = normalizePr("xalatechnologies/Digilist", {
       number: 42,
-      title: "Fix eksport",
+      title: "Fix export",
       url: "https://github.com/x/pull/42",
       headRefName: "agent/xal-1",
       isDraft: false,
@@ -138,16 +138,16 @@ describe("toNativePriority", () => {
 describe("parsePlan", () => {
   it("parses a clean JSON plan", () => {
     const plan = parsePlan(
-      `{"summary":"Alt ser bra ut","assignments":[{"item":"XAL-2","specialist":"pr-review-agent","priority":"High","severity":"major"}],"blockers":[{"item":"XAL-3","question":"Hvilken region?"}]}`,
+      `{"summary":"Everything looks good","assignments":[{"item":"XAL-2","specialist":"pr-review-agent","priority":"High","severity":"major"}],"blockers":[{"item":"XAL-3","question":"Which region?"}]}`,
     );
-    expect(plan.summary).toBe("Alt ser bra ut");
+    expect(plan.summary).toBe("Everything looks good");
     expect(plan.assignments).toHaveLength(1);
     expect(plan.assignments[0].specialist).toBe("pr-review-agent");
-    expect(plan.blockers[0].question).toBe("Hvilken region?");
+    expect(plan.blockers[0].question).toBe("Which region?");
   });
 
   it("extracts JSON embedded in prose", () => {
-    const plan = parsePlan(`Her er planen:\n{"summary":"ok","assignments":[],"blockers":[]}\nFerdig.`);
+    const plan = parsePlan(`Here is the plan:\n{"summary":"ok","assignments":[],"blockers":[]}\nDone.`);
     expect(plan.summary).toBe("ok");
     expect(plan.assignments).toEqual([]);
   });
@@ -162,9 +162,9 @@ describe("parsePlan", () => {
   });
 
   it("falls back to a summary when there is no JSON", () => {
-    const plan = parsePlan("Ingen struktur her, bare tekst.");
+    const plan = parsePlan("No structure here, just text.");
     expect(plan.assignments).toEqual([]);
-    expect(plan.summary).toContain("Ingen struktur");
+    expect(plan.summary).toContain("No structure");
   });
 });
 
@@ -183,6 +183,6 @@ describe("buildReasoningPrompt", () => {
     const prompt = buildReasoningPrompt(state);
     expect(prompt).toContain("XAL-10");
     expect(prompt).toContain("XAL-11");
-    expect(prompt).toContain("IKKE tildel disse");
+    expect(prompt).toContain("do NOT assign these");
   });
 });
