@@ -10,6 +10,12 @@
  *   prepared     — isolated implementation branches we set up on approval
  *   code_snapshots / repo_status — what the code looked like when we analyzed
  *   learnings    — compounding notes (e.g. recurring false positives)
+ *   signals      — raw captured signals for the knowledge layer (undistilled)
+ *   knowledge    — distilled, provenance-tracked fleet-wide learnings
+ *
+ * The knowledge layer (tools/knowledge-agent) extends THIS store rather than
+ * standing up a competing one: `signals` is its capture inbox and `knowledge`
+ * is its distilled output, both rendered to the human-readable wiki on distill.
  *
  * Lightweight by design: a single JSON file, no external infra. Recall lets a
  * run skip re-analysing an item whose code context (sha) hasn't changed.
@@ -87,6 +93,51 @@ export interface CodeSnapshot {
   indexed_at: string;
 }
 
+/** Where a captured signal came from — the raw material the distiller reads. */
+export type SignalKind =
+  | "pr-review" // a request-changes / blocking review verdict
+  | "ci-fix" // a CI failure an agent then fixed
+  | "false-positive" // a verdict that flagged something already shipped
+  | "blocked-run" // an implement run that ended BLOKKERT/AVKLARING
+  | "no-pr" // an implement run that produced no PR
+  | "user-feedback" // a human correction
+  | "content-signal"; // a blog/keyword signal from the content memory
+
+export interface Signal {
+  id: string;
+  kind: SignalKind;
+  agent: string; // which agent produced it (pr-review, improvements, content, user, ...)
+  text: string; // the raw observation, verbatim-ish
+  source_ref: string; // PR url, branch, item key, "user", ...
+  applies_to?: string[]; // best-effort hints (agent | domain | path glob)
+  created_at: string;
+  distilled?: boolean; // set once the distiller has consumed it
+}
+
+/** The six knowledge sources the self-learning layer distils into rules. */
+export type LearningType =
+  | "repo-pattern"
+  | "best-practice"
+  | "mistake"
+  | "user-feedback"
+  | "content-signal"
+  | "tech-trend";
+
+export interface Learning {
+  id: string;
+  type: LearningType;
+  statement: string; // the actionable rule, one sentence
+  why: string; // the rationale / evidence
+  applies_to: string[]; // agent names | domains | path globs it is relevant to
+  source_ref: string; // provenance — never fabricated
+  confidence: number; // 0..1
+  created_at: string;
+  updated_at?: string;
+  hits: number; // times injected/applied
+  last_applied?: string;
+  status?: "active" | "demoted"; // demoted = kept for history, not injected
+}
+
 export interface Brain {
   items: BrainItem[];
   verdicts: Verdict[];
@@ -95,6 +146,8 @@ export interface Brain {
   code_snapshots: CodeSnapshot[];
   repo_status: Record<string, { branch: string; sha: string; dirty: boolean; checked_at: string }>;
   learnings: string[];
+  signals: Signal[];
+  knowledge: Learning[];
   updated_at: string;
 }
 
@@ -106,6 +159,8 @@ const EMPTY: Brain = {
   code_snapshots: [],
   repo_status: {},
   learnings: [],
+  signals: [],
+  knowledge: [],
   updated_at: "",
 };
 
@@ -124,7 +179,13 @@ export class OpenBrain {
   static load(): OpenBrain {
     try {
       const raw = JSON.parse(fs.readFileSync(BRAIN_FILE, "utf-8")) as Partial<Brain>;
-      return new OpenBrain({ ...EMPTY, ...raw, repo_status: raw.repo_status ?? {} });
+      return new OpenBrain({
+        ...EMPTY,
+        ...raw,
+        repo_status: raw.repo_status ?? {},
+        signals: raw.signals ?? [],
+        knowledge: raw.knowledge ?? [],
+      });
     } catch {
       return new OpenBrain(structuredClone(EMPTY));
     }
@@ -191,6 +252,42 @@ export class OpenBrain {
   addLearning(note: string): void {
     if (note && !this.data.learnings.includes(note)) this.data.learnings.unshift(note);
     this.data.learnings = this.data.learnings.slice(0, 40);
+  }
+
+  // ── knowledge layer: raw signals (capture) ──────────────────────────────────
+
+  /** Append a raw signal. Deduped on (kind, source_ref, text) so wiring the same
+   *  capture point twice in one run cannot spam the inbox. */
+  addSignal(s: Signal): void {
+    const dup = this.data.signals.some(
+      (x) => x.kind === s.kind && x.source_ref === s.source_ref && x.text === s.text,
+    );
+    if (!dup) this.data.signals.unshift(s);
+    this.data.signals = this.data.signals.slice(0, 500);
+  }
+
+  /** Signals the distiller has not consumed yet. */
+  pendingSignals(): Signal[] {
+    return this.data.signals.filter((s) => !s.distilled);
+  }
+
+  markSignalsDistilled(ids: string[]): void {
+    const set = new Set(ids);
+    for (const s of this.data.signals) if (set.has(s.id)) s.distilled = true;
+  }
+
+  // ── knowledge layer: distilled learnings ────────────────────────────────────
+
+  get knowledge(): Learning[] {
+    return this.data.knowledge;
+  }
+
+  upsertLearning(l: Learning): void {
+    upsert(this.data.knowledge, l, (x) => x.id === l.id);
+  }
+
+  setKnowledge(list: Learning[]): void {
+    this.data.knowledge = list;
   }
 }
 

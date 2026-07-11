@@ -14,6 +14,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { LinearClient } from "../../content-agent/src/linear";
 import { parallel } from "../../content-agent/src/orchestrate";
+import { captureBlockedRun, captureNoPr } from "../../knowledge-agent/src/capture";
 import { OpenBrain, type Prepared } from "./brain";
 import { findPrForBranch, implementGoal } from "./implement";
 
@@ -89,6 +90,8 @@ export async function implementPending(opts: { dryRun?: boolean; limit?: number 
       await move(p.linear_id, S_REVIEW);
     } else if (blocked) {
       console.log(`  🚧 ${p.branch} BLOCKED — needs clarification`);
+      // Learning signal: a recurring blocker the fleet should learn to avoid.
+      captureBlockedRun({ branch: p.branch, result: result.slice(0, 800), linearId: p.linear_id });
       await comment(p.linear_id, `🚧 **The agent is blocked / needs clarification** on branch \`${p.branch}\`:\n\n> ${result.slice(0, 800).replace(/\n/g, "\n> ")}\n\nReply here and the agent will pick it up again.`);
       // The XAL board has no "Blocked" state, so flag it with a label too
       // (moveIssue is a graceful no-op if the state is ever added later).
@@ -96,6 +99,7 @@ export async function implementPending(opts: { dryRun?: boolean; limit?: number 
       await move(p.linear_id, S_BLOCKED);
     } else {
       console.log(`  ⚠ ${p.branch} — ran, no PR detected`);
+      captureNoPr({ branch: p.branch, result: result.slice(0, 500), linearId: p.linear_id });
       await comment(p.linear_id, `🤖 The agent ran on branch \`${p.branch}\`${ok ? "" : " (stopped partway)"}, but no PR was detected. Short log:\n\n> ${result.slice(0, 500).replace(/\n/g, " ")}`);
     }
   };

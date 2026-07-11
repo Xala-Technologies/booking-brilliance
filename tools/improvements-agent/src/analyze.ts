@@ -141,6 +141,8 @@ Decide status (check against KNOWN FEATURES first) and write a /loop goal only i
           cwd,
           maxTurns: 25,
           timeoutMin: 8,
+          agent: "improvements", // inject the fleet's learnings (esp. past false positives)
+          injectContext: item.title,
         });
         return tryJson<Partial<Verdict>>(r.text);
       }),
@@ -157,6 +159,8 @@ Decide status (check against KNOWN FEATURES first) and write a /loop goal only i
       cwd,
       maxTurns: 30,
       timeoutMin: 10,
+      agent: "improvements",
+      injectContext: item.title,
     });
     call = { text: r.text, inputTokens: 0, outputTokens: 0, costUsd: 0, model: r.model };
     parsed = tryJson<Partial<Verdict>>(call.text);

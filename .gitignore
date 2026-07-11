@@ -35,7 +35,9 @@ tools/site-intelligence/reports/
 *.sln
 *.sw?
 
-# Improvements-agent local operational brain (machine-specific)
+# Improvements-agent local operational brain (machine-specific). This is also
+# the knowledge layer's store: its raw `signals` inbox and distilled `knowledge`
+# live in brain.json (rendered to the tracked wiki KNOWLEDGE.md on each distill).
 tools/improvements-agent/brain/
 
 # PR-review-agent local state (machine-specific)

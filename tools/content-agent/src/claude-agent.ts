@@ -17,6 +17,7 @@
  * registered MCP servers (e.g. codebase-memory) are available.
  */
 import { spawn } from "node:child_process";
+import { relevantLearnings } from "../../knowledge-agent/src/inject";
 
 export interface CapableAgentResult {
   text: string; // the agent's final message (raw)
@@ -38,6 +39,7 @@ export const CAPABILITY_PREAMBLE = `You are a Digilist agent with FULL tool acce
 - Skills: invoke the relevant Digilist skills for established procedures when they exist.
 - Account connectors (when needed): Linear, Gmail, Calendar, Drive, Notion.
 - Memory/context: the agent brains live in tools/*-agent/brain and content-memory; read them for prior learnings when relevant.
+- Fleet learnings: if a "FLEET LEARNINGS" block is included, those are distilled rules from our own mistakes, reviews, user feedback, repo patterns and industry practice. Follow them actively so the fleet doesn't repeat mistakes.
 Don't guess when you can look it up. Work read-only unless the task explicitly asks for changes.`;
 
 export interface AgentRunOptions {
@@ -162,8 +164,29 @@ export function runCapableAgent(opts: {
   timeoutMin?: number;
   idleMin?: number;
   label?: string;
+  /** Inject the fleet's relevant learnings for this agent (capture -> distill
+   *  -> INJECT). When set, the top learnings for `agent` are prepended so the
+   *  agent applies them automatically. Best-effort — never breaks the run. */
+  agent?: string;
+  /** Free-text about the current task, used to rank which learnings are
+   *  relevant (defaults to the prompt itself). */
+  injectContext?: string;
 }): Promise<CapableAgentResult> {
-  const sys = opts.systemPrompt ? `${CAPABILITY_PREAMBLE}\n\n${opts.systemPrompt}` : CAPABILITY_PREAMBLE;
+  let learningsBlock = "";
+  if (opts.agent) {
+    try {
+      // Read-only recall (no markApplied): agents often run several capable
+      // passes in parallel (e.g. the multi-lens analyzer), and writing hit
+      // counts back here would race on the shared brain.json.
+      learningsBlock = relevantLearnings(opts.agent, {
+        context: opts.injectContext ?? opts.prompt,
+      }).block;
+    } catch {
+      /* knowledge layer unavailable → run without injection */
+    }
+  }
+  const base = opts.systemPrompt ? `${CAPABILITY_PREAMBLE}\n\n${opts.systemPrompt}` : CAPABILITY_PREAMBLE;
+  const sys = learningsBlock ? `${base}\n\n${learningsBlock}` : base;
   return runClaudeAgent({
     prompt: opts.prompt,
     systemPrompt: sys,
