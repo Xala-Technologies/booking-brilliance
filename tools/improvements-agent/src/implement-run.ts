@@ -58,7 +58,10 @@ export async function implementPending(opts: { dryRun?: boolean; limit?: number 
 
     await move(p.linear_id, S_PROGRESS); // board reflects: agent is coding
     console.log(`  ⚙ implementing ${p.branch} (Claude Max, this can take a while)…`);
-    const { ok, result } = await implementGoal(p.worktree_path, goal, { model: "claude-opus-4-8" });
+    // Large migrations (e.g. a TS7 upgrade across a monorepo) exceed the 45-min
+    // default; IMPROVEMENTS_IMPLEMENT_TIMEOUT_MIN raises the per-issue cap.
+    const timeoutMin = Number(process.env.IMPROVEMENTS_IMPLEMENT_TIMEOUT_MIN) || 45;
+    const { ok, result } = await implementGoal(p.worktree_path, goal, { model: "claude-opus-4-8", timeoutMin });
     const pr = await findPrForBranch(p.worktree_path, p.branch);
     const blocked = /^(blokkert|avklaring)\b/i.test(result.trim());
     brain.recordPrepared({ ...p, implemented_at: nowIso(), pr_url: pr ?? undefined });
