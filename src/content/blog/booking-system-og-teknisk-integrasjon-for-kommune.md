@@ -2,7 +2,7 @@
 slug: bookingsystem-kommune-leverandor-valg
 title: "Slik velger kommunen riktig bookingsystem-leverandør"
 description: "IT-ledere i kommuner bør stille disse spørsmålene før de signerer. Her er hva som skiller et kommunalt bookingsystem fra en generisk løsning."
-date: 2026-07-09
+date: 2026-07-11
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7

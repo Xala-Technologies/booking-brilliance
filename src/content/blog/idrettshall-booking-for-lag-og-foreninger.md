@@ -2,7 +2,7 @@
 slug: digitalisert-tildeling-idrettshaller-lag-foreninger
 title: "Idrettshall-tildeling på dager, ikke uker, slik gjør du det"
 description: "Lær hvordan digitalisert tildeling av kommunale idrettshaller gir lag og foreninger raskere svar og full oversikt over sesongleie på én plass."
-date: 2026-07-09
+date: 2026-07-11
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 6

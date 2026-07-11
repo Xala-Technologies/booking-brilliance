@@ -2,7 +2,7 @@
 slug: hvor-booke-idrettshall-kommune
 title: "Slik booker du kommunal idrettshall uten papirskjema"
 description: "Finn riktig hall, sjekk ledige tider og bekreft bookingen digitalt, uten å sende e-post eller vente uker på svar fra kommunen."
-date: 2026-07-09
+date: 2026-07-11
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 6

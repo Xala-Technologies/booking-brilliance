@@ -2,7 +2,7 @@
 slug: id-porten-bankid-integrasjon-kommune-booking
 title: "ID-porten og BankID: Slik sikrer Digilist bookingen din"
 description: "Lær hvordan Digilist integrerer ID-porten, BankID og Outlook slik at kommunen din får sikker autentisering, kalendersync og full revisjonsspor uten tilleggsarbeid."
-date: 2026-07-09
+date: 2026-07-11
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 6

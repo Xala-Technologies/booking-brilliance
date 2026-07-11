@@ -2,7 +2,7 @@
 slug: booking-idrettshall-kommune-app
 title: "Slik slipper du doble bookinger i idrettshallen"
 description: "En enkel bookingapp gir driftsleder på idrettshaller full kontroll, og frigjør timer hver uke som går til administrasjon i dag."
-date: 2026-07-09
+date: 2026-07-11
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 6
