@@ -10,8 +10,8 @@
  * parser, and apply/demote logic. The agent call + Linear filing live in the CLI
  * (learning-run.ts) so the units here need no network.
  */
-import { OpenBrain, type Learning, type LearningType, type Signal } from "../../improvements-agent/src/brain";
-import { normStatement, upsertLearning } from "./knowledge";
+import { type Learning, type LearningType, type Signal } from "../../improvements-agent/src/brain";
+import { normStatement, upsertLearning, type KnowledgeStore } from "./knowledge";
 
 const LEARNING_TYPES: LearningType[] = [
   "repo-pattern",
@@ -184,7 +184,7 @@ export interface ApplyResult {
  * Does NOT save or file to Linear — the caller decides that (so it stays pure
  * and testable). Reject learnings with an empty source_ref (never fabricate).
  */
-export function applyDistilled(store: OpenBrain, output: DistillOutput, now: string): ApplyResult {
+export function applyDistilled(store: KnowledgeStore, output: DistillOutput, now: string): ApplyResult {
   const upserted: Learning[] = [];
   const upgrades: DistilledLearning[] = [];
   for (const d of output.learnings) {
