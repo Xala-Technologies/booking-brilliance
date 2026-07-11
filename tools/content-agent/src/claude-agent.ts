@@ -40,58 +40,138 @@ export const CAPABILITY_PREAMBLE = `Du er en Digilist-agent med FULL verktøytil
 - Minne/kontekst: agent-hjernene ligger i tools/*-agent/brain og content-memory; les dem for tidligere lærdom når det er relevant.
 Ikke gjett når du kan slå opp. Jobb read-only med mindre oppgaven eksplisitt ber om endringer.`;
 
-export function runCapableAgent(opts: {
+export interface AgentRunOptions {
   prompt: string;
   systemPrompt?: string;
   model?: string;
   cwd?: string; // run in a repo checkout so the repo map + Read target it
   maxTurns?: number;
+  /** Idle watchdog: kill if NO output for this many minutes (genuinely stuck,
+   *  not just slow). Default 25; 0 disables. Preferred over a total timeout so
+   *  legitimate multi-hour migrations aren't cut off. */
+  idleMin?: number;
+  /** Absolute safety cap in minutes. Default 0 = none (rely on the idle watchdog). */
   timeoutMin?: number;
-}): Promise<CapableAgentResult> {
+  /** Emit a progress heartbeat every N minutes (elapsed · turns · idle). Default 3; 0 disables. */
+  heartbeatMin?: number;
+  /** Label for heartbeat/log lines. */
+  label?: string;
+}
+
+/** Extract the final result from a stream-json transcript (newline-delimited
+ *  events); the `type:"result"` event carries `result` + `is_error`. */
+export function parseStreamResult(stream: string): { result?: string; is_error?: boolean } | null {
+  let found: { result?: string; is_error?: boolean } | null = null;
+  for (const line of stream.split("\n")) {
+    const t = line.trim();
+    if (!t.startsWith("{")) continue;
+    try {
+      const ev = JSON.parse(t) as { type?: string; result?: string; is_error?: boolean };
+      if (ev.type === "result") found = { result: ev.result, is_error: ev.is_error };
+    } catch {
+      /* skip partial/non-JSON lines */
+    }
+  }
+  return found;
+}
+
+/**
+ * The shared fleet agent runner. Runs `claude -p` in streaming mode with an
+ * IDLE WATCHDOG (kill only on genuine stalls, not slowness), a progress
+ * HEARTBEAT, and a configurable MODEL — used by every agentic agent (capable
+ * review/analysis, the self-implementing coder) so they all behave consistently
+ * and can run for hours. Tools on (--dangerously-skip-permissions) + all MCP.
+ */
+export function runClaudeAgent(opts: AgentRunOptions): Promise<CapableAgentResult> {
   const model = opts.model ?? "claude-opus-4-8";
+  const label = opts.label ?? "agent";
   const args = [
     "-p",
-    "--output-format", "json",
+    "--output-format", "stream-json", "--verbose",
     "--model", model,
     "--dangerously-skip-permissions",
     "--max-turns", String(opts.maxTurns ?? 30),
   ];
-  // Every capable agent gets the capability preamble + its own system prompt.
-  const sys = opts.systemPrompt ? `${CAPABILITY_PREAMBLE}\n\n${opts.systemPrompt}` : CAPABILITY_PREAMBLE;
-  args.push("--append-system-prompt", sys);
+  if (opts.systemPrompt) args.push("--append-system-prompt", opts.systemPrompt);
   const env = { ...process.env };
   delete env.ANTHROPIC_API_KEY; // use the Max login, not a key
   delete env.ANTHROPIC_AUTH_TOKEN;
   // The fleet runs as root on the VPS; Claude blocks --dangerously-skip-
-  // permissions as root unless it believes it's sandboxed. This IS a dedicated,
-  // user-directed agent host, so opt in.
+  // permissions as root unless it believes it's sandboxed. Dedicated host → opt in.
   env.IS_SANDBOX = "1";
 
-  const call = () =>
-    new Promise<CapableAgentResult>((resolve) => {
-      const child = spawn("claude", args, { cwd: opts.cwd, env, stdio: ["pipe", "pipe", "pipe"] });
-      let out = "";
-      let err = "";
-      const timer = setTimeout(() => child.kill("SIGKILL"), (opts.timeoutMin ?? 12) * 60_000);
-      child.stdout.on("data", (d) => (out += d));
-      child.stderr.on("data", (d) => (err += d));
-      child.on("error", (e) => {
-        clearTimeout(timer);
-        resolve({ text: String(e), model, ok: false });
-      });
-      child.on("close", (code) => {
-        clearTimeout(timer);
-        try {
-          const j = JSON.parse(out) as { result?: string; is_error?: boolean };
-          if (j.result) return resolve({ text: String(j.result), model: `${model} (max-cli)`, ok: code === 0 && !j.is_error });
-        } catch {
-          /* fall through */
-        }
-        resolve({ text: (out || err).slice(-2000), model: `${model} (max-cli)`, ok: false });
-      });
-      child.stdin.write(opts.prompt);
-      child.stdin.end();
-    });
+  return new Promise<CapableAgentResult>((resolve) => {
+    const child = spawn("claude", args, { cwd: opts.cwd, env, stdio: ["pipe", "pipe", "pipe"] });
+    let out = "";
+    let err = "";
+    let killedFor = "";
+    let turns = 0;
+    const startedAt = Date.now();
+    let lastActivity = Date.now();
 
-  return call().then((r) => (r.ok || r.text ? r : call()));
+    const idleMin = opts.idleMin ?? 25;
+    let idleTimer: NodeJS.Timeout | null = null;
+    const bumpIdle = () => {
+      lastActivity = Date.now();
+      if (idleMin <= 0) return;
+      if (idleTimer) clearTimeout(idleTimer);
+      idleTimer = setTimeout(() => { killedFor = "idle"; child.kill("SIGKILL"); }, idleMin * 60_000);
+    };
+    bumpIdle();
+    const tmoMin = opts.timeoutMin ?? 0;
+    const timer = tmoMin > 0 ? setTimeout(() => { killedFor = "timeout"; child.kill("SIGKILL"); }, tmoMin * 60_000) : null;
+    const hbMin = opts.heartbeatMin ?? 3;
+    const heartbeat = hbMin > 0 ? setInterval(() => {
+      const elapsed = Math.round((Date.now() - startedAt) / 60_000);
+      const idleSec = Math.round((Date.now() - lastActivity) / 1000);
+      console.log(`     ♥ ${label}: ${elapsed}m · ${turns} turns · idle ${idleSec}s`);
+    }, hbMin * 60_000) : null;
+    const cleanup = () => { if (idleTimer) clearTimeout(idleTimer); if (timer) clearTimeout(timer); if (heartbeat) clearInterval(heartbeat); };
+
+    child.stdout.on("data", (d) => {
+      out += d;
+      const s = String(d);
+      for (const _ of s.matchAll(/"type"\s*:\s*"(assistant|user)"/g)) turns++;
+      bumpIdle();
+    });
+    child.stderr.on("data", (d) => { err += d; bumpIdle(); });
+    child.on("error", (e) => { cleanup(); resolve({ text: String(e), model, ok: false }); });
+    child.on("close", (code) => {
+      cleanup();
+      if (killedFor) {
+        resolve({ text: `BLOKKERT: ${label} ble stoppet (${killedFor === "idle" ? `ingen aktivitet på ${idleMin} min` : "tidsgrense nådd"}). Delvis arbeid kan ligge i worktreen.`, model: `${model} (max-cli)`, ok: false });
+        return;
+      }
+      const r = parseStreamResult(out);
+      if (r?.result) resolve({ text: String(r.result), model: `${model} (max-cli)`, ok: code === 0 && !r.is_error });
+      else resolve({ text: (out || err).slice(-2000), model: `${model} (max-cli)`, ok: false });
+    });
+    child.stdin.write(opts.prompt);
+    child.stdin.end();
+  });
+}
+
+/** Capable review/analysis agent — the shared runner + the capability preamble.
+ *  Shorter idle window (12 min) since these are bounded read/reason passes. */
+export function runCapableAgent(opts: {
+  prompt: string;
+  systemPrompt?: string;
+  model?: string;
+  cwd?: string;
+  maxTurns?: number;
+  timeoutMin?: number;
+  idleMin?: number;
+  label?: string;
+}): Promise<CapableAgentResult> {
+  const sys = opts.systemPrompt ? `${CAPABILITY_PREAMBLE}\n\n${opts.systemPrompt}` : CAPABILITY_PREAMBLE;
+  return runClaudeAgent({
+    prompt: opts.prompt,
+    systemPrompt: sys,
+    model: opts.model,
+    cwd: opts.cwd,
+    maxTurns: opts.maxTurns ?? 30,
+    idleMin: opts.idleMin ?? 12,
+    timeoutMin: opts.timeoutMin ?? 0,
+    label: opts.label ?? "capable",
+  });
 }

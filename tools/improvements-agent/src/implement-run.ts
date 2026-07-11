@@ -58,13 +58,21 @@ export async function implementPending(opts: { dryRun?: boolean; limit?: number 
 
     await move(p.linear_id, S_PROGRESS); // board reflects: agent is coding
     console.log(`  ⚙ implementing ${p.branch} (Claude Max, this can take a while)…`);
-    // Large migrations (e.g. a TS7 upgrade across a monorepo) can run for hours.
-    // IMPROVEMENTS_IMPLEMENT_TIMEOUT_MIN sets the per-issue cap; set it to 0 to
-    // disable the timeout entirely (run to completion). Default 45.
-    const rawTmo = process.env.IMPROVEMENTS_IMPLEMENT_TIMEOUT_MIN;
-    const timeoutMin = rawTmo !== undefined && rawTmo !== "" ? Number(rawTmo) : 45;
-    console.log(`     (implement cap: ${timeoutMin > 0 ? timeoutMin + " min" : "none"})`);
-    const { ok, result } = await implementGoal(p.worktree_path, goal, { model: "claude-opus-4-8", timeoutMin });
+    // Long migrations run for hours: no total cap by default — the idle watchdog
+    // (IMPROVEMENTS_IMPLEMENT_IDLE_MIN, default 25) kills only genuine stalls.
+    // Model + optional absolute cap are configurable per the model-per-task policy.
+    const numEnv = (k: string, d: number) => {
+      const v = process.env[k];
+      return v !== undefined && v !== "" ? Number(v) : d;
+    };
+    // Model-per-task: coding defaults to Sonnet 5 (strong + cost-efficient at
+    // implementation); override to Opus for complex/critical migrations via env.
+    // (Review/analysis run on Opus for deep reasoning; clustering on Haiku.)
+    const model = process.env.IMPROVEMENTS_IMPLEMENT_MODEL || "claude-sonnet-5";
+    const timeoutMin = numEnv("IMPROVEMENTS_IMPLEMENT_TIMEOUT_MIN", 0);
+    const idleMin = numEnv("IMPROVEMENTS_IMPLEMENT_IDLE_MIN", 25);
+    console.log(`     (model: ${model} · cap: ${timeoutMin > 0 ? timeoutMin + "m" : "none"} · idle-watchdog: ${idleMin}m)`);
+    const { ok, result } = await implementGoal(p.worktree_path, goal, { model, timeoutMin, idleMin });
     const pr = await findPrForBranch(p.worktree_path, p.branch);
     const blocked = /^(blokkert|avklaring)\b/i.test(result.trim());
     brain.recordPrepared({ ...p, implemented_at: nowIso(), pr_url: pr ?? undefined });
