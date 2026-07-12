@@ -8,6 +8,9 @@
   "src/components/BookDemoBlock.tsx": [],
   "src/components/BrukerhistorierSection.tsx": [],
   "src/components/CTASection.tsx": [],
+  "src/components/ConvexScope.tsx": [
+    "/assets/ConvexScope-CoRf7ugp.js"
+  ],
   "src/components/CookieConsent.tsx": [],
   "src/components/Footer.tsx": [],
   "src/components/GlobalSearch.tsx": [],
@@ -28,22 +31,22 @@
   "src/components/UseCasePage.tsx": [],
   "src/components/ValuePropositionSection.tsx": [],
   "src/components/chatbot/ChatPanel.tsx": [
-    "/assets/index-Dm3u9bzg.js"
+    "/assets/index-BIlNOv4O.js"
   ],
   "src/components/chatbot/Chatbot.tsx": [
-    "/assets/index-Dm3u9bzg.js"
+    "/assets/index-BIlNOv4O.js"
   ],
   "src/components/chatbot/InquiryFlow.tsx": [
-    "/assets/index-Dm3u9bzg.js"
+    "/assets/index-BIlNOv4O.js"
   ],
   "src/components/chatbot/MessageBubble.tsx": [
-    "/assets/index-Dm3u9bzg.js"
+    "/assets/index-BIlNOv4O.js"
   ],
   "src/components/chatbot/QuickReplies.tsx": [
-    "/assets/index-Dm3u9bzg.js"
+    "/assets/index-BIlNOv4O.js"
   ],
   "src/components/chatbot/index.ts": [
-    "/assets/index-Dm3u9bzg.js"
+    "/assets/index-BIlNOv4O.js"
   ],
   "src/components/editorial/Byline.tsx": [],
   "src/components/editorial/DropCap.tsx": [],
@@ -67,8 +70,12 @@
   "src/components/ui/toaster.tsx": [],
   "src/components/ui/tooltip.tsx": [],
   "src/content/blog/avbooking-refusjon-og-saksbehandling.md?raw": [],
+  "src/content/blog/booking-av-idrettshaller-og-anlegg.md?raw": [],
   "src/content/blog/booking-paa-90-sekunder-innbygger.md?raw": [],
+  "src/content/blog/booking-system-og-teknisk-integrasjon-for-kommune.md?raw": [],
   "src/content/blog/bookingkalender-for-innbygger-og-saksbehandler.md?raw": [],
+  "src/content/blog/bookingsoftware-kommune-sammenligning-pris.md?raw": [],
+  "src/content/blog/compliance-sikkerhet-og-datavern.md?raw": [],
   "src/content/blog/cyberangrep-norske-kommuner-bookingsystem.md?raw": [],
   "src/content/blog/ddos-ransomware-beredskap-bookingplattform.md?raw": [],
   "src/content/blog/digdir-designsystemet-kommunal-bookingplattform.md?raw": [],
@@ -77,9 +84,14 @@
   "src/content/blog/faktura-refusjon-avstemming.md?raw": [],
   "src/content/blog/foresporsel-chat-kommunikasjon.md?raw": [],
   "src/content/blog/gdpr-iso-datalokasjon-norge.md?raw": [],
+  "src/content/blog/gym-og-idrettssalsleie-for-barn-og-privatpersoner.md?raw": [],
   "src/content/blog/hvorfor-digital-booking-2026.md?raw": [],
   "src/content/blog/idporten-bankid-kommunal-innlogging.md?raw": [],
   "src/content/blog/idrettshall-booking-for-lag-og-foreninger.md?raw": [],
+  "src/content/blog/integrasjon-med-offentlige-systemer-og-autentisering.md?raw": [],
+  "src/content/blog/kapasitetsstyring-idrettsanlegg-driftsleder.md?raw": [],
+  "src/content/blog/leie-idrettshall-kommune-komplett-guide-lag.md?raw": [],
+  "src/content/blog/leie-motrom-kommune-samme-dag.md?raw": [],
   "src/content/blog/magic-link-sms-bankid-sikker-innlogging.md?raw": [],
   "src/content/blog/min-side-alle-bookinger-paa-ett-sted.md?raw": [],
   "src/content/blog/onboarding-uke-til-live.md?raw": [],
@@ -94,20 +106,19 @@
   "src/content/blog/tilgjengelighetskalender-innbygger.md?raw": [],
   "src/content/blog/universell-utforming-wcag-kommunal-booking.md?raw": [],
   "src/content/blog/utleieobjekt-veiviser-steg-for-steg.md?raw": [],
-  "src/content/blog/valg-av-bookingsystem-og-leverand-r.md?raw": [],
   "src/content/faq.ts": [],
   "src/entry-server.tsx": [],
   "src/hooks/use-toast.ts": [],
   "src/hooks/useActiveSection.ts": [],
   "src/hooks/useChatbot.ts": [
-    "/assets/index-Dm3u9bzg.js"
+    "/assets/index-BIlNOv4O.js"
   ],
   "src/lib/chatbot/inquiry.ts": [
-    "/assets/index-Dm3u9bzg.js"
+    "/assets/index-BIlNOv4O.js"
   ],
   "src/lib/chatbot/open.ts": [],
   "src/lib/chatbot/rag.ts": [
-    "/assets/index-Dm3u9bzg.js"
+    "/assets/index-BIlNOv4O.js"
   ],
   "src/lib/fonts.ts": [],
   "src/lib/motion.ts": [],
@@ -116,10 +127,10 @@
   "src/lib/utils.ts": [],
   "src/pages/Blog.tsx": [],
   "src/pages/BlogPost.tsx": [
-    "/assets/BlogPost-Bb0MAVKl.js"
+    "/assets/BlogPost-DcYrJltb.js"
   ],
   "src/pages/BlogPreview.tsx": [
-    "/assets/BlogPreview-Cn2ejzyL.js"
+    "/assets/BlogPreview-Dy7f_JRm.js"
   ],
   "src/pages/BookDemo.tsx": [],
   "src/pages/BookingLokalerMoterom.tsx": [],
@@ -131,7 +142,7 @@
   "src/pages/Personvern.tsx": [],
   "src/pages/Salgsvilkar.tsx": [],
   "src/pages/Status.tsx": [
-    "/assets/Status-BBrhkon_.js"
+    "/assets/Status-D_0yXEV8.js"
   ],
   "src/pages/Transparens.tsx": [],
   "src/pages/UseCaseIdrettshaller.tsx": [],
@@ -139,28 +150,28 @@
   "src/pages/UseCaseMoterom.tsx": [],
   "src/pages/UseCaseSelskapslokaler.tsx": [],
   "src/pages/admin/IntelligenceAgents.tsx": [
-    "/assets/IntelligenceAgents-BXcHVVjF.js"
+    "/assets/IntelligenceAgents-Fev94ukT.js"
   ],
   "src/pages/admin/IntelligenceCategory.tsx": [
-    "/assets/IntelligenceCategory-BYsnKJ8Z.js"
+    "/assets/IntelligenceCategory-BvwGHysO.js"
   ],
   "src/pages/admin/IntelligenceCompliance.tsx": [
-    "/assets/IntelligenceCompliance-DNL9YINU.js"
+    "/assets/IntelligenceCompliance-h90BBo0-.js"
   ],
   "src/pages/admin/IntelligenceIssues.tsx": [
-    "/assets/IntelligenceIssues-C-cXIOyV.js"
+    "/assets/IntelligenceIssues-CReWQiWZ.js"
   ],
   "src/pages/admin/IntelligenceMisc.tsx": [
-    "/assets/IntelligenceMisc-Cv1IhsjG.js"
+    "/assets/IntelligenceMisc-Cqkeb7iZ.js"
   ],
   "src/pages/admin/IntelligenceOverview.tsx": [
-    "/assets/IntelligenceOverview-JSYxyUek.js"
+    "/assets/IntelligenceOverview-DJ-jVeUU.js"
   ],
   "src/pages/admin/IntelligenceShell.tsx": [
-    "/assets/IntelligenceShell-lfp6Wq2j.js"
+    "/assets/IntelligenceShell--7zvYnaq.js"
   ],
   "src/pages/admin/IntelligenceVekst.tsx": [
-    "/assets/IntelligenceVekst-DtQiFEtc.js"
+    "/assets/IntelligenceVekst-CJbBNqDt.js"
   ],
   "src/pages/admin/intelligence-shared.ts": [
     "/assets/intelligence-shared-BI9y8Ril.js"

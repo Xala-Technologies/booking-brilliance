@@ -32,6 +32,9 @@ export async function implementGoal(
     `${goal}\n\nRules: work only in this worktree on the current branch (never main). ` +
     `Implement, run the build and tests until they're green, commit with a clear message, ` +
     `push the branch, and open a PR (never merge directly). Delete AGENT-GOAL.md before the PR.\n\n` +
+    `ATTRIBUTION: Do NOT add any AI or tool attribution anywhere — no "Generated with Claude Code", ` +
+    `no "🤖 Generated with…", no "Co-Authored-By: Claude" (or any Co-Authored-By trailer), and no robot/emoji ` +
+    `signature — in commit messages, the PR title, or the PR body. Write commits and the PR as a human engineer would.\n\n` +
     `IMPORTANT: If you get BLOCKED, are missing context, or need a CLARIFICATION, ` +
     `don't guess — end with a clear final message that starts with "BLOCKED:" or ` +
     `"CLARIFICATION:" and explains exactly what's stopping you and what answer you need. ` +
