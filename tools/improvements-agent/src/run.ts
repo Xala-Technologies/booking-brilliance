@@ -16,6 +16,7 @@
  */
 import { loadConfig } from "../../content-agent/src/config";
 import { LinearClient } from "../../content-agent/src/linear";
+import { captureFalsePositive } from "../../knowledge-agent/src/capture";
 import { analyzeItem } from "./analyze";
 import { OpenBrain } from "./brain";
 import { indexRepo, projectForPath, repoStatus } from "./code-map";
@@ -135,6 +136,9 @@ async function main() {
     const genuine = verdict.actionable && verdict.confidence >= minConf;
     if (!genuine) {
       notActionable++;
+      // Learning signal: the scanner flagged something already shipped / not
+      // actionable — a recurring false positive to distil away. Best-effort.
+      captureFalsePositive({ itemKey: item.key, title: item.title, status: verdict.status, category: item.category });
       console.log(`  · ${verdict.status} ${verdict.type}/${verdict.severity}/${verdict.priority} (${(verdict.confidence * 100).toFixed(0)}%) — ${item.title.slice(0, 60)}`);
       continue;
     }

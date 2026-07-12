@@ -159,7 +159,7 @@ export async function reviewPr(cfg: ContentAgentConfig, repo: string, number: nu
   let text: string;
   let model: string;
   if (cfg.llmProvider === "claude-cli") {
-    const r = await runCapableAgent({ prompt, systemPrompt: SYSTEM, model: cfg.anthropicReviewModel, cwd: checkout, maxTurns: 40, timeoutMin: 12 });
+    const r = await runCapableAgent({ prompt, systemPrompt: SYSTEM, model: cfg.anthropicReviewModel, cwd: checkout, maxTurns: 40, timeoutMin: 12, agent: "pr-review", injectContext: pr.title });
     text = r.text;
     model = r.model;
   } else {
@@ -209,7 +209,7 @@ export async function reviewPrMultiLens(cfg: ContentAgentConfig, repo: string, n
 
   // Synthesize one concise human review from the lens notes.
   const synthPrompt = `${context}\n\nSpecialist reviewers reported this (raw notes, may contain noise and "none"):\n${lensNotes}\n\nWrite ONE short, human review like an experienced colleague. Pick ONLY what actually matters (ignore "none" and nitpicks). Conclude. End your reply with JSON: {"verdict":"...","review":"..."}`;
-  const r = await runCapableAgent({ prompt: synthPrompt, systemPrompt: SYSTEM, model: cfg.anthropicReviewModel, cwd: checkout, maxTurns: 8, timeoutMin: 6 });
+  const r = await runCapableAgent({ prompt: synthPrompt, systemPrompt: SYSTEM, model: cfg.anthropicReviewModel, cwd: checkout, maxTurns: 8, timeoutMin: 6, agent: "pr-review", injectContext: pr.title });
   const out = coerce(extractJson<RawReview>(r.text));
   if (!out) throw new Error(`multi-lens synthesis produced no review. Tail: ${r.text.slice(-300).replace(/\n/g, " ")}`);
   return { pr, event: out.event, body: out.body, model: `${cfg.anthropicReviewModel} (max-cli · ${LENSES.length}-lens)` };

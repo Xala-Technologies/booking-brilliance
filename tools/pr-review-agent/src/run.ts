@@ -32,6 +32,7 @@
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { loadConfig } from "../../content-agent/src/config";
+import { capturePrReview } from "../../knowledge-agent/src/capture";
 import { alreadyReviewed, postReview, renderReview } from "./post";
 import { reviewPr, reviewPrMultiLens } from "./review";
 import { ReviewStore } from "./store";
@@ -175,6 +176,10 @@ async function main() {
       // The reviewer chose the verdict; the gate can downgrade to advisory comment.
       const event = allowVerdicts ? result.event : "comment";
       const body = renderReview(result.body, isUpdate);
+      // Capture blocking verdicts as a learning signal (capture -> distill ->
+      // inject): a request-changes on an agent branch is the fleet catching its
+      // own mistake. Best-effort, guarded to blockers inside the helper.
+      capturePrReview({ repo: pr.repo, number: pr.number, event: result.event, body: result.body, branch: pr.headRefName });
       if (dryRun) {
         console.log(`\n----- ${key} — ${result.pr.title} [${event}${isUpdate ? ", update" : ""}] -----\n${body}\n`);
       } else {
