@@ -140,7 +140,13 @@ async function claudeCli(opts: {
     "--strict-mcp-config",
     "--disallowedTools", ...BUILTIN_TOOLS,
   ];
-  if (opts.systemPrompt) args.push("--append-system-prompt", opts.systemPrompt);
+  // Use --system-prompt (REPLACE the default Claude Code agent prompt) not
+  // --append-system-prompt: appending leaves the full CC agent framing in place,
+  // which biases opus toward tool_use on complex briefs (→ error_max_turns) and
+  // conversational prose (→ invalid JSON). Replacing makes it a pure text/JSON
+  // model. --exclude-dynamic-system-prompt-sections drops env/git/date preamble.
+  if (opts.systemPrompt)
+    args.push("--system-prompt", opts.systemPrompt, "--exclude-dynamic-system-prompt-sections");
   // An ANTHROPIC_API_KEY in the environment takes precedence over the claude.ai
   // (Max) login and makes `claude -p` use the API key instead — so strip it and
   // other API auth sources so the subscription login is used.
