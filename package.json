@@ -12,10 +12,6 @@
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
-    "seo:crawl": "tsx tools/seo-crawler/src/crawl.ts",
-    "seo:report": "tsx tools/seo-crawler/src/report.ts",
-    "seo:open": "open tools/seo-crawler/reports/index.html",
-    "seo:test": "vitest run tools/seo-crawler/src/__tests__",
     "audit:all": "xala-agents run audit",
     "audit:psi": "xala-agents run audit-psi",
     "audit:daily": "xala-agents run audit -- --trigger cron && xala-agents run audit-psi",
@@ -30,11 +26,7 @@
     "improvements:run": "xala-agents run improvements",
     "improvements:prepare": "xala-agents run prepare",
     "improvements:implement": "xala-agents run implement",
-    "improvements:install-timer": "bash scripts/install-improvements-timer.sh",
-    "pr-review:run": "xala-agents run pr-review",
-    "docs:index": "xala-agents run docs-index",
-    "docs:mcp": "xala-agents run docs-mcp",
-    "e2e:run": "xala-agents run e2e"
+    "improvements:install-timer": "bash scripts/install-improvements-timer.sh"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
