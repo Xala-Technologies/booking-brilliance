@@ -198,6 +198,10 @@ async function loadBlogPosts() {
       date: fm.date,
       author: fm.author,
       tag: fm.tag,
+      // `cover` drives the per-post og:image/twitter:image below. Without it
+      // every post fell back to the generic /og-image.png, so social/Slack/
+      // LinkedIn unfurls all showed the SAME image regardless of topic.
+      cover: fm.cover,
     });
   }
   return posts;
