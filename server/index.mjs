@@ -87,9 +87,29 @@ const CONTENT_REPO_DIR = process.env.CONTENT_REPO_DIR || AUDIT_REPO_DIR;
 const CONTENT_SNAPSHOT_PATH =
   process.env.CONTENT_SNAPSHOT_PATH ||
   "/var/www/digilist-audit/content-snapshot.json";
-// Background-run book-keeping (very small in-memory queue + status table)
-const auditRuns = new Map(); // runRequestId -> { startedAt, target, status, log }
-const contentRuns = new Map(); // same shape, for content-agent runs
+
+// Intelligence runs are delegated to the agent-fleet's own site-intelligence +
+// content agents over a localhost HTTP bridge (fleet dashboard API). The fleet
+// runs them in its native env (root + claude Max) and writes findings to the
+// same Convex this dashboard reads — so a manual "Kjør skanning" and the fleet's
+// nightly scan are identical. The bridge is authed with the shared
+// ADMIN_BASIC_AUTH bearer. This replaces spawning a duplicate
+// /var/www/digilist-audit checkout (which this www-data process could keep only
+// because it can't reach the fleet under /root).
+const FLEET_API_URL = process.env.FLEET_API_URL || "http://127.0.0.1:8787";
+
+/** POST an intelligence run to the fleet bridge; resolves to its {runId,…}. */
+async function triggerFleetRun(payload) {
+  if (!ADMIN_BASIC_AUTH) throw new Error("ADMIN_BASIC_AUTH unset — cannot authenticate to the fleet");
+  const r = await fetch(`${FLEET_API_URL}/api/intelligence/run`, {
+    method: "POST",
+    headers: { "content-type": "application/json", authorization: `Bearer ${ADMIN_BASIC_AUTH}` },
+    body: JSON.stringify(payload),
+  });
+  const text = await r.text();
+  if (!r.ok) throw new Error(`fleet ${r.status}: ${text.slice(0, 200)}`);
+  return text ? JSON.parse(text) : {};
+}
 
 function authorized(req) {
   if (!ADMIN_BASIC_AUTH) return false;
@@ -1579,117 +1599,37 @@ Foreslå en fiks.`;
   }
 }
 
-function handleAuditRun(res, body) {
-  if (!AUDIT_REPO_DIR || !existsSync(AUDIT_REPO_DIR)) {
-    return json(res, 503, {
-      error:
-        "Audit runner not configured on this server. Set AUDIT_REPO_DIR to a checkout that has pnpm + tools/site-intelligence available.",
-    });
-  }
+async function handleAuditRun(res, body) {
+  // Delegate to the fleet's own site-intelligence agent (which also fires the
+  // PSI/Lighthouse scan). Runs in the fleet env → same Convex findings the
+  // dashboard reads, no duplicate /var/www/digilist-audit checkout.
   const target = typeof body.target === "string" ? body.target : "";
-  const args = ["audit:all"];
-  if (target) {
-    args.push("--", "--target", target, "--trigger", "dashboard");
-  } else {
-    args.push("--", "--trigger", "dashboard");
+  const type = typeof body.type === "string" ? body.type : "";
+  try {
+    const out = await triggerFleetRun({ kind: "audit", target, type });
+    return json(res, 202, { runRequestId: out.runId ?? "", status: "accepted", via: "fleet" });
+  } catch (e) {
+    return json(res, 502, { error: `Kunne ikke starte skanning i agent-fleet: ${String(e?.message ?? e).slice(0, 200)}` });
   }
-  const runRequestId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-  const child = spawn("pnpm", args, {
-    cwd: AUDIT_REPO_DIR,
-    env: { ...process.env, FORCE_COLOR: "0" },
-    stdio: ["ignore", "pipe", "pipe"],
-  });
-  auditRuns.set(runRequestId, {
-    startedAt: new Date().toISOString(),
-    target: target || "all",
-    status: "running",
-    log: "",
-  });
-  const append = (chunk) => {
-    const state = auditRuns.get(runRequestId);
-    if (state) state.log += chunk.toString();
-  };
-  child.stdout.on("data", append);
-  child.stderr.on("data", append);
-  child.on("close", (code) => {
-    const state = auditRuns.get(runRequestId);
-    if (!state) return;
-    state.status = code === 0 ? "ok" : "error";
-    state.finishedAt = new Date().toISOString();
-  });
-
-  // Fire PSI performance scan in parallel — runs in Convex (talks to
-  // Google PageSpeed Insights API directly). The dashboard's "Kjør
-  // full skanning" expects "everything" to run, including CWV.
-  const psiArgs = ["audit:psi"];
-  if (target) psiArgs.push("--", "--target", target);
-  const psiChild = spawn("pnpm", psiArgs, {
-    cwd: AUDIT_REPO_DIR,
-    env: { ...process.env, FORCE_COLOR: "0" },
-    stdio: ["ignore", "pipe", "pipe"],
-  });
-  psiChild.stdout.on("data", (c) => append(`[psi] ${c.toString()}`));
-  psiChild.stderr.on("data", (c) => append(`[psi:err] ${c.toString()}`));
-  // Reap older entries
-  if (auditRuns.size > 50) {
-    const first = auditRuns.keys().next().value;
-    if (first) auditRuns.delete(first);
-  }
-  return json(res, 202, { runRequestId, status: "accepted" });
 }
 
 // ─────────────────────────────────────────────────────────────
-// Content agent endpoints
-//
-// Mirrors the audit run pattern: HTTP server stays zero-dep, all
-// DB writes happen in a spawned `tsx tools/content-agent/src/cli.ts`.
-// Drafts mutations (approve/reject/edit/publish) are synchronous
-// (cli exits in <1s) and return the cli's JSON output verbatim.
-// content:all is async like audits:run — we return 202 with a runId.
+// Content agent endpoint — delegated to the fleet's content agent
+// over the same localhost bridge (see triggerFleetRun). The fleet
+// generates drafts into the shared Convex; the dashboard reviews +
+// publishes them reactively.
+// ─────────────────────────────────────────────────────────────
 
-function handleContentRun(res, body) {
-  if (!CONTENT_REPO_DIR || !existsSync(CONTENT_REPO_DIR)) {
-    return json(res, 503, {
-      error:
-        "Content agent runner not configured on this server. Set CONTENT_REPO_DIR to a checkout that has pnpm + tools/content-agent available.",
-    });
-  }
+async function handleContentRun(res, body) {
   const phase = ["discover", "analyze", "generate", "all"].includes(body.phase)
     ? body.phase
     : "all";
-  const script =
-    phase === "all" ? "content:all" : `content:${phase}`;
-  const runRequestId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-  const child = spawn("pnpm", [script, "--", "--trigger", "dashboard"], {
-    cwd: CONTENT_REPO_DIR,
-    env: { ...process.env, FORCE_COLOR: "0" },
-    stdio: ["ignore", "pipe", "pipe"],
-  });
-  contentRuns.set(runRequestId, {
-    startedAt: new Date().toISOString(),
-    phase,
-    status: "running",
-    log: "",
-  });
-  const append = (chunk) => {
-    const state = contentRuns.get(runRequestId);
-    if (state) state.log += chunk.toString();
-  };
-  child.stdout.on("data", append);
-  child.stderr.on("data", append);
-  child.on("close", (code) => {
-    const state = contentRuns.get(runRequestId);
-    if (!state) return;
-    state.status = code === 0 ? "ok" : "error";
-    state.finishedAt = new Date().toISOString();
-    // Convex-backed orchestrator writes results directly to the
-    // deployment; dashboard re-renders reactively. No snapshot regen.
-  });
-  if (contentRuns.size > 50) {
-    const first = contentRuns.keys().next().value;
-    if (first) contentRuns.delete(first);
+  try {
+    const out = await triggerFleetRun({ kind: "content", phase });
+    return json(res, 202, { runRequestId: out.runId ?? "", status: "accepted", phase, via: "fleet" });
+  } catch (e) {
+    return json(res, 502, { error: `Kunne ikke starte innholdskjøring i agent-fleet: ${String(e?.message ?? e).slice(0, 200)}` });
   }
-  return json(res, 202, { runRequestId, status: "accepted", phase });
 }
 
 server.listen(PORT, "127.0.0.1", () => {
