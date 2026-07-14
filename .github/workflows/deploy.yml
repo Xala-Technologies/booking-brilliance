@@ -63,8 +63,13 @@ jobs:
           ADMIN_BASIC_AUTH: ${{ secrets.ADMIN_BASIC_AUTH }}
         run: ./deploy.sh
 
-      - name: Verify site is live
+      - name: Verify site is live (homepage + blog posts + covers)
         run: |
-          code=$(curl -s -o /dev/null -w "%{http_code}" https://digilist.no)
-          echo "digilist.no → HTTP $code"
-          test "$code" = "200"
+          # Atomic symlink flip is instant, but give nginx a moment to settle.
+          sleep 5
+          # Asserts each of the newest posts is PRE-RENDERED (own title = text)
+          # with its own topical cover wired into og:image, and that the cover
+          # file resolves as a live image. Fails the deploy if any post reverts
+          # to the generic shell / shared og-image (the silent regressions that
+          # used to ship unnoticed). VERIFY_SAMPLE=all to check every post.
+          node scripts/verify-live.mjs
