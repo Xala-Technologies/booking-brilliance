@@ -12,13 +12,20 @@
  * client-side code-splitting, we render in a loop: the first pass triggers
  * the route's dynamic import(s) (rendering fallbacks); we await a macrotask
  * so the chunk resolves; React.lazy caches the resolved module, so the next
- * renderToString emits the real content. Repeat until the output stabilises
- * (covers nested lazy) or a small cap is hit. This runs at build time only,
- * so the extra passes cost nothing at runtime.
+ * renderToString emits the real content. Repeat while the fallback marker is
+ * still present, up to a generous cap — not just until two passes happen to
+ * render identically, since a slow import() can produce the same fallback
+ * output on consecutive passes and stop the loop before the chunk resolves
+ * (this silently shipped several blog posts with no article body at all).
+ * This runs at build time only, so the extra passes cost nothing at runtime.
  */
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server";
 import { AppShell } from "./App";
+
+// RouteFallback's placeholder text (see App.tsx) — its presence means a
+// lazy route chunk hasn't resolved yet and this pass isn't the real content.
+const LOADING_MARKER = "Laster…";
 
 export async function render(url: string): Promise<string> {
   const tree = (
@@ -27,12 +34,12 @@ export async function render(url: string): Promise<string> {
     </StaticRouter>
   );
   let html = renderToString(tree);
-  for (let pass = 0; pass < 5; pass++) {
-    // Let any dynamic import() kicked off during the last render resolve.
-    await new Promise((resolve) => setTimeout(resolve, 0));
-    const next = renderToString(tree);
-    if (next === html) break;
-    html = next;
+  for (let pass = 0; pass < 20 && html.includes(LOADING_MARKER); pass++) {
+    // Let any dynamic import() kicked off during the last render resolve —
+    // a real (if small) delay, since a cold import() reads/compiles from
+    // disk and a 0ms timeout doesn't wait for that I/O to finish.
+    await new Promise((resolve) => setTimeout(resolve, 10));
+    html = renderToString(tree);
   }
   return html;
 }
