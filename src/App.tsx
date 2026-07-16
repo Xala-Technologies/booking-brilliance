@@ -19,7 +19,6 @@ import Salgsvilkar from "./pages/Salgsvilkar";
 import Personvern from "./pages/Personvern";
 import Cookies from "./pages/Cookies";
 import NotFound from "./pages/NotFound";
-import Transparens from "./pages/Transparens";
 import UseCaseSelskapslokaler from "./pages/UseCaseSelskapslokaler";
 import UseCaseMoterom from "./pages/UseCaseMoterom";
 import UseCaseIdrettshaller from "./pages/UseCaseIdrettshaller";
@@ -29,14 +28,20 @@ import UseCaseKulturhus from "./pages/UseCaseKulturhus";
 // the homepage. Cuts the initial JS bundle from ~1.28MB to ~300KB on the
 // marketing routes.
 //   - Blog detail page + preview: react-markdown + remark-gfm
-//   - Status page: Convex client + Recharts-adjacent code paths
+//   - Status + Transparens: Convex client + Recharts-adjacent code paths
 //   - All /admin/intelligence/* routes: dashboard, Vekst, charts, etc.
 // Scoped Convex provider — lazy so `convex/react` stays out of the marketing
-// entry bundle; wraps only the routes below that call Convex.
+// entry bundle; wraps only the routes below that call Convex. Transparens
+// was previously imported eagerly above even though it calls useQuery() —
+// that statically pulled convex/react (and the local generated api.js,
+// which pulls convex/server) into the main entry chunk, so every page load
+// (including plain marketing routes) eagerly modulepreloaded the ~70KB
+// Convex client regardless of route.
 const ConvexScope = lazy(() => import("./components/ConvexScope"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
 const BlogPreview = lazy(() => import("./pages/BlogPreview"));
 const Status = lazy(() => import("./pages/Status"));
+const Transparens = lazy(() => import("./pages/Transparens"));
 const IntelligenceShell = lazy(() => import("./pages/admin/IntelligenceShell"));
 const IntelligenceOverview = lazy(() => import("./pages/admin/IntelligenceOverview"));
 const IntelligenceIssues = lazy(() => import("./pages/admin/IntelligenceIssues"));

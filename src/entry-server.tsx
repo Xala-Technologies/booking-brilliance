@@ -20,7 +20,25 @@ import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server";
 import { AppShell } from "./App";
 
+// /status and /transparens nest two React.lazy boundaries (ConvexScope,
+// then the page component inside it) — the retry loop below only
+// discovers the *inner* lazy import once the outer one has already
+// resolved, so it needs its own dynamic import() to be triggered and
+// awaited before it can settle. Under load that sequential discovery
+// sometimes ran past the retry budget while still mid-import, shipping
+// an empty <div id="root"> and pushing the real content behind a full
+// client-side hydration (observed LCP render-delay: ~6s). Importing
+// these modules directly (bypassing React) primes Node's module cache
+// up front, so both lazy boundaries resolve on their first real attempt
+// instead of racing disk I/O.
+const warmupImports = Promise.all([
+  import("./components/ConvexScope"),
+  import("./pages/Status"),
+  import("./pages/Transparens"),
+]);
+
 export async function render(url: string): Promise<string> {
+  await warmupImports;
   const tree = (
     <StaticRouter location={url}>
       <AppShell />
