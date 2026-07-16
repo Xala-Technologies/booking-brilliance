@@ -831,6 +831,30 @@ async function main() {
   await fs.writeFile(join(blogDir, "index.html"), blogIndexHTML, "utf-8");
   console.log(`  ✓ /blogg/index.html (${blogIndexHTML.length} bytes)`);
 
+  // BlogPost is React.lazy()-loaded, and renderToString can't suspend across
+  // it — the retry loop in entry-server.tsx needs several full render() calls
+  // before the underlying dynamic-import graph resolves for the very first
+  // time. Burn that one-time warm-up cost here, on a throwaway render, before
+  // looping over real posts below — otherwise the first several posts in
+  // `posts` bake in only the Suspense fallback ("Laster…") as their body.
+  if (posts.length > 0) {
+    const warmupRoute = `/blogg/${posts[0].slug}`;
+    const MAX_WARMUP_ATTEMPTS = 80;
+    let settled = false;
+    for (let i = 0; i < MAX_WARMUP_ATTEMPTS; i++) {
+      const html = await renderBody(warmupRoute);
+      if (html && !html.includes("Laster…")) {
+        settled = true;
+        break;
+      }
+    }
+    if (!settled) {
+      console.warn(
+        `  [ssr] blog warm-up did not settle after ${MAX_WARMUP_ATTEMPTS} attempts — early posts may still be thin`,
+      );
+    }
+  }
+
   for (const post of posts) {
     const postRoute = `/blogg/${post.slug}`;
     const coverUrl = post.cover
