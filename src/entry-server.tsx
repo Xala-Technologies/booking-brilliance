@@ -11,14 +11,27 @@
  * invisible to crawlers and a11y auditors. To fix this without giving up
  * client-side code-splitting, we render in a loop: the first pass triggers
  * the route's dynamic import(s) (rendering fallbacks); we await a macrotask
- * so the chunk resolves; React.lazy caches the resolved module, so the next
- * renderToString emits the real content. Repeat until the output stabilises
- * (covers nested lazy) or a small cap is hit. This runs at build time only,
- * so the extra passes cost nothing at runtime.
+ * so the chunk resolves; React.lazy caches the resolved module, so a later
+ * renderToString emits the real content. This runs at build time only, so
+ * the extra passes cost nothing at runtime.
+ *
+ * The loop keys off the "did not finish this Suspense boundary" marker
+ * React embeds in the fallback output, not "two passes produced identical
+ * output" — two consecutive passes can be byte-identical while BOTH are
+ * still the unresolved fallback (a cold dynamic import() of an on-disk
+ * chunk, e.g. BlogPost's react-markdown/remark-gfm graph, is real file I/O
+ * that can outlast a couple of 0ms macrotask ticks). Treating that as
+ * "stabilized" baked the loading shell — no <h1> — into the static HTML
+ * for whichever route happened to touch the chunk first each build. The
+ * loop now retries against a wall-clock deadline instead of a fixed pass
+ * count, since the cold-import cost depends on disk/CPU, not pass number.
  */
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server";
 import { AppShell } from "./App";
+
+const UNRESOLVED_SUSPENSE_MARKER = "did not finish this Suspense boundary";
+const RETRY_DEADLINE_MS = 5000;
 
 export async function render(url: string): Promise<string> {
   const tree = (
@@ -27,12 +40,11 @@ export async function render(url: string): Promise<string> {
     </StaticRouter>
   );
   let html = renderToString(tree);
-  for (let pass = 0; pass < 5; pass++) {
-    // Let any dynamic import() kicked off during the last render resolve.
-    await new Promise((resolve) => setTimeout(resolve, 0));
-    const next = renderToString(tree);
-    if (next === html) break;
-    html = next;
+  const deadline = Date.now() + RETRY_DEADLINE_MS;
+  while (html.includes(UNRESOLVED_SUSPENSE_MARKER) && Date.now() < deadline) {
+    // Let the dynamic import() kicked off during the last render resolve.
+    await new Promise((resolve) => setTimeout(resolve, 20));
+    html = renderToString(tree);
   }
   return html;
 }
