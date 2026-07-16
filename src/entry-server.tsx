@@ -13,12 +13,28 @@
  * the route's dynamic import(s) (rendering fallbacks); we await a macrotask
  * so the chunk resolves; React.lazy caches the resolved module, so the next
  * renderToString emits the real content. Repeat until the output stabilises
- * (covers nested lazy) or a small cap is hit. This runs at build time only,
- * so the extra passes cost nothing at runtime.
+ * (covers nested lazy) or a cap is hit. This runs at build time only, so
+ * the extra passes cost nothing at runtime.
+ *
+ * The first ever render of a given lazy chunk in the process is the
+ * expensive one (cold dynamic import() of that chunk, competing with the
+ * CPU cost of re-running renderToString on this ~1MB SSR bundle each
+ * pass) — measured at 30-36 passes to resolve. Every later render of the
+ * same lazy component resolves on pass 0 since React.lazy caches it. The
+ * cap below has margin over that measured cold-start cost.
  */
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server";
 import { AppShell } from "./App";
+
+// Two consecutive passes can be byte-identical while BOTH are still the
+// unresolved Suspense fallback (e.g. the chunk load spans more than one
+// macrotask) — that false "stabilized" match was baking the loading
+// skeleton (no <h1>) into the static file. Treat "still showing the
+// fallback" as never stable so the loop keeps retrying up to the cap.
+const isUnresolvedSuspense = (out: string): boolean =>
+  out.includes("did not finish this Suspense boundary") ||
+  out.includes(">Laster…<");
 
 export async function render(url: string): Promise<string> {
   const tree = (
@@ -27,11 +43,11 @@ export async function render(url: string): Promise<string> {
     </StaticRouter>
   );
   let html = renderToString(tree);
-  for (let pass = 0; pass < 5; pass++) {
+  for (let pass = 0; pass < 60; pass++) {
     // Let any dynamic import() kicked off during the last render resolve.
     await new Promise((resolve) => setTimeout(resolve, 0));
     const next = renderToString(tree);
-    if (next === html) break;
+    if (next === html && !isUnresolvedSuspense(next)) break;
     html = next;
   }
   return html;
