@@ -42,5 +42,14 @@ export async function render(url: string): Promise<string> {
     await new Promise((resolve) => setTimeout(resolve, RETRY_INTERVAL_MS));
     html = renderToString(tree);
   }
+  // A boundary that's still unresolved after the deadline means the loop gave
+  // up, not that the page finished rendering — returning html here would ship
+  // the no-<h1> loading shell as if it were real content, exactly the bug
+  // this loop exists to prevent. Fail the build instead of shipping it.
+  if (html.includes(UNRESOLVED_SUSPENSE_MARKER)) {
+    throw new Error(
+      `SSR prerender for ${url} did not resolve within ${RETRY_DEADLINE_MS}ms (unresolved Suspense boundary)`,
+    );
+  }
   return html;
 }
