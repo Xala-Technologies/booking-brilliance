@@ -8,56 +8,50 @@
  * renderToString is synchronous and renders React.lazy Suspense fallbacks
  * (our "Laster…" shell) instead of the real component — so lazily-imported
  * route pages like BlogPost would prerender with NO <h1>/<main>/content,
- * invisible to crawlers and a11y auditors (a11y.landmark.main: 7 blog posts
- * and /transparens were shipping with an empty <div id="root">, so no
- * <main> at all in the static HTML a non-JS crawler sees).
+ * invisible to crawlers and a11y auditors (h1.missing / a11y.landmark.main:
+ * blog posts and /transparens were shipping with an empty <div id="root">,
+ * no <h1>, and no <main> in the static HTML a non-JS crawler sees).
  *
  * The dynamic import() a lazy route chunk kicks off can take more event-loop
  * ticks to fully settle (transitively pulling in react-markdown/remark-gfm
  * for BlogPost, or the Convex client for ConvexScope) than a couple of
- * `setTimeout(0)` passes cover — and once the render output stops changing
- * for two passes in a row we assumed it had "settled", even though a still-
- * pending Suspense boundary renders byte-identical fallback HTML every
- * pass. That false convergence is what let the first several prerendered
- * routes in a run through with the "Laster…" shell instead of real content.
- *
- * Node's ESM loader caches a module by specifier, so awaiting these same
- * import()s once up front — before the retry loop below ever starts —
- * resolves the same promise React.lazy() will pick up when AppShell
- * renders, with no race left to lose.
+ * `setTimeout(0)` passes cover. The render loop below retries until React's
+ * own "unresolved boundary" marker is gone from the output, rather than
+ * until two passes look byte-identical — a still-pending Suspense boundary
+ * renders byte-identical fallback HTML every pass, so byte-equality alone is
+ * a false "settled" signal. If the marker is still present after a
+ * wall-clock deadline, render() throws instead of returning the shell, so a
+ * stuck route fails the build loudly instead of silently shipping a
+ * no-<h1> page.
  */
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server";
 import { AppShell } from "./App";
 
-let lazyChunksWarmed: Promise<unknown> | null = null;
-
-/** Pre-resolve every route-level lazy() chunk this SSR pass can hit, once per process. */
-function warmLazyChunks(): Promise<unknown> {
-  if (!lazyChunksWarmed) {
-    lazyChunksWarmed = Promise.all([
-      import("./pages/BlogPost"),
-      import("./pages/Status"),
-      import("./components/ConvexScope"),
-    ]);
-  }
-  return lazyChunksWarmed;
-}
+const UNRESOLVED_SUSPENSE_MARKER = "<!--$!-->";
+const RETRY_DEADLINE_MS = 5000;
+const RETRY_INTERVAL_MS = 20;
 
 export async function render(url: string): Promise<string> {
-  await warmLazyChunks();
   const tree = (
     <StaticRouter location={url}>
       <AppShell />
     </StaticRouter>
   );
   let html = renderToString(tree);
-  for (let pass = 0; pass < 5; pass++) {
-    // Let any dynamic import() kicked off during the last render resolve.
-    await new Promise((resolve) => setTimeout(resolve, 0));
-    const next = renderToString(tree);
-    if (next === html) break;
-    html = next;
+  const deadline = Date.now() + RETRY_DEADLINE_MS;
+  while (html.includes(UNRESOLVED_SUSPENSE_MARKER) && Date.now() < deadline) {
+    await new Promise((resolve) => setTimeout(resolve, RETRY_INTERVAL_MS));
+    html = renderToString(tree);
+  }
+  // A boundary that's still unresolved after the deadline means the loop gave
+  // up, not that the page finished rendering — returning html here would ship
+  // the no-<h1> loading shell as if it were real content, exactly the bug
+  // this loop exists to prevent. Fail the build instead of shipping it.
+  if (html.includes(UNRESOLVED_SUSPENSE_MARKER)) {
+    throw new Error(
+      `SSR prerender for ${url} did not resolve within ${RETRY_DEADLINE_MS}ms (unresolved Suspense boundary)`,
+    );
   }
   return html;
 }

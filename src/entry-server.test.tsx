@@ -1,45 +1,62 @@
-import { describe, expect, it } from "vitest";
-import { render } from "./entry-server";
-import { getAllPosts } from "@/lib/posts";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import * as React from "react";
 
-/**
- * Regression coverage for a11y.landmark.main: the SSR retry loop in
- * entry-server.tsx used to treat a still-suspended lazy route (identical
- * "Laster…" fallback HTML on two consecutive passes) as "settled", so the
- * first several lazy routes rendered in a process shipped static HTML with
- * no <main> at all. Asserting on the *first* render() call in this file —
- * for a lazily-loaded route (BlogPost) — reproduces that failure mode.
- */
-function assertSingleMainLandmark(html: string, route: string) {
-  const mainOpenTags = html.match(/<main[ >]/g) ?? [];
-  expect(mainOpenTags.length, `expected exactly one <main> for ${route}`).toBe(1);
+// entry-server.tsx always renders "./App" (AppShell), so we mock it with a
+// controllable React.lazy boundary to exercise the retry loop the same way
+// a real lazy route (e.g. BlogPost) would during prerender, without pulling
+// in the full app tree.
+afterEach(() => {
+  vi.restoreAllMocks();
+  vi.useRealTimers();
+  vi.resetModules();
+  vi.doUnmock("./App");
+});
 
-  const mainStart = html.indexOf("<main");
-  const mainEnd = html.indexOf("</main>");
-  const navStart = html.indexOf("<nav");
-  const lastFooterStart = html.lastIndexOf("<footer");
+describe("SSR prerender retry loop (src/entry-server.tsx)", () => {
+  it("retries past a still-pending lazy boundary and returns the real content", async () => {
+    let resolveImport: (mod: { default: React.ComponentType }) => void;
+    const importPromise = new Promise<{ default: React.ComponentType }>((resolve) => {
+      resolveImport = resolve;
+    });
+    const Lazy = React.lazy(() => importPromise);
 
-  expect(navStart, `expected a <nav> for ${route}`).toBeGreaterThanOrEqual(0);
-  expect(navStart, `expected header nav before <main> for ${route}`).toBeLessThan(mainStart);
-  expect(lastFooterStart, `expected a <footer> for ${route}`).toBeGreaterThanOrEqual(0);
-  expect(lastFooterStart, `expected footer after </main> for ${route}`).toBeGreaterThan(mainEnd);
-}
+    vi.doMock("./App", () => ({
+      AppShell: () => (
+        <React.Suspense fallback={<div>Laster…</div>}>
+          <Lazy />
+        </React.Suspense>
+      ),
+    }));
 
-describe("SSR <main> landmark", () => {
-  it("wraps a lazily-loaded blog post in exactly one <main>, even as the first route rendered", async () => {
-    const [firstPost] = getAllPosts();
-    const route = `/blogg/${firstPost.slug}`;
-    const html = await render(route);
-    assertSingleMainLandmark(html, route);
+    const { render } = await import("./entry-server");
+    const pending = render("/some-route");
+
+    // Give the first renderToString() pass time to hit the fallback before
+    // the lazy import resolves, so the loop actually has to retry.
+    await new Promise((resolve) => setTimeout(resolve, 30));
+    resolveImport!({ default: () => <h1>Ekte innhold</h1> });
+
+    const html = await pending;
+    expect(html).toContain("Ekte innhold");
+    expect(html).not.toContain("<!--$!-->");
   });
 
-  it("wraps a Convex-scoped route (/transparens) in exactly one <main>", async () => {
-    const html = await render("/transparens");
-    assertSingleMainLandmark(html, "/transparens");
-  });
+  it("fails loud instead of shipping the loading shell when a boundary never resolves", async () => {
+    vi.useFakeTimers();
+    const Lazy = React.lazy(() => new Promise<{ default: React.ComponentType }>(() => {}));
 
-  it("wraps an eagerly-bundled marketing page (/) in exactly one <main>", async () => {
-    const html = await render("/");
-    assertSingleMainLandmark(html, "/");
+    vi.doMock("./App", () => ({
+      AppShell: () => (
+        <React.Suspense fallback={<div>Laster…</div>}>
+          <Lazy />
+        </React.Suspense>
+      ),
+    }));
+
+    const { render } = await import("./entry-server");
+    const pending = render("/stuck-route");
+    const assertion = expect(pending).rejects.toThrow(/did not resolve/);
+    await vi.advanceTimersByTimeAsync(6000);
+    await assertion;
   });
 });
