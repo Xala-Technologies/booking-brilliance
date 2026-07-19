@@ -13,6 +13,8 @@ import Index from "./pages/Index";
 import BookDemo from "./pages/BookDemo";
 import BookingsystemKommune from "./pages/BookingsystemKommune";
 import BookingLokalerMoterom from "./pages/BookingLokalerMoterom";
+import Leie from "./pages/Leie";
+import LeieSelskapslokale from "./pages/LeieSelskapslokale";
 import Blog from "./pages/Blog";
 import FAQ from "./pages/FAQ";
 import AiAgenter from "./pages/AiAgenter";
@@ -214,6 +216,8 @@ export function AppShell() {
             <Route path="/book-demo" element={<BookDemo />} />
             <Route path="/bookingsystem-kommune" element={<BookingsystemKommune />} />
             <Route path="/booking-av-lokaler-og-moterom" element={<BookingLokalerMoterom />} />
+            <Route path="/leie" element={<Leie />} />
+            <Route path="/leie/selskapslokale" element={<LeieSelskapslokale />} />
             <Route path="/blogg" element={<Blog />} />
             <Route
               path="/blogg/preview/:draftId"

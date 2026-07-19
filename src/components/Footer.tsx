@@ -39,6 +39,7 @@ const Footer = () => {
   ];
 
   const ressurser = [
+    { label: "Finn lokale", href: "/leie" },
     { label: "Blogg", href: "/blogg" },
     { label: "FAQ", href: "/faq" },
     { label: "Transparens", href: "/transparens" },
@@ -123,8 +124,8 @@ const Footer = () => {
               className="text-2xl lg:text-3xl text-ink-soft italic measure leading-snug"
               style={{ fontVariationSettings: getFraunces("sub") }}
             >
-              Én plattform for norske kommuner og utleiere: booking,
-              betaling, kalender og rapportering, sammenhengende.
+              Én plattform for norske lokaler. Finn og book som privatperson,
+              drift og forvalt som kommune eller utleier.
             </p>
           </div>
           <div className="lg:col-span-5 lg:border-l lg:border-rule lg:pl-8 flex flex-col justify-end gap-3">

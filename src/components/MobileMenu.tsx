@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 
 const ROUTES: Array<{ label: string; to: string; eyebrow?: string }> = [
   { label: "Forsiden", to: "/", eyebrow: "Hjem" },
+  { label: "Finn lokale", to: "/leie", eyebrow: "Leie lokale" },
   { label: "Blogg", to: "/blogg", eyebrow: "Artikler" },
   { label: "FAQ", to: "/faq", eyebrow: "Vanlige spørsmål" },
   { label: "Transparens", to: "/transparens", eyebrow: "Live kvalitetsrapport" },
@@ -154,6 +155,14 @@ export function MobileMenu() {
         <footer className="border-t border-hairline-strong px-5 py-5 space-y-3 bg-accent-tinted">
           <EditorialButton
             variant="primary"
+            size="lg"
+            href="/leie"
+            className="w-full"
+          >
+            Finn lokale
+          </EditorialButton>
+          <EditorialButton
+            variant="outline"
             size="lg"
             href="/book-demo"
             className="w-full"

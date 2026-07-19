@@ -34,6 +34,7 @@ const SOLUTIONS = [
 // remaining routes live in the Løsninger dropdown and the MobileMenu drawer
 // (the fallback below `xl` and on mobile).
 const PRIMARY_NAV = [
+  { label: "Finn lokale", to: "/leie" },
   { label: "Blogg", to: "/blogg" },
   { label: "FAQ", to: "/faq" },
   { label: "Transparens", to: "/transparens" },

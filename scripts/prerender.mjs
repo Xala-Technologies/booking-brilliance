@@ -213,6 +213,64 @@ async function loadBlogPosts() {
 /** @type {Array<{route: string, title: string, description: string, ogType?: string, faq?: Array<{q: string, a: string}>, breadcrumbs?: Array<{name: string, url: string}>}>} */
 const ROUTES = [
   {
+    route: "/leie",
+    title: "Finn og book lokale — selskapslokale, møterom, kulturhus | Digilist",
+    description:
+      "Finn og book lokale til bryllup, selskap, møte eller arrangement. Grendehus, kulturhus og selskapslokaler samlet ett sted, med ekte priser, ledige datoer og betaling med Vipps.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Leie", url: `${BASE_URL}/leie` },
+    ],
+    faq: [
+      {
+        q: "Hva koster det å leie et lokale?",
+        a: "Prisen varierer med type lokale, sted og varighet. Et grendehus kan koste fra noen hundre til noen tusen kroner for en helg, mens kulturhus og selskapslokaler ligger høyere. På Digilist ser du totalprisen for din dato, inkludert depositum, før du booker.",
+      },
+      {
+        q: "Kan jeg se ledige datoer og booke på nett?",
+        a: "Ja. Du søker på sted og dato, ser hva som faktisk er ledig i sanntid, og booker direkte. Ingen uforpliktende forespørsel og ingen venting, du får bekreftelsen med en gang.",
+      },
+      {
+        q: "Er det gratis å bruke Digilist?",
+        a: "Ja, det er gratis å søke, sammenligne og booke som privatperson. Du betaler kun leieprisen til utleier, med Vipps eller kort.",
+      },
+    ],
+    howTo: {
+      name: "Slik finner og booker du lokale",
+      description: "Finn, book og betal med Vipps på tre steg.",
+      steps: [
+        { name: "Finn", text: "Søk på sted og dato. Du ser lokaler i nærområdet med ekte priser og hva som faktisk er ledig." },
+        { name: "Book", text: "Velg ledig tid og book direkte. Vilkår, depositum og kapasitet er synlig før du bekrefter." },
+        { name: "Betal med Vipps", text: "Betal trygt med Vipps eller kort. Bekreftelse og kvittering kommer med en gang." },
+      ],
+    },
+  },
+  {
+    route: "/leie/selskapslokale",
+    title: "Leie selskapslokale: pris, kapasitet og booking | Digilist",
+    description:
+      "Leie selskapslokale til bryllup, jubileum eller fest: finn ledige datoer, se ekte pris og kapasitet, og book på nett med Vipps. Lokaler nær deg, samlet ett sted.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Leie", url: `${BASE_URL}/leie` },
+      { name: "Selskapslokale", url: `${BASE_URL}/leie/selskapslokale` },
+    ],
+    faq: [
+      {
+        q: "Hva koster det å leie et selskapslokale?",
+        a: "Prisen varierer med type lokale, sted, varighet og dag. Et grendehus kan koste fra noen hundre til noen tusen kroner for en helg, mens et større selskapslokale eller kulturhussal ligger høyere. På Digilist ser du totalprisen for din dato, inkludert depositum, før du booker.",
+      },
+      {
+        q: "Kan jeg booke på nett og se ledige datoer?",
+        a: "Ja. Du søker på sted og dato, ser hva som er ledig i sanntid, og booker direkte uten uforpliktende forespørsel. Bekreftelsen kommer med en gang.",
+      },
+    ],
+  },
+  {
     route: "/ai-agenter",
     title: "AI-agenter for booking og utleie — GDPR-sikker automatisering | Digilist",
     description:
@@ -1038,6 +1096,16 @@ async function main() {
     { loc: `${BASE_URL}/salgsvilkar`, priority: "0.3", changefreq: "yearly" },
     { loc: `${BASE_URL}/cookies`, priority: "0.3", changefreq: "yearly" },
     { loc: `${BASE_URL}/transparens`, priority: "0.7", changefreq: "daily" },
+    { loc: `${BASE_URL}/leie`, priority: "0.9", changefreq: "weekly" },
+    { loc: `${BASE_URL}/leie/selskapslokale`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/bruksomrader/selskapslokaler`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/bruksomrader/moterom`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/bruksomrader/idrettshaller-gymsaler`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/bruksomrader/kulturhus-kantiner`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/ai-agenter`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/ai-agenter/sesongtildeling`, priority: "0.7", changefreq: "monthly" },
+    { loc: `${BASE_URL}/ai-agenter/compliance-godkjenning`, priority: "0.7", changefreq: "monthly" },
+    { loc: `${BASE_URL}/ai-agenter/importer-oppforing`, priority: "0.7", changefreq: "monthly" },
   ];
   const sitemapXML = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

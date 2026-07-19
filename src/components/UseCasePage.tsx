@@ -82,6 +82,12 @@ export interface UseCasePageProps {
   pullQuote?: { text: string; byline: string };
   /** Optional inline ReactNode injected before FAQ. */
   extra?: ReactNode;
+  /** URL segment these slug pages live under. Default "/bruksomrader". Set "/leie" for the B2C track. */
+  basePath?: string;
+  /** Parent breadcrumb (name + route). Defaults to the Bruksområder hub. */
+  parentCrumb?: { name: string; path: string };
+  /** Mono section label shown top-right. Default "BRUKSOMRÅDE". */
+  sectionLabel?: string;
 }
 
 export default function UseCasePage({
@@ -103,6 +109,9 @@ export default function UseCasePage({
   siblings,
   pullQuote,
   extra,
+  basePath = "/bruksomrader",
+  parentCrumb = { name: "Bruksområder", path: "/booking-av-lokaler-og-moterom" },
+  sectionLabel = "BRUKSOMRÅDE",
 }: UseCasePageProps) {
   return (
     <div className="min-h-screen bg-paper overflow-x-hidden">
@@ -110,16 +119,16 @@ export default function UseCasePage({
         title={seoTitle}
         description={seoDescription}
         keywords={keywords}
-        canonical={`https://digilist.no/bruksomrader/${slug}`}
+        canonical={`https://digilist.no${basePath}/${slug}`}
         breadcrumbs={[
           { name: "Hjem", url: "https://digilist.no/" },
           {
-            name: "Bruksområder",
-            url: "https://digilist.no/booking-av-lokaler-og-moterom",
+            name: parentCrumb.name,
+            url: `https://digilist.no${parentCrumb.path}`,
           },
           {
             name: breadcrumb,
-            url: `https://digilist.no/bruksomrader/${slug}`,
+            url: `https://digilist.no${basePath}/${slug}`,
           },
         ]}
         faq={faq}
@@ -143,16 +152,16 @@ export default function UseCasePage({
                   </Link>
                   <span aria-hidden className="text-ink-faint">·</span>
                   <Link
-                    to="/booking-av-lokaler-og-moterom"
+                    to={parentCrumb.path}
                     className="hover:underline"
                   >
-                    Bruksområder
+                    {parentCrumb.name}
                   </Link>
                   <span aria-hidden className="text-ink-faint">·</span>
                   <span className="text-ink">{breadcrumb}</span>
                 </nav>
                 <p className="editorial-mono-caption text-ink-faint hidden lg:block">
-                  BRUKSOMRÅDE
+                  {sectionLabel}
                 </p>
               </div>
 
@@ -441,7 +450,7 @@ export default function UseCasePage({
                     {siblings.map((s) => (
                       <Link
                         key={s.slug}
-                        to={`/bruksomrader/${s.slug}`}
+                        to={`${basePath}/${s.slug}`}
                         className="inline-flex items-center gap-1.5 border border-hairline rounded-sm px-3 py-1.5 text-sm hover:bg-paper-deep transition-colors text-ink"
                       >
                         {s.title}
