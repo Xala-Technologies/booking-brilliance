@@ -91,6 +91,8 @@ export default function Utstyr() {
         { name: "Hjem", url: "https://digilist.no/" },
         { name: "Utstyr", url: "https://digilist.no/utstyr" },
       ]}
+      heroImage="/images/cat/festutstyr.jpg"
+      heroIcon={PartyPopper}
       heroHeading={
         <>
           Leie utstyr til{" "}

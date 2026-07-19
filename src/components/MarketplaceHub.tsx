@@ -6,7 +6,7 @@
  */
 import { ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, type LucideIcon } from "lucide-react";
+import { ArrowUpRight, Sparkles, type LucideIcon } from "lucide-react";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -20,6 +20,12 @@ import {
 } from "@/components/editorial";
 import { getFraunces } from "@/lib/fonts";
 import { VideoPlaceholder } from "@/components/VideoPlaceholder";
+import { CategoryVisual, imageForSlug } from "@/components/CategoryVisual";
+
+/** The category slug is the last segment of its route (e.g. /overnatting/hytte). */
+function slugOf(to: string): string {
+  return to.split("/").filter(Boolean).pop() ?? "";
+}
 
 export interface HubCategory {
   title: string;
@@ -53,6 +59,10 @@ export interface MarketplaceHubProps {
   canonical: string;
   sectionLabel: string;
   breadcrumbsSeo: Array<{ name: string; url: string }>;
+  /** Optional hero photo (right of the heading). */
+  heroImage?: string;
+  /** Icon used for the hero visual's illustration fallback. */
+  heroIcon?: LucideIcon;
   /** Hero H1 (rich node with an <em> allowed). */
   heroHeading: ReactNode;
   heroLead: string;
@@ -82,6 +92,8 @@ export default function MarketplaceHub({
   canonical,
   sectionLabel,
   breadcrumbsSeo,
+  heroImage,
+  heroIcon,
   heroHeading,
   heroLead,
   heroCta,
@@ -119,8 +131,8 @@ export default function MarketplaceHub({
             <div className="container mx-auto md:px-8 lg:px-12">
               <SectionRule label={sectionLabel} />
 
-              <div className="grid lg:grid-cols-12 gap-8 lg:gap-gutter mb-14 lg:mb-20">
-                <div className="lg:col-span-9">
+              <div className="grid lg:grid-cols-12 gap-8 lg:gap-gutter mb-14 lg:mb-20 items-center">
+                <div className={heroImage ? "lg:col-span-7" : "lg:col-span-9"}>
                   <EditorialHeading as="h1" size="display">
                     {heroHeading}
                   </EditorialHeading>
@@ -142,6 +154,18 @@ export default function MarketplaceHub({
                     </EditorialButton>
                   </div>
                 </div>
+                {heroImage && (
+                  <div className="lg:col-span-5">
+                    <CategoryVisual
+                      icon={heroIcon ?? Sparkles}
+                      label={`DIGILIST · ${sectionLabel}`}
+                      src={heroImage}
+                      aspect="4 / 3"
+                      variant="primary"
+                      eager
+                    />
+                  </div>
+                )}
               </div>
 
               {/* Explainer video */}
@@ -173,37 +197,62 @@ export default function MarketplaceHub({
                       <div className="grid sm:grid-cols-2 gap-4 lg:gap-5">
                         {group.items.map((c) => {
                           const Icon = c.Icon;
+                          const photo = imageForSlug(slugOf(c.to));
                           return (
                             <Link
                               key={c.title}
                               to={c.to}
-                              className="group bg-paper border border-rule rounded-sm p-7 lg:p-9 transition-colors duration-quick ease-editorial hover:bg-paper-deep/40 hover:border-accent-text/30 flex flex-col"
+                              className="group bg-paper border border-rule rounded-sm overflow-hidden flex flex-col transition-colors duration-quick ease-editorial hover:border-accent-text/40"
                             >
-                              <header className="flex items-center gap-4 mb-4">
-                                <span className="flex-shrink-0 inline-flex items-center justify-center w-11 h-11 bg-navy/5 border border-navy/15 rounded-sm text-navy group-hover:bg-navy group-hover:text-on-navy transition-colors duration-quick ease-editorial">
-                                  <Icon className="h-5 w-5" aria-hidden="true" />
-                                </span>
-                                <h4
-                                  className="font-serif text-2xl lg:text-3xl text-ink leading-tight flex-1"
-                                  style={{
-                                    fontVariationSettings: getFraunces("sub"),
-                                    letterSpacing: "-0.015em",
-                                  }}
-                                >
-                                  {c.title}
-                                </h4>
-                                <ArrowUpRight
-                                  className="h-5 w-5 text-ink-faint group-hover:text-accent-text transition-transform duration-quick ease-editorial group-hover:translate-x-0.5 group-hover:-translate-y-0.5 flex-shrink-0"
-                                  aria-hidden="true"
-                                />
-                              </header>
-                              <p className="text-base text-ink leading-relaxed flex-1">
-                                {c.body}
-                              </p>
-                              <p className="mt-5 pt-4 border-t border-rule font-mono text-[0.65rem] uppercase tracking-widest text-accent-text inline-flex items-center gap-1.5">
-                                Les mer
-                                <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
-                              </p>
+                              <div
+                                className="relative w-full overflow-hidden border-b border-rule bg-paper-deep"
+                                style={{ aspectRatio: "16 / 9" }}
+                              >
+                                {photo ? (
+                                  <img
+                                    src={photo}
+                                    alt=""
+                                    aria-hidden="true"
+                                    className="h-full w-full object-cover transition-transform duration-500 ease-editorial group-hover:scale-[1.04]"
+                                    loading="lazy"
+                                    decoding="async"
+                                  />
+                                ) : (
+                                  <CategoryVisual
+                                    icon={Icon}
+                                    aspect="16 / 9"
+                                    variant="texture"
+                                    className="!border-0 !rounded-none"
+                                  />
+                                )}
+                              </div>
+                              <div className="p-6 lg:p-7 flex flex-col flex-1">
+                                <header className="flex items-center gap-3 mb-2">
+                                  <span className="flex-shrink-0 inline-flex items-center justify-center w-10 h-10 bg-navy/5 border border-navy/15 rounded-sm text-navy group-hover:bg-navy group-hover:text-on-navy transition-colors duration-quick ease-editorial">
+                                    <Icon className="h-5 w-5" aria-hidden="true" />
+                                  </span>
+                                  <h4
+                                    className="font-serif text-2xl text-ink leading-tight flex-1"
+                                    style={{
+                                      fontVariationSettings: getFraunces("sub"),
+                                      letterSpacing: "-0.015em",
+                                    }}
+                                  >
+                                    {c.title}
+                                  </h4>
+                                  <ArrowUpRight
+                                    className="h-5 w-5 text-ink-faint group-hover:text-accent-text transition-transform duration-quick ease-editorial group-hover:translate-x-0.5 group-hover:-translate-y-0.5 flex-shrink-0"
+                                    aria-hidden="true"
+                                  />
+                                </header>
+                                <p className="text-base text-ink leading-relaxed flex-1">
+                                  {c.body}
+                                </p>
+                                <p className="mt-4 pt-4 border-t border-rule font-mono text-[0.65rem] uppercase tracking-widest text-accent-text inline-flex items-center gap-1.5">
+                                  Les mer
+                                  <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
+                                </p>
+                              </div>
                             </Link>
                           );
                         })}

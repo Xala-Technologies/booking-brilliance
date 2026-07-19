@@ -43,6 +43,7 @@ import Arrangementer from "./pages/Arrangementer";
 import ArrangementKonsert from "./pages/ArrangementKonsert";
 import ArrangementTeaterOgScene from "./pages/ArrangementTeaterOgScene";
 import ArrangementFestival from "./pages/ArrangementFestival";
+import ArrangementSport from "./pages/ArrangementSport";
 import Blog from "./pages/Blog";
 import FAQ from "./pages/FAQ";
 import AiAgenter from "./pages/AiAgenter";
@@ -312,6 +313,7 @@ export function AppShell() {
             <Route path="/arrangementer/konsert" element={<ArrangementKonsert />} />
             <Route path="/arrangementer/teater-og-scene" element={<ArrangementTeaterOgScene />} />
             <Route path="/arrangementer/festival" element={<ArrangementFestival />} />
+            <Route path="/arrangementer/sport" element={<ArrangementSport />} />
             <Route path="/blogg" element={<Blog />} />
             <Route
               path="/blogg/preview/:draftId"

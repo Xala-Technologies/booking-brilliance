@@ -888,6 +888,29 @@ const ROUTES = [
     ],
   },
   {
+    route: "/arrangementer/sport",
+    title: "Sportsbilletter: billetter til kamp, kjøp med Vipps | Digilist",
+    description:
+      "Sportsbilletter samlet ett sted: finn kamper og idrettsarrangement nær deg, se pris og ledige seter, og kjøp billetter til kamp med Vipps. QR-billett på mobilen.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Arrangementer", url: `${BASE_URL}/arrangementer` },
+      { name: "Sport", url: `${BASE_URL}/arrangementer/sport` },
+    ],
+    faq: [
+      {
+        q: "Kan jeg velge sete eller felt?",
+        a: "Ja, der arrangøren har satt opp seter eller felt. Du ser hvilke plasser som er ledige og velger i kjøpet, og skal dere flere sammen, kan dere velge seter ved siden av hverandre. På mindre arrangementer er billettene ofte uplasserte.",
+      },
+      {
+        q: "Finnes det sesongkort?",
+        a: "Ja, der klubben tilbyr det. Sesongkortet kjøpes på samme måte som en enkeltbillett, gjerne med fast plass, og ligger på mobilen gjennom hele sesongen. Du viser samme QR-kode ved inngangen på hver hjemmekamp.",
+      },
+    ],
+  },
+  {
     route: "/billettsystem",
     title: "Billettsystem: selg billetter med rabatt, kupong og gavekort | Digilist",
     description:
@@ -1768,6 +1791,7 @@ async function main() {
     { loc: `${BASE_URL}/arrangementer/konsert`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/arrangementer/teater-og-scene`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/arrangementer/festival`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/arrangementer/sport`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/billettsystem`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/ai-agenter`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/ai-agenter/sesongtildeling`, priority: "0.7", changefreq: "monthly" },

@@ -1,4 +1,4 @@
-import { Music, Drama, Tent, Search, Ticket, Wallet } from "lucide-react";
+import { Music, Drama, Tent, Medal, Search, Ticket, Wallet } from "lucide-react";
 import MarketplaceHub, {
   type HubGroup,
   type HubStep,
@@ -11,7 +11,7 @@ const APP = "https://app.digilist.no";
 const GROUPS: HubGroup[] = [
   {
     label: "HVA SKJER",
-    meta: "KONSERT · TEATER · FESTIVAL",
+    meta: "KONSERT · TEATER · FESTIVAL · SPORT",
     items: [
       {
         title: "Konsert",
@@ -30,6 +30,12 @@ const GROUPS: HubGroup[] = [
         Icon: Tent,
         to: "/arrangementer/festival",
         body: "Festivaler med dagspass, helgepass og VIP. Se hva som er igjen, kjøp med Vipps, og få billetten på mobilen.",
+      },
+      {
+        title: "Sport",
+        Icon: Medal,
+        to: "/arrangementer/sport",
+        body: "Kamper og idrettsarrangement, enkeltbillett eller sesongkort. Velg sete eller felt, kjøp med Vipps, og få QR-billetten på mobilen.",
       },
     ],
   },
@@ -91,6 +97,8 @@ export default function Arrangementer() {
         { name: "Hjem", url: "https://digilist.no/" },
         { name: "Arrangementer", url: "https://digilist.no/arrangementer" },
       ]}
+      heroImage="/images/cat/konsert.jpg"
+      heroIcon={Music}
       heroHeading={
         <>
           Finn og kjøp billetter til{" "}
@@ -105,7 +113,7 @@ export default function Arrangementer() {
       videoLabel="Reklamefilm · Arrangementer"
       videoCaption="Kort film om hvordan du finner og kjøper billetter"
       categoryCaption="HVA VIL DU PÅ?"
-      categoryMeta="KONSERT · TEATER · FESTIVAL"
+      categoryMeta="KONSERT · TEATER · FESTIVAL · SPORT"
       groups={GROUPS}
       stepsMeta="FINN · VELG BILLETT · BETAL MED VIPPS"
       steps={STEPS}

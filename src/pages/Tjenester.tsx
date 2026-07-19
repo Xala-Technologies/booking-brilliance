@@ -97,6 +97,8 @@ export default function Tjenester() {
         { name: "Hjem", url: "https://digilist.no/" },
         { name: "Tjenester", url: "https://digilist.no/tjenester" },
       ]}
+      heroImage="/images/cat/dekor.jpg"
+      heroIcon={Sparkles}
       heroHeading={
         <>
           Book tjenester til{" "}

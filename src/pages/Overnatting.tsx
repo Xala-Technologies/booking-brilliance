@@ -91,6 +91,8 @@ export default function Overnatting() {
         { name: "Hjem", url: "https://digilist.no/" },
         { name: "Overnatting", url: "https://digilist.no/overnatting" },
       ]}
+      heroImage="/images/cat/hytte.jpg"
+      heroIcon={TreePine}
       heroHeading={
         <>
           Finn og book overnatting,{" "}

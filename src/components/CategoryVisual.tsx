@@ -23,6 +23,7 @@ import {
   Music,
   Drama,
   Tent,
+  Medal,
   type LucideIcon,
 } from "lucide-react";
 
@@ -65,6 +66,7 @@ const ICONS: Record<string, LucideIcon> = {
   konsert: Music,
   "teater-og-scene": Drama,
   festival: Tent,
+  sport: Medal,
   // legacy /bruksomrader
   selskapslokaler: GlassWater,
   "idrettshaller-gymsaler": Trophy,
@@ -103,6 +105,7 @@ const IMAGES: Record<string, string> = {
   konsert: `${CAT}/konsert.jpg`,
   "teater-og-scene": `${CAT}/teater-og-scene.jpg`,
   festival: `${CAT}/festival.jpg`,
+  sport: `${CAT}/sport.jpg`,
   // legacy /bruksomrader slugs reuse the closest photo
   selskapslokaler: `${CAT}/selskapslokale.jpg`,
   "idrettshaller-gymsaler": `${CAT}/idrettshall.jpg`,
