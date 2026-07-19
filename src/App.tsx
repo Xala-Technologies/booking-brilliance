@@ -1,8 +1,5 @@
 import { ReactNode, lazy, Suspense, useEffect, useState } from "react";
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { AnimatePresence, MotionConfig } from "framer-motion";
@@ -155,8 +152,6 @@ function AnimatedRoutesWrap({ children }: { children: ReactNode }) {
   );
 }
 
-const queryClient = new QueryClient();
-
 // Convex is no longer provided at the app root — only the routes that call it
 // (status, blog preview, admin dashboard) are wrapped in <ConvexScope>, which
 // lazy-imports `convex/react`. This keeps the ~69KB Convex client out of the
@@ -201,12 +196,9 @@ function MotionFirstPaintShim({ children }: { children: ReactNode }) {
 
 export function AppShell() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+    <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
         <MotionFirstPaintShim>
         <TooltipProvider>
-          <Toaster />
-          <Sonner />
           <ScrollToTop />
           <RumReporter />
           <Suspense fallback={<RouteFallback />}>
@@ -345,7 +337,6 @@ export function AppShell() {
         </TooltipProvider>
         </MotionFirstPaintShim>
       </ThemeProvider>
-    </QueryClientProvider>
   );
 }
 
