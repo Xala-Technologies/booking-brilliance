@@ -41,6 +41,7 @@ const Footer = () => {
   const ressurser = [
     { label: "Lokaler", href: "/leie" },
     { label: "Overnatting", href: "/overnatting" },
+    { label: "Arrangementer", href: "/arrangementer" },
     { label: "Utstyr", href: "/utstyr" },
     { label: "Tjenester", href: "/tjenester" },
     { label: "Blogg", href: "/blogg" },

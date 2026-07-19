@@ -20,6 +20,9 @@ import {
   Disc3,
   Music2,
   Sparkles,
+  Music,
+  Drama,
+  Tent,
   type LucideIcon,
 } from "lucide-react";
 
@@ -58,6 +61,10 @@ const ICONS: Record<string, LucideIcon> = {
   dj: Disc3,
   musiker: Music2,
   dekor: Sparkles,
+  // arrangementer
+  konsert: Music,
+  "teater-og-scene": Drama,
+  festival: Tent,
   // legacy /bruksomrader
   selskapslokaler: GlassWater,
   "idrettshaller-gymsaler": Trophy,

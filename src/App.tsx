@@ -39,6 +39,10 @@ import TjenesteCatering from "./pages/TjenesteCatering";
 import TjenesteDj from "./pages/TjenesteDj";
 import TjenesteMusiker from "./pages/TjenesteMusiker";
 import TjenesteDekor from "./pages/TjenesteDekor";
+import Arrangementer from "./pages/Arrangementer";
+import ArrangementKonsert from "./pages/ArrangementKonsert";
+import ArrangementTeaterOgScene from "./pages/ArrangementTeaterOgScene";
+import ArrangementFestival from "./pages/ArrangementFestival";
 import Blog from "./pages/Blog";
 import FAQ from "./pages/FAQ";
 import AiAgenter from "./pages/AiAgenter";
@@ -304,6 +308,10 @@ export function AppShell() {
             <Route path="/tjenester/dj" element={<TjenesteDj />} />
             <Route path="/tjenester/musiker" element={<TjenesteMusiker />} />
             <Route path="/tjenester/dekor" element={<TjenesteDekor />} />
+            <Route path="/arrangementer" element={<Arrangementer />} />
+            <Route path="/arrangementer/konsert" element={<ArrangementKonsert />} />
+            <Route path="/arrangementer/teater-og-scene" element={<ArrangementTeaterOgScene />} />
+            <Route path="/arrangementer/festival" element={<ArrangementFestival />} />
             <Route path="/blogg" element={<Blog />} />
             <Route
               path="/blogg/preview/:draftId"

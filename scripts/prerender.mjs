@@ -797,6 +797,97 @@ const ROUTES = [
     ],
   },
   {
+    route: "/arrangementer",
+    title: "Arrangementer: kjøp billetter til konsert, teater og festival | Digilist",
+    description:
+      "Finn arrangementer nær deg og kjøp billetter til konsert, teater og festival. Betal med Vipps, få QR-billett på mobilen, bruk rabattkode og gavekort. Samlet ett sted.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Arrangementer", url: `${BASE_URL}/arrangementer` },
+    ],
+    faq: [
+      {
+        q: "Hva slags arrangementer finner jeg?",
+        a: "Konserter, teater og forestillinger, standup, revy og festivaler, samlet på ett sted. Du søker på sted og dato, ser pris og hvilke billetter som er igjen, og kjøper direkte uten å lete gjennom hver arrangørs egen billettside.",
+      },
+      {
+        q: "Får jeg billetten på mobilen?",
+        a: "Ja. Billetten kommer som en QR-kode rett på mobilen etter kjøpet. Ved inngangen viser du QR-koden, den skannes, og du er inne. Ingen papirlapp, ingen e-post å lete etter.",
+      },
+    ],
+  },
+  {
+    route: "/arrangementer/konsert",
+    title: "Konsertbilletter: finn konserter og kjøp med Vipps | Digilist",
+    description:
+      "Konsertbilletter samlet ett sted: finn konserter nær deg, se pris og ledige billetter, og kjøp billetter til konsert med Vipps. QR-billett rett på mobilen.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Arrangementer", url: `${BASE_URL}/arrangementer` },
+      { name: "Konsert", url: `${BASE_URL}/arrangementer/konsert` },
+    ],
+    faq: [
+      {
+        q: "Hva koster konsertbilletter?",
+        a: "Prisen varierer med artist, scene og billettype. En klubbkonsert kan koste noen hundre kroner, mens større navn ligger høyere, og VIP koster mer enn ståplass. På Digilist ser du prisen per billett før du kjøper, uten gebyrer som dukker opp i siste steg.",
+      },
+      {
+        q: "Får jeg billetten på mobilen?",
+        a: "Ja. Billetten leveres som QR-kode på mobilen med en gang kjøpet er gjennomført, og ligger i oversikten din frem til konserten. Du viser bare QR-koden ved inngangen.",
+      },
+    ],
+  },
+  {
+    route: "/arrangementer/teater-og-scene",
+    title: "Teaterbilletter: finn forestilling og kjøp billett | Digilist",
+    description:
+      "Teaterbilletter og billetter til forestilling, standup og revy nær deg. Se pris og ledige seter, velg plass og kjøp med Vipps. QR-billett med sete på mobilen.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Arrangementer", url: `${BASE_URL}/arrangementer` },
+      { name: "Teater og scene", url: `${BASE_URL}/arrangementer/teater-og-scene` },
+    ],
+    faq: [
+      {
+        q: "Kan jeg velge sete?",
+        a: "Ja, der salen har nummererte plasser velger du sete direkte i salkartet og ser hvilke plasser som er ledige. Noen forestillinger har fri plassering, og da står det tydelig på arrangementet før du kjøper.",
+      },
+      {
+        q: "Hvordan kjøper jeg billetter til en forestilling?",
+        a: "Søk på sted og dato, velg forestilling, antall billetter og eventuelt seter, og betal med Vipps eller kort. Billettene kommer som QR-koder på mobilen med en gang, uten at du må opprette ny konto.",
+      },
+    ],
+  },
+  {
+    route: "/arrangementer/festival",
+    title: "Festivalbilletter og festivalpass: finn og kjøp | Digilist",
+    description:
+      "Finn festivalbilletter og festivalpass nær deg: musikk-, mat- og kulturfestivaler samlet ett sted. Kjøp dagspass eller helgepass med Vipps, QR-billett på mobilen.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Arrangementer", url: `${BASE_URL}/arrangementer` },
+      { name: "Festival", url: `${BASE_URL}/arrangementer/festival` },
+    ],
+    faq: [
+      {
+        q: "Hva er forskjellen på dagspass og helgepass?",
+        a: "Dagspass gjelder én bestemt dag av festivalen, helgepass gjelder alle dagene. Skal du bare se ett program, holder ofte dagspasset. Skal du ha med deg hele festivalen, er helgepasset som regel billigere enn flere dagspass.",
+      },
+      {
+        q: "Hva koster et festivalpass?",
+        a: "Et dagspass til en lokal festival kan koste fra noen hundrelapper, mens helgepass til større musikkfestivaler gjerne ligger fra rundt tusen kroner og oppover. På Digilist ser du prisen for hvert pass, inkludert gebyrer, før du kjøper.",
+      },
+    ],
+  },
+  {
     route: "/billettsystem",
     title: "Billettsystem: selg billetter med rabatt, kupong og gavekort | Digilist",
     description:
@@ -1673,6 +1764,10 @@ async function main() {
     { loc: `${BASE_URL}/bruksomrader/moterom`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/bruksomrader/idrettshaller-gymsaler`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/bruksomrader/kulturhus-kantiner`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/arrangementer`, priority: "0.9", changefreq: "weekly" },
+    { loc: `${BASE_URL}/arrangementer/konsert`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/arrangementer/teater-og-scene`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/arrangementer/festival`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/billettsystem`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/ai-agenter`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/ai-agenter/sesongtildeling`, priority: "0.7", changefreq: "monthly" },
