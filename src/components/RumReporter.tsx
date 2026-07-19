@@ -15,6 +15,15 @@
  * Performance: web-vitals' callbacks fire on the relevant lifecycle
  * events (LCP on paint, CLS/INP on hidden, FCP/TTFB on load). All
  * deferred — none block first paint.
+ *
+ * Synthetic traffic (Playwright, Lighthouse-CI, uptime bots — anything
+ * driven via WebDriver) is excluded: `navigator.webdriver` is the
+ * standard signal for it. Two reasons: it keeps the RUM dataset
+ * representative of real visitors, and it avoids a beacon race that
+ * automated journeys are especially prone to — the beacon fires from
+ * fetch/sendBeacon fire-and-forget, so a test that navigates the instant
+ * it's done with a page can outrun the in-flight request and see it
+ * reported as a failed network call even though nothing is broken.
  */
 import { useEffect } from "react";
 
@@ -43,6 +52,7 @@ function deviceBucket(): "mobile" | "desktop" {
 export default function RumReporter() {
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (navigator.webdriver) return;
     if (SKIP_PATH_PREFIXES.some((p) => window.location.pathname.startsWith(p))) {
       return;
     }
