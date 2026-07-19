@@ -25,6 +25,7 @@ import {
 } from "@/components/editorial";
 import { getFraunces } from "@/lib/fonts";
 import { VideoPlaceholder } from "@/components/VideoPlaceholder";
+import { CategoryVisual } from "@/components/CategoryVisual";
 
 const APP = "https://app.digilist.no";
 
@@ -166,8 +167,8 @@ export default function Billettsystem() {
             <div className="container mx-auto md:px-8 lg:px-12">
               <SectionRule label="BILLETTSYSTEM" />
 
-              <div className="grid lg:grid-cols-12 gap-8 lg:gap-gutter mb-14 lg:mb-20 items-end">
-                <div className="lg:col-span-9">
+              <div className="grid lg:grid-cols-12 gap-8 lg:gap-gutter mb-14 lg:mb-20 items-center">
+                <div className="lg:col-span-7">
                   <EditorialHeading as="h1" size="display">
                     Selg billetter til arrangementet,{" "}
                     <em
@@ -197,6 +198,16 @@ export default function Billettsystem() {
                       Åpne plattformen
                     </EditorialButton>
                   </div>
+                </div>
+                <div className="lg:col-span-5">
+                  <CategoryVisual
+                    icon={Ticket}
+                    label="DIGILIST · BILLETTSYSTEM"
+                    src="/images/cat/konsert.jpg"
+                    aspect="4 / 3"
+                    variant="primary"
+                    eager
+                  />
                 </div>
               </div>
 
