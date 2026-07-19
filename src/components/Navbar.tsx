@@ -70,13 +70,13 @@ const Navbar = () => {
       </a>
     <nav
       className={cn(
-        "fixed top-0 left-0 right-0 z-40 bg-paper border-b transition-all duration-normal ease-editorial",
+        "fixed top-0 left-0 right-0 lg:right-[var(--rail-w,22rem)] z-40 bg-paper border-b transition-all duration-normal ease-editorial",
         isScrolled
           ? "border-rule-strong py-2 shadow-[0_1px_0_0_hsl(var(--rule))]"
           : "border-rule py-3"
       )}
     >
-      <div className="container mx-auto md:px-8 lg:px-12 flex items-center gap-4 lg:gap-6">
+      <div className="container mx-auto md:px-8 lg:px-12 grid grid-cols-[auto_1fr_auto] items-center gap-4">
         <Link
           to="/"
           aria-label="Digilist, gå til forsiden"
@@ -123,14 +123,12 @@ const Navbar = () => {
           </span>
         </Link>
 
-        {/* Search — left-aligned, right after the logo. Flexes: grows toward
-            360px on wide screens, shrinks first when the nav needs room. */}
-        <div className="hidden md:flex shrink min-w-[150px] w-[240px] lg:w-[300px] xl:w-[360px]">
-          <GlobalSearch />
-        </div>
-
-        {/* Right group: primary nav (xl+) + actions, pushed to the far edge */}
-        <div className="flex items-center gap-4 lg:gap-6 ml-auto shrink-0">
+        {/* Center: primary nav (xl+) + søk (md–lg only; the desktop rail
+            replaces search at lg+). */}
+        <div className="flex items-center justify-center gap-6 min-w-0">
+          <div className="hidden md:flex lg:hidden w-full max-w-[320px]">
+            <GlobalSearch />
+          </div>
           <nav
             aria-label="Hovednavigasjon"
             className="hidden xl:flex items-center gap-6"
@@ -184,21 +182,22 @@ const Navbar = () => {
               </NavLink>
             ))}
           </nav>
+        </div>
 
-          <div className="flex items-center gap-3">
-            <ThemeToggle />
-            <EditorialButton
-              variant="primary"
-              size="md"
-              href="https://app.digilist.no"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden lg:inline-flex"
-            >
-              Åpne plattformen
-            </EditorialButton>
-            <MobileMenu />
-          </div>
+        {/* Actions */}
+        <div className="flex items-center gap-3 justify-self-end">
+          <ThemeToggle />
+          <EditorialButton
+            variant="primary"
+            size="md"
+            href="https://app.digilist.no"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden lg:inline-flex"
+          >
+            Åpne plattformen
+          </EditorialButton>
+          <MobileMenu />
         </div>
       </div>
     </nav>

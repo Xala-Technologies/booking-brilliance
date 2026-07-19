@@ -26,6 +26,7 @@ import Personvern from "./pages/Personvern";
 import Cookies from "./pages/Cookies";
 import NotFound from "./pages/NotFound";
 import Transparens from "./pages/Transparens";
+import { ChatbotProvider } from "./components/chatbot/ChatbotProvider";
 import UseCaseSelskapslokaler from "./pages/UseCaseSelskapslokaler";
 import UseCaseMoterom from "./pages/UseCaseMoterom";
 import UseCaseIdrettshaller from "./pages/UseCaseIdrettshaller";
@@ -108,6 +109,11 @@ import RumReporter from "./components/RumReporter";
 const Chatbot = lazy(() =>
   import("./components/chatbot").then((m) => ({ default: m.Chatbot })),
 );
+const AssistantRail = lazy(() =>
+  import("./components/chatbot/AssistantRail").then((m) => ({
+    default: m.AssistantRail,
+  })),
+);
 
 // Tiny shared Suspense fallback — invisible, just maintains layout.
 const RouteFallback = () => (
@@ -143,6 +149,36 @@ function ChatbotMount() {
     <Suspense fallback={null}>
       <Chatbot />
     </Suspense>
+  );
+}
+
+// The persistent desktop assistant rail (lg+). Same skip rules as the chatbot.
+function AssistantRailMount() {
+  const location = useLocation();
+  const skip =
+    location.pathname.startsWith("/admin") ||
+    location.pathname.startsWith("/blogg/preview");
+  if (skip) return null;
+  return (
+    <Suspense fallback={null}>
+      <AssistantRail />
+    </Suspense>
+  );
+}
+
+// Reserves right space for the desktop rail so page content never hides behind
+// it. Uses the same --rail-w variable the rail publishes (0 when collapsed or on
+// unmount), so the body and the navbar stay aligned to one content box. Rail is
+// lg+ only (so is the padding); admin/preview routes never reserve space.
+function ContentShell({ children }: { children: ReactNode }) {
+  const location = useLocation();
+  const skip =
+    location.pathname.startsWith("/admin") ||
+    location.pathname.startsWith("/blogg/preview");
+  return (
+    <div className={`transition-[padding] duration-300 ease-out ${skip ? "" : "lg:pr-[var(--rail-w,22rem)]"}`}>
+      {children}
+    </div>
   );
 }
 
@@ -209,6 +245,8 @@ export function AppShell() {
           <Sonner />
           <ScrollToTop />
           <RumReporter />
+          <ChatbotProvider>
+          <ContentShell>
           <Suspense fallback={<RouteFallback />}>
           <AnimatedRoutesWrap>
           <Routes>
@@ -342,8 +380,11 @@ export function AppShell() {
           </Routes>
           </AnimatedRoutesWrap>
           </Suspense>
+          </ContentShell>
           <CookieConsent />
           <ChatbotMount />
+          <AssistantRailMount />
+          </ChatbotProvider>
         </TooltipProvider>
         </MotionFirstPaintShim>
       </ThemeProvider>
