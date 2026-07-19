@@ -197,7 +197,7 @@ const AiAgenter = () => {
                 {frameworks.map((f) => (
                   <span
                     key={f}
-                    className="font-mono text-[11px] uppercase tracking-wider text-navy bg-navy/5 border border-navy/15 rounded-sm px-2.5 py-1"
+                    className="font-mono text-[11px] uppercase tracking-wider text-accent-text bg-accent-text/5 border border-accent-text/15 rounded-sm px-2.5 py-1"
                   >
                     {f}
                   </span>
@@ -227,7 +227,7 @@ const AiAgenter = () => {
                         </span>
                       </div>
                       <div className="flex items-center gap-4 mb-4">
-                        <span className="w-12 h-12 shrink-0 inline-flex items-center justify-center bg-navy/5 border border-navy/15 rounded-sm text-navy">
+                        <span className="w-12 h-12 shrink-0 inline-flex items-center justify-center bg-accent-text/5 border border-accent-text/15 rounded-sm text-accent-text">
                           <Icon className="h-6 w-6" strokeWidth={1.5} />
                         </span>
                         <h2
@@ -263,7 +263,7 @@ const AiAgenter = () => {
                     {a.href && (
                       <Link
                         to={a.href}
-                        className="inline-block mt-5 font-mono text-[12px] uppercase tracking-wider text-navy hover:underline"
+                        className="inline-block mt-5 font-mono text-[12px] uppercase tracking-wider text-accent-text hover:underline"
                       >
                         Les mer om {a.tag.toLowerCase()} →
                       </Link>
@@ -279,7 +279,7 @@ const AiAgenter = () => {
             <div className="container mx-auto md:px-8 lg:px-12">
               <div className="grid lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-1">
-                  <ScanEye className="h-8 w-8 text-navy" strokeWidth={1.5} />
+                  <ScanEye className="h-8 w-8 text-accent-text" strokeWidth={1.5} />
                 </div>
                 <p
                   className="lg:col-span-11 font-serif text-2xl lg:text-3xl text-ink leading-snug"

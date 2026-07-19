@@ -57,7 +57,7 @@ const AgentSpokeLayout = ({ content }: { content: AgentSpokeContent }) => {
           <section className="pt-28 lg:pt-36 pb-12 lg:pb-16 bg-paper">
             <div className="container mx-auto md:px-8 lg:px-12">
               <nav className="mb-6 font-mono text-[11px] uppercase tracking-wider text-ink-faint">
-                <Link to="/ai-agenter" className="hover:text-navy">AI-agenter</Link>
+                <Link to="/ai-agenter" className="hover:text-accent-text">AI-agenter</Link>
                 <span className="mx-2">/</span>
                 <span className="text-ink-soft">{content.breadcrumbLabel}</span>
               </nav>
@@ -83,7 +83,7 @@ const AgentSpokeLayout = ({ content }: { content: AgentSpokeContent }) => {
                   {content.frameworks.map((f) => (
                     <span
                       key={f}
-                      className="font-mono text-[11px] uppercase tracking-wider text-navy bg-navy/5 border border-navy/15 rounded-sm px-2.5 py-1"
+                      className="font-mono text-[11px] uppercase tracking-wider text-accent-text bg-accent-text/5 border border-accent-text/15 rounded-sm px-2.5 py-1"
                     >
                       {f}
                     </span>
@@ -154,7 +154,7 @@ const AgentSpokeLayout = ({ content }: { content: AgentSpokeContent }) => {
                   <Link
                     key={r.href}
                     to={r.href}
-                    className="font-mono text-[12px] uppercase tracking-wider text-navy bg-paper border border-rule rounded-sm px-4 py-2 hover:border-navy/30"
+                    className="font-mono text-[12px] uppercase tracking-wider text-accent-text bg-paper border border-rule rounded-sm px-4 py-2 hover:border-accent-text/30"
                   >
                     {r.label} →
                   </Link>

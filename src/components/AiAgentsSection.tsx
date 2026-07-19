@@ -81,7 +81,7 @@ const AiAgentsSection = () => {
           {frameworks.map((f) => (
             <span
               key={f}
-              className="font-mono text-[11px] uppercase tracking-wider text-navy bg-navy/5 border border-navy/15 rounded-sm px-2.5 py-1"
+              className="font-mono text-[11px] uppercase tracking-wider text-accent-text bg-accent-text/5 border border-accent-text/15 rounded-sm px-2.5 py-1"
             >
               {f}
             </span>
@@ -100,7 +100,7 @@ const AiAgentsSection = () => {
             return (
               <motion.div key={a.title} variants={staggerChild} className="bg-paper p-7 flex flex-col">
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="w-10 h-10 shrink-0 inline-flex items-center justify-center bg-navy/5 border border-navy/15 rounded-sm text-navy">
+                  <span className="w-10 h-10 shrink-0 inline-flex items-center justify-center bg-accent-text/5 border border-accent-text/15 rounded-sm text-accent-text">
                     <Icon className="h-5 w-5" strokeWidth={1.5} />
                   </span>
                   <h3

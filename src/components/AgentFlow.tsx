@@ -24,7 +24,7 @@ export function AgentFlow({ steps }: { steps: string[] }) {
                 "flex-1 flex items-center justify-center text-center rounded-sm px-3 py-3",
                 "font-mono text-[12px] leading-snug uppercase tracking-wide",
                 isLast
-                  ? "bg-navy/5 border border-navy/20 text-navy"
+                  ? "bg-accent-text/5 border border-accent-text/20 text-accent-text"
                   : "bg-paper border border-rule text-ink-soft",
               ].join(" ")}
             >
