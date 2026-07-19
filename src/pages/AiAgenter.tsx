@@ -217,18 +217,26 @@ const AiAgenter = () => {
                 <div className="container mx-auto md:px-8 lg:px-12">
                   <div className="grid lg:grid-cols-12 gap-8 lg:gap-gutter">
                     <div className="lg:col-span-4">
-                      <span className="w-12 h-12 inline-flex items-center justify-center bg-navy/5 border border-navy/15 rounded-sm text-navy mb-5">
-                        <Icon className="h-6 w-6" strokeWidth={1.5} />
-                      </span>
-                      <div className="font-mono text-[11px] uppercase tracking-wider text-accent-text mb-3">
-                        {a.tag}
+                      <div className="flex items-center gap-2.5 mb-4">
+                        <span className="font-mono text-sm text-accent-text tabular-nums">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <span className="h-px w-6 bg-rule" />
+                        <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-ink-soft">
+                          {a.tag}
+                        </span>
                       </div>
-                      <h2
-                        className="font-serif text-3xl lg:text-4xl text-ink mb-4"
-                        style={{ fontVariationSettings: getFraunces("section"), lineHeight: 1.1 }}
-                      >
-                        {a.title}
-                      </h2>
+                      <div className="flex items-center gap-4 mb-4">
+                        <span className="w-12 h-12 shrink-0 inline-flex items-center justify-center bg-navy/5 border border-navy/15 rounded-sm text-navy">
+                          <Icon className="h-6 w-6" strokeWidth={1.5} />
+                        </span>
+                        <h2
+                          className="font-serif text-2xl lg:text-3xl text-ink"
+                          style={{ fontVariationSettings: getFraunces("section"), lineHeight: 1.1 }}
+                        >
+                          {a.title}
+                        </h2>
+                      </div>
                       <p className="text-lg text-ink-soft italic measure">{a.lead}</p>
                     </div>
                     <motion.ul
