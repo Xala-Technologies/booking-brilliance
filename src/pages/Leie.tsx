@@ -8,6 +8,13 @@ import {
   Search,
   CalendarCheck,
   Wallet,
+  Warehouse,
+  Cake,
+  Presentation,
+  Building2,
+  Laptop,
+  Dumbbell,
+  Waves,
 } from "lucide-react";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
@@ -25,34 +32,93 @@ import { VideoPlaceholder } from "@/components/VideoPlaceholder";
 
 const APP = "https://app.digilist.no";
 
-// Category cards open the live platform. A ?kategori hint is harmless today
-// (the app ignores unknown params) and is forward-compatible once a deep-link
-// contract exists. The Selskapslokaler card also carries an internal guide link.
-const CATEGORIES = [
+// The hub links to a deep guide per category (/leie/<slug>). Each guide is an
+// SEO landing page that funnels to the live platform via its own "finn ledig"
+// CTA. Grouping mirrors the three ways people search: feiring, arbeid, aktivitet.
+const CATEGORY_GROUPS = [
   {
-    title: "Selskapslokaler",
-    Icon: GlassWater,
-    body: "Bryllup, jubileer, konfirmasjon og fest. Ekte pris for din dato, depositum og vilkår synlig før du booker.",
-    href: `${APP}/?kategori=selskapslokale`,
-    guide: "/leie/selskapslokale",
+    label: "FEST & FEIRING",
+    meta: "SELSKAP · BRYLLUP · BURSDAG",
+    items: [
+      {
+        title: "Selskapslokale",
+        Icon: GlassWater,
+        to: "/leie/selskapslokale",
+        body: "Bryllup, jubileum, konfirmasjon og fest. Ekte pris for din dato, depositum og vilkår synlig før du booker.",
+      },
+      {
+        title: "Gård og låve",
+        Icon: Warehouse,
+        to: "/leie/gaard",
+        body: "Gårdsbryllup, sommerfest på tunet eller firmatur på landet. Låver og gårdstun med pris og ledig helg synlig.",
+      },
+      {
+        title: "Bursdagslokale",
+        Icon: Cake,
+        to: "/leie/bursdagslokale",
+        body: "Barnebursdag eller runde år. Festrom, grendehus og aktivitetslokaler med kjøkken, bookbart med Vipps.",
+      },
+      {
+        title: "Kulturhus og grendehus",
+        Icon: Theater,
+        to: "/leie/kulturhus",
+        body: "Konsert, forestilling eller storselskap. Kulturhus, samfunnshus og grendehus med scene og kapasitet oppgitt.",
+      },
+    ],
   },
   {
-    title: "Møterom",
-    Icon: Users2,
-    body: "Møterom og kurslokaler per time, hos kommuner, næringsbygg og foreninger. Book og betal på minutter.",
-    href: `${APP}/?kategori=moterom`,
+    label: "MØTE & ARBEID",
+    meta: "MØTE · KONFERANSE · KONTOR",
+    items: [
+      {
+        title: "Møterom",
+        Icon: Users2,
+        to: "/leie/moterom",
+        body: "Møte, workshop eller kurs, per time. Kommunale rom, næringsbygg og private, med pris per time synlig.",
+      },
+      {
+        title: "Konferanselokale",
+        Icon: Presentation,
+        to: "/leie/konferanselokale",
+        body: "Seminar, kurs eller fagdag. Plenumssal og grupperom med kapasitet, AV og servering oppgitt.",
+      },
+      {
+        title: "Kontorlokaler",
+        Icon: Building2,
+        to: "/leie/kontorlokaler",
+        body: "Privat kontor på fleksibel leie. Cellekontor og teamkontor med pris, felleskostnader og ledig fra-dato.",
+      },
+      {
+        title: "Coworking",
+        Icon: Laptop,
+        to: "/leie/coworking",
+        body: "Dagplass eller hot desk uten medlemskap. Kontorfellesskap med dagspris og ledige plasser synlig.",
+      },
+    ],
   },
   {
-    title: "Idrettshaller",
-    Icon: Trophy,
-    body: "Enkelttimer eller hele haller og gymsaler. Sjekk hva som er ledig og book uten å ringe rundt.",
-    href: `${APP}/?kategori=idrettshall`,
-  },
-  {
-    title: "Kulturhus og grendehus",
-    Icon: Theater,
-    body: "Kulturhus, samfunnshus og grendehus til arrangement, konsert eller markering. Lokale lokaler, samlet.",
-    href: `${APP}/?kategori=kulturhus`,
+    label: "IDRETT & AKTIVITET",
+    meta: "HALL · PADEL · SVØMMING",
+    items: [
+      {
+        title: "Idrettshall",
+        Icon: Trophy,
+        to: "/leie/idrettshall",
+        body: "Trening, turnering eller bursdag i gymsalen. Ledige enkelttimer i hallene, bookbart uten søknad.",
+      },
+      {
+        title: "Padelbane",
+        Icon: Dumbbell,
+        to: "/leie/padelbane",
+        body: "Book padelbane per time. Ledige tider i sanntid på tvers av anlegg, med utstyrsleie og Vipps.",
+      },
+      {
+        title: "Svømmehall",
+        Icon: Waves,
+        to: "/leie/svommehall",
+        body: "Basseng til bursdag, svømmegruppe eller kurs. Ledige tider utenom klubbtidene, med pris og regler synlig.",
+      },
+    ],
   },
 ];
 
@@ -184,53 +250,63 @@ const Leie = () => {
 
               {/* Categories */}
               <div className="mb-14 lg:mb-20">
-                <div className="flex items-baseline justify-between mb-6 border-b border-rule pb-3">
+                <div className="flex items-baseline justify-between mb-8 border-b border-rule pb-3">
                   <h2 className="editorial-mono-caption text-accent-text">
                     HVA VIL DU LEIE?
                   </h2>
                   <span className="editorial-mono-caption text-ink-faint">
-                    SELSKAP · MØTE · IDRETT · KULTUR
+                    FEIRING · ARBEID · AKTIVITET
                   </span>
                 </div>
-                <div className="grid sm:grid-cols-2 gap-px bg-rule border border-rule">
-                  {CATEGORIES.map((c) => {
-                    const Icon = c.Icon;
-                    return (
-                      <a
-                        key={c.title}
-                        href={c.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group bg-paper p-7 lg:p-9 transition-colors duration-quick ease-editorial hover:bg-paper-deep/40 flex flex-col"
-                      >
-                        <header className="flex items-center gap-4 mb-4">
-                          <span className="flex-shrink-0 inline-flex items-center justify-center w-11 h-11 bg-navy/5 border border-navy/15 rounded-sm text-navy group-hover:bg-navy group-hover:text-on-navy transition-colors duration-quick ease-editorial">
-                            <Icon className="h-5 w-5" aria-hidden="true" />
-                          </span>
-                          <h3
-                            className="font-serif text-2xl lg:text-3xl text-ink leading-tight flex-1"
-                            style={{
-                              fontVariationSettings: getFraunces("sub"),
-                              letterSpacing: "-0.015em",
-                            }}
-                          >
-                            {c.title}
-                          </h3>
-                          <ArrowUpRight
-                            className="h-5 w-5 text-ink-faint group-hover:text-accent-text transition-transform duration-quick ease-editorial group-hover:translate-x-0.5 group-hover:-translate-y-0.5 flex-shrink-0"
-                            aria-hidden="true"
-                          />
-                        </header>
-                        <p className="text-base text-ink leading-relaxed flex-1">
-                          {c.body}
-                        </p>
-                        <p className="mt-5 pt-4 border-t border-rule font-mono text-[0.65rem] uppercase tracking-widest text-accent-text inline-flex items-center gap-1.5">
-                          Finn {c.title.toLowerCase()}
-                          <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
-                        </p>
-                      </a>
-                    );
-                  })}
+                <div className="space-y-10 lg:space-y-14">
+                  {CATEGORY_GROUPS.map((group) => (
+                    <div key={group.label}>
+                      <div className="flex items-baseline justify-between mb-4">
+                        <h3 className="editorial-mono-caption text-ink">{group.label}</h3>
+                        <span className="editorial-mono-caption text-ink-faint hidden sm:inline">
+                          {group.meta}
+                        </span>
+                      </div>
+                      <div className="grid sm:grid-cols-2 gap-4 lg:gap-5">
+                        {group.items.map((c) => {
+                          const Icon = c.Icon;
+                          return (
+                            <Link
+                              key={c.title}
+                              to={c.to}
+                              className="group bg-paper border border-rule rounded-sm p-7 lg:p-9 transition-colors duration-quick ease-editorial hover:bg-paper-deep/40 hover:border-accent-text/30 flex flex-col"
+                            >
+                              <header className="flex items-center gap-4 mb-4">
+                                <span className="flex-shrink-0 inline-flex items-center justify-center w-11 h-11 bg-navy/5 border border-navy/15 rounded-sm text-navy group-hover:bg-navy group-hover:text-on-navy transition-colors duration-quick ease-editorial">
+                                  <Icon className="h-5 w-5" aria-hidden="true" />
+                                </span>
+                                <h4
+                                  className="font-serif text-2xl lg:text-3xl text-ink leading-tight flex-1"
+                                  style={{
+                                    fontVariationSettings: getFraunces("sub"),
+                                    letterSpacing: "-0.015em",
+                                  }}
+                                >
+                                  {c.title}
+                                </h4>
+                                <ArrowUpRight
+                                  className="h-5 w-5 text-ink-faint group-hover:text-accent-text transition-transform duration-quick ease-editorial group-hover:translate-x-0.5 group-hover:-translate-y-0.5 flex-shrink-0"
+                                  aria-hidden="true"
+                                />
+                              </header>
+                              <p className="text-base text-ink leading-relaxed flex-1">
+                                {c.body}
+                              </p>
+                              <p className="mt-5 pt-4 border-t border-rule font-mono text-[0.65rem] uppercase tracking-widest text-accent-text inline-flex items-center gap-1.5">
+                                Les mer
+                                <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
+                              </p>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
 
@@ -280,33 +356,6 @@ const Leie = () => {
                     );
                   })}
                 </ol>
-              </div>
-
-              {/* Guides */}
-              <div className="mb-14 lg:mb-20">
-                <div className="flex items-baseline justify-between mb-6 border-b border-rule pb-3">
-                  <h2 className="editorial-mono-caption text-accent-text">GUIDER</h2>
-                  <span className="editorial-mono-caption text-ink-faint">
-                    PRIS · KAPASITET · BOOKING
-                  </span>
-                </div>
-                <Link
-                  to="/leie/selskapslokale"
-                  className="group flex items-center justify-between gap-4 border border-rule rounded-sm p-6 hover:bg-paper-deep/40 transition-colors"
-                >
-                  <div>
-                    <h3
-                      className="font-serif text-xl lg:text-2xl text-ink"
-                      style={{ fontVariationSettings: getFraunces("sub") }}
-                    >
-                      Leie selskapslokale: pris, kapasitet og booking
-                    </h3>
-                    <p className="text-base text-ink-soft mt-1">
-                      Hva det koster, hva som er inkludert, og hvordan du booker på nett.
-                    </p>
-                  </div>
-                  <ArrowUpRight className="h-6 w-6 text-ink-faint group-hover:text-accent-text flex-shrink-0" aria-hidden="true" />
-                </Link>
               </div>
 
               {/* Closing CTA */}

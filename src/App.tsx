@@ -15,6 +15,16 @@ import BookingsystemKommune from "./pages/BookingsystemKommune";
 import BookingLokalerMoterom from "./pages/BookingLokalerMoterom";
 import Leie from "./pages/Leie";
 import LeieSelskapslokale from "./pages/LeieSelskapslokale";
+import LeieMoterom from "./pages/LeieMoterom";
+import LeieKonferanselokale from "./pages/LeieKonferanselokale";
+import LeieKontorlokaler from "./pages/LeieKontorlokaler";
+import LeieCoworking from "./pages/LeieCoworking";
+import LeieIdrettshall from "./pages/LeieIdrettshall";
+import LeiePadelbane from "./pages/LeiePadelbane";
+import LeieSvommehall from "./pages/LeieSvommehall";
+import LeieKulturhus from "./pages/LeieKulturhus";
+import LeieGaard from "./pages/LeieGaard";
+import LeieBursdagslokale from "./pages/LeieBursdagslokale";
 import Blog from "./pages/Blog";
 import FAQ from "./pages/FAQ";
 import AiAgenter from "./pages/AiAgenter";
@@ -256,6 +266,16 @@ export function AppShell() {
             <Route path="/booking-av-lokaler-og-moterom" element={<BookingLokalerMoterom />} />
             <Route path="/leie" element={<Leie />} />
             <Route path="/leie/selskapslokale" element={<LeieSelskapslokale />} />
+            <Route path="/leie/gaard" element={<LeieGaard />} />
+            <Route path="/leie/bursdagslokale" element={<LeieBursdagslokale />} />
+            <Route path="/leie/kulturhus" element={<LeieKulturhus />} />
+            <Route path="/leie/moterom" element={<LeieMoterom />} />
+            <Route path="/leie/konferanselokale" element={<LeieKonferanselokale />} />
+            <Route path="/leie/kontorlokaler" element={<LeieKontorlokaler />} />
+            <Route path="/leie/coworking" element={<LeieCoworking />} />
+            <Route path="/leie/idrettshall" element={<LeieIdrettshall />} />
+            <Route path="/leie/padelbane" element={<LeiePadelbane />} />
+            <Route path="/leie/svommehall" element={<LeieSvommehall />} />
             <Route path="/blogg" element={<Blog />} />
             <Route
               path="/blogg/preview/:draftId"

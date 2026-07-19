@@ -271,6 +271,236 @@ const ROUTES = [
     ],
   },
   {
+    route: "/leie/gaard",
+    title: "Leie gård til bryllup og selskap: pris og booking | Digilist",
+    description:
+      "Leie gård eller låve til gårdsbryllup, selskap eller firmatur: finn ledige gårder nær deg, se ekte pris og hva som er inkludert, og book på nett med Vipps.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Leie", url: `${BASE_URL}/leie` },
+      { name: "Gård", url: `${BASE_URL}/leie/gaard` },
+    ],
+    faq: [
+      {
+        q: "Hva koster det å leie en gård til bryllup eller selskap?",
+        a: "Prisen varierer med sted, sesong og hva som er inkludert. En enkel låve for en kveld kan koste noen tusen kroner, mens en hel bryllupshelg med overnatting gjerne ligger fra ti tusen og oppover. På Digilist ser du totalprisen for din dato, inkludert depositum, før du booker.",
+      },
+      {
+        q: "Kan jeg leie gård til bryllup?",
+        a: "Ja. Mange gårder leies ut nettopp til gårdsbryllup, med låve til middag og fest, tun til vielse og fotografering, og ofte overnatting til de nærmeste gjestene.",
+      },
+    ],
+  },
+  {
+    route: "/leie/bursdagslokale",
+    title: "Leie bursdagslokale: pris, ledige datoer og booking | Digilist",
+    description:
+      "Leie bursdagslokale til barnebursdag eller voksenbursdag: finn ledig lokale til bursdag nær deg, se ekte pris og book med Vipps. Alt samlet ett sted.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Leie", url: `${BASE_URL}/leie` },
+      { name: "Bursdagslokale", url: `${BASE_URL}/leie/bursdagslokale` },
+    ],
+    faq: [
+      {
+        q: "Hva koster det å leie et bursdagslokale?",
+        a: "Prisen varierer med type lokale, sted og varighet. Et festrom eller grendehus til barnebursdag kan koste fra noen hundrelapper for noen timer, mens et større lokale med kjøkken til voksenbursdag gjerne ligger fra tusenlappen og oppover for en kveld. På Digilist ser du totalprisen for din dato før du booker.",
+      },
+      {
+        q: "Hvor finner jeg lokale til barnebursdag?",
+        a: "Søk på sted og dato på Digilist, så ser du festrom, grendehus, aktivitetslokaler og gymsaler i nærområdet som faktisk er ledige, med pris og hva som er inkludert synlig før du booker direkte.",
+      },
+    ],
+  },
+  {
+    route: "/leie/kulturhus",
+    title: "Leie kulturhus: pris, kapasitet og booking | Digilist",
+    description:
+      "Leie kulturhus, samfunnshus eller grendehus til konsert, forestilling eller storselskap: se pris, kapasitet og scene- og lydfasiliteter, finn ledig dato og book med Vipps.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Leie", url: `${BASE_URL}/leie` },
+      { name: "Kulturhus", url: `${BASE_URL}/leie/kulturhus` },
+    ],
+    faq: [
+      {
+        q: "Hva koster det å leie et kulturhus eller samfunnshus?",
+        a: "Prisen varierer mye med hus, sal, varighet og om du er privatperson eller forening. Et grendehus kan koste fra noen hundre til noen tusen kroner for en helg, mens en kulturhussal med scene og lydanlegg gjerne ligger høyere. På Digilist ser du totalprisen for din dato før du booker.",
+      },
+      {
+        q: "Kan jeg leie kulturhus som privatperson?",
+        a: "Ja, de fleste kulturhus, samfunnshus og grendehus leies ut til privatpersoner til selskap, markeringer og arrangementer. Noen hus har egne satser for lag og foreninger. Vilkårene står på lokalet før du booker.",
+      },
+    ],
+  },
+  {
+    route: "/leie/moterom",
+    title: "Leie møterom: pris per time og booking på nett | Digilist",
+    description:
+      "Leie møterom til møte, workshop, kurs eller intervju: se pris per time, ledige tider i sanntid, og book på nett med Vipps. Møterom nær deg, samlet ett sted.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Leie", url: `${BASE_URL}/leie` },
+      { name: "Møterom", url: `${BASE_URL}/leie/moterom` },
+    ],
+    faq: [
+      {
+        q: "Hva koster det å leie et møterom?",
+        a: "Prisen varierer med sted, størrelse og utstyr. Et enkelt rom for fire til seks personer kan koste fra et par hundre kroner per time, mens større rom med videomøteutstyr ligger høyere. Kommunale rom er ofte rimelige. På Digilist ser du totalen for dine timer før du booker.",
+      },
+      {
+        q: "Kan jeg leie møterom for bare noen timer?",
+        a: "Ja. De fleste rommene bookes per time, så du betaler for de timene du faktisk trenger, enten det er et møte på en time eller en workshop over en hel dag.",
+      },
+    ],
+  },
+  {
+    route: "/leie/konferanselokale",
+    title: "Leie konferanselokale: pris, kapasitet og booking | Digilist",
+    description:
+      "Leie konferanselokale eller konferansesal til seminar, kurs og konferanse: se pris, kapasitet og ledige datoer, og book på nett. Lokaler samlet ett sted.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Leie", url: `${BASE_URL}/leie` },
+      { name: "Konferanselokale", url: `${BASE_URL}/leie/konferanselokale` },
+    ],
+    faq: [
+      {
+        q: "Hva koster det å leie et konferanselokale?",
+        a: "Prisen varierer med sted, størrelse og varighet. Et mindre kurslokale kan koste fra et par tusen kroner for en halv dag, mens en konferansesal med plass til hundrevis ligger betydelig høyere. På Digilist står prisen for hel og halv dag på hvert lokale før du booker.",
+      },
+      {
+        q: "Hvor mange deltakere er det plass til?",
+        a: "Kapasiteten står oppgitt per oppsett på hvert lokale. Kinooppsett gir plass til flest, klasserom og øyer krever mer plass per deltaker. Du filtrerer på antall deltakere når du søker.",
+      },
+    ],
+  },
+  {
+    route: "/leie/kontorlokaler",
+    title: "Leie kontorlokaler: pris, vilkår og fleksibel leie | Digilist",
+    description:
+      "Leie kontorlokaler til din bedrift: finn ledige kontor nær deg, se pris med felleskostnader og vilkår, og reserver digitalt. Fleksibel leie uten lang binding.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Leie", url: `${BASE_URL}/leie` },
+      { name: "Kontorlokaler", url: `${BASE_URL}/leie/kontorlokaler` },
+    ],
+    faq: [
+      {
+        q: "Hva koster det å leie kontorlokaler?",
+        a: "Prisen avhenger av by, beliggenhet, størrelse og hva som er inkludert. Et enkelt cellekontor kan koste fra noen tusen kroner i måneden, mens større teamkontor i sentrale strøk ligger høyere. På Digilist ser du månedsleie og felleskostnader samlet på hvert lokale.",
+      },
+      {
+        q: "Kan jeg leie kontor på korttid eller uten lang binding?",
+        a: "Ja. Mange lokaler på Digilist tilbys med kort bindingstid, løpende leie eller ren korttidsleie. Det passer for prosjekter, satellittkontor eller bedrifter som vil teste et område før de binder seg.",
+      },
+    ],
+  },
+  {
+    route: "/leie/coworking",
+    title: "Leie coworking-plass: dagplass og kontorfellesskap | Digilist",
+    description:
+      "Leie kontorplass i coworking eller kontorfellesskap: finn ledig dagplass nær deg, se dagspris og hva som er inkludert, og book på nett med Vipps. Uten medlemskap.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Leie", url: `${BASE_URL}/leie` },
+      { name: "Coworking", url: `${BASE_URL}/leie/coworking` },
+    ],
+    faq: [
+      {
+        q: "Hva koster en dagplass i coworking?",
+        a: "Prisen varierer med by og sted. En dagplass ligger typisk mellom 150 og 500 kroner, klippekort gir lavere pris per dag, og månedspris passer deg som kommer ofte. På Digilist ser du prisen på hvert sted før du booker.",
+      },
+      {
+        q: "Trenger jeg medlemskap for å bruke et kontorfellesskap?",
+        a: "Nei, ikke på steder som tilbyr dagplass via Digilist. Du booker dagen du trenger og betaler for den, uten registrering, binding eller oppsigelsesfrist. Kommer du ofte, kan klippekort eller månedspris lønne seg.",
+      },
+    ],
+  },
+  {
+    route: "/leie/idrettshall",
+    title: "Leie idrettshall: ledige enkelttimer og booking | Digilist",
+    description:
+      "Leie idrettshall eller gymsal til trening, turnering eller bursdag: se ledige enkelttimer i sanntid, book direkte og betal med Vipps. Ingen søknad, ingen venting.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Leie", url: `${BASE_URL}/leie` },
+      { name: "Idrettshall", url: `${BASE_URL}/leie/idrettshall` },
+    ],
+    faq: [
+      {
+        q: "Kan jeg leie idrettshall eller gymsal som privatperson?",
+        a: "Ja. Ledige enkelttimer i kommunale haller kan bookes av privatpersoner og grupper, til trening, bursdag, turnering eller annen aktivitet. Du trenger ikke være klubb eller forening, og du trenger ikke søke.",
+      },
+      {
+        q: "Hva koster det å leie en time i idrettshall?",
+        a: "Prisen settes av kommunen eller utleier og varierer med hallstørrelse, om du leier hel eller halv flate, og tidspunkt. En gymsal koster gjerne mindre enn full flate i en stor hall. På Digilist står timeprisen på hallen.",
+      },
+    ],
+  },
+  {
+    route: "/leie/padelbane",
+    title: "Leie padelbane: book padel per time nær deg | Digilist",
+    description:
+      "Leie padelbane per time: finn ledige padelbaner nær deg, se pris og ledige tider i sanntid, og book padel med Vipps. Utstyrsleie og innendørs og utendørs baner.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Leie", url: `${BASE_URL}/leie` },
+      { name: "Padelbane", url: `${BASE_URL}/leie/padelbane` },
+    ],
+    faq: [
+      {
+        q: "Hva koster det å leie en padelbane?",
+        a: "Prisen varierer med sted, tidspunkt og om banen er innendørs eller utendørs. En time koster typisk fra rundt 200 til 500 kroner for hele banen, altså delt på fire spillere ved dobbel. På Digilist står prisen per time på hver bane før du booker.",
+      },
+      {
+        q: "Hvordan booker jeg en padelbane?",
+        a: "Søk på sted og tidspunkt, se hvilke baner som er ledige i sanntid, velg en time og betal med Vipps eller kort. Bekreftelsen kommer med en gang, og du trenger ikke lage konto hos hvert enkelt anlegg.",
+      },
+    ],
+  },
+  {
+    route: "/leie/svommehall",
+    title: "Leie svømmehall og basseng: se ledige tider og book | Digilist",
+    description:
+      "Leie svømmehall eller basseng til bursdag, svømmegruppe eller kurs: se ledige tider utenom klubbtidene, pris og regler, og book direkte på nett. Samlet ett sted.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Leie", url: `${BASE_URL}/leie` },
+      { name: "Svømmehall", url: `${BASE_URL}/leie/svommehall` },
+    ],
+    faq: [
+      {
+        q: "Kan jeg leie svømmehall privat?",
+        a: "Ja. Mange kommunale svømmehaller leier ut enkelttimer til private utenom klubbtider og publikumsbading, både enkeltbaner og hele basseng. Reglene for badevakt og antall badende varierer per hall og står oppgitt før du booker.",
+      },
+      {
+        q: "Hva koster det å leie svømmehall eller basseng?",
+        a: "Prisen varierer med hall, tidspunkt og om du leier en bane eller hele bassenget. En enkeltbane koster gjerne noen hundre kroner per time, hele basseng mer. På Digilist ser du prisen for akkurat din time før du bekrefter.",
+      },
+    ],
+  },
+  {
     route: "/ai-agenter",
     title: "AI-agenter for booking og utleie — GDPR-sikker automatisering | Digilist",
     description:
@@ -1098,6 +1328,16 @@ async function main() {
     { loc: `${BASE_URL}/transparens`, priority: "0.7", changefreq: "daily" },
     { loc: `${BASE_URL}/leie`, priority: "0.9", changefreq: "weekly" },
     { loc: `${BASE_URL}/leie/selskapslokale`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/leie/gaard`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/leie/bursdagslokale`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/leie/kulturhus`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/leie/moterom`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/leie/konferanselokale`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/leie/kontorlokaler`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/leie/coworking`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/leie/idrettshall`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/leie/padelbane`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/leie/svommehall`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/bruksomrader/selskapslokaler`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/bruksomrader/moterom`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/bruksomrader/idrettshaller-gymsaler`, priority: "0.8", changefreq: "monthly" },
