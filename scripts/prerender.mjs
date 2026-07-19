@@ -213,6 +213,101 @@ async function loadBlogPosts() {
 /** @type {Array<{route: string, title: string, description: string, ogType?: string, faq?: Array<{q: string, a: string}>, breadcrumbs?: Array<{name: string, url: string}>}>} */
 const ROUTES = [
   {
+    route: "/ai-agenter",
+    title: "AI-agenter for booking og utleie — GDPR-sikker automatisering | Digilist",
+    description:
+      "Digilist bruker AI-agenter som godkjenner oppføringer mot GDPR, NSM, SOC 2 og universell utforming, svarer på henvendelser, forklarer sesongtildeling og gir daglig driftsoversikt. Bygget for norske kommuner.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "AI-agenter", url: `${BASE_URL}/ai-agenter` },
+    ],
+    faq: [
+      {
+        q: "Hvilke AI-agenter er inkludert?",
+        a: "Fem kundevendte agenter: godkjenning og compliance av oppføringer, svar på henvendelser, gjennomgang og forklaring av sesongtildeling, daglig driftsoversikt, og markedsinnsikt. En agent for import av oppføringer bygges også.",
+      },
+      {
+        q: "Er Digilist-agentene GDPR-sikre?",
+        a: "Ja. Hver oppføring kontrolleres mot GDPR før publisering, og agentene følger også NSM grunnprinsipper for IKT-sikkerhet, SOC 2 og universell utforming (WCAG 2.1 AA).",
+      },
+      {
+        q: "Tar agentene avgjørelser på egen hånd?",
+        a: "Ikke for kundevendte handlinger. Svar skrives som utkast, sesongtildeling forklares men tildeles aldri av agenten, og tvilstilfeller eskaleres til et menneske.",
+      },
+    ],
+  },
+  {
+    route: "/ai-agenter/sesongtildeling",
+    title: "Sesongtildeling av idrettshaller | Digilist",
+    description:
+      "AI-agenten gjennomgår og forklarer sesongtildeling av idrettshall for kommuner. Den fordeler aldri halltid selv — et menneske godkjenner hver melding.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "AI-agenter", url: `${BASE_URL}/ai-agenter` },
+      { name: "Sesongtildeling", url: `${BASE_URL}/ai-agenter/sesongtildeling` },
+    ],
+    faq: [
+      {
+        q: "Fordeler agenten halltiden i idrettshallen?",
+        a: "Nei. Digilists deterministiske fordelingsmotor lager selve forslaget. Agenten gjennomgår og forklarer — et menneske avgjør.",
+      },
+      {
+        q: "Hvilke lag flagger agenten?",
+        a: "Lag som ba om tider men fikk null, lag som fikk 25 prosent eller mindre av det de ba om, uløste konflikter, avgjørelser ved loddtrekning, og manuelle overstyringer.",
+      },
+    ],
+  },
+  {
+    route: "/ai-agenter/compliance-godkjenning",
+    title: "Automatisk compliance-godkjenning av oppføringer | Digilist",
+    description:
+      "Listing Approver modererer hver oppføring automatisk mot GDPR, NSM, markedsføringsloven og universell utforming. Lovlighetsport for bookingsystem i kommune.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "AI-agenter", url: `${BASE_URL}/ai-agenter` },
+      { name: "Compliance-godkjenning", url: `${BASE_URL}/ai-agenter/compliance-godkjenning` },
+    ],
+    faq: [
+      {
+        q: "Blokkerer agenten oppføringer med dårlig kvalitet?",
+        a: "Nei. Den er en lovlighetsport, ikke en kvalitetsport. Bare et reelt juridisk, regulatorisk eller personvernmessig problem stopper en oppføring; kvalitet gis som råd.",
+      },
+      {
+        q: "Hvilke regelverk bygger avgjørelsene på?",
+        a: "GDPR, universell utforming (WCAG 2.1 AA), NSM grunnprinsipper for IKT-sikkerhet, SOC 2 og markedsføringsloven.",
+      },
+    ],
+  },
+  {
+    route: "/ai-agenter/importer-oppforing",
+    title: "Importér oppføring: fra Airbnb, Finn eller Word til utkast | Digilist",
+    description:
+      "Lim inn lenken til annonsen din på Airbnb, Finn.no eller Booking.com, eller last opp et dokument. Digilist lager et utkast du finpusser og publiserer selv.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "AI-agenter", url: `${BASE_URL}/ai-agenter` },
+      { name: "Importér oppføring", url: `${BASE_URL}/ai-agenter/importer-oppforing` },
+    ],
+    faq: [
+      {
+        q: "Hvilke kilder kan jeg importere fra?",
+        a: "Lenke til en oppføring på Airbnb, Booking.com, Finn.no eller Eventum, et Word- eller PDF-dokument, eller ren tekst. Flere kilder kan brukes samtidig.",
+      },
+      {
+        q: "Publiseres oppføringen automatisk?",
+        a: "Nei. Det lages alltid et utkast du gjennomgår selv, og utkastet sendes gjennom compliance-godkjenning før publisering.",
+      },
+    ],
+  },
+  {
     route: "/booking-av-lokaler-og-moterom",
     title:
       "Booking av lokaler og møterom — Digilist",

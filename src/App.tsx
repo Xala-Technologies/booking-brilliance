@@ -15,6 +15,10 @@ import BookingsystemKommune from "./pages/BookingsystemKommune";
 import BookingLokalerMoterom from "./pages/BookingLokalerMoterom";
 import Blog from "./pages/Blog";
 import FAQ from "./pages/FAQ";
+import AiAgenter from "./pages/AiAgenter";
+import AgentSesongtildeling from "./pages/agents/Sesongtildeling";
+import AgentComplianceGodkjenning from "./pages/agents/ComplianceGodkjenning";
+import AgentImporterOppforing from "./pages/agents/ImporterOppforing";
 import Salgsvilkar from "./pages/Salgsvilkar";
 import Personvern from "./pages/Personvern";
 import Cookies from "./pages/Cookies";
@@ -221,6 +225,10 @@ export function AppShell() {
             />
             <Route path="/blogg/:slug" element={<BlogPost />} />
             <Route path="/faq" element={<FAQ />} />
+            <Route path="/ai-agenter" element={<AiAgenter />} />
+            <Route path="/ai-agenter/sesongtildeling" element={<AgentSesongtildeling />} />
+            <Route path="/ai-agenter/compliance-godkjenning" element={<AgentComplianceGodkjenning />} />
+            <Route path="/ai-agenter/importer-oppforing" element={<AgentImporterOppforing />} />
             <Route path="/salgsvilkar" element={<Salgsvilkar />} />
             <Route path="/personvern" element={<Personvern />} />
             <Route path="/cookies" element={<Cookies />} />
