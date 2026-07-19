@@ -71,7 +71,7 @@ export function ChatConversation({ controller, onClose, closeVariant = "close" }
           borders line up across the top of the page. */}
       <header
         className={`flex items-center justify-between gap-3 px-5 border-b border-rule bg-paper-deep/40 shrink-0 ${
-          closeVariant === "collapse" ? "h-[4.5rem] py-0" : "py-4"
+          closeVariant === "collapse" ? "h-[76px] py-0" : "py-4"
         }`}
       >
         <div className="flex items-center gap-3 min-w-0">
