@@ -9,6 +9,7 @@ import BrukerhistorierSection from "@/components/BrukerhistorierSection";
 import PilotInvitationSection from "@/components/PilotInvitationSection";
 import BlogPreviewSection from "@/components/BlogPreviewSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
+import AiAgentsSection from "@/components/AiAgentsSection";
 import IntegrationsSection from "@/components/IntegrationsSection";
 import TechnologyStackSection from "@/components/TechnologyStackSection";
 import ArchitectureSection from "@/components/ArchitectureSection";
@@ -120,6 +121,7 @@ const Index = () => {
         <PilotInvitationSection />
         <BlogPreviewSection />
         <HowItWorksSection />
+        <AiAgentsSection />
         <IntegrationsSection />
         <TechnologyStackSection />
         <ArchitectureSection />
