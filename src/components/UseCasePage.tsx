@@ -17,7 +17,11 @@ import {
   ProgressRail,
   SectionRule,
 } from "@/components/editorial";
-import { CategoryVisual, iconForSlug } from "@/components/CategoryVisual";
+import {
+  CategoryVisual,
+  iconForSlug,
+  imageForSlug,
+} from "@/components/CategoryVisual";
 import { VideoPlaceholder } from "@/components/VideoPlaceholder";
 import { getFraunces } from "@/lib/fonts";
 
@@ -124,7 +128,6 @@ export default function UseCasePage({
   sectionLabel = "BRUKSOMRÅDE",
   heroImage,
   heroImageAlt,
-  heroImages,
   video,
   videoPoster,
 }: UseCasePageProps) {
@@ -197,29 +200,37 @@ export default function UseCasePage({
                   </p>
                 </div>
                 <div className="lg:col-span-5">
-                  <div className="grid grid-cols-2 gap-3 lg:gap-4">
+                  {heroImage ?? imageForSlug(slug) ? (
                     <CategoryVisual
                       icon={iconForSlug(slug)}
                       label={`DIGILIST · ${breadcrumb.toUpperCase()}`}
-                      src={heroImage}
+                      src={heroImage ?? imageForSlug(slug)}
                       alt={heroImageAlt ?? title}
-                      aspect="16 / 10"
+                      aspect="4 / 3"
                       variant="primary"
-                      className="col-span-2"
+                      eager
                     />
-                    <CategoryVisual
-                      icon={iconForSlug(slug)}
-                      src={heroImages?.[0]}
-                      aspect="1 / 1"
-                      variant="texture"
-                    />
-                    <CategoryVisual
-                      icon={iconForSlug(slug)}
-                      src={heroImages?.[1]}
-                      aspect="1 / 1"
-                      variant="texture"
-                    />
-                  </div>
+                  ) : (
+                    <div className="grid grid-cols-2 gap-3 lg:gap-4">
+                      <CategoryVisual
+                        icon={iconForSlug(slug)}
+                        label={`DIGILIST · ${breadcrumb.toUpperCase()}`}
+                        aspect="16 / 10"
+                        variant="primary"
+                        className="col-span-2"
+                      />
+                      <CategoryVisual
+                        icon={iconForSlug(slug)}
+                        aspect="1 / 1"
+                        variant="texture"
+                      />
+                      <CategoryVisual
+                        icon={iconForSlug(slug)}
+                        aspect="1 / 1"
+                        variant="texture"
+                      />
+                    </div>
+                  )}
                 </div>
               </header>
 

@@ -75,6 +75,44 @@ export function iconForSlug(slug: string): LucideIcon {
   return ICONS[slug] ?? Sparkles;
 }
 
+// slug -> bundled Pexels photo (public/images/cat/<slug>.jpg, free Pexels
+// license). Missing slugs fall back to the generated illustration.
+const CAT = "/images/cat";
+const IMAGES: Record<string, string> = {
+  selskapslokale: `${CAT}/selskapslokale.jpg`,
+  gaard: `${CAT}/gaard.jpg`,
+  bursdagslokale: `${CAT}/bursdagslokale.jpg`,
+  kulturhus: `${CAT}/kulturhus.jpg`,
+  moterom: `${CAT}/moterom.jpg`,
+  konferanselokale: `${CAT}/konferanselokale.jpg`,
+  kontorlokaler: `${CAT}/kontorlokaler.jpg`,
+  coworking: `${CAT}/coworking.jpg`,
+  idrettshall: `${CAT}/idrettshall.jpg`,
+  padelbane: `${CAT}/padelbane.jpg`,
+  svommehall: `${CAT}/svommehall.jpg`,
+  hytte: `${CAT}/hytte.jpg`,
+  leilighet: `${CAT}/leilighet.jpg`,
+  rom: `${CAT}/rom.jpg`,
+  festutstyr: `${CAT}/festutstyr.jpg`,
+  "verktoy-maskiner": `${CAT}/verktoy-maskiner.jpg`,
+  "lyd-og-lys": `${CAT}/lyd-og-lys.jpg`,
+  catering: `${CAT}/catering.jpg`,
+  dj: `${CAT}/dj.jpg`,
+  musiker: `${CAT}/musiker.jpg`,
+  dekor: `${CAT}/dekor.jpg`,
+  konsert: `${CAT}/konsert.jpg`,
+  "teater-og-scene": `${CAT}/teater-og-scene.jpg`,
+  festival: `${CAT}/festival.jpg`,
+  // legacy /bruksomrader slugs reuse the closest photo
+  selskapslokaler: `${CAT}/selskapslokale.jpg`,
+  "idrettshaller-gymsaler": `${CAT}/idrettshall.jpg`,
+  "kulturhus-kantiner": `${CAT}/kulturhus.jpg`,
+};
+
+export function imageForSlug(slug: string): string | undefined {
+  return IMAGES[slug];
+}
+
 export function CategoryVisual({
   icon: Icon,
   label,
@@ -82,6 +120,7 @@ export function CategoryVisual({
   alt,
   aspect = "16 / 10",
   variant = "primary",
+  eager = false,
   className = "",
 }: {
   icon: LucideIcon;
@@ -90,6 +129,8 @@ export function CategoryVisual({
   alt?: string;
   aspect?: string;
   variant?: "primary" | "texture";
+  /** Load the image eagerly — set on above-the-fold heroes (LCP). */
+  eager?: boolean;
   className?: string;
 }) {
   const patternId = useId();
@@ -104,7 +145,8 @@ export function CategoryVisual({
           src={src}
           alt={alt ?? label ?? ""}
           className="h-full w-full object-cover"
-          loading="lazy"
+          loading={eager ? "eager" : "lazy"}
+          decoding="async"
         />
       </div>
     );
