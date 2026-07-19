@@ -25,6 +25,19 @@ import LeieSvommehall from "./pages/LeieSvommehall";
 import LeieKulturhus from "./pages/LeieKulturhus";
 import LeieGaard from "./pages/LeieGaard";
 import LeieBursdagslokale from "./pages/LeieBursdagslokale";
+import Overnatting from "./pages/Overnatting";
+import OvernattingHytte from "./pages/OvernattingHytte";
+import OvernattingLeilighet from "./pages/OvernattingLeilighet";
+import OvernattingRom from "./pages/OvernattingRom";
+import Utstyr from "./pages/Utstyr";
+import UtstyrFestutstyr from "./pages/UtstyrFestutstyr";
+import UtstyrVerktoyMaskiner from "./pages/UtstyrVerktoyMaskiner";
+import UtstyrLydOgLys from "./pages/UtstyrLydOgLys";
+import Tjenester from "./pages/Tjenester";
+import TjenesteCatering from "./pages/TjenesteCatering";
+import TjenesteDj from "./pages/TjenesteDj";
+import TjenesteMusiker from "./pages/TjenesteMusiker";
+import TjenesteDekor from "./pages/TjenesteDekor";
 import Blog from "./pages/Blog";
 import FAQ from "./pages/FAQ";
 import AiAgenter from "./pages/AiAgenter";
@@ -276,6 +289,19 @@ export function AppShell() {
             <Route path="/leie/idrettshall" element={<LeieIdrettshall />} />
             <Route path="/leie/padelbane" element={<LeiePadelbane />} />
             <Route path="/leie/svommehall" element={<LeieSvommehall />} />
+            <Route path="/overnatting" element={<Overnatting />} />
+            <Route path="/overnatting/hytte" element={<OvernattingHytte />} />
+            <Route path="/overnatting/leilighet" element={<OvernattingLeilighet />} />
+            <Route path="/overnatting/rom" element={<OvernattingRom />} />
+            <Route path="/utstyr" element={<Utstyr />} />
+            <Route path="/utstyr/festutstyr" element={<UtstyrFestutstyr />} />
+            <Route path="/utstyr/verktoy-maskiner" element={<UtstyrVerktoyMaskiner />} />
+            <Route path="/utstyr/lyd-og-lys" element={<UtstyrLydOgLys />} />
+            <Route path="/tjenester" element={<Tjenester />} />
+            <Route path="/tjenester/catering" element={<TjenesteCatering />} />
+            <Route path="/tjenester/dj" element={<TjenesteDj />} />
+            <Route path="/tjenester/musiker" element={<TjenesteMusiker />} />
+            <Route path="/tjenester/dekor" element={<TjenesteDekor />} />
             <Route path="/blogg" element={<Blog />} />
             <Route
               path="/blogg/preview/:draftId"

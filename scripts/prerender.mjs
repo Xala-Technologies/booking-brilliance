@@ -501,6 +501,302 @@ const ROUTES = [
     ],
   },
   {
+    route: "/overnatting",
+    title: "Overnatting: leie hytte, leilighet eller rom | Digilist",
+    description:
+      "Finn og book overnatting i Norge: leie hytte, leilighet eller rom. Se totalpris uten skjulte gebyrer og ledige netter, og book trygt med Vipps. Samlet ett sted.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Overnatting", url: `${BASE_URL}/overnatting` },
+    ],
+    faq: [
+      {
+        q: "Hva slags overnatting finner jeg?",
+        a: "Hytter, korttidsleiligheter og private rom og gjesterom, samlet på ett sted. Du ser totalpris og ledige netter før du booker, uten å lete gjennom Finn, Airbnb og Facebook-grupper hver for seg.",
+      },
+      {
+        q: "Er totalprisen synlig, eller kommer det gebyrer på slutten?",
+        a: "Totalprisen, inkludert vask og eventuelle gebyrer, vises før du booker. Ingen tillegg som dukker opp i siste steg, slik at du vet nøyaktig hva oppholdet koster.",
+      },
+    ],
+  },
+  {
+    route: "/overnatting/hytte",
+    title: "Leie hytte: ledige netter, totalpris og booking | Digilist",
+    description:
+      "Leie hytte til helgetur, ferie eller påske: se ledige netter og totalpris uten skjulte gebyrer, og book trygt med Vipps. Hytter i hele Norge, samlet ett sted.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Overnatting", url: `${BASE_URL}/overnatting` },
+      { name: "Hytte", url: `${BASE_URL}/overnatting/hytte` },
+    ],
+    faq: [
+      {
+        q: "Hva koster det å leie hytte?",
+        a: "Prisen varierer med sted, standard, sesong og antall netter. En enkel hytte kan koste fra rundt tusenlappen per natt, mens større hytter med badstue og høy standard ligger høyere, spesielt i vinterferie og påske. På Digilist ser du totalprisen for dine netter før du booker.",
+      },
+      {
+        q: "Hva er inkludert i leien?",
+        a: "Sengeplasser, ved, strøm, wifi, badstue, båt og vask vises tydelig på hver hytte før du booker, og totalprisen viser hva som er med og hva som eventuelt koster ekstra.",
+      },
+    ],
+  },
+  {
+    route: "/overnatting/leilighet",
+    title: "Leie leilighet: korttidsleie, totalpris og booking | Digilist",
+    description:
+      "Leie leilighet for korttid: byferie, jobbreise eller mellombolig. Se ledige netter, totalpris med rengjøring og gebyr, og book korttidsleie av leilighet med Vipps.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Overnatting", url: `${BASE_URL}/overnatting` },
+      { name: "Leilighet", url: `${BASE_URL}/overnatting/leilighet` },
+    ],
+    faq: [
+      {
+        q: "Hva koster det å leie leilighet for korttid?",
+        a: "Prisen varierer med by, størrelse, standard og sesong. En liten leilighet utenfor sentrum kan koste noen hundrelapper per natt, mens en stor og sentral leilighet i høysesong ligger høyere. På Digilist ser du totalprisen for dine netter før du booker.",
+      },
+      {
+        q: "Kan jeg leie leilighet som mellombolig i noen uker?",
+        a: "Ja. Mange leiligheter kan bookes for alt fra én natt til flere uker, og passer som mellombolig ved flytting, oppussing eller ventetid mellom to boliger. Du ser totalprisen for hele oppholdet.",
+      },
+    ],
+  },
+  {
+    route: "/overnatting/rom",
+    title: "Leie rom og gjesterom: rimelig overnatting | Digilist",
+    description:
+      "Leie rom eller gjesterom for en natt eller flere: finn ledige rom nær deg, se pris per natt og hva som er inkludert, og book med Vipps. Rimelig alternativ til hotell.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Overnatting", url: `${BASE_URL}/overnatting` },
+      { name: "Rom", url: `${BASE_URL}/overnatting/rom` },
+    ],
+    faq: [
+      {
+        q: "Hva koster det å leie rom?",
+        a: "Prisen varierer med sted, standard og sesong. Et enkelt gjesterom ligger ofte fra noen hundre kroner per natt, godt under hotellpris. På Digilist ser du pris per natt og totalpris for dine netter før du booker.",
+      },
+      {
+        q: "Er badet delt eller eget?",
+        a: "Det varierer per rom, og det står tydelig på hvert rom før du booker. Mange gjesterom har delt bad, mens noen har eget bad. Du ser det i beskrivelsen før du velger.",
+      },
+    ],
+  },
+  {
+    route: "/utstyr",
+    title: "Leie utstyr: festutstyr, verktøy, maskiner, lyd og lys | Digilist",
+    description:
+      "Leie utstyr på ett sted: festutstyr og telt, verktøy og maskiner, lyd og lys. Se pris per dag, depositum og ledighet, og book med Vipps. Henting eller levering.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Utstyr", url: `${BASE_URL}/utstyr` },
+    ],
+    faq: [
+      {
+        q: "Hva slags utstyr kan jeg leie?",
+        a: "Festutstyr som telt, bord, stoler og servise, verktøy og maskiner til oppussing og hage, og lyd- og lysutstyr til arrangementer. Alt samlet på ett sted, med pris og ledighet synlig før du booker.",
+      },
+      {
+        q: "Kan jeg få utstyret levert, eller må jeg hente selv?",
+        a: "Det varierer per utleier, og begge deler finnes. Hvert utstyr viser om levering tilbys og hva det koster, eller om du henter selv, slik at du vet det før du booker.",
+      },
+    ],
+  },
+  {
+    route: "/utstyr/festutstyr",
+    title: "Leie festutstyr: telt, bord, stoler og servise | Digilist",
+    description:
+      "Leie festutstyr til bryllup, selskap eller bursdag: leie telt, bord, stoler og servise nær deg. Se pris og ledige datoer, og book med Vipps. Henting eller levering.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Utstyr", url: `${BASE_URL}/utstyr` },
+      { name: "Festutstyr", url: `${BASE_URL}/utstyr/festutstyr` },
+    ],
+    faq: [
+      {
+        q: "Hva koster det å leie festutstyr og telt?",
+        a: "Bord og stoler leies ofte per stykk for noen titalls kroner per døgn, mens et partytelt gjerne koster fra rundt tusenlappen til flere tusen kroner for en helg. På Digilist ser du pris per dag og eventuelt depositum for din leieperiode før du booker.",
+      },
+      {
+        q: "Må jeg betale depositum?",
+        a: "Mange utleiere krever depositum på festutstyr, særlig telt og servise. Det håndteres digitalt i samme betaling som leien, og frigjøres automatisk etter at utstyret er levert tilbake i avtalt stand.",
+      },
+    ],
+  },
+  {
+    route: "/utstyr/verktoy-maskiner",
+    title: "Leie verktøy og maskiner: pris og booking | Digilist",
+    description:
+      "Leie verktøy og maskiner til oppussing, hage og bygg: minigraver, høytrykksspyler og stillas. Se pris per dag, ledighet og depositum, og book med Vipps.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Utstyr", url: `${BASE_URL}/utstyr` },
+      { name: "Verktøy og maskiner", url: `${BASE_URL}/utstyr/verktoy-maskiner` },
+    ],
+    faq: [
+      {
+        q: "Hva koster det å leie verktøy eller minigraver?",
+        a: "En slagbormaskin eller høytrykksspyler kan koste fra et par hundre kroner per dag, mens en minigraver gjerne ligger fra rundt tusen kroner per dag og oppover. På Digilist ser du pris per dag eller helg og eventuelt depositum før du booker.",
+      },
+      {
+        q: "Kan jeg få utstyret levert, eller må jeg hente selv?",
+        a: "Det varierer per annonse. Mange utleiere tilbyr henting til avtalt tid, og noen leverer større maskiner mot et tillegg. Hva som gjelder står på utstyret før du booker.",
+      },
+    ],
+  },
+  {
+    route: "/utstyr/lyd-og-lys",
+    title: "Leie lyd og lys: lydanlegg, scenelys og booking | Digilist",
+    description:
+      "Leie lydanlegg, mikrofon, scenelys og projektor til fest, konsert eller konferanse: se pris per dag, sjekk ledige datoer og book lyd og lys med Vipps. Nær deg.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Utstyr", url: `${BASE_URL}/utstyr` },
+      { name: "Lyd og lys", url: `${BASE_URL}/utstyr/lyd-og-lys` },
+    ],
+    faq: [
+      {
+        q: "Hva koster det å leie et lydanlegg?",
+        a: "Et lite anlegg til tale og bakgrunnsmusikk kan koste fra noen hundrelapper per dag, mens et komplett PA-anlegg med mikser, mikrofoner og scenelys gjerne ligger fra tusen kroner og oppover. Prisen står på hvert utstyr før du booker.",
+      },
+      {
+        q: "Kan jeg få med tekniker som rigger og styrer lyden?",
+        a: "Ja, der utleier tilbyr det, legger du til tekniker som tilvalg i samme booking. Teknikeren rigger, lydsjekker og styrer anlegget under arrangementet.",
+      },
+    ],
+  },
+  {
+    route: "/tjenester",
+    title: "Book tjenester: catering, DJ, musiker og dekor | Digilist",
+    description:
+      "Book tjenester til arrangementet: catering, DJ, musiker og dekor. Se pris, sjekk ledig dato og book leverandør nær deg med Vipps. Alt samlet ett sted.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Tjenester", url: `${BASE_URL}/tjenester` },
+    ],
+    faq: [
+      {
+        q: "Hvilke tjenester kan jeg booke?",
+        a: "Catering, DJ, musiker og dekor til bryllup, selskap og firmaarrangement, samlet på ett sted. Du ser pris og ledig dato på hver leverandør, og booker direkte i stedet for å sende forespørsler og vente på tilbud.",
+      },
+      {
+        q: "Hvordan vet jeg om leverandøren er ledig?",
+        a: "Hver leverandør har en kalender som viser om datoen din er ledig i sanntid. Du booker direkte og får bekreftelsen med en gang, uten forespørsel og venting på svar.",
+      },
+    ],
+  },
+  {
+    route: "/tjenester/catering",
+    title: "Bestille catering: meny, pris per kuvert og booking | Digilist",
+    description:
+      "Bestille catering til bryllup, konfirmasjon eller firmafest: se meny og pris per kuvert, sjekk ledige datoer, og book cateringleverandør nær deg med Vipps.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Tjenester", url: `${BASE_URL}/tjenester` },
+      { name: "Catering", url: `${BASE_URL}/tjenester/catering` },
+    ],
+    faq: [
+      {
+        q: "Hva koster catering per kuvert?",
+        a: "Et enkelt koldtbord ligger ofte fra rundt 200 til 400 kroner per kuvert, tapas og buffet gjerne fra 300 til 500, og en flerretters middag fra 500 kroner og oppover. På Digilist ser du prisen per kuvert på hver leverandør før du bestiller.",
+      },
+      {
+        q: "Kan leverandøren ta hensyn til allergier og spesialkost?",
+        a: "Ja. Allergener er merket på menyene, og du noterer allergier og spesialkost direkte i bestillingen, så leverandøren får beskjeden sammen med bestillingen.",
+      },
+    ],
+  },
+  {
+    route: "/tjenester/dj",
+    title: "Leie DJ til bryllup og fest: pris og booking | Digilist",
+    description:
+      "Leie DJ til bryllup, fest eller firmafest: se sjanger, pris per kveld og utstyr, sjekk ledig dato og book med Vipps. Finn DJ-er nær deg, samlet ett sted.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Tjenester", url: `${BASE_URL}/tjenester` },
+      { name: "DJ", url: `${BASE_URL}/tjenester/dj` },
+    ],
+    faq: [
+      {
+        q: "Hva koster det å leie en DJ?",
+        a: "En vanlig kveld ligger ofte mellom 5 000 og 15 000 kroner, mens bryllup med lang spilletid eller etterspurte DJ-er kan koste mer. På Digilist står prisen per kveld på hver DJ, så du ser hva det koster før du booker.",
+      },
+      {
+        q: "Har DJ-en eget lydanlegg og lys?",
+        a: "De fleste profesjonelle DJ-er tar med eget lydanlegg og lys, men det varierer. På Digilist står det tydelig på hver DJ hva som er inkludert.",
+      },
+    ],
+  },
+  {
+    route: "/tjenester/musiker",
+    title: "Leie musiker eller band til bryllup og fest | Digilist",
+    description:
+      "Leie musiker eller band til bryllup og selskap: se sjanger, besetning og pris, sjekk ledig dato og book med Vipps. Finn ledige musikere nær deg, samlet ett sted.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Tjenester", url: `${BASE_URL}/tjenester` },
+      { name: "Musiker", url: `${BASE_URL}/tjenester/musiker` },
+    ],
+    faq: [
+      {
+        q: "Hva koster det å leie musiker eller band?",
+        a: "En solist til en vielse ligger ofte fra noen tusen kroner, mens et fullt band til en hel kveld gjerne koster fra ti tusen og oppover. På Digilist ser du prisen på hver profil før du booker.",
+      },
+      {
+        q: "Kan jeg ønske meg bestemte sanger til vielsen?",
+        a: "Ja, de fleste solister og musikere tar imot sangønsker. Repertoaret står på profilen, og du kan sende ønsker i bookingen.",
+      },
+    ],
+  },
+  {
+    route: "/tjenester/dekor",
+    title: "Leie dekor og pynt til fest: pakker, pris og booking | Digilist",
+    description:
+      "Leie dekor til bryllup og fest: blomsterdekor, bordpynt og ballongbuer i ferdige pakker. Se pris, sjekk ledig dato og book dekoratør nær deg med Vipps.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Tjenester", url: `${BASE_URL}/tjenester` },
+      { name: "Dekor", url: `${BASE_URL}/tjenester/dekor` },
+    ],
+    faq: [
+      {
+        q: "Hva koster dekor til bryllup eller fest?",
+        a: "En enkel bordpyntpakke kan koste noen hundre kroner per bord, en ballongbue fra rundt tusenlappen, mens helhetlig bryllupsdekor med blomster, bakvegg og rigging gjerne ligger fra noen tusen kroner og oppover. Prisen per pakke står synlig før du booker.",
+      },
+      {
+        q: "Rigger dekoratøren selv, eller må jeg gjøre det?",
+        a: "Mange pakker inkluderer at dekoratøren rigger i lokalet før festen og henter alt etterpå. Der rigging tilbys, står det på pakken.",
+      },
+    ],
+  },
+  {
     route: "/ai-agenter",
     title: "AI-agenter for booking og utleie — GDPR-sikker automatisering | Digilist",
     description:
@@ -1338,6 +1634,19 @@ async function main() {
     { loc: `${BASE_URL}/leie/idrettshall`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/leie/padelbane`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/leie/svommehall`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/overnatting`, priority: "0.9", changefreq: "weekly" },
+    { loc: `${BASE_URL}/overnatting/hytte`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/overnatting/leilighet`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/overnatting/rom`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/utstyr`, priority: "0.9", changefreq: "weekly" },
+    { loc: `${BASE_URL}/utstyr/festutstyr`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/utstyr/verktoy-maskiner`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/utstyr/lyd-og-lys`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/tjenester`, priority: "0.9", changefreq: "weekly" },
+    { loc: `${BASE_URL}/tjenester/catering`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/tjenester/dj`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/tjenester/musiker`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/tjenester/dekor`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/bruksomrader/selskapslokaler`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/bruksomrader/moterom`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/bruksomrader/idrettshaller-gymsaler`, priority: "0.8", changefreq: "monthly" },

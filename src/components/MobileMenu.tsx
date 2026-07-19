@@ -7,7 +7,10 @@ import { cn } from "@/lib/utils";
 
 const ROUTES: Array<{ label: string; to: string; eyebrow?: string }> = [
   { label: "Forsiden", to: "/", eyebrow: "Hjem" },
-  { label: "Finn lokale", to: "/leie", eyebrow: "Leie lokale" },
+  { label: "Lokaler", to: "/leie", eyebrow: "Selskap · møte · idrett · kultur" },
+  { label: "Overnatting", to: "/overnatting", eyebrow: "Hytte · leilighet · rom" },
+  { label: "Utstyr", to: "/utstyr", eyebrow: "Fest · verktøy · lyd & lys" },
+  { label: "Tjenester", to: "/tjenester", eyebrow: "Catering · DJ · musiker · dekor" },
   { label: "Blogg", to: "/blogg", eyebrow: "Artikler" },
   { label: "FAQ", to: "/faq", eyebrow: "Vanlige spørsmål" },
   { label: "Transparens", to: "/transparens", eyebrow: "Live kvalitetsrapport" },

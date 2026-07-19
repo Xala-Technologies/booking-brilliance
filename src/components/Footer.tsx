@@ -39,7 +39,10 @@ const Footer = () => {
   ];
 
   const ressurser = [
-    { label: "Finn lokale", href: "/leie" },
+    { label: "Lokaler", href: "/leie" },
+    { label: "Overnatting", href: "/overnatting" },
+    { label: "Utstyr", href: "/utstyr" },
+    { label: "Tjenester", href: "/tjenester" },
     { label: "Blogg", href: "/blogg" },
     { label: "FAQ", href: "/faq" },
     { label: "Transparens", href: "/transparens" },

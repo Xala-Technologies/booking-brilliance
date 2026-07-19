@@ -30,11 +30,20 @@ const SOLUTIONS = [
   },
 ] as const;
 
+// The four B2C marketplaces — grouped under a "Finn" dropdown. These are
+// separate rental/service verticals, so they can't hang off a single
+// "Finn lokale" link.
+const MARKETPLACES = [
+  { label: "Lokaler", to: "/leie", eyebrow: "Selskap · møte · idrett · kultur" },
+  { label: "Overnatting", to: "/overnatting", eyebrow: "Hytte · leilighet · rom" },
+  { label: "Utstyr", to: "/utstyr", eyebrow: "Fest · verktøy · lyd & lys" },
+  { label: "Tjenester", to: "/tjenester", eyebrow: "Catering · DJ · musiker · dekor" },
+] as const;
+
 // Primary desktop navigation — the curated top-level links that sit inline. The
-// remaining routes live in the Løsninger dropdown and the MobileMenu drawer
-// (the fallback below `xl` and on mobile).
+// remaining routes live in the Finn/Løsninger dropdowns and the MobileMenu
+// drawer (the fallback below `xl` and on mobile).
 const PRIMARY_NAV = [
-  { label: "Finn lokale", to: "/leie" },
   { label: "Blogg", to: "/blogg" },
   { label: "FAQ", to: "/faq" },
   { label: "Transparens", to: "/transparens" },
@@ -51,6 +60,9 @@ const Navbar = () => {
   const location = useLocation();
   const solutionsActive = SOLUTIONS.some((s) =>
     location.pathname.startsWith(s.to),
+  );
+  const finnActive = MARKETPLACES.some((m) =>
+    location.pathname.startsWith(m.to),
   );
 
   useEffect(() => {
@@ -138,6 +150,44 @@ const Navbar = () => {
                 className={cn(
                   NAV_LINK,
                   "inline-flex items-center gap-1 outline-none focus-visible:underline focus-visible:underline-offset-8 data-[state=open]:text-ink",
+                  finnActive && NAV_LINK_ACTIVE,
+                )}
+              >
+                Finn
+                <ChevronDown
+                  className="h-3.5 w-3.5 transition-transform duration-quick ease-editorial"
+                  strokeWidth={1.75}
+                  aria-hidden="true"
+                />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="start"
+                sideOffset={12}
+                className="min-w-[18rem] bg-paper border-hairline-strong rounded-sm p-1.5"
+              >
+                {MARKETPLACES.map((m) => (
+                  <DropdownMenuItem key={m.to} asChild>
+                    <Link
+                      to={m.to}
+                      className="w-full flex flex-col !items-start text-left gap-0.5 px-3 py-2.5 rounded-sm cursor-pointer focus:bg-paper-deep hover:bg-paper-deep"
+                    >
+                      <span className="editorial-mono-caption text-ink-faint">
+                        {m.eyebrow}
+                      </span>
+                      <span className="font-sans text-[0.95rem] text-ink">
+                        {m.label}
+                      </span>
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger
+                className={cn(
+                  NAV_LINK,
+                  "inline-flex items-center gap-1 outline-none focus-visible:underline focus-visible:underline-offset-8 data-[state=open]:text-ink",
                   solutionsActive && NAV_LINK_ACTIVE,
                 )}
               >
@@ -157,7 +207,7 @@ const Navbar = () => {
                   <DropdownMenuItem key={s.to} asChild>
                     <Link
                       to={s.to}
-                      className="flex flex-col items-start gap-0.5 px-3 py-2.5 rounded-sm cursor-pointer focus:bg-paper-deep hover:bg-paper-deep"
+                      className="w-full flex flex-col !items-start text-left gap-0.5 px-3 py-2.5 rounded-sm cursor-pointer focus:bg-paper-deep hover:bg-paper-deep"
                     >
                       <span className="editorial-mono-caption text-ink-faint">
                         {s.eyebrow}

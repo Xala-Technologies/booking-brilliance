@@ -17,6 +17,8 @@ import {
   ProgressRail,
   SectionRule,
 } from "@/components/editorial";
+import { ImagePlaceholder } from "@/components/ImagePlaceholder";
+import { VideoPlaceholder } from "@/components/VideoPlaceholder";
 import { getFraunces } from "@/lib/fonts";
 
 export interface UseCaseAudience {
@@ -88,6 +90,14 @@ export interface UseCasePageProps {
   parentCrumb?: { name: string; path: string };
   /** Mono section label shown top-right. Default "BRUKSOMRÅDE". */
   sectionLabel?: string;
+  /** Optional hero photo (the large image in the stack). Placeholder when absent. */
+  heroImage?: string;
+  heroImageAlt?: string;
+  /** Optional smaller stacked photos under the hero image (up to 2 used). */
+  heroImages?: string[];
+  /** Optional explainer clip. A swap-ready placeholder shows when absent. */
+  video?: string;
+  videoPoster?: string;
 }
 
 export default function UseCasePage({
@@ -112,6 +122,11 @@ export default function UseCasePage({
   basePath = "/bruksomrader",
   parentCrumb = { name: "Bruksområder", path: "/booking-av-lokaler-og-moterom" },
   sectionLabel = "BRUKSOMRÅDE",
+  heroImage,
+  heroImageAlt,
+  heroImages,
+  video,
+  videoPoster,
 }: UseCasePageProps) {
   return (
     <div className="min-h-screen bg-paper overflow-x-hidden">
@@ -165,9 +180,9 @@ export default function UseCasePage({
                 </p>
               </div>
 
-              {/* Hero */}
-              <header className="grid lg:grid-cols-12 gap-8 lg:gap-gutter mb-14 lg:mb-20 items-end">
-                <div className="lg:col-span-8">
+              {/* Hero — title + dek left, photo right (no long lead column) */}
+              <header className="grid lg:grid-cols-12 gap-8 lg:gap-gutter mb-14 lg:mb-20 items-center">
+                <div className="lg:col-span-7">
                   <h1
                     className="font-serif text-5xl lg:text-7xl text-ink leading-[1.04] tracking-tight"
                     style={{ fontVariationSettings: getFraunces("hero") }}
@@ -181,29 +196,67 @@ export default function UseCasePage({
                     {dek}
                   </p>
                 </div>
-                <div className="lg:col-span-4 lg:pl-8 lg:border-l lg:border-rule">
-                  <p className="text-base text-ink leading-relaxed">{lead}</p>
+                <div className="lg:col-span-5">
+                  <div className="grid grid-cols-2 gap-3 lg:gap-4">
+                    <ImagePlaceholder
+                      label={`FOTO · ${breadcrumb.toUpperCase()}`}
+                      caption={`Bilde av ${breadcrumb.toLowerCase()}`}
+                      src={heroImage}
+                      alt={heroImageAlt ?? title}
+                      aspect="16 / 10"
+                      className="col-span-2"
+                    />
+                    <ImagePlaceholder
+                      label="FOTO"
+                      caption="Detalj"
+                      src={heroImages?.[0]}
+                      aspect="1 / 1"
+                    />
+                    <ImagePlaceholder
+                      label="FOTO"
+                      caption="Detalj"
+                      src={heroImages?.[1]}
+                      aspect="1 / 1"
+                    />
+                  </div>
                 </div>
               </header>
+
+              {/* Lead — shown as a code-block-style "use case" callout */}
+              <figure className="mb-14 lg:mb-20 overflow-hidden rounded-md border border-rule bg-paper-deep/40">
+                <figcaption className="flex items-center gap-2 px-4 py-2.5 border-b border-rule bg-paper-deep/60">
+                  <span aria-hidden className="flex gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full border border-rule-strong" />
+                    <span className="w-2.5 h-2.5 rounded-full border border-rule-strong" />
+                    <span className="w-2.5 h-2.5 rounded-full border border-rule-strong" />
+                  </span>
+                  <span className="editorial-mono-caption text-ink-faint ml-1.5">
+                    BRUKSTILFELLE · {breadcrumb.toUpperCase()}
+                  </span>
+                </figcaption>
+                <p className="px-5 py-4 font-mono text-sm text-ink-soft leading-relaxed">
+                  {lead}
+                </p>
+              </figure>
 
               {/* Audience */}
               <section className="mb-14 lg:mb-20">
                 <SectionRule label="HVEM BRUKER DETTE" />
-                <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-rule border border-rule">
+                <div className="mt-8 grid sm:grid-cols-2 gap-px bg-rule border border-rule">
                   {audience.map((a, i) => (
-                    <div key={a.persona} className="bg-paper p-6 lg:p-7">
+                    <div key={a.persona} className="bg-paper p-7 lg:p-8">
                       <header className="flex items-center gap-3 mb-3">
-                        <span className="font-mono text-[0.65rem] text-navy bg-navy/5 border border-navy/15 rounded-sm w-8 h-8 inline-flex items-center justify-center tabular-nums">
+                        <span className="font-mono text-xs text-navy bg-navy/5 border border-navy/15 rounded-sm w-8 h-8 inline-flex items-center justify-center tabular-nums">
                           {String(i + 1).padStart(2, "0")}
                         </span>
                         <h3
-                          className="font-serif text-xl text-ink leading-tight flex-1"
+                          className="font-serif text-2xl text-ink leading-tight flex-1"
                           style={{ fontVariationSettings: getFraunces("sub") }}
                         >
                           {a.persona}
                         </h3>
                       </header>
-                      <p className="text-base text-ink leading-relaxed">
+                      <p className="text-lg text-ink leading-relaxed">
                         {a.context}
                       </p>
                     </div>
@@ -270,6 +323,19 @@ export default function UseCasePage({
                 </div>
               </section>
 
+              {/* Explainer video */}
+              <section className="mb-14 lg:mb-20">
+                <SectionRule label="SE HVORDAN DET FUNGERER" />
+                <div className="mt-8">
+                  <VideoPlaceholder
+                    label={`FILM · ${breadcrumb.toUpperCase()}`}
+                    caption={`Kort film om ${title.toLowerCase()}`}
+                    src={video}
+                    poster={videoPoster}
+                  />
+                </div>
+              </section>
+
               {/* Pull quote */}
               {pullQuote && (
                 <section className="mb-14 lg:mb-20">
@@ -297,7 +363,7 @@ export default function UseCasePage({
                   Hvordan kunder bruker det
                 </h2>
                 <div className="grid lg:grid-cols-2 gap-px bg-rule border border-rule">
-                  {stories.map((s, i) => (
+                  {stories.slice(0, 2).map((s, i) => (
                     <article key={i} className="bg-paper p-8">
                       <p className="editorial-mono-caption text-accent-text">
                         {s.customer.toUpperCase()} · {s.role.toUpperCase()}
@@ -342,7 +408,7 @@ export default function UseCasePage({
                         key={i}
                         className="grid grid-cols-1 sm:grid-cols-[200px_1fr] gap-2 sm:gap-6 px-5 py-4"
                       >
-                        <dt className="font-mono text-xs uppercase tracking-widest text-ink-faint pt-1">
+                        <dt className="font-mono text-sm uppercase tracking-widest text-ink-faint pt-1">
                           {t.label}
                         </dt>
                         <dd className="text-base text-ink leading-relaxed">
