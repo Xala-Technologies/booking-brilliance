@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { cn } from "@/lib/utils";
+import { cn, logoWebpSrc } from "@/lib/utils";
 import { getFraunces } from "@/lib/fonts";
 
 interface StoryStat {
@@ -53,8 +53,8 @@ export function StoryCard({
         {logoSrc ? (
           <span className="shrink-0 inline-flex items-center justify-center h-12 px-3 rounded-md border border-rule bg-paper">
             <picture>
-              {logoSrc.endsWith(".png") && (
-                <source type="image/webp" srcSet={logoSrc.replace(/\.png$/, ".webp")} />
+              {logoWebpSrc(logoSrc) && (
+                <source type="image/webp" srcSet={logoWebpSrc(logoSrc)} />
               )}
               <img
                 src={logoSrc}

@@ -6,6 +6,7 @@ import {
 import { HeroPlatformPreview } from "./HeroPlatformPreview";
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/motion";
 import { getFraunces } from "@/lib/fonts";
+import { logoWebpSrc } from "@/lib/utils";
 
 const customers = [
   {
@@ -205,8 +206,8 @@ const HeroSection = () => {
                 <div className="shrink-0 w-16 h-16 lg:w-[4.5rem] lg:h-[4.5rem] rounded-lg border border-rule bg-paper-deep flex items-center justify-center overflow-hidden">
                   {c.src ? (
                     <picture>
-                      {c.src.endsWith(".png") && (
-                        <source type="image/webp" srcSet={c.src.replace(/\.png$/, ".webp")} />
+                      {logoWebpSrc(c.src) && (
+                        <source type="image/webp" srcSet={logoWebpSrc(c.src)} />
                       )}
                       <img
                         src={c.src}
