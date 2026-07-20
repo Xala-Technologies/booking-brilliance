@@ -36,7 +36,7 @@ const IntegrationsSection = () => {
   return (
     <section
       id="integrasjoner"
-      className="py-14 lg:py-20 bg-paper"
+      className="py-14 lg:py-20 bg-paper-tinted border-y border-rule"
     >
       <div className="container mx-auto md:px-8 lg:px-12">
         <SectionRule label="INTEGRASJONER" />

@@ -79,7 +79,7 @@ const creed = [
 
 const AboutUsSection = () => {
   return (
-    <section id="om-oss" className="py-16 lg:py-24 bg-paper-deep/40">
+    <section id="om-oss" className="py-16 lg:py-24 bg-paper-tinted border-y border-rule">
       <div className="container mx-auto md:px-8 lg:px-12">
         <SectionRule label="KOLOFON" />
 
