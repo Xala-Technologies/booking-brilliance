@@ -1038,7 +1038,7 @@ const ROUTES = [
   },
   {
     route: "/om-oss",
-    title: "Om Digilist — norsk bookingplattform fra Xala Technologies | Digilist",
+    title: "Om Digilist: norsk bookingplattform fra Xala Technologies | Digilist",
     description:
       "Digilist er utviklet av Xala Technologies AS, et norsk teknologiselskap på Nesbru. Vi bygger én plattform for utleie og kommunal booking, med samsvar og norsk datalagring.",
     ogType: "website",
@@ -1391,7 +1391,7 @@ const baseLD = (description) => [
     "@type": "Organization",
     "@id": `${BASE_URL}/#organization`,
     name: "Digilist",
-    alternateName: "Digilist — Enkel booking",
+    alternateName: "Digilist · Enkel booking",
     url: BASE_URL,
     logo: `${BASE_URL}/logo.svg`,
     image: `${BASE_URL}/og-image.png`,
@@ -1639,7 +1639,7 @@ function patchHTML(template, meta) {
 
 const HOMEPAGE = {
   route: "/",
-  title: "Digilist — Én plattform for alt som leies ut",
+  title: "Digilist · Én plattform for alt som leies ut",
   description:
     "Digital bookingplattform for selskapslokaler, idrettshaller, møterom og kulturhus. Sanntidskalender, Vipps, BankID, EHF, sesongleie. ISO 27001-sertifisert.",
   breadcrumbs: [{ name: "Hjem", url: `${BASE_URL}/` }],
@@ -1648,7 +1648,7 @@ const HOMEPAGE = {
   howTo: {
     name: "Slik booker du med Digilist",
     description:
-      "Fra forespørsel til oppgjør på fire steg — gjennom Digilist-plattformen.",
+      "Fra forespørsel til oppgjør på fire steg, gjennom Digilist-plattformen.",
     steps: [
       {
         name: "Søknad",
@@ -1660,7 +1660,7 @@ const HOMEPAGE = {
       },
       {
         name: "Bekreftelse",
-        text: "Automatisk bekreftelse med detaljer og betaling via Vipps eller kort. Driftsroller — vaktmester, renhold, vekter — varsles automatisk.",
+        text: "Automatisk bekreftelse med detaljer og betaling via Vipps eller kort. Driftsroller som vaktmester, renhold og vekter varsles automatisk.",
       },
       {
         name: "Oppfølging",
@@ -1678,7 +1678,7 @@ const HOMEPAGE = {
     },
     {
       q: "Hvilke kommuner og utleiere bruker Digilist?",
-      a: "Digilist brukes av norske kommuner og private utleiere — blant andre Nordre Follo kommune, Rønningen Selskapslokale, Lier Bygdetun og RightSize Group.",
+      a: "Digilist brukes av norske kommuner og private utleiere, blant andre Nordre Follo kommune, Rønningen Selskapslokale, Lier Bygdetun og RightSize Group.",
     },
     {
       q: "Hvilke betalingsmetoder støttes?",

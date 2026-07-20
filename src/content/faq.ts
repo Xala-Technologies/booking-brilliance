@@ -249,7 +249,7 @@ export const HOMEPAGE_FAQ: Array<{ q: string; a: string }> = [
   },
   {
     q: "Hvilke kommuner og utleiere bruker Digilist?",
-    a: "Digilist brukes av norske kommuner og private utleiere — blant andre Nordre Follo kommune, Rønningen Selskapslokale, Lier Bygdetun og RightSize Group.",
+    a: "Digilist brukes av norske kommuner og private utleiere, blant andre Nordre Follo kommune, Rønningen Selskapslokale, Lier Bygdetun og RightSize Group.",
   },
   {
     q: "Hvilke betalingsmetoder støttes?",

@@ -18,7 +18,7 @@ export default function OmOss() {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <SEO
-        title="Om Digilist — norsk bookingplattform fra Xala Technologies | Digilist"
+        title="Om Digilist: norsk bookingplattform fra Xala Technologies | Digilist"
         description="Digilist er utviklet av Xala Technologies AS, et norsk teknologiselskap på Nesbru. Vi bygger én plattform for utleie og kommunal booking, med samsvar og norsk datalagring."
         keywords="om digilist, xala technologies, norsk bookingplattform, leverandør bookingsystem, digilist selskap, nesbru"
         canonical="https://digilist.no/om-oss"
@@ -53,7 +53,7 @@ export default function OmOss() {
                   <p className="mt-6 text-xl text-ink-soft measure leading-relaxed">
                     Digilist er utviklet av Xala Technologies AS, et norsk
                     teknologiselskap på Nesbru. Vi bygger digitale løsninger for
-                    offentlig sektor og næringsliv — med samsvar, universell
+                    offentlig sektor og næringsliv, med samsvar, universell
                     utforming og norsk datalagring som utgangspunkt.
                   </p>
                   <div className="mt-8 flex flex-wrap gap-3">

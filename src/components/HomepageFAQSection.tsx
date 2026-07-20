@@ -38,7 +38,7 @@ const HomepageFAQSection = () => {
           </div>
           <div className="lg:col-span-5 flex flex-col gap-6 lg:items-end">
             <p className="text-lg text-ink-soft leading-relaxed lg:text-right">
-              Det folk lurer mest på om Digilist — booking, betaling, sesongleie
+              Det folk lurer mest på om Digilist: booking, betaling, sesongleie
               og samsvar. Finner du ikke svaret?
             </p>
             <EditorialButton variant="link" size="md" href="/faq">

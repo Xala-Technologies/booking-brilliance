@@ -55,14 +55,14 @@ const HeroSection = () => {
             </span>
 
             <EditorialHeading as="h1" size="hero" wonk>
-              Lokalet du trenger{" "}
+              Lokaler du trenger,{" "}
               <em
                 className="italic"
                 style={{
                   fontVariationSettings: '"opsz" 144, "wght" 400, "SOFT" 30, "WONK" 0',
                 }}
               >
-                — og plattformen som drifter det
+                og plattformen som drifter det
               </em>
               .
             </EditorialHeading>

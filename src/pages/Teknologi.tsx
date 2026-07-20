@@ -154,7 +154,7 @@ export default function Teknologi() {
                 </div>
                 <div className="lg:col-span-5 flex flex-col gap-6 lg:items-end">
                   <p className="text-lg text-ink-soft leading-relaxed lg:text-right">
-                    Stack, datalagring, sertifiseringer og oppetid — svar på det
+                    Stack, datalagring, sertifiseringer og oppetid: svar på det
                     tekniske kjøpere og saksbehandlere spør om.
                   </p>
                   <EditorialButton variant="link" size="md" href="/faq">

@@ -19,25 +19,25 @@ interface Value {
 const VALUES: Value[] = [
   {
     Icon: LayoutGrid,
-    title: "Alt på ett sted",
+    title: "Alt samlet",
     description:
       "Bestilling, kalender, priser, vilkår og administrasjon i én plattform. Slutt med Excel, e-poster og dobbeltbookinger.",
   },
   {
     Icon: Users2,
-    title: "Enkel for brukere",
+    title: "Enkel å bruke",
     description:
       "Innbyggere og leietakere finner ledig tid, sender forespørsel og betaler uten opplæring. Universelt utformet, WCAG 2.0 AA.",
   },
   {
     Icon: Gauge,
-    title: "Effektiv for drift",
+    title: "Effektiv drift",
     description:
       "Automatiserte regler, godkjenninger og oversikt reduserer manuelt arbeid. Driftsroller varsles automatisk ved bookinger.",
   },
   {
     Icon: Scaling,
-    title: "Skalerer med deg",
+    title: "Skalerbar",
     description:
       "Fra ett selskapslokale til en kommune med tolv anlegg: sesongleie, lag og foreninger, tilskudd og fakturering.",
   },
@@ -63,7 +63,7 @@ const B2BLaneSection = () => {
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-gutter mb-10 lg:mb-14 items-end">
           <div className="lg:col-span-7">
             <EditorialHeading as="h2" size="section" id="for-utleiere-heading">
-              Én plattform —{" "}
+              Én plattform,{" "}
               <em
                 className="italic"
                 style={{ fontVariationSettings: getFraunces("display") }}
@@ -96,20 +96,22 @@ const B2BLaneSection = () => {
               <motion.article
                 key={v.title}
                 variants={staggerChild}
-                className="group flex flex-col h-full rounded-md bg-gradient-to-br from-paper to-paper-deep border border-hairline-strong p-6 lg:p-7 shadow-[0_2px_10px_-4px_rgba(10,18,40,0.12)] transition-all duration-quick ease-editorial hover:-translate-y-0.5 hover:border-ink/40 hover:shadow-[0_14px_34px_-16px_rgba(10,18,40,0.35)]"
+                className="group flex flex-col h-full rounded-lg bg-gradient-to-br from-paper to-paper-deep border border-hairline-strong p-6 lg:p-7 shadow-[0_2px_10px_-4px_rgba(10,18,40,0.12)] transition-all duration-normal ease-editorial hover:-translate-y-1 hover:border-accent-text/40 hover:shadow-[0_18px_40px_-18px_rgba(10,18,40,0.4)]"
               >
-                <span className="inline-flex items-center justify-center w-11 h-11 rounded-md bg-navy/[0.04] ring-1 ring-hairline-strong text-accent-text mb-4">
-                  <Icon className="h-5 w-5" strokeWidth={1.5} aria-hidden="true" />
-                </span>
-                <h3
-                  className="font-serif text-xl lg:text-2xl text-ink mb-2 leading-tight"
-                  style={{
-                    fontVariationSettings: getFraunces("sub"),
-                    letterSpacing: "-0.015em",
-                  }}
-                >
-                  {v.title}
-                </h3>
+                <header className="flex items-center gap-3 mb-4">
+                  <span className="inline-flex items-center justify-center w-11 h-11 rounded-md bg-accent-text/10 ring-1 ring-accent-text/25 text-accent-text shrink-0 transition-transform duration-normal ease-editorial group-hover:scale-105">
+                    <Icon className="h-5 w-5" strokeWidth={1.5} aria-hidden="true" />
+                  </span>
+                  <h3
+                    className="font-serif text-lg lg:text-xl text-ink leading-snug"
+                    style={{
+                      fontVariationSettings: getFraunces("sub"),
+                      letterSpacing: "-0.01em",
+                    }}
+                  >
+                    {v.title}
+                  </h3>
+                </header>
                 <p className="text-sm lg:text-base text-ink-soft leading-relaxed">
                   {v.description}
                 </p>
@@ -127,7 +129,7 @@ const B2BLaneSection = () => {
             <p className="text-base lg:text-lg text-ink leading-relaxed">
               Vi hjelper kommunen med oppsett og publisering uten kostnad i
               pilotfasen, og dere får egen administrativ tilgang for videre
-              drift. Målet er å supplere eksisterende prosesser — ikke erstatte
+              drift. Målet er å supplere eksisterende prosesser, ikke erstatte
               dem.
             </p>
           </div>

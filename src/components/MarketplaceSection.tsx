@@ -77,12 +77,12 @@ const MarketplaceSection = () => {
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-gutter mb-8 lg:mb-10 items-end">
           <div className="lg:col-span-8">
             <EditorialHeading as="h2" size="section">
-              Alt du kan finne og booke,{" "}
+              Alt du kan finne og{" "}
               <em
                 className="italic"
                 style={{ fontVariationSettings: getFraunces("display") }}
               >
-                som privatperson
+                booke
               </em>
               .
             </EditorialHeading>
