@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { SectionRule, EditorialHeading } from "@/components/editorial";
 import { getFraunces } from "@/lib/fonts";
+import { bundledSrcSet } from "@/components/CategoryVisual";
 
 interface Tile {
   title: string;
@@ -106,6 +107,8 @@ const MarketplaceSection = () => {
               >
                 <img
                   src={t.image}
+                  srcSet={bundledSrcSet(t.image)}
+                  sizes="(min-width: 640px) 45vw, 90vw"
                   alt=""
                   aria-hidden="true"
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-editorial group-hover:scale-[1.06]"

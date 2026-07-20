@@ -29,7 +29,11 @@ import {
 } from "@/components/editorial";
 import { getFraunces } from "@/lib/fonts";
 import { VideoPlaceholder } from "@/components/VideoPlaceholder";
-import { CategoryVisual, imageForSlug } from "@/components/CategoryVisual";
+import {
+  CategoryVisual,
+  imageForSlug,
+  bundledSrcSet,
+} from "@/components/CategoryVisual";
 
 const APP = "https://app.digilist.no";
 
@@ -297,6 +301,8 @@ const Leie = () => {
                                 {photo ? (
                                   <img
                                     src={photo}
+                                    srcSet={bundledSrcSet(photo)}
+                                    sizes="(min-width: 640px) 45vw, 90vw"
                                     alt=""
                                     aria-hidden="true"
                                     className="h-full w-full object-cover transition-transform duration-500 ease-editorial group-hover:scale-[1.06]"
