@@ -23,7 +23,9 @@ interface Tile {
 
 // The five consumer marketplaces (the "Finn" menu). Homepage counterpart to
 // the kommune/platform content below, so digilist.no covers both audiences.
-const TILES: Tile[] = [
+// Exported so tests can confirm every tile's webp srcset entry is actually
+// committed (see src/lib/webp-sources.test.ts).
+export const TILES: Tile[] = [
   {
     title: "Lokaler",
     tag: "Selskap · møte · kultur",

@@ -82,9 +82,11 @@ export function iconForSlug(slug: string): LucideIcon {
 }
 
 // slug -> bundled Pexels photo (public/images/cat/<slug>.jpg, free Pexels
-// license). Missing slugs fall back to the generated illustration.
+// license). Missing slugs fall back to the generated illustration. Exported
+// so tests can confirm every entry's webp srcset is actually committed (see
+// src/lib/webp-sources.test.ts).
 const CAT = "/images/cat";
-const IMAGES: Record<string, string> = {
+export const IMAGES: Record<string, string> = {
   selskapslokale: `${CAT}/selskapslokale.jpg`,
   gaard: `${CAT}/gaard.jpg`,
   bursdagslokale: `${CAT}/bursdagslokale.jpg`,
