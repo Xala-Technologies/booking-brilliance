@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { getFraunces } from "@/lib/fonts";
 import { SectionHeader } from "@/components/SectionHeader";
-import { bundledSrcSet } from "@/components/CategoryVisual";
+import { bundledSrcSet, bundledWebpSrcSet } from "@/components/CategoryVisual";
 
 interface Tile {
   title: string;
@@ -99,16 +99,23 @@ const MarketplaceSection = () => {
                   className="relative overflow-hidden rounded-xl ring-1 ring-ink/10"
                   style={{ aspectRatio: "16 / 10" }}
                 >
-                <img
-                  src={t.image}
-                  srcSet={bundledSrcSet(t.image)}
-                  sizes="(min-width: 640px) 45vw, 90vw"
-                  alt=""
-                  aria-hidden="true"
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-editorial group-hover:scale-[1.06]"
-                  loading="lazy"
-                  decoding="async"
-                />
+                <picture>
+                  <source
+                    type="image/webp"
+                    srcSet={bundledWebpSrcSet(t.image)}
+                    sizes="(min-width: 640px) 45vw, 90vw"
+                  />
+                  <img
+                    src={t.image}
+                    srcSet={bundledSrcSet(t.image)}
+                    sizes="(min-width: 640px) 45vw, 90vw"
+                    alt=""
+                    aria-hidden="true"
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-editorial group-hover:scale-[1.06]"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
                 <div
                   aria-hidden="true"
                   className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/5"

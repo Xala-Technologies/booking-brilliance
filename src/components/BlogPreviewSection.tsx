@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { EditorialButton } from "@/components/editorial";
 import { SectionHeader } from "@/components/SectionHeader";
-import { getAllPosts, formatPostDate } from "@/lib/posts";
+import { getAllPosts, formatPostDate, previewCover } from "@/lib/posts";
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/motion";
 import { getFraunces } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
@@ -129,7 +129,7 @@ const BlogPreviewSection = () => {
                 >
                   <div className="relative aspect-[16/10] overflow-hidden bg-navy">
                     <img
-                      src={post.cover || FALLBACK_COVER}
+                      src={previewCover(post.cover) || FALLBACK_COVER}
                       alt={post.title}
                       loading="lazy"
                       decoding="async"

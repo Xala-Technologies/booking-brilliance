@@ -204,12 +204,17 @@ const HeroSection = () => {
               >
                 <div className="shrink-0 w-16 h-16 lg:w-[4.5rem] lg:h-[4.5rem] rounded-lg border border-rule bg-paper-deep flex items-center justify-center overflow-hidden">
                   {c.src ? (
-                    <img
-                      src={c.src}
-                      alt={`${c.name} logo`}
-                      className="max-w-[78%] max-h-[78%] object-contain"
-                      loading="lazy"
-                    />
+                    <picture>
+                      {c.src.endsWith(".png") && (
+                        <source type="image/webp" srcSet={c.src.replace(/\.png$/, ".webp")} />
+                      )}
+                      <img
+                        src={c.src}
+                        alt={`${c.name} logo`}
+                        className="max-w-[78%] max-h-[78%] object-contain"
+                        loading="lazy"
+                      />
+                    </picture>
                   ) : (
                     <span
                       className="font-serif text-3xl text-accent-text"
