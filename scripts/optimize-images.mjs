@@ -83,6 +83,14 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error(err);
-  process.exit(1);
+  // The webp variants this script generates are committed to the repo, so
+  // a build only needs to regenerate them when a source image changed —
+  // it doesn't need sharp's native bindings to succeed every time. Warn
+  // and let the build continue with whatever variants are already
+  // committed, instead of hard-failing a deploy/CI env that lacks them.
+  console.warn(
+    "  optimize-images: skipped — could not run (sharp unavailable or a source image is missing). " +
+      "Build will continue using the committed webp variants.",
+  );
+  console.warn(`  optimize-images: ${err?.message ?? err}`);
 });
