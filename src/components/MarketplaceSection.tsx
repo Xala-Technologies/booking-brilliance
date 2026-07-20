@@ -70,7 +70,7 @@ const TILES: Tile[] = [
 
 const MarketplaceSection = () => {
   return (
-    <section id="marketplace" className="py-14 lg:py-20 bg-paper">
+    <section id="marketplace" className="py-10 lg:py-14 bg-paper">
       <div className="container mx-auto md:px-8 lg:px-12">
         <SectionRule label="FINN OG BOOK" />
 

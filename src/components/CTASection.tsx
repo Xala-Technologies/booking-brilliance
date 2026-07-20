@@ -7,7 +7,7 @@ import { BookDemoBlock } from "@/components/BookDemoBlock";
 // the <section> for nav/footer links.
 const CTASection = () => {
   return (
-    <section id="kontakt" className="relative py-14 lg:py-20 bg-accent-tinted">
+    <section id="kontakt" className="relative py-10 lg:py-14 bg-accent-tinted border-t border-rule">
       <div className="container mx-auto md:px-8 lg:px-12">
         <SectionRule label="BOOK EN DEMO" />
         <BookDemoBlock source="homepage-kontakt" heading={false} />

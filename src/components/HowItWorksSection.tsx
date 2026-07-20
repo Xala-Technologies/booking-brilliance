@@ -34,7 +34,7 @@ const HowItWorksSection = () => {
   return (
     <section
       id="funksjonalitet"
-      className="py-14 lg:py-20 bg-paper-deep/40"
+      className="py-10 lg:py-14 bg-paper-deep/40 border-y border-rule"
     >
       <div className="container mx-auto md:px-8 lg:px-12">
         <SectionRule label="FUNKSJONALITET" />
@@ -74,7 +74,7 @@ const HowItWorksSection = () => {
             <motion.li
               key={s.step}
               variants={staggerChild}
-              className={`relative grid grid-cols-12 gap-6 lg:gap-gutter py-12 lg:py-16 ${
+              className={`relative grid grid-cols-12 gap-6 lg:gap-gutter py-10 lg:py-14 ${
                 idx > 0 ? "border-t border-rule" : ""
               }`}
             >

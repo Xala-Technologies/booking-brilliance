@@ -55,7 +55,7 @@ const B2BLaneSection = () => {
     <section
       id="for-utleiere"
       aria-labelledby="for-utleiere-heading"
-      className="py-14 lg:py-20 bg-paper-deep/40 border-y border-rule"
+      className="py-10 lg:py-14 bg-paper"
     >
       <div className="container mx-auto md:px-8 lg:px-12">
         <SectionRule label="FOR UTLEIERE OG KOMMUNER" />

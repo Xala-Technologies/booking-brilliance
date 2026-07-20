@@ -52,7 +52,7 @@ const agents = [
 
 const AiAgentsSection = () => {
   return (
-    <section id="agenter" className="py-14 lg:py-20 bg-paper-tinted">
+    <section id="agenter" className="py-10 lg:py-14 bg-paper-deep/40 border-y border-rule">
       <div className="container mx-auto md:px-8 lg:px-12">
         <SectionRule label="INNEBYGD INTELLIGENS" />
 

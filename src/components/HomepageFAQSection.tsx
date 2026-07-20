@@ -18,7 +18,7 @@ const HomepageFAQSection = () => {
     <section
       id="faq"
       aria-labelledby="faq-heading"
-      className="py-16 lg:py-24 bg-paper-deep/40 border-y border-rule"
+      className="py-10 lg:py-14 bg-paper"
     >
       <div className="container mx-auto md:px-8 lg:px-12">
         <SectionRule label="OFTE STILTE SPØRSMÅL" />
