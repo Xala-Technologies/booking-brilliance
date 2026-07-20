@@ -206,40 +206,42 @@ export default function MarketplaceHub({
                             <Link
                               key={c.title}
                               to={c.to}
-                              className="group bg-paper border border-rule rounded-lg overflow-hidden flex flex-col shadow-sm transition-all duration-300 ease-editorial hover:-translate-y-1 hover:shadow-xl hover:border-accent-text/40"
+                              className="group bg-paper border border-rule rounded-2xl flex flex-col shadow-md transition-all duration-300 ease-editorial hover:-translate-y-1 hover:shadow-2xl hover:border-accent-text/40"
                             >
-                              <div
-                                className="relative w-full overflow-hidden bg-paper-deep"
-                                style={{ aspectRatio: "16 / 9" }}
-                              >
-                                {photo ? (
-                                  <img
-                                    src={photo}
-                                    srcSet={bundledSrcSet(photo)}
-                                    sizes="(min-width: 640px) 45vw, 90vw"
-                                    alt=""
-                                    aria-hidden="true"
-                                    className="h-full w-full object-cover transition-transform duration-500 ease-editorial group-hover:scale-[1.06]"
-                                    loading="lazy"
-                                    decoding="async"
-                                  />
-                                ) : (
-                                  <CategoryVisual
-                                    icon={Icon}
-                                    aspect="16 / 9"
-                                    variant="texture"
-                                    className="!border-0 !rounded-none"
-                                  />
-                                )}
+                              <div className="p-1.5 lg:p-2">
                                 <div
-                                  aria-hidden="true"
-                                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/35 via-ink/0 to-ink/0"
-                                />
-                                <span className="absolute left-4 bottom-3 inline-flex items-center justify-center w-11 h-11 rounded-full bg-paper/90 backdrop-blur-sm border border-hairline-strong text-navy shadow-sm transition-transform duration-quick ease-editorial group-hover:-translate-y-0.5">
-                                  <Icon className="h-5 w-5" aria-hidden="true" />
-                                </span>
+                                  className="relative w-full overflow-hidden rounded-xl ring-1 ring-ink/10 bg-paper-deep"
+                                  style={{ aspectRatio: "16 / 9" }}
+                                >
+                                  {photo ? (
+                                    <img
+                                      src={photo}
+                                      srcSet={bundledSrcSet(photo)}
+                                      sizes="(min-width: 640px) 45vw, 90vw"
+                                      alt=""
+                                      aria-hidden="true"
+                                      className="h-full w-full object-cover transition-transform duration-500 ease-editorial group-hover:scale-[1.06]"
+                                      loading="lazy"
+                                      decoding="async"
+                                    />
+                                  ) : (
+                                    <CategoryVisual
+                                      icon={Icon}
+                                      aspect="16 / 9"
+                                      variant="texture"
+                                      className="!border-0 !rounded-none"
+                                    />
+                                  )}
+                                  <div
+                                    aria-hidden="true"
+                                    className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/35 via-ink/0 to-ink/0"
+                                  />
+                                  <span className="absolute left-4 bottom-3 inline-flex items-center justify-center w-11 h-11 rounded-full bg-paper/90 backdrop-blur-sm border border-hairline-strong text-navy shadow-sm transition-transform duration-quick ease-editorial group-hover:-translate-y-0.5">
+                                    <Icon className="h-5 w-5" aria-hidden="true" />
+                                  </span>
+                                </div>
                               </div>
-                              <div className="p-6 lg:p-7 flex flex-col flex-1">
+                              <div className="px-6 lg:px-7 pb-6 lg:pb-7 pt-1 flex flex-col flex-1">
                                 <header className="flex items-center gap-3 mb-2">
                                   <h4
                                     className="font-serif text-2xl text-ink leading-tight flex-1"

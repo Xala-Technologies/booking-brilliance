@@ -164,22 +164,32 @@ export function CategoryVisual({
   if (src) {
     return (
       <div
-        className={`relative w-full overflow-hidden rounded-lg border border-rule/70 bg-paper-deep shadow-sm ${className}`}
-        style={{ aspectRatio: aspect }}
+        className={`relative rounded-2xl border border-rule bg-gradient-to-br from-paper to-paper-deep p-1.5 lg:p-2 shadow-[0_18px_50px_-20px_rgba(10,18,40,0.4)] ${className}`}
       >
-        <img
-          src={src}
-          srcSet={bundledSrcSet(src)}
-          sizes={sizes}
-          alt={alt ?? label ?? ""}
-          className="h-full w-full object-cover"
-          loading={eager ? "eager" : "lazy"}
-          decoding="async"
-        />
+        {/* framed photo: inset inside the mat, with a hairline ring */}
         <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/15 via-ink/0 to-ink/0"
-        />
+          className="relative w-full overflow-hidden rounded-xl bg-paper-deep ring-1 ring-ink/10"
+          style={{ aspectRatio: aspect }}
+        >
+          <img
+            src={src}
+            srcSet={bundledSrcSet(src)}
+            sizes={sizes}
+            alt={alt ?? label ?? ""}
+            className="h-full w-full object-cover"
+            loading={eager ? "eager" : "lazy"}
+            decoding="async"
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/20 via-ink/0 to-ink/0"
+          />
+        </div>
+        {label && (
+          <span className="absolute left-5 bottom-5 inline-flex items-center editorial-mono-caption text-ink-soft bg-paper/85 backdrop-blur-sm border border-hairline-strong rounded-sm px-2 py-1">
+            {label}
+          </span>
+        )}
       </div>
     );
   }
