@@ -140,7 +140,7 @@ const BlogPreviewSection = () => {
                 key={post.slug}
                 data-slide
                 variants={staggerChild}
-                className="snap-start shrink-0 w-[88%] sm:w-[64%] md:w-[48%] lg:w-[36%] xl:w-[32%]"
+                className="snap-start shrink-0 w-[88%] sm:w-[64%] md:w-[48%] lg:w-[48%] xl:w-[48%]"
               >
                 <Link
                   to={`/blogg/${post.slug}`}

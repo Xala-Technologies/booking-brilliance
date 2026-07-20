@@ -102,9 +102,12 @@ const MarketplaceSection = () => {
               <Link
                 key={t.to}
                 to={t.to}
-                className="group relative block overflow-hidden rounded-lg shadow-sm transition-all duration-300 ease-editorial hover:-translate-y-1 hover:shadow-xl"
-                style={{ aspectRatio: "16 / 10" }}
+                className="group block rounded-2xl border border-rule bg-paper p-1.5 lg:p-2 shadow-md transition-all duration-300 ease-editorial hover:-translate-y-1 hover:shadow-2xl hover:border-accent-text/40"
               >
+                <div
+                  className="relative overflow-hidden rounded-xl ring-1 ring-ink/10"
+                  style={{ aspectRatio: "16 / 10" }}
+                >
                 <img
                   src={t.image}
                   srcSet={bundledSrcSet(t.image)}
@@ -144,6 +147,7 @@ const MarketplaceSection = () => {
                       />
                     </span>
                   </div>
+                </div>
                 </div>
               </Link>
             );
