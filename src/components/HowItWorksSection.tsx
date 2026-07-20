@@ -34,7 +34,7 @@ const HowItWorksSection = () => {
   return (
     <section
       id="funksjonalitet"
-      className="py-10 lg:py-14 bg-paper-deep/40 border-y border-rule"
+      className="py-10 lg:py-14 bg-paper-tinted border-y border-rule"
     >
       <div className="container mx-auto md:px-8 lg:px-12">
         <SectionRule label="FUNKSJONALITET" />

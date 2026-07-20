@@ -52,14 +52,21 @@ const agents = [
 
 const AiAgentsSection = () => {
   return (
-    <section id="agenter" className="py-10 lg:py-14 bg-paper-deep/40 border-y border-rule">
+    <section id="agenter" className="py-10 lg:py-14 bg-paper-tinted border-y border-rule">
       <div className="container mx-auto md:px-8 lg:px-12">
         <SectionRule label="INNEBYGD INTELLIGENS" />
 
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-gutter mb-8 lg:mb-10">
           <div className="lg:col-span-7">
             <EditorialHeading as="h2" size="section">
-              Agenter som gjør jobben.
+              Agenter og{" "}
+              <em
+                className="italic"
+                style={{ fontVariationSettings: getFraunces("display") }}
+              >
+                automatisering
+              </em>
+              .
             </EditorialHeading>
           </div>
           <div className="lg:col-span-5 flex items-end">
