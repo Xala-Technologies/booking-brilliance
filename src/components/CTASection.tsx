@@ -1,13 +1,16 @@
+import { SectionRule } from "@/components/editorial";
 import { BookDemoBlock } from "@/components/BookDemoBlock";
 
-// The homepage contact section. "Book en demo." (inside BookDemoBlock) is the
-// section title, so no separate SectionRule eyebrow — the #kontakt anchor stays
-// on the <section> for nav/footer links.
+// The homepage contact section. "BOOK EN DEMO" is the section eyebrow (same
+// style as every other section label); BookDemoBlock renders without its big
+// display heading so there's no duplicate title. The #kontakt anchor stays on
+// the <section> for nav/footer links.
 const CTASection = () => {
   return (
     <section id="kontakt" className="relative py-14 lg:py-20 bg-accent-tinted">
       <div className="container mx-auto md:px-8 lg:px-12">
-        <BookDemoBlock source="homepage-kontakt" />
+        <SectionRule label="BOOK EN DEMO" />
+        <BookDemoBlock source="homepage-kontakt" heading={false} />
       </div>
     </section>
   );
