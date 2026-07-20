@@ -122,6 +122,20 @@ export function imageForSlug(slug: string): string | undefined {
   return IMAGES[slug];
 }
 
+/**
+ * Responsive srcset for a bundled /images/cat photo. Each original 1600px jpg
+ * has 640w + 1024w siblings (see public/images/cat/*-640.jpg / *-1024.jpg),
+ * so the browser picks the smallest that fits — big mobile LCP win. Returns
+ * undefined for non-bundled srcs (e.g. an external hero image).
+ */
+export function bundledSrcSet(src?: string): string | undefined {
+  if (!src || !src.startsWith("/images/cat/") || !src.endsWith(".jpg")) {
+    return undefined;
+  }
+  const stem = src.slice(0, -4);
+  return `${stem}-640.jpg 640w, ${stem}-1024.jpg 1024w, ${src} 1600w`;
+}
+
 export function CategoryVisual({
   icon: Icon,
   label,
@@ -130,6 +144,7 @@ export function CategoryVisual({
   aspect = "16 / 10",
   variant = "primary",
   eager = false,
+  sizes = "(min-width: 1024px) 40vw, 90vw",
   className = "",
 }: {
   icon: LucideIcon;
@@ -140,6 +155,8 @@ export function CategoryVisual({
   variant?: "primary" | "texture";
   /** Load the image eagerly — set on above-the-fold heroes (LCP). */
   eager?: boolean;
+  /** `sizes` attribute for the responsive srcset. */
+  sizes?: string;
   className?: string;
 }) {
   const patternId = useId();
@@ -152,6 +169,8 @@ export function CategoryVisual({
       >
         <img
           src={src}
+          srcSet={bundledSrcSet(src)}
+          sizes={sizes}
           alt={alt ?? label ?? ""}
           className="h-full w-full object-cover"
           loading={eager ? "eager" : "lazy"}
