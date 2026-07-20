@@ -1,0 +1,30 @@
+name: PR check
+# PRs on booking-brilliance had NO checks (only deploy.yml, on push to main), so
+# nothing verified a PR before merge. This runs lint + tests + the full build
+# (incl. prerender + blog word-count) on every PR, giving the CTO auto-merge a
+# real signal instead of relying on the reviewer alone.
+on:
+  pull_request:
+    branches: [main]
+concurrency:
+  group: pr-check-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # pnpm version comes from packageManager in package.json (pnpm@10.33.4).
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Lint
+        run: pnpm lint
+      - name: Test
+        run: pnpm test
+      - name: Build
+        run: pnpm build
