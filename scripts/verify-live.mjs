@@ -136,11 +136,16 @@ async function main() {
 
   const failures = [];
 
-  // 0) every post's frontmatter title must fit the SERP (no network needed) —
-  // regression guard for the 'title.long' SEO warning.
+  // 0) every post's RENDERED title (frontmatter title + prerender.mjs's conditional
+  // " — Digilist" suffix) must fit the SERP (no network needed) — regression guard
+  // for the 'title.long' SEO warning. Checking expectedTitle() rather than the bare
+  // frontmatter title matters because the suffix is real: prerender.mjs appends it
+  // whenever a title is short enough to still fit, so the rendered <title> can be
+  // longer than what's in the .md file.
   for (const post of all) {
-    const ok = !titleTooLong(post.title);
-    if (!ok) failures.push(`${post.slug}: title is ${post.title.length} chars (max ${MAX_TITLE_LEN}): "${post.title}"`);
+    const rendered = expectedTitle(post.title);
+    const ok = !titleTooLong(rendered);
+    if (!ok) failures.push(`${post.slug}: rendered title is ${rendered.length} chars (max ${MAX_TITLE_LEN}): "${rendered}"`);
   }
   console.log(`  ${failures.length === 0 ? "✓" : "✗"} title length ≤ ${MAX_TITLE_LEN} chars (${all.length} posts checked)`);
 
@@ -212,6 +217,12 @@ function selfTest() {
   assert(!notfound.ok && notfound.problems.some((p) => /HTTP 404/.test(p)), "detect non-200");
   assert(!titleTooLong("x".repeat(65)), "65 chars is within the limit");
   assert(titleTooLong("x".repeat(66)), "66 chars is over the limit");
+  // The title.long guard checks the RENDERED title (frontmatter + prerender.mjs's
+  // conditional " — Digilist" suffix), not the bare frontmatter title — a short
+  // title still has to fit once suffixed.
+  assert(!titleTooLong(expectedTitle("x".repeat(50))), "50-char title + suffix (61 chars) still fits");
+  assert(!titleTooLong(expectedTitle("x".repeat(65))), "65-char title has no suffix, still fits");
+  assert(titleTooLong(expectedTitle("x".repeat(66))), "66-char title has no suffix, exceeds the limit");
   console.log("verify-live self-test: all parser checks passed.");
 }
 
