@@ -81,6 +81,14 @@ Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' '
 Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), ...
 ```
 
+`server/nginx.snippet.conf` re-declares the HSTS/X-Content-Type-Options/
+X-Frame-Options/X-XSS-Protection/Referrer-Policy values above as literal
+strings (nginx doesn't inherit `add_header` into a location that sets its
+own, which the asset/static-file locations there need to for
+`Cache-Control`). If any of the values above change, update
+`server/nginx.snippet.conf` in the same change — they're not derived from
+this file and will silently drift otherwise.
+
 ## 🧪 Testing
 
 ### Test SSL Rating
