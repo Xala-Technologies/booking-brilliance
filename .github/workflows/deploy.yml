@@ -8,9 +8,12 @@ name: Deploy to Hostinger
 on:
   push:
     branches: [main]
-    # Skip deploys for doc/CI-only changes that never affect the built site.
+    # Skip deploys only for CI-workflow edits (they don't affect the built site).
+    # Do NOT ignore "**/*.md": blog posts ARE .md, so ignoring them meant content
+    # pushes never auto-deployed and relied entirely on the agent's single
+    # workflow_dispatch — when that flaked, a whole day of blogs silently never
+    # went live. Content now has a push-triggered deploy path of its own.
     paths-ignore:
-      - "**/*.md"
       - ".github/**"
   workflow_dispatch: {}
 
