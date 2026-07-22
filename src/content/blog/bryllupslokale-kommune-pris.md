@@ -2,12 +2,12 @@
 slug: bryllupslokale-kommune-pris
 title: "Bryllupslokale i kommunen: priser, kapasitet og booking online"
 description: "Se hva det koster å leie kommunalt bryllupslokale, sjekk ledig dato og book online, uten å ringe rundt eller lete i PDF-prislister på hver kommunes nettside."
-date: 2026-07-20
+date: 2026-07-22
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 8
 tag: "Innbygger"
-cover: "/images/blog/digilist_app_hero_no.webp"
+cover: "/images/blog/realtime_updates_hero_no-preview.webp"
 keywords: ["bryllupslokale pris", "leie bryllupslokale kommune", "book bryllupslokale online", "bryllupslokale kapasitet", "skjenkebevilling bryllupslokale"]
 ---
 

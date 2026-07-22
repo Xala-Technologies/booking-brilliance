@@ -2,12 +2,12 @@
 slug: bryllupslokale-kommune-pris-booking
 title: "Bryllupslokale i kommunen: priser, booking og ledige datoer samlet"
 description: "Finn kommunale bryllupslokaler, leiepriser, kapasitet og ledige datoer på ett sted, slik at du slipper å ringe rundt til hvert enkelt anlegg."
-date: 2026-07-15
+date: 2026-07-22
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 8
 tag: "Lag og foreninger"
-cover: "/images/blog/booking_calendar_hero_no.webp"
+cover: "/images/blog/availability_calendar_hero_no-preview.webp"
 keywords: ["bryllupslokale kommune pris", "leie bryllupslokale", "booking bryllupslokale", "kulturhus bryllup", "kommunal utleie selskapslokale"]
 ---
 

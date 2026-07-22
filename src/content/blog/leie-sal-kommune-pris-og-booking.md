@@ -2,12 +2,12 @@
 slug: leie-sal-kommune-pris-og-booking
 title: "Leie sal i kommunen: sammenlign pris og book online"
 description: "Sammenlign pris, regler og tilgjengelighet på gymsaler, forsamlingshus og møterom i kommunen, og book digitalt uten å ringe rundt til hvert bygg."
-date: 2026-07-20
+date: 2026-07-22
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 8
 tag: "Innbygger"
-cover: "/images/blog/sanntidskalender_hero_no.webp"
+cover: "/images/blog/somlos_betaling_hero_no-preview.webp"
 keywords: ["leie sal kommune", "billigst leie lokale", "gratis leie lag og foreninger", "priser kommunale gymsaler", "booke lokale digitalt", "depositum leie sal"]
 ---
 

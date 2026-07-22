@@ -2,12 +2,12 @@
 slug: sal-for-kulturarrangementer-og-seminarer
 title: "Finn og book sal til konsert, utstilling og seminar i kommunen"
 description: "Samlet oversikt over kommunale saler for kultur og seminar: priser, ledig kapasitet i sanntid, tekniske krav og booking uten å ringe rundt."
-date: 2026-07-20
+date: 2026-07-22
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 8
 tag: "Innbygger"
-cover: "/images/blog/accessibility_hero_no.webp"
+cover: "/images/blog/accessibility_hero_no-preview.webp"
 keywords: ["konferanse sal kommune priser", "leie sal til konsert kommune", "utstillingslokale kommune priser", "seminarlokale leie pris", "kulturhus sal leie priser", "sal for arrangement kommune ledig", "pris leie sal lag og foreninger"]
 ---
 
