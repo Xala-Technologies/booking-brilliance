@@ -7,7 +7,7 @@ author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 8
 tag: "Arrangement"
-cover: "/images/blog/accessibility_hero_no-preview.webp"
+cover: "/images/blog/accessibility_hero_no.webp"
 keywords: ["leie kultursal til konsert", "sal til seminar", "leie lokale til arrangement", "konferansesal leie", "utstillingslokale leie pris", "seminarlokale leie pris", "pris leie sal lag og foreninger"]
 ---
 
