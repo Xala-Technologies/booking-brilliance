@@ -7,7 +7,7 @@ author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 8
 tag: "Innbygger"
-cover: "/images/blog/accessibility_hero_no-preview.webp"
+cover: "/images/blog/accessibility_hero_no.webp"
 keywords: ["konferanse sal kommune priser", "leie sal til konsert kommune", "utstillingslokale kommune priser", "seminarlokale leie pris", "kulturhus sal leie priser", "sal for arrangement kommune ledig", "pris leie sal lag og foreninger"]
 ---
 
