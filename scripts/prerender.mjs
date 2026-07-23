@@ -1184,10 +1184,9 @@ const ROUTES = [
   },
   {
     route: "/booking-av-lokaler-og-moterom",
-    title:
-      "Booking av lokaler og møterom — Digilist",
+    title: "Booking av lokaler og møterom — Digilist | Bookingsystem for lokaler",
     description:
-      "Booking av lokaler og møterom — sanntidskalender, Vipps, BankID, EHF og sesongleie. Bygget for kommuner og utleiere. SSA-L 2026-klar.",
+      "Bookingsystem for lokaler og møterom — sanntidskalender, Vipps, BankID, EHF og sesongleie. Bygget for kommuner og utleiere. SSA-L 2026-klar.",
     ogType: "website",
     service: true,
     breadcrumbs: [
@@ -1291,6 +1290,23 @@ const ROUTES = [
         q: "Passer Digilist for både private utleiere og kommuner?",
         a: "Ja. Digilist er bygget for begge markeder i samme system, slik at leietakere finner både private og offentlige lokaler samlet ett sted.",
       },
+    ],
+  },
+  {
+    route: "/sikkerhet",
+    title: "Sikkerhet og personvern · Digilist | ISO 27001, GDPR og datasikkerhet",
+    description:
+      "Slik ivaretar Digilist sikkerhet og personvern: data i Norge og EU, ISO 27001- og 27701-sertifisert, GDPR-kompatibelt, BankID/ID-porten og audit-logg.",
+    ogType: "website",
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Sikkerhet og personvern", url: `${BASE_URL}/sikkerhet` },
+    ],
+    faq: [
+      { q: "Er Digilist GDPR-kompatibelt?", a: "Ja. Digilist oppfyller kravene i GDPR og norsk personopplysningslov, inngår databehandleravtale med hver kunde, og lagrer all data i Norge og EU." },
+      { q: "Hvor lagres dataene?", a: "All data lagres i Norge og EU, aldri utenfor EØS, slik at kunder oppfyller kravene til datalokasjon i norske anskaffelser og personvernregelverket." },
+      { q: "Er Digilist ISO 27001-sertifisert?", a: "Ja. Digilist er sertifisert mot ISO 27001 (informasjonssikkerhet) og ISO 27701 (personverninformasjon)." },
+      { q: "Hvordan logger brukere inn sikkert?", a: "Innlogging skjer med BankID og ID-porten for sterk autentisering, og tilgang er rollebasert." },
     ],
   },
   {
@@ -1928,6 +1944,7 @@ async function main() {
     { loc: `${BASE_URL}/`, priority: "1.0", changefreq: "weekly" },
     { loc: `${BASE_URL}/bookingsystem-kommune`, priority: "0.95", changefreq: "monthly" },
     { loc: `${BASE_URL}/bookingsystem-utleie`, priority: "0.95", changefreq: "monthly" },
+    { loc: `${BASE_URL}/sikkerhet`, priority: "0.80", changefreq: "monthly" },
     { loc: `${BASE_URL}/booking-av-lokaler-og-moterom`, priority: "0.95", changefreq: "monthly" },
     { loc: `${BASE_URL}/faq`, priority: "0.9", changefreq: "monthly" },
     { loc: `${BASE_URL}/blogg`, priority: "0.9", changefreq: "weekly" },
