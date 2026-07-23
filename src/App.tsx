@@ -23,6 +23,7 @@ const ConvexScope = lazy(() => import("./components/ConvexScope"));
 const BookDemo = lazy(() => import("./pages/BookDemo"));
 const BookingsystemKommune = lazy(() => import("./pages/BookingsystemKommune"));
 const BookingsystemUtleie = lazy(() => import("./pages/BookingsystemUtleie"));
+const Sikkerhet = lazy(() => import("./pages/Sikkerhet"));
 const BookingLokalerMoterom = lazy(() => import("./pages/BookingLokalerMoterom"));
 const Billettsystem = lazy(() => import("./pages/Billettsystem"));
 const Teknologi = lazy(() => import("./pages/Teknologi"));
@@ -285,6 +286,7 @@ export function AppShell() {
             <Route path="/book-demo" element={<BookDemo />} />
             <Route path="/bookingsystem-kommune" element={<BookingsystemKommune />} />
             <Route path="/bookingsystem-utleie" element={<BookingsystemUtleie />} />
+            <Route path="/sikkerhet" element={<Sikkerhet />} />
             <Route path="/booking-av-lokaler-og-moterom" element={<BookingLokalerMoterom />} />
             <Route path="/billettsystem" element={<Billettsystem />} />
             <Route path="/teknologi" element={<Teknologi />} />
