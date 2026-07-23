@@ -25,6 +25,9 @@ const BookingsystemKommune = lazy(() => import("./pages/BookingsystemKommune"));
 const BookingsystemUtleie = lazy(() => import("./pages/BookingsystemUtleie"));
 const LokalerTilLeie = lazy(() => import("./pages/LokalerTilLeie"));
 const LokalerTilLeieBy = lazy(() => import("./pages/LokalerTilLeieBy"));
+const Verktoy = lazy(() => import("./pages/Verktoy"));
+const LeieprisKalkulator = lazy(() => import("./pages/LeieprisKalkulator"));
+const KapasitetsKalkulator = lazy(() => import("./pages/KapasitetsKalkulator"));
 const LeieKonfirmasjonslokale = lazy(() => import("./pages/LeieKonfirmasjonslokale"));
 const LeieFirmafest = lazy(() => import("./pages/LeieFirmafest"));
 const LeieMinnestund = lazy(() => import("./pages/LeieMinnestund"));
@@ -292,6 +295,9 @@ export function AppShell() {
             <Route path="/" element={<Index />} />
             <Route path="/book-demo" element={<BookDemo />} />
             <Route path="/bookingsystem-kommune" element={<BookingsystemKommune />} />
+            <Route path="/verktoy" element={<Verktoy />} />
+            <Route path="/verktoy/leiepriskalkulator" element={<LeieprisKalkulator />} />
+            <Route path="/verktoy/kapasitetskalkulator" element={<KapasitetsKalkulator />} />
             <Route path="/bookingsystem-utleie" element={<BookingsystemUtleie />} />
             <Route path="/lokaler-til-leie" element={<LokalerTilLeie />} />
             <Route path="/lokaler-til-leie/:by" element={<LokalerTilLeieBy />} />

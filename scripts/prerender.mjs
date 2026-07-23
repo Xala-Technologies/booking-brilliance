@@ -213,6 +213,63 @@ async function loadBlogPosts() {
 /** @type {Array<{route: string, title: string, description: string, ogType?: string, faq?: Array<{q: string, a: string}>, breadcrumbs?: Array<{name: string, url: string}>}>} */
 const ROUTES = [
   {
+    route: "/verktoy",
+    title: "Gratis verktøy for å leie lokale – pris og kapasitet | Digilist",
+    description:
+      "Gratis verktøy for deg som skal leie lokale: leiepriskalkulator og kapasitetskalkulator. Estimer pris og areal for bryllup, fest, møte eller konferanse – uten innlogging.",
+    ogType: "website",
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Verktøy", url: `${BASE_URL}/verktoy` },
+    ],
+    faq: [
+      { q: "Er verktøyene gratis?", a: "Ja. Alle verktøyene på Digilist er gratis å bruke, uten innlogging. De gir veiledende estimater for å hjelpe deg å planlegge og budsjettere et arrangement." },
+      { q: "Gir verktøyene bindende priser?", a: "Nei. Verktøyene gir veiledende pekepinner basert på typiske tall i det norske utleiemarkedet. Faktisk pris og kapasitet ser du på det enkelte lokalet på Digilist." },
+    ],
+  },
+  {
+    route: "/verktoy/leiepriskalkulator",
+    title: "Leiepriskalkulator: hva koster det å leie lokale? | Digilist",
+    description:
+      "Gratis leiepriskalkulator: få et ærlig, veiledende prisintervall for å leie selskapslokale, møterom, konferanselokale, kulturhus eller idrettshall – justert for by, sesong og ukedag. Ikke et tilbud, men en god pekepinn for budsjettet.",
+    ogType: "website",
+    webApplication: {
+      name: "Leiepriskalkulator",
+      description: "Estimer hva det koster å leie lokale i Norge, justert for lokaltype, by, ukedag og sesong.",
+    },
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Verktøy", url: `${BASE_URL}/verktoy` },
+      { name: "Leiepriskalkulator", url: `${BASE_URL}/verktoy/leiepriskalkulator` },
+    ],
+    faq: [
+      { q: "Hva koster det å leie et lokale?", a: "Prisen varierer mye med lokaltype, sted, kapasitet, ukedag og sesong. Som grove pekepinner ligger grendehus og foreningslokaler ofte på 1 000–5 000 kr per dag, selskaps- og festlokaler på 5 000–30 000 kr, møterom fra noen hundre kroner, og kulturhus og storsaler høyere. Kalkulatoren gir et estimert intervall – den faktiske prisen ser du på det enkelte lokalet." },
+      { q: "Er estimatet et bindende tilbud?", a: "Nei. Kalkulatoren gir kun et veiledende prisintervall for å hjelpe deg å budsjettere. Faktisk pris settes av den enkelte utleier og avhenger av lokalet, tidspunktet og eventuelle tilleggstjenester. På Digilist ser du totalprisen for din dato, inkludert depositum, før du booker." },
+      { q: "Hva påvirker prisen mest?", a: "Lokaltype og størrelse betyr mest, deretter sted (sentrale strøk i de største byene er dyrest), ukedag (lørdager i høysesong koster mest) og sesong (mai–september er høysesong). Tilleggstjenester som rengjøring, bemanning, AV-utstyr og catering kommer ofte i tillegg." },
+    ],
+  },
+  {
+    route: "/verktoy/kapasitetskalkulator",
+    title: "Kapasitetskalkulator: hvor stort lokale trenger du? | Digilist",
+    description:
+      "Gratis kapasitetskalkulator: regn ut hvor stort lokale (m²) du trenger ut fra antall gjester og oppsett – sittende middag, mingling, klasserom eller kino. Med standard planleggingstall og forslag til lokaltyper som passer.",
+    ogType: "website",
+    webApplication: {
+      name: "Kapasitetskalkulator",
+      description: "Regn ut anbefalt areal for et lokale ut fra antall gjester og oppsett, med forslag til lokaltyper.",
+    },
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Verktøy", url: `${BASE_URL}/verktoy` },
+      { name: "Kapasitetskalkulator", url: `${BASE_URL}/verktoy/kapasitetskalkulator` },
+    ],
+    faq: [
+      { q: "Hvor stort lokale trenger jeg per gjest?", a: "Det avhenger av oppsettet. Til en sittende middag med runde bord regner man vanligvis 1,5–2,0 m² per gjest, til mingling og stående mottakelse 0,8–1,0 m², til klasserom/kurs 2,0–2,5 m², og til kino/teater med stolrader 0,8–1,2 m². Kalkulatoren ganger antall gjester med disse standard-tallene." },
+      { q: "Er arealtallene eksakte?", a: "Nei, det er standard planleggingstall for å gi en pekepinn. Faktisk behov varierer med bord- og stoltyper, dansegulv, scene, buffé, garderobe og rømningsveier. Legg gjerne på litt margin, og se alltid lokalets oppgitte kapasitet før du booker." },
+      { q: "Hvilke lokaltyper passer til antallet mitt?", a: "Kalkulatoren foreslår lokaltyper hvis oppgitte kapasitet passer gjesteantallet ditt – møterom for små grupper, selskapslokaler for 30–150 gjester, og kulturhus/storsaler for store arrangementer. Hver type lenker videre til ledige lokaler på Digilist." },
+    ],
+  },
+  {
     route: "/leie/konfirmasjonslokale",
     title: "Leie konfirmasjonslokale: pris og ledige datoer | Digilist",
     description:
@@ -1917,6 +1974,22 @@ function patchHTML(template, meta) {
       inLanguage: "nb-NO",
     });
   }
+  if (meta.webApplication) {
+    ldBlocks.push({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      name: meta.webApplication.name,
+      url: canonical,
+      description: meta.webApplication.description,
+      applicationCategory: "UtilitiesApplication",
+      operatingSystem: "Web",
+      browserRequirements: "Requires JavaScript",
+      isAccessibleForFree: true,
+      offers: { "@type": "Offer", price: "0", priceCurrency: "NOK" },
+      provider: { "@id": `${BASE_URL}/#organization` },
+      inLanguage: "nb-NO",
+    });
+  }
   if (meta.service) {
     ldBlocks.push({
       "@context": "https://schema.org",
@@ -2254,6 +2327,9 @@ async function main() {
     { loc: `${BASE_URL}/`, priority: "1.0", changefreq: "weekly" },
     { loc: `${BASE_URL}/bookingsystem-kommune`, priority: "0.95", changefreq: "monthly" },
     { loc: `${BASE_URL}/bookingsystem-utleie`, priority: "0.95", changefreq: "monthly" },
+    { loc: `${BASE_URL}/verktoy`, priority: "0.7", changefreq: "monthly" },
+    { loc: `${BASE_URL}/verktoy/leiepriskalkulator`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/verktoy/kapasitetskalkulator`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/leie/konfirmasjonslokale`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/leie/firmafest`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/leie/minnestund`, priority: "0.8", changefreq: "monthly" },
