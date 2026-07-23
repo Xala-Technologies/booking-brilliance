@@ -88,6 +88,31 @@ export const siteRollup = query({
   },
 });
 
+/** Every page for a site with its SEO health projected — the Opportunity agent
+ *  reads this to rank fix-page work straight off the graph (pages with findings
+ *  or a low score). Only pages carrying an `seo` slice are returned. Public,
+ *  like the other reads. */
+export const pagesForSite = query({
+  args: { site: v.string() },
+  handler: async (ctx, { site }) => {
+    const pages = await ctx.db
+      .query("page_intel")
+      .withIndex("by_site", (q) => q.eq("site", site))
+      .collect();
+    return pages
+      .filter((p) => (p as Record<string, unknown>).seo != null)
+      .map((p) => {
+        const seo = ((p as Record<string, unknown>).seo ?? {}) as Record<string, unknown>;
+        return {
+          url: p.url as string,
+          score: Number(seo.score ?? 0),
+          findingCount: Number(seo.findingCount ?? 0),
+          errors: Number(seo.errors ?? 0),
+        };
+      });
+  },
+});
+
 function ISO(): string {
   return new Date().toISOString();
 }
