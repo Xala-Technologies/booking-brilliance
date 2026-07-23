@@ -623,6 +623,150 @@ const ROUTES = [
     ],
   },
   {
+    route: "/lokaler-til-leie/fredrikstad",
+    title: "Lokaler til leie i Fredrikstad — finn og book ledig lokale | Digilist",
+    description:
+      "Lokaler til leie i Fredrikstad: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Sammenlign private og kommunale lokaler, se pris og kapasitet, og book direkte.",
+    ogType: "article",
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Lokaler til leie", url: `${BASE_URL}/lokaler-til-leie` },
+      { name: "Fredrikstad", url: `${BASE_URL}/lokaler-til-leie/fredrikstad` },
+    ],
+    faq: [
+      { q: "Hvor finner jeg lokaler til leie i Fredrikstad?", a: "Du finner lokaler til leie i Fredrikstad på Digilist, der private selskaps- og festlokaler, møterom, grendehus og kommunale lokaler i Fredrikstad kommune ligger samlet med ledige tider i sanntid. Du filtrerer på lokaltype, område og fasiliteter og booker direkte." },
+      { q: "Kan jeg leie lokale i Gamlebyen i Fredrikstad?", a: "Gamlebyen er et populært område for arrangementer med historisk atmosfære, og flere lokaler i og rundt festningsbyen leies ut til private feiringer. Slike lokaler er ettertraktede, så vær tidlig ute – på Digilist ser du ledige datoer i sanntid." },
+      { q: "Kan jeg leie grendehus eller kommunale lokaler i Fredrikstad?", a: "Ja. Grendehus, velhus og kommunale lokaler i bydeler som Kråkerøy, Gressvik og Sellebakk leies ut til private arrangementer, ofte rimeligere enn sentrumslokaler. På Digilist ligger de sammen med private festlokaler." },
+      { q: "Hva koster det å leie lokale i Fredrikstad?", a: "Prisen varierer med lokaltype, kapasitet, område, ukedag og sesong. Grendehus og velhus i bydelene ligger ofte lavere enn sentrale selskapslokaler og lokaler i Gamlebyen. Se alltid prisen på det enkelte lokalet før du booker." },
+    ],
+  },
+  {
+    route: "/lokaler-til-leie/sandnes",
+    title: "Lokaler til leie i Sandnes — finn og book ledig lokale | Digilist",
+    description:
+      "Lokaler til leie i Sandnes: finn ledige selskaps- og konferanselokaler, møterom, grendehus og haller i sanntid. Sammenlign private og kommunale lokaler på Nord-Jæren, og book direkte.",
+    ogType: "article",
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Lokaler til leie", url: `${BASE_URL}/lokaler-til-leie` },
+      { name: "Sandnes", url: `${BASE_URL}/lokaler-til-leie/sandnes` },
+    ],
+    faq: [
+      { q: "Hvor finner jeg lokaler til leie i Sandnes?", a: "Du finner lokaler til leie i Sandnes på Digilist, der private selskaps- og konferanselokaler, møterom, grendehus og kommunale lokaler i Sandnes kommune ligger samlet med ledige tider i sanntid. Du filtrerer på lokaltype, område og fasiliteter og booker direkte." },
+      { q: "Henger lokalmarkedet i Sandnes sammen med Stavanger?", a: "Ja. Sandnes er en del av Nord-Jæren sammen med Stavanger og Sola, og nærings- og konferanseområdene på Lura og Forus deles på tvers av kommunene. På Digilist kan du sammenligne lokaler i hele regionen på ett sted." },
+      { q: "Kan jeg leie grendehus eller kommunale lokaler i Sandnes?", a: "Ja. Grendehus, bydelshus og kommunale lokaler i områder som Ganddal, Hana og Riska leies ut til private arrangementer, ofte rimeligere enn sentrale selskapslokaler. På Digilist ligger de sammen med private lokaler." },
+      { q: "Hva koster det å leie lokale i Sandnes?", a: "Prisen varierer med lokaltype, kapasitet, område, ukedag og sesong. Grendehus og bydelslokaler ligger ofte lavere enn konferanse- og selskapslokaler på Lura og Forus. Se alltid prisen på det enkelte lokalet før du booker." },
+    ],
+  },
+  {
+    route: "/lokaler-til-leie/alesund",
+    title: "Lokaler til leie i Ålesund — finn og book ledig lokale | Digilist",
+    description:
+      "Lokaler til leie i Ålesund: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Sammenlign private og kommunale lokaler, se pris og kapasitet, og book direkte.",
+    ogType: "article",
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Lokaler til leie", url: `${BASE_URL}/lokaler-til-leie` },
+      { name: "Ålesund", url: `${BASE_URL}/lokaler-til-leie/alesund` },
+    ],
+    faq: [
+      { q: "Hvor finner jeg lokaler til leie i Ålesund?", a: "Du finner lokaler til leie i Ålesund på Digilist, der private selskaps- og festlokaler, møterom, kulturhus og kommunale lokaler i Ålesund kommune ligger samlet med ledige tider i sanntid. Du filtrerer på lokaltype, område og fasiliteter og booker direkte." },
+      { q: "Kan jeg leie lokale i jugendstil-sentrum i Ålesund?", a: "Sentrum er kjent for den samlede jugendstil-arkitekturen og er et attraktivt område for feiringer med atmosfære. Flere lokaler i og rundt sentrum leies ut til arrangementer – slike lokaler er ettertraktede, så vær tidlig ute. På Digilist ser du ledige datoer i sanntid." },
+      { q: "Kan jeg leie kommunale lokaler i Ålesund til privat arrangement?", a: "Ja. Grendehus, kulturhus og kommunale lokaler i Ålesund kommune leies ut til private arrangementer. På Digilist ligger de sammen med private festlokaler, slik at du kan sammenligne pris og tilgjengelighet på ett sted." },
+      { q: "Hva koster det å leie lokale i Ålesund?", a: "Prisen varierer med lokaltype, kapasitet, område, ukedag og sesong. Grendehus og lokaler i bydelene ligger ofte lavere enn sentrale selskapslokaler i jugendstil-sentrum. Se alltid prisen på det enkelte lokalet før du booker." },
+    ],
+  },
+  {
+    route: "/lokaler-til-leie/bodo",
+    title: "Lokaler til leie i Bodø — finn og book ledig lokale | Digilist",
+    description:
+      "Lokaler til leie i Bodø: finn ledige selskaps- og konferanselokaler, møterom, grendehus og haller i sanntid. Sammenlign private og kommunale lokaler, og book direkte.",
+    ogType: "article",
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Lokaler til leie", url: `${BASE_URL}/lokaler-til-leie` },
+      { name: "Bodø", url: `${BASE_URL}/lokaler-til-leie/bodo` },
+    ],
+    faq: [
+      { q: "Hvor finner jeg lokaler til leie i Bodø?", a: "Du finner lokaler til leie i Bodø på Digilist, der private selskaps- og konferanselokaler, møterom, grendehus og kommunale lokaler i Bodø kommune ligger samlet med ledige tider i sanntid. Du filtrerer på lokaltype, område og fasiliteter og booker direkte." },
+      { q: "Kan jeg leie idrettshall eller gymsal i Bodø?", a: "Ja. Idrettshaller og gymsaler i Bodø, blant annet i Rønvik og ved universitetsområdet på Mørkved, kan leies til trening, kamper og arrangementer. På Digilist ser du ledige tider i sanntid og booker direkte." },
+      { q: "Har Bodø et aktivt arrangementsmiljø?", a: "Ja. Bodø var europeisk kulturhovedstad i 2024, og byen er regionsenter i Nordland med et aktivt kultur- og arrangementsmiljø. Populære lokaler og datoer bør sikres tidlig – på Digilist ser du hva som er ledig i sanntid." },
+      { q: "Hva koster det å leie lokale i Bodø?", a: "Prisen varierer med lokaltype, kapasitet, område, ukedag og sesong. Grendehus og lokaler utenfor sentrum ligger ofte lavere enn sentrale selskaps- og konferanselokaler. Se alltid prisen på det enkelte lokalet før du booker." },
+    ],
+  },
+  {
+    route: "/lokaler-til-leie/sandefjord",
+    title: "Lokaler til leie i Sandefjord — finn og book ledig lokale | Digilist",
+    description:
+      "Lokaler til leie i Sandefjord: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Nær Torp lufthavn – sammenlign private og kommunale lokaler og book direkte.",
+    ogType: "article",
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Lokaler til leie", url: `${BASE_URL}/lokaler-til-leie` },
+      { name: "Sandefjord", url: `${BASE_URL}/lokaler-til-leie/sandefjord` },
+    ],
+    faq: [
+      { q: "Hvor finner jeg lokaler til leie i Sandefjord?", a: "Du finner lokaler til leie i Sandefjord på Digilist, der private selskaps- og festlokaler, møterom, kulturhus og kommunale lokaler i Sandefjord kommune ligger samlet med ledige tider i sanntid. Du filtrerer på lokaltype, område og fasiliteter og booker direkte." },
+      { q: "Egner Sandefjord seg for bedriftsarrangementer?", a: "Ja. Nærheten til Sandefjord lufthavn Torp gjør byen praktisk for konferanser og seminarer med tilreisende gjester. På Digilist ser du ledige møte- og konferanselokaler i sanntid og booker direkte." },
+      { q: "Kan jeg leie grendehus eller kommunale lokaler i Sandefjord?", a: "Ja. Grendehus, velhus og kommunale lokaler i boligområdene leies ut til private arrangementer, ofte rimeligere enn sentrale selskapslokaler. På Digilist ligger de sammen med private lokaler." },
+      { q: "Hva koster det å leie lokale i Sandefjord?", a: "Prisen varierer med lokaltype, kapasitet, område, ukedag og sesong. Grendehus og velhus i boligområdene ligger ofte lavere enn sentrale selskaps- og konferanselokaler. Se alltid prisen på det enkelte lokalet før du booker." },
+    ],
+  },
+  {
+    route: "/lokaler-til-leie/tonsberg",
+    title: "Lokaler til leie i Tønsberg — finn og book ledig lokale | Digilist",
+    description:
+      "Lokaler til leie i Tønsberg: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Populære lokaler ved Tønsberg brygge – sammenlign og book direkte.",
+    ogType: "article",
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Lokaler til leie", url: `${BASE_URL}/lokaler-til-leie` },
+      { name: "Tønsberg", url: `${BASE_URL}/lokaler-til-leie/tonsberg` },
+    ],
+    faq: [
+      { q: "Hvor finner jeg lokaler til leie i Tønsberg?", a: "Du finner lokaler til leie i Tønsberg på Digilist, der private selskaps- og festlokaler, møterom, kulturhus og kommunale lokaler i Tønsberg kommune ligger samlet med ledige tider i sanntid. Du filtrerer på lokaltype, område og fasiliteter og booker direkte." },
+      { q: "Kan jeg leie lokale ved Tønsberg brygge?", a: "Tønsberg brygge er et populært område med restaurant- og selskapslokaler som leies ut til feiringer. Slike lokaler er ettertraktede, særlig i sommerhalvåret, så vær tidlig ute – på Digilist ser du ledige datoer i sanntid." },
+      { q: "Kan jeg leie grendehus eller kommunale lokaler i Tønsberg?", a: "Ja. Grendehus, velhus og kommunale lokaler i boligområdene og på Nøtterøy leies ut til private arrangementer, ofte rimeligere enn sentrale bryggelokaler. På Digilist ligger de sammen med private lokaler." },
+      { q: "Hva koster det å leie lokale i Tønsberg?", a: "Prisen varierer med lokaltype, kapasitet, område, ukedag og sesong. Grendehus og velhus i boligområdene ligger ofte lavere enn sentrale selskapslokaler ved brygga. Se alltid prisen på det enkelte lokalet før du booker." },
+    ],
+  },
+  {
+    route: "/lokaler-til-leie/sarpsborg",
+    title: "Lokaler til leie i Sarpsborg — finn og book ledig lokale | Digilist",
+    description:
+      "Lokaler til leie i Sarpsborg: finn ledige selskapslokaler, møterom, grendehus og haller i sanntid. Del av Nedre Glomma – sammenlign private og kommunale lokaler og book direkte.",
+    ogType: "article",
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Lokaler til leie", url: `${BASE_URL}/lokaler-til-leie` },
+      { name: "Sarpsborg", url: `${BASE_URL}/lokaler-til-leie/sarpsborg` },
+    ],
+    faq: [
+      { q: "Hvor finner jeg lokaler til leie i Sarpsborg?", a: "Du finner lokaler til leie i Sarpsborg på Digilist, der private selskaps- og festlokaler, møterom, grendehus og kommunale lokaler i Sarpsborg kommune ligger samlet med ledige tider i sanntid. Du filtrerer på lokaltype, område og fasiliteter og booker direkte." },
+      { q: "Henger lokalmarkedet i Sarpsborg sammen med Fredrikstad?", a: "Ja. Sarpsborg og Fredrikstad utgjør storbyområdet Nedre Glomma, og lokalmarkedet henger tett sammen på tvers av bykommunene. På Digilist kan du sammenligne lokaler i hele regionen på ett sted." },
+      { q: "Kan jeg leie grendehus eller kommunale lokaler i Sarpsborg?", a: "Ja. Grendehus, velhus og kommunale lokaler i boligområdene leies ut til private arrangementer, ofte rimeligere enn sentrale selskapslokaler. På Digilist ligger de sammen med private lokaler." },
+      { q: "Hva koster det å leie lokale i Sarpsborg?", a: "Prisen varierer med lokaltype, kapasitet, område, ukedag og sesong. Grendehus og velhus i boligområdene ligger ofte lavere enn sentrale selskapslokaler. Se alltid prisen på det enkelte lokalet før du booker." },
+    ],
+  },
+  {
+    route: "/lokaler-til-leie/haugesund",
+    title: "Lokaler til leie i Haugesund — finn og book ledig lokale | Digilist",
+    description:
+      "Lokaler til leie i Haugesund: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Regionsenter på Haugalandet – sammenlign private og kommunale lokaler og book direkte.",
+    ogType: "article",
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Lokaler til leie", url: `${BASE_URL}/lokaler-til-leie` },
+      { name: "Haugesund", url: `${BASE_URL}/lokaler-til-leie/haugesund` },
+    ],
+    faq: [
+      { q: "Hvor finner jeg lokaler til leie i Haugesund?", a: "Du finner lokaler til leie i Haugesund på Digilist, der private selskaps- og festlokaler, møterom, kulturhus og kommunale lokaler i Haugesund kommune ligger samlet med ledige tider i sanntid. Du filtrerer på lokaltype, område og fasiliteter og booker direkte." },
+      { q: "Er noen perioder ekstra travle for lokaler i Haugesund?", a: "Ja. Under den norske filmfestivalen og Sildajazz er byen ekstra travel, og lokaler og datoer bør sikres i god tid i disse periodene. Utenom festivalukene er utvalget større – på Digilist ser du ledige datoer i sanntid." },
+      { q: "Kan jeg leie grendehus eller kommunale lokaler i Haugesund?", a: "Ja. Grendehus, velhus og kommunale lokaler i boligområdene og på Karmøy leies ut til private arrangementer, ofte rimeligere enn sentrale selskapslokaler. På Digilist ligger de sammen med private lokaler." },
+      { q: "Hva koster det å leie lokale i Haugesund?", a: "Prisen varierer med lokaltype, kapasitet, område, ukedag og sesong. Grendehus og velhus i boligområdene ligger ofte lavere enn sentrale selskapslokaler i sentrum. Se alltid prisen på det enkelte lokalet før du booker." },
+    ],
+  },
+  {
     route: "/leie/selskapslokale",
     title: "Leie selskapslokale: pris, kapasitet og booking | Digilist",
     description:
@@ -2360,6 +2504,14 @@ async function main() {
     { loc: `${BASE_URL}/lokaler-til-leie/tromso`, priority: "0.85", changefreq: "monthly" },
     { loc: `${BASE_URL}/lokaler-til-leie/drammen`, priority: "0.85", changefreq: "monthly" },
     { loc: `${BASE_URL}/lokaler-til-leie/baerum`, priority: "0.85", changefreq: "monthly" },
+    { loc: `${BASE_URL}/lokaler-til-leie/fredrikstad`, priority: "0.85", changefreq: "monthly" },
+    { loc: `${BASE_URL}/lokaler-til-leie/sandnes`, priority: "0.85", changefreq: "monthly" },
+    { loc: `${BASE_URL}/lokaler-til-leie/alesund`, priority: "0.85", changefreq: "monthly" },
+    { loc: `${BASE_URL}/lokaler-til-leie/bodo`, priority: "0.85", changefreq: "monthly" },
+    { loc: `${BASE_URL}/lokaler-til-leie/sandefjord`, priority: "0.85", changefreq: "monthly" },
+    { loc: `${BASE_URL}/lokaler-til-leie/tonsberg`, priority: "0.85", changefreq: "monthly" },
+    { loc: `${BASE_URL}/lokaler-til-leie/sarpsborg`, priority: "0.85", changefreq: "monthly" },
+    { loc: `${BASE_URL}/lokaler-til-leie/haugesund`, priority: "0.85", changefreq: "monthly" },
     { loc: `${BASE_URL}/leie/selskapslokale`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/leie/gaard`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/leie/bursdagslokale`, priority: "0.8", changefreq: "monthly" },
