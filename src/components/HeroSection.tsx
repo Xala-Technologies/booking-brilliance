@@ -3,7 +3,6 @@ import {
   EditorialButton,
   EditorialHeading,
 } from "@/components/editorial";
-import { HeroPlatformPreview } from "./HeroPlatformPreview";
 import { Check } from "lucide-react";
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/motion";
 import { getFraunces } from "@/lib/fonts";
@@ -120,7 +119,22 @@ const HeroSection = () => {
             variants={staggerChild}
             className="col-span-12 lg:col-span-5 mt-8 lg:mt-0"
           >
-            <HeroPlatformPreview />
+            <div className="rounded-lg border border-rule bg-paper-deep/40 p-1.5 shadow-[0_24px_64px_-32px_rgba(10,18,40,0.55)] overflow-hidden">
+              <video
+                className="w-full rounded-md"
+                style={{ aspectRatio: "16 / 9" }}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                poster="/videos/digilist-book-venue-poster.jpg"
+                aria-label="Digilist booking i praksis"
+              >
+                <source src="/videos/digilist-book-venue.webm" type="video/webm" />
+                <source src="/videos/digilist-book-venue.mp4" type="video/mp4" />
+              </video>
+            </div>
           </motion.div>
 
           {/* Two doors: renter (Privat) + operator (Bedrift) — side by side */}
