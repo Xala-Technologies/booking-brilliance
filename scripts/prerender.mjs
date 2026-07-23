@@ -325,6 +325,141 @@ const ROUTES = [
     ],
   },
   {
+    route: "/leie/konfirmasjonslokale",
+    title: "Leie konfirmasjonslokale: pris og ledige datoer | Digilist",
+    description:
+      "Leie lokale til konfirmasjon: finn ledig konfirmasjonslokale nær deg, se ekte pris for din dato og book med Vipps. Festsaler, grendehus og menighetshus samlet.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Leie", url: `${BASE_URL}/leie` },
+      { name: "Konfirmasjonslokale", url: `${BASE_URL}/leie/konfirmasjonslokale` },
+    ],
+    faq: [
+      {
+        q: "Hva koster det å leie et konfirmasjonslokale?",
+        a: "Prisen varierer med type lokale, sted, varighet og sesong. Et grendehus eller menighetshus kan koste fra noen hundrelapper til rundt tusenlappen for en dag, mens større selskapslokaler med kjøkken ligger høyere, særlig på lørdager i høysesongen mai og juni. På Digilist ser du totalprisen for din dato før du booker.",
+      },
+      {
+        q: "Når bør jeg booke konfirmasjonslokale?",
+        a: "De mest populære lokalene til lørdager i mai og juni bookes ofte 6 til 12 måneder i forveien. På en bookingplattform med sanntidskalender ser du med én gang om datoen er ledig, i stedet for å vente på svar mens noen andre booker.",
+      },
+      {
+        q: "Kan jeg leie både private og kommunale lokaler til konfirmasjon?",
+        a: "Ja. Mange grendehus, samfunnshus og kommunale lokaler leies ut til konfirmasjon, og på Digilist ligger både private festlokaler og offentlige lokaler i samme kalender slik at du kan sammenligne tilgjengelighet på ett sted.",
+      },
+    ],
+  },
+  {
+    route: "/leie/firmafest",
+    title: "Leie lokale til firmafest og julebord | Digilist",
+    description:
+      "Leie lokale til firmafest, julebord eller sommerfest: finn ledig bedriftslokale, se ekte pris for din dato og book på nett. Selskapslokaler og kulturhus samlet.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Leie", url: `${BASE_URL}/leie` },
+      { name: "Firmafest og julebord", url: `${BASE_URL}/leie/firmafest` },
+    ],
+    faq: [
+      {
+        q: "Når bør bedriften booke julebordlokale?",
+        a: "Julebord er den travleste sesongen for selskapslokaler. Sentrale lokaler til fredager og lørdager i november og desember bookes ofte fra sommeren av. Med en sanntidskalender ser du med én gang hvilke datoer som fortsatt er ledige, i stedet for å sende forespørsler og vente.",
+      },
+      {
+        q: "Hva koster det å leie lokale til firmafest?",
+        a: "Prisen varierer sterkt med kapasitet, beliggenhet, dag, sesong og hva som er inkludert av servering. Et enkelt selskapsrom er rimeligere enn et stort lokale i sentrum på en desemberlørdag. På Digilist ser du totalprisen for din dato og størrelse før du booker.",
+      },
+      {
+        q: "Trenger vi skjenkebevilling til firmafesten?",
+        a: "Serveres alkohol mot betaling kreves skjenkebevilling, som lokalet eller en cateringleverandør ofte har. Ved lukkede arrangementer der bedriften spanderer, gjelder andre regler. Avklar alltid servering og skjenking med lokalet.",
+      },
+    ],
+  },
+  {
+    route: "/leie/minnestund",
+    title: "Leie lokale til minnestund og minnesamvær | Digilist",
+    description:
+      "Leie lokale til minnestund etter gravferd: finn et verdig, ledig lokale nær seremonistedet, se pris og book uten lang telefonrunde. Menighetshus og selskapslokaler samlet.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Leie", url: `${BASE_URL}/leie` },
+      { name: "Minnestund", url: `${BASE_URL}/leie/minnestund` },
+    ],
+    faq: [
+      {
+        q: "Hvor kan jeg leie lokale til minnestund?",
+        a: "Menighetshus, grendehus, kaféer og selskapslokaler leies ofte ut til minnesamvær. På Digilist finner du passende lokaler nær seremonistedet samlet ett sted, med ledige datoer og pris synlig, slik at du kan ordne lokalet raskt.",
+      },
+      {
+        q: "Hvor raskt kan jeg ordne lokale?",
+        a: "Fordi minnesamvær ofte planlegges på få dager, viser Digilist ledige datoer i sanntid, slik at du kan booke direkte og få bekreftelsen med en gang, i stedet for å vente på svar på telefon eller e-post.",
+      },
+      {
+        q: "Kan gravferdsbyrået ordne lokalet for oss?",
+        a: "Ja. Mange gravferdsbyrå hjelper familien med å finne og booke lokale, og kan gjøre dette på vegne av de pårørende i samme flyt.",
+      },
+    ],
+  },
+  {
+    route: "/leie/daap",
+    title: "Leie lokale til dåp og navnefest | Digilist",
+    description:
+      "Leie lokale til dåp eller navnefest: finn et hyggelig, ledig lokale nær kirken, se ekte pris for din dato og book med Vipps. Selskapslokaler og kaféer samlet.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Leie", url: `${BASE_URL}/leie` },
+      { name: "Dåp og navnefest", url: `${BASE_URL}/leie/daap` },
+    ],
+    faq: [
+      {
+        q: "Hvor kan jeg leie lokale til dåp?",
+        a: "Selskapslokaler, kaféer med selskapsrom, grendehus og gårder leies ofte ut til dåpsselskap. På Digilist finner du passende lokaler nær kirken samlet ett sted, med ledige datoer og pris for din dato.",
+      },
+      {
+        q: "Hva koster det å leie lokale til dåpsselskap?",
+        a: "Prisen varierer med type lokale, sted, varighet og servering. Et grendehus med eget kjøkken ligger ofte lavest, mens en kafé eller et selskapslokale med servering koster mer. På Digilist ser du totalprisen for din dato før du booker.",
+      },
+      {
+        q: "Når bør jeg booke lokale til dåp?",
+        a: "De gode lokalene nær kirken går fort på lørdager og søndager i vår og høst. Med en sanntidskalender ser du med én gang om helgedagen din er ledig, og kan sikre den tidlig i stedet for å vente på svar.",
+      },
+    ],
+  },
+  {
+    route: "/leie/jubileum",
+    title: "Leie lokale til jubileum og runde år | Digilist",
+    description:
+      "Leie lokale til jubileum, runde år eller bedriftsjubileum: finn ledig festlokale, se ekte pris for din dato og book på nett. Selskapslokaler og kulturhus samlet.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Leie", url: `${BASE_URL}/leie` },
+      { name: "Jubileum", url: `${BASE_URL}/leie/jubileum` },
+    ],
+    faq: [
+      {
+        q: "Hvor kan jeg leie lokale til jubileum?",
+        a: "Selskapslokaler, kulturhus, gårder og restauranter med selskapsrom leies ut til jubileum og runde år. På Digilist finner du passende lokaler samlet ett sted, med ledige datoer og ekte pris for din dato.",
+      },
+      {
+        q: "Hva koster det å leie lokale til jubileum?",
+        a: "Prisen varierer med kapasitet, beliggenhet, dag, sesong og fasiliteter. Et grendehus eller kulturhus ligger ofte lavere enn et stort selskapslokale i sentrum på en lørdag. På Digilist ser du totalprisen for din dato før du booker.",
+      },
+      {
+        q: "Når bør jeg booke lokale til runde år?",
+        a: "De store rundingene planlegges gjerne i god tid, og de beste lokalene til lørdager går fort. Med en sanntidskalender ser du med én gang om datoen er ledig, og kan sikre den tidlig i stedet for å vente på svar.",
+      },
+    ],
+  },
+  {
     route: "/leie/kulturhus",
     title: "Leie kulturhus: pris, kapasitet og booking | Digilist",
     description:
@@ -1963,6 +2098,11 @@ async function main() {
     { loc: `${BASE_URL}/leie/selskapslokale`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/leie/gaard`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/leie/bursdagslokale`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/leie/konfirmasjonslokale`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/leie/firmafest`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/leie/minnestund`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/leie/daap`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/leie/jubileum`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/leie/kulturhus`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/leie/moterom`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/leie/konferanselokale`, priority: "0.8", changefreq: "monthly" },

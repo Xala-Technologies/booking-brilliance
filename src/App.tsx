@@ -41,6 +41,11 @@ const LeieSvommehall = lazy(() => import("./pages/LeieSvommehall"));
 const LeieKulturhus = lazy(() => import("./pages/LeieKulturhus"));
 const LeieGaard = lazy(() => import("./pages/LeieGaard"));
 const LeieBursdagslokale = lazy(() => import("./pages/LeieBursdagslokale"));
+const LeieKonfirmasjonslokale = lazy(() => import("./pages/LeieKonfirmasjonslokale"));
+const LeieFirmafest = lazy(() => import("./pages/LeieFirmafest"));
+const LeieMinnestund = lazy(() => import("./pages/LeieMinnestund"));
+const LeieDaap = lazy(() => import("./pages/LeieDaap"));
+const LeieJubileum = lazy(() => import("./pages/LeieJubileum"));
 const Overnatting = lazy(() => import("./pages/Overnatting"));
 const OvernattingHytte = lazy(() => import("./pages/OvernattingHytte"));
 const OvernattingLeilighet = lazy(() => import("./pages/OvernattingLeilighet"));
@@ -295,6 +300,11 @@ export function AppShell() {
             <Route path="/leie/selskapslokale" element={<LeieSelskapslokale />} />
             <Route path="/leie/gaard" element={<LeieGaard />} />
             <Route path="/leie/bursdagslokale" element={<LeieBursdagslokale />} />
+            <Route path="/leie/konfirmasjonslokale" element={<LeieKonfirmasjonslokale />} />
+            <Route path="/leie/firmafest" element={<LeieFirmafest />} />
+            <Route path="/leie/minnestund" element={<LeieMinnestund />} />
+            <Route path="/leie/daap" element={<LeieDaap />} />
+            <Route path="/leie/jubileum" element={<LeieJubileum />} />
             <Route path="/leie/kulturhus" element={<LeieKulturhus />} />
             <Route path="/leie/moterom" element={<LeieMoterom />} />
             <Route path="/leie/konferanselokale" element={<LeieKonferanselokale />} />
