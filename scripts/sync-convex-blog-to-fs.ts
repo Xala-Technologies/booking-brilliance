@@ -27,12 +27,22 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const BLOG_DIR = path.resolve(__dirname, "..", "src", "content", "blog");
 const PUBLIC_BLOG_IMG = path.resolve(__dirname, "..", "public", "images", "blog");
 
-/** Real cover images shipped in public/images/blog (excludes placeholders). */
+/** Real cover images shipped in public/images/blog (excludes placeholders and the
+ *  generated `-preview` thumbnails). Half the files in that directory are
+ *  `*-preview.webp` siblings produced by scripts/optimize-images.mjs; picking one
+ *  as a post's cover gave the post a low-res hero + og:image AND broke
+ *  src/lib/webp-sources.test.ts, because previewCover() then looks for a
+ *  `*-preview-preview.webp` that can never exist. Covers must be full-size only. */
 function availableCovers(): string[] {
   try {
     return fs
       .readdirSync(PUBLIC_BLOG_IMG)
-      .filter((f) => /\.(webp|jpg|png)$/i.test(f) && !/placeholder/i.test(f))
+      .filter(
+        (f) =>
+          /\.(webp|jpg|png)$/i.test(f) &&
+          !/placeholder/i.test(f) &&
+          !/-preview\.(webp|jpg|png)$/i.test(f),
+      )
       .sort();
   } catch {
     return [];
