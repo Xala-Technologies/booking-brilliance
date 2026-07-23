@@ -78,6 +78,14 @@ const Footer = () => {
     { label: "Tromsø", href: "/lokaler-til-leie/tromso" },
     { label: "Drammen", href: "/lokaler-til-leie/drammen" },
     { label: "Bærum", href: "/lokaler-til-leie/baerum" },
+    { label: "Fredrikstad", href: "/lokaler-til-leie/fredrikstad" },
+    { label: "Sandnes", href: "/lokaler-til-leie/sandnes" },
+    { label: "Ålesund", href: "/lokaler-til-leie/alesund" },
+    { label: "Bodø", href: "/lokaler-til-leie/bodo" },
+    { label: "Sandefjord", href: "/lokaler-til-leie/sandefjord" },
+    { label: "Tønsberg", href: "/lokaler-til-leie/tonsberg" },
+    { label: "Sarpsborg", href: "/lokaler-til-leie/sarpsborg" },
+    { label: "Haugesund", href: "/lokaler-til-leie/haugesund" },
   ];
 
   const lokaltyper = [
