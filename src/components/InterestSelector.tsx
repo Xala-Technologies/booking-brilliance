@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import {
   Search,
   CalendarDays,
@@ -10,6 +11,7 @@ import {
   Check,
 } from "lucide-react";
 import { EditorialButton } from "@/components/editorial";
+import { revealUp, viewportOnce } from "@/lib/motion";
 
 type Interest = {
   id: string;
@@ -46,7 +48,13 @@ export function InterestSelector() {
   };
 
   return (
-    <div className="mb-14 lg:mb-20 rounded-lg border border-rule bg-paper p-6 lg:p-10 shadow-[0_14px_44px_-26px_rgba(10,18,40,0.4)]">
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={viewportOnce}
+      variants={revealUp}
+      className="mb-14 lg:mb-20 rounded-lg border border-rule bg-paper p-6 lg:p-10 shadow-[0_14px_44px_-26px_rgba(10,18,40,0.4)]"
+    >
       <h3
         className="font-serif text-2xl lg:text-3xl text-ink text-center"
         style={{ letterSpacing: "-0.015em", lineHeight: 1.1 }}
@@ -102,7 +110,7 @@ export function InterestSelector() {
           {selected.length ? "Kom i gang" : "Book en demo"}
         </EditorialButton>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

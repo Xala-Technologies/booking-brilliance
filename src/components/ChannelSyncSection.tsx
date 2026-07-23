@@ -1,5 +1,7 @@
+import { motion } from "framer-motion";
 import { EditorialHeading, SectionRule, EditorialButton } from "@/components/editorial";
 import { Check, RefreshCw } from "lucide-react";
+import { revealUp, viewportOnce } from "@/lib/motion";
 
 const CHANNELS = ["Airbnb", "Booking.com", "Bookup", "Eventum", "Finn"];
 
@@ -25,7 +27,13 @@ export function ChannelSyncSection() {
       <div className="container mx-auto md:px-8 lg:px-12">
         <SectionRule label="KANALER · TOVEIS SYNK" />
 
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-gutter items-center mt-2">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          variants={revealUp}
+          className="grid lg:grid-cols-12 gap-10 lg:gap-gutter items-center mt-2"
+        >
           {/* Copy */}
           <div className="lg:col-span-6">
             <EditorialHeading as="h2" size="section">
@@ -106,7 +114,7 @@ export function ChannelSyncSection() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
