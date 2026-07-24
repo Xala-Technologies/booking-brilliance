@@ -23,6 +23,7 @@ const ConvexScope = lazy(() => import("./components/ConvexScope"));
 const BookDemo = lazy(() => import("./pages/BookDemo"));
 const BookingsystemKommune = lazy(() => import("./pages/BookingsystemKommune"));
 const BookingsystemUtleie = lazy(() => import("./pages/BookingsystemUtleie"));
+const Kanaler = lazy(() => import("./pages/Kanaler"));
 const LokalerTilLeie = lazy(() => import("./pages/LokalerTilLeie"));
 const LokalerTilLeieBy = lazy(() => import("./pages/LokalerTilLeieBy"));
 const Verktoy = lazy(() => import("./pages/Verktoy"));
@@ -301,6 +302,7 @@ export function AppShell() {
             <Route path="/rapport/utleiemarkedet-norge-2026" element={<UtleiemarkedetNorge2026 />} />
             <Route path="/verktoy/kapasitetskalkulator" element={<KapasitetsKalkulator />} />
             <Route path="/bookingsystem-utleie" element={<BookingsystemUtleie />} />
+            <Route path="/kanaler" element={<Kanaler />} />
             <Route path="/lokaler-til-leie" element={<LokalerTilLeie />} />
             <Route path="/lokaler-til-leie/:by" element={<LokalerTilLeieBy />} />
             <Route path="/leie/konfirmasjonslokale" element={<LeieKonfirmasjonslokale />} />
