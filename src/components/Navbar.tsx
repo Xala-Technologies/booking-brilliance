@@ -39,6 +39,11 @@ const SOLUTIONS = [
     eyebrow: "Rabatt · kupong · gavekort",
   },
   {
+    label: "Kanaler & synk",
+    to: "/kanaler",
+    eyebrow: "Toveis synk · AI-import",
+  },
+  {
     label: "Teknologi og sikkerhet",
     to: "/teknologi",
     eyebrow: "Plattform · samsvar",
