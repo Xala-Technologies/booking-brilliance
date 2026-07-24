@@ -1,0 +1,26 @@
+name: Lighthouse nightly (status.digilist.no)
+# Runs the Lighthouse performance budget against the live production status
+# page on a schedule, instead of as a blocking per-PR check. A per-PR gate
+# tuned against a `vite preview` build on a shared runner varies with
+# runner load, not with the diff under review — see the XAL-320 PR history
+# for the observed spread. This measures the real deployed site and can
+# assert the actual ≥0.90 target without risking an unrelated PR going red.
+on:
+  schedule:
+    - cron: "0 4 * * *"
+  workflow_dispatch: {}
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # pnpm version comes from packageManager in package.json (pnpm@10.33.4).
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Lighthouse performance budget (live status.digilist.no)
+        run: pnpm exec lhci autorun --config=lighthouserc.prod.cjs
