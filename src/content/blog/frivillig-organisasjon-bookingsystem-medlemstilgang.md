@@ -34,16 +34,18 @@ Konsekvensen er at ansvar pulveriseres i en organisasjon som allerede er avhengi
 
 Digilist er bygget med rollebasert tilgangsstyring, der hver bruker logger inn med sin egen identitet og får nøyaktig de rettighetene rollen krever, ikke mer. Det gjelder like fullt for en frivillig organisasjon som for en kommune eller en privat utleier.
 
-I praksis betyr det at organisasjonen (foreningen) opprettes som sin egen enhet i systemet, og at styret inviterer medlemmer inn med en definert rolle. Hver invitasjon knyttes til organisasjonen, ikke til en delt konto, og tilgangen kan trekkes tilbake for én person uten at resten av laget mister noe.
+I praksis betyr det at organisasjonen opprettes som sin egen enhet i systemet, og at styret inviterer medlemmer inn med en definert rolle. Hver invitasjon knyttes til organisasjonen, ikke til en delt konto, og tilgangen kan trekkes tilbake for én person uten at resten av organisasjonen mister noe.
+
+Rollene i Digilist gjelder for hele organisasjonen, ikke for enkeltlag eller undergrupper. Det finnes i dag ikke en egen rolle som er avgrenset til «kun G14» eller «kun håndballgruppa»; alle som får en bookingrolle, kan se og administrere organisasjonens bookinger på tvers av lag og grupper. Det som varierer mellom rollene, er hvor mye de kan gjøre, ikke hvilken del av organisasjonen de ser.
 
 ### Typiske roller i en frivillig organisasjon
 
-- **Styreleder / administrator** ser hele organisasjonens booking, dokumenter og fakturagrunnlag, og kan invitere eller fjerne medlemmer.
-- **Lagleder / trener** kan booke og administrere tider for sitt eget lag, uten tilgang til andre lags avtaler eller organisasjonens økonomi.
-- **Kasserer** kan se fakturaer og betalingshistorikk knyttet til organisasjonens leieforhold, uavhengig av hvem som booket.
-- **Medlem** kan se organisasjonens bookinger og eventuelt melde inn behov, uten å kunne endre eller kansellere en reservasjon.
+- **Admin** har full kontroll over organisasjonens booking, dokumenter, fakturagrunnlag og medlemmer, og kan invitere eller fjerne brukere.
+- **Saksbehandler** kan booke, administrere kalender og kommunisere med kommunen eller utleier på vegne av hele organisasjonen.
+- **Økonomiansvarlig** har leserettighet på fakturaer og betalingshistorikk for organisasjonens leieforhold.
+- **Support** kan se bookinger og følge opp henvendelser, uten å kunne endre eller kansellere en reservasjon.
 
-Fordi rollene er knyttet til den enkelte bruker og ikke til et delt passord, kan et styreskifte gjennomføres på minutter: den nye styrelederen inviteres inn med administratorrollen, den forrige fjernes, og ingen konti må deles videre.
+Fordi rollene er knyttet til den enkelte bruker og ikke til et delt passord, kan et styreskifte gjennomføres på minutter: den nye administratoren inviteres inn med adminrollen, den forrige fjernes, og ingen konti må deles videre. Ønsker organisasjonen at kun bestemte personer skal håndtere booking for et gitt lag i praksis, løses det i dag gjennom internt ansvarsfordeling og rutiner, ikke gjennom teknisk avgrenset tilgang i systemet.
 
 ---
 
@@ -62,9 +64,9 @@ Se også hvordan denne flyten fungerer på kommunens side i [Idrettshall-tildeli
 
 ## Eksempel: fra delt konto til rollestyrt tilgang
 
-Se for deg et fotballag med et styre på fem personer, tolv lagledere og rundt 300 medlemmer fordelt på ulike aldersklasser. Tidligere logget alle lagledere inn med samme konto for å booke treningstid i kommunens haller, og styret fikk jevnlig spørsmål om hvem som egentlig hadde booket hva.
+Se for deg en idrettsklubb med et styre på fem personer, tolv lagledere og rundt 300 medlemmer fordelt på ulike aldersklasser. Tidligere logget alle lagledere inn med samme konto for å booke treningstid i kommunens haller, og styret fikk jevnlig spørsmål om hvem som egentlig hadde booket hva.
 
-Med medlemsspesifikk tilgang inviteres hver lagleder inn med sin egen rolle, knyttet til sitt eget lag. Lagleder for G14 ser og administrerer kun G14s bookinger. Styreleder ser alt, på tvers av alle lag, og kan følge med på totalt leiebeløp for sesongen. Når en lagleder slutter midt i sesongen, fjernes tilgangen med ett klikk, og laget mister ikke oversikten over sine egne treningstider.
+Med medlemsspesifikk tilgang inviteres hver lagleder inn med sin egen bruker og rolle, i stedet for å dele styrets felles innlogging. De som har bookingrollen, kan booke og administrere tider for hele klubben, og styret ser alt, inkludert totalt leiebeløp for sesongen. Når en lagleder slutter midt i sesongen, fjernes tilgangen for akkurat den personen med ett klikk, uten at klubbens øvrige bookingtilgang eller avtaler berøres.
 
 Resultatet er ikke bare ryddigere administrasjon. Det er også tryggere: ingen deler passord de ikke burde ha, og styret kan til enhver tid se nøyaktig hvem som gjorde hva.
 
