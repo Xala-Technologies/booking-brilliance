@@ -16,11 +16,14 @@ const ChatbotContext = createContext<ChatbotContextValue | null>(null);
 const RAIL_KEY = "digilist-rail-expanded-v1";
 
 function initialRailExpanded(): boolean {
-  if (typeof window === "undefined") return true;
+  // Default COLLAPSED: the rail starts as the "Assistent" launcher so every page
+  // gets full content width by default; it stays open only for users who have
+  // explicitly opened it before (stored "1").
+  if (typeof window === "undefined") return false;
   try {
-    return localStorage.getItem(RAIL_KEY) !== "0";
+    return localStorage.getItem(RAIL_KEY) === "1";
   } catch {
-    return true;
+    return false;
   }
 }
 

@@ -113,7 +113,7 @@ Kontrakten avgjør hvor fritt du står om tre år. Tre punkter fortjener ekstra 
 
 **SLA.** Serviceavtalen skal tallfeste oppetid, for eksempel 99,5 til 99,9 prosent, responstid ved kritiske feil, og hva som skjer om leverandøren ikke leverer. En SLA uten konsekvenser er en intensjon, ikke en garanti.
 
-For kommuner er SSA-L, Statens standardavtale for løpende tjenestekjøp, et naturlig rammeverk å legge til grunn i 2026. Det gir et felles språk for nettopp disse punktene.
+For kommuner er [SSA-L](/blogg/ssa-l-2026-bookingsystem-kommune), Statens standardavtale for løpende tjenestekjøp, et naturlig rammeverk å legge til grunn i 2026. Det gir et felles språk for nettopp disse punktene.
 
 ## Sammenligningstabell: Digilist mot tradisjonelle leverandører
 

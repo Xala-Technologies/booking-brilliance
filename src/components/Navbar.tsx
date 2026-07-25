@@ -24,6 +24,11 @@ const SOLUTIONS = [
     eyebrow: "Landingsside",
   },
   {
+    label: "Bookingsystem for utleie",
+    to: "/bookingsystem-utleie",
+    eyebrow: "Privat · utleier",
+  },
+  {
     label: "Bookingsystem for kommuner",
     to: "/bookingsystem-kommune",
     eyebrow: "SSA-L 2026",
@@ -34,9 +39,19 @@ const SOLUTIONS = [
     eyebrow: "Rabatt · kupong · gavekort",
   },
   {
+    label: "Kanaler & synk",
+    to: "/kanaler",
+    eyebrow: "Toveis synk · AI-import",
+  },
+  {
     label: "Teknologi og sikkerhet",
     to: "/teknologi",
     eyebrow: "Plattform · samsvar",
+  },
+  {
+    label: "Utleiemarkedet 2026",
+    to: "/rapport/utleiemarkedet-norge-2026",
+    eyebrow: "Rapport · datastudie",
   },
   {
     label: "Om oss",
@@ -50,10 +65,12 @@ const SOLUTIONS = [
 // "Finn lokale" link.
 const MARKETPLACES = [
   { label: "Lokaler", to: "/leie", eyebrow: "Selskap · møte · idrett · kultur" },
+  { label: "Lokaler til leie", to: "/lokaler-til-leie", eyebrow: "By · type · anledning" },
   { label: "Overnatting", to: "/overnatting", eyebrow: "Hytte · leilighet · rom" },
   { label: "Arrangementer", to: "/arrangementer", eyebrow: "Konsert · teater · festival" },
   { label: "Utstyr", to: "/utstyr", eyebrow: "Fest · verktøy · lyd & lys" },
   { label: "Tjenester", to: "/tjenester", eyebrow: "Catering · DJ · musiker · dekor" },
+  { label: "Verktøy", to: "/verktoy", eyebrow: "Priskalkulator · kapasitet" },
 ] as const;
 
 // Primary desktop navigation — the curated top-level links that sit inline. The
@@ -71,10 +88,11 @@ const PRIMARY_NAV = [
   { label: "Book demo", to: "/book-demo" },
 ] as const;
 
+// Editorial hover/active: an animated hairline that grows from the left on
+// hover and stays lit for the active route or an open dropdown.
 const NAV_LINK =
-  "font-sans text-[0.95rem] text-ink-soft hover:text-ink transition-colors duration-quick ease-editorial whitespace-nowrap";
-const NAV_LINK_ACTIVE =
-  "text-ink underline underline-offset-8 decoration-[0.5px] decoration-ink";
+  "relative font-sans text-[0.95rem] text-ink-soft hover:text-ink transition-colors duration-quick ease-editorial whitespace-nowrap after:pointer-events-none after:absolute after:inset-x-0 after:-bottom-1.5 after:h-px after:origin-left after:scale-x-0 after:bg-ink after:transition-transform after:duration-normal after:ease-editorial hover:after:scale-x-100";
+const NAV_LINK_ACTIVE = "text-ink after:scale-x-100";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -123,6 +141,8 @@ const Navbar = () => {
             src="/logo-64.webp"
             alt=""
             aria-hidden="true"
+            width={64}
+            height={64}
             className="h-11 md:h-12 w-auto transition-opacity group-hover:opacity-80"
           />
           <span className="flex flex-col items-start leading-none">
@@ -167,13 +187,13 @@ const Navbar = () => {
           </div>
           <nav
             aria-label="Hovednavigasjon"
-            className="hidden xl:flex items-center gap-3"
+            className="hidden xl:flex items-center gap-6 2xl:gap-8"
           >
             <DropdownMenu>
               <DropdownMenuTrigger
                 className={cn(
                   NAV_LINK,
-                  "inline-flex items-center gap-1 outline-none focus-visible:underline focus-visible:underline-offset-8 data-[state=open]:text-ink",
+                  "inline-flex items-center gap-1 outline-none data-[state=open]:text-ink data-[state=open]:after:scale-x-100",
                   finnActive && NAV_LINK_ACTIVE,
                 )}
               >
@@ -211,7 +231,7 @@ const Navbar = () => {
               <DropdownMenuTrigger
                 className={cn(
                   NAV_LINK,
-                  "inline-flex items-center gap-1 outline-none focus-visible:underline focus-visible:underline-offset-8 data-[state=open]:text-ink",
+                  "inline-flex items-center gap-1 outline-none data-[state=open]:text-ink data-[state=open]:after:scale-x-100",
                   solutionsActive && NAV_LINK_ACTIVE,
                 )}
               >

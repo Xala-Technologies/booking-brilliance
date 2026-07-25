@@ -22,6 +22,20 @@ import Index from "./pages/Index";
 const ConvexScope = lazy(() => import("./components/ConvexScope"));
 const BookDemo = lazy(() => import("./pages/BookDemo"));
 const BookingsystemKommune = lazy(() => import("./pages/BookingsystemKommune"));
+const BookingsystemUtleie = lazy(() => import("./pages/BookingsystemUtleie"));
+const Kanaler = lazy(() => import("./pages/Kanaler"));
+const LokalerTilLeie = lazy(() => import("./pages/LokalerTilLeie"));
+const LokalerTilLeieBy = lazy(() => import("./pages/LokalerTilLeieBy"));
+const Verktoy = lazy(() => import("./pages/Verktoy"));
+const LeieprisKalkulator = lazy(() => import("./pages/LeieprisKalkulator"));
+const KapasitetsKalkulator = lazy(() => import("./pages/KapasitetsKalkulator"));
+const UtleiemarkedetNorge2026 = lazy(() => import("./pages/UtleiemarkedetNorge2026"));
+const LeieKonfirmasjonslokale = lazy(() => import("./pages/LeieKonfirmasjonslokale"));
+const LeieFirmafest = lazy(() => import("./pages/LeieFirmafest"));
+const LeieMinnestund = lazy(() => import("./pages/LeieMinnestund"));
+const LeieDaap = lazy(() => import("./pages/LeieDaap"));
+const LeieJubileum = lazy(() => import("./pages/LeieJubileum"));
+const Sikkerhet = lazy(() => import("./pages/Sikkerhet"));
 const BookingLokalerMoterom = lazy(() => import("./pages/BookingLokalerMoterom"));
 const Billettsystem = lazy(() => import("./pages/Billettsystem"));
 const Teknologi = lazy(() => import("./pages/Teknologi"));
@@ -33,6 +47,7 @@ const LeieKonferanselokale = lazy(() => import("./pages/LeieKonferanselokale"));
 const LeieKontorlokaler = lazy(() => import("./pages/LeieKontorlokaler"));
 const LeieCoworking = lazy(() => import("./pages/LeieCoworking"));
 const LeieIdrettshall = lazy(() => import("./pages/LeieIdrettshall"));
+const LeieHall = lazy(() => import("./pages/LeieHall"));
 const LeiePadelbane = lazy(() => import("./pages/LeiePadelbane"));
 const LeieSvommehall = lazy(() => import("./pages/LeieSvommehall"));
 const LeieKulturhus = lazy(() => import("./pages/LeieKulturhus"));
@@ -282,6 +297,20 @@ export function AppShell() {
             <Route path="/" element={<Index />} />
             <Route path="/book-demo" element={<BookDemo />} />
             <Route path="/bookingsystem-kommune" element={<BookingsystemKommune />} />
+            <Route path="/verktoy" element={<Verktoy />} />
+            <Route path="/verktoy/leiepriskalkulator" element={<LeieprisKalkulator />} />
+            <Route path="/rapport/utleiemarkedet-norge-2026" element={<UtleiemarkedetNorge2026 />} />
+            <Route path="/verktoy/kapasitetskalkulator" element={<KapasitetsKalkulator />} />
+            <Route path="/bookingsystem-utleie" element={<BookingsystemUtleie />} />
+            <Route path="/kanaler" element={<Kanaler />} />
+            <Route path="/lokaler-til-leie" element={<LokalerTilLeie />} />
+            <Route path="/lokaler-til-leie/:by" element={<LokalerTilLeieBy />} />
+            <Route path="/leie/konfirmasjonslokale" element={<LeieKonfirmasjonslokale />} />
+            <Route path="/leie/firmafest" element={<LeieFirmafest />} />
+            <Route path="/leie/minnestund" element={<LeieMinnestund />} />
+            <Route path="/leie/daap" element={<LeieDaap />} />
+            <Route path="/leie/jubileum" element={<LeieJubileum />} />
+            <Route path="/sikkerhet" element={<Sikkerhet />} />
             <Route path="/booking-av-lokaler-og-moterom" element={<BookingLokalerMoterom />} />
             <Route path="/billettsystem" element={<Billettsystem />} />
             <Route path="/teknologi" element={<Teknologi />} />
@@ -296,6 +325,7 @@ export function AppShell() {
             <Route path="/leie/kontorlokaler" element={<LeieKontorlokaler />} />
             <Route path="/leie/coworking" element={<LeieCoworking />} />
             <Route path="/leie/idrettshall" element={<LeieIdrettshall />} />
+            <Route path="/leie/hall" element={<LeieHall />} />
             <Route path="/leie/padelbane" element={<LeiePadelbane />} />
             <Route path="/leie/svommehall" element={<LeieSvommehall />} />
             <Route path="/overnatting" element={<Overnatting />} />
