@@ -30,4 +30,26 @@ export const POST_FAQ = {
         "Be om et utfylt sikkerhetsbilag (ikke bare en generell henvisning), et gyldig ISO 27001-sertifikat, siste pen-test-rapport og en kort demo av kravene i praksis: sanntidsoppdatering, ID-porten-innlogging og EHF-faktura. Selvdeklarasjon alene er ikke nok — krev dokumentasjon du kan verifisere.",
     },
   ],
+  "statistikk-rapportering-bruksdata-kommunale-lokaler": [
+    {
+      question: "Hvilken statistikk trenger en kommune for å planlegge bruken av lokaler?",
+      answer:
+        "Belegg per lokale og tidsrom, avlysnings- og no-show-rate, inntekt og kostnad per objekt, og fordelingen av bruk mellom lag og foreninger, skole og interne møter. Disse fire dekker det meste av det en leder trenger for å prioritere mellom lokaler.",
+    },
+    {
+      question: "Hvorfor holder det ikke med manuelle tellinger i regneark?",
+      answer:
+        "Manuelle tellinger gir et øyeblikksbilde som er utdatert før det brukes til beslutninger, og de skiller sjelden mellom en reell booking og en avlyst booking. Skal dataene brukes til ressursplanlegging, må de komme løpende fra bookingsystemet, ikke fra en periodisk opptelling.",
+    },
+    {
+      question: "Hvem i kommunen bør ha tilgang til bruksstatistikken?",
+      answer:
+        "Både driftsledere og administrative ledere, men med ulikt omfang: driftslederen trenger detaljert innsikt i eget anlegg, mens en leder eller administrator trenger et samlet bilde på tvers av alle kommunale lokaler for å prioritere budsjett og investeringer.",
+    },
+    {
+      question: "Kan bruksstatistikk brukes til å begrunne investeringer eller nedleggelser?",
+      answer:
+        "Ja. Dokumentert belegg over tid er et sterkere grunnlag for politiske beslutninger enn anekdotisk kunnskap, både når kommunen skal argumentere for et nytt anlegg og når et lokale reelt sett står ubrukt og bør avvikles eller omdisponeres.",
+    },
+  ],
 };
