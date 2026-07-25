@@ -22,7 +22,7 @@ Har du booket feil tid, eller trenger du å flytte en reservasjon? Slik gjør du
 3. Velg ny dato og klokkeslett i kalenderen. Ledige tider vises i sanntid, så du ser umiddelbart hva som er tilgjengelig.
 4. Bekreft endringen. Du får en oppdatert bekreftelse på e-post (og SMS, hvis det er aktivert for utleieobjektet).
 
-Noen lokaler har frister for hvor sent en endring kan gjøres uten godkjenning fra saksbehandler. Hvis fristen er passert, sendes endringsønsket automatisk til saksbehandler i stedet for å utføres direkte, og du får beskjed om det i grensesnittet. Da kan du følge status på endringen i samtaletråden på bookingen, samme sted som chat og forespørsler ellers ligger.
+Noen lokaler har frister for hvor sent en endring kan gjøres uten godkjenning fra saksbehandler. Er fristen passert, kan endringsønsket i stedet gå til saksbehandler for godkjenning fremfor å utføres direkte, og du får beskjed om det i grensesnittet. Da følger du status på endringen i samtaletråden på bookingen, samme sted som chat og forespørsler ellers ligger.
 
 ## Feilsøking: vanlige feil og hvordan du løser dem
 
@@ -57,13 +57,12 @@ Dersom lokalet krever manuell behandling av refusjonen (typisk ved spesielle avt
 
 ## Dele en booking med andre
 
-Skal flere ha oversikt over samme reservasjon — et lag, en komité, familien, eller kolleger som skal møte opp samtidig? Del bookingen slik:
+Skal flere ha oversikt over samme reservasjon — et lag, en komité, familien, eller kolleger som skal møte opp samtidig? Slik gjør du det i dag:
 
-1. Åpne bookingen og velg **Del booking**.
-2. Send lenken via e-post, SMS eller kalenderinvitasjon (ICS-fil), avhengig av hva som passer best.
-3. Mottakeren ser bookingdetaljene (tid, sted, eventuelle instruksjoner) uten å måtte opprette egen bruker.
+1. Videresend bekreftelsen du fikk på e-post. Den inneholder alt mottakeren trenger — tid, sted og eventuelle instruksjoner — uten at vedkommende må opprette egen bruker.
+2. Vil du gjøre selve lokalet kjent for noen (for eksempel så de kan booke en egen tid der selv), bruker du **Del**-knappen på lokalets side. Den deler lenken til lokalet via e-post eller sosiale medier.
 
-Vil du at flere skal kunne administrere bookingen — ikke bare se den — kan du legge dem til som medadministratorer der utleieobjektet støtter det. Det er nyttig for lag og foreninger der ansvaret for en fast treningstid går på omgang mellom flere personer.
+Det finnes foreløpig ingen egen medadministrator-funksjon for enkeltbookinger. Trenger et lag eller en forening at flere personer har fast tilgang til å administrere samme booking eller treningstid, er det brukerstøtte for utleieobjektet som kan hjelpe med å sette opp riktig tilgang.
 
 ## Slik når du brukerstøtte direkte
 
