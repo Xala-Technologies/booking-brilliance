@@ -7,6 +7,7 @@
 import { promises as fs } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { POST_FAQ } from "../src/content/blogFaq.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DIST = join(__dirname, "..", "dist");
@@ -199,6 +200,7 @@ async function loadBlogPosts() {
       title: fm.title,
       description: fm.description,
       date: fm.date,
+      updated: fm.updated,
       author: fm.author,
       tag: fm.tag,
       // `cover` drives the per-post og:image/twitter:image below. Without it
@@ -1081,6 +1083,33 @@ const ROUTES = [
       {
         q: "Hva koster det å leie svømmehall eller basseng?",
         a: "Prisen varierer med hall, tidspunkt og om du leier en bane eller hele bassenget. En enkeltbane koster gjerne noen hundre kroner per time, hele basseng mer. På Digilist ser du prisen for akkurat din time før du bekrefter.",
+      },
+    ],
+  },
+  {
+    route: "/leie/hobbyklubb",
+    title: "Leie lokale til hobbyklubb: pris og booking | Digilist",
+    description:
+      "Leie lokale til hobby- og interesseklubb: strikkeklubb, yogagruppe, brettspillklubb og andre. Se pris og kapasitet, book fast ukedag, og betal med Vipps.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Leie", url: `${BASE_URL}/leie` },
+      { name: "Hobbyklubb", url: `${BASE_URL}/leie/hobbyklubb` },
+    ],
+    faq: [
+      {
+        q: "Hva koster det å leie lokale til en hobbyklubb?",
+        a: "Prisen varierer med lokale, sted og hvor ofte dere booker. Et rom eller en sal kan koste fra noen hundre kroner per kveld, og mange utleiere gir lavere pris til klubber som booker fast over en hel sesong. På Digilist ser dere totalprisen for deres dato før dere booker.",
+      },
+      {
+        q: "Har Digilist et system for medlemskap og kontingent?",
+        a: "Nei. Digilist administrerer ikke medlemslister, kontingent eller søknader om tilskudd for klubben, det er noe klubben selv håndterer i egne systemer eller regneark. Det Digilist gjør er å gjøre lokaler søkbare og bookbare, med riktig pris og ledig dato for deres klubb.",
+      },
+      {
+        q: "Kan klubben booke samme kveld hver uke?",
+        a: "Ja, dere kan booke en fast ukedag over flere uker eller en hel sesong, i stedet for å søke på nytt hver gang. Kalenderen viser hva som faktisk er ledig for deres foretrukne tidspunkt.",
       },
     ],
   },
@@ -2473,7 +2502,7 @@ async function main() {
       headline: post.title,
       description: post.description,
       datePublished: post.date,
-      dateModified: post.date,
+      dateModified: post.updated || post.date,
       author: { "@type": "Person", name: post.author },
       publisher: { "@id": `${BASE_URL}/#organization` },
       mainEntityOfPage: {
@@ -2484,6 +2513,18 @@ async function main() {
       articleSection: post.tag || "Blogg",
       inLanguage: "nb-NO",
     };
+    const postFaq = POST_FAQ[post.slug];
+    const faqLD = postFaq
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: postFaq.map((q) => ({
+            "@type": "Question",
+            name: q.question,
+            acceptedAnswer: { "@type": "Answer", text: q.answer },
+          })),
+        }
+      : null;
     // Only append " — Digilist" if it still fits inside ~65 chars total.
     const postTitle =
       post.title.length > 50 ? post.title : `${post.title} — Digilist`;
@@ -2497,8 +2538,14 @@ async function main() {
         { name: post.title, url: `${BASE_URL}${postRoute}` },
       ],
     });
-    // Inject Article schema before </head>
-    const articleScript = `<script type="application/ld+json" data-prerendered="true">${JSON.stringify(articleLD)}</script>`;
+    // Inject Article (+ optional FAQPage) schema before </head>
+    const postLDBlocks = [articleLD, ...(faqLD ? [faqLD] : [])];
+    const articleScript = postLDBlocks
+      .map(
+        (b) =>
+          `<script type="application/ld+json" data-prerendered="true">${JSON.stringify(b)}</script>`,
+      )
+      .join("\n    ");
     html = html.replace("</head>", `    ${articleScript}\n  </head>`);
     // og:type article + og:image override with the cover
     html = html.replace(
@@ -2611,6 +2658,7 @@ async function main() {
     { loc: `${BASE_URL}/leie/hall`, priority: "0.85", changefreq: "monthly" },
     { loc: `${BASE_URL}/leie/padelbane`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/leie/svommehall`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/leie/hobbyklubb`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/overnatting`, priority: "0.9", changefreq: "weekly" },
     { loc: `${BASE_URL}/overnatting/hytte`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/overnatting/leilighet`, priority: "0.8", changefreq: "monthly" },

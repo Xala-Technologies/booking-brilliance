@@ -53,6 +53,7 @@ const LeieSvommehall = lazy(() => import("./pages/LeieSvommehall"));
 const LeieKulturhus = lazy(() => import("./pages/LeieKulturhus"));
 const LeieGaard = lazy(() => import("./pages/LeieGaard"));
 const LeieBursdagslokale = lazy(() => import("./pages/LeieBursdagslokale"));
+const LeieHobbyklubb = lazy(() => import("./pages/LeieHobbyklubb"));
 const Overnatting = lazy(() => import("./pages/Overnatting"));
 const OvernattingHytte = lazy(() => import("./pages/OvernattingHytte"));
 const OvernattingLeilighet = lazy(() => import("./pages/OvernattingLeilighet"));
@@ -328,6 +329,7 @@ export function AppShell() {
             <Route path="/leie/hall" element={<LeieHall />} />
             <Route path="/leie/padelbane" element={<LeiePadelbane />} />
             <Route path="/leie/svommehall" element={<LeieSvommehall />} />
+            <Route path="/leie/hobbyklubb" element={<LeieHobbyklubb />} />
             <Route path="/overnatting" element={<Overnatting />} />
             <Route path="/overnatting/hytte" element={<OvernattingHytte />} />
             <Route path="/overnatting/leilighet" element={<OvernattingLeilighet />} />

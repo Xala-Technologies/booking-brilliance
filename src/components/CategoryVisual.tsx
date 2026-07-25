@@ -26,6 +26,7 @@ import {
   Medal,
   Home,
   Bike,
+  Palette,
   type LucideIcon,
 } from "lucide-react";
 
@@ -51,6 +52,7 @@ const ICONS: Record<string, LucideIcon> = {
   idrettshall: Trophy,
   padelbane: Dumbbell,
   svommehall: Waves,
+  hobbyklubb: Palette,
   // overnatting
   hytte: TreePine,
   leilighet: Building2,
