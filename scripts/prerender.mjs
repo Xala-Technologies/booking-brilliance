@@ -7,6 +7,7 @@
 import { promises as fs } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { POST_FAQ } from "../src/content/blogFaq.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DIST = join(__dirname, "..", "dist");
@@ -199,6 +200,7 @@ async function loadBlogPosts() {
       title: fm.title,
       description: fm.description,
       date: fm.date,
+      updated: fm.updated,
       author: fm.author,
       tag: fm.tag,
       // `cover` drives the per-post og:image/twitter:image below. Without it
@@ -2455,7 +2457,7 @@ async function main() {
       headline: post.title,
       description: post.description,
       datePublished: post.date,
-      dateModified: post.date,
+      dateModified: post.updated || post.date,
       author: { "@type": "Person", name: post.author },
       publisher: { "@id": `${BASE_URL}/#organization` },
       mainEntityOfPage: {
@@ -2466,6 +2468,18 @@ async function main() {
       articleSection: post.tag || "Blogg",
       inLanguage: "nb-NO",
     };
+    const postFaq = POST_FAQ[post.slug];
+    const faqLD = postFaq
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: postFaq.map((q) => ({
+            "@type": "Question",
+            name: q.question,
+            acceptedAnswer: { "@type": "Answer", text: q.answer },
+          })),
+        }
+      : null;
     // Only append " — Digilist" if it still fits inside ~65 chars total.
     const postTitle =
       post.title.length > 50 ? post.title : `${post.title} — Digilist`;
@@ -2479,8 +2493,14 @@ async function main() {
         { name: post.title, url: `${BASE_URL}${postRoute}` },
       ],
     });
-    // Inject Article schema before </head>
-    const articleScript = `<script type="application/ld+json" data-prerendered="true">${JSON.stringify(articleLD)}</script>`;
+    // Inject Article (+ optional FAQPage) schema before </head>
+    const postLDBlocks = [articleLD, ...(faqLD ? [faqLD] : [])];
+    const articleScript = postLDBlocks
+      .map(
+        (b) =>
+          `<script type="application/ld+json" data-prerendered="true">${JSON.stringify(b)}</script>`,
+      )
+      .join("\n    ");
     html = html.replace("</head>", `    ${articleScript}\n  </head>`);
     // og:type article + og:image override with the cover
     html = html.replace(
