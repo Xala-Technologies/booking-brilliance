@@ -3,7 +3,7 @@ import {
   EditorialButton,
   EditorialHeading,
 } from "@/components/editorial";
-import { Check, Zap, Accessibility, ShieldCheck, CalendarCheck } from "lucide-react";
+import { Check, Zap, Accessibility, ShieldCheck, CalendarCheck, Home, Building2 } from "lucide-react";
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/motion";
 import { getFraunces } from "@/lib/fonts";
 import { logoWebpSrc } from "@/lib/utils";
@@ -183,8 +183,9 @@ const HeroSection = () => {
           >
             {/* Privat door */}
             <div className="group flex flex-col border border-rule rounded-sm p-6 lg:p-7 bg-gradient-to-br from-paper to-paper-deep/60 shadow-[0_1px_2px_rgba(10,18,40,0.05),0_10px_28px_-20px_rgba(10,18,40,0.28)] transition-all duration-normal ease-editorial hover:-translate-y-1 hover:border-accent-text/30 hover:shadow-[0_24px_48px_-24px_rgba(10,18,40,0.5)]">
-              <p className="editorial-mono-caption text-accent-text mb-3">
-                ◆ For deg som skal leie
+              <p className="editorial-mono-caption text-accent-text mb-3 inline-flex items-center gap-1.5">
+                <Home className="h-3.5 w-3.5" strokeWidth={2} aria-hidden="true" />
+                For deg som skal leie
               </p>
               <h2
                 className="font-serif text-2xl lg:text-3xl text-ink"
@@ -220,8 +221,9 @@ const HeroSection = () => {
 
             {/* Bedrift door */}
             <div className="group flex flex-col border border-rule rounded-sm p-6 lg:p-7 bg-gradient-to-br from-paper-deep/60 to-paper-tinted/40 shadow-[0_1px_2px_rgba(10,18,40,0.05),0_10px_28px_-20px_rgba(10,18,40,0.28)] transition-all duration-normal ease-editorial hover:-translate-y-1 hover:border-accent-text/30 hover:shadow-[0_24px_48px_-24px_rgba(10,18,40,0.5)]">
-              <p className="editorial-mono-caption text-ink-faint mb-3">
-                ■ For utleier &amp; kommune
+              <p className="editorial-mono-caption text-ink-faint mb-3 inline-flex items-center gap-1.5">
+                <Building2 className="h-3.5 w-3.5" strokeWidth={2} aria-hidden="true" />
+                For utleier &amp; kommune
               </p>
               <h2
                 className="font-serif text-2xl lg:text-3xl text-ink"

@@ -16,6 +16,7 @@ import { getAllPosts, formatPostDate } from "@/lib/posts";
 import { getPostBySlug } from "@/lib/postContent";
 import { getFraunces } from "@/lib/fonts";
 import { openChatbot } from "@/lib/chatbot/open";
+import { POST_FAQ } from "@/content/blogFaq.mjs";
 
 const CHAT_HREFS = new Set([
   "mailto:kontakt@digilist.no",
@@ -148,6 +149,7 @@ const BlogPost = () => {
           headline: post.title,
           description: post.description,
           datePublished: post.date,
+          dateModified: post.updated,
           author: post.author,
           authorRole: post.role,
           image: post.cover,
@@ -155,6 +157,7 @@ const BlogPost = () => {
           keywords: post.keywords,
           wordCount: post.content.split(/\s+/).filter(Boolean).length,
         }}
+        faq={POST_FAQ[post.slug]}
       />
       <ProgressRail />
       <Navbar />

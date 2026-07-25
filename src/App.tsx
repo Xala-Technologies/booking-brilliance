@@ -23,6 +23,7 @@ const ConvexScope = lazy(() => import("./components/ConvexScope"));
 const BookDemo = lazy(() => import("./pages/BookDemo"));
 const BookingsystemKommune = lazy(() => import("./pages/BookingsystemKommune"));
 const BookingsystemUtleie = lazy(() => import("./pages/BookingsystemUtleie"));
+const Kanaler = lazy(() => import("./pages/Kanaler"));
 const LokalerTilLeie = lazy(() => import("./pages/LokalerTilLeie"));
 const LokalerTilLeieBy = lazy(() => import("./pages/LokalerTilLeieBy"));
 const Verktoy = lazy(() => import("./pages/Verktoy"));
@@ -52,6 +53,7 @@ const LeieSvommehall = lazy(() => import("./pages/LeieSvommehall"));
 const LeieKulturhus = lazy(() => import("./pages/LeieKulturhus"));
 const LeieGaard = lazy(() => import("./pages/LeieGaard"));
 const LeieBursdagslokale = lazy(() => import("./pages/LeieBursdagslokale"));
+const LeieHobbyklubb = lazy(() => import("./pages/LeieHobbyklubb"));
 const Overnatting = lazy(() => import("./pages/Overnatting"));
 const OvernattingHytte = lazy(() => import("./pages/OvernattingHytte"));
 const OvernattingLeilighet = lazy(() => import("./pages/OvernattingLeilighet"));
@@ -301,6 +303,7 @@ export function AppShell() {
             <Route path="/rapport/utleiemarkedet-norge-2026" element={<UtleiemarkedetNorge2026 />} />
             <Route path="/verktoy/kapasitetskalkulator" element={<KapasitetsKalkulator />} />
             <Route path="/bookingsystem-utleie" element={<BookingsystemUtleie />} />
+            <Route path="/kanaler" element={<Kanaler />} />
             <Route path="/lokaler-til-leie" element={<LokalerTilLeie />} />
             <Route path="/lokaler-til-leie/:by" element={<LokalerTilLeieBy />} />
             <Route path="/leie/konfirmasjonslokale" element={<LeieKonfirmasjonslokale />} />
@@ -326,6 +329,7 @@ export function AppShell() {
             <Route path="/leie/hall" element={<LeieHall />} />
             <Route path="/leie/padelbane" element={<LeiePadelbane />} />
             <Route path="/leie/svommehall" element={<LeieSvommehall />} />
+            <Route path="/leie/hobbyklubb" element={<LeieHobbyklubb />} />
             <Route path="/overnatting" element={<Overnatting />} />
             <Route path="/overnatting/hytte" element={<OvernattingHytte />} />
             <Route path="/overnatting/leilighet" element={<OvernattingLeilighet />} />

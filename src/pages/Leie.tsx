@@ -15,6 +15,7 @@ import {
   Laptop,
   Dumbbell,
   Waves,
+  Palette,
 } from "lucide-react";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
@@ -122,6 +123,18 @@ const CATEGORY_GROUPS = [
         Icon: Waves,
         to: "/leie/svommehall",
         body: "Basseng til bursdag, svømmegruppe eller kurs. Ledige tider utenom klubbtidene, med pris og regler synlig.",
+      },
+    ],
+  },
+  {
+    label: "HOBBY & KLUBB",
+    meta: "HOBBYKLUBB · INTERESSEKLUBB",
+    items: [
+      {
+        title: "Hobbyklubb",
+        Icon: Palette,
+        to: "/leie/hobbyklubb",
+        body: "Strikkeklubb, yogagruppe eller brettspillkveld. Fast rom for klubbaktivitet, med pris og ledig ukedag synlig.",
       },
     ],
   },

@@ -7,6 +7,7 @@
 import { promises as fs } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { POST_FAQ } from "../src/content/blogFaq.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DIST = join(__dirname, "..", "dist");
@@ -199,6 +200,7 @@ async function loadBlogPosts() {
       title: fm.title,
       description: fm.description,
       date: fm.date,
+      updated: fm.updated,
       author: fm.author,
       tag: fm.tag,
       // `cover` drives the per-post og:image/twitter:image below. Without it
@@ -1085,6 +1087,33 @@ const ROUTES = [
     ],
   },
   {
+    route: "/leie/hobbyklubb",
+    title: "Leie lokale til hobbyklubb: pris og booking | Digilist",
+    description:
+      "Leie lokale til hobby- og interesseklubb: strikkeklubb, yogagruppe, brettspillklubb og andre. Se pris og kapasitet, book fast ukedag, og betal med Vipps.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Leie", url: `${BASE_URL}/leie` },
+      { name: "Hobbyklubb", url: `${BASE_URL}/leie/hobbyklubb` },
+    ],
+    faq: [
+      {
+        q: "Hva koster det å leie lokale til en hobbyklubb?",
+        a: "Prisen varierer med lokale, sted og hvor ofte dere booker. Et rom eller en sal kan koste fra noen hundre kroner per kveld, og mange utleiere gir lavere pris til klubber som booker fast over en hel sesong. På Digilist ser dere totalprisen for deres dato før dere booker.",
+      },
+      {
+        q: "Har Digilist et system for medlemskap og kontingent?",
+        a: "Nei. Digilist administrerer ikke medlemslister, kontingent eller søknader om tilskudd for klubben, det er noe klubben selv håndterer i egne systemer eller regneark. Det Digilist gjør er å gjøre lokaler søkbare og bookbare, med riktig pris og ledig dato for deres klubb.",
+      },
+      {
+        q: "Kan klubben booke samme kveld hver uke?",
+        a: "Ja, dere kan booke en fast ukedag over flere uker eller en hel sesong, i stedet for å søke på nytt hver gang. Kalenderen viser hva som faktisk er ledig for deres foretrukne tidspunkt.",
+      },
+    ],
+  },
+  {
     route: "/overnatting",
     title: "Overnatting: leie hytte, leilighet eller rom | Digilist",
     description:
@@ -1838,6 +1867,24 @@ const ROUTES = [
     ],
   },
   {
+    route: "/kanaler",
+    title: "Kanaler & synk · Digilist | Toveis kalendersynk og AI-import",
+    description:
+      "Koble Airbnb, Booking.com, Bookup, Eventum og Finn til Digilist. Toveis kalendersynk i sanntid og AI-agent som importerer oppføringene dine til et ferdig utkast — behold begge plattformer.",
+    ogType: "website",
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Kanaler & synk", url: `${BASE_URL}/kanaler` },
+    ],
+    faq: [
+      { q: "Hvordan fungerer toveis kalendersynk?", a: "Du kobler kanalene dine — som Airbnb, Booking.com, Bookup, Eventum eller Finn — til Digilist én gang. Deretter holdes kalender, priser og tilgjengelighet synkronisert begge veier: en booking på én kanal blokkerer tiden på alle de andre umiddelbart, og endringer i Digilist slår gjennom overalt. Slik unngår du dobbeltbookinger uten manuelt vedlikehold." },
+      { q: "Hvilke kanaler kan jeg koble til?", a: "Digilist kobler mot de vanligste kanalene norske utleiere bruker — Airbnb, Booking.com, Bookup, Eventum og Finn — samt kalenderstandarder som iCal, CalDAV, Outlook og Google Calendar." },
+      { q: "Kan AI-agenten importere oppføringene mine automatisk?", a: "Ja. Lim inn lenken til en eksisterende oppføring (eller last opp et dokument), så henter agenten tekst, bilder, kalender, priser og konfigurasjon og lager et ferdig utkast i Digilist. Du trenger bare å gjennomgå og publisere." },
+      { q: "Kan jeg fortsette å bruke Airbnb og Booking.com samtidig?", a: "Ja. Poenget med toveis synk er at du beholder kanalene du allerede tjener på. Digilist blir det samlende kalender- og driftslaget, mens du fortsetter å ta imot bookinger der kundene dine allerede er." },
+      { q: "Hindrer synk dobbeltbookinger?", a: "Ja. Fordi tilgjengeligheten holdes synkronisert i sanntid på tvers av alle tilkoblede kanaler, blir en tid som bookes ett sted umiddelbart utilgjengelig alle andre steder." },
+    ],
+  },
+  {
     route: "/sikkerhet",
     title: "Sikkerhet og personvern · Digilist | ISO 27001, GDPR og datasikkerhet",
     description:
@@ -2455,7 +2502,7 @@ async function main() {
       headline: post.title,
       description: post.description,
       datePublished: post.date,
-      dateModified: post.date,
+      dateModified: post.updated || post.date,
       author: { "@type": "Person", name: post.author },
       publisher: { "@id": `${BASE_URL}/#organization` },
       mainEntityOfPage: {
@@ -2466,6 +2513,18 @@ async function main() {
       articleSection: post.tag || "Blogg",
       inLanguage: "nb-NO",
     };
+    const postFaq = POST_FAQ[post.slug];
+    const faqLD = postFaq
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: postFaq.map((q) => ({
+            "@type": "Question",
+            name: q.question,
+            acceptedAnswer: { "@type": "Answer", text: q.answer },
+          })),
+        }
+      : null;
     // Only append " — Digilist" if it still fits inside ~65 chars total.
     const postTitle =
       post.title.length > 50 ? post.title : `${post.title} — Digilist`;
@@ -2479,8 +2538,14 @@ async function main() {
         { name: post.title, url: `${BASE_URL}${postRoute}` },
       ],
     });
-    // Inject Article schema before </head>
-    const articleScript = `<script type="application/ld+json" data-prerendered="true">${JSON.stringify(articleLD)}</script>`;
+    // Inject Article (+ optional FAQPage) schema before </head>
+    const postLDBlocks = [articleLD, ...(faqLD ? [faqLD] : [])];
+    const articleScript = postLDBlocks
+      .map(
+        (b) =>
+          `<script type="application/ld+json" data-prerendered="true">${JSON.stringify(b)}</script>`,
+      )
+      .join("\n    ");
     html = html.replace("</head>", `    ${articleScript}\n  </head>`);
     // og:type article + og:image override with the cover
     html = html.replace(
@@ -2538,6 +2603,7 @@ async function main() {
     { loc: `${BASE_URL}/`, priority: "1.0", changefreq: "weekly" },
     { loc: `${BASE_URL}/bookingsystem-kommune`, priority: "0.95", changefreq: "monthly" },
     { loc: `${BASE_URL}/bookingsystem-utleie`, priority: "0.95", changefreq: "monthly" },
+    { loc: `${BASE_URL}/kanaler`, priority: "0.9", changefreq: "monthly" },
     { loc: `${BASE_URL}/verktoy`, priority: "0.7", changefreq: "monthly" },
     { loc: `${BASE_URL}/verktoy/leiepriskalkulator`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/verktoy/kapasitetskalkulator`, priority: "0.8", changefreq: "monthly" },
@@ -2592,6 +2658,7 @@ async function main() {
     { loc: `${BASE_URL}/leie/hall`, priority: "0.85", changefreq: "monthly" },
     { loc: `${BASE_URL}/leie/padelbane`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/leie/svommehall`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/leie/hobbyklubb`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/overnatting`, priority: "0.9", changefreq: "weekly" },
     { loc: `${BASE_URL}/overnatting/hytte`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/overnatting/leilighet`, priority: "0.8", changefreq: "monthly" },

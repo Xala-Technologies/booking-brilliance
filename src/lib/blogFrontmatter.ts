@@ -7,6 +7,8 @@ export interface BlogFrontmatter {
   title: string;
   description: string;
   date: string;
+  /** Last-substantially-updated date (ISO), for the Article schema's dateModified. */
+  updated?: string;
   author: string;
   role?: string;
   readingMinutes?: number;
@@ -67,6 +69,9 @@ export function extractFrontmatter(path: string, raw: string): BlogFrontmatter {
     title: (data.title as string) || "",
     description: (data.description as string) || "",
     date: data.date ? new Date(data.date as string).toISOString().slice(0, 10) : "",
+    updated: data.updated
+      ? new Date(data.updated as string).toISOString().slice(0, 10)
+      : undefined,
     author: (data.author as string) || "",
     role: data.role as string | undefined,
     readingMinutes: data.readingMinutes as number | undefined,
