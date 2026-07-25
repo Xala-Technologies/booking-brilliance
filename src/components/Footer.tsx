@@ -101,6 +101,7 @@ const Footer = () => {
     { label: "Coworking", href: "/leie/coworking" },
     { label: "Padelbane", href: "/leie/padelbane" },
     { label: "Svømmehall", href: "/leie/svommehall" },
+    { label: "Hobbyklubb", href: "/leie/hobbyklubb" },
   ];
 
   const anledninger = [

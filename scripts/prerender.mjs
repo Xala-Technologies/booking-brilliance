@@ -1085,6 +1085,33 @@ const ROUTES = [
     ],
   },
   {
+    route: "/leie/hobbyklubb",
+    title: "Leie lokale til hobbyklubb: pris og booking | Digilist",
+    description:
+      "Leie lokale til hobby- og interesseklubb: strikkeklubb, yogagruppe, brettspillklubb og andre. Se pris og kapasitet, book fast ukedag, og betal med Vipps.",
+    ogType: "website",
+    service: true,
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Leie", url: `${BASE_URL}/leie` },
+      { name: "Hobbyklubb", url: `${BASE_URL}/leie/hobbyklubb` },
+    ],
+    faq: [
+      {
+        q: "Hva koster det å leie lokale til en hobbyklubb?",
+        a: "Prisen varierer med lokale, sted og hvor ofte dere booker. Et rom eller en sal kan koste fra noen hundre kroner per kveld, og mange utleiere gir lavere pris til klubber som booker fast over en hel sesong. På Digilist ser dere totalprisen for deres dato før dere booker.",
+      },
+      {
+        q: "Har Digilist et system for medlemskap og kontingent?",
+        a: "Nei. Digilist administrerer ikke medlemslister, kontingent eller søknader om tilskudd for klubben, det er noe klubben selv håndterer i egne systemer eller regneark. Det Digilist gjør er å gjøre lokaler søkbare og bookbare, med riktig pris og ledig dato for deres klubb.",
+      },
+      {
+        q: "Kan klubben booke samme kveld hver uke?",
+        a: "Ja, dere kan booke en fast ukedag over flere uker eller en hel sesong, i stedet for å søke på nytt hver gang. Kalenderen viser hva som faktisk er ledig for deres foretrukne tidspunkt.",
+      },
+    ],
+  },
+  {
     route: "/overnatting",
     title: "Overnatting: leie hytte, leilighet eller rom | Digilist",
     description:
@@ -2592,6 +2619,7 @@ async function main() {
     { loc: `${BASE_URL}/leie/hall`, priority: "0.85", changefreq: "monthly" },
     { loc: `${BASE_URL}/leie/padelbane`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/leie/svommehall`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${BASE_URL}/leie/hobbyklubb`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/overnatting`, priority: "0.9", changefreq: "weekly" },
     { loc: `${BASE_URL}/overnatting/hytte`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/overnatting/leilighet`, priority: "0.8", changefreq: "monthly" },
