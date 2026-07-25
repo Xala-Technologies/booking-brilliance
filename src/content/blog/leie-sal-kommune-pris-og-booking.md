@@ -7,7 +7,7 @@ author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 8
 tag: "Innbygger"
-cover: "/images/blog/somlos_betaling_hero_no-preview.webp"
+cover: "/images/blog/somlos_betaling_hero_no.webp"
 keywords: ["leie sal kommune", "billigst leie lokale", "gratis leie lag og foreninger", "priser kommunale gymsaler", "booke lokale digitalt", "depositum leie sal"]
 ---
 

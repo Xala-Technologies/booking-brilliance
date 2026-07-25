@@ -7,7 +7,7 @@ author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 8
 tag: "Innbygger"
-cover: "/images/blog/realtime_updates_hero_no-preview.webp"
+cover: "/images/blog/realtime_updates_hero_no.webp"
 keywords: ["bryllupslokale pris", "leie bryllupslokale kommune", "book bryllupslokale online", "bryllupslokale kapasitet", "skjenkebevilling bryllupslokale"]
 ---
 

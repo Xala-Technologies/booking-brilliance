@@ -7,7 +7,7 @@ author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 8
 tag: "Lag og foreninger"
-cover: "/images/blog/gdpr_iso27001_hero_no-preview.webp"
+cover: "/images/blog/gdpr_iso27001_hero_no.webp"
 keywords: ["konferanse sal kommune priser", "leie sal til konsert", "utstillingslokale kommune", "seminarrom stor kapasitet", "kultursal booking pris", "sal med scene og lyd", "ledige datoer kultursal"]
 ---
 

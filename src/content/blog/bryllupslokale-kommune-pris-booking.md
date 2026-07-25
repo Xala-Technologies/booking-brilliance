@@ -7,7 +7,7 @@ author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 8
 tag: "Lag og foreninger"
-cover: "/images/blog/availability_calendar_hero_no-preview.webp"
+cover: "/images/blog/availability_calendar_hero_no.webp"
 keywords: ["bryllupslokale kommune pris", "leie bryllupslokale", "booking bryllupslokale", "kulturhus bryllup", "kommunal utleie selskapslokale"]
 ---
 

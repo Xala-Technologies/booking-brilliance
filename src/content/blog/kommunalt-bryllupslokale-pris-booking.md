@@ -7,7 +7,7 @@ author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 8
 tag: "Innbygger"
-cover: "/images/blog/somlos_betaling_hero_no-preview.webp"
+cover: "/images/blog/somlos_betaling_hero_no.webp"
 keywords: ["bryllupslokale pris kommune", "bryllupslokale leie", "bryllupslokale kapasitet", "bryllupslokale depositum", "bryllupslokale med kjøkken", "skjenkebevilling bryllup", "booke kommunalt lokale"]
 ---
 
