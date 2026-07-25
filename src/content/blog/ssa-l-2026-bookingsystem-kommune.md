@@ -1,14 +1,15 @@
 ---
 slug: ssa-l-2026-bookingsystem-kommune
-title: "Hva kreves av et kommunalt bookingsystem i 2026?"
-description: "SSA-L 2026 setter nye krav til kommunale bookingsystemer. Vi går gjennom sanntid, sesongleie, ID-porten, EHF og hva som skal til for å oppfylle kravspesifikasjonen."
+title: "SSA-L 2026: full kravguide til kommunalt bookingsystem"
+description: "SSA-L 2026 stiller krav til sanntid, ID-porten, EHF og sesongleie i kommunalt bookingsystem. Komplett kravgjennomgang, verifikasjonssjekkliste og svar på vanlige spørsmål."
 date: 2026-05-14
+updated: 2026-07-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
-readingMinutes: 8
+readingMinutes: 9
 tag: "Anskaffelse"
 cover: "/images/blog/ssal_2026_booking_hero.webp"
-keywords: ["SSA-L 2026", "kommunalt bookingsystem", "anskaffelse", "kravspesifikasjon", "Digdir"]
+keywords: ["SSA-L 2026", "kommunalt bookingsystem", "anskaffelse", "kravspesifikasjon", "Digdir", "SSA-L bilag 7"]
 ---
 
 Norske kommuner som anskaffer bookingsystem i 2026 møter et tydeligere kravbilde enn noen gang. SSA-L 2026 (Statens Standardavtale for løsninger) kombinert med digitaliseringsdirektoratets (Digdir) føringer for offentlige tjenester, definerer en høy bunnplanke: sanntidstilgjengelighet, ID-porten-autentisering, EHF-fakturering, universell utforming og ISO 27001-sertifisering er ikke lenger «nice to have», men forutsetninger for å delta i konkurransen.
@@ -57,6 +58,35 @@ Faktura til kommunale enheter må sendes via EHF (Elektronisk Handelsformat) ove
 Mange kommuner har eksisterende bookingsystemer (RCO, Aktimo, Idrettens Bookingsystem osv.) med historiske bookinger og sesongleieavtaler. SSA-L 2026 krever at den nye leverandøren støtter migrasjon, ikke bare frisk start.
 
 Digilist tilbyr import fra RCO booking og andre systemer i etableringsfasen, med valideringsregler for foreningsregister og bookinghistorikk.
+
+## SSA-L, SSA-D og SSA-K: hvilken avtale gjelder for et bookingsystem
+
+Statens standardavtaler er ikke én avtale, men en familie, og det er lett å be om feil mal i konkurransegrunnlaget. **SSA-L** gjelder løpende tjenestekjøp, typisk et SaaS-abonnement der leverandøren har driftsansvaret — det er malen som passer et bookingsystem. **SSA-D** brukes når kommunen bestiller utvikling eller vesentlig tilpasning av en løsning, og **SSA-K** er en enklere kjøpsavtale for avgrensede, korte leveranser uten løpende drift. Be leverandøren bekrefte at de leverer på SSA-L spesifikt, ikke bare «Statens standardavtaler» generelt — feil avtaletype gir feil ansvarsfordeling den dagen noe går galt.
+
+## Slik verifiserer kommunen SSA-L-samsvar hos leverandøren
+
+Et utfylt bilag er ikke det samme som verifisert samsvar. Fire trinn skiller en reell verifikasjon fra en brosjyrepåstand:
+
+1. **Krev et konkret utfylt sikkerhetsbilag** (bilag 7), ikke en generisk henvisning til «bransjestandard». Hvert punkt skal ha status og bevis, ikke bare et kryss.
+2. **Be om gyldig ISO 27001-sertifikat** med sertifiseringsdato og revisjonsselskap, ikke bare et diplom uten dato.
+3. **Be om siste pen-test-rapport**, gjerne med sammendrag av funn og lukkingsfrist for eventuelle avvik.
+4. **Se selvdeklarasjonen mot en uavhengig kilde**: mange leverandører publiserer et offentlig samsvars- eller transparensdashbord som oppdateres løpende — sammenlign tallene der mot det som står i tilbudet.
+
+Digilists eget [transparensdashbord](/transparens) viser sikkerhets- og kvalitetsstatus løpende, slik at en kommune kan verifisere kravene før signering, ikke bare stole på ordene i tilbudet.
+
+## Vanlige spørsmål om SSA-L 2026
+
+**Hva er SSA-L 2026?**
+SSA-L er Statens standardavtale for løpende tjenestekjøp av IT — malen de fleste norske kommuner bruker når de anskaffer et bookingsystem som SaaS. 2026-versjonen skjerper kravene til sanntidsdata, ID-porten-autentisering, EHF-fakturering, universell utforming og ISO 27001.
+
+**Er SSA-L pliktig ved anskaffelse av bookingsystem?**
+SSA-L er ikke lovpålagt, men den anbefalte og mest brukte kontraktsmalen for kommunale SaaS-kjøp. De fleste kommuner legger den til grunn i konkurransegrunnlaget, og en leverandør som ikke kan levere på bilagene om sikkerhet og tjenestenivå, faller normalt fra i evalueringen.
+
+**Hva er forskjellen på SSA-L, SSA-D og SSA-K?**
+SSA-L gjelder løpende tjenestekjøp (typisk SaaS med driftsansvar hos leverandøren), SSA-D gjelder utvikling og tilpasning av en løsning, og SSA-K er en enklere kjøpsavtale for korte, avgrensede leveranser. Et bookingsystem som leveres og driftes som abonnement, hører hjemme under SSA-L.
+
+**Hvordan verifiserer kommunen SSA-L-samsvar hos leverandøren?**
+Be om et utfylt sikkerhetsbilag (ikke bare en generell henvisning), et gyldig ISO 27001-sertifikat, siste pen-test-rapport og en kort demo av kravene i praksis: sanntidsoppdatering, ID-porten-innlogging og EHF-faktura. Selvdeklarasjon alene er ikke nok — krev dokumentasjon du kan verifisere.
 
 ## Hva kommunen bør gjøre nå
 

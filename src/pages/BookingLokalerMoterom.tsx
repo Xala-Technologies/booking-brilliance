@@ -28,6 +28,11 @@ import { getFraunces } from "@/lib/fonts";
 
 const FAQ = [
   {
+    question: "Hva er et bookingsystem for lokaler?",
+    answer:
+      "Et bookingsystem for lokaler er en digital plattform der utleiere og kommuner viser ledige lokaler i sanntid, og innbyggere, lag, foreninger og bedrifter booker og betaler direkte. Digilist er et slikt bookingsystem for lokaler og møterom – for både offentlige og private lokaler, med kalender, pris, kontrakt og betaling i én sammenhengende flyt.",
+  },
+  {
     question: "Hva er booking av lokaler og møterom?",
     answer:
       "Booking av lokaler og møterom er den digitale prosessen der innbyggere, bedrifter, lag eller foreninger reserverer fysiske rom (selskapslokaler, møterom, idrettshaller, kantiner, kulturhus) for et bestemt tidsrom. En moderne plattform håndterer sanntidstilgjengelighet, betaling, kontrakt, varsling av driftsroller og fakturering i én sammenhengende flyt.",
@@ -137,9 +142,9 @@ const BookingLokalerMoterom = () => {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <SEO
-        title="Booking av lokaler og møterom · Digilist | Norsk bookingplattform for kommuner og utleiere"
-        description="Booking av lokaler og møterom i Norge: sanntidskalender, Vipps, BankID, EHF og sesongleie. Bygget for kommuner, selskapslokaler, idrettshaller og kulturhus. SSA-L 2026-klar, ISO 27001-sertifisert."
-        keywords="booking av lokaler og møterom, booking lokale, booking møterom, leie lokale, leie møterom, bookingplattform Norge, kommunal booking, selskapslokale booking, idrettshall booking, kulturhus booking, Vipps booking, BankID booking, EHF, sesongleie"
+        title="Booking av lokaler og møterom · Digilist | Bookingsystem for lokaler i Norge"
+        description="Bookingsystem for lokaler og møterom i Norge: sanntidskalender, Vipps, BankID, EHF og sesongleie. Bygget for kommuner, selskapslokaler, idrettshaller og kulturhus. SSA-L 2026-klar, ISO 27001-sertifisert."
+        keywords="lokaler bookingsystem, bookingsystem for lokaler, bookingsystem lokaler, booking av lokaler og møterom, booking lokale, booking møterom, leie lokale, leie møterom, bookingplattform Norge, kommunal booking, selskapslokale booking, idrettshall booking, kulturhus booking, Vipps booking, BankID booking, EHF, sesongleie"
         canonical="https://digilist.no/booking-av-lokaler-og-moterom"
         breadcrumbs={[
           { name: "Hjem", url: "https://digilist.no/" },
@@ -198,8 +203,9 @@ const BookingLokalerMoterom = () => {
                     · én norsk plattform.
                   </EditorialHeading>
                   <p className="mt-6 text-xl text-ink-soft measure leading-relaxed">
-                    Digilist er en norsk bookingplattform for kommuner,
-                    selskapslokaler, idrettshaller, kulturhus og møterom. Søk,
+                    Digilist er et norsk bookingsystem for lokaler og møterom – for
+                    kommuner, selskapslokaler, idrettshaller, kulturhus og
+                    bedrifter. Søk,
                     book og betal i én flyt, med Vipps, BankID, EHF og
                     sesongleie innebygd.
                   </p>
@@ -439,6 +445,14 @@ const BookingLokalerMoterom = () => {
                     </div>
                   ))}
                 </dl>
+                <p className="mt-10 editorial-mono-caption">
+                  Se også{" "}
+                  <Link to="/bookingsystem-utleie" className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]">bookingsystem for utleie</Link>
+                  ,{" "}
+                  <Link to="/bookingsystem-kommune" className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]">bookingsystem for kommuner</Link>{" "}
+                  eller{" "}
+                  <Link to="/leie" className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]">alle lokaler til leie</Link>.
+                </p>
               </div>
 
             </div>

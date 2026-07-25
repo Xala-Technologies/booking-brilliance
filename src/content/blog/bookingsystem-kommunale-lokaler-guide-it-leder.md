@@ -55,7 +55,7 @@ Driftslederen bryr seg om det fysiske: hvem har nøkkel, er lokalet klargjort, o
 
 Her ligger de kravene som avgjør om anskaffelsen i det hele tatt er lovlig og forsvarlig.
 
-**SSA-L og offentlige anskaffelseskrav.** Statens standardavtale for løpende tjenestekjøp (SSA-L) er malen de fleste kommuner bruker for SaaS. Leverandøren bør kunne levere på SSA-L uten omfattende særvilkår, og du bør sjekke at bilagene om tjenestenivå (SLA), behandling av personopplysninger og exit er utfylt konkret, ikke med tomme henvisninger. Ved kjøp over terskelverdi gjelder anskaffelsesregelverket fullt ut, så be om referanser fra sammenlignbare kommuner.
+**SSA-L og offentlige anskaffelseskrav.** [SSA-L](/blogg/ssa-l-2026-bookingsystem-kommune), Statens standardavtale for løpende tjenestekjøp, er malen de fleste kommuner bruker for SaaS. Leverandøren bør kunne levere på SSA-L uten omfattende særvilkår, og du bør sjekke at bilagene om tjenestenivå (SLA), behandling av personopplysninger og exit er utfylt konkret, ikke med tomme henvisninger. Ved kjøp over terskelverdi gjelder anskaffelsesregelverket fullt ut, så be om referanser fra sammenlignbare kommuner.
 
 **GDPR og datalokasjon i Norge.** Systemet behandler personopplysninger om innbyggere: navn, kontaktinfo, av og til betalingsdata. Du trenger en databehandleravtale, en oversikt over hvilke underleverandører som brukes, og klarhet i hvor dataene lagres. Mange kommuner setter som krav at data lagres innenfor EU/EØS, og flere foretrekker lagring i Norge. Etter Schrems II-avgjørelsen er overføring til USA en risiko du må dokumentere håndteringen av, så et system der hele datakjeden ligger i Norge fjerner et helt vurderingsspor.
 

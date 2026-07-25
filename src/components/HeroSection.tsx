@@ -3,7 +3,7 @@ import {
   EditorialButton,
   EditorialHeading,
 } from "@/components/editorial";
-import { Check } from "lucide-react";
+import { Check, Zap, Accessibility, ShieldCheck, CalendarCheck, Home, Building2 } from "lucide-react";
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/motion";
 import { getFraunces } from "@/lib/fonts";
 import { logoWebpSrc } from "@/lib/utils";
@@ -114,26 +114,65 @@ const HeroSection = () => {
             </ul>
           </motion.div>
 
-          {/* Product preview — sits to the right of the hero title + subtitle */}
+          {/* Product preview — a browser-window mockup of the live app, with a
+              row of feature cards beneath it. The reel is cropped near-native
+              16:9 so the app fills the window edge-to-edge (no letterbox band
+              under the URL bar). */}
           <motion.div
             variants={staggerChild}
             className="col-span-12 lg:col-span-5 mt-8 lg:mt-0"
           >
-            <div className="rounded-lg border border-rule bg-paper-deep/40 p-1.5 shadow-[0_24px_64px_-32px_rgba(10,18,40,0.55)] overflow-hidden">
-              <video
-                className="w-full rounded-md"
-                style={{ aspectRatio: "16 / 9" }}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-                poster="/videos/digilist-book-venue-poster.jpg"
-                aria-label="Digilist booking i praksis"
-              >
-                <source src="/videos/digilist-book-venue.webm" type="video/webm" />
-                <source src="/videos/digilist-book-venue.mp4" type="video/mp4" />
-              </video>
+            <div className="w-full">
+              {/* Browser window */}
+              <div className="rounded-xl border border-rule bg-[#0a1628] shadow-[0_44px_100px_-44px_rgba(10,18,40,0.65)] overflow-hidden">
+                {/* Chrome bar */}
+                <div className="flex items-center gap-2 h-10 px-4 border-b border-white/[0.06] bg-[#0d1c33]">
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" aria-hidden="true" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" aria-hidden="true" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" aria-hidden="true" />
+                  <span className="ml-3 inline-flex flex-1 max-w-[240px] items-center justify-center gap-1.5 rounded-md bg-white/[0.06] px-3 py-1 font-mono text-[0.7rem] tracking-wide text-white/55">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#28c840]" aria-hidden="true" />
+                    app.digilist.no
+                  </span>
+                </div>
+                <video
+                  className="w-full block"
+                  style={{ aspectRatio: "16 / 9" }}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  poster="/videos/digilist-hero-demo-poster.jpg"
+                  aria-label="Digilist i praksis — fra søk til booking"
+                >
+                  <source src="/videos/digilist-hero-demo.webm" type="video/webm" />
+                  <source src="/videos/digilist-hero-demo.mp4" type="video/mp4" />
+                </video>
+              </div>
+
+              {/* Feature cards — the value + norske-krav story, under the demo. */}
+              <ul className="mt-4 grid grid-cols-2 gap-2.5 sm:gap-3">
+                {[
+                  { icon: Zap, label: "Book på 90 sekunder", sub: "Enkelt og raskt" },
+                  { icon: Accessibility, label: "Universelt utformet", sub: "WCAG 2.1 AA" },
+                  { icon: ShieldCheck, label: "BankID & Vipps", sub: "Trygg betaling" },
+                  { icon: CalendarCheck, label: "Ledige datoer i sanntid", sub: "Ekte priser" },
+                ].map(({ icon: Icon, label, sub }) => (
+                  <li
+                    key={label}
+                    className="group flex items-center gap-3 rounded-lg border border-rule bg-gradient-to-br from-paper to-paper-deep/60 px-3.5 py-3 shadow-[0_1px_2px_rgba(10,18,40,0.05),0_10px_24px_-18px_rgba(10,18,40,0.3)] transition-all duration-quick ease-editorial hover:-translate-y-0.5 hover:border-accent-text/30 hover:shadow-[0_16px_30px_-16px_rgba(10,18,40,0.4)]"
+                  >
+                    <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-accent-tinted text-accent-text ring-1 ring-accent-text/20">
+                      <Icon className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
+                    </span>
+                    <div className="min-w-0 leading-tight">
+                      <p className="text-sm font-semibold text-ink truncate">{label}</p>
+                      <p className="editorial-mono-caption text-ink-faint mt-0.5 truncate">{sub}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
           </motion.div>
 
@@ -144,8 +183,9 @@ const HeroSection = () => {
           >
             {/* Privat door */}
             <div className="group flex flex-col border border-rule rounded-sm p-6 lg:p-7 bg-gradient-to-br from-paper to-paper-deep/60 shadow-[0_1px_2px_rgba(10,18,40,0.05),0_10px_28px_-20px_rgba(10,18,40,0.28)] transition-all duration-normal ease-editorial hover:-translate-y-1 hover:border-accent-text/30 hover:shadow-[0_24px_48px_-24px_rgba(10,18,40,0.5)]">
-              <p className="editorial-mono-caption text-accent-text mb-3">
-                ◆ For deg som skal leie
+              <p className="editorial-mono-caption text-accent-text mb-3 inline-flex items-center gap-1.5">
+                <Home className="h-3.5 w-3.5" strokeWidth={2} aria-hidden="true" />
+                For deg som skal leie
               </p>
               <h2
                 className="font-serif text-2xl lg:text-3xl text-ink"
@@ -181,8 +221,9 @@ const HeroSection = () => {
 
             {/* Bedrift door */}
             <div className="group flex flex-col border border-rule rounded-sm p-6 lg:p-7 bg-gradient-to-br from-paper-deep/60 to-paper-tinted/40 shadow-[0_1px_2px_rgba(10,18,40,0.05),0_10px_28px_-20px_rgba(10,18,40,0.28)] transition-all duration-normal ease-editorial hover:-translate-y-1 hover:border-accent-text/30 hover:shadow-[0_24px_48px_-24px_rgba(10,18,40,0.5)]">
-              <p className="editorial-mono-caption text-ink-faint mb-3">
-                ■ For utleier &amp; kommune
+              <p className="editorial-mono-caption text-ink-faint mb-3 inline-flex items-center gap-1.5">
+                <Building2 className="h-3.5 w-3.5" strokeWidth={2} aria-hidden="true" />
+                For utleier &amp; kommune
               </p>
               <h2
                 className="font-serif text-2xl lg:text-3xl text-ink"
