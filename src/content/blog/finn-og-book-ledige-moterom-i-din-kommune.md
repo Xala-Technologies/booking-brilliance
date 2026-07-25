@@ -2,7 +2,7 @@
 slug: finn-og-book-ledige-moterom-i-din-kommune
 title: "Slik finner og booker du ledige møterom i din kommune"
 description: "Finn ledige møterom i ditt område, sjekk ledighet i sanntid og book med BankID, uten å ringe rundt til skoler og servicetorg."
-date: 2026-07-24
+date: 2026-07-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 8
