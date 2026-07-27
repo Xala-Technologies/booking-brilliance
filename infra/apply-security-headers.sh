@@ -22,6 +22,7 @@ TARGETS=(
   "status.digilist.no|/etc/nginx/sites-available/status.digilist.no"
   "dev.digilist.no|/etc/nginx/sites-available/digilist-dev"
   "dashboard.dev.digilist.no|/etc/nginx/sites-available/digilist-dev"
+  "docs.digilist.no|/etc/nginx/sites-available/docs.digilist.no"
 )
 
 echo "→ Uploading snippet to ${SNIPPET_REMOTE}"
