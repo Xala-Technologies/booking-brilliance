@@ -8,7 +8,7 @@ const CHANNELS = ["Airbnb", "Booking.com", "Bookup", "Eventum", "Finn"];
 const BENEFITS = [
   "Synk kalender, priser og tilgjengelighet automatisk",
   "Legg til nye oppføringer uten dobbeltarbeid",
-  "Alltid oppdatert — aldri dobbeltbookinger",
+  "Alltid oppdatert – aldri dobbeltbookinger",
   "Én admin for alle kanaler",
 ];
 
@@ -49,7 +49,7 @@ export function ChannelSyncSection() {
 
             <p className="mt-5 text-lg text-ink-soft measure leading-relaxed">
               Har du lokaler på Airbnb, Booking.com, Bookup eller Eventum? Koble
-              dem til Digilist én gang — så holdes kalender og tilgjengelighet i
+              dem til Digilist én gang – så holdes kalender og tilgjengelighet i
               sync automatisk. Ingen dobbeltarbeid, ingen dobbeltbookinger,
               alltid oppdatert overalt.
             </p>

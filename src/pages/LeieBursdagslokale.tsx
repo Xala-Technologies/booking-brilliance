@@ -9,10 +9,10 @@ export default function LeieBursdagslokale() {
       slug="bursdagslokale"
       breadcrumb="Bursdagslokale"
       title="Leie bursdagslokale"
-      dek="Barnebursdag eller voksenbursdag? Finn ledig lokale nær deg, se ekte pris, og book og betal med Vipps."
+      dek="Barnebursdag eller voksenbursdag? Finn ledige lokaler nær deg, se ekte pris, og book og betal med Vipps."
       lead="Å finne lokale til bursdag betyr ofte leting i Facebook-grupper, Finn-annonser og tips fra andre foreldre, uten å vite hva det koster eller om datoen er ledig før noen svarer. Og når svaret endelig kommer, skal du gjerne betale med bankoverføring til en du aldri har møtt. På Digilist finner du festrom, grendehus, kaféer og aktivitetslokaler i nærområdet samlet ett sted, med ekte pris for din dato, ledige datoer i sanntid og trygg betaling med Vipps, enten det er barnebursdag eller runde år."
       seoTitle="Leie bursdagslokale: pris, ledige datoer og booking | Digilist"
-      seoDescription="Leie bursdagslokale til barnebursdag eller voksenbursdag: finn ledig lokale til bursdag nær deg, se ekte pris og book med Vipps. Alt samlet ett sted."
+      seoDescription="Leie bursdagslokale til barnebursdag eller voksenbursdag: finn ledige lokaler til bursdag nær deg, se ekte pris og book med Vipps. Alt samlet ett sted."
       keywords="leie bursdagslokale, leie lokale til bursdag, barnebursdag lokale, lokale til bursdag, bursdagsselskap lokale, leie lokale til barnebursdag, voksenbursdag lokale, leie festlokale bursdag"
       audience={[
         {

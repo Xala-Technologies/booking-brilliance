@@ -23,7 +23,7 @@ Det er her ansvaret har flyttet seg oppover. Driftslederen kjenner anlegget fra 
 
 Ikke all statistikk er like nyttig. Fire kategorier dekker det meste av det en leder trenger for å ta informerte beslutninger om ressursbruk:
 
-- **Belegg per lokale og tidsrom.** Hvor mange av de bookbare timene i uken er faktisk i bruk, brutt ned på lokale, ukedag og tid på døgnet. Dette avdekker de "usynlige" hullene: en hall som ser full ut på kveldstid, men står tom hele formiddagen.
+- **Belegg per lokale og tidsrom.** Hvor mange av de bookbare timene i uken er faktisk i bruk, brutt ned på lokale, ukedag og tid på døgnet. Dette avdekker de «usynlige» hullene: en hall som ser full ut på kveldstid, men står tom hele formiddagen.
 - **Avlysninger, no-show og ventelister.** En høy avlysningsrate uten konsekvens binder opp kapasitet andre kunne brukt. Ventelister på ett objekt samtidig som et annet står ledig er det tydeligste tegnet på at fordelingen bør justeres.
 - **Inntekt og kostnad per objekt.** Hvilke lokaler går i pluss, og hvilke subsidieres tyngst. Nødvendig for å prioritere vedlikeholdsbudsjett og for å begrunne prisjusteringer overfor politisk nivå.
 - **Fordeling mellom brukergrupper.** Hvor mye tid går til lag og foreninger, skole, interne møter og kommersiell utleie. Endringer i denne fordelingen over tid sier ofte mer enn et enkeltstående øyeblikksbilde.

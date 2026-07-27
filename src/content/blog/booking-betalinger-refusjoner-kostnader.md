@@ -47,7 +47,7 @@ Innbyggere stoler ikke automatisk på at en kommunal nettside håndterer kortdat
 
 Det som bygger tillit i praksis er de synlige signalene:
 
-- Vipps- og bank-ID-innlogging innbyggeren allerede kjenner fra andre offentlige tjenester
+- Vipps- og BankID-innlogging innbyggeren allerede kjenner fra andre offentlige tjenester
 - Kvittering på e-post umiddelbart etter betaling, med bookingnummer som kan brukes i enhver henvendelse
 - Refusjon til **samme betalingsmetode** som ble brukt, aldri en manuell overføring til «et annet kontonummer du oppgir i en e-post», som er nøyaktig mønsteret svindelforsøk etterligner
 

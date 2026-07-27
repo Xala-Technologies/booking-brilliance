@@ -33,12 +33,12 @@ const agents = [
     tag: "Godkjenning",
     title: "Compliance-kontroll av hver oppføring",
     lead:
-      "Før en oppføring publiseres, gjennomgår Digilist-agenten den mot loven — ikke bare mot en sjekkliste.",
+      "Før en oppføring publiseres, gjennomgår Digilist-agenten den mot loven – ikke bare mot en sjekkliste.",
     points: [
       "Skanner all offentlig tekst for personopplysninger (GDPR), eksponerte tilgangskoder og usikre lenker (NSM), og villedende eller ulovlig markedsføring.",
-      "Et eget vision-steg laster ned og inspiserer hvert bilde — fanger ulovlig innhold, bilder som feilrepresenterer lokalet, og gjenkjennelige ansikter uten grunnlag.",
+      "Et eget vision-steg laster ned og inspiserer hvert bilde – fanger ulovlig innhold, bilder som feilrepresenterer lokalet, og gjenkjennelige ansikter uten grunnlag.",
       "Fanger villedende avvik strukturell validering ikke ser: feil kategori, åpningstider som ikke dekker bruken, skjulte obligatoriske kostnader.",
-      "Godkjenner rene oppføringer med konkrete salgsråd — og veileder resten fikset med en varm melding på norsk, aldri en byråkratisk avvisning.",
+      "Godkjenner rene oppføringer med konkrete salgsråd – og veileder resten fikset med en varm melding på norsk, aldri en byråkratisk avvisning.",
     ],
     flow: ["Innsendt oppføring", "Publiseringsgate", "Compliance-gjennomgang", "Bildekontroll", "Beslutning + veiledning"],
     href: "/ai-agenter/compliance-godkjenning",
@@ -48,12 +48,12 @@ const agents = [
     tag: "Henvendelser",
     title: "Førstesvar på kundeforespørsler",
     lead:
-      "Ingen henvendelse blir liggende. Agenten leser forespørselen og svarer på utleiers vegne — varmt og korrekt.",
+      "Ingen henvendelse blir liggende. Agenten leser forespørselen og svarer på utleiers vegne – varmt og korrekt.",
     points: [
       "Leser inn formål, dato, antall og spørsmål fra henvendelsen, og skriver et imøtekommende førstesvar som en dyktig saksbehandler.",
-      "Klager, prisforhandling og juridiske spørsmål løftes alltid til et menneske — agenten kjenner sine grenser.",
+      "Klager, prisforhandling og juridiske spørsmål løftes alltid til et menneske – agenten kjenner sine grenser.",
       "Skriver utkast som standard; automatisk utsending er noe dere skrur på selv når dere er trygge.",
-      "Rask respons vinner bookinger — henvendelser besvares med én gang, ikke når noen får tid.",
+      "Rask respons vinner bookinger – henvendelser besvares med én gang, ikke når noen får tid.",
     ],
     flow: ["Henvendelse", "Leser formål · dato · antall", "Utkast til svar", "Triage til menneske?", "Send"],
   },
@@ -62,11 +62,11 @@ const agents = [
     tag: "Sesongtildeling",
     title: "Forklarer halltildeling som holder",
     lead:
-      "Det mest omstridte en kommune gjør. Agenten tildeler aldri selv — den gjennomgår og begrunner.",
+      "Det mest omstridte en kommune gjør. Agenten tildeler aldri selv – den gjennomgår og begrunner.",
     points: [
       "Leser det ferdige forslaget fra AllocationEngine og flagger det reglene ikke ser: klubber som faller utenfor, konflikter avgjort ved loddtrekning, slots et menneske har overstyrt.",
-      "Vurderer om resultatet er forsvarlig å stå for — mønstre over tid, som at samme klubb taper hver sesong.",
-      "Skriver hver klubbs begrunnelse i mentor-tone, klart og respektfullt. Aldri «systemet bestemte» — et menneske står ansvarlig.",
+      "Vurderer om resultatet er forsvarlig å stå for – mønstre over tid, som at samme klubb taper hver sesong.",
+      "Skriver hver klubbs begrunnelse i mentor-tone, klart og respektfullt. Aldri «systemet bestemte» – et menneske står ansvarlig.",
       "Hvert klubbrettet ord er menneske-godkjent før det sendes.",
     ],
     flow: ["Forslag fra motoren", "Finner signaler", "Vurderer forsvarlighet", "Forklaring per klubb", "Menneske godkjenner"],
@@ -77,12 +77,12 @@ const agents = [
     tag: "Drift",
     title: "Dagens oversikt til de som drifter byggene",
     lead:
-      "Vaktmester, renhold, vakthold og brannvern får dagen sin servert — rolig og personlig.",
+      "Vaktmester, renhold, vakthold og brannvern får dagen sin servert – rolig og personlig.",
     points: [
       "Per driftskontakt: en oversikt over dagens tider i riktig rekkefølge, med det som må følges opp løftet fram.",
-      "Leser og varsler kun — rører aldri en booking.",
+      "Leser og varsler kun – rører aldri en booking.",
       "Sender aldri en tom melding: er det ingenting å melde, er det stille.",
-      "Informasjonen finnes allerede i Digilist — agenten bringer den ut til rett person, i stedet for å ligge begravd under «Min side».",
+      "Informasjonen finnes allerede i Digilist – agenten bringer den ut til rett person, i stedet for å ligge begravd under «Min side».",
     ],
     flow: ["Dagens bookinger", "Per driftskontakt", "Rolig oversikt", "Varsel"],
   },
@@ -91,12 +91,12 @@ const agents = [
     tag: "Innsikt",
     title: "Ser hvor markedet har hull",
     lead:
-      "En markedsstrateg som leser hele markedsplassen og finner mulighetene — uten å røre noe.",
+      "En markedsstrateg som leser hele markedsplassen og finner mulighetene – uten å røre noe.",
     points: [
       "Leser tilbud (publiserte oppføringer) mot etterspørsel (bookinger og henvendelser) på tvers av alle leietakere.",
       "Finner gapene: hvor det mangler lokaler folk faktisk leter etter, i hver offentlig kategori.",
-      "Skriver en kort, rangert mulighetsoversikt til teamet — i dashbordet og som melding.",
-      "Kun lesing, ingen kundevendte handlinger — ren innsikt til å vokse bevisst.",
+      "Skriver en kort, rangert mulighetsoversikt til teamet – i dashbordet og som melding.",
+      "Kun lesing, ingen kundevendte handlinger – ren innsikt til å vokse bevisst.",
     ],
     flow: ["Tilbud + etterspørsel", "Finner gap", "Rangert oversikt"],
   },
@@ -105,12 +105,12 @@ const agents = [
     tag: "Importér",
     title: "Lag utkast fra en lenke eller fil",
     lead:
-      "Har du lokalet på Airbnb, Booking.com, Finn eller Eventum — eller i et Word-dokument? Agenten lager et ferdig utkast.",
+      "Har du lokalet på Airbnb, Booking.com, Finn eller Eventum – eller i et Word-dokument? Agenten lager et ferdig utkast.",
     points: [
-      "Lim inn en lenke til en eksisterende oppføring, eller last opp et dokument — flere kilder samtidig, som en samling.",
+      "Lim inn en lenke til en eksisterende oppføring, eller last opp et dokument – flere kilder samtidig, som en samling.",
       "Agenten analyserer innholdet og trekker ut navn, beskrivelse, kapasitet, fasiliteter, beliggenhet og priser.",
       "Feltene fylles inn i Digilists struktur, og du får et ferdig utkast du bare finpusser.",
-      "Du bekrefter og publiserer selv — utkastet går gjennom compliance-godkjenning før det blir synlig.",
+      "Du bekrefter og publiserer selv – utkastet går gjennom compliance-godkjenning før det blir synlig.",
     ],
     flow: ["Lenke eller fil", "Analyse", "Trekker ut felter", "Utkast til oppføring"],
     href: "/ai-agenter/importer-oppforing",
@@ -121,12 +121,12 @@ const faq = [
   {
     question: "Er Digilist-agentene GDPR-sikre?",
     answer:
-      "Ja. Hver oppføring kontrolleres mot GDPR før publisering — agenten fanger personopplysninger i offentlig tekst og bilder. Agentene følger også NSM grunnprinsipper for IKT-sikkerhet, SOC 2 og krav til universell utforming (WCAG 2.1 AA).",
+      "Ja. Hver oppføring kontrolleres mot GDPR før publisering – agenten fanger personopplysninger i offentlig tekst og bilder. Agentene følger også NSM grunnprinsipper for IKT-sikkerhet, SOC 2 og krav til universell utforming (WCAG 2.1 AA).",
   },
   {
     question: "Tar agentene avgjørelser på egen hånd?",
     answer:
-      "Nei, ikke for kundevendte handlinger. Svar på henvendelser skrives som utkast (automatisk utsending er valgfritt), sesongtildeling forklares men tildeles aldri av agenten, og hvert klubbrettet ord er menneske-godkjent. Godkjenning av oppføringer skjer mot klare, lovbaserte kriterier — tvilstilfeller eskaleres til et menneske.",
+      "Nei, ikke for kundevendte handlinger. Svar på henvendelser skrives som utkast (automatisk utsending er valgfritt), sesongtildeling forklares men tildeles aldri av agenten, og hvert klubbrettet ord er menneske-godkjent. Godkjenning av oppføringer skjer mot klare, lovbaserte kriterier – tvilstilfeller eskaleres til et menneske.",
   },
   {
     question: "Hvilke standarder kontrolleres en oppføring mot?",
@@ -144,7 +144,7 @@ const AiAgenter = () => {
   return (
     <>
       <SEO
-        title="AI-agenter for booking og utleie — GDPR-sikker automatisering | Digilist"
+        title="AI-agenter for booking og utleie – GDPR-sikker automatisering | Digilist"
         description="Digilist bruker AI-agenter som godkjenner oppføringer mot GDPR, NSM, SOC 2 og universell utforming, svarer på henvendelser, forklarer sesongtildeling og gir daglig driftsoversikt. Bygget for norske kommuner."
         keywords={[
           "AI bookingsystem",
@@ -183,7 +183,7 @@ const AiAgenter = () => {
                   <p className="text-xl lg:text-2xl text-ink-soft leading-relaxed measure">
                     Under Digilist jobber en flåte av AI-agenter. De godkjenner oppføringer mot
                     loven, svarer på henvendelser, forklarer sesongtildeling og varsler dem som
-                    drifter byggene — så administrasjonen slipper det repetitive, og folk kan bruke
+                    drifter byggene – så administrasjonen slipper det repetitive, og folk kan bruke
                     tiden på skjønn.
                   </p>
                 </div>
@@ -286,7 +286,7 @@ const AiAgenter = () => {
                   style={{ fontVariationSettings: getFraunces("sub") }}
                 >
                   Agentene gjetter ikke. De leser de faktiske Digilist-reglene, dokumentasjonen og
-                  loven før de dømmer — og ser bildene, ikke bare teksten.
+                  loven før de dømmer – og ser bildene, ikke bare teksten.
                 </p>
               </div>
             </div>

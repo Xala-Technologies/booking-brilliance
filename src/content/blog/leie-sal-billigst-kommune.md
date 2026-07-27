@@ -49,7 +49,7 @@ Fordelene fremfor telefon og e-post:
 - Du sammenligner **pris på tvers av bygg** uten å be hver enkelt om et tilbud
 - Du slipper å vente på svar i saksbehandlers arbeidstid; oversikten er åpen døgnet rundt
 
-For deg som innbygger betyr det at "billigst ledig" blir noe du kan søke deg frem til, ikke noe du snubler over.
+For deg som innbygger betyr det at «billigst ledig» blir noe du kan søke deg frem til, ikke noe du snubler over.
 
 ## Gratis eller sterkt rabattert leie for idrettslag, kor og korps
 

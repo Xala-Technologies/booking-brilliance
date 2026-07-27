@@ -11,7 +11,7 @@ cover: "/images/blog/realtime_updates_hero_no.webp"
 keywords: ["push-varsler", "driftsroller", "vaktmester", "renhold", "automatisk varsling", "outbox event bus"]
 ---
 
-Det er et øyeblikk som gjentar seg i hver kommune: en innbygger har booket en lokale, kommer dit i tide, men finner døren låst. Hun ringer servicetorget, som ringer kulturkonsulenten, som ringer vaktmesteren. Tre samtaler, fem minutters frustrasjon, og en booking som starter dårlig. Den underliggende feilen er ikke menneskelig. Det er informasjon som ikke har flyttet seg automatisk. Det er nettopp den informasjonsflyten realtime-varslene er bygget for.
+Det er et øyeblikk som gjentar seg i hver kommune: en innbygger har booket et lokale, kommer dit i tide, men finner døren låst. Hun ringer servicetorget, som ringer kulturkonsulenten, som ringer vaktmesteren. Tre samtaler, fem minutters frustrasjon, og en booking som starter dårlig. Den underliggende feilen er ikke menneskelig. Det er informasjon som ikke har flyttet seg automatisk. Det er nettopp den informasjonsflyten realtime-varslene er bygget for.
 
 ## Tre lag av varsler, hvert med sitt formål
 
@@ -21,7 +21,7 @@ Digilist sender varsler på tre forskjellige nivåer, og det er forskjellen mell
 
 Når en booking bekreftes, sendes:
 
-- **E-post-bekreftelse** med all info, kalenderfil, adresse, og bookingens unike kode for digital nøkkel.
+- **E-post-bekreftelse** med all info, kalenderfil, adresse og bookingens unike kode for digital nøkkel.
 - **SMS-påminnelse** 24 timer før (kommunen velger om dette er aktivt).
 - **Push-varsel** dersom innbyggeren har Digilist-appen installert.
 

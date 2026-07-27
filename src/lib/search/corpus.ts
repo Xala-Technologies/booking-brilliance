@@ -48,7 +48,7 @@ const ROUTE_ITEMS: SearchItem[] = [
 // "relevante sider") can surface the new pages and their content.
 const MARKETPLACE_ITEMS: SearchItem[] = [
   // hubs
-  { id: "m-leie", kind: "route", title: "Finn lokale", subtitle: "Selskapslokale, møterom, kulturhus, idrettshall", href: "/leie", keywords: ["leie lokale", "finn lokale", "festlokale", "book lokale"] },
+  { id: "m-leie", kind: "route", title: "Finn lokaler", subtitle: "Selskapslokale, møterom, kulturhus, idrettshall", href: "/leie", keywords: ["leie lokale", "finn lokale", "festlokale", "book lokale"] },
   { id: "m-overnatting", kind: "route", title: "Overnatting", subtitle: "Hytte, leilighet, rom, feriehus", href: "/overnatting", keywords: ["overnatting", "leie overnatting", "book overnatting"] },
   { id: "m-arrangementer", kind: "route", title: "Arrangementer", subtitle: "Billetter til konsert, teater, festival, sport", href: "/arrangementer", keywords: ["billetter", "kjøp billett", "arrangement", "event"] },
   { id: "m-utstyr", kind: "route", title: "Leie utstyr", subtitle: "Festutstyr, verktøy, lyd og lys, sport", href: "/utstyr", keywords: ["leie utstyr", "utstyr til leie"] },

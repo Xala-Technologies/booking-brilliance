@@ -35,7 +35,7 @@ Uten en registrering å vise til, må saksbehandleren sjekke dette manuelt for h
 Registrering skjer gjennom kommunens søknadsportal og tar normalt under ti minutter for en lagkoordinator som har informasjonen tilgjengelig.
 
 1. **Oppslag mot Brønnøysundregisteret.** Laget eller organisasjonen søkes opp på organisasjonsnummer, og portalen henter navn og juridisk form automatisk fra Brønnøysundregisteret (BRREG). Det gjør at kommunen kan stole på at det er en reell enhet, uten å be om ekstra dokumentasjon på det punktet.
-2. **Grunnopplysninger om laget.** Antall medlemmer, aldersfordeling og aktivitetstype (fotball, håndball, korps, speider, og så videre) legges inn. Dette er det samme grunnlaget kommunen senere bruker til å prioritere søknader om sesongleie.
+2. **Grunnopplysninger om laget.** Antall medlemmer, aldersfordeling og aktivitetstype (fotball, håndball, korps, speider og så videre) legges inn. Dette er det samme grunnlaget kommunen senere bruker til å prioritere søknader om sesongleie.
 3. **Dokumentasjon lastes opp.** Forsikringsbevis og eventuelt vedtekter lastes opp én gang og knyttes til organisasjonen, ikke til enkeltsøknaden. Neste gang laget søker om en ny tid eller fornyer sesongleien, slipper dere å laste opp de samme dokumentene på nytt.
 4. **Kontaktperson og lagkoordinator.** Den som fyller ut registreringen blir normalt lagets første administrator i systemet, og kan senere invitere flere.
 

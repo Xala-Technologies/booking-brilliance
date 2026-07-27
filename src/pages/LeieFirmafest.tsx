@@ -10,7 +10,7 @@ export default function LeieFirmafest() {
       slug="firmafest"
       breadcrumb="Firmafest og julebord"
       title="Leie lokale til firmafest og julebord"
-      dek="Julebord, sommerfest eller kick-off? Finn ledig lokale for bedriften, se ekte pris for datoen, og book på nett."
+      dek="Julebord, sommerfest eller kick-off? Finn ledige lokaler for bedriften, se ekte pris for datoen, og book på nett."
       lead="Julebordsesongen er den travleste tiden for utleie av selskapslokaler, og de sentrale lokalene til fredager og lørdager i november og desember bookes ofte fra sommeren av. Som ansvarlig for firmafesten skal du finne et lokale med riktig kapasitet, avklare servering og skjenking, og holde deg innenfor budsjett, gjerne mens du venter på svar fra flere utleiere samtidig. På Digilist finner du selskapslokaler, restauranter med selskapsrom, kulturhus og gårder samlet ett sted, med ledige datoer i sanntid, ekte pris for din dato og trygg betaling, enten det er en avdeling på ti eller hele bedriften på to hundre."
       seoTitle="Leie lokale til firmafest og julebord | Digilist"
       seoDescription="Leie lokale til firmafest, julebord eller sommerfest: finn ledig bedriftslokale, se ekte pris for din dato og book på nett. Selskapslokaler og kulturhus samlet."
@@ -75,10 +75,10 @@ export default function LeieFirmafest() {
             "Start med to avklaringer: hvor mange dere blir, og om festen skal være en sittende middag eller mer mingling med bordservering og dans. Det avgjør både kapasiteten dere trenger og hvilke lokaler som passer. Deretter avklarer dere servering og skjenking, og om lokalet har eget kjøkken, catering-avtale eller skjenkerett.",
           ]}
           checklist={[
-            "Sett datoen og book tidlig — julebordslokaler i sentrum er ofte booket fra sommeren.",
+            "Sett datoen og book tidlig – julebordslokaler i sentrum er ofte booket fra sommeren.",
             "Anslå antall gjester og velg mellom sittende middag eller mingling med dans.",
             "Avklar servering: eget kjøkken, catering eller lokalets egen mat- og drikkemeny.",
-            "Sjekk skjenking — serveres alkohol mot betaling kreves skjenkebevilling.",
+            "Sjekk skjenking – serveres alkohol mot betaling kreves skjenkebevilling.",
             "Tenk på transport og parkering, særlig for et lokale utenfor sentrum.",
             "Book på nett og få digital bekreftelse og kvittering til regnskapet.",
           ]}

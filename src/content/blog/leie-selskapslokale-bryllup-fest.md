@@ -54,7 +54,7 @@ Digilist samler tre ting som ellers er spredt: **ledige tider, booking og betali
 - **Betaling i plattformen:** oppgjør skjer i tjenesten, med kvittering og oversikt.
 - **Innlogging med ID-porten:** for utleiere i offentlig sektor, der sikker identifisering kreves.
 
-"Folk vil se en ledig dato og booke den samme kveld, ikke sende ti e-poster og vente tre dager på svar," sier Ibrahim Rahmani, grunnlegger av Digilist. Det er den ventetiden en sanntidskalender fjerner.
+«Folk vil se en ledig dato og booke den samme kveld, ikke sende ti e-poster og vente tre dager på svar,» sier Ibrahim Rahmani, grunnlegger av Digilist. Det er den ventetiden en sanntidskalender fjerner.
 
 Oppsettet koster ingenting å prøve for en utleier, og en enkel lokalprofil med kalender kan være publisert samme dag. Prismodellen er per lokale eller ressurs, ikke per forespørsel.
 

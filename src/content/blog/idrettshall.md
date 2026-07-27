@@ -13,7 +13,7 @@ keywords: ["idrettshall ledige tider booking", "booking av idrettshall", "ledig 
 
 En idrettshall med 80 tilgjengelige timer i uka kan fort ligge på 60 prosent belegg fordi ingen ser de ledige lukene. Samtidig ringer lagledere og foreldre driftsleder for å høre om det er plass torsdag kveld. En felles sanntidskalender løser begge deler: tomme timer blir synlige, og alle parter leser samme tall.
 
-## Hva "ledige tider" faktisk betyr i en idrettshall
+## Hva «ledige tider» faktisk betyr i en idrettshall
 
 Ledig tid er ikke ett tall. En idrettshall har flere kapasitetstyper som må håndteres hver for seg, ellers oppstår misforståelser og dobbeltbooking.
 
@@ -21,11 +21,11 @@ Ledig tid er ikke ett tall. En idrettshall har flere kapasitetstyper som må hå
 - **Faste treningstider:** Ukentlige, sesonglange blokker som idrettslag får tildelt, typisk fra august til juni.
 - **Halvbaner:** En håndballhall deles ofte i to eller tre soner med skillevegg, slik at et volleyballag og et basketlag kan trene samtidig.
 
-Poenget for driftsleder er at "ledig" må vises per sone og per tidsblokk, ikke bare per hall. Hvis systemet kun viser hele hallen som opptatt når halvbane A er booket, forsvinner halvbane B fra oversikten selv om den står tom. En riktig oppsatt kalender skiller mellom disse nivåene, slik at reell ledig kapasitet i idrettshallen kommer frem.
+Poenget for driftsleder er at «ledig» må vises per sone og per tidsblokk, ikke bare per hall. Hvis systemet kun viser hele hallen som opptatt når halvbane A er booket, forsvinner halvbane B fra oversikten selv om den står tom. En riktig oppsatt kalender skiller mellom disse nivåene, slik at reell ledig kapasitet i idrettshallen kommer frem.
 
 ## Slik finner innbyggere og lag ledig kapasitet uten å ringe driftsleder
 
-Den vanligste tidstyven er telefonen. En driftsleder på et anlegg med tre haller kan bruke flere timer i uka på å svare "er det ledig?" over telefon og e-post.
+Den vanligste tidstyven er telefonen. En driftsleder på et anlegg med tre haller kan bruke flere timer i uka på å svare «er det ledig?» over telefon og e-post.
 
 En offentlig ledig-tid-oversikt kutter dette. Innbygger eller lagleder går inn på kommunens bookingside, velger anlegg, dato og eventuelt halvbane, og ser umiddelbart hvilke luker som er grønne. Filteret bør minst dekke:
 
@@ -33,7 +33,7 @@ En offentlig ledig-tid-oversikt kutter dette. Innbygger eller lagleder går inn 
 - Dato og klokkeslett
 - Aktivitetstype, der noen soner er forbeholdt bestemte idretter
 
-Når oversikten er selvbetjent, faller antallet henvendelser markant. Lillestrøm kommune og andre med mange anlegg merker dette først, fordi volumet av "har dere ledig?"-spørsmål er høyt når hallene er populære. Driftsleder slipper å være svartjeneste og kan bruke tiden på selve driften.
+Når oversikten er selvbetjent, faller antallet henvendelser markant. Lillestrøm kommune og andre med mange anlegg merker dette først, fordi volumet av «har dere ledig?»-spørsmål er høyt når hallene er populære. Driftsleder slipper å være svartjeneste og kan bruke tiden på selve driften.
 
 ## Booking av idrettshall steg for steg
 
@@ -56,7 +56,7 @@ En sanntidskalender fjerner de parallelle listene. Alt, både faste tider, enkel
 - **Låsing ved bekreftelse:** Tiden reserveres i det øyeblikket den bekreftes, ikke etter en manuell kontroll dagen etter.
 - **Én kilde per sone:** Halvbane A og halvbane B har hver sin status, slik at systemet aldri godkjenner to bookinger på samme fysiske gulv samtidig.
 
-Resultatet er at lag som møter opp faktisk har hallen for seg selv, og at driftsleder ikke må mekle mellom to grupper som begge har "bekreftet" den samme timen.
+Resultatet er at lag som møter opp faktisk har hallen for seg selv, og at driftsleder ikke må mekle mellom to grupper som begge har «bekreftet» den samme timen.
 
 ## Faste treningstider versus enkeltbooking: rettferdig fordeling
 

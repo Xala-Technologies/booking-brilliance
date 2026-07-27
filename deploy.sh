@@ -279,119 +279,22 @@ EOF
     echo -e "${GREEN}✓ Audit infrastructure deployed${NC}"
 fi
 
-# Stage 2.8 — Daily content-agent timer (idempotent: writes units only if
-# missing or changed). The timer fires at 06:00 every day, runs the full
-# discover→analyze→generate pipeline, then regenerates the snapshot so
-# the dashboard reflects the new state. No auto-publish.
-if [ -d "tools/content-agent" ]; then
-    echo -e "${BLUE}[2.8/3] Installing daily content-agent timer...${NC}"
-
-    cat > /tmp/digilist-content.service <<'EOF'
-[Unit]
-Description=Digilist Content Agent — discover, analyze, generate
-After=network-online.target
-Wants=network-online.target
-
-[Service]
-Type=oneshot
-User=www-data
-Group=www-data
-WorkingDirectory=/var/www/digilist-audit
-# Must contain ANTHROPIC_API_KEY, CONVEX_URL (or VITE_CONVEX_URL),
-# ADMIN_BASIC_AUTH. The orchestrator writes directly to Convex.
-EnvironmentFile=/etc/digilist-api.env
-Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-ExecStart=/usr/bin/env pnpm content:all -- --trigger cron
-Nice=10
-IOSchedulingClass=idle
-TimeoutStartSec=20min
-EOF
-
-    cat > /tmp/digilist-content.timer <<'EOF'
-[Unit]
-Description=Run Digilist Content Agent daily at 06:00
-
-[Timer]
-OnCalendar=*-*-* 06:00:00
-RandomizedDelaySec=600
-Persistent=true
-Unit=digilist-content.service
-
-[Install]
-WantedBy=timers.target
-EOF
-
-    scp /tmp/digilist-content.service ${VPS_USER}@${VPS_HOST}:/tmp/digilist-content.service
-    scp /tmp/digilist-content.timer ${VPS_USER}@${VPS_HOST}:/tmp/digilist-content.timer
-
-    ssh ${VPS_USER}@${VPS_HOST} "
-        install -m 644 /tmp/digilist-content.service /etc/systemd/system/digilist-content.service
-        install -m 644 /tmp/digilist-content.timer   /etc/systemd/system/digilist-content.timer
-        rm /tmp/digilist-content.service /tmp/digilist-content.timer
-        systemctl daemon-reload
-        systemctl enable --now digilist-content.timer
-        systemctl list-timers digilist-content.timer --no-pager || true
-    " || echo -e "${YELLOW}⚠ content-agent timer install failed${NC}"
-
-    rm -f /tmp/digilist-content.service /tmp/digilist-content.timer
-    echo -e "${GREEN}✓ Content agent timer enabled (06:00 daily)${NC}"
-fi
-
-# Stage 2.85 — Daily audit timer: in-process auditors + PSI performance
-# Fires at 06:30 (30 min after the content agent so the two don't fight
-# for CPU). Writes everything to Convex; results land on
-# /admin/intelligence reactively.
-if [ -d "tools/site-intelligence" ]; then
-    echo -e "${BLUE}[2.85/3] Installing daily audit timer...${NC}"
-
-    cat > /tmp/digilist-audit.service <<'EOF'
-[Unit]
-Description=Digilist Site Intelligence — uptime, SEO, a11y, security, links, PSI
-After=network-online.target
-Wants=network-online.target
-
-[Service]
-Type=oneshot
-User=www-data
-Group=www-data
-WorkingDirectory=/var/www/digilist-audit
-EnvironmentFile=/etc/digilist-api.env
-Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-ExecStart=/usr/bin/env pnpm audit:daily
-Nice=10
-IOSchedulingClass=idle
-TimeoutStartSec=30min
-EOF
-
-    cat > /tmp/digilist-audit.timer <<'EOF'
-[Unit]
-Description=Run Digilist site intelligence audits daily at 06:30
-
-[Timer]
-OnCalendar=*-*-* 06:30:00
-RandomizedDelaySec=600
-Persistent=true
-Unit=digilist-audit.service
-
-[Install]
-WantedBy=timers.target
-EOF
-
-    scp /tmp/digilist-audit.service ${VPS_USER}@${VPS_HOST}:/tmp/digilist-audit.service
-    scp /tmp/digilist-audit.timer   ${VPS_USER}@${VPS_HOST}:/tmp/digilist-audit.timer
-
-    ssh ${VPS_USER}@${VPS_HOST} "
-        install -m 644 /tmp/digilist-audit.service /etc/systemd/system/digilist-audit.service
-        install -m 644 /tmp/digilist-audit.timer   /etc/systemd/system/digilist-audit.timer
-        rm /tmp/digilist-audit.service /tmp/digilist-audit.timer
-        systemctl daemon-reload
-        systemctl enable --now digilist-audit.timer
-        systemctl list-timers digilist-audit.timer --no-pager || true
-    " || echo -e "${YELLOW}⚠ audit timer install failed${NC}"
-
-    rm -f /tmp/digilist-audit.service /tmp/digilist-audit.timer
-    echo -e "${GREEN}✓ Audit timer enabled (06:30 daily — auditors + PSI)${NC}"
-fi
+# Stages 2.8 / 2.85 — REMOVED 2026-07-27. This deploy used to install and
+# `systemctl enable --now` a `digilist-content` timer (06:00) and a
+# `digilist-audit` timer (06:30). Both are superseded by the agent fleet
+# (`xaheen-blog` / `xaheen-content` and `xaheen-audit`), and `xaheen-audit` runs
+# the same three phases plus a unified alert pass — a strict superset.
+#
+# Do not reinstate. They were disabled on 2026-07-23 and came back twice, because
+# `install -m 644` overwrites whatever is at the unit path — including the
+# `systemctl mask` symlink — and `enable --now` re-arms the timer. So a deploy of
+# THIS repo silently resurrected two agents that fail on every run
+# (`digilist-audit`: corepack EACCES on /var/www/.cache; `digilist-content`:
+# ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING) and kept two units permanently red in
+# `systemctl --failed`, which is how a human learns to stop reading that list.
+#
+# If this site ever needs its own timer again, install it under a name the fleet
+# does not own and give it a real owner.
 
 # Stage 2.9 — Build + deploy the docs site (apps/docs) to docs.digilist.no
 if [ -d "apps/docs" ]; then

@@ -67,20 +67,20 @@ const HeroSection = () => {
                   fontVariationSettings: '"opsz" 144, "wght" 400',
                 }}
               >
-                og plattformen som drifter det
+                og plattformen som drifter det hele
               </em>
               .
             </EditorialHeading>
 
             <p className="mt-8 text-lg lg:text-xl text-ink-soft measure leading-relaxed">
-              Finn og book lokaler med ekte priser og ledige datoer — betal trygt
-              med Vipps. Og for utleiere og kommuner: plattformen som drifter det
-              hele, fra kalender til oppgjør.
+              Finn og book lokaler med ekte priser og ledige datoer, og betal
+              trygt med Vipps. Er du utleier eller kommune, drifter du alt fra
+              kalender til oppgjør i samme plattform.
             </p>
 
             <div className="mt-8 flex flex-col sm:flex-row gap-3">
               <EditorialButton variant="primary" size="lg" href="/leie">
-                Finn ledig lokale
+                Finn ledige lokaler
               </EditorialButton>
               <EditorialButton
                 variant="outline"
@@ -100,7 +100,7 @@ const HeroSection = () => {
               {[
                 "Ekte priser og ledige datoer i sanntid",
                 "Betal trygt med Vipps eller faktura",
-                "Bygd for norske krav — BankID, GDPR og universell utforming",
+                "Bygd for norske krav – BankID, GDPR og universell utforming",
               ].map((b) => (
                 <li key={b} className="flex items-start gap-3 text-ink-soft">
                   <Check
@@ -144,7 +144,7 @@ const HeroSection = () => {
                   playsInline
                   preload="auto"
                   poster="/videos/digilist-hero-demo-poster.jpg"
-                  aria-label="Digilist i praksis — fra søk til booking"
+                  aria-label="Digilist i praksis – fra søk til booking"
                 >
                   <source src="/videos/digilist-hero-demo.webm" type="video/webm" />
                   <source src="/videos/digilist-hero-demo.mp4" type="video/mp4" />
@@ -214,7 +214,7 @@ const HeroSection = () => {
               </div>
               <div className="mt-auto pt-6">
                 <EditorialButton variant="primary" size="lg" href="/leie">
-                  Finn lokale
+                  Finn ledige lokaler
                 </EditorialButton>
               </div>
             </div>

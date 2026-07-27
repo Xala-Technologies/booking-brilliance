@@ -28,7 +28,7 @@ Digitalisering av booking av kommunale lokaler gjøres i seks steg: **(1)** kart
 | 5. Pilot | 8–10 | Kjøre systemet live for én lokaltype (typisk møterom eller én idrettshall) | Prosjektleder + driftsleder |
 | 6. Utrulling og måling | 10–16 | Koble på resten av porteføljen, følge adopsjon og saksbehandlingstid | Prosjektleder + IT-leder |
 
-Tabellen er en typisk tidslinje for en mellomstor kommune med et titalls lokaler. Antall uker per steg justeres etter portefølje­størrelse og hvor rent datagrunnlaget er før migrering, men rekkefølgen på stegene endrer seg sjelden.
+Tabellen er en typisk tidslinje for en mellomstor kommune med et titalls lokaler. Antall uker per steg justeres etter porteføljestørrelse og hvor rent datagrunnlaget er før migrering, men rekkefølgen på stegene endrer seg sjelden.
 
 ## Steg 1: Kartlegg dagens manuelle flyt og alle lokaltyper
 

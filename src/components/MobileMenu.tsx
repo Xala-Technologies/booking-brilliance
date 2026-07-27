@@ -182,7 +182,7 @@ export function MobileMenu() {
             href="/leie"
             className="w-full"
           >
-            Finn lokale
+            Finn ledige lokaler
           </EditorialButton>
           <EditorialButton
             variant="outline"

@@ -18,7 +18,7 @@ const CHANNELS = ["Airbnb", "Booking.com", "Bookup", "Eventum", "Finn"];
 const SYNC_BENEFITS = [
   "Synk kalender, priser og tilgjengelighet automatisk",
   "Legg til nye oppføringer uten dobbeltarbeid",
-  "Alltid oppdatert — aldri dobbeltbookinger",
+  "Alltid oppdatert – aldri dobbeltbookinger",
   "Én admin for alle kanaler",
   "Endringer slår gjennom i sanntid, overalt",
   "Behold kanalene du allerede tjener på",
@@ -28,7 +28,7 @@ const IMPORT_STEPS = [
   {
     icon: Link2,
     title: "Lim inn lenken",
-    body: "Fra Finn, Airbnb, Booking.com, Eventum — eller hvilken som helst kilde. Du kan også laste opp et dokument.",
+    body: "Fra Finn, Airbnb, Booking.com, Eventum – eller hvilken som helst kilde. Du kan også laste opp et dokument.",
   },
   {
     icon: Wand2,
@@ -38,7 +38,7 @@ const IMPORT_STEPS = [
   {
     icon: FileCheck,
     title: "Ferdig utkast",
-    body: "Du får et komplett oppføringsutkast i Digilist. Gjennomgå, juster og publiser — ingen manuell inntasting.",
+    body: "Du får et komplett oppføringsutkast i Digilist. Gjennomgå, juster og publiser – ingen manuell inntasting.",
   },
 ];
 
@@ -46,17 +46,17 @@ const FAQ = [
   {
     question: "Hvordan fungerer toveis kalendersynk?",
     answer:
-      "Du kobler kanalene dine — som Airbnb, Booking.com, Bookup, Eventum eller Finn — til Digilist én gang. Deretter holdes kalender, priser og tilgjengelighet synkronisert begge veier: en booking på én kanal blokkerer tiden på alle de andre umiddelbart, og endringer du gjør i Digilist slår gjennom overalt. Slik unngår du dobbeltbookinger uten manuelt vedlikehold.",
+      "Du kobler kanalene dine – som Airbnb, Booking.com, Bookup, Eventum eller Finn – til Digilist én gang. Deretter holdes kalender, priser og tilgjengelighet synkronisert begge veier: en booking på én kanal blokkerer tiden på alle de andre umiddelbart, og endringer du gjør i Digilist slår gjennom overalt. Slik unngår du dobbeltbookinger uten manuelt vedlikehold.",
   },
   {
     question: "Hvilke kanaler kan jeg koble til?",
     answer:
-      "Digilist kobler mot de vanligste kanalene norske utleiere bruker — Airbnb, Booking.com, Bookup, Eventum og Finn — samt kalenderstandarder som iCal, CalDAV, Outlook og Google Calendar. Mangler kanalen din? Ta kontakt, så ser vi på en tilkobling.",
+      "Digilist kobler mot de vanligste kanalene norske utleiere bruker – Airbnb, Booking.com, Bookup, Eventum og Finn – samt kalenderstandarder som iCal, CalDAV, Outlook og Google Calendar. Mangler kanalen din? Ta kontakt, så ser vi på en tilkobling.",
   },
   {
     question: "Kan AI-agenten importere oppføringene mine automatisk?",
     answer:
-      "Ja. Lim inn lenken til en eksisterende oppføring (eller last opp et dokument), så henter agenten tekst, bilder, kalender, priser og konfigurasjon og lager et ferdig utkast i Digilist. Du trenger bare å gjennomgå og publisere — ingen manuell inntasting fra bunnen av.",
+      "Ja. Lim inn lenken til en eksisterende oppføring (eller last opp et dokument), så henter agenten tekst, bilder, kalender, priser og konfigurasjon og lager et ferdig utkast i Digilist. Du trenger bare å gjennomgå og publisere – ingen manuell inntasting fra bunnen av.",
   },
   {
     question: "Kan jeg fortsette å bruke Airbnb og Booking.com samtidig?",
@@ -75,7 +75,7 @@ const Kanaler = () => {
     <div className="min-h-screen bg-background overflow-x-hidden">
       <SEO
         title="Kanaler & synk · Digilist | Toveis kalendersynk og AI-import"
-        description="Koble Airbnb, Booking.com, Bookup, Eventum og Finn til Digilist. Toveis kalendersynk i sanntid og AI-agent som importerer oppføringene dine til et ferdig utkast — behold begge plattformer."
+        description="Koble Airbnb, Booking.com, Bookup, Eventum og Finn til Digilist. Toveis kalendersynk i sanntid og AI-agent som importerer oppføringene dine til et ferdig utkast – behold begge plattformer."
         keywords="kanalsynk, channel manager, kalendersynk, importere oppføring airbnb, importere finn, toveis synk booking, unngå dobbeltbooking"
         canonical="https://digilist.no/kanaler"
         ogImage="https://digilist.no/og-image.png"
@@ -109,7 +109,7 @@ const Kanaler = () => {
                 <p className="text-xl text-ink-soft measure leading-relaxed mb-10">
                   Har du lokaler på Airbnb, Booking.com, Bookup eller Eventum? Koble
                   dem til Digilist én gang, så holdes kalender og tilgjengelighet i{" "}
-                  <strong className="text-ink">toveis synk automatisk</strong> — og
+                  <strong className="text-ink">toveis synk automatisk</strong> – og
                   la AI-agenten importere oppføringene dine til ferdige utkast. Ingen
                   dobbeltarbeid, ingen dobbeltbookinger, og du beholder kanalene du
                   allerede tjener på.
@@ -233,7 +233,7 @@ const Kanaler = () => {
                   className="text-xl text-ink-soft italic"
                   style={{ fontVariationSettings: getFraunces("sub") }}
                 >
-                  Slipp å taste inn alt på nytt — agenten bygger utkastet for deg.
+                  Slipp å taste inn alt på nytt – agenten bygger utkastet for deg.
                 </p>
               </div>
             </div>

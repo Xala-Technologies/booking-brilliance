@@ -208,8 +208,8 @@ const Leie = () => {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <SEO
-        title="Leie lokaler — finn og book selskapslokale, møterom og hall | Digilist"
-        description="Leie lokaler på nett: både private selskapslokaler og kommunale lokaler samlet ett sted. Se ekte priser og ledige datoer, og book direkte med Vipps — til bryllup, selskap, møte eller arrangement."
+        title="Leie lokaler – finn og book selskapslokale, møterom og hall | Digilist"
+        description="Leie lokaler på nett: både private selskapslokaler og kommunale lokaler samlet ett sted. Se ekte priser og ledige datoer, og book direkte med Vipps – til bryllup, selskap, møte eller arrangement."
         keywords="leie lokale, finn lokale, leie selskapslokale, leie møterom, leie festlokale, leie lokale til bursdag, hva koster selskapslokale, book lokale online, leie kulturhus, leie grendehus"
         canonical="https://digilist.no/leie"
         breadcrumbs={[
@@ -259,7 +259,7 @@ const Leie = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Finn ledig lokale
+                      Finn ledige lokaler
                     </EditorialButton>
                     <EditorialButton variant="outline" size="lg" href="#slik">
                       Slik funker det
@@ -290,7 +290,7 @@ const Leie = () => {
               {/* Explainer video */}
               <div className="mb-14 lg:mb-20">
                 <VideoPlaceholder
-                  label="Reklamefilm · Finn lokale"
+                  label="Reklamefilm · Finn lokaler"
                   caption="Kort film om hvordan du finner og booker lokale"
                   srcWebm="/videos/digilist-book-venue.webm"
                   src="/videos/digilist-book-venue.mp4"
@@ -522,7 +522,7 @@ const Leie = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Finn ledig lokale
+                      Finn ledige lokaler
                     </EditorialButton>
                   </div>
                 </div>
