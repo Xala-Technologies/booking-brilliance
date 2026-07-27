@@ -2069,6 +2069,11 @@ const baseLD = (description) => [
     image: `${BASE_URL}/og-image.png`,
     sameAs: ["https://xala.no"],
     foundingDate: "2024",
+    identifier: {
+      "@type": "PropertyValue",
+      propertyID: "Norwegian Organisasjonsnummer",
+      value: "920972454",
+    },
     knowsAbout: BRAND_KNOWS_ABOUT,
     mentions: BRAND_MENTIONS,
     address: {
@@ -2266,12 +2271,9 @@ function patchHTML(template, meta) {
       ...(meta.article.keywords ? { keywords: meta.article.keywords } : {}),
     });
   }
-  const ldHTML = ldBlocks
-    .map(
-      (b) =>
-        `<script type="application/ld+json" data-prerendered="true">${JSON.stringify(b)}</script>`,
-    )
-    .join("\n    ");
+  // One shared <script> holding a JSON-LD array beats one <script> per
+  // block: same graph, fewer tag/attribute bytes repeated on every route.
+  const ldHTML = `<script type="application/ld+json" data-prerendered="true">${JSON.stringify(ldBlocks)}</script>`;
 
   // The homepage hero preload (festsal-1, fetchpriority=high) only helps "/".
   // On every other route it high-priority-fetches an image the page never
@@ -2538,14 +2540,10 @@ async function main() {
         { name: post.title, url: `${BASE_URL}${postRoute}` },
       ],
     });
-    // Inject Article (+ optional FAQPage) schema before </head>
+    // Inject Article (+ optional FAQPage) schema before </head>, as one
+    // shared script rather than one per block.
     const postLDBlocks = [articleLD, ...(faqLD ? [faqLD] : [])];
-    const articleScript = postLDBlocks
-      .map(
-        (b) =>
-          `<script type="application/ld+json" data-prerendered="true">${JSON.stringify(b)}</script>`,
-      )
-      .join("\n    ");
+    const articleScript = `<script type="application/ld+json" data-prerendered="true">${JSON.stringify(postLDBlocks)}</script>`;
     html = html.replace("</head>", `    ${articleScript}\n  </head>`);
     // og:type article + og:image override with the cover
     html = html.replace(
