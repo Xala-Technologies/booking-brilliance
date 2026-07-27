@@ -36,6 +36,17 @@
     --green: 88 50% 53%;
     --ochre: 36 50% 38%;
 
+    /* Warm "koselig" accent family — used by the hero's rotating word so each
+       venue type arrives in a different warm tone. Same hue family as the
+       ochre above (and as xala.no's warm accent, 36 55% 42%). Lightness is
+       tuned so every one lands at ~5.5:1 on --paper: they read as one family
+       rather than one word looking lighter than the next, and they clear both
+       large-text AA (3:1) and body AA (4.5:1). */
+    --ochre-warm: 36 52% 33%;
+    --kobber: 24 46% 38%;
+    --terrakotta: 14 42% 41%;
+    --rav: 30 50% 35%;
+
     /* ------------------------------------------------------------------ */
     /* shadcn semantic mapping → editorial tokens                          */
     /* ------------------------------------------------------------------ */
@@ -130,6 +141,12 @@
     --aqua: 190 60% 76%;
     --green: 88 50% 60%;
     --ochre: 36 50% 52%;
+
+    /* Warm family, lifted for dark surfaces — ~6:1 on the espresso paper. */
+    --ochre-warm: 36 58% 60%;
+    --kobber: 24 52% 67%;
+    --terrakotta: 14 52% 70%;
+    --rav: 30 56% 64%;
 
     --background: var(--paper);
     --foreground: var(--ink);
