@@ -184,7 +184,7 @@ export default function UseCaseKulturhus() {
           slug: "faktura-refusjon-avstemming",
         },
         {
-          title: "Min Side: alle bookinger på ett sted",
+          title: "Min side: alle bookinger på ett sted",
           slug: "min-side-alle-bookinger-paa-ett-sted",
         },
       ]}

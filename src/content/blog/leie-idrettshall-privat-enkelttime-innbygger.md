@@ -43,7 +43,7 @@ Selve bookingen tar under to minutter når portalen er bygget for det:
 3. **Oppgi formål.** Trening, bursdag, arrangement. Formålet avgjør ofte hvilken pris og hvilke regler som gjelder.
 4. **Se totalpris.** Timespris, eventuelt depositum og gebyr summeres før du bekrefter. Ingen skjulte tillegg som dukker opp på faktura senere.
 5. **Betal.** Vipps eller kort gir umiddelbar bekreftelse. Velger du faktura, kommer den i etterkant.
-6. **Få kvittering.** Bekreftelsen ligger på Min Side sammen med adresse, tidspunkt og eventuell adgangskode til døra.
+6. **Få kvittering.** Bekreftelsen ligger på Min side sammen med adresse, tidspunkt og eventuell adgangskode til døra.
 
 Hele poenget er at du gjennomfører dette selv, når det passer deg, uten å ringe servicetorget i åpningstiden. En innbygger som en fredag kveld vil booke gymsal til søndagsfotball skal ikke måtte vente til mandag på svar.
 
@@ -94,7 +94,7 @@ Idrettshallen er bare inngangen. Samme bookingportal håndterer som regel hele p
 - **Kunstgressbane.** Utendørs, populær til privatkamper og turneringer, ofte med lys som må bookes eller aktiveres.
 - **Kulturhus og møtelokaler.** Til konserter, forestillinger, kurs og selskaper, med teknikk og bemanning som tilvalg.
 
-Fordelen med å ha alt på ett sted er at du logger inn én gang, ser alle anlegg i samme kalender og betaler på samme måte. Skal 60-årsdagen ha både gymsal til aktivitet og et møtelokale til bespisning, booker du begge i samme flyt og finner begge kvitteringene på Min Side. Du slipper fem ulike skjemaer for fem ulike bygg.
+Fordelen med å ha alt på ett sted er at du logger inn én gang, ser alle anlegg i samme kalender og betaler på samme måte. Skal 60-årsdagen ha både gymsal til aktivitet og et møtelokale til bespisning, booker du begge i samme flyt og finner begge kvitteringene på Min side. Du slipper fem ulike skjemaer for fem ulike bygg.
 
 ## Vanlige feil som gjør at bookingen din blir avvist eller forsinket
 
@@ -116,10 +116,10 @@ Planer endrer seg, og du skal kunne avbestille uten å ringe. Avbestillingsvilk�
 - Avbestiller du **tett på**, kan hele eller deler av leien beholdes av kommunen.
 - **Depositum** refunderes når anlegget er levert i orden etter endt leie.
 
-I en digital portal gjør du dette selv fra Min Side: du åpner bookingen, velger avbestill eller endre, og ser umiddelbart hvor mye som refunderes etter gjeldende regler. Vil du bare flytte timen, frigjøres den gamle tiden for andre i samme øyeblikk, og du velger et nytt ledig felt. Refusjon til Vipps eller kort går tilbake automatisk fremfor at en saksbehandler må behandle den manuelt. Det betyr at du får pengene raskere, og kommunen slipper etterarbeid.
+I en digital portal gjør du dette selv fra Min side: du åpner bookingen, velger avbestill eller endre, og ser umiddelbart hvor mye som refunderes etter gjeldende regler. Vil du bare flytte timen, frigjøres den gamle tiden for andre i samme øyeblikk, og du velger et nytt ledig felt. Refusjon til Vipps eller kort går tilbake automatisk fremfor at en saksbehandler må behandle den manuelt. Det betyr at du får pengene raskere, og kommunen slipper etterarbeid.
 
 ## Book anlegget selv, når det passer deg
 
-Å leie kommunal idrettshall, gymsal eller svømmehall som privatperson skal være like enkelt som å bestille kinobilletter: finn ledig tid, se prisen, betal og få bekreftelsen på Min Side. Med sanntidskalender, ID-porten-innlogging og automatisk refusjon slipper du både ventelister og telefonrunder.
+Å leie kommunal idrettshall, gymsal eller svømmehall som privatperson skal være like enkelt som å bestille kinobilletter: finn ledig tid, se prisen, betal og få bekreftelsen på Min side. Med sanntidskalender, ID-porten-innlogging og automatisk refusjon slipper du både ventelister og telefonrunder.
 
 Vil kommunen din tilby innbyggerne denne opplevelsen, og samtidig avlaste saksbehandlerne som i dag håndterer booking manuelt? [Book en demo av Digilist](https://digilist.no/demo) og se hvordan hele anleggsporteføljen kan bookes fra én plattform.

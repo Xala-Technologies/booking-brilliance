@@ -45,7 +45,7 @@ Når en booking eksisterer, har den sin egen samtaletråd. Både leietaker og ut
 - Meldinger frem og tilbake
 - Tilkoblede dokumenter (kontrakter, kvitteringer, vedlegg)
 
-Leietaker ser tråden via Min Side. Utleier ser den på bookingen i admin. Begge får varsel (e-post som standard, SMS hvis aktivert) når den andre sender en melding.
+Leietaker ser tråden via Min side. Utleier ser den på bookingen i admin. Begge får varsel (e-post som standard, SMS hvis aktivert) når den andre sender en melding.
 
 Hva slags meldinger? «Vi blir to ekstra personer.» «Kan vi komme inn 30 minutter tidligere for å rigge?» «Hvor er parkering?» «Bekreftelse på at vi fikk depositum tilbake?» Alt det som tidligere gikk via personlig e-post og raskt forsvant ut av syne.
 
@@ -58,7 +58,7 @@ E-post fungerer fint for én person og en enkelt samtale. Den faller fra hverand
 - Du må finne tilbake til hva som ble avtalt for seks måneder siden (e-poster er slettet, søkbare, eller arkivert ulikt)
 - Du skal demonstrere overfor revisor at riktig prosedyre ble fulgt (det finnes ikke noe spor av regelen, bare en e-post)
 
-Når kommunikasjonen lever på selve bookingen er den:
+Når kommunikasjonen lever på selve bookingen, er den:
 
 - **Tilgjengelig for vikarer** uten å gi tilgang til personlige innbokser
 - **Sporbar:** hver melding tidsstemplet, ingen «den e-posten ble nok slettet»
@@ -77,5 +77,5 @@ Samtaletråder lagres kryptert. Personidentifiserende informasjon (PII) som tele
 
 ## I praksis: én jobb mindre
 
-Saksbehandlere som har gått over fra e-post-basert kommunikasjon til Digilist sier oftest at det merkes på to ting: telefonen ringer mindre fordi leietakerne ser status selv i Min Side, og man slutter å bruke morgenen på å lete etter «hva ble det egentlig avtalt der?». Det er en liten endring i hverdagen som blir til en stor endring over et år.
+Saksbehandlere som har gått over fra e-post-basert kommunikasjon til Digilist sier oftest at det merkes på to ting: telefonen ringer mindre fordi leietakerne ser status selv i Min side, og man slutter å bruke morgenen på å lete etter «hva ble det egentlig avtalt der?». Det er en liten endring i hverdagen som blir til en stor endring over et år.
 

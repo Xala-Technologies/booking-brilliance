@@ -48,7 +48,7 @@ Plattformen viser bekreftelsesside med:
 - Bookingnummer
 - Hva, når, hvor
 - Hvordan komme inn (parkering, adkomst, kode hvis aktuelt)
-- En lenke til «Min Side» for å se eller endre bookingen
+- En lenke til «Min side» for å se eller endre bookingen
 - En kalenderfil (.ics) klar for nedlasting
 
 E-post sendes umiddelbart med samme info, og en kalenderfil som vedlegg.
@@ -72,19 +72,19 @@ Vi har sett bookinger ta 4 minutter også. Hva som dro tiden:
 - **Mange anlegg å velge mellom.** Folk bruker tid på å bla. Det er ikke et problem, det er kundeopplevelse i seg selv.
 - **Spesielle behov i kommentarfeltet.** Noen ganger ønsker leietakeren å skrive en lang melding til utleieren. Det er nyttig informasjon for saksbehandleren, ikke tap av tid.
 - **Velger pakke med tilvalg.** Noen anlegg har catering, AV-utstyr, ekstra rom som tilvalg. Det er en konfigurasjon, ikke friksjon.
-- **Første gangs bruker.** Magic link tar 3–8 sekunder å levere, ny bruker må sjekke e-post første gang. Andre gangen er det 30% raskere.
+- **Første gangs bruker.** Magic link tar 3–8 sekunder å levere, ny bruker må sjekke e-post første gang. Andre gangen er det 30 % raskere.
 
 ## Hva tar ikke tid
 
 - **Å lage en konto.** Det finnes ikke en konto-opprettelse. Du «logger inn» og kontoen din etableres samtidig.
-- **Å vente på godkjenning.** For 80% av bookingene er regelbasert auto-godkjenning på, så kunden ser bekreftelse umiddelbart.
+- **Å vente på godkjenning.** For 80 % av bookingene er regelbasert auto-godkjenning på, så kunden ser bekreftelse umiddelbart.
 - **Å forstå hvordan plattformen fungerer.** Det finnes ikke en «slik booker du» FAQ. Flyten er den eneste flyten.
 
 ## Når sekunder blir til kontrakter
 
 Den åpenbare innvendingen: «Men vår plattform skal støtte komplekse sesongavtaler for hele idrettsrådet, ikke bare en time møterom.» Det stemmer. Sesongleie er en separat flyt, beskrevet i [Sesongleie og fordeling for lag og foreninger](/blogg/sesongleie-fordeling-lag-foreninger).
 
-Men her er det viktige: 90% av kommunale bookinger er enkle. Enkeltmøter, enkeltarrangementer, en time i en hall en onsdag. Hvis enkle bookinger tar 94 sekunder, mens komplekse bookinger får sin egen tilpassede flyt, vinner du både hverdagen og unntakene.
+Men her er det viktige: 90 % av kommunale bookinger er enkle. Enkeltmøter, enkeltarrangementer, en time i en hall en onsdag. Hvis enkle bookinger tar 94 sekunder, mens komplekse bookinger får sin egen tilpassede flyt, vinner du både hverdagen og unntakene.
 
 Det er byggefilosofien.
 

@@ -90,7 +90,7 @@ Den gamle måten er kjent: du finner et telefonnummer, legger igjen beskjed, og 
 2. **Se totalprisen** for akkurat den helgen, med grunnleie og tillegg lagt sammen.
 3. **Les hva som er inkludert**, og sjekk kapasitet, inventar og vilkår på lokalets side.
 4. **Logg inn med BankID eller ID-porten**, så utleier vet hvem som booker.
-5. **Bekreft og betal depositum**, og få kvittering på e-post og på Min Side i samme øyeblikk.
+5. **Bekreft og betal depositum**, og få kvittering på e-post og på Min side i samme øyeblikk.
 
 Forskjellen på en kalender som oppdateres hver natt og ekte sanntid er stor når du jager en populær lørdag. Med status i øyeblikket risikerer du ikke å booke en dato som ble tatt for to timer siden, og du kan gjennomføre hele bookingen døgnet rundt, ikke bare i kontortid.
 
