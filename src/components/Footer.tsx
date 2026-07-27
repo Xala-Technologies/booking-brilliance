@@ -385,6 +385,8 @@ const Footer = () => {
               >
                 Xala Technologies AS
               </a>
+              <span className="mx-3 text-ink-faint">·</span>
+              <span className="text-ink-faint">Org.nr. 920 972 454</span>
             </p>
             <p className="editorial-mono-caption text-ink-faint md:text-right">
               TRYKKET DIGITALT · OSLO · SATT MED NEWSREADER OG INTER
