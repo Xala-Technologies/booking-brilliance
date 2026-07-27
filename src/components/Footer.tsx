@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { getFraunces } from "@/lib/fonts";
 import { EditorialButton } from "@/components/editorial";
 import { openChatbot } from "@/lib/chatbot/open";
@@ -32,7 +32,6 @@ const Footer = () => {
   const navigasjon = [
     { label: "Funksjonalitet", hash: "#funksjonalitet" },
     { label: "Brukerhistorier", hash: "#brukerhistorier" },
-    { label: "Spørsmål", hash: "#faq" },
     { label: "Kontakt", hash: "#kontakt" },
   ];
 
@@ -43,21 +42,26 @@ const Footer = () => {
     { label: "Arrangementer", href: "/arrangementer" },
     { label: "Utstyr", href: "/utstyr" },
     { label: "Tjenester", href: "/tjenester" },
-    { label: "Billettsystem", href: "/billettsystem" },
     { label: "Booking av lokaler og møterom", href: "/booking-av-lokaler-og-moterom" },
   ];
 
   const losninger = [
     { label: "Bookingsystem for utleie", href: "/bookingsystem-utleie" },
     { label: "Bookingsystem for kommuner", href: "/bookingsystem-kommune" },
-    { label: "Pilot for kommuner", href: "/bookingsystem-kommune#pilot" },
-    { label: "Teknologi og sikkerhet", href: "/teknologi" },
-    { label: "Sikkerhet og personvern", href: "/sikkerhet" },
+    { label: "Billettsystem", href: "/billettsystem" },
+    { label: "Teknologi", href: "/teknologi" },
+    { label: "Sikkerhet", href: "/sikkerhet" },
+  ];
+
+  // Company + resources. These were sitting under "Løsninger", which had grown
+  // to ten entries and was neither scannable nor accurate — Om oss and Blogg
+  // are not solutions.
+  const selskap = [
     { label: "Om oss", href: "/om-oss" },
     { label: "Blogg", href: "/blogg" },
-    { label: "Utleiemarkedet 2026", href: "/rapport/utleiemarkedet-norge-2026" },
     { label: "FAQ", href: "/faq" },
     { label: "Transparens", href: "/transparens" },
+    { label: "Utleiemarkedet 2026", href: "/rapport/utleiemarkedet-norge-2026" },
   ];
 
   const juridisk = [
@@ -136,7 +140,7 @@ const Footer = () => {
   );
 
   return (
-    <footer className="bg-paper-deep border-t border-hairline-strong">
+    <footer className="footer-surface border-t border-hairline-strong">
       <div className="container mx-auto md:px-8 lg:px-12 pt-16 lg:pt-24 pb-8 lg:pb-10">
         {/* Editorial colophon header */}
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-gutter mb-14 lg:mb-20">
@@ -319,10 +323,10 @@ const Footer = () => {
             </ul>
           </nav>
 
-          <nav aria-label="Juridisk">
-            <ColumnHeading>IV · JURIDISK</ColumnHeading>
+          <nav aria-label="Selskap">
+            <ColumnHeading>IV · SELSKAP</ColumnHeading>
             <ul className="space-y-3.5">
-              {juridisk.map((link) => (
+              {selskap.map((link) => (
                 <li key={link.href}>
                   <Link to={link.href} className={linkClass}>
                     <span className={linkUnderline}>{link.label}</span>
@@ -334,13 +338,29 @@ const Footer = () => {
         </div>
 
         {/* SEO internal-link cluster — site-wide links into the private-market
-            pages (byer, lokaltyper, anledninger, verktøy). */}
-        <div className="mt-14 lg:mt-16 pt-10 border-t border-rule">
-          <h2 className="flex items-center gap-3 mb-8 editorial-mono-caption text-accent-text">
+            pages (byer, lokaltyper, anledninger, verktøy). These pages were
+            previously reachable only via the sitemap, so this block is what
+            passes internal link authority to them and must stay in the markup.
+            It is collapsed rather than hidden: <details> keeps all 37 links in
+            the DOM and crawlable, and the user can open it — unlike
+            display:none, which Google discounts and which reads as cloaking
+            when done purely for crawlers. Collapsing also stops the grid from
+            rendering as a second footer stacked under sections I-IV. */}
+        <details className="group mt-14 lg:mt-16 pt-10 border-t border-rule">
+          <summary className="flex cursor-pointer list-none items-center gap-3 text-accent-text [&::-webkit-details-marker]:hidden">
             <span aria-hidden="true" className="w-6 h-px bg-accent-text" />
-            V · LOKALER TIL LEIE
-          </h2>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-8">
+            <h2 className="editorial-mono-caption text-accent-text">
+              V · LOKALER TIL LEIE
+            </h2>
+            <span className="editorial-mono-caption text-ink-faint">
+              37 sider
+            </span>
+            <ChevronDown
+              aria-hidden="true"
+              className="h-4 w-4 transition-transform duration-normal ease-editorial group-open:rotate-180"
+            />
+          </summary>
+          <div className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-8">
             {[
               { title: "BYER", items: byer, label: "Byer" },
               { title: "LOKALTYPER", items: lokaltyper, label: "Lokaltyper" },
@@ -366,10 +386,32 @@ const Footer = () => {
               </nav>
             ))}
           </div>
-        </div>
+        </details>
 
-        {/* Bottom colophon */}
+        {/* Bottom colophon. The legal links sit here rather than in a column
+            of their own — three items did not justify a quarter of the grid,
+            and the colophon is where readers look for them anyway. */}
         <div className="mt-16 lg:mt-20 pt-8 border-t border-rule">
+          <nav
+            aria-label="Juridisk"
+            className="mb-4 flex flex-wrap items-center gap-x-3 gap-y-2"
+          >
+            {juridisk.map((link, i) => (
+              <span key={link.href} className="inline-flex items-center gap-3">
+                {i > 0 && (
+                  <span aria-hidden="true" className="text-ink-faint">
+                    ·
+                  </span>
+                )}
+                <Link
+                  to={link.href}
+                  className="editorial-mono-caption text-ink-soft hover:text-ink border-b border-transparent hover:border-ink transition-colors duration-quick ease-editorial no-underline pb-0.5"
+                >
+                  {link.label}
+                </Link>
+              </span>
+            ))}
+          </nav>
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <p className="editorial-mono-caption">
               <span className="text-ink">

@@ -36,6 +36,11 @@
     --green: 88 50% 53%;
     --ochre: 36 50% 38%;
 
+    /* Footer surface — deliberately deeper than --paper-deep so the footer
+       reads as its own zone rather than a continuation of the page. At 82%
+       lightness the separation from --paper is 1.35:1 (vs 1.11:1 before). */
+    --footer: 36 38% 82%;
+
     /* Warm "koselig" accent family — used by the hero's rotating word so each
        venue type arrives in a different warm tone. Same hue family as the
        ochre above (and as xala.no's warm accent, 36 55% 42%). Lightness is
@@ -141,6 +146,8 @@
     --aqua: 190 60% 76%;
     --green: 88 50% 60%;
     --ochre: 36 50% 52%;
+
+    --footer: 26 18% 11%;
 
     /* Warm family, lifted for dark surfaces — ~6:1 on the espresso paper. */
     --ochre-warm: 36 58% 60%;
@@ -332,6 +339,25 @@
 }
 
 @layer utilities {
+  /* ------------------------------------------------------------------ */
+  /* Footer surface                                                     */
+  /* ------------------------------------------------------------------ */
+  /* The footer sits on a deeper warm tone than the page so it reads as
+     its own zone. Dropping the background alone would push --ink-faint
+     (tuned for --paper-deep) to 4.34:1 on this surface, under the 4.5:1
+     body-AA line — and it is used for every mono caption in the footer.
+     Redefining the token on this element re-tunes all of them at once,
+     with no per-element class churn: 5.78:1 on the new surface. */
+  .footer-surface {
+    background-color: hsl(var(--footer));
+    --ink-faint: 215 22% 32%;
+  }
+
+  .dark .footer-surface {
+    /* Dark surface is darker than the page, so faint text goes lighter. */
+    --ink-faint: 34 18% 66%;
+  }
+
   /* ------------------------------------------------------------------ */
   /* Editorial primitives                                               */
   /* ------------------------------------------------------------------ */
