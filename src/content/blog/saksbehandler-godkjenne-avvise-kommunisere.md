@@ -32,7 +32,7 @@ Hver rad viser kunden, lokalet, datoen, type forespørsel og hvor lenge den har 
 
 **Avvis.** Velg en grunn fra listen (kollisjon, manglende dokumentasjon, utenfor åpningstid, annen årsak). Skriv inn forklaring. Plattformen sender en høflig avslags-e-post med din begrunnelse og, ikke minst, en lenke til alternative ledige tider hvis kunden vil prøve igjen.
 
-**Spør.** Trenger du mer informasjon? Send en melding direkte til kunden via bookingens samtaletråd. Kunden får varsel på e-post og SMS, svarer fra sin Min Side, og hele samtalen ligger lagret på forespørselen. Ingen e-postkjede å holde styr på.
+**Spør.** Trenger du mer informasjon? Send en melding direkte til kunden via bookingens samtaletråd. Kunden får varsel på e-post og SMS, svarer fra sin Min side, og hele samtalen ligger lagret på forespørselen. Ingen e-postkjede å holde styr på.
 
 ## Regelbasert auto-godkjenning
 
@@ -45,7 +45,7 @@ I Digilist setter du opp regler per utleieobjekt:
 - **Sportslag som har sesongleieavtale** → auto-godkjenn for tider innenfor avtalen
 - **Alt annet** → manuell godkjenning
 
-Vi har sett kommuner gå fra 90% manuell behandling til 20% etter to ukers regeltilpasning. De resterende 20% er de som faktisk trenger vurdering.
+Vi har sett kommuner gå fra 90 % manuell behandling til 20 % etter to ukers regeltilpasning. De resterende 20 % er de som faktisk trenger vurdering.
 
 ## Kommunikasjon: samtaletråd per booking
 
@@ -56,7 +56,7 @@ Hver booking har sin egen samtaletråd som inkluderer:
 - Endringer på pris eller dato
 - Meldinger frem og tilbake mellom deg og kunden
 
-Kunden ser den samme tråden i sin Min Side. Det er ingen «innboks» i klassisk forstand. Kommunikasjonen lever der bookingen er. Når bookingen avsluttes, arkiveres tråden sammen med den.
+Kunden ser den samme tråden i sin Min side. Det er ingen «innboks» i klassisk forstand. Kommunikasjonen lever der bookingen er. Når bookingen avsluttes, arkiveres tråden sammen med den.
 
 ## Sesongleie: egen fane, større beslutninger
 
@@ -76,5 +76,5 @@ Hver handling (godkjenning, avvisning, melding, endring) loggføres med tidsstem
 
 ## Hva det betyr i praksis
 
-For Nordre Follo kommune, som behandler ca. 1 200 bookinger i måneden på tvers av 12 anlegg, har overgangen til Digilist redusert manuell saksbehandling med 60% og responstid på forespørsler fra dager til timer. Det er ikke fordi vi har gjort bookinger mindre kompliserte. Det er fordi vi har plassert kompliserten der den faktisk er.
+For Nordre Follo kommune, som behandler ca. 1 200 bookinger i måneden på tvers av 12 anlegg, har overgangen til Digilist redusert manuell saksbehandling med 60 % og responstid på forespørsler fra dager til timer. Det er ikke fordi vi har gjort bookinger mindre kompliserte. Det er fordi vi har plassert kompliserten der den faktisk er.
 

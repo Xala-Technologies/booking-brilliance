@@ -74,6 +74,12 @@ interface Summary {
   incidents: IncidentRow[];
 }
 
+// Norwegian number formatting: comma decimal separator and a space before
+// the percent sign (Språkrådet). toFixed() always emits a period, so every
+// percentage on this public page has to go through here.
+const pct = (v: number, digits: number) =>
+  `${v.toFixed(digits).replace(".", ",")} %`;
+
 // Committed SLA targets per surface type. Edit these when the SLAs
 // change in the master service agreement; the page recomputes "met"
 // vs "breach" against measured uptime automatically.
@@ -395,7 +401,7 @@ function SLASection({ surfaces }: { surfaces: SurfaceRow[] }) {
                 </p>
               </div>
               <p className="font-serif text-2xl text-ink md:text-right">
-                {r.committed.toFixed(2)}%
+                {pct(r.committed, 2)}
               </p>
               <p
                 className={cn(
@@ -407,7 +413,7 @@ function SLASection({ surfaces }: { surfaces: SurfaceRow[] }) {
                       : "text-amber-700",
                 )}
               >
-                {r.actual30 === null ? "-" : `${r.actual30.toFixed(2)}%`}
+                {r.actual30 === null ? "-" : pct(r.actual30, 2)}
               </p>
               <p
                 className={cn(
@@ -419,7 +425,7 @@ function SLASection({ surfaces }: { surfaces: SurfaceRow[] }) {
                       : "text-amber-700",
                 )}
               >
-                {r.actual90 === null ? "-" : `${r.actual90.toFixed(2)}%`}
+                {r.actual90 === null ? "-" : pct(r.actual90, 2)}
               </p>
               <span
                 className={cn(
@@ -501,7 +507,7 @@ function SurfaceList({ surfaces }: { surfaces: SurfaceRow[] }) {
                 OPPETID 90D
               </p>
               <p className="font-serif text-xl text-ink mt-0.5">
-                {s.uptime90d === null ? "-" : `${s.uptime90d.toFixed(1)}%`}
+                {s.uptime90d === null ? "-" : pct(s.uptime90d, 1)}
               </p>
             </div>
             <span

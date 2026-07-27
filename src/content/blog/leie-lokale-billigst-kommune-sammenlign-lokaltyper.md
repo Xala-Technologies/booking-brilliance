@@ -84,7 +84,7 @@ Et skolekorps som får fast øvingstid i en gymsal gjennom sesongtildeling betal
 3. Filtrer på maks pris og sorter billigst først
 4. Sammenlign gymsal, hall og møterom side om side
 5. Sjekk depositum og avbestillingsfrist før du bekrefter
-6. Book og motta bekreftelse med totalpris på Min Side
+6. Book og motta bekreftelse med totalpris på Min side
 
 Hele reisen tar noen minutter, og laget ser totalprisen, inkludert eventuelt depositum, før bindende booking.
 

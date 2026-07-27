@@ -42,7 +42,7 @@ Hele søket tar under to minutter, og du logger inn med BankID først når du sk
 
 ## Book en enkelttime uten sesongkontrakt
 
-Du trenger ikke være medlem av en klubb for å leie. Drop-in booking er laget for privatpersoner som vil ha én time: en fotballøkt med kompisene, en åpen treningstime eller en enkelt trening. Du velger tiden, betaler og får bekreftelsen og adgangsinformasjonen på Min Side. Ingen søknad, ingen ventetid på saksbehandling for enkeltbookinger.
+Du trenger ikke være medlem av en klubb for å leie. Drop-in booking er laget for privatpersoner som vil ha én time: en fotballøkt med kompisene, en åpen treningstime eller en enkelt trening. Du velger tiden, betaler og får bekreftelsen og adgangsinformasjonen på Min side. Ingen søknad, ingen ventetid på saksbehandling for enkeltbookinger.
 
 Forskjellen fra sesongtid er verdt å merke seg: en enkelttime gjelder bare den ene gangen du booker, mens sesongkontrakten er en fast ukentlig avtale for hele perioden. Vil du ha samme time hver uke over lengre tid, er det rammetid gjennom en klubb du er ute etter, ikke drop-in.
 
@@ -54,7 +54,7 @@ Prisen settes av kommunen og varierer med hvem du er og hva du bruker hallen til
 - **Voksne, privat trening:** vanligvis fra rundt 200 til 600 kroner timen.
 - **Arrangement og kommersiell bruk:** høyere sats, ofte per dag eller per økt, og enkelte kommuner krever depositum eller renholdsgebyr i tillegg.
 
-Du ser prisen i kalenderen før du booker. Betaling skjer med kort ved bookingtidspunktet for enkelttimer, mens klubber og faste leietakere gjerne faktureres samlet. I Digilist ligger kvitteringer og fakturaer på Min Side, så du slipper å etterspørre dokumentasjon.
+Du ser prisen i kalenderen før du booker. Betaling skjer med kort ved bookingtidspunktet for enkelttimer, mens klubber og faste leietakere gjerne faktureres samlet. I Digilist ligger kvitteringer og fakturaer på Min side, så du slipper å etterspørre dokumentasjon.
 
 ## Regler for booking: avbestilling, no-show og frister
 

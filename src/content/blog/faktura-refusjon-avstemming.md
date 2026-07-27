@@ -19,7 +19,7 @@ Digilist har tre lag i økonomimotoren: **innkreving** (hvor pengene kommer fra)
 
 **Vipps.** Standardvalg for privatpersoner. Push-melding til Vipps-appen, kunden bekrefter, vi får oppgjør på 2–4 sekunder. Refusjon med ett klikk fra admin. Vippsene avregnes til kommunens Vipps-konto direkte.
 
-**Stripe Connect.** Kortbetaling for kunder som ikke har Vipps eller fra utland. Beløpet trekkes fra kortet, sitter på Digilists Stripe Connect-plattformkonto i et øyeblikk, og betales ut til kommunens bankkonto neste virkedag. Avgiftene er Stripes standard (1.4% + 2 kr for europeiske kort).
+**Stripe Connect.** Kortbetaling for kunder som ikke har Vipps eller fra utland. Beløpet trekkes fra kortet, sitter på Digilists Stripe Connect-plattformkonto i et øyeblikk, og betales ut til kommunens bankkonto neste virkedag. Avgiftene er Stripes standard (1,4 % + 2 kr for europeiske kort).
 
 **EHF/Peppol-faktura.** For organisasjonskunder (lag, bedrifter). Kunden booker, faktura sendes via Peppol-nettverket til deres EHF-mottak. Forfall typisk 14 eller 30 dager. Vi varsler om forfall, men inkasso håndteres av kommunens egen rutine.
 
@@ -47,7 +47,7 @@ Refusjoner er det enkleste å gjøre feil i et bookingsystem. Vi har fokusert p�
 
 **Auto-refusjon.** Hvis kansellering skjer innenfor regelens grense (typisk 14 eller 7 dager før), refunderes automatisk når saksbehandler godkjenner kanselleringen.
 
-**Delvis refusjon.** Hvis kanselleringsregelen sier «80% refunderes hvis innen 7 dager», beregner plattformen automatisk beløpet og refunderer det. Restbeløpet blir igjen som inntekt.
+**Delvis refusjon.** Hvis kanselleringsregelen sier «80 % refunderes hvis innen 7 dager», beregner plattformen automatisk beløpet og refunderer det. Restbeløpet blir igjen som inntekt.
 
 **Refusjonssporing.** Hver refusjon har sitt eget revisjonsspor: hvem godkjente, hvilken regel som gjaldt, hvilket beløp, hvilken kanal det gikk via, hva kunden ble fortalt.
 
@@ -85,7 +85,7 @@ Avstemming er der det blir litt komplisert: penger som kommer inn må matches mo
 
 ## Hva sliter et bookingsystem mest med?
 
-Komplekse betalingsflyter med kombinasjoner. Eksempel: et lag bestiller sesongleie for hele vinteren, betaler 30% forskudd nå, resten faktureres månedlig, og hvis de avlyser en enkelttime refunderes timepris automatisk fra forskuddet.
+Komplekse betalingsflyter med kombinasjoner. Eksempel: et lag bestiller sesongleie for hele vinteren, betaler 30 % forskudd nå, resten faktureres månedlig, og hvis de avlyser en enkelttime refunderes timepris automatisk fra forskuddet.
 
 Vi har bygd modulen som håndterer dette med [Pricing v2-arkitekturen](/blogg/somlos-betaling-vipps-ehf) som beskrives mer detaljert der. Hver bookinglinje har sin egen livssyklus, kan flyttes mellom forskudd og etterfakturering og inntektsføres automatisk i riktig periode.
 

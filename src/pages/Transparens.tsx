@@ -86,7 +86,8 @@ const AUDIT_LABEL: Record<string, string> = {
 /** Format a measured-uptime percentage the way an SLA report reads (99.9 %). */
 function fmtUptime(pct: number | null): string {
   if (pct === null || Number.isNaN(pct)) return "—";
-  return `${(Math.round(pct * 10) / 10).toFixed(1).replace(/\.0$/, "")} %`;
+  // Norwegian decimal separator is a comma; toFixed() emits a period.
+  return `${(Math.round(pct * 10) / 10).toFixed(1).replace(/\.0$/, "").replace(".", ",")} %`;
 }
 
 function scoreClass(s: number | null): string {

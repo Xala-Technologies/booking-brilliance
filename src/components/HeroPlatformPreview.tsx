@@ -73,7 +73,7 @@ export function HeroPlatformPreview() {
               <source srcSet="/hero/festsal-2-384.webp" type="image/webp" />
               <img
                 src="/hero/festsal-2-384.jpg"
-                alt="Banquet med dekkede bord"
+                alt="Bankett med dekkede bord"
                 width={384}
                 height={248}
                 className="absolute inset-0 w-full h-full object-cover"

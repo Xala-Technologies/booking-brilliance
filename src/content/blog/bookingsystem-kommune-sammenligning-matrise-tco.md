@@ -32,7 +32,7 @@ En brukbar matrise dekker fire hovedområder. Under hvert område scorer du hver
 
 ### Funksjonalitet
 
-Dekker systemet det kommunen faktisk skal booke ut? Se etter sanntidskalender uten nattlig oppdatering, støtte for både engangsleie og sesongtildeling, selvbetjent avbooking og refusjon, og en Min Side der innbyggeren finner alle bookinger, kvitteringer og meldinger samlet. Et system som håndterer møterom, men ikke sesongfordeling av idrettshaller, tvinger frem et parallelt verktøy.
+Dekker systemet det kommunen faktisk skal booke ut? Se etter sanntidskalender uten nattlig oppdatering, støtte for både engangsleie og sesongtildeling, selvbetjent avbooking og refusjon, og en Min side der innbyggeren finner alle bookinger, kvitteringer og meldinger samlet. Et system som håndterer møterom, men ikke sesongfordeling av idrettshaller, tvinger frem et parallelt verktøy.
 
 ### Sikkerhet og samsvar
 
