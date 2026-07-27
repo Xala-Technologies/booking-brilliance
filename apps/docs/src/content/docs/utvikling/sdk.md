@@ -154,7 +154,7 @@ Auth, realtime og RBAC kommer via `@digilist/app-shell`, ikke direkte fra SDK:
 // apps/web/src/main.tsx
 import {
   AuthProvider,
-  RealtimeProvider,
+  ConvexRealtimeProvider,
   RoleProvider,
 } from "@digilist/app-shell";
 
@@ -162,11 +162,11 @@ export default function App() {
   return (
     <XalaConvexProvider>
       <AuthProvider>
-        <RealtimeProvider>
+        <ConvexRealtimeProvider>
           <RoleProvider>
             <Routes />
           </RoleProvider>
-        </RealtimeProvider>
+        </ConvexRealtimeProvider>
       </AuthProvider>
     </XalaConvexProvider>
   );

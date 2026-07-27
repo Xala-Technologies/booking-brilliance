@@ -54,7 +54,8 @@ Digilist følger et tre-plan-design: **tynne frontend-apper**, en **kilde-bare S
 
 **Kanonisk regel.** Auth, realtime, RBAC og feature-flags må komme fra
 `@digilist/app-shell` (wrapping SDK). Ingen lokal `useAuth`, `AuthProvider`
-eller `RealtimeProvider` i appene. Dette hindrer drift mellom apper.
+eller egen realtime/WebSocket-provider i appene — bruk `ConvexRealtimeProvider`.
+Dette hindrer drift mellom apper.
 
 ## 3. Komponent-arkitektur
 
