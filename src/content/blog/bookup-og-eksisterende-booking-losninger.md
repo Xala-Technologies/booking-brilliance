@@ -1,21 +1,28 @@
 ---
 slug: bookup-og-eksisterende-booking-losninger
-title: "BookUp og eksisterende booking-løsninger: samle dem?"
-description: "BookUp og lignende punktløsninger dekker ett behov hver. Se hvorfor det koster mer enn det ser ut som, og når det lønner seg å samle booking i én plattform."
+title: "Alternativer til BookUp for kommunal booking: samle løsningene i én plattform"
+description: "Ser kommunen din etter alternativer til BookUp for kommunal booking? Digilist er en norsk bookingplattform for både private utleiere og kommuner, bygget med SSA-L 2026-kravene som referansepunkt."
 date: 2026-07-25
+updated: 2026-07-27
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
-readingMinutes: 7
+readingMinutes: 8
 tag: "Plattform"
 cover: "/images/blog/digital_booking_importance_hero_no.webp"
-keywords: ["bookup", "bookup alternativ", "eksisterende booking-løsninger", "punktløsninger booking", "konsolidert bookingplattform", "bookingsystem for utleie", "Digilist"]
+keywords: ["bookup", "alternativer til bookup", "bookup alternativ kommune", "kommunal booking", "bookingsystem for kommuner", "eksisterende booking-løsninger", "punktløsninger booking", "konsolidert bookingplattform", "SSA-L 2026", "Digilist"]
 ---
 
-Søket «BookUp» dukker stadig opp hos utleiere og driftsledere som allerede har ett eller flere bookingverktøy i drift. Det er sjelden et tegn på at noe er ødelagt. Det er som oftest et tegn på at virksomheten har vokst forbi det verktøyet som ble valgt for tre år siden, og nå leter etter noe som dekker mer enn ett behov.
+Søket «BookUp» dukker stadig opp hos utleiere, driftsledere og kommuner som allerede har ett eller flere bookingverktøy i drift. Det er sjelden et tegn på at noe er ødelagt. Det er som oftest et tegn på at virksomheten eller kommunen har vokst forbi det verktøyet som ble valgt for tre år siden, og nå leter etter noe som dekker mer enn ett behov.
 
-Denne artikkelen ser på hvorfor punktløsninger som BookUp finnes, hva de faktisk løser godt, og hvorfor mange etter hvert lander på én samlet plattform i stedet for flere separate.
+**Kort svar:** ja, det finnes reelle alternativer til BookUp for kommunal booking, og Digilist er ett av dem. Digilist er en norsk bookingplattform bygget for å samle kommunens lokaler, ressurser og tjenester i én løsning — med sanntidskalender, ID-porten-pålogging og EHF-fakturering integrert — i stedet for at driftsavdelingen skal sy sammen flere punktverktøy som BookUp. Plattformen er bygget med SSA-L 2026-kravene som referansepunkt, noe som gjør den relevant for kommuner som skal anskaffe et bookingsystem i tråd med gjeldende avtaleverk for offentlige tjenestekjøp.
+
+Denne artikkelen ser på hvorfor punktløsninger som BookUp finnes, hva de faktisk løser godt, og hvorfor mange virksomheter og kommuner etter hvert lander på én samlet plattform i stedet for flere separate.
 
 ---
+
+## Hva er Digilist?
+
+Digilist er én digital bookingplattform for det norske utleie- og bookingmarkedet. Den brukes både av private utleiere og virksomheter (møterom, selskapslokaler, treningsanlegg) og av kommuner og offentlig sektor (idrettshaller, kulturhus, lag og foreninger), med drift og datalagring i Norge. Digilist er ikke en punktløsning bygget for én type lokale eller ett enkelt behov, men én plattform som dekker booking, betaling, saksbehandling og rapportering samlet, uavhengig av om kunden er en bedrift eller en kommune.
 
 ## Hva punktløsninger som BookUp faktisk løser
 
@@ -67,6 +74,16 @@ I praksis betyr det:
 | **Rapportering** | Manuell sammenstilling på tvers | Samlet uttrekk ett sted |
 | **Onboarding av nye ansatte** | Ett system per verktøy | Ett system å lære |
 | **Vokser med flere lokaler/tjenester** | Krever nytt verktøy per behov | Skalerer i samme plattform |
+
+## Andre alternativer kommuner vurderer
+
+Digilist er ikke det eneste alternativet en kommune vurderer når BookUp ikke lenger dekker behovet. Aktiv Kommune, Oslo Booking, Kaddio og Bifrost Booking er andre leverandører som ofte havner på samme kortliste. Alle dekker deler av behovet for kommunal booking; det som skiller løsningene, er i hvor stor grad kalender, betaling, saksbehandling og rapportering er samlet i én plattform versus fordelt på flere verktøy, og hvor godt løsningen dekker krav som SSA-L 2026, ID-porten og EHF-fakturering ut av boksen.
+
+## Kilder
+
+- [SSA-L 2026: full kravguide til kommunalt bookingsystem](/blogg/ssa-l-2026-bookingsystem-kommune) — Digilists gjennomgang av kravene i Statens standardavtale for løpende tjenestekjøp (SSA-L), sist oppdatert 2026-07-25.
+- [Digilists bookingsystem for kommuner](/bookingsystem-kommune) — produktside med funksjonsoversikt for offentlig sektor.
+- [Sikkerhet hos Digilist](/sikkerhet) — dokumentasjon av SSA-L 2026-samsvar og sertifiseringer.
 
 ## Ta neste steg
 
