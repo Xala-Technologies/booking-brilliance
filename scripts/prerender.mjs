@@ -1843,13 +1843,13 @@ const ROUTES = [
   },
   {
     route: "/bookingsystem-utleie",
-    title: "Bookingsystem for utleie – Digilist | Leie ut lokaler på nett",
+    title: "Bookingsystem utleie – Digilist | Leie ut lokaler på nett",
     description:
-      "Bookingsystem for utleie av lokaler: sanntidskalender, online booking og betaling med Vipps, differensiert pris og kalendersynk. For private utleiere og kommuner.",
+      "Bookingsystem utleie av lokaler: sanntidskalender, online booking og betaling med Vipps, differensiert pris og kalendersynk. For private utleiere og kommuner.",
     ogType: "website",
     breadcrumbs: [
       { name: "Hjem", url: `${BASE_URL}/` },
-      { name: "Bookingsystem for utleie", url: `${BASE_URL}/bookingsystem-utleie` },
+      { name: "Bookingsystem utleie", url: `${BASE_URL}/bookingsystem-utleie` },
     ],
     faq: [
       {

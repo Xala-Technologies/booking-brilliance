@@ -109,15 +109,15 @@ const BookingsystemUtleie = () => {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <SEO
-        title="Bookingsystem for utleie · Digilist | Leie ut lokaler på nett"
-        description="Bookingsystem for utleie av lokaler: sanntidskalender, online booking og betaling med Vipps, differensiert pris og kalendersynk. For private utleiere og kommuner."
+        title="Bookingsystem utleie · Digilist | Leie ut lokaler på nett"
+        description="Bookingsystem utleie av lokaler: sanntidskalender, online booking og betaling med Vipps, differensiert pris og kalendersynk. For private utleiere og kommuner."
         keywords="bookingsystem utleie, bookingsystem for utleie av lokaler, utleie booking, leie ut lokaler system, utleiesystem lokaler"
         canonical="https://digilist.no/bookingsystem-utleie"
         ogImage="https://digilist.no/og-image.png"
         faq={FAQ}
         breadcrumbs={[
           { name: "Hjem", url: "https://digilist.no/" },
-          { name: "Bookingsystem for utleie", url: "https://digilist.no/bookingsystem-utleie" },
+          { name: "Bookingsystem utleie", url: "https://digilist.no/bookingsystem-utleie" },
         ]}
       />
       <ProgressRail />
@@ -126,7 +126,7 @@ const BookingsystemUtleie = () => {
       <main id="main">
         <section className="pt-28 lg:pt-32 pb-16 lg:pb-24 bg-paper">
           <div className="container mx-auto md:px-8 lg:px-12">
-            <SectionRule label="UTLEIE-BOOKING · 2026" />
+            <SectionRule label="BOOKINGSYSTEM UTLEIE · 2026" />
 
             <div className="grid lg:grid-cols-12 gap-8 lg:gap-gutter items-start">
               <div className="lg:col-span-8">
