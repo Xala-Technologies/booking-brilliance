@@ -80,6 +80,10 @@ export default {
         "on-navy": "hsl(var(--on-navy))",
         aqua: "hsl(var(--aqua))",
         ochre: "hsl(var(--ochre))",
+        "ochre-warm": "hsl(var(--ochre-warm))",
+        kobber: "hsl(var(--kobber))",
+        terrakotta: "hsl(var(--terrakotta))",
+        rav: "hsl(var(--rav))",
         // shadcn semantic
         primary: {
           DEFAULT: "hsl(var(--primary))",

@@ -22,6 +22,26 @@ const ROLL = { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const };
 const INK_SLACK_EM = 0.12;
 
 /**
+ * Shared line height for the mask band, its baseline strut and the words. Tall
+ * enough to clear Newsreader's descenders at rest; the roll is clipped above
+ * and below this band, which is what makes it read as a roll.
+ */
+const LINE_BOX_EM = 1.18;
+
+/**
+ * Warm "koselig" accents, one per word (see --ochre-warm/--kobber/--terrakotta
+ * /--rav in index.css). Same hue family as xala.no's warm accent, tuned so all
+ * four sit at ~5.5:1 on --paper — they read as one family and clear body AA,
+ * not just the 3:1 large-text minimum this size would allow.
+ */
+const COLORS = [
+  "text-ochre-warm",
+  "text-kobber",
+  "text-terrakotta",
+  "text-rav",
+] as const;
+
+/**
  * A single word in a heading that rolls vertically to the next one in the list.
  *
  * Four constraints shape this component:
@@ -131,7 +151,7 @@ export function RotatingWord({
   // the prerendered markup.
   if (reduceMotion || !widths) {
     return (
-      <span ref={hostRef} className={className}>
+      <span ref={hostRef} className={`${COLORS[0]} ${className ?? ""}`}>
         {words[0]}
       </span>
     );
@@ -141,16 +161,22 @@ export function RotatingWord({
     <motion.span
       ref={hostRef}
       aria-hidden="true"
-      className={`relative inline-block align-baseline ${className ?? ""}`}
+      className={`relative inline-block ${className ?? ""}`}
       style={{
-        height: "1.18em",
-        verticalAlign: "-0.18em",
+        // An inline-block's baseline is the baseline of its last in-flow line
+        // box — but every word here is absolutely positioned, leaving no line
+        // box at all, so the box fell back to its bottom margin edge and the
+        // word floated above the rest of the line. The zero-width space below
+        // restores a real in-flow line box, so the baseline matches "du
+        // trenger," exactly. LINE_BOX_EM keeps that strut, and the words
+        // positioned against it, on one shared line height.
+        lineHeight: LINE_BOX_EM,
         // Only the VERTICAL axis is masked — that is what makes the roll read
         // as a roll. Clipping horizontally too (plain overflow:hidden) shaved
         // the ink off the last glyph, rendering "Selskapslokaler" as
         // "Selskapslokalei". `overflow-x: visible` normally computes to `auto`
         // when the other axis is clipped, but the spec exempts `clip` — so
-        // this pairing is the one way to mask one axis only.
+        // this pairing is the one way to mask a single axis.
         overflowY: "clip",
         overflowX: "visible",
       }}
@@ -160,11 +186,12 @@ export function RotatingWord({
       // it arrives rather than briefly overhanging the text after it.
       transition={{ ...ROLL, duration: 0.4 }}
     >
+      {"​"}
       <AnimatePresence initial={false}>
         <motion.span
           key={index}
-          className="absolute left-0 top-0 whitespace-nowrap"
-          style={{ lineHeight: 1 }}
+          className={`absolute left-0 top-0 whitespace-nowrap ${COLORS[index % COLORS.length]}`}
+          style={{ lineHeight: LINE_BOX_EM }}
           // ±125%, not ±100%: the percentage resolves against the word's own
           // height (lineHeight 1 = 1em) while the mask band is 1.18em tall, so
           // a 100% translate leaves a 0.18em sliver of the outgoing word
