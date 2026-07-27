@@ -86,7 +86,7 @@ Vi har en check-in dag 10. Etter det er vi i normal support-modus.
 
 ## Hva som ikke står på listen
 
-**Tilpasset utvikling.** Vi gjør ikke kundespesifikk koding under onboarding. Plattformen har konfigureringsvalg som dekker 95% av kommuner; resten holdes til etter at dere er live.
+**Tilpasset utvikling.** Vi gjør ikke kundespesifikk koding under onboarding. Plattformen har konfigureringsvalg som dekker 95 % av kommuner; resten holdes til etter at dere er live.
 
 **Migrasjon av historiske bookinger.** Vi importerer framtidige sesongleier og pågående avtaler, men ikke hver eneste historisk booking fra 2019. Erfaringen er at det skaper mer støy enn verdi.
 

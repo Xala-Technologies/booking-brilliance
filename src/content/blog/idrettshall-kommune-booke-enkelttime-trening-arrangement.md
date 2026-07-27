@@ -38,7 +38,7 @@ Skal du bare ha hallen én kveld, går det slik:
 3. Bekreft formål og antall deltakere.
 4. Betal med kort eller Vipps og motta kvittering.
 
-Hele reisen tar rundt 90 sekunder. Bookingen ligger på Min Side, der du finner kvittering, ser tidspunktet og kan avbestille innenfor fristen uten å ringe noen. Trenger du hallen flere enkeltkvelder, gjentar du bare stegene per dato; det er fortsatt enkeltbooking, ikke en fast avtale.
+Hele reisen tar rundt 90 sekunder. Bookingen ligger på Min side, der du finner kvittering, ser tidspunktet og kan avbestille innenfor fristen uten å ringe noen. Trenger du hallen flere enkeltkvelder, gjentar du bare stegene per dato; det er fortsatt enkeltbooking, ikke en fast avtale.
 
 ## Fast ukentlig trening for lag og foreninger
 

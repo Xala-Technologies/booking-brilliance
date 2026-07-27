@@ -82,7 +82,7 @@ En typisk booking tar under ett minutt:
 4. Logg inn med BankID eller magisk lenke og bekreft
 5. Betal med Vipps hvis timen krever betaling
 
-Kvitteringen havner på Min Side sammen med alle dine andre bookinger, og du får en påminnelse før timen. Skulle du bli forhindret, avbestiller du fra samme skjerm, og timen går rett tilbake i sanntidskalenderen for neste person. Det er dette søket «mobil booking idrettshall» handler om: hele reisen fra «har noen en ledig time» til bekreftet booking, uten et eneste papirskjema.
+Kvitteringen havner på Min side sammen med alle dine andre bookinger, og du får en påminnelse før timen. Skulle du bli forhindret, avbestiller du fra samme skjerm, og timen går rett tilbake i sanntidskalenderen for neste person. Det er dette søket «mobil booking idrettshall» handler om: hele reisen fra «har noen en ledig time» til bekreftet booking, uten et eneste papirskjema.
 
 ## Vanlige årsaker til at en time ikke vises som ledig
 

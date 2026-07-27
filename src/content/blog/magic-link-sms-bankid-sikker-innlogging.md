@@ -19,7 +19,7 @@ Digilist støtter tre passordløse innloggingsmetoder, og kommunen bestemmer hvi
 
 Skriv inn e-postadressen din. Vi sender en lenke. Klikk på lenken. Du er innlogget i 30 dager (kan justeres per kommune).
 
-**Når brukes det.** Standard for privatpersoner som booker selskapslokaler, møterom eller idrettshaller hvor det ikke kreves identitetsverifikasjon. 80% av bookingene faller i denne kategorien.
+**Når brukes det.** Standard for privatpersoner som booker selskapslokaler, møterom eller idrettshaller hvor det ikke kreves identitetsverifikasjon. 80 % av bookingene faller i denne kategorien.
 
 **Hvor sikkert er det.** Sikkert nok for low-risk bookinger. Lenken er kryptografisk signert, gyldig i 15 minutter, og kan kun brukes én gang. Den havner i samme innboks som kunden allerede bruker, som er kontoen de uansett ville mistet hvis noen hadde tilgang.
 
@@ -65,9 +65,9 @@ Dette balanserer brukervennlighet mot tillit. En innbygger som booker barnebursd
 
 Vi har data fra kommuner som har brukt Digilist over 18 måneder. Med passordløs innlogging:
 
-- **Konvertering fra forespørsel til fullført booking:** 73% (industrisnitt for kommunale tjenester med passord: 41%)
-- **Drop-off på innloggingssteget:** 4% (industrisnitt: 22%)
-- **Andel innbyggere som booker mer enn én gang:** 58% (industrisnitt: 19%)
+- **Konvertering fra forespørsel til fullført booking:** 73 % (industrisnitt for kommunale tjenester med passord: 41 %)
+- **Drop-off på innloggingssteget:** 4 % (industrisnitt: 22 %)
+- **Andel innbyggere som booker mer enn én gang:** 58 % (industrisnitt: 19 %)
 
 Tallene forteller én ting tydelig: når innlogging slutter å være en hindring, blir gjenkjøpsandelen høyere. Ikke fordi tjenesten er bedre, men fordi den ikke kaster ut folk.
 

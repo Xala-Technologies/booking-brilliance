@@ -71,7 +71,7 @@ Selve prosessen er kort når systemet er på plass. En typisk **booking av treni
 5. **Send søknaden.** Du får en kvittering med referanse med det samme.
 6. **Motta svar.** For enkelttimer kommer bekreftelsen ofte i løpet av kort tid. For fast tid får du svar etter fordelingen.
 
-Alt samles på Min Side: aktive bookinger, søknader under behandling, meldinger fra saksbehandler og kvitteringer. Du slipper å lete i e-postinnboksen etter hva laget faktisk har fått tildelt.
+Alt samles på Min side: aktive bookinger, søknader under behandling, meldinger fra saksbehandler og kvitteringer. Du slipper å lete i e-postinnboksen etter hva laget faktisk har fått tildelt.
 
 ## Avlysning, endring og bytte av treningstid: reglene du må kjenne
 

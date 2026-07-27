@@ -17,7 +17,7 @@ De fleste henvendelser til brukerstøtte handler ikke om avanserte problemer. De
 
 Har du booket feil tid, eller trenger du å flytte en reservasjon? Slik gjør du det:
 
-1. Logg inn og gå til **Min Side**. Der ligger alle bookingene dine samlet, uavhengig av hvilket lokale eller anlegg de gjelder.
+1. Logg inn og gå til **Min side**. Der ligger alle bookingene dine samlet, uavhengig av hvilket lokale eller anlegg de gjelder.
 2. Åpne bookingen du vil endre og velg **Endre tidspunkt**.
 3. Velg ny dato og klokkeslett i kalenderen. Ledige tider vises i sanntid, så du ser umiddelbart hva som er tilgjengelig.
 4. Bekreft endringen. Du får en oppdatert bekreftelse på e-post (og SMS, hvis det er aktivert for utleieobjektet).
@@ -32,7 +32,7 @@ De aller fleste problemer sluttbrukere opplever, hører til en av disse kategori
 Tiden kan være reservert av noen andre, eller lokalet kan ha en regel om minimum/maksimum varighet, forhåndsvarsel eller åpningstider som ikke vises tydelig nok. Sjekk kalenderen for lokalet direkte – ledige tider oppdateres i sanntid, så det du ser er alltid det som faktisk er tilgjengelig akkurat nå.
 
 **«Bekreftelsen kom aldri»**
-Sjekk søppelpost/spam-mappen først; e-postvarsler fra bookingsystemer havner ofte der. Bookingen din finnes uansett på Min Side, selv om e-posten skulle mangle – det er alltid den autoritative kilden til status, ikke innboksen din.
+Sjekk søppelpost/spam-mappen først; e-postvarsler fra bookingsystemer havner ofte der. Bookingen din finnes uansett på Min side, selv om e-posten skulle mangle – det er alltid den autoritative kilden til status, ikke innboksen din.
 
 **«Jeg logger ikke inn»**
 De fleste kommunale utleieobjekter bruker ID-porten eller BankID for innlogging. Feilmeldinger her skyldes som oftest en midlertidig feil hos innloggingsleverandøren, ikke Digilist. Prøv igjen om noen minutter, eller bruk en annen innloggingsmetode dersom flere er tilgjengelige for utleieobjektet.
@@ -47,7 +47,7 @@ Status oppdateres i sanntid når saksbehandler godkjenner, avslår eller endrer 
 
 Avbestilling gjøres fra samme sted som endringer:
 
-1. Åpne bookingen på Min Side og velg **Avbestill**.
+1. Åpne bookingen på Min side og velg **Avbestill**.
 2. Bekreft avbestillingen. Du ser umiddelbart om avbestillingen utløser refusjon, og eventuelt hvor mye, basert på lokalets kanselleringsfrister.
 3. Refusjon (der den gjelder) håndteres automatisk mot samme betalingsmetode som ble brukt, og du får kvittering på e-post.
 

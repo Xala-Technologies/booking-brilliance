@@ -11,7 +11,7 @@ cover: "/images/blog/availability_calendar_hero_no.webp"
 keywords: ["tilgjengelighetskalender", "kommunal booking", "innbygger UX", "kalender design", "ledige tider"]
 ---
 
-Når en innbygger åpner kommunens bookingside er det første hun ser et signal om hele tjenestens kvalitet. Hvis hun må klikke fem ganger for å finne ut at gymsalen er ledig torsdag klokken 18, eller verre, må gjette hva en gråskala-rute betyr, har tjenesten allerede tapt en mulig booking. Tilgjengelighetskalenderen er kommunens første tillitstest.
+Når en innbygger åpner kommunens bookingside, er det første hun ser et signal om hele tjenestens kvalitet. Hvis hun må klikke fem ganger for å finne ut at gymsalen er ledig torsdag klokken 18, eller verre, må gjette hva en gråskala-rute betyr, har tjenesten allerede tapt en mulig booking. Tilgjengelighetskalenderen er kommunens første tillitstest.
 
 ## Tre tilstander, tre farger, ingen mer
 

@@ -80,7 +80,7 @@ Fra søk til bekreftet leie er stegene enkle:
 - **Betal:** med kort eller faktura, og få bekreftelse med det samme.
 - **Avbestill:** innen fristen i vilkårene, ofte 14 eller 30 dager før, for full eller delvis refusjon.
 
-Alt ligger på Min Side, så du finner bekreftelse, kvittering og avbestillingsfrist samlet.
+Alt ligger på Min side, så du finner bekreftelse, kvittering og avbestillingsfrist samlet.
 
 ## Ofte stilte spørsmål
 

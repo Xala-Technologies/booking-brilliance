@@ -62,7 +62,7 @@ En mellomstor kommune som Lillestrøm har en rekke idrettshaller. Å ringe rundt
 
 En ledig tid du ser, men ikke får booket, er verdiløs. Derfor henger søk og booking sammen i én flyt.
 
-Når du velger en time, reserveres den for deg noen minutter mens du fullfører. Slik unngår du at noen kaprer den mens du legger inn detaljer. Du logger inn trygt med BankID eller magic link, bekrefter formål og antall, og betaler med Vipps eller kort der hallen krever betaling. Er timen gratis for din type bruk, hopper du over betalingssteget. Bekreftelsen kommer på skjermen og på e-post, og bookingen ligger på Min Side sammen med alt annet du har reservert.
+Når du velger en time, reserveres den for deg noen minutter mens du fullfører. Slik unngår du at noen kaprer den mens du legger inn detaljer. Du logger inn trygt med BankID eller magic link, bekrefter formål og antall, og betaler med Vipps eller kort der hallen krever betaling. Er timen gratis for din type bruk, hopper du over betalingssteget. Bekreftelsen kommer på skjermen og på e-post, og bookingen ligger på Min side sammen med alt annet du har reservert.
 
 Hele veien fra du åpner kalenderen til du har en bekreftet time tar under to minutter når du vet hva du vil ha. Ingen telefon, ingen venting på svar neste morgen.
 
