@@ -8,6 +8,7 @@ import { staggerParent, staggerChild, viewportOnce } from "@/lib/motion";
 import { getFraunces } from "@/lib/fonts";
 import { logoWebpSrc } from "@/lib/utils";
 import { RotatingWord } from "@/components/RotatingWord";
+import { ThemedVideo } from "@/components/ThemedVideo";
 
 // Venue types plus occasion-flavoured ones, mirroring the Finn dropdown and the
 // Leie* landing pages. Every entry is plural: the heading ends "…bak dem", so a
@@ -164,32 +165,36 @@ const HeroSection = () => {
             className="col-span-12 lg:col-span-5 mt-8 lg:mt-0"
           >
             <div className="w-full">
-              {/* Browser window */}
-              <div className="rounded-xl border border-rule bg-[#0a1628] shadow-[0_44px_100px_-44px_rgba(10,18,40,0.65)] overflow-hidden">
+              {/* Browser window. The chrome follows the site theme so it frames
+                  whichever recording ThemedVideo picks — a light app inside a
+                  dark browser frame reads as a mistake. Pure CSS: default is
+                  the light chrome, `dark:` restores the original dark one. */}
+              <div className="rounded-xl border border-rule bg-[#eef1f5] dark:bg-[#0a1628] shadow-[0_44px_100px_-44px_rgba(10,18,40,0.65)] overflow-hidden">
                 {/* Chrome bar */}
-                <div className="flex items-center gap-2 h-10 px-4 border-b border-white/[0.06] bg-[#0d1c33]">
+                <div className="flex items-center gap-2 h-10 px-4 border-b border-black/[0.07] dark:border-white/[0.06] bg-[#e3e7ed] dark:bg-[#0d1c33]">
                   <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" aria-hidden="true" />
                   <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" aria-hidden="true" />
                   <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" aria-hidden="true" />
-                  <span className="ml-3 inline-flex flex-1 max-w-[240px] items-center justify-center gap-1.5 rounded-md bg-white/[0.06] px-3 py-1 font-mono text-[0.7rem] tracking-wide text-white/55">
+                  <span className="ml-3 inline-flex flex-1 max-w-[240px] items-center justify-center gap-1.5 rounded-md bg-black/[0.05] dark:bg-white/[0.06] px-3 py-1 font-mono text-[0.7rem] tracking-wide text-ink-faint dark:text-white/55">
                     <span className="h-1.5 w-1.5 rounded-full bg-[#28c840]" aria-hidden="true" />
                     app.digilist.no
                   </span>
                 </div>
-                <video
+                <ThemedVideo
                   className="w-full block"
                   style={{ aspectRatio: "16 / 9" }}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="auto"
-                  poster="/videos/digilist-hero-demo-poster.jpg"
-                  aria-label="Digilist i praksis – fra søk til booking"
-                >
-                  <source src="/videos/digilist-hero-demo.webm" type="video/webm" />
-                  <source src="/videos/digilist-hero-demo.mp4" type="video/mp4" />
-                </video>
+                  ariaLabel="Digilist i praksis – fra søk til booking"
+                  light={{
+                    webm: "/videos/digilist-hero-demo-light.webm",
+                    mp4: "/videos/digilist-hero-demo-light.mp4",
+                    poster: "/videos/digilist-hero-demo-light-poster.jpg",
+                  }}
+                  dark={{
+                    webm: "/videos/digilist-hero-demo.webm",
+                    mp4: "/videos/digilist-hero-demo.mp4",
+                    poster: "/videos/digilist-hero-demo-poster.jpg",
+                  }}
+                />
               </div>
 
               {/* Feature cards — the value + norske-krav story, under the demo. */}
