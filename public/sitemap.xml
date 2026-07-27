@@ -43,6 +43,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://digilist.no/blogg/alternativer-til-sharefox-kommunal-booking</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://digilist.no/book-demo</loc>
     <lastmod>2026-05-14</lastmod>
     <changefreq>monthly</changefreq>
