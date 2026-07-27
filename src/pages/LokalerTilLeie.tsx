@@ -112,7 +112,7 @@ const LokalerTilLeie = () => {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <SEO
-        title="Lokaler til leie — finn og book ledig lokale på nett | Digilist"
+        title="Lokaler til leie – finn og book ledige lokaler på nett | Digilist"
         description="Lokaler til leie: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Sammenlign private og kommunale lokaler, se pris, kapasitet og book direkte på Digilist."
         keywords="lokaler til leie, lokale til leie, leie lokaler, leie lokale, finn lokale til leie, lokale til leie på nett, leie lokale pris"
         canonical="https://digilist.no/lokaler-til-leie"
@@ -176,7 +176,7 @@ const LokalerTilLeie = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Finn ledig lokale
+                    Finn ledige lokaler
                   </EditorialButton>
                   <EditorialButton variant="outline" size="lg" icon={false} href="/leie">
                     Se lokaltyper

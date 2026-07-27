@@ -62,7 +62,7 @@ export function InterestSelector() {
         Hva er du mest interessert i?
       </h3>
       <p className="mt-2 text-center text-ink-soft">
-        Velg det som passer deg — så viser vi veien.
+        Velg det som passer deg – så viser vi veien.
       </p>
 
       <div className="mt-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">

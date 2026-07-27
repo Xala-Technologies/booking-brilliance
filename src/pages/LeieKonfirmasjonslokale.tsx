@@ -15,7 +15,7 @@ export default function LeieKonfirmasjonslokale() {
             "Selve feiringen er som regel en sittende middag for slekt og nære venner. Størrelsen varierer, men de fleste planlegger for et sted mellom 20 og 60 gjester. Velg lokale ut fra antall, om dere lager maten selv eller bruker catering, og hvor nær seremonistedet dere vil være.",
           ]}
           checklist={[
-            "Sett datoen tidlig — de beste lokalene til lørdager i mai og juni er booket 6–12 måneder i forveien.",
+            "Sett datoen tidlig – de beste lokalene til lørdager i mai og juni er booket 6–12 måneder i forveien.",
             "Anslå antall gjester og om det blir sittende middag eller koldtbord.",
             "Bestem catering eller egen matlaging, og sjekk om lokalet har kjøkken.",
             "Avklar servering av alkohol og eventuell skjenkebevilling med lokalet.",
@@ -25,7 +25,7 @@ export default function LeieKonfirmasjonslokale() {
           guidance={[
             { label: "Når bør du booke", value: "6–12 måneder før. Lørdager i mai og juni fylles først." },
             { label: "Typisk antall gjester", value: "20–60 til en familiefeiring; felles feiringer kan bli større." },
-            { label: "Prisnivå", value: "Grendehus og menighetshus ligger ofte lavest, selskapslokaler med kjøkken høyere. Prisen avhenger av sted, dag og sesong — se alltid totalprisen for din dato før du booker." },
+            { label: "Prisnivå", value: "Grendehus og menighetshus ligger ofte lavest, selskapslokaler med kjøkken høyere. Prisen avhenger av sted, dag og sesong – se alltid totalprisen for din dato før du booker." },
             { label: "Servering av alkohol", value: "Privat servering til inviterte gjester krever normalt ikke bevilling; selges alkohol kreves skjenkebevilling. Avklar med lokalet." },
             { label: "Mat", value: "Velg lokale med eget kjøkken for egen matlaging, eller et catering-vennlig lokale." },
           ]}
@@ -44,7 +44,7 @@ export default function LeieKonfirmasjonslokale() {
       slug="konfirmasjonslokale"
       breadcrumb="Konfirmasjonslokale"
       title="Leie konfirmasjonslokale"
-      dek="Konfirmasjon til våren? Finn ledig lokale nær deg, se ekte pris for datoen din, og book og betal med Vipps."
+      dek="Konfirmasjon til våren? Finn ledige lokaler nær deg, se ekte pris for datoen din, og book og betal med Vipps."
       lead="Konfirmasjonssesongen er kort og lokalene fylles opp tidlig, ofte et helt år i forveien for de mest populære lørdagene i mai og juni. Å finne lokale betyr gjerne leting i Facebook-grupper, tips fra andre foreldre og forespørsler på e-post uten å vite om datoen er ledig eller hva det faktisk koster. På Digilist finner du festsaler, grendehus, menighetshus, kaféer og selskapslokaler i nærområdet samlet ett sted, med ledige datoer i sanntid, ekte pris for din dato og trygg betaling med Vipps, enten det er konfirmasjon for én eller felles feiring for flere familier."
       seoTitle="Leie konfirmasjonslokale: pris og ledige datoer | Digilist"
       seoDescription="Leie lokale til konfirmasjon: finn ledig konfirmasjonslokale nær deg, se ekte pris for din dato og book med Vipps. Festsaler, grendehus og menighetshus samlet."

@@ -14,7 +14,7 @@ keywords: ["bookup", "alternativer til bookup", "bookup alternativ kommune", "ko
 
 Søket «BookUp» dukker stadig opp hos utleiere, driftsledere og kommuner som allerede har ett eller flere bookingverktøy i drift. Det er sjelden et tegn på at noe er ødelagt. Det er som oftest et tegn på at virksomheten eller kommunen har vokst forbi det verktøyet som ble valgt for tre år siden, og nå leter etter noe som dekker mer enn ett behov.
 
-**Kort svar:** ja, det finnes reelle alternativer til BookUp for kommunal booking, og Digilist er ett av dem. Digilist er en norsk bookingplattform bygget for å samle kommunens lokaler, ressurser og tjenester i én løsning — med sanntidskalender, ID-porten-pålogging og EHF-fakturering integrert — i stedet for at driftsavdelingen skal sy sammen flere punktverktøy som BookUp. Plattformen er bygget med SSA-L 2026-kravene som referansepunkt, noe som gjør den relevant for kommuner som skal anskaffe et bookingsystem i tråd med gjeldende avtaleverk for offentlige tjenestekjøp.
+**Kort svar:** ja, det finnes reelle alternativer til BookUp for kommunal booking, og Digilist er ett av dem. Digilist er en norsk bookingplattform bygget for å samle kommunens lokaler, ressurser og tjenester i én løsning – med sanntidskalender, ID-porten-pålogging og EHF-fakturering integrert – i stedet for at driftsavdelingen skal sy sammen flere punktverktøy som BookUp. Plattformen er bygget med SSA-L 2026-kravene som referansepunkt, noe som gjør den relevant for kommuner som skal anskaffe et bookingsystem i tråd med gjeldende avtaleverk for offentlige tjenestekjøp.
 
 Denne artikkelen ser på hvorfor punktløsninger som BookUp finnes, hva de faktisk løser godt, og hvorfor mange virksomheter og kommuner etter hvert lander på én samlet plattform i stedet for flere separate.
 
@@ -81,9 +81,9 @@ Digilist er ikke det eneste alternativet en kommune vurderer når BookUp ikke le
 
 ## Kilder
 
-- [SSA-L 2026: full kravguide til kommunalt bookingsystem](/blogg/ssa-l-2026-bookingsystem-kommune) — Digilists gjennomgang av kravene i Statens standardavtale for løpende tjenestekjøp (SSA-L), sist oppdatert 2026-07-25.
-- [Digilists bookingsystem for kommuner](/bookingsystem-kommune) — produktside med funksjonsoversikt for offentlig sektor.
-- [Sikkerhet hos Digilist](/sikkerhet) — dokumentasjon av SSA-L 2026-samsvar og sertifiseringer.
+- [SSA-L 2026: full kravguide til kommunalt bookingsystem](/blogg/ssa-l-2026-bookingsystem-kommune) – Digilists gjennomgang av kravene i Statens standardavtale for løpende tjenestekjøp (SSA-L), sist oppdatert 2026-07-25.
+- [Digilists bookingsystem for kommuner](/bookingsystem-kommune) – produktside med funksjonsoversikt for offentlig sektor.
+- [Sikkerhet hos Digilist](/sikkerhet) – dokumentasjon av SSA-L 2026-samsvar og sertifiseringer.
 
 ## Ta neste steg
 

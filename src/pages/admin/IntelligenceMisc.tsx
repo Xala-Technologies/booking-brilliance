@@ -175,7 +175,7 @@ export function IntelligenceSurfaces() {
         title="Overflater"
         description={
           <>
-            Hver Digilist-overflate, dens type, miljø, og hvilke audits som er
+            Hver Digilist-overflate, dens type, miljø og hvilke audits som er
             aktivert. Redigeres i{" "}
             <code className="font-mono text-xs bg-paper-deep px-1.5 py-0.5 rounded-sm">
               tools/site-intelligence/src/targets.ts

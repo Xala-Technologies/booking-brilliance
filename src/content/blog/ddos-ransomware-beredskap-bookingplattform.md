@@ -11,7 +11,7 @@ cover: "/images/blog/gdpr_iso27001_hero_no.webp"
 keywords: ["DDoS", "ransomware", "beredskap", "RPO", "RTO", "backup", "kommune", "incident response"]
 ---
 
-I anskaffelser av bookingsystem til norske kommuner blir det stadig oftere stilt detaljerte spørsmål om beredskap. Det er en sunn utvikling. Tidligere holdt det å skrive "vi har backup". Nå må svaret være konkret: hvor lenge varer utfallet, hva mister vi av data, og hvor finner innbyggerne informasjon mens systemet er nede?
+I anskaffelser av bookingsystem til norske kommuner blir det stadig oftere stilt detaljerte spørsmål om beredskap. Det er en sunn utvikling. Tidligere holdt det å skrive «vi har backup». Nå må svaret være konkret: hvor lenge varer utfallet, hva mister vi av data, og hvor finner innbyggerne informasjon mens systemet er nede?
 
 Denne artikkelen er for kommunens IT-leder eller anskaffelsesansvarlig som vil vite hva de faktisk skal spørre om, og hva et godt svar høres ut som.
 
@@ -39,7 +39,7 @@ Forsvar handler om to lag:
 1. **Edge-nettverk med automatisk DDoS-mitigation.** Cloudflare, Fastly, Akamai og lignende CDNer absorberer trafikk på kanten av nettet, før det treffer applikasjonen. Digilist bruker en kommersiell CDN med automatisk mitigation aktivert som standard.
 2. **Rate limiting på applikasjonsnivå.** Selv om CDN slipper igjennom mistenkelig trafikk, har applikasjonen sin egen begrensning per IP og per session.
 
-For en kommune som vurderer leverandør: spør om DDoS-mitigation er inkludert eller en tilleggstjeneste. Et nei på "inkludert" betyr at den første angrepsdagen blir dyr.
+For en kommune som vurderer leverandør: spør om DDoS-mitigation er inkludert eller en tilleggstjeneste. Et nei på «inkludert» betyr at den første angrepsdagen blir dyr.
 
 ## Ransomware: det dyreste angrepet
 
@@ -62,7 +62,7 @@ Forsvaret mot ransomware har tre faser:
 
 ### Etter: gjenopprett raskt
 
-- Punkt-i-tid-gjenoppretting til før kompromittering. Ikke bare "siste nattbackup", bokstavelig talt valgfritt øyeblikk innenfor retention.
+- Punkt-i-tid-gjenoppretting til før kompromittering. Ikke bare «siste nattbackup», bokstavelig talt valgfritt øyeblikk innenfor retention.
 - Tydelig hendelsesplan. Hvem ringer hvem? Hvilken informasjon går til Datatilsynet (72-timers fristen ved personvernhendelser)? Hvem snakker med media?
 - Øvelse. Beredskapsplan som aldri er øvd, fungerer ikke når det smeller.
 
@@ -91,7 +91,7 @@ Det en kommune bør kreve dokumentert:
 6. Hvilken status-side innbyggere kan sjekke.
 7. Når beredskapsplanen sist ble øvd.
 
-Et leverandørsvar som inneholder konkrete tall og hendelsesreferanser er et godt svar. Et leverandørsvar som inneholder mest "vi tar sikkerhet på alvor" er ikke et svar.
+Et leverandørsvar som inneholder konkrete tall og hendelsesreferanser er et godt svar. Et leverandørsvar som inneholder mest «vi tar sikkerhet på alvor» er ikke et svar.
 
 ## Veien videre
 

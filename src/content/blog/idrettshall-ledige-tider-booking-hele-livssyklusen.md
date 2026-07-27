@@ -42,7 +42,7 @@ Hele søket tar under to minutter, og du logger inn med BankID først når du sk
 
 ## Book en enkelttime uten sesongkontrakt
 
-Du trenger ikke være medlem av en klubb for å leie. Drop-in booking er laget for privatpersoner som vil ha én time: en fotballøkt med kompisene, en åpen treningstime eller en enkelt trening. Du velger tiden, betaler, og får bekreftelsen og adgangsinformasjonen på Min Side. Ingen søknad, ingen ventetid på saksbehandling for enkeltbookinger.
+Du trenger ikke være medlem av en klubb for å leie. Drop-in booking er laget for privatpersoner som vil ha én time: en fotballøkt med kompisene, en åpen treningstime eller en enkelt trening. Du velger tiden, betaler og får bekreftelsen og adgangsinformasjonen på Min Side. Ingen søknad, ingen ventetid på saksbehandling for enkeltbookinger.
 
 Forskjellen fra sesongtid er verdt å merke seg: en enkelttime gjelder bare den ene gangen du booker, mens sesongkontrakten er en fast ukentlig avtale for hele perioden. Vil du ha samme time hver uke over lengre tid, er det rammetid gjennom en klubb du er ute etter, ikke drop-in.
 

@@ -31,7 +31,7 @@ async function fetchDiscoveredKeywords() {
   const admin = process.env.ADMIN_BASIC_AUTH ?? "";
   if (!url || !admin) {
     console.log(
-      "[prerender] CONVEX env not set — skipping discovered-keywords injection.",
+      "[prerender] CONVEX env not set – skipping discovered-keywords injection.",
     );
     return { centroids: [], terms: [] };
   }
@@ -91,13 +91,13 @@ async function loadSsr() {
     const mod = await import(url);
     if (typeof mod.render === "function") {
       ssrRenderer = mod.render;
-      console.log("  [ssr] entry loaded — bodies will be rendered to HTML");
+      console.log("  [ssr] entry loaded – bodies will be rendered to HTML");
     } else {
-      console.warn("  [ssr] entry has no render() export — skipping");
+      console.warn("  [ssr] entry has no render() export – skipping");
     }
   } catch (err) {
     console.warn(
-      "  [ssr] dist-server/entry-server.js not found — skipping body injection",
+      "  [ssr] dist-server/entry-server.js not found – skipping body injection",
       err?.message ?? err,
     );
   }
@@ -187,7 +187,7 @@ async function loadBlogPosts() {
   for (const f of files) {
     if (!f.endsWith(".md")) continue;
     const raw = await fsp.readFile(join(CONTENT_DIR, f), "utf-8");
-    // Minimal frontmatter parse — gray-matter isn't bundled here
+    // Minimal frontmatter parse – gray-matter isn't bundled here
     const m = raw.match(/^---\n([\s\S]*?)\n---/);
     if (!m) continue;
     const fm = {};
@@ -442,9 +442,9 @@ const ROUTES = [
   },
   {
     route: "/leie",
-    title: "Leie lokaler — finn og book selskapslokale, møterom og hall | Digilist",
+    title: "Leie lokaler – finn og book selskapslokale, møterom og hall | Digilist",
     description:
-      "Leie lokaler på nett: både private selskapslokaler og kommunale lokaler samlet ett sted. Se ekte priser og ledige datoer, og book direkte med Vipps — til bryllup, selskap, møte eller arrangement.",
+      "Leie lokaler på nett: både private selskapslokaler og kommunale lokaler samlet ett sted. Se ekte priser og ledige datoer, og book direkte med Vipps – til bryllup, selskap, møte eller arrangement.",
     ogType: "website",
     service: true,
     breadcrumbs: [
@@ -485,7 +485,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie",
-    title: "Lokaler til leie — finn og book ledig lokale på nett | Digilist",
+    title: "Lokaler til leie – finn og book ledige lokaler på nett | Digilist",
     description:
       "Lokaler til leie: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Sammenlign private og kommunale lokaler, se pris og kapasitet, og book direkte på Digilist.",
     ogType: "article",
@@ -516,7 +516,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/oslo",
-    title: "Lokaler til leie i Oslo — finn og book ledig lokale | Digilist",
+    title: "Lokaler til leie i Oslo – finn og book ledige lokaler | Digilist",
     description:
       "Lokaler til leie i Oslo: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Sammenlign private og kommunale lokaler, se pris og kapasitet, og book direkte.",
     ogType: "article",
@@ -534,7 +534,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/bergen",
-    title: "Lokaler til leie i Bergen — finn og book ledig lokale | Digilist",
+    title: "Lokaler til leie i Bergen – finn og book ledige lokaler | Digilist",
     description:
       "Lokaler til leie i Bergen: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Sammenlign private og kommunale lokaler, se pris og kapasitet, og book direkte.",
     ogType: "article",
@@ -552,7 +552,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/trondheim",
-    title: "Lokaler til leie i Trondheim — finn og book ledig lokale | Digilist",
+    title: "Lokaler til leie i Trondheim – finn og book ledige lokaler | Digilist",
     description:
       "Lokaler til leie i Trondheim: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Sammenlign private og kommunale lokaler, se pris og kapasitet, og book direkte.",
     ogType: "article",
@@ -570,7 +570,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/stavanger",
-    title: "Lokaler til leie i Stavanger — finn og book ledig lokale | Digilist",
+    title: "Lokaler til leie i Stavanger – finn og book ledige lokaler | Digilist",
     description:
       "Lokaler til leie i Stavanger: finn ledige selskapslokaler, møterom, konferanselokaler, kulturhus og haller i sanntid. Sammenlign private og kommunale lokaler, se pris og kapasitet, og book direkte.",
     ogType: "article",
@@ -588,7 +588,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/kristiansand",
-    title: "Lokaler til leie i Kristiansand — finn og book ledig lokale | Digilist",
+    title: "Lokaler til leie i Kristiansand – finn og book ledige lokaler | Digilist",
     description:
       "Lokaler til leie i Kristiansand: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Sammenlign private og kommunale lokaler, se pris og kapasitet, og book direkte.",
     ogType: "article",
@@ -606,7 +606,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/tromso",
-    title: "Lokaler til leie i Tromsø — finn og book ledig lokale | Digilist",
+    title: "Lokaler til leie i Tromsø – finn og book ledige lokaler | Digilist",
     description:
       "Lokaler til leie i Tromsø: finn ledige selskapslokaler, møterom, konferanselokaler, kulturhus og haller i sanntid. Sammenlign private og kommunale lokaler, se pris og kapasitet, og book direkte.",
     ogType: "article",
@@ -624,7 +624,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/drammen",
-    title: "Lokaler til leie i Drammen — finn og book ledig lokale | Digilist",
+    title: "Lokaler til leie i Drammen – finn og book ledige lokaler | Digilist",
     description:
       "Lokaler til leie i Drammen: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Rimeligere alternativ til Oslo – sammenlign private og kommunale lokaler og book direkte.",
     ogType: "article",
@@ -642,7 +642,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/baerum",
-    title: "Lokaler til leie i Bærum — finn og book ledig lokale | Digilist",
+    title: "Lokaler til leie i Bærum – finn og book ledige lokaler | Digilist",
     description:
       "Lokaler til leie i Bærum: finn ledige konferanselokaler, møterom, selskapslokaler og velhus i sanntid. Sterkt bedriftsmarked på Fornebu og Lysaker – sammenlign og book direkte.",
     ogType: "article",
@@ -660,7 +660,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/fredrikstad",
-    title: "Lokaler til leie i Fredrikstad — finn og book ledig lokale | Digilist",
+    title: "Lokaler til leie i Fredrikstad – finn og book ledige lokaler | Digilist",
     description:
       "Lokaler til leie i Fredrikstad: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Sammenlign private og kommunale lokaler, se pris og kapasitet, og book direkte.",
     ogType: "article",
@@ -678,7 +678,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/sandnes",
-    title: "Lokaler til leie i Sandnes — finn og book ledig lokale | Digilist",
+    title: "Lokaler til leie i Sandnes – finn og book ledige lokaler | Digilist",
     description:
       "Lokaler til leie i Sandnes: finn ledige selskaps- og konferanselokaler, møterom, grendehus og haller i sanntid. Sammenlign private og kommunale lokaler på Nord-Jæren, og book direkte.",
     ogType: "article",
@@ -696,7 +696,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/alesund",
-    title: "Lokaler til leie i Ålesund — finn og book ledig lokale | Digilist",
+    title: "Lokaler til leie i Ålesund – finn og book ledige lokaler | Digilist",
     description:
       "Lokaler til leie i Ålesund: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Sammenlign private og kommunale lokaler, se pris og kapasitet, og book direkte.",
     ogType: "article",
@@ -714,7 +714,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/bodo",
-    title: "Lokaler til leie i Bodø — finn og book ledig lokale | Digilist",
+    title: "Lokaler til leie i Bodø – finn og book ledige lokaler | Digilist",
     description:
       "Lokaler til leie i Bodø: finn ledige selskaps- og konferanselokaler, møterom, grendehus og haller i sanntid. Sammenlign private og kommunale lokaler, og book direkte.",
     ogType: "article",
@@ -732,7 +732,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/sandefjord",
-    title: "Lokaler til leie i Sandefjord — finn og book ledig lokale | Digilist",
+    title: "Lokaler til leie i Sandefjord – finn og book ledige lokaler | Digilist",
     description:
       "Lokaler til leie i Sandefjord: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Nær Torp lufthavn – sammenlign private og kommunale lokaler og book direkte.",
     ogType: "article",
@@ -750,7 +750,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/tonsberg",
-    title: "Lokaler til leie i Tønsberg — finn og book ledig lokale | Digilist",
+    title: "Lokaler til leie i Tønsberg – finn og book ledige lokaler | Digilist",
     description:
       "Lokaler til leie i Tønsberg: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Populære lokaler ved Tønsberg brygge – sammenlign og book direkte.",
     ogType: "article",
@@ -768,7 +768,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/sarpsborg",
-    title: "Lokaler til leie i Sarpsborg — finn og book ledig lokale | Digilist",
+    title: "Lokaler til leie i Sarpsborg – finn og book ledige lokaler | Digilist",
     description:
       "Lokaler til leie i Sarpsborg: finn ledige selskapslokaler, møterom, grendehus og haller i sanntid. Del av Nedre Glomma – sammenlign private og kommunale lokaler og book direkte.",
     ogType: "article",
@@ -786,7 +786,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/haugesund",
-    title: "Lokaler til leie i Haugesund — finn og book ledig lokale | Digilist",
+    title: "Lokaler til leie i Haugesund – finn og book ledige lokaler | Digilist",
     description:
       "Lokaler til leie i Haugesund: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Regionsenter på Haugalandet – sammenlign private og kommunale lokaler og book direkte.",
     ogType: "article",
@@ -852,7 +852,7 @@ const ROUTES = [
     route: "/leie/bursdagslokale",
     title: "Leie bursdagslokale: pris, ledige datoer og booking | Digilist",
     description:
-      "Leie bursdagslokale til barnebursdag eller voksenbursdag: finn ledig lokale til bursdag nær deg, se ekte pris og book med Vipps. Alt samlet ett sted.",
+      "Leie bursdagslokale til barnebursdag eller voksenbursdag: finn ledige lokaler til bursdag nær deg, se ekte pris og book med Vipps. Alt samlet ett sted.",
     ogType: "website",
     service: true,
     breadcrumbs: [
@@ -1638,7 +1638,7 @@ const ROUTES = [
       { name: "Hjem", url: `${BASE_URL}/` },
       { name: "Teknologi", url: `${BASE_URL}/teknologi` },
     ],
-    // Mirror of TEKNOLOGI_FAQ in src/pages/Teknologi.tsx — keep byte-for-byte
+    // Mirror of TEKNOLOGI_FAQ in src/pages/Teknologi.tsx – keep byte-for-byte
     // identical (this copy is what crawlers index; visible text must match).
     faq: [
       { q: "Hvilken teknologi er Digilist bygget på?", a: "Frontend: React 19, React Router 7, TypeScript strict, Tailwind CSS og Digdir Designsystemet. Backend: Convex (self-hosted) reaktiv runtime, Node.js 20 LTS, Zod. Database: PostgreSQL 16. Mobil: bare React Native (iOS, iPadOS, Android). Sikkerhet: TLS 1.3, AES-256-GCM, RBAC, ID-porten." },
@@ -1663,7 +1663,7 @@ const ROUTES = [
   },
   {
     route: "/ai-agenter",
-    title: "AI-agenter for booking og utleie — GDPR-sikker automatisering | Digilist",
+    title: "AI-agenter for booking og utleie – GDPR-sikker automatisering | Digilist",
     description:
       "Digilist bruker AI-agenter som godkjenner oppføringer mot GDPR, NSM, SOC 2 og universell utforming, svarer på henvendelser, forklarer sesongtildeling og gir daglig driftsoversikt. Bygget for norske kommuner.",
     ogType: "website",
@@ -1691,7 +1691,7 @@ const ROUTES = [
     route: "/ai-agenter/sesongtildeling",
     title: "Sesongtildeling av idrettshaller | Digilist",
     description:
-      "AI-agenten gjennomgår og forklarer sesongtildeling av idrettshall for kommuner. Den fordeler aldri halltid selv — et menneske godkjenner hver melding.",
+      "AI-agenten gjennomgår og forklarer sesongtildeling av idrettshall for kommuner. Den fordeler aldri halltid selv – et menneske godkjenner hver melding.",
     ogType: "website",
     service: true,
     breadcrumbs: [
@@ -1702,7 +1702,7 @@ const ROUTES = [
     faq: [
       {
         q: "Fordeler agenten halltiden i idrettshallen?",
-        a: "Nei. Digilists deterministiske fordelingsmotor lager selve forslaget. Agenten gjennomgår og forklarer — et menneske avgjør.",
+        a: "Nei. Digilists deterministiske fordelingsmotor lager selve forslaget. Agenten gjennomgår og forklarer – et menneske avgjør.",
       },
       {
         q: "Hvilke lag flagger agenten?",
@@ -1758,9 +1758,9 @@ const ROUTES = [
   },
   {
     route: "/booking-av-lokaler-og-moterom",
-    title: "Booking av lokaler og møterom — Digilist | Bookingsystem for lokaler",
+    title: "Booking av lokaler og møterom – Digilist | Bookingsystem for lokaler",
     description:
-      "Bookingsystem for lokaler og møterom — sanntidskalender, Vipps, BankID, EHF og sesongleie. Bygget for kommuner og utleiere. SSA-L 2026-klar.",
+      "Bookingsystem for lokaler og møterom – sanntidskalender, Vipps, BankID, EHF og sesongleie. Bygget for kommuner og utleiere. SSA-L 2026-klar.",
     ogType: "website",
     service: true,
     breadcrumbs: [
@@ -1796,7 +1796,7 @@ const ROUTES = [
     faq: [
       {
         q: "Hva er booking av lokaler og møterom?",
-        a: "Booking av lokaler og møterom er den digitale prosessen der innbyggere, bedrifter, lag eller foreninger reserverer fysiske rom — selskapslokaler, møterom, idrettshaller, kantiner, kulturhus — for et bestemt tidsrom. En moderne plattform håndterer sanntidstilgjengelighet, betaling, kontrakt, varsling av driftsroller og fakturering i én sammenhengende flyt.",
+        a: "Booking av lokaler og møterom er den digitale prosessen der innbyggere, bedrifter, lag eller foreninger reserverer fysiske rom – selskapslokaler, møterom, idrettshaller, kantiner, kulturhus – for et bestemt tidsrom. En moderne plattform håndterer sanntidstilgjengelighet, betaling, kontrakt, varsling av driftsroller og fakturering i én sammenhengende flyt.",
       },
       {
         q: "Hvordan booker man et lokale eller møterom på Digilist?",
@@ -1818,7 +1818,7 @@ const ROUTES = [
   },
   {
     route: "/bookingsystem-kommune",
-    title: "Bookingsystem for kommuner — Digilist | SSA-L 2026 klar",
+    title: "Bookingsystem for kommuner – Digilist | SSA-L 2026 klar",
     description:
       "Digital bookingplattform for norske kommuner. Sanntidskalender, sesongleie, ID-porten, EHF, ISO 27001. Bygget for SSA-L 2026-krav.",
     ogType: "website",
@@ -1829,7 +1829,7 @@ const ROUTES = [
     faq: [
       {
         q: "Hva er et kommunalt bookingsystem?",
-        a: "Et kommunalt bookingsystem er en digital plattform som lar innbyggere, lag og foreninger søke om og booke kommunale lokaler — idrettshaller, svømmehaller, møterom, kantiner og kulturhus — i sanntid.",
+        a: "Et kommunalt bookingsystem er en digital plattform som lar innbyggere, lag og foreninger søke om og booke kommunale lokaler – idrettshaller, svømmehaller, møterom, kantiner og kulturhus – i sanntid.",
       },
       {
         q: "Oppfyller Digilist SSA-L 2026-kravene?",
@@ -1843,7 +1843,7 @@ const ROUTES = [
   },
   {
     route: "/bookingsystem-utleie",
-    title: "Bookingsystem for utleie — Digilist | Leie ut lokaler på nett",
+    title: "Bookingsystem for utleie – Digilist | Leie ut lokaler på nett",
     description:
       "Bookingsystem for utleie av lokaler: sanntidskalender, online booking og betaling med Vipps, differensiert pris og kalendersynk. For private utleiere og kommuner.",
     ogType: "website",
@@ -1870,15 +1870,15 @@ const ROUTES = [
     route: "/kanaler",
     title: "Kanaler & synk · Digilist | Toveis kalendersynk og AI-import",
     description:
-      "Koble Airbnb, Booking.com, Bookup, Eventum og Finn til Digilist. Toveis kalendersynk i sanntid og AI-agent som importerer oppføringene dine til et ferdig utkast — behold begge plattformer.",
+      "Koble Airbnb, Booking.com, Bookup, Eventum og Finn til Digilist. Toveis kalendersynk i sanntid og AI-agent som importerer oppføringene dine til et ferdig utkast – behold begge plattformer.",
     ogType: "website",
     breadcrumbs: [
       { name: "Hjem", url: `${BASE_URL}/` },
       { name: "Kanaler & synk", url: `${BASE_URL}/kanaler` },
     ],
     faq: [
-      { q: "Hvordan fungerer toveis kalendersynk?", a: "Du kobler kanalene dine — som Airbnb, Booking.com, Bookup, Eventum eller Finn — til Digilist én gang. Deretter holdes kalender, priser og tilgjengelighet synkronisert begge veier: en booking på én kanal blokkerer tiden på alle de andre umiddelbart, og endringer i Digilist slår gjennom overalt. Slik unngår du dobbeltbookinger uten manuelt vedlikehold." },
-      { q: "Hvilke kanaler kan jeg koble til?", a: "Digilist kobler mot de vanligste kanalene norske utleiere bruker — Airbnb, Booking.com, Bookup, Eventum og Finn — samt kalenderstandarder som iCal, CalDAV, Outlook og Google Calendar." },
+      { q: "Hvordan fungerer toveis kalendersynk?", a: "Du kobler kanalene dine – som Airbnb, Booking.com, Bookup, Eventum eller Finn – til Digilist én gang. Deretter holdes kalender, priser og tilgjengelighet synkronisert begge veier: en booking på én kanal blokkerer tiden på alle de andre umiddelbart, og endringer i Digilist slår gjennom overalt. Slik unngår du dobbeltbookinger uten manuelt vedlikehold." },
+      { q: "Hvilke kanaler kan jeg koble til?", a: "Digilist kobler mot de vanligste kanalene norske utleiere bruker – Airbnb, Booking.com, Bookup, Eventum og Finn – samt kalenderstandarder som iCal, CalDAV, Outlook og Google Calendar." },
       { q: "Kan AI-agenten importere oppføringene mine automatisk?", a: "Ja. Lim inn lenken til en eksisterende oppføring (eller last opp et dokument), så henter agenten tekst, bilder, kalender, priser og konfigurasjon og lager et ferdig utkast i Digilist. Du trenger bare å gjennomgå og publisere." },
       { q: "Kan jeg fortsette å bruke Airbnb og Booking.com samtidig?", a: "Ja. Poenget med toveis synk er at du beholder kanalene du allerede tjener på. Digilist blir det samlende kalender- og driftslaget, mens du fortsetter å ta imot bookinger der kundene dine allerede er." },
       { q: "Hindrer synk dobbeltbookinger?", a: "Ja. Fordi tilgjengeligheten holdes synkronisert i sanntid på tvers av alle tilkoblede kanaler, blir en tid som bookes ett sted umiddelbart utilgjengelig alle andre steder." },
@@ -1903,9 +1903,9 @@ const ROUTES = [
   },
   {
     route: "/book-demo",
-    title: "Book demo av Digilist — Norsk bookingplattform",
+    title: "Book demo av Digilist – Norsk bookingplattform",
     description:
-      "Be om en gratis 30–45 minutters demo av Digilist. Vi viser hvordan plattformen håndterer ditt bruksområde — privat lokale, kommune eller kulturhus.",
+      "Be om en gratis 30–45 minutters demo av Digilist. Vi viser hvordan plattformen håndterer ditt bruksområde – privat lokale, kommune eller kulturhus.",
     ogType: "website",
     breadcrumbs: [
       { name: "Hjem", url: `${BASE_URL}/` },
@@ -1914,7 +1914,7 @@ const ROUTES = [
   },
   {
     route: "/personvern",
-    title: "Personvernerklæring — Digilist",
+    title: "Personvernerklæring – Digilist",
     description:
       "Slik behandler Digilist personopplysninger. GDPR-kompatibel, ISO 27701-sertifisert, data lagret i Norge og EU.",
     ogType: "website",
@@ -1925,8 +1925,8 @@ const ROUTES = [
   },
   {
     route: "/salgsvilkar",
-    title: "Salgsvilkår og leveransevilkår — Digilist",
-    description: "Salgs- og leveransevilkår for Digilist bookingplattform — gjeldende avtale mellom Digilist og kunder.",
+    title: "Salgsvilkår og leveransevilkår – Digilist",
+    description: "Salgs- og leveransevilkår for Digilist bookingplattform – gjeldende avtale mellom Digilist og kunder.",
     ogType: "website",
     breadcrumbs: [
       { name: "Hjem", url: `${BASE_URL}/` },
@@ -1935,7 +1935,7 @@ const ROUTES = [
   },
   {
     route: "/cookies",
-    title: "Cookies og informasjonskapsler — Digilist",
+    title: "Cookies og informasjonskapsler – Digilist",
     description: "Slik bruker Digilist informasjonskapsler. Privacy-first analytics uten cookies.",
     ogType: "website",
     breadcrumbs: [
@@ -1945,9 +1945,9 @@ const ROUTES = [
   },
   {
     route: "/transparens",
-    title: "Transparens — live kvalitetsrapport — Digilist",
+    title: "Transparens – live kvalitetsrapport – Digilist",
     description:
-      "Live kvalitetsrapport: SEO, tilgjengelighet, sikkerhet, oppetid og lenker — automatisk skannet på tvers av Digilist-økosystemet.",
+      "Live kvalitetsrapport: SEO, tilgjengelighet, sikkerhet, oppetid og lenker – automatisk skannet på tvers av Digilist-økosystemet.",
     ogType: "website",
     breadcrumbs: [
       { name: "Hjem", url: `${BASE_URL}/` },
@@ -1956,7 +1956,7 @@ const ROUTES = [
   },
   {
     route: "/status",
-    title: "Driftsstatus — Digilist",
+    title: "Driftsstatus – Digilist",
     description:
       "Sanntid for Digilist-økosystemet: oppetid, SLA og hendelseslogg på tvers av digilist.no, app, dashboard, dokumentasjon og API.",
     ogType: "website",
@@ -1967,7 +1967,7 @@ const ROUTES = [
   },
   {
     route: "/bruksomrader/selskapslokaler",
-    title: "Selskapslokaler: bookingsystem for bryllup og selskap — Digilist",
+    title: "Selskapslokaler: bookingsystem for bryllup og selskap – Digilist",
     description:
       "Bookingplattform for selskapslokaler: sanntidskalender, depositum via Vipps, BankID-signert leieavtale, digital nøkkel og automatisk faktura.",
     ogType: "website",
@@ -1980,7 +1980,7 @@ const ROUTES = [
   },
   {
     route: "/bruksomrader/moterom",
-    title: "Møterom: bookingsystem for kommuner og næringsbygg — Digilist",
+    title: "Møterom: bookingsystem for kommuner og næringsbygg – Digilist",
     description:
       "Bookingsystem for kommunale møterom, næringsbygg og foreningslokaler. Sanntidskalender, sambruk, prising per brukergruppe og Outlook-integrasjon.",
     ogType: "website",
@@ -1993,7 +1993,7 @@ const ROUTES = [
   },
   {
     route: "/bruksomrader/idrettshaller-gymsaler",
-    title: "Idrettshall booking: bookingsystem for kommuner og foreninger — Digilist",
+    title: "Idrettshall booking: bookingsystem for kommuner og foreninger – Digilist",
     description:
       "Bookingsystem for idrettshaller og gymsaler. Sesongleie til lag og foreninger, halvhalls-bookinger, sambruk, kommunal innbyggerinnlogging via ID-porten.",
     ogType: "website",
@@ -2006,7 +2006,7 @@ const ROUTES = [
   },
   {
     route: "/bruksomrader/kulturhus-kantiner",
-    title: "Kulturhus og kantiner: bookingsystem for kommunale arenaer — Digilist",
+    title: "Kulturhus og kantiner: bookingsystem for kommunale arenaer – Digilist",
     description:
       "Bookingsystem for kulturhus, kantiner og kommunale arenaer. Forestillinger, konserter, åpne dager. Adgangskontroll, driftsrolle-varsling, EHF-fakturering.",
     ogType: "website",
@@ -2391,7 +2391,7 @@ const HOMEPAGE = {
       },
     ],
   },
-  // Homepage FAQ — MIRROR of HOMEPAGE_FAQ in src/content/faq.ts. This copy is
+  // Homepage FAQ – MIRROR of HOMEPAGE_FAQ in src/content/faq.ts. This copy is
   // what crawlers index in the static HTML; keep both byte-for-byte identical
   // (Google requires the visible accordion text to match this FAQPage markup).
   faq: [
@@ -2436,11 +2436,11 @@ async function main() {
   const indexPath = join(DIST, "index.html");
   const template = await fs.readFile(indexPath, "utf-8");
 
-  // Patch the homepage in place — adds base JSON-LD + SSR'd body
+  // Patch the homepage in place – adds base JSON-LD + SSR'd body
   let homepageHTML = patchHTML(template, HOMEPAGE);
   homepageHTML = injectBody(homepageHTML, await renderBody("/"));
   await fs.writeFile(indexPath, homepageHTML, "utf-8");
-  console.log(`  ✓ /index.html — base JSON-LD injected (${homepageHTML.length} bytes)`);
+  console.log(`  ✓ /index.html – base JSON-LD injected (${homepageHTML.length} bytes)`);
 
   // Pre-render per-route variants
   for (const route of ROUTES) {
@@ -2452,14 +2452,14 @@ async function main() {
     console.log(`  ✓ ${route.route}/index.html (${html.length} bytes)`);
   }
 
-  // /faq — pre-rendered with full FAQPage schema from FAQ_CATEGORIES
+  // /faq – pre-rendered with full FAQPage schema from FAQ_CATEGORIES
   const faqCategories = await loadFAQCategories();
   const allFAQ = faqCategories.flatMap((c) => c.questions);
   const faqRoute = {
     route: "/faq",
-    title: "FAQ — Vanlige spørsmål om Digilist",
+    title: "FAQ – Vanlige spørsmål om Digilist",
     description:
-      "Svar på de vanligste spørsmålene om Digilist — bookingsystem for kommuner og utleiere. SSA-L 2026, GDPR, ISO 27001, Vipps, BankID, sesongleie og mer.",
+      "Svar på de vanligste spørsmålene om Digilist – bookingsystem for kommuner og utleiere. SSA-L 2026, GDPR, ISO 27001, Vipps, BankID, sesongleie og mer.",
     breadcrumbs: [
       { name: "Hjem", url: `${BASE_URL}/` },
       { name: "FAQ", url: `${BASE_URL}/faq` },
@@ -2473,12 +2473,12 @@ async function main() {
   await fs.writeFile(join(faqDir, "index.html"), faqHTML, "utf-8");
   console.log(`  ✓ /faq/index.html (${faqHTML.length} bytes, ${allFAQ.length} Q&A)`);
 
-  // Blog index + each post — pre-rendered with Article schema
+  // Blog index + each post – pre-rendered with Article schema
   const posts = await loadBlogPosts();
   const blogIndex = {
     route: "/blogg",
-    title: "Blogg — Innsikt om norsk booking · Digilist",
-    description: "Artikler om bookingsystem for kommuner, sesongleie, SSA-L 2026, GDPR og ISO 27001 — fra Digilists arbeid med norske kommuner og utleiere.",
+    title: "Blogg – Innsikt om norsk booking · Digilist",
+    description: "Artikler om bookingsystem for kommuner, sesongleie, SSA-L 2026, GDPR og ISO 27001 – fra Digilists arbeid med norske kommuner og utleiere.",
     breadcrumbs: [
       { name: "Hjem", url: `${BASE_URL}/` },
       { name: "Blogg", url: `${BASE_URL}/blogg` },
@@ -2529,7 +2529,7 @@ async function main() {
       : null;
     // Only append " — Digilist" if it still fits inside ~65 chars total.
     const postTitle =
-      post.title.length > 50 ? post.title : `${post.title} — Digilist`;
+      post.title.length > 50 ? post.title : `${post.title} – Digilist`;
     let html = patchHTML(template, {
       route: postRoute,
       title: postTitle,
@@ -2593,7 +2593,7 @@ async function main() {
     const stripped = llmsFull.split(/\n## 11\. FAQ-korpus/)[0].replace(/\s+$/, "");
     const merged = `${stripped}\n${corpusLines.join("\n")}\n`;
     await fs.writeFile(llmsFullPath, merged, "utf-8");
-    console.log(`  ✓ /llms-full.txt — FAQ-korpus appended (${allFAQ.length} Q&A)`);
+    console.log(`  ✓ /llms-full.txt – FAQ-korpus appended (${allFAQ.length} Q&A)`);
   }
 
   // Refresh sitemap with the latest set of routes including blog
@@ -2708,7 +2708,7 @@ ${sitemapEntries
   // Inline critical CSS on every prerendered page and load the full 107KB
   // stylesheet asynchronously. Without this, first paint waits on the
   // render-blocking <link rel="stylesheet">, which on slow 4G is starved
-  // behind ~1MB of high-priority modulepreloaded JS — the dominant FCP/LCP
+  // behind ~1MB of high-priority modulepreloaded JS – the dominant FCP/LCP
   // factor on marketing (5.3s) and status (9.6s). The full sheet is kept
   // (pruneSource:false) and swapped in on load, so anything the critical
   // pass misses still styles correctly a moment later. Wrapped in try/catch

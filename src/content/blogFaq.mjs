@@ -12,7 +12,7 @@ export const POST_FAQ = {
     {
       question: "Hva er SSA-L 2026?",
       answer:
-        "SSA-L er Statens standardavtale for løpende tjenestekjøp av IT — malen de fleste norske kommuner bruker når de anskaffer et bookingsystem som SaaS. 2026-versjonen skjerper kravene til sanntidsdata, ID-porten-autentisering, EHF-fakturering, universell utforming og ISO 27001.",
+        "SSA-L er Statens standardavtale for løpende tjenestekjøp av IT – malen de fleste norske kommuner bruker når de anskaffer et bookingsystem som SaaS. 2026-versjonen skjerper kravene til sanntidsdata, ID-porten-autentisering, EHF-fakturering, universell utforming og ISO 27001.",
     },
     {
       question: "Er SSA-L pliktig ved anskaffelse av bookingsystem?",
@@ -27,7 +27,7 @@ export const POST_FAQ = {
     {
       question: "Hvordan verifiserer kommunen SSA-L-samsvar hos leverandøren?",
       answer:
-        "Be om et utfylt sikkerhetsbilag (ikke bare en generell henvisning), et gyldig ISO 27001-sertifikat, siste pen-test-rapport og en kort demo av kravene i praksis: sanntidsoppdatering, ID-porten-innlogging og EHF-faktura. Selvdeklarasjon alene er ikke nok — krev dokumentasjon du kan verifisere.",
+        "Be om et utfylt sikkerhetsbilag (ikke bare en generell henvisning), et gyldig ISO 27001-sertifikat, siste pen-test-rapport og en kort demo av kravene i praksis: sanntidsoppdatering, ID-porten-innlogging og EHF-faktura. Selvdeklarasjon alene er ikke nok – krev dokumentasjon du kan verifisere.",
     },
   ],
   "statistikk-rapportering-bruksdata-kommunale-lokaler": [

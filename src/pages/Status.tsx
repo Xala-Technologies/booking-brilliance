@@ -270,7 +270,7 @@ function UnavailableState() {
       </p>
       <p className="text-base text-ink">
         Statusmålingene lastes ikke akkurat nå. Skanningene kjører videre i
-        bakgrunnen — prøv å laste siden på nytt om litt.
+        bakgrunnen – prøv å laste siden på nytt om litt.
       </p>
     </div>
   );

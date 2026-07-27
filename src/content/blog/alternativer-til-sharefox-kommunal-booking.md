@@ -62,8 +62,8 @@ Vurderer dere et bytte, eller er dere i en anskaffelsesprosess og vil se hvordan
 
 ## Kilder
 
-- [Digitaliseringsdirektoratet (Digdir)](https://www.digdir.no) — nasjonale terskelverdier og føringer for offentlige digitale tjenester
-- [Digdir Designsystemet](https://designsystemet.no/no) — felles komponentbibliotek og WCAG-krav for offentlig sektor
-- [SSA-L 2026: full kravguide til kommunalt bookingsystem](/blogg/ssa-l-2026-bookingsystem-kommune) — gjennomgang av kontraktskrav ved SaaS-anskaffelse
-- [Digdir Designsystemet: hvorfor det er et must i offentlig sektor](/blogg/digdir-designsystemet-kommunal-bookingplattform) — bakgrunn om universell utforming og designkrav
-- [Bookingsystem for småkommuner: kostnadseffektive løsninger](/blogg/bookingsystem-smakommuner-kostnadseffektive-losninger) — prismodell og driftskostnader for mindre kommuner
+- [Digitaliseringsdirektoratet (Digdir)](https://www.digdir.no) – nasjonale terskelverdier og føringer for offentlige digitale tjenester
+- [Digdir Designsystemet](https://designsystemet.no/no) – felles komponentbibliotek og WCAG-krav for offentlig sektor
+- [SSA-L 2026: full kravguide til kommunalt bookingsystem](/blogg/ssa-l-2026-bookingsystem-kommune) – gjennomgang av kontraktskrav ved SaaS-anskaffelse
+- [Digdir Designsystemet: hvorfor det er et must i offentlig sektor](/blogg/digdir-designsystemet-kommunal-bookingplattform) – bakgrunn om universell utforming og designkrav
+- [Bookingsystem for småkommuner: kostnadseffektive løsninger](/blogg/bookingsystem-smakommuner-kostnadseffektive-losninger) – prismodell og driftskostnader for mindre kommuner
