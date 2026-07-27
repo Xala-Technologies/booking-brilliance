@@ -17,7 +17,7 @@ En kommunal bookingkalender har to brukere som aldri møter hverandre, men deler
 
 En innbygger som åpner Digilist for å booke en idrettshall til datterens bursdagsfest 2. lørdag i mars 2026 har én oppgave: finn ledig tid, og book den. Tre prinsipper styrer designet:
 
-1. **Stedet først, ikke datoen.** De fleste innbyggere vet _hva_ de vil booke (Vestby Storsal), ikke nødvendigvis _når_. Søkefeltet starter med anlegget, datoen er en filter etterpå.
+1. **Stedet først, ikke datoen.** De fleste innbyggere vet _hva_ de vil booke (Vestby Storsal), ikke nødvendigvis _når_. Søkefeltet starter med anlegget, datoen er et filter etterpå.
 2. **Ledig er grønt, opptatt er grått.** Ikke fem farger, ikke statuser. Innbyggeren skal kunne lese kalenderen på fem sekunder med solskinn på skjermen.
 3. **Bekreftelse uten konto.** Innbyggeren logger inn via [ID-porten](/blogg/idporten-bankid-kommunal-innlogging) når hun bekrefter, ikke før. Å bla i kalenderen krever ikke pålogging.
 

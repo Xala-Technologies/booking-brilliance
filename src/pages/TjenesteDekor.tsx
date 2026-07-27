@@ -136,7 +136,7 @@ export default function TjenesteDekor() {
         {
           question: "Hva er inkludert i en pyntepakke?",
           answer:
-            "Det står tydelig på hver pakke: blomsterdekor, bordpynt, ballonger, bakvegg, lyssetting, og om levering, rigging og henting inngår. Du vet nøyaktig hva du får før du bekrefter, uten overraskelser på festdagen.",
+            "Det står tydelig på hver pakke: blomsterdekor, bordpynt, ballonger, bakvegg, lyssetting og om levering, rigging og henting inngår. Du vet nøyaktig hva du får før du bekrefter, uten overraskelser på festdagen.",
         },
         {
           question: "Rigger dekoratøren selv, eller må jeg gjøre det?",

@@ -49,7 +49,7 @@ Digilist tilbyr to spor for ansatte:
 
 Begge er phishing-resistente. Begge fungerer uten passord.
 
-## "FIDO2": det teknologien heter
+## «FIDO2»: det teknologien heter
 
 For dem som vil ha bakgrunnen: phishing-resistent autentisering bygger på FIDO2-standarden, som er bygget rundt offentlig-nøkkel-kryptografi i stedet for delte hemmeligheter. ID-porten og BankID er begge FIDO-kompatible.
 
@@ -58,7 +58,7 @@ Praktisk betyr det at en kommune som velger en plattform som bygger på ID-porte
 ## Hva som faktisk skjer i et phishing-forsøk
 
 Et tenkt scenario med passordbasert innlogging:
-1. Saksbehandler får en e-post: "Klikk her for å bekrefte din konto på bookingsystemet."
+1. Saksbehandler får en e-post: «Klikk her for å bekrefte din konto på bookingsystemet.»
 2. Lenken går til `bookingsystem-bekreft.no` som ser identisk ut.
 3. Saksbehandler logger inn med passord.
 4. Angriperen har nå legitime credentials.

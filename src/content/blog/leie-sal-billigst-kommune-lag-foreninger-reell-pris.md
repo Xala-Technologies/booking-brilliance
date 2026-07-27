@@ -17,7 +17,7 @@ Prisen kommunen viser i regulativet er nesten aldri det laget faktisk betaler. F
 
 De fleste kommuner deler leietakere inn i sonekategorier: barn og unge, frivillige lag og foreninger, kommunal aktivitet, og kommersielle aktører. Samme sal kan koste 300 kroner timen for et idrettslag og 1 200 kroner for et firma. Prismodellen kombinerer denne kategorien med lokaltype, tidspunkt (dag mot kveld og helg) og varighet.
 
-Det betyr at "leie sal pris" ikke har ett svar. En gymsal i Lillestrøm kommune har for eksempel én sats for treningstid på hverdager og en annen for helgearrangement. En festsal med scene og lyd ligger høyere enn et nakent møterom i samme bygg. Uten å kjenne egen kategori er det lett å lese av feil pris og tro at salen er dyrere enn den er.
+Det betyr at «leie sal pris» ikke har ett svar. En gymsal i Lillestrøm kommune har for eksempel én sats for treningstid på hverdager og en annen for helgearrangement. En festsal med scene og lyd ligger høyere enn et nakent møterom i samme bygg. Uten å kjenne egen kategori er det lett å lese av feil pris og tro at salen er dyrere enn den er.
 
 Det praktiske rådet er å avklare tre ting før dere sammenligner tall: hvilken sonekategori foreningen havner i, om aktiviteten er for medlemmer under 19 år, og om dere trenger salen på dagtid, kveld eller helg. De tre svarene avgjør ofte hele regnestykket.
 
@@ -29,7 +29,7 @@ Listeprisen er utgangspunktet. Den reelle prisen for en forening er ofte 40 til 
 - **Barne- og ungdomssatser:** aktivitet for medlemmer under 19 år er i mange kommuner gratis eller symbolsk priset.
 - **Gratis trening i skoletidsbygg:** flere kommuner gir fri leie av gymsaler og klasserom til organisert barneidrett på kveldstid.
 
-"Gratis leie for lag og foreninger" er altså ofte reelt, men betinget av at foreningen er registrert i Frivillighetsregisteret og at aktiviteten faller i riktig kategori. Et konkret eksempel: en håndballgruppe som trener tirsdager fra 18 til 20 kan lande på null i leie for selve treningen, men betale full sats hvis det samme laget arrangerer en åpen turnering med inngangsbillett en lørdag. Samme lag, samme sal, to helt ulike priser.
+«Gratis leie for lag og foreninger» er altså ofte reelt, men betinget av at foreningen er registrert i Frivillighetsregisteret og at aktiviteten faller i riktig kategori. Et konkret eksempel: en håndballgruppe som trener tirsdager fra 18 til 20 kan lande på null i leie for selve treningen, men betale full sats hvis det samme laget arrangerer en åpen turnering med inngangsbillett en lørdag. Samme lag, samme sal, to helt ulike priser.
 
 Digilist kobler foreningens registreringsstatus til prismodellen og viser den rabatterte prisen direkte, ikke listeprisen du må trekke fra selv. Da ser dere med én gang hva treningen koster og hva et arrangement koster, uten å gjette på hvilken kategori kommunen legger dere i.
 

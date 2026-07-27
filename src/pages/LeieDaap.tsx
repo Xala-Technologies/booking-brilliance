@@ -75,7 +75,7 @@ export default function LeieDaap() {
             "Velg lokale ut fra antall gjester, om dere vil lage maten selv eller bruke catering, og hvor nær kirken eller seremonistedet dere ønsker å være. Har dere med små barn, er det verdt å sjekke om lokalet har plass til barnevogner og stellemulighet.",
           ]}
           checklist={[
-            "Anslå antall gjester — de fleste dåpsselskaper er mindre, ofte 20–40.",
+            "Anslå antall gjester – de fleste dåpsselskaper er mindre, ofte 20–40.",
             "Velg et lokale nær kirken eller seremonistedet.",
             "Bestem egen matlaging eller catering, og sjekk om lokalet har kjøkken.",
             "Sjekk barnevennlige fasiliteter: plass til barnevogner og stellemulighet.",
@@ -83,7 +83,7 @@ export default function LeieDaap() {
           ]}
           guidance={[
             { label: "Når bør du booke", value: "2–4 måneder før. Helgedager nær kirken i vår og høst går først." },
-            { label: "Typisk antall gjester", value: "Ofte 20–40 — mindre enn bryllup og konfirmasjon." },
+            { label: "Typisk antall gjester", value: "Ofte 20–40 – mindre enn bryllup og konfirmasjon." },
             { label: "Prisnivå", value: "Grendehus med eget kjøkken ligger ofte lavest; kaféer og selskapslokaler med servering høyere. Se totalprisen for din dato før du booker." },
             { label: "Format", value: "Vanligvis lunsj eller koldtbord midt på dagen. Sjekk at lokalet har nok plass og kjøkken." },
             { label: "Med barn", value: "Se etter plass til barnevogner og stellemulighet på lokalet." },

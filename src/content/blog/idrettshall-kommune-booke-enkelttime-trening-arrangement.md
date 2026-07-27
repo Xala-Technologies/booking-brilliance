@@ -11,7 +11,7 @@ cover: "/images/blog/sesongleie_hero_no.webp"
 keywords: ["idrettshall ledige tider", "booke idrettshall", "idrettshall leie pris", "fast trening idrettshall", "idrettshall arrangement", "idrettshall skoleferie"]
 ---
 
-"Idrettshall" er egentlig et samlebegrep for flere lokaler og minst fire ulike bookingbehov. Skal du spille badminton en kveld, trener laget ditt fast hver uke, eller planlegger du en cup for 200 deltakere? Veien til en ledig hall er ikke den samme. Her er alle inngangene samlet på ett sted, slik at du havner i riktig kø fra start.
+«Idrettshall» er egentlig et samlebegrep for flere lokaler og minst fire ulike bookingbehov. Skal du spille badminton en kveld, trener laget ditt fast hver uke, eller planlegger du en cup for 200 deltakere? Veien til en ledig hall er ikke den samme. Her er alle inngangene samlet på ett sted, slik at du havner i riktig kø fra start.
 
 ## Hva skjuler seg bak begrepet idrettshall
 

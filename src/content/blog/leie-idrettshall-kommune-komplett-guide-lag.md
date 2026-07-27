@@ -35,7 +35,7 @@ For faste brukere er dette spesielt nyttig: dere kan planlegge hele sesongen ved
 
 Her ligger den viktigste distinksjonen for et lag. Det finnes to helt ulike prosesser.
 
-**Enkelttimer** er en engangsbooking: én kamp, én dugnad, én turnering. Du velger tid, søker, og får som regel raskt svar. Dette bruker dere til det som ligger utenfor det faste treningsopplegget.
+**Enkelttimer** er en engangsbooking: én kamp, én dugnad, én turnering. Du velger tid, søker og får som regel raskt svar. Dette bruker dere til det som ligger utenfor det faste treningsopplegget.
 
 **Faste treningstider** fordeles gjennom sesongtildeling. Kommunen setter en søknadsfrist, gjerne i mai eller juni for påfølgende sesong, og fordeler så all treningstid samlet. Grunnen er rettferdighet: hvis fast tid ble delt ut fortløpende, ville laget som søkte først få de beste tidene år etter år. Ved samlet fordeling kan kommunen veie barn og unge, aktivitetsnivå og geografisk spredning opp mot hverandre.
 

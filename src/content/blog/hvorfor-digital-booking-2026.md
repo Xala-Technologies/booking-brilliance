@@ -15,7 +15,7 @@ I 2015 var en digital bookingkalender hos en kommune en hyggelig ekstra. I 2020 
 
 ## Krav 1: Innbyggernes forventning er ikke lenger til forhandling
 
-Den gjennomsnittlige norske innbyggeren booker bord på restaurant via mobilen, tannlegen via [Helsenorge.no](https://www.helsenorge.no/), pakkelevering via PostNord-appen, og barnepass via en privat plattform. Når hun skal booke kommunens kantine til søsterens 50-årsdag og blir møtt av et PDF-skjema som må fylles ut, scannes, og sendes til en kommunal e-post som besvares i løpet av 5–10 virkedager, er det ikke et nostalgisk irritasjonsmoment. Det er en signal om at kommunen ikke leverer på samme nivå som resten av samfunnet.
+Den gjennomsnittlige norske innbyggeren booker bord på restaurant via mobilen, tannlegen via [Helsenorge.no](https://www.helsenorge.no/), pakkelevering via PostNord-appen, og barnepass via en privat plattform. Når hun skal booke kommunens kantine til søsterens 50-årsdag og blir møtt av et PDF-skjema som må fylles ut, scannes og sendes til en kommunal e-post som besvares i løpet av 5–10 virkedager, er det ikke et nostalgisk irritasjonsmoment. Det er et signal om at kommunen ikke leverer på samme nivå som resten av samfunnet.
 
 [Difi/Digdirs innbyggerundersøkelse](https://www.digdir.no/) viser at over 70 % av norske innbyggere forventer at kommunale tjenester er digitale på samme nivå som banktjenester. Det er ikke en politisk preferanse. Det er det implisitte servicenivået innbyggerne sammenligner med.
 

@@ -8,7 +8,7 @@ role: "Grunnlegger, Digilist"
 readingMinutes: 6
 tag: "Lag og foreninger"
 cover: "/images/blog/onboarding_hero.svg"
-keywords: ["frivillige organisasjoner", "frivillig organisasjon bookingssystem", "lag og foreninger", "medlemstilgang", "rollebasert tilgang", "sesongleie", "bookingsystem forening"]
+keywords: ["frivillige organisasjoner", "frivillig organisasjon bookingsystem", "lag og foreninger", "medlemstilgang", "rollebasert tilgang", "sesongleie", "bookingsystem forening"]
 ---
 
 I mange frivillige organisasjoner og idrettslag deles innloggingen til bookingsystemet på samme måte som en delt e-postkonto: ett brukernavn, ett passord, videreformidlet fra styreleder til styreleder, fra trener til trener, i årevis. Det fungerer helt til noen slutter, glemmer å levere fra seg tilgangen, eller booker feil hall fordi hun ikke visste at laget allerede hadde en avtale den kvelden.

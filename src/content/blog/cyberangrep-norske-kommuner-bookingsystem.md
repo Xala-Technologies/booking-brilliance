@@ -20,7 +20,7 @@ For en kommunal IT-leder som planlegger en ny bookingplattform er det rimelig å
 Cyberkriminelle som retter seg mot norske kommuner følger som regel én av tre logikker:
 
 1. **Ransomware mot drift.** Mål: kryptere alt og selge tilbake nøkkelen. Bookingsystem er attraktivt fordi det blokkerer publikumstjenester umiddelbart. Kommunen mister inntekt og innbyggertillit i samme øyeblikk.
-2. **Datatyveri for ekstortion.** Mål: stjele persondata og kreve løsepenger mot at de ikke publiseres. Bookingsystemer inneholder navn, e-post, telefonnummer, betalingsspor, og av og til informasjon om bevegelsesmønstre (når er innbyggeren på idrettshall? på kulturhus?).
+2. **Datatyveri for utpressing.** Mål: stjele persondata og kreve løsepenger mot at de ikke publiseres. Bookingsystemer inneholder navn, e-post, telefonnummer, betalingsspor og av og til informasjon om bevegelsesmønstre (når er innbyggeren på idrettshall? på kulturhus?).
 3. **Phishing mot ansatte.** Mål: lure én kommuneansatt til å oppgi passord. Da har angriperen et utgangspunkt for å bevege seg sidelengs i nettverket.
 
 NSMs trusselvurderinger for de siste tre årene har konsistent flagget pkt. 1 og 2 som økende. Ransomware-as-a-service betyr at terskelen for å gjennomføre angrep har sunket, mens betalingsviljen, særlig fra offentlige aktører med kritiske tjenester, har vært stabil.

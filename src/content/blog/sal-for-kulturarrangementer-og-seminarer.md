@@ -19,7 +19,7 @@ En god sal handler om mer enn antall stoler. Det viktigste er at rommet passer a
 
 Sjekk disse punktene før du går videre:
 
-- **Kapasitet:** Oppgitt tall gjelder ofte teater­oppsett. Med bord og stoler faller kapasiteten gjerne med 40–50 prosent.
+- **Kapasitet:** Oppgitt tall gjelder ofte teateroppsett. Med bord og stoler faller kapasiteten gjerne med 40–50 prosent.
 - **Akustikk og lyd:** Hardt gulv og glass gir etterklang som ødelegger tale og musikk.
 - **Tilkomst:** Rampe, heis og bredde på dører avgjør om utstyr og publikum kommer inn uten problemer.
 - **Fasiliteter:** Garderobe, toaletter, kjøkken og et sted for servering betyr mye på lengre arrangementer.
@@ -64,7 +64,7 @@ Selve bookingen er enklest når alt skjer på ett sted. En typisk prosess ser sl
 1. **Søk og filtrer** på dato, kapasitet og arrangementstype.
 2. **Sammenlign** aktuelle saler på pris, fasiliteter og beliggenhet.
 3. **Sjekk ledig kapasitet** i sanntid, så du ser hva som faktisk er ledig valgt dato.
-4. **Velg tilleggstjenester** som teknikk, servering eller ekstra rigge­tid.
+4. **Velg tilleggstjenester** som teknikk, servering eller ekstra riggetid.
 5. **Send forespørsel** med opplysninger om arrangementet og antall deltakere.
 6. **Motta bekreftelse** med samlet pris, vilkår og eventuell nøkkelutlevering.
 
