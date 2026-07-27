@@ -26,6 +26,17 @@ describe("SSR <h1> template invariant", () => {
     expect(html).toContain(`>${post!.title}<`);
   });
 
+  it("renders exactly one <h1> on the leie-bryllupslokale post (XAL-756)", async () => {
+    const slug = "leie-bryllupslokale";
+    const post = getPostBySlug(slug);
+    expect(post, `fixture post ${slug} should exist`).toBeDefined();
+
+    const route = `/blogg/${slug}`;
+    const html = await render(route);
+    assertSingleH1(html, route);
+    expect(html).toContain(`>${post!.title}<`);
+  });
+
   it("renders exactly one <h1> on a use-case landing page", async () => {
     const route = "/bruksomrader/selskapslokaler";
     const html = await render(route);
