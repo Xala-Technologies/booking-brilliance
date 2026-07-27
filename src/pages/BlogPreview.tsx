@@ -219,7 +219,7 @@ export default function BlogPreview() {
       <ProgressRail />
       <Navbar />
 
-      {/* Preview banner — unmissable, makes it obvious this is not the
+      {/* Preview banner – unmissable, makes it obvious this is not the
           public version. */}
       <div className="sticky top-16 z-50 bg-amber-500 text-on-navy">
         <div className="container mx-auto md:px-8 lg:px-12 py-2 flex items-center justify-between gap-4 text-xs">
@@ -297,7 +297,7 @@ export default function BlogPreview() {
                     {parsed.content}
                   </ReactMarkdown>
                 ) : (
-                  // LinkedIn/X drafts are plain text — render as
+                  // LinkedIn/X drafts are plain text – render as
                   // monospace so reviewers see what the platform
                   // will actually post.
                   <pre className="whitespace-pre-wrap font-mono text-sm text-ink bg-paper-strong border border-hairline rounded-sm p-5">

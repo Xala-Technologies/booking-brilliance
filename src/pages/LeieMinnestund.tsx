@@ -10,7 +10,7 @@ export default function LeieMinnestund() {
       slug="minnestund"
       breadcrumb="Minnestund"
       title="Leie lokale til minnestund"
-      dek="Et verdig sted for minnesamværet, nær seremonistedet. Finn ledig lokale og book uten en lang telefonrunde i en tung tid."
+      dek="Et verdig sted for minnesamværet, nær seremonistedet. Finn ledige lokaler og book uten en lang telefonrunde i en tung tid."
       lead="Et minnesamvær planlegges ofte på kort varsel og midt i sorgen, gjerne bare noen dager før. Da er det en lettelse å finne et rolig, verdig lokale nær kirken eller seremonistedet, med plass til dem som kommer, uten å måtte ringe rundt og vente på svar. På Digilist finner du menighetshus, grendehus, kaféer og selskapslokaler samlet ett sted, med ledige datoer i sanntid og pris synlig, slik at én ting blir enklere når mye annet er vanskelig. Mange gravferdsbyrå hjelper også til med å ordne lokalet."
       seoTitle="Leie lokale til minnestund og minnesamvær | Digilist"
       seoDescription="Leie lokale til minnestund etter gravferd: finn et verdig, ledig lokale nær seremonistedet, se pris og book uten lang telefonrunde. Menighetshus og selskapslokaler samlet."
@@ -77,7 +77,7 @@ export default function LeieMinnestund() {
             "Avklar omtrentlig antall gjester og ønsket tidspunkt etter seremonien.",
             "Velg et lokale nær kirken eller seremonistedet, så gjestene lett kommer seg videre.",
             "Sjekk tilgjengelighet og universell utforming for eldre og bevegelseshemmede.",
-            "Avklar servering — eget kjøkken, egen mat eller enkel catering av kaffe og kaker.",
+            "Avklar servering – eget kjøkken, egen mat eller enkel catering av kaffe og kaker.",
             "Se pris og ledig dato, og book direkte, eventuelt via gravferdsbyrået.",
           ]}
           guidance={[

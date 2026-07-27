@@ -341,7 +341,7 @@ export function InquiryFlow({
               rel="noopener noreferrer"
               className="underline underline-offset-2 hover:text-ink"
             >
-              PERSONVERN­ERKLÆRINGEN
+              PERSONVERNERKLÆRINGEN
             </a>
             .
           </p>

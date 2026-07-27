@@ -22,7 +22,7 @@ Klasseromsleie skiller seg fra vanlig møteromsleie ved at rommet som regel skal
 - **Trådløst nett** som tåler at alle deltakerne kobler seg på samtidig
 - **Tilgang til pause- eller kjøkkenfasiliteter** for lengre kursdager
 
-Dette skiller klasseromsleie fra et lite møterom for fire personer, og fra en festsal for et arrangement. Søker du på "kurslokale" eller "klasserom til leie" uten å presisere kapasitet og utstyr, ender du fort opp med treff som passer dårlig til et flerdagers kurs.
+Dette skiller klasseromsleie fra et lite møterom for fire personer, og fra en festsal for et arrangement. Søker du på «kurslokale» eller «klasserom til leie» uten å presisere kapasitet og utstyr, ender du fort opp med treff som passer dårlig til et flerdagers kurs.
 
 ## To målgrupper, ett behov: forutsigbar tilgjengelighet
 
@@ -30,7 +30,7 @@ Dette skiller klasseromsleie fra et lite møterom for fire personer, og fra en f
 
 **Private kursarrangører** har et litt annet behov. De planlegger kurs og sertifiseringer måneder i forveien, ofte med et fast antall kursdager, og de trenger å vite raskt om et egnet lokale er ledig før de åpner påmelding til deltakerne. Blir kurset fulltegnet, må de kanskje bytte til et større rom på kort varsel. Blir det avlyst, må avbestillingen være enkel og fristene tydelige.
 
-Begge gruppene stiller i praksis det samme kravet: en oversikt som viser nøyaktig hvilke klasserom som er ledige, når, og med hvilket utstyr, uten å måtte ringe en resepsjon eller vente på svar fra en saksbehandler.
+Begge gruppene stiller i praksis det samme kravet: en oversikt som viser nøyaktig hvilke klasserom som er ledige, når og med hvilket utstyr, uten å måtte ringe en resepsjon eller vente på svar fra en saksbehandler.
 
 ## Hvorfor fleksibel booking og sanntids tilgjengelighet er kritisk
 

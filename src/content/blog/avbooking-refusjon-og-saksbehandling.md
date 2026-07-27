@@ -17,7 +17,7 @@ For mange kommuner er svaret: altfor mye tid, og altfor mange tvister.
 
 ## Manuelle avbookinger koster mer enn du tror
 
-En typisk manuell avbookingsprosess ser slik ut: Innbygger sender e-post eller ringer for å kansellere. Saksbehandler sjekker hvilke regler som gjelder for den aktuelle lokalen og datoen, beregner eventuell refusjon manuelt, sender varsel til leietaker, oppdaterer bookingkalenderen, og registrerer transaksjonen i et regneark eller fagsystem.
+En typisk manuell avbookingsprosess ser slik ut: Innbygger sender e-post eller ringer for å kansellere. Saksbehandler sjekker hvilke regler som gjelder for det aktuelle lokalet og datoen, beregner eventuell refusjon manuelt, sender varsel til leietakeren, oppdaterer bookingkalenderen og registrerer transaksjonen i et regneark eller fagsystem.
 
 Tar dette femten minutter per sak, og en mellomstor kommune håndterer 200 avbookinger i året, er det 50 arbeidstimer bare til avbooking, før man regner inn oppfølgingsspørsmål, klager og revisjonsforespørsler.
 
@@ -87,7 +87,7 @@ Dette betyr at saksbehandler kan svare på en revisjonsforespørsel i løpet av 
 
 ## Integrasjon med betalingsløsning
 
-En vanlig flaskehals i manuell avbookingshåndtering er selve tilbakebetalingen. Saksbehandler må inn i et separat betalingssystem, finne opprinnelig transaksjon, og starte en manuell tilbakeføring. Feil oppstår, og prosessen tar tid.
+En vanlig flaskehals i manuell avbookingshåndtering er selve tilbakebetalingen. Saksbehandler må inn i et separat betalingssystem, finne opprinnelig transaksjon og starte en manuell tilbakeføring. Feil oppstår, og prosessen tar tid.
 
 Digilist er integrert med kommunens betalingsløsning slik at godkjente refusjoner utbetales automatisk til innbyggers opprinnelige betalingsmetode, enten det er bankkort, Vipps eller faktura. Saksbehandler trenger ikke å forlate Digilist-plattformen for å fullføre en refusjon.
 

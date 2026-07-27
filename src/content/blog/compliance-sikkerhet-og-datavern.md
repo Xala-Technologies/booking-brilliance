@@ -27,7 +27,7 @@ For en IT-leder i en norsk kommune er konklusjonen enkel: Kan du ikke dokumenter
 
 ## GDPR-krav som ofte glipper i cloud-løsninger
 
-Mange leverandører markedsfører løsningene sine som "GDPR-compliant", men det begrepet sier lite i seg selv. GDPR-compliance er ikke en statisk sertifisering, det er et løpende krav til rutiner, dokumentasjon og teknisk arkitektur.
+Mange leverandører markedsfører løsningene sine som «GDPR-compliant», men det begrepet sier lite i seg selv. GDPR-compliance er ikke en statisk sertifisering, det er et løpende krav til rutiner, dokumentasjon og teknisk arkitektur.
 
 Her er de tre punktene som oftest svikter:
 

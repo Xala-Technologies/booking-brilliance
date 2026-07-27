@@ -23,7 +23,7 @@ Det praktiske skillet er hvor stor del av vurderingen som allerede er gjort. I s
 
 I mange kommuner kommer forespørslene fortsatt spredt: e-post til driftsleder, telefon til servicetorget, et skjema på nettsiden. Da må saksbehandler samle inn, sjekke mot kalenderen manuelt og svare hver enkelt. Hver kanal har sitt eget spor, og informasjonen som trengs for å fatte vedtak, mangler ofte i første henvendelse. Resultatet er en runde med oppfølgingsspørsmål før saken i det hele tatt kan vurderes.
 
-Med et bookingsystem sender søker forespørselen direkte på en tid som allerede vises som ledig, og saken lander i én kø med tidspunkt, formål og kontaktinfo på plass. Saksbehandler ser hele kalenderen i samme bilde og slipper å avstemme mot et regneark på siden. Køen blir også en logg: hvem søkte om hva, når, og hva ble utfallet.
+Med et bookingsystem sender søker forespørselen direkte på en tid som allerede vises som ledig, og saken lander i én kø med tidspunkt, formål og kontaktinfo på plass. Saksbehandler ser hele kalenderen i samme bilde og slipper å avstemme mot et regneark på siden. Køen blir også en logg: hvem søkte om hva og når, og hva utfallet ble.
 
 ## Godkjenne eller avslå: kriteriene som avgjør
 

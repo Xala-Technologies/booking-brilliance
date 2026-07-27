@@ -13,7 +13,7 @@ keywords: ["idrettshall ledige tider", "booking idrettshall", "beleggsstatistikk
 
 En idrettshall står sjelden helt full og sjelden helt tom. Problemet for driftslederen er å vite hvilke timer som faktisk er ledige akkurat nå, på tvers av alle haller og soner. Uten sanntidsoversikt blir tomme timer usynlige, og det som er usynlig blir ikke fylt. Denne guiden går gjennom hva ledige tider egentlig betyr i drift, hvordan du får dem samlet på én skjerm, og hvordan du bruker tallene til å fylle hallen og dokumentere behov overfor kommunen.
 
-## Hva "ledige tider" i idrettshallen faktisk betyr
+## Hva «ledige tider» i idrettshallen faktisk betyr
 
 En ledig tid er en time der en hall eller sone verken er tildelt i sesongplanen eller booket som enkelttime. Det høres enkelt ut, men i praksis ligger informasjonen spredt: sesongkabalen i et regneark, enkelttimer i en e-postkasse, og avlysninger på SMS til driftsleder. Ingen av disse kildene snakker sammen, og ingen av dem viser en samlet status.
 
@@ -27,7 +27,7 @@ Det er ikke mangel på system som er problemet, det er at systemene ikke deler s
 
 Digilist samler hver hall og sone i én kalender som viser ledig og opptatt i sanntid. Deler du en hall i tre soner, ser du status per sone, ikke bare per hall. Har kommunen fem haller med tre soner hver, er det 15 spor du følger fra samme skjerm, og en avlysning i sone B klokka 19 er synlig i samme sekund den registreres.
 
-Det praktiske utslaget er at driftslederen slipper å slå opp i tre systemer for å svare på "er det ledig på torsdag". Svaret står på skjermen, likt for alle som har tilgang. En vaktmester, en saksbehandler og en driftsleder ser den samme kalenderen, så ingen booker mot utdatert informasjon. Når sannheten er ett sted, forsvinner både dobbeltarbeidet og usikkerheten som følger med å lete etter riktig versjon av et regneark.
+Det praktiske utslaget er at driftslederen slipper å slå opp i tre systemer for å svare på «er det ledig på torsdag». Svaret står på skjermen, likt for alle som har tilgang. En vaktmester, en saksbehandler og en driftsleder ser den samme kalenderen, så ingen booker mot utdatert informasjon. Når sannheten er ett sted, forsvinner både dobbeltarbeidet og usikkerheten som følger med å lete etter riktig versjon av et regneark.
 
 ## Fra sesongtildeling til enkelttimer
 
@@ -41,7 +41,7 @@ Digilist skiller mellom disse, slik at en fast tildelt time som avlyses for én 
 
 ## Beleggsstatistikk: mål utnyttelsesgraden per hall, sone og ukedag
 
-Uten tall blir "hallen er jo full" en magefølelse. Digilist regner ut utnyttelsesgrad per hall, sone og ukedag, basert på faktisk booket tid mot tilgjengelig tid.
+Uten tall blir «hallen er jo full» en magefølelse. Digilist regner ut utnyttelsesgrad per hall, sone og ukedag, basert på faktisk booket tid mot tilgjengelig tid.
 
 Et typisk mønster: kveldstid mandag til torsdag ligger på 90 til 100 prosent, mens fredag kveld og hele dagtid ofte ligger under 40 prosent. Det er de lave tallene som er verdifulle, for de peker på timene du kan selge eller tildele videre. Regnestykket er konkret: en hall som står 60 prosent tom mellom klokka 08 og 15 på hverdager, taper rundt 35 timer i uka bare på dagtid. Over en sesong på 40 uker blir det godt over tusen timer i én hall, timer som tidligere var usynlige fordi ingen målte dem.
 

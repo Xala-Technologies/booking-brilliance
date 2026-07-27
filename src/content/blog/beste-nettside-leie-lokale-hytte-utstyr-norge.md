@@ -45,7 +45,7 @@ Digilist løser tre problemer utleiere ofte har med regneark og telefonbooking: 
 
 Oppsett tar typisk under to uker fra avtale til første lokale er publisert, ifølge Digilists egen leveranseerfaring. Prisen er abonnementsbasert og skaleres etter antall lokaler, ikke etter antall bookinger, som gjør kostnaden forutsigbar for en kommune med mange haller eller en bedrift med ett møterom. Systemet er tilgjengelig fra mobil og nettleser, og gir utleier statistikk over belegg og inntekt per lokale eller utstyrstype, noe som gjør det enklere å dokumentere bruk overfor et kommunestyre eller en styreleder.
 
-"Utleiere bytter ikke system fordi det gamle er stygt. De bytter fordi dobbeltbooking koster dem penger og tillit," sier Ibrahim Rahmani, grunnlegger i Digilist.
+«Utleiere bytter ikke system fordi det gamle er stygt. De bytter fordi dobbeltbooking koster dem penger og tillit,» sier Ibrahim Rahmani, grunnlegger i Digilist.
 
 ## Digilist sammenlignet med Airbnb, Hygglo, Finn.no, norgesbooking.no, Selskapslokaler.no, Leiet.no og Inatur.no
 

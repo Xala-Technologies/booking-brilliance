@@ -83,7 +83,7 @@ Et rent internasjonalt bookingverktøy stopper på venstre kolonne. Kommunale lo
 For skytjenester og løpende tjenestekjøp brukes ofte SSA-L, Statens standardavtale for løpende tjenestekjøp. Kravspesifikasjonen er vedlegget som avgjør om systemet faktisk passer kommunen. Ta med minst dette:
 
 - **Funksjonelle krav:** sesongtildeling, prioriteringsregler, betaling, depositum, avlysning og venteliste.
-- **Integrasjoner:** ID-porten og BankID for innlogging, fakturasystem, og gjerne adgangskontroll for nøkkelfri tilgang til haller.
+- **Integrasjoner:** ID-porten og BankID for innlogging, fakturasystem og gjerne adgangskontroll for nøkkelfri tilgang til haller.
 - **Personvern og sikkerhet:** databehandleravtale, datalokasjon i EØS, logging og sletterutiner.
 - **Universell utforming:** samsvar med WCAG og forskrift om universell utforming av IKT, siden løsningen retter seg mot alle innbyggere.
 - **Tilgjengelighet og drift:** oppetidskrav, responstid på support og rutine for feilretting.

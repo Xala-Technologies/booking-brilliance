@@ -11,13 +11,13 @@ cover: "/images/blog/gdpr_iso27001_hero_no.webp"
 keywords: ["penetrasjonstesting", "pen-test", "sikkerhetsrevisjon", "supply chain", "Dependabot", "Snyk", "anskaffelse"]
 ---
 
-Når en norsk kommune skal velge ny SaaS-leverandør, dukker spørsmålet om sikkerhet alltid opp, men ofte med altfor brede formuleringer. "Leverandøren skal følge gjeldende sikkerhetsstandarder." Hva betyr det egentlig? Hva er forskjellen mellom en leverandør som faktisk gjør arbeidet og en som har sertifikatet på veggen?
+Når en norsk kommune skal velge ny SaaS-leverandør, dukker spørsmålet om sikkerhet alltid opp, men ofte med altfor brede formuleringer. «Leverandøren skal følge gjeldende sikkerhetsstandarder.» Hva betyr det egentlig? Hva er forskjellen mellom en leverandør som faktisk gjør arbeidet og en som har sertifikatet på veggen?
 
 Denne artikkelen er en praktisk guide for kommunens IT-leder eller anskaffelsesansvarlig: hva penetrasjonstesting og sikkerhetsrevisjon faktisk skal innebære, og hvilke spørsmål du bør stille.
 
 ## Penetrasjonstest, sårbarhetsskanning og kodevurdering
 
-Tre forskjellige aktiviteter blir ofte slått sammen under "sikkerhetstesting":
+Tre forskjellige aktiviteter blir ofte slått sammen under «sikkerhetstesting»:
 
 - **Sårbarhetsskanning (Vulnerability scanning).** Automatisert verktøy som leter etter kjente sårbarheter. Rimelig, kjøres ofte (helst daglig). Verktøy: OWASP ZAP, Nessus, Qualys.
 - **Penetrasjonstest (Penetration test).** Manuell, av en sikkerhetsekspert som forsøker å bryte inn. Mer grundig, men dyrere. Bør kjøres minst én gang per år, og ved større endringer.
@@ -33,7 +33,7 @@ En typisk leveranse fra en penetrasjonstest:
 - Anbefalt utbedring.
 - Etterprøving etter at utbedringen er gjennomført.
 
-En kommune som signerer NDA bør ha rett til å se sammendraget av siste pen-test før kontraktssignering. Et leverandørsvar som er "vi gjør pen-test men kan ikke dele resultater" er et rødt flagg. Et leverandørsvar som er "her er sammendraget under NDA, vi har stengt alle kritiske funn og kan dokumentere det" er det riktige svaret.
+En kommune som signerer NDA bør ha rett til å se sammendraget av siste pen-test før kontraktssignering. Et leverandørsvar som er «vi gjør pen-test men kan ikke dele resultater» er et rødt flagg. Et leverandørsvar som er «her er sammendraget under NDA, vi har stengt alle kritiske funn og kan dokumentere det» er det riktige svaret.
 
 ## Sårbarhetshåndtering: den daglige delen
 
@@ -48,14 +48,14 @@ Et typisk moderne system har 500+ tredjeparts-avhengigheter (npm-pakker, system-
 - Høy-alvorlighetsgrad blir patchet innen 7 dager.
 - Resten følger normal cadens (ukentlig).
 
-En leverandør som ikke kan svare på "hvor mange sårbarheter har du åpne akkurat nå?" har sannsynligvis ikke et fungerende program.
+En leverandør som ikke kan svare på «hvor mange sårbarheter har du åpne akkurat nå?» har sannsynligvis ikke et fungerende program.
 
 ### Supply chain: der angrepene kommer fra nå
 
 Supply chain-angrep er der angriperen kompromitterer en tredjeparts-pakke som mange systemer bruker. Eksempler: SolarWinds (2020), node-ipc (2022), xz-utils (2024).
 
 Forsvar:
-- Pakke-pinning. Bruk eksakte versjoner, ikke "latest".
+- Pakke-pinning. Bruk eksakte versjoner, ikke «latest».
 - Lockfile-validering. Bekreft at den installerte versjonen samsvarer med det som er testet.
 - Builds i isolerte miljøer.
 - Signaturverifikasjon der det er tilgjengelig.
@@ -93,7 +93,7 @@ Konkret bør du spørre om dette:
 7. **ISO 27001:** Når sist revidert? Hvilket revisjonsfirma?
 8. **Kodevurdering:** SAST i CI? Hvilken dekning?
 
-Et leverandørtilbud bør kunne svare på alle åtte uten ekstra spørreruner. Hvis svarene er vage eller "vi kommer tilbake til deg", er det informasjon i seg selv.
+Et leverandørtilbud bør kunne svare på alle åtte uten ekstra spørreruner. Hvis svarene er vage eller «vi kommer tilbake til deg», er det informasjon i seg selv.
 
 ## Hva Digilist gjør
 

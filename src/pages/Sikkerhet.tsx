@@ -65,7 +65,7 @@ const PRINSIPPER = [
 const OMRADER = [
   {
     title: "Personvern og GDPR",
-    body: "Databehandleravtale med hver kunde, dataminimering, og innsyn/retting/sletting for de registrerte. Vi behandler kun de personopplysningene en booking faktisk krever.",
+    body: "Databehandleravtale med hver kunde, dataminimering og innsyn/retting/sletting for de registrerte. Vi behandler kun de personopplysningene en booking faktisk krever.",
   },
   {
     title: "Datalagring i Norge og EU",

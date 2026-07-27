@@ -10,7 +10,7 @@ export default function LeieJubileum() {
       slug="jubileum"
       breadcrumb="Jubileum"
       title="Leie lokale til jubileum"
-      dek="Runde år eller bedriftsjubileum? Finn ledig lokale med plass til feiringen, se ekte pris for datoen, og book på nett."
+      dek="Runde år eller bedriftsjubileum? Finn ledige lokaler med plass til feiringen, se ekte pris for datoen, og book på nett."
       lead="Enten det er en runding på 50, 60 eller 70, et lag som fyller hundre eller en bedrift som markerer et jubileum, trenger feiringen et lokale med riktig størrelse og stemning. De store rundingene planlegges gjerne i god tid, og de beste lokalene til lørdager går fort. På Digilist finner du selskapslokaler, kulturhus, gårder og restauranter med selskapsrom samlet ett sted, med ledige datoer i sanntid, ekte pris for din dato og trygg betaling, slik at du kan sikre lokalet tidlig og bruke tiden på talene, maten og musikken."
       seoTitle="Leie lokale til jubileum og runde år | Digilist"
       seoDescription="Leie lokale til jubileum, runde år eller bedriftsjubileum: finn ledig festlokale, se ekte pris for din dato og book på nett. Selskapslokaler og kulturhus samlet."
@@ -76,7 +76,7 @@ export default function LeieJubileum() {
           ]}
           checklist={[
             "Bestem antall gjester og om det blir sittende middag med taler eller mingling med dans.",
-            "Sett datoen tidlig — lørdager i høysesong går først.",
+            "Sett datoen tidlig – lørdager i høysesong går først.",
             "Sjekk om lokalet har scene, lyd og god akustikk til taler og musikk.",
             "Avklar servering: eget kjøkken, catering eller lokalets egen meny.",
             "Tenk på parkering, universell utforming og sluttid.",
