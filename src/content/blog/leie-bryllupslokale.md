@@ -11,8 +11,6 @@ cover: "/images/blog/booking_calendar_hero_no.webp"
 keywords: ["leie bryllupslokale", "bryllupslokale pris", "hva koster bryllupslokale", "selskapslokale bryllup", "depositum bryllupslokale", "book bryllupslokale online"]
 ---
 
-# Leie bryllupslokale: pris, kapasitet og booking, forklart
-
 Å leie bryllupslokale starter ofte med en telefonrunde: ett nummer til festsalen, ett til huset som drifter grendehuset, og en e-post som blir liggende ubesvart mens datoen du ville ha, ryker. Det trenger ikke være slik. Prisen er som regel offentlig, kapasiteten står i vilkårene, og de beste lokalene lar deg se ledig dato, pris og depositum før du bekrefter. Denne guiden går gjennom hva et bryllupslokale koster, hva som følger med i leien, hvor mange gjester det tar, og hvordan du sikrer datoen uten å ringe rundt.
 
 ## Hva koster det å leie bryllupslokale?
