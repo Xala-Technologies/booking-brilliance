@@ -151,6 +151,11 @@ const SEO = ({
       image: "https://digilist.no/og-image.png",
       sameAs: ["https://xala.no"],
       foundingDate: "2024",
+      identifier: {
+        "@type": "PropertyValue",
+        propertyID: "Norwegian Organisasjonsnummer",
+        value: "920972454",
+      },
       knowsAbout: BRAND_KNOWS_ABOUT,
       mentions: BRAND_MENTIONS,
       address: {
@@ -349,17 +354,18 @@ const SEO = ({
       });
     }
 
-    // Remove old ld+json blocks, replace with new
+    // Remove every previous ld+json block — both prerendered (SSR) and
+    // client-injected ones from an earlier render — so hydration doesn't
+    // leave two copies of the same graph in the DOM, then write the fresh
+    // set as one shared script.
     document
-      .querySelectorAll('script[type="application/ld+json"][data-seo="true"]')
+      .querySelectorAll('script[type="application/ld+json"]')
       .forEach((el) => el.remove());
-    blocks.forEach((block) => {
-      const script = document.createElement("script");
-      script.setAttribute("type", "application/ld+json");
-      script.setAttribute("data-seo", "true");
-      script.textContent = JSON.stringify(block);
-      document.head.appendChild(script);
-    });
+    const script = document.createElement("script");
+    script.setAttribute("type", "application/ld+json");
+    script.setAttribute("data-seo", "true");
+    script.textContent = JSON.stringify(blocks);
+    document.head.appendChild(script);
   }, [
     title,
     description,
