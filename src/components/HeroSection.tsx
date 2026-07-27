@@ -193,7 +193,7 @@ const HeroSection = () => {
               </div>
 
               {/* Feature cards — the value + norske-krav story, under the demo. */}
-              <ul className="mt-4 grid grid-cols-2 gap-2.5 sm:gap-3">
+              <ul className="mt-7 lg:mt-9 grid grid-cols-2 gap-2.5 sm:gap-3">
                 {[
                   { icon: Zap, label: "Book på 90 sekunder", sub: "Enkelt og raskt" },
                   { icon: Accessibility, label: "Universelt utformet", sub: "WCAG 2.1 AA" },
