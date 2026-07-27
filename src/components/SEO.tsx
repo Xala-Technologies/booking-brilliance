@@ -357,7 +357,11 @@ const SEO = ({
     // Remove every previous ld+json block — both prerendered (SSR) and
     // client-injected ones from an earlier render — so hydration doesn't
     // leave two copies of the same graph in the DOM, then write the fresh
-    // set as one shared script.
+    // set as one shared script. This is intentionally unscoped to any
+    // script SEO.tsx wrote: any other ld+json a component adds to a page
+    // that also renders SEO will be removed too, so all structured data
+    // must be added via this component's `blocks` array, not a separate
+    // <script> tag elsewhere.
     document
       .querySelectorAll('script[type="application/ld+json"]')
       .forEach((el) => el.remove());
