@@ -110,6 +110,8 @@ De fleste mislykkede innføringer feiler ikke på teknologien, men på organiser
 
 **Glemte integrasjoner.** Fakturering og adgangskontroll settes opp «senere», og senere blir aldri. Avklar integrasjonene i anskaffelsen, ikke i drift.
 
+Denne sjekklisten dekker hva dere bør vurdere før anskaffelse. Er dere allerede i gang, viser [hvordan digitalisere booking av kommunale lokaler](/blogg/hvordan-digitalisere-booking-kommunale-lokaler) den konkrete prosessen fra kartlegging til utrulling, steg for steg.
+
 ## Ta neste steg
 
 En anskaffelse blir konkret først når du ser systemet håndtere dine egne lokaler, dine brukergrupper og dine krav til SSA-L, GDPR og ID-porten. Book en demo med Digilist, så viser vi hvordan idrettshaller, møterom, kulturhus og selskapslokaler samles i én kalender, med data i Norge og en saksbehandlingsflyt som holder fra søknad til godkjenning.
