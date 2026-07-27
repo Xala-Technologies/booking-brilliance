@@ -85,7 +85,7 @@ Implementering av et kommunalt bookingsystem er sjelden et halvårsprosjekt, men
 4. **Test og opplæring:** saksbehandlere øver på godkjenningsflyten før innbyggerne slipper til.
 5. **Lansering:** åpning for innbyggere og foreninger, ofte i forkant av en sesongtildeling.
 
-En kommune med ryddig datagrunnlag er typisk i drift innen 6 til 10 uker. Den største tidstyven er ikke teknologien, men å bli enige internt om satser, prioriteringsregler og hvem som skal godkjenne hva.
+En kommune med ryddig datagrunnlag er typisk i drift innen 6 til 10 uker. Den største tidstyven er ikke teknologien, men å bli enige internt om satser, prioriteringsregler og hvem som skal godkjenne hva. For en detaljert steg-for-steg-prosess, fra kartlegging av dagens flyt til pilot og full utrulling, se [hvordan digitalisere booking av kommunale lokaler](/blogg/hvordan-digitalisere-booking-kommunale-lokaler).
 
 ## Eksempel fra praksis: booking på tvers av anlegg
 

@@ -351,7 +351,17 @@ const BookingsystemKommune = () => {
                 </div>
               ))}
             </dl>
-            <p className="mt-10 editorial-mono-caption">
+            <p className="mt-10 text-base text-ink-soft measure">
+              Klar for å gå i gang? Se{" "}
+              <Link
+                to="/blogg/hvordan-digitalisere-booking-kommunale-lokaler"
+                className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
+              >
+                hvordan digitalisere booking av kommunale lokaler
+              </Link>{" "}
+              for den konkrete prosessen, steg for steg.
+            </p>
+            <p className="mt-6 editorial-mono-caption">
               Tilbake til{" "}
               <Link
                 to="/"
