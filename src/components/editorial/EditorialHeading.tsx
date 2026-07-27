@@ -1,8 +1,12 @@
-import { ElementType, ReactNode } from "react";
+import { ElementType, HTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { getFraunces, FrauncesSize } from "@/lib/fonts";
 
-interface EditorialHeadingProps {
+// Extends the intrinsic heading attributes so callers can pass `id` (anchor
+// targets), `aria-label` (the hero's rotating word needs a stable accessible
+// name) and `style` (per-page font-variation overrides). Before this, those
+// three were type errors at eleven call sites.
+interface EditorialHeadingProps extends HTMLAttributes<HTMLElement> {
   as?: ElementType;
   size?: "hero" | "display" | "section" | "sub";
   children: ReactNode;
@@ -28,6 +32,8 @@ export function EditorialHeading({
   size = "section",
   children,
   className,
+  style,
+  ...rest
 }: EditorialHeadingProps) {
   const variation = getFraunces(SIZE_TO_FRAUNCES[size]);
 
@@ -43,7 +49,10 @@ export function EditorialHeading({
         fontVariationSettings: variation,
         lineHeight: size === "hero" ? 1.0 : size === "display" ? 1.02 : 1.08,
         letterSpacing: size === "hero" ? "-0.02em" : "-0.015em",
+        // Caller-supplied style wins — pages override fontVariationSettings.
+        ...style,
       }}
+      {...rest}
     >
       {children}
     </Tag>

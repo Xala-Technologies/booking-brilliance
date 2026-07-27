@@ -7,6 +7,23 @@ import { Check, Zap, Accessibility, ShieldCheck, CalendarCheck, Home, Building2 
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/motion";
 import { getFraunces } from "@/lib/fonts";
 import { logoWebpSrc } from "@/lib/utils";
+import { RotatingWord } from "@/components/RotatingWord";
+
+// Venue types plus occasion-flavoured ones, mirroring the Finn dropdown and the
+// Leie* landing pages. Every entry is plural: the heading ends "…bak dem", so a
+// singular word ("Bryllupet") would break agreement. "Lokaler" is first because
+// that is what SSR paints and what screen readers announce.
+// Compound spellings follow the blog corpus ("julebordlokale", not -slokale).
+const HERO_WORDS = [
+  "Lokaler",
+  "Selskapslokaler",
+  "Møterom",
+  "Idrettshaller",
+  "Kulturhus",
+  "Bryllupslokaler",
+  "Julebordlokaler",
+  "Grendehus",
+] as const;
 
 const customers = [
   {
@@ -59,15 +76,39 @@ const HeroSection = () => {
                 PerformanceObserver's largest-contentful-paint entry, not a
                 guess) — not the hero image below. Don't add an image
                 preload/fetchpriority here; see docs/xal-316-lcp-handoff.md. */}
-            <EditorialHeading as="h1" size="hero">
-              Lokaler du trenger,{" "}
+            {/* "drifter dem" would claim the platform runs the venues; it runs
+                the renting-out of them. "bak dem" is the accurate claim, and
+                it's short enough to hold two lines from 1280px up with the
+                longest rotation word ("Selskapslokaler"). */}
+            {/* Type ramp is overridden here rather than in EditorialHeading
+                because `size="hero"` is shared with seven other pages whose
+                headings are full-width and render fine. This h1 alone sits in
+                a 7-of-12 column, so its available width does NOT grow
+                monotonically with the viewport — it collapses to ~525px at lg
+                and only recovers at xl. The stock `lg:text-6xl` therefore
+                locked 76px type into a 525px column and blew the heading out
+                to 5 lines between 1024px and 1279px. Each step below is
+                measured against the longest rotation word. */}
+            <EditorialHeading
+              as="h1"
+              size="hero"
+              // The first word rotates, so the visible text changes over time.
+              // aria-label pins one stable accessible name for the page's main
+              // heading; the rolling word itself is aria-hidden.
+              aria-label={`${HERO_WORDS[0]} du trenger, og plattformen bak dem.`}
+              className="relative text-4xl md:text-[3rem] lg:text-[3rem] xl:text-[3.4rem] 2xl:text-5xl"
+            >
+              <RotatingWord words={HERO_WORDS} /> du trenger,{" "}
               <em
                 className="italic"
                 style={{
-                  fontVariationSettings: '"opsz" 144, "wght" 400',
+                  // Newsreader's opsz axis is 6..72. This said 144 (a Fraunces
+                  // value, from before the switch); browsers clamped it to 72,
+                  // so this is the same rendering with an in-range value.
+                  fontVariationSettings: '"opsz" 72, "wght" 400',
                 }}
               >
-                og plattformen som drifter det hele
+                og plattformen bak dem
               </em>
               .
             </EditorialHeading>
