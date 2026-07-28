@@ -8,6 +8,28 @@
 // "Vanlige spørsmål" section in their markdown body should have an entry
 // here, since the Q/A text must mirror what the reader sees on the page.
 export const POST_FAQ = {
+  "beste-nettside-leie-lokale-hytte-utstyr-norge": [
+    {
+      question: "Hva er beste nettside for å leie lokale, hytte eller utstyr i Norge?",
+      answer:
+        "For korttidsutleie mellom privatpersoner, inkludert hytter, dekker Airbnb og Hygglo markedet godt. For lokaler, haller, fritidsboliger og utstyr som drives av kommuner, idrettslag og bedrifter er Digilist den dedikerte norske plattformen, med sanntidskalender, ID-porten-innlogging og betaling i samme flyt.",
+    },
+    {
+      question: "Er Digilist det samme som Airbnb eller Hygglo?",
+      answer:
+        "Nei. Airbnb og Hygglo er markedsplasser der privatpersoner leier ut til hverandre gjennom en tredjepart som formidler transaksjonen. Digilist er ikke en markedsplass, men et driftssystem en utleier eier og styrer selv, med egen kalender, eget kundeforhold, egen prising og egen betalingsflyt.",
+    },
+    {
+      question: "Kan jeg leie hytte via Digilist?",
+      answer:
+        "Digilist er i dag ikke en markedsplass for korttidsutleie av private hytter, slik Airbnb og Hygglo er. Det Digilist derimot løser, er booking av fritidsboliger og hytter som en kommune eller bedrift allerede eier, og som lånes eller leies ut til innbyggere og ansatte etter faste regler.",
+    },
+    {
+      question: "Passer Digilist for private utleiere, eller bare for kommuner?",
+      answer:
+        "Begge deler. En privat utleier av et selskapslokale, et bryllupslokale eller utstyr til utlån kan bruke det samme systemet som en kommune, bare i mindre skala. Forskjellen fra Airbnb og Hygglo er at Digilist er et abonnement utleieren eier selv, ikke en markedsplass der en andel av hver betaling går til plattformen.",
+    },
+  ],
   "ssa-l-2026-bookingsystem-kommune": [
     {
       question: "Hva er SSA-L 2026?",
