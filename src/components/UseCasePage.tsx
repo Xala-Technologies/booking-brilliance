@@ -255,6 +255,7 @@ export default function UseCasePage({
               {/* Audience */}
               <section className="mb-14 lg:mb-20">
                 <SectionRule label="HVEM BRUKER DETTE" />
+                <h2 className="sr-only">Hvem bruker dette</h2>
                 <div className="mt-8 grid sm:grid-cols-2 gap-px bg-rule border border-rule">
                   {audience.map((a, i) => (
                     <div key={a.persona} className="bg-paper p-7 lg:p-8">
