@@ -2,7 +2,7 @@
 slug: idrettshall-kommune-booke-enkelttime-trening-arrangement
 title: "Idrettshall i kommunen: alle måtene å finne og booke en ledig hall"
 description: "Enkelttime, fast trening, arrangement eller ferie: her er alle bookingveiene til kommunal idrettshall samlet, med pris, regler og ledige tider forklart."
-date: 2026-07-15
+date: 2026-07-28
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 6
@@ -11,7 +11,7 @@ cover: "/images/blog/sesongleie_hero_no.webp"
 keywords: ["idrettshall ledige tider", "booke idrettshall", "idrettshall leie pris", "fast trening idrettshall", "idrettshall arrangement", "idrettshall skoleferie"]
 ---
 
-«Idrettshall» er egentlig et samlebegrep for flere lokaler og minst fire ulike bookingbehov. Skal du spille badminton en kveld, trener laget ditt fast hver uke, eller planlegger du en cup for 200 deltakere? Veien til en ledig hall er ikke den samme. Her er alle inngangene samlet på ett sted, slik at du havner i riktig kø fra start.
+"Idrettshall" er egentlig et samlebegrep for flere lokaler og minst fire ulike bookingbehov. Skal du spille badminton en kveld, trener laget ditt fast hver uke, eller planlegger du en cup for 200 deltakere? Veien til en ledig hall er ikke den samme. Her er alle inngangene samlet på ett sted, slik at du havner i riktig kø fra start.
 
 ## Hva skjuler seg bak begrepet idrettshall
 
@@ -38,7 +38,7 @@ Skal du bare ha hallen én kveld, går det slik:
 3. Bekreft formål og antall deltakere.
 4. Betal med kort eller Vipps og motta kvittering.
 
-Hele reisen tar rundt 90 sekunder. Bookingen ligger på Min side, der du finner kvittering, ser tidspunktet og kan avbestille innenfor fristen uten å ringe noen. Trenger du hallen flere enkeltkvelder, gjentar du bare stegene per dato; det er fortsatt enkeltbooking, ikke en fast avtale.
+Hele reisen tar rundt 90 sekunder. Bookingen ligger på Min Side, der du finner kvittering, ser tidspunktet og kan avbestille innenfor fristen uten å ringe noen. Trenger du hallen flere enkeltkvelder, gjentar du bare stegene per dato; det er fortsatt enkeltbooking, ikke en fast avtale.
 
 ## Fast ukentlig trening for lag og foreninger
 

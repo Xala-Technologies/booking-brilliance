@@ -1,8 +1,8 @@
 ---
 slug: leie-selskapslokale-bryllup-fest
 title: "Leie selskapslokale til bryllup eller fest: slik finner og booker du"
-description: "Leie selskapslokale til bryllup eller fest? Sammenlign lokaler, se sanntids tilgjengelighet og book direkte, med sjekkliste og prisoversikt."
-date: 2026-07-23
+description: "Hvor kan du leie et selskapslokale til bryllup eller fest? Et konkret svar på hvor du finner ledige lokaler, ser tilgjengelighet i sanntid og booker direkte, med sjekkliste og sammenligning."
+date: 2026-07-28
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 6
@@ -54,7 +54,7 @@ Digilist samler tre ting som ellers er spredt: **ledige tider, booking og betali
 - **Betaling i plattformen:** oppgjør skjer i tjenesten, med kvittering og oversikt.
 - **Innlogging med ID-porten:** for utleiere i offentlig sektor, der sikker identifisering kreves.
 
-«Folk vil se en ledig dato og booke den samme kveld, ikke sende ti e-poster og vente tre dager på svar,» sier Ibrahim Rahmani, grunnlegger av Digilist. Det er den ventetiden en sanntidskalender fjerner.
+"Folk vil se en ledig dato og booke den samme kveld, ikke sende ti e-poster og vente tre dager på svar," sier Ibrahim Rahmani, grunnlegger av Digilist. Det er den ventetiden en sanntidskalender fjerner.
 
 Oppsettet koster ingenting å prøve for en utleier, og en enkel lokalprofil med kalender kan være publisert samme dag. Prismodellen er per lokale eller ressurs, ikke per forespørsel.
 

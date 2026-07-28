@@ -2,7 +2,7 @@
 slug: leie-lokale-kommune-anledning-guide-innbygger
 title: "Leie lokale i kommunen: riktig sal for bursdag, konfirmasjon og mer"
 description: "Match lokaltype og kapasitet til anledningen, fra bursdag til minnestund, og finn det billigste ledige alternativet i kommunen med pris før du booker."
-date: 2026-07-25
+date: 2026-07-28
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 6
@@ -80,7 +80,7 @@ Fra søk til bekreftet leie er stegene enkle:
 - **Betal:** med kort eller faktura, og få bekreftelse med det samme.
 - **Avbestill:** innen fristen i vilkårene, ofte 14 eller 30 dager før, for full eller delvis refusjon.
 
-Alt ligger på Min side, så du finner bekreftelse, kvittering og avbestillingsfrist samlet.
+Alt ligger på Min Side, så du finner bekreftelse, kvittering og avbestillingsfrist samlet.
 
 ## Ofte stilte spørsmål
 

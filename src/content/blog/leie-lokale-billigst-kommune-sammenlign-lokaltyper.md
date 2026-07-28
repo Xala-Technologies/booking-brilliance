@@ -2,7 +2,7 @@
 slug: leie-lokale-billigst-kommune-sammenlign-lokaltyper
 title: "Leie lokale billigst i kommunen: sammenlign alle lokaltypene"
 description: "Én oversikt over pris og vilkår på idrettshall, møterom, kulturhus, gymsal og selskapslokale, slik at laget velger billigste egnede lokale første gang."
-date: 2026-07-25
+date: 2026-07-28
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 6
@@ -84,7 +84,7 @@ Et skolekorps som får fast øvingstid i en gymsal gjennom sesongtildeling betal
 3. Filtrer på maks pris og sorter billigst først
 4. Sammenlign gymsal, hall og møterom side om side
 5. Sjekk depositum og avbestillingsfrist før du bekrefter
-6. Book og motta bekreftelse med totalpris på Min side
+6. Book og motta bekreftelse med totalpris på Min Side
 
 Hele reisen tar noen minutter, og laget ser totalprisen, inkludert eventuelt depositum, før bindende booking.
 
