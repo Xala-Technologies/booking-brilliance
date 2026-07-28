@@ -1,6 +1,6 @@
 ---
 title: Integrasjoner
-description: ID-porten, BankID, Feide, Vipps, Stripe, Nets, EHF, Fiken, Tripletex, Visma, PowerOffice. Slik kobler Digilist seg til alle de viktige norske systemene.
+description: ID-porten, BankID, Feide, Vipps, Stripe, Nets, EHF, Outlook-kalender, Fiken, Tripletex, Visma, PowerOffice. Slik kobler Digilist seg til alle de viktige norske systemene.
 ---
 
 import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
@@ -41,6 +41,14 @@ Det gjør det enkelt å bytte leverandør per tenant eller per region.
   </Card>
   <Card title="EHF / Peppol" icon="document">
     Elektronisk faktura til kommune, fylke, stat. Norm-format ISO20022.
+  </Card>
+</CardGrid>
+
+## Kalender
+
+<CardGrid>
+  <Card title="Outlook + iCal" icon="setting">
+    Saksbehandler kobler Outlook via egen Azure App Registration (Entra ID), eller deler en tenant-wide iCal/webcal-lenke for eksterne kalenderapper.
   </Card>
 </CardGrid>
 
