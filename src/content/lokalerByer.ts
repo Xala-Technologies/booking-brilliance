@@ -15,6 +15,10 @@ export interface ByData {
   name: string; // "Oslo"
   inName: string; // "i Oslo"
   region: string;
+  /** Override the default templated <title>. Use when the templated title exceeds ~60 chars for this city name. */
+  title?: string;
+  /** Override the default templated meta description. Use when the templated description exceeds ~160 chars for this city name. */
+  description?: string;
   intro: string;
   landscape: string;
   types: { label: string; to: string }[];
@@ -369,6 +373,9 @@ export const BYER: Record<string, ByData> = {
     name: "Fredrikstad",
     inName: "i Fredrikstad",
     region: "Østfold",
+    title: "Lokaler til leie i Fredrikstad – finn og book | Digilist",
+    description:
+      "Lokaler til leie i Fredrikstad: finn ledige selskapslokaler, møterom, grendehus og kulturhus i sanntid. Sammenlign pris og kapasitet, book direkte.",
     intro:
       "Fredrikstad har et variert marked for lokaler til leie – fra selskaps- og festlokaler i og rundt sentrum til grendehus, kulturhus og idrettshaller i bydelene. På Digilist ser du ledige tider i sanntid og booker direkte, i stedet for å ringe rundt.",
     landscape:

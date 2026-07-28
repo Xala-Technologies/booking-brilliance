@@ -660,9 +660,9 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/fredrikstad",
-    title: "Lokaler til leie i Fredrikstad – finn og book ledige lokaler | Digilist",
+    title: "Lokaler til leie i Fredrikstad – finn og book | Digilist",
     description:
-      "Lokaler til leie i Fredrikstad: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Sammenlign private og kommunale lokaler, se pris og kapasitet, og book direkte.",
+      "Lokaler til leie i Fredrikstad: finn ledige selskapslokaler, møterom, grendehus og kulturhus i sanntid. Sammenlign pris og kapasitet, book direkte.",
     ogType: "article",
     breadcrumbs: [
       { name: "Hjem", url: `${BASE_URL}/` },
