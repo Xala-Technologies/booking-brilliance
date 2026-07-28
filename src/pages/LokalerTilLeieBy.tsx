@@ -31,8 +31,11 @@ const LokalerTilLeieBy = () => {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <SEO
-        title={`Lokaler til leie i ${data.name} – finn og book ledige lokaler | Digilist`}
-        description={`Lokaler til leie i ${data.name}: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Sammenlign private og kommunale lokaler, se pris og kapasitet, og book direkte.`}
+        title={data.title ?? `Lokaler til leie i ${data.name} – finn og book ledige lokaler | Digilist`}
+        description={
+          data.description ??
+          `Lokaler til leie i ${data.name}: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Sammenlign private og kommunale lokaler, se pris og kapasitet, og book direkte.`
+        }
         keywords={`lokaler til leie ${data.name.toLowerCase()}, leie lokale ${data.name.toLowerCase()}, lokale til leie ${data.name.toLowerCase()}, selskapslokale ${data.name.toLowerCase()}, møterom ${data.name.toLowerCase()}`}
         canonical={url}
         ogImage="https://digilist.no/og-image.png"
