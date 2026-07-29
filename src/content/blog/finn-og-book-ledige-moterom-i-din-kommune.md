@@ -2,7 +2,7 @@
 slug: finn-og-book-ledige-moterom-i-din-kommune
 title: "Slik finner og booker du ledige møterom i din kommune"
 description: "Finn ledige møterom i ditt område, sjekk ledighet i sanntid og book med BankID, uten å ringe rundt til skoler og servicetorg."
-date: 2026-07-25
+date: 2026-07-29
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 8
@@ -21,7 +21,7 @@ I et bookingsystem skiller kommunen gjerne mellom romtyper, og det er nyttig å 
 - **Grupperom**: enda mindre rom, ofte på bibliotek eller skoler, for 2 til 6 personer. Egner seg til lesegrupper, kollokvier og korte arbeidsøkter.
 - **Kurslokale**: større rom for 20 personer eller flere, med prosjektor og noen ganger enkelt kjøkken. Brukes til kurs, medlemsmøter og opplæring.
 
-Grunnen til at dette betyr noe: hvis du søker på «kurslokale» men egentlig trenger plass til fire personer, får du treff som er både dyrere og vanskeligere å få ledig. Velg riktig romtype først, så blir resten av søket enklere.
+Grunnen til at dette betyr noe: hvis du søker på "kurslokale" men egentlig trenger plass til fire personer, får du treff som er både dyrere og vanskeligere å få ledig. Velg riktig romtype først, så blir resten av søket enklere.
 
 ## Slik finner du ledige møterom i ditt område
 
@@ -34,7 +34,7 @@ I Digilist ser du lokalene på kart, slik at du kan zoome inn på din bydel elle
 - **Utstyr**, som skjerm, prosjektor eller teleslynge
 - **Dato og klokkeslett**, så du bare ser rom som er ledige når du trenger dem
 
-Kombinerer du «grupperom», «Strømmen» og «torsdag kveld», går du fra hundrevis av mulige rom til en håndfull relevante treff. Det er dette de fleste mener når de søker etter møterom i mitt område eller ledige møterom nær meg.
+Kombinerer du "grupperom", "Strømmen" og "torsdag kveld", går du fra hundrevis av mulige rom til en håndfull relevante treff. Det er dette de fleste mener når de søker etter møterom i mitt område eller ledige møterom nær meg.
 
 ## Sjekke ledighet i sanntid
 
@@ -82,7 +82,7 @@ Stadig flere norske kommuner har gått fra telefon og e-post til digital selvbet
 
 Fordelen for deg som innbygger er den samme uansett kommune: du finner lokaler etter sted og kapasitet, ser hva som er ledig, og fullfører bookingen på egen hånd, døgnet rundt. Bor du i en kommune som fortsatt bruker telefonliste, er en digital oversikt et konkret hopp i tilgjengelighet.
 
-## Vanlige feil ved søk: hvorfor «mine» lokaler ikke alltid vises først
+## Vanlige feil ved søk: hvorfor "mine" lokaler ikke alltid vises først
 
 En vanlig frustrasjon er at lokalene nærmest deg ikke ligger øverst i resultatet. Årsaken er ofte enkel:
 

@@ -2,7 +2,7 @@
 slug: idrettshall-ledige-tider-booking-driftsleder-prioritering-skole-lag-privat
 title: "Idrettshall ledige tider: slik løser driftslederen bookingkonflikten mellom skole, lag og privat"
 description: "Når skole, lag og privat leie vil ha samme kveld: slik viser systemet ledige tider, prioritering og sanntidskollisjoner, så driftslederen slipper å avgjøre per telefon."
-date: 2026-07-21
+date: 2026-07-29
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 6
@@ -40,7 +40,7 @@ Belegget oppdateres i samme øyeblikk en booking bekreftes eller avlyses. Det be
 
 ## Avbud, bytter og venteliste
 
-En fast sesongtid som frigjøres onsdag kveld, er ofte den mest ettertraktede ressursen du har. Melder et lag avbud, kan systemet slippe timen tilbake til en venteliste og tilby den til neste lag i køen automatisk. Bytter mellom to lag registreres med samtykke fra begge, slik at ingen mister sin faste tid uten å vite det. Alt logges, så du kan se hvem som avbestilte, når det skjedde og hvem som overtok.
+En fast sesongtid som frigjøres onsdag kveld, er ofte den mest ettertraktede ressursen du har. Melder et lag avbud, kan systemet slippe timen tilbake til en venteliste og tilby den til neste lag i køen automatisk. Bytter mellom to lag registreres med samtykke fra begge, slik at ingen mister sin faste tid uten å vite det. Alt logges, så du kan se hvem som avbestilte, når, og hvem som overtok.
 
 Timeloggen holder oversikt over hvem som booket, hvem som avbestilte, tidspunktet for avbudet og hvem som overtok tiden. Setter du en avbudsfrist, for eksempel 24 timer før treningen, kan systemet skille et rettidig avbud som frigjør tiden til andre fra et for sent avbud som teller mot laget. Da blir gjentatte sene avbud synlige som et mønster, ikke bare en følelse av at «det laget aldri møter».
 

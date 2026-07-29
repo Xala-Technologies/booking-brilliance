@@ -2,7 +2,7 @@
 slug: leie-sal-billigst-kommune
 title: "Leie sal billigst i kommunen: slik settes prisen og finner du ledig lokale"
 description: "Forstå soner, foreningsrabatt og skjulte tillegg når du leier sal, gymsal eller møterom av kommunen, og finn det billigste ledige lokalet på nett."
-date: 2026-07-25
+date: 2026-07-29
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 8
@@ -49,7 +49,7 @@ Fordelene fremfor telefon og e-post:
 - Du sammenligner **pris på tvers av bygg** uten å be hver enkelt om et tilbud
 - Du slipper å vente på svar i saksbehandlers arbeidstid; oversikten er åpen døgnet rundt
 
-For deg som innbygger betyr det at «billigst ledig» blir noe du kan søke deg frem til, ikke noe du snubler over.
+For deg som innbygger betyr det at "billigst ledig" blir noe du kan søke deg frem til, ikke noe du snubler over.
 
 ## Gratis eller sterkt rabattert leie for idrettslag, kor og korps
 
