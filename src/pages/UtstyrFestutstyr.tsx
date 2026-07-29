@@ -12,7 +12,7 @@ export default function UtstyrFestutstyr() {
       dek="Telt, bord, stoler og servise til festen. Finn ledig festutstyr nær deg, se ekte pris, og book med Vipps."
       lead="Skal du arrangere bryllup, konfirmasjon eller bursdag, ligger festutstyret ofte spredt hos ulike utleiere: teltet ett sted, bord og stoler et annet, serviset et tredje. Prisen og depositumet er uklart før du har ringt rundt og ventet på svar, og du vet ikke om utstyret kan leveres eller må hentes. På Digilist finner du festutstyr i nærområdet samlet ett sted, med pris, depositum og ledige datoer synlig for din leieperiode, henting eller levering avklart på forhånd, og trygg betaling med Vipps. Du booker, betaler og får bekreftelsen med en gang."
       seoTitle="Leie festutstyr: telt, bord, stoler og servise | Digilist"
-      seoDescription="Leie festutstyr til bryllup, selskap eller bursdag: leie telt, bord, stoler og servise nær deg. Se pris og ledige datoer, og book med Vipps. Henting eller levering."
+      seoDescription="Leie festutstyr til bryllup, selskap eller bursdag: telt, bord, stoler og servise nær deg. Se pris og ledige datoer og book med Vipps. Henting eller levering."
       keywords="leie festutstyr, leie telt, leie partytelt, leie bord og stoler, leie servise, festutstyr til leie, leie utstyr til bryllup, leie utstyr til fest, telt til leie"
       audience={[
         {

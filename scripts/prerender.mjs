@@ -1271,7 +1271,7 @@ const ROUTES = [
     route: "/utstyr/festutstyr",
     title: "Leie festutstyr: telt, bord, stoler og servise | Digilist",
     description:
-      "Leie festutstyr til bryllup, selskap eller bursdag: leie telt, bord, stoler og servise nær deg. Se pris og ledige datoer, og book med Vipps. Henting eller levering.",
+      "Leie festutstyr til bryllup, selskap eller bursdag: telt, bord, stoler og servise nær deg. Se pris og ledige datoer og book med Vipps. Henting eller levering.",
     ogType: "website",
     service: true,
     breadcrumbs: [
