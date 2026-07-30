@@ -2,7 +2,7 @@
 slug: leie-selskapslokale-bryllup-fest
 title: "Leie selskapslokale til bryllup eller fest: slik finner og booker du"
 description: "Hvor kan du leie et selskapslokale til bryllup eller fest? Et konkret svar på hvor du finner ledige lokaler, ser tilgjengelighet i sanntid og booker direkte, med sjekkliste og sammenligning."
-date: 2026-07-29
+date: 2026-07-30
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 6
