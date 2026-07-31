@@ -2,7 +2,7 @@
 slug: bryllupslokale-pris-sesong-ukedag
 title: "Bryllupslokale: slik avgjør bookingtidspunkt, sesong og ukedag prisen"
 description: "Se hvordan bookingtidspunkt, sesong, ukedag og gjestetall faktisk styrer prisen på bryllupslokale, med konkrete eksempler, en sammenligning av to bookingscenarier og en sjekkliste før dere signerer."
-date: 2026-07-30
+date: 2026-07-31
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7
