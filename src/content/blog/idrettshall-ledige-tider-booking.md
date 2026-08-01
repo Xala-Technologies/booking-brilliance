@@ -2,7 +2,7 @@
 slug: idrettshall-ledige-tider-booking
 title: "Idrettshall: slik finner og booker du ledige tider i sanntid"
 description: "Finn ledige tider i idrettshallen uten å ringe driftslederen. Slik fungerer sanntidsoversikt, booking, faste tider og avbestilling i Digilist."
-date: 2026-07-31
+date: 2026-08-01
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 8
