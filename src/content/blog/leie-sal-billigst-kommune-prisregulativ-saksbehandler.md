@@ -2,7 +2,7 @@
 slug: leie-sal-billigst-kommune-prisregulativ-saksbehandler
 title: "Leie sal billigst i kommunen: prisregulativet saksbehandleren forvalter"
 description: "Innbyggeren søker billigste sal. Du forvalter prisregulativet bak: hvem betaler hva, selvkost, rabatter, depositum, klagehåndtering og automatisert prisberegning."
-date: 2026-08-01
+date: 2026-08-02
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 6
