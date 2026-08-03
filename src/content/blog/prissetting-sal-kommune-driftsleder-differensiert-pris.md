@@ -2,7 +2,7 @@
 slug: prissetting-sal-kommune-driftsleder-differensiert-pris
 title: "Slik setter du riktig pris på sal i kommunen som driftsleder"
 description: "Som driftsleder setter du prisen på sal. Lær differensiert prising, selvkost, depositum og sesongpris som gir riktig inntekt uten klager fra innbyggere og lag."
-date: 2026-08-02
+date: 2026-08-03
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 6
