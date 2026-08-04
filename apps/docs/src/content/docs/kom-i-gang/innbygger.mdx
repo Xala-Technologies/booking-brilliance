@@ -36,13 +36,17 @@ Sanntidskalenderen viser ledige slots i grønn, opptatte i rød, holdt-for-godkj
 
 ## 3. Logg på
 
-Tre innloggingsalternativer — utleier velger hvilke som tilbys:
+Innloggingsalternativer — utleier velger hvilke som tilbys:
 
-- **ID-porten** (anbefalt for kommunale bookinger) — Signicat OIDC, full identitetsbekreftelse
-- **BankID** — for tenants som krever sterk autentisering
-- **Magic link** — e-post-lenke for førstegangs-brukere uten norsk fødselsnummer
+- **E-post (magic link)** — engangslenke til e-post, for brukere uten norsk fødselsnummer
+- **SMS** — engangskode på mobil
+- **Google** — OAuth-innlogging
 
 Magic-link bruker signert JWT (HS256) med 15-minutters TTL.
+
+ID-porten og BankID er midlertidig deaktivert (kill switch fra 2026-08-04,
+venter på produksjonsklar Signicat-flyt) — innlogging faller tilbake til
+e-post, SMS eller Google i mellomtiden.
 
 ## 4. Betal
 
