@@ -2,7 +2,7 @@
 slug: bryllupslokale-tilbud-sammenligning-forhandling
 title: "Bryllupslokale: hent tilbud, sammenlign og forhandle riktig avtale"
 description: "Trinnvis guide til å hente inn tilbud, sammenligne priser og forhandle vilkår med bryllupslokaler, slik at dere velger riktig avtale, ikke bare pris i 2026."
-date: 2026-08-03
+date: 2026-08-04
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 8

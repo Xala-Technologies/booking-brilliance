@@ -2,7 +2,7 @@
 slug: sal-for-kulturarrangementer-og-seminarer
 title: "Finn og book sal til konsert, utstilling og seminar i kommunen"
 description: "Samlet oversikt over kommunale saler for kultur og seminar: priser, ledig kapasitet i sanntid, tekniske krav og booking uten å ringe rundt."
-date: 2026-08-03
+date: 2026-08-04
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 8

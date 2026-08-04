@@ -2,7 +2,7 @@
 slug: idrettshall-ledige-tider-booking
 title: "Idrettshall: slik finner og booker du ledige tider i kommunen"
 description: "Sjekk ledige tider i sanntid, søk om fast trening, book enkelttimer og forstå tildeling, priser og avbestilling av halltid, alt i én kommunal løsning."
-date: 2026-08-03
+date: 2026-08-04
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 8

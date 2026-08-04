@@ -2,7 +2,7 @@
 slug: idrettshall-ledige-tider-drift-sanntid-belegg
 title: "Idrettshall ledige tider: driftslederens sanntidsoversikt og belegg"
 description: "Slik får driftslederen full sanntidsoversikt over ledige tider i alle haller og soner, måler utnyttelsesgraden per ukedag og fyller tomme timer uten manuell purring."
-date: 2026-08-03
+date: 2026-08-04
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 6
