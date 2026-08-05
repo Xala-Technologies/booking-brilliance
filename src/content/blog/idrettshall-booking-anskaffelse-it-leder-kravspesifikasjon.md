@@ -2,7 +2,7 @@
 slug: idrettshall-booking-anskaffelse-it-leder-kravspesifikasjon
 title: "Idrettshall-booking: kravene IT-leder må stille i anbudet"
 description: "Se hvilke krav til sanntid, integrasjon, SSA-L og ID-porten IT-leder bør stille før idrettshall-booking med ledige tider legges ut på anbud, med konkret kravspesifikasjon og sjekkliste."
-date: 2026-08-04
+date: 2026-08-05
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7

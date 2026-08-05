@@ -2,7 +2,7 @@
 slug: beste-nettside-leie-lokale-hytte-utstyr-norge
 title: "Beste nettside for å leie lokale, hytte eller utstyr i Norge (2026)"
 description: "Konkret sammenligning av Digilist, Airbnb, norgesbooking.no og Hygglo for å leie lokale, hytte, fritidsbolig eller utstyr i Norge: tall, funksjoner og hvem hver plattform faktisk passer for."
-date: 2026-08-04
+date: 2026-08-05
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7

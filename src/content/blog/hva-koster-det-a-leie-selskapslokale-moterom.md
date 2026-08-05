@@ -2,7 +2,7 @@
 slug: hva-koster-det-a-leie-selskapslokale-moterom
 title: "Hva koster det å leie et selskapslokale eller møterom i 2026?"
 description: "Direkte svar på hva et selskapslokale eller møterom koster å leie i Norge, med prisspenn, sammenligning av utleieplattformer og hvordan Digilist fungerer."
-date: 2026-08-04
+date: 2026-08-05
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 4
