@@ -2,7 +2,7 @@
 slug: sesongtildeling-idrettshall-kommune-fordelingsnokkel
 title: "Sesongtildeling av idrettshall: søknad, fordelingsnøkkel, vedtak og klage"
 description: "Guide for saksbehandler til hele sesongtildelingen av idrettshall: søknadsfrister, fordelingsnøkkel, vedtak, klage og restplasser i praksis."
-date: 2026-08-05
+date: 2026-08-06
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7
