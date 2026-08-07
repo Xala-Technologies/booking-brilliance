@@ -80,4 +80,4 @@ Svarene avgjør om du trenger en enkel bookingkalender eller en fullverdig platt
 
 ## Neste steg
 
-Skal du velge et digitalt bookingsystem for kommunale lokaler, gir [guiden for kommunalt bookingsystem](/blogg/kommunalt-bookingsystem-hva-er-det) en grundigere gjennomgang av ID-porten, SSA-L og kostnad. Leier du ut lokaler kommersielt, kan du se hvordan [Digilists bookingsystem for utleie](/bookingsystem-utleie) håndterer betaling og kalenderstyring for private utleiere.
+Skal du velge et digitalt bookingsystem for kommunale lokaler, gir [guiden for kommunalt bookingsystem](/blogg/kommunalt-bookingsystem-hva-er-det) en grundigere gjennomgang av ID-porten, SSA-L og kostnad. Leier du ut lokaler kommersielt, kan du se hvordan [Digilists bookingsystem for utleie](/bookingsystem-utleie) håndterer betaling og kalenderstyring for private utleiere. Er du eiendomseier, privatperson eller organisasjon og skal velge mellom annonse, markedsplass og dedikert plattform, går [bookingsystem og plattformer for utleiere](/blogg/bookingsystem-og-plattformer-for-utleiere) gjennom sjekklisten.
