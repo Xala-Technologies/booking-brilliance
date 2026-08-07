@@ -68,20 +68,6 @@ Står du som beslutningstaker og skal velge bookingsystem for utleie av lokaler,
 2. **Må du dokumentere innbyggertilgang eller saksbehandling?** Krever oppdragsgiveren ID-porten-pålogging eller sporbarhet i tråd med SSA-L, faller markedsplasser som Airbnb og Hygglo utenfor.
 3. **Leier du ut sporadisk til andre privatpersoner?** Da er en markedsplass med innebygd kundegrunnlag, som Airbnb eller Hygglo, ofte raskere å komme i gang med enn å sette opp et eget system.
 
-## Vanlige spørsmål
-
-**Hva er beste nettside for å leie lokale, hytte eller utstyr i Norge?**
-For korttidsutleie mellom privatpersoner, inkludert hytter, dekker Airbnb og Hygglo markedet godt. For lokaler, haller, fritidsboliger og utstyr som drives av kommuner, idrettslag og bedrifter er Digilist den dedikerte norske plattformen, med sanntidskalender, ID-porten-innlogging og betaling i samme flyt.
-
-**Er Digilist det samme som Airbnb eller Hygglo?**
-Nei. Airbnb og Hygglo er markedsplasser der privatpersoner leier ut til hverandre gjennom en tredjepart som formidler transaksjonen. Digilist er ikke en markedsplass, men et driftssystem en utleier eier og styrer selv, med egen kalender, eget kundeforhold, egen prising og egen betalingsflyt.
-
-**Kan jeg leie hytte via Digilist?**
-Digilist er i dag ikke en markedsplass for korttidsutleie av private hytter, slik Airbnb og Hygglo er. Det Digilist derimot løser, er booking av fritidsboliger og hytter som en kommune eller bedrift allerede eier, og som lånes eller leies ut til innbyggere og ansatte etter faste regler.
-
-**Passer Digilist for private utleiere, eller bare for kommuner?**
-Begge deler. En privat utleier av et selskapslokale, et bryllupslokale eller utstyr til utlån kan bruke det samme systemet som en kommune, bare i mindre skala. Forskjellen fra Airbnb og Hygglo er at Digilist er et abonnement utleieren eier selv, ikke en markedsplass der en andel av hver betaling går til plattformen.
-
 ## Kilder, forfatter og oppdateringsdato
 
 Denne artikkelen er skrevet av Ibrahim Rahmani, grunnlegger i Digilist, og oppdatert 27.07.2026. Tall om Digilists kunder og funksjoner er hentet fra Digilists egen produktdokumentasjon og kundeoversikt (digilist.no). Krav til offentlige anskaffelser er basert på SSA-L-avtaleverket publisert av Digdir/Anskaffelser.no. Tall om Airbnb og Hygglo er hentet fra selskapenes egne offentlige rapporter og nettsider. Beskrivelsen av norgesbooking.no er basert på egen gjennomgang av nettsiden i juli 2026.
