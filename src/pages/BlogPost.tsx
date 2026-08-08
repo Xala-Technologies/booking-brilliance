@@ -1,6 +1,7 @@
 import { Link, useParams, Navigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import BlogTable from "@/components/blog/BlogTable";
 import { ArrowLeft } from "lucide-react";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
@@ -230,7 +231,14 @@ const BlogPost = () => {
                   <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     components={{
-                      h2: ({ children, ...props }) => (
+                      // Blog posts do not render tables. `.post-body` carried
+                      // no table styling at all, so a markdown table fell back
+                      // to the browser default: three columns of prose crushed
+                      // inside a 68ch measure on desktop, overflowing the
+                      // viewport on a phone. BlogTable renders measurements as
+                      // a bar chart and prose rows as stacked blocks.
+                      table: ({ children }) => <BlogTable>{children}</BlogTable>,
+                      h2: ({ children, node: _node, ...props }) => (
                         <h2
                           id={slugify(nodeText(children))}
                           style={{ scrollMarginTop: "7rem" }}
@@ -239,7 +247,7 @@ const BlogPost = () => {
                           {children}
                         </h2>
                       ),
-                      a: ({ href, children, ...props }) => {
+                      a: ({ href, children, node: _node, ...props }) => {
                         if (href && CHAT_HREFS.has(href)) {
                           return (
                             <button
