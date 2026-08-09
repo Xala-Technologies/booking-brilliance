@@ -71,3 +71,42 @@ Oslo/Bergen/Trondheim city landing pages). Re-ran `pnpm build`, `pnpm test`,
 `npx tsc --noEmit`, and `node scripts/guard-blog-redirects.mjs` after the
 fixes — all green (248 posts, 35/35 tests, 0 type errors, 4/4 posts clear of
 redirect collisions).
+
+## Round 2 — sharpened lenses (adversarial fact-check, independent skepticism on ticket intent)
+
+**Adversarial fact-check** — Re-read the post fresh (not trusting round 1's
+summary) and diffed the FAQ body text against `blogFaq.mjs` programmatically:
+still an exact word-for-word match, round 1's edits to the table/BookUp
+paragraph didn't disturb it. Verified the three new `/lokaler-til-leie/<by>`
+links resolve by reading `src/App.tsx`'s route, `LokalerTilLeieBy.tsx`'s
+lookup, and `lokalerByer.ts`'s `BYER` keys directly (not assumed). Re-ran
+`pnpm build`/`pnpm test` independently — both green. No remaining unhedged
+factual claims found. One stylistic note (the city-links sentence reads
+slightly promotional) — not blocking, left as a judgment call.
+
+**Independent skepticism on ticket intent** — Checked whether the post
+actually explains "lokal-first søkemønster" as a real behavioral concept
+(it does, in a dedicated section) and whether "lokalbooking" has genuine
+on-page emphasis, not just frontmatter presence (it does: title, first
+paragraph, "Kort svar", two H2s, FAQ heading). **Found a real issue this
+round's narrower lens was built to catch and round 1 wasn't**: the "på tvers
+av kommunegrenser" section and the "ikke et gjennomsnitt" table intro were a
+near-paraphrase of an argument already published the same day in
+`idrettshall-ledige-tider-sok-book-varsling-tvers-kommuner.md` — same
+construction, genericized from idrettshaller to lokaler broadly, thin
+differentiation from a post it also links to. **Fixed**: reworded the table
+intro sentence to a different construction (per-city actual terms shown
+separately, not a stated "not-an-average" claim), and reworded the
+kommunegrense section to explicitly generalize beyond idrettshaller ("ikke
+bare idrettshaller") with an inline link deferring the sport-specific case to
+the existing post, instead of re-deriving the same argument — makes the two
+posts complementary (general lokalbooking vs. idrettshall-specific) rather
+than redundant. Also confirmed `readingMinutes: 7` is consistent with the
+corpus's words-per-minute convention (167.7 wpm vs. 153-192 wpm on 3 sibling
+posts checked), and that `tag: "Privatperson"` on a post covering both
+private and business use cases matches established practice (70/248 posts in
+the corpus do the same, including the topically similar idrettshall post) —
+neither needed a change.
+
+Re-ran `pnpm build`, `pnpm test`, `npx tsc --noEmit` after the round-2 edits
+— all green (248 posts, 35/35 tests, 0 type errors).

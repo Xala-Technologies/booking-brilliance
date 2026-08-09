@@ -35,7 +35,7 @@ Fordi søket er geografisk fra start, ser du reelle treff i hele byen eller komm
 
 ## Oslo, Bergen, Trondheim: hvorfor prisregulativet ikke er det samme
 
-Et geografisk søk som spenner over flere byer viser reelle priser og reell tilgjengelighet per sted, ikke et gjennomsnitt på tvers av dem. Det er en viktig forskjell, fordi vilkårene faktisk varierer. Se [lokaler til leie i Oslo](/lokaler-til-leie/oslo), [lokaler til leie i Bergen](/lokaler-til-leie/bergen) og [lokaler til leie i Trondheim](/lokaler-til-leie/trondheim) for full oversikt per by. Tabellen under er en generell tendens basert på etterspørsel, ikke priser Digilist selv setter:
+Legger du på flere byer i samme søk, vises hvert enkelt sted med sine egne, faktiske vilkår, ikke slått sammen til ett tall. Det er en viktig forskjell, fordi vilkårene varierer mer enn mange forventer. Se [lokaler til leie i Oslo](/lokaler-til-leie/oslo), [lokaler til leie i Bergen](/lokaler-til-leie/bergen) og [lokaler til leie i Trondheim](/lokaler-til-leie/trondheim) for full oversikt per by. Tabellen under er en generell tendens basert på etterspørsel, ikke priser Digilist selv setter:
 
 | | **Oslo** | **Bergen** | **Trondheim** |
 |---|---|---|---|
@@ -47,7 +47,7 @@ Faktisk pris, avbestillingsfrist og eventuell forhåndsgodkjenning bestemmes all
 
 ## Lokalbooking på tvers av kommunegrenser
 
-Bor du nær en kommunegrense, eller trenger et lokale i en annen by enn der du selv holder til, er gevinsten av et geografisk søk størst. I stedet for å sjekke én bookingside per kommune eller per utleier, én om gangen, får du treff fra flere steder i samme søk. Det gjelder like mye for et lag som trener i én kommune og spiller kamper i en annen, som for en bedrift som trenger møterom i flere byer avhengig av hvor de ansatte befinner seg den uken.
+Prinsippet gjelder for alle lokaltyper, ikke bare idrettshaller (se [søk på tvers av kommuner for idrettshaller spesifikt](/blogg/idrettshall-ledige-tider-sok-book-varsling-tvers-kommuner)): bor du nær en kommunegrense, eller trenger et møterom, selskapslokale eller annen lokaltype i en annen by enn der du selv holder til, er gevinsten av ett samlet geografisk søk størst. I stedet for å sjekke én bookingside per kommune eller per utleier, får du treff fra flere steder samtidig, uansett om det er en bedrift som trenger møterom i flere byer avhengig av hvor de ansatte befinner seg den uken, eller en forening som arrangerer noe utenfor egen kommune.
 
 Dette er også der forskjellen til en punktløsning som BookUp blir tydeligst. BookUp og lignende verktøy er typisk satt opp av én enkelt utleier for ett enkelt sted, og løser den jobben godt for akkurat det stedet. Det de vanligvis ikke er bygget for, er søket som går på tvers: å se ledige lokaler i flere byer eller hos flere utleiere samtidig, uten å måtte oppsøke hver enkelt bookingside for seg. Et geografisk filter som dekker flere steder i én kalender er derfor ikke bare en bekvemmelighet, det er en annen måte å søke på enn det en enkeltstående punktløsning typisk er bygget for.
 
