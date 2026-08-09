@@ -110,3 +110,83 @@ neither needed a change.
 
 Re-ran `pnpm build`, `pnpm test`, `npx tsc --noEmit` after the round-2 edits
 — all green (248 posts, 35/35 tests, 0 type errors).
+
+## Round 3 — rendered output + full link-graph audit
+
+Read the entire rendered `dist/blogg/lokalbooking-geografisk-sok/index.html`,
+not just the source markdown. Confirmed: the comparison table renders
+correctly through `BlogTable.tsx`'s established stacked-layout behavior (this
+site never renders GFM tables as literal `<table>` — a pre-existing,
+intentional design, not a defect); the 7 TOC anchors and 7 `<h2 id>` elements
+match byte-for-byte in slug, text, and order; no leaked markdown syntax
+(`**`, unresolved `[]()`, stray `#`/`|---`) anywhere in the rendered text.
+`dist/sitemap.xml` has exactly one entry for the new slug with a `<lastmod>`
+matching its frontmatter date, no duplicate `<loc>` values anywhere in the
+332-URL sitemap. Extracted and checked all 9 links in the current post
+state (not sampled) — all 9 resolve to a real post file or registered route.
+Re-read the 3 edited existing posts in full current context — round 2's
+edits to the new post didn't leave any dangling reference in them; all three
+still read naturally and link correctly. Fresh `pnpm test` (35/35), `pnpm
+build` (248 posts, sitemap intact), `npx tsc --noEmit` (0 errors), and a
+direct production redirect-classification probe of all 4 changed slugs
+(bypassing `guard-blog-redirects.mjs`'s git-diff-based no-op on a clean tree)
+— all 4 classified "free" (HTTP 200, no 3xx claim).
+
+**Round 3 verdict:** clean, no changes made.
+
+## Round 4 — final sign-off (skeptical re-read + full diff/commit audit)
+
+**Diff/commit audit** — Diffed every changed file (`git diff
+origin/main...HEAD`) against what this log claims was done. All three
+cross-link edits and the `blogFaq.mjs` FAQ entry matched the log exactly
+(Prisnivå row removed, BookUp sentence softened, city links added, FAQ
+word-for-word match to the post's "## Vanlige spørsmål" section). **Found a
+real gap**: Round 3's write-up of this file (the "Round 3" section above) had
+never actually been committed — `git status` showed `AGENT-REVIEW.md` as
+modified against `HEAD` (971704f), which only contains Round 1 + Round 2.
+Round 3 made no code changes, so nothing was at risk of being lost, but the
+log itself was sitting uncommitted this whole time. Fixed by committing it
+along with this round's changes.
+
+**Fresh skeptical re-read** — Read the full post front-to-back as a first-time
+reader. Found one real leftover from layering edits across rounds: the last
+sentence of "Slik filtrerer du..." ("Legger du til flere byer i samme søk,
+... viser Digilist treff for begge steder side om side, med egne priser og
+egen tilgjengelighet per sted.") and the opening sentence of the very next
+section, "Oslo, Bergen, Trondheim: hvorfor prisregulativet ikke er det
+samme" ("Legger du på flere byer i samme søk, vises hvert enkelt sted med
+sine egne, faktiske vilkår, ikke slått sammen til ett tall."), made the same
+point — multiple-city search results are shown separately, not merged —
+back-to-back with only an `<h2>` between them. This is the round-2 table-intro
+rewrite (meant to differentiate from the idrettshall post) landing right next
+to a pre-existing sentence saying almost the same thing, never reconciled
+against its immediate neighbor. **Fixed**: replaced the redundant opening
+sentence with a leaner transition ("Vilkårene varierer mer mellom byene enn
+mange forventer, selv om søket viser dem side om side i samme kalender.")
+that keeps the "terms vary more than expected" point (needed to justify the
+table) without repeating the "shown separately" claim already made one
+sentence earlier. Verified in the rebuilt `dist/blogg/lokalbooking-geografisk-sok/index.html`
+that the old duplicate phrase is gone and the new sentence renders correctly.
+
+Also checked and found no issue: the H2 "hvorfor prisregulativet ikke er det
+samme" is a defensible heading even though Round 1 removed the literal
+"Prisnivå" data row — the section still explains price *variation* via
+demand differences, municipal discount schemes, and the closing sentence
+that price/cancellation terms are always set by the individual utleier/
+kommune, not Digilist. No typos found. FAQ block in `blogFaq.mjs` re-diffed
+programmatically against the post's "## Vanlige spørsmål" section — still an
+exact word-for-word match after the fix (the fix only touched the earlier
+"Oslo, Bergen, Trondheim" section, not the FAQ). `AGENT-GOAL.md` confirmed
+still present (correct — deleted only immediately before opening the PR).
+
+**Full verification stack, fresh** — `npx tsc --noEmit`: 0 errors. `pnpm
+test`: 16 files, 35/35 passed. `pnpm build`: 248 posts, 332-URL sitemap
+regenerated, word-count floor passes on all 248 posts (source and rendered).
+`pnpm lint`: 0 errors, 40 pre-existing warnings, none in `blogFaq.mjs` or any
+`src/content/blog/*.md` file — confirmed markdown/`.mjs` content files are a
+no-op for the react-hooks/react-refresh lint rules, as expected.
+
+**Round 4 verdict:** one real issue found and fixed (back-to-back redundant
+sentence from layered rounds 1-2 edits landing next to each other), one
+process gap fixed (Round 3's log entry committed for the first time). Full
+verification stack green. Branch is ready for PR.

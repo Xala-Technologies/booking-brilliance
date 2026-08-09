@@ -35,7 +35,7 @@ Fordi søket er geografisk fra start, ser du reelle treff i hele byen eller komm
 
 ## Oslo, Bergen, Trondheim: hvorfor prisregulativet ikke er det samme
 
-Legger du på flere byer i samme søk, vises hvert enkelt sted med sine egne, faktiske vilkår, ikke slått sammen til ett tall. Det er en viktig forskjell, fordi vilkårene varierer mer enn mange forventer. Se [lokaler til leie i Oslo](/lokaler-til-leie/oslo), [lokaler til leie i Bergen](/lokaler-til-leie/bergen) og [lokaler til leie i Trondheim](/lokaler-til-leie/trondheim) for full oversikt per by. Tabellen under er en generell tendens basert på etterspørsel, ikke priser Digilist selv setter:
+Vilkårene varierer mer mellom byene enn mange forventer, selv om søket viser dem side om side i samme kalender. Se [lokaler til leie i Oslo](/lokaler-til-leie/oslo), [lokaler til leie i Bergen](/lokaler-til-leie/bergen) og [lokaler til leie i Trondheim](/lokaler-til-leie/trondheim) for full oversikt per by. Tabellen under er en generell tendens basert på etterspørsel, ikke priser Digilist selv setter:
 
 | | **Oslo** | **Bergen** | **Trondheim** |
 |---|---|---|---|
