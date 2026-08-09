@@ -286,3 +286,17 @@ non-parallel sentence) on independent fresh reads, and confirmed everything
 else held. No round came back completely empty on real, fixable defects
 until round 4's structural/legal cross-checks — which is why this review
 runs the full four rounds as scoped rather than stopping early.
+
+## Proof
+
+This is new content, not a fix to existing behavior, so only an AFTER state
+applies (there is no "before" — the page didn't exist). Verified with a full
+production build (`vite build` + SSR + `scripts/prerender.mjs`) served via
+`vite preview`, then captured with `agent-browser`:
+- `proof/after-praktisk-guide-booking.png` — the published post's top
+  (title, tag, author, reading time, table of contents) at
+  `/blogg/praktisk-guide-prosedyrer-krav-prising-booking`.
+- `proof/after-praktisk-guide-booking-table.png` — the kommune-vs-privat
+  comparison table rendering correctly further down the page, with all of
+  round 3's table fixes visible in the live output.
+
