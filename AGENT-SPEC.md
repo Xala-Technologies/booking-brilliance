@@ -1,75 +1,145 @@
-# XAL-1053: E2E failure — blog index click timeout
+# XAL-1141: Content gap — Teknisk funksjonalitet og sikkerhet i bookingsystem
 
 ## WHAT THIS IS
-The fleet's E2E test `blog index lists posts and a post opens with its cover + body`
-(`/root/xaheen-agent-fleet/tools/e2e-agent/tests/public-surfaces.spec.ts`) goes to
-`/blogg` and clicks the first `a[href^="/blogg/"]` link. On a fresh browser session
-(no `cookie-consent` localStorage key — exactly what a new Playwright context is),
-the site's cookie banner slides up from the bottom of the viewport ~1s after the
-page mounts. That banner's outer wrapper is a full-width, ~260px-tall `fixed`
-block sitting above everything else (`z-50`) — including the transparent padding
-around the visible card, not just the card itself. The first blog post row is tall
-(cover image + heading + description) and sits partly inside that bottom band once
-scrolled into view, so its click target can be intercepted by the (invisible,
-padding-only) part of the banner's hit area. That's an intermittent click-blocker,
-not a data or animation problem — it doesn't depend on network speed or the blog
-content at all.
+Digilist's SEO agent flagged that no page on digilist.no targets the search term
+"teknisk" combined with "funksjonalitet og sikkerhet i bookingsystem" — the query
+a kommune IT-leder or administrator uses when evaluating a booking vendor's
+technical/security posture before procurement. The ask is a new Norwegian blog
+post that consolidates three specific capabilities — secure public-sector login
+(ID-porten/BankID), audit trail (revisjonsspor), and advanced administration
+(role-based access) — and frames them as what makes Digilist certifiable
+(ISO 27001/27701, SSA-L 2026) and differentiated from generic booking tools.
+
+This is NOT a case of writing something from scratch: each of the three named
+capabilities already has deep, dedicated coverage elsewhere on the site. What's
+missing is a single consolidated "spec sheet" piece that ties functionality +
+security together as one evaluation checklist for the procurement/certification
+stage of the buyer journey — the exact stage "teknisk" signals — and links out to
+the deep-dive posts instead of duplicating them.
 
 ## HOW IT WORKS NOW
-- `src/components/CookieConsent.tsx` — mounted once, site-wide, in `src/App.tsx:479`.
-  `useEffect` (line 9-16) checks `localStorage.getItem("cookie-consent")`; if unset,
-  `setTimeout(() => setIsVisible(true), 1000)`. When visible, renders:
-  ```
-  <div className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6 animate-slide-up">
-    <div className="container mx-auto ... max-w-6xl">
-      <div className="bg-card/95 ... rounded-2xl shadow-2xl p-6 md:p-8"> ...visible card... </div>
-    </div>
-  </div>
-  ```
-  Neither the outer `fixed` div nor the `container` div has `pointer-events-none`,
-  so the whole rectangle — including the `p-4`/`md:p-6` padding around the card
-  and any letterboxing outside `max-w-6xl` — is a live click target, not just the
-  visible card.
-- `src/pages/Blog.tsx:203-283` — each post is a `<Link>` wrapping a `py-8 lg:py-12`
-  row (cover image, meta, heading, description); on desktop this row is ~300-390px
-  tall, so part of it can fall inside the banner's bottom band once scrolled to.
-- Confirmed live with a throwaway Playwright probe against `https://digilist.no/blogg`
-  (viewport 1280×720, fresh context): first-link bounding box after settling was
-  `{x:48, y:832, width:1184, height:358}` (i.e. spanning well past the fold), and the
-  cookie-consent bounding box was `{x:0, y:457, width:1280, height:263}` — a
-  full-width band covering the bottom 37% of the viewport, well beyond the visible
-  card's actual footprint.
+- Blog posts are plain markdown files in `src/content/blog/*.md`, one per page.
+  There is no content-collection schema/zod validator — the frontmatter contract
+  is informally defined by `src/lib/blogFrontmatter.ts` (`BlogFrontmatter`
+  interface, lines 5-18): `slug`, `title`, `description`, `date`, `author`
+  required-in-practice; `updated`, `role`, `readingMinutes`, `tag`, `cover`,
+  `keywords` optional. No enum on `tag` (29 free-text values in use, e.g.
+  `IT-leder`, `Sikkerhet`). `keywords` is a plain string array (existing posts:
+  5-8 items). Nothing validates that `cover` points to a real file, and cover
+  images are explicitly reused across many posts (`gdpr_iso27001_hero_no.webp`
+  alone appears in 6+ posts already) — reuse is the norm, not an edge case.
+- Discovery is fully automatic: `build-plugins/blogMetaPlugin.ts` globs every
+  `.md` in `src/content/blog/` at build/dev/test time into the `virtual:blog-meta`
+  module; `src/lib/posts.ts` sorts by `date`; `src/lib/postContent.ts` does a
+  separate raw-text glob for the article body. **Dropping a new `.md` file is
+  the entire integration — no index, router, or nav file needs touching.**
+  `public/sitemap.xml` is a stale build artifact regenerated by
+  `scripts/prerender.mjs` at build time — out of scope to hand-edit (and off
+  the "do not touch shared build scripts" list regardless).
+- Existing coverage I read before writing, confirmed by grep + direct read:
+  - `src/pages/Sikkerhet.tsx` — the `/sikkerhet` marketing page: FAQ + principle
+    list already states all three items (BankID/ID-porten login, audit-logg,
+    rollebasert tilgang) plus ISO 27001/27701 and SSA-L 2026 certification, but
+    as short FAQ answers, not an article, and not targeting "teknisk".
+  - `idporten-bankid-kommunal-innlogging.md` (823 words) — deep dive on how
+    ID-porten/BankID integration actually works (SAML/OIDC flow, eID levels).
+  - `phishing-resistente-innlogginger-idporten-bankid.md`,
+    `magic-link-sms-bankid-sikker-innlogging.md` — login-method deep dives.
+  - `idrettshall-tildeling-saksbehandler-godkjenning-revisjonsspor.md`
+    (1282 words) — audit trail covered as part of a caseworker-workflow
+    narrative, not as a standalone technical capability.
+  - `brukerstyring-og-tilgangskontroll.md` (909 words) — RBAC/admin roles,
+    deep dive on user types and permissions.
+  - `compliance-sikkerhet-og-datavern.md` (slug `datalokasjon-norge-gdpr-kommunal-booking`),
+    `ssa-l-2026-bookingsystem-kommune.md`, `penetrasjonstesting-sikkerhetsrevisjon-saas-leverandor.md`,
+    `cyberangrep-norske-kommuner-bookingsystem.md`, `ddos-ransomware-beredskap-bookingplattform.md`
+    — data location, procurement-contract compliance, pentesting, and incident
+    response, each as its own deep dive.
+  - Confirmed via `grep -l 'keywords:.*teknisk' src/content/blog/*.md` and
+    `grep -rl '"teknisk"' src/content/blog/*.md` — **zero** existing posts
+    target "teknisk" as a keyword, and no post's `slug` collides with the one
+    I'm about to add (`grep -h "^slug:" src/content/blog/*.md | sort | uniq -d`
+    → empty).
 
 ## WHAT CHANGES
-Add `pointer-events-none` to the outer `fixed` wrapper in `CookieConsent.tsx` and
-`pointer-events-auto` back on the inner visible card div. `pointer-events` is
-inherited, so the card and everything inside it (text links, both buttons, the
-close button) keep working exactly as before; only the surrounding transparent
-padding/letterboxing stops intercepting clicks meant for the page underneath.
-This is the smallest fix that removes the click-blocker without touching layout,
-copy, or the consent logic itself.
+One new file: `src/content/blog/teknisk-funksjonalitet-sikkerhet-bookingsystem.md`.
+
+- `tag: "IT-leder"` (consistent with other procurement/evaluation-stage posts
+  like `bookingsystem-kommunale-lokaler-guide-it-leder.md`).
+- `cover: "/images/blog/gdpr_iso27001_hero_no.webp"` — reused, matches the
+  certification/security visual theme already established for this cover.
+- `keywords` includes `"teknisk funksjonalitet bookingsystem"` and
+  `"teknisk sikkerhet bookingsystem"` as primary terms, plus the three
+  sub-capabilities and the certification terms (ISO 27001, SSA-L).
+- Structure: short framing intro (why "teknisk" is a distinct evaluation stage,
+  separate from price/UX), then one `## H2` section each for secure login,
+  audit trail, and advanced administration — each 2-3 paragraphs summarizing
+  the capability and linking out to the relevant deep-dive post(s) rather than
+  repeating their content — then a certification/differentiation section tying
+  the three together against ISO 27001/27701 and SSA-L 2026, a practical
+  "sjekkliste" (checklist) section an IT-leder can use during vendor evaluation,
+  and a closing CTA paragraph, matching the convention seen in
+  `brukerstyring-og-tilgangskontroll.md` and `cyberangrep-norske-kommuner-bookingsystem.md`
+  (no body `# H1`, no inline images, internal links as `[text](/blogg/slug)`).
+  Target ~900-1100 words, in line with the 625-1282 word range of comparable posts.
+
+This is the smallest valid change: one markdown file, no touches to
+`scripts/prerender.mjs`, `src/entry-server.tsx`, `scripts/verify-live.mjs`,
+`vite.config.ts`, or `build-plugins/blogMetaPlugin.ts` — all of which the
+issue's scope note explicitly says not to touch because every SEO branch
+funnels through them and conflicts on merge.
 
 ## BLAST RADIUS
-- `CookieConsent` is mounted exactly once, site-wide (`src/App.tsx:479`) — this
-  change affects every page while the banner is showing, not just `/blogg`. That's
-  intended: the same invisible-hit-area problem exists on any page with content
-  reachable near the bottom of the viewport (grep confirms no other page opts out).
-- No other component reads or reaches into `CookieConsent`'s DOM (`grep -rl
-  CookieConsent src/` → only `App.tsx` and the component itself) and nothing relies
-  on the wrapper's oversized hit area (no click-outside-to-dismiss handler exists —
-  dismissal is only via the two buttons/close icon, all inside the card).
-- `pointer-events` is inherited in CSS, so the accept/reject/close buttons (all
-  descendants of the card, which gets `pointer-events-auto`) are unaffected.
+- **Build/discovery**: none beyond the new file being picked up by the existing
+  glob in `build-plugins/blogMetaPlugin.ts` and `src/lib/postContent.ts` — both
+  are read-only consumers of the directory, unmodified by this change.
+- **Sitemap**: regenerated automatically from the live post list next time
+  `scripts/prerender.mjs` runs; not hand-edited here.
+- **Cover image**: `gdpr_iso27001_hero_no.webp` is shared with 6+ other posts
+  already — adding a 7th reference changes no code path (the file is read
+  as-is by whatever renders `cover`; nothing keys off cover uniqueness).
+- **Slug/routing**: `getPostBySlug` (`src/lib/postContent.ts`) does a first-match
+  lookup by slug; confirmed no existing post uses this slug, so no collision.
+- **Nothing else** reads, imports, or links to this new file before it exists —
+  it has no other callers to break, only the reverse (once merged, other posts
+  could later choose to link to it, but that's out of scope for this change).
+
+## MERMAID DIAGRAM
 
 ```mermaid
-graph TD
-  App[App.tsx] -->|mounts once, site-wide| CC[CookieConsent.tsx]
-  CC -->|fixed, bottom, z-50, FULL hit-area today| Overlay[outer wrapper div]
-  Overlay --> Card[visible card: accept/reject/close]
-  Blog[Blog.tsx post list] -->|Link rows can sit under the bottom band| Overlay
-  E2E[e2e-agent: public-surfaces.spec.ts] -->|clicks first post link| Blog
-  Overlay -. intercepts click meant for .-> Blog
+flowchart TD
+    MD["src/content/blog/teknisk-funksjonalitet-sikkerhet-bookingsystem.md<br/>(new file, this change)"]
+
+    subgraph BuildTime["Build-time discovery (read-only, unmodified)"]
+        Plugin["build-plugins/blogMetaPlugin.ts<br/>globs *.md into virtual:blog-meta"]
+        RawGlob["src/lib/postContent.ts<br/>import.meta.glob raw body"]
+    end
+
+    subgraph Runtime["Runtime consumers (unmodified)"]
+        PostsTS["src/lib/posts.ts<br/>getAllPosts() sorted by date"]
+        BlogPost["src/pages/BlogPost.tsx<br/>renders /blogg/:slug"]
+        BlogPreview["src/pages/BlogPreview.tsx<br/>listing/teaser cards"]
+        Search["Navbar sitewide search corpus"]
+    end
+
+    Prerender["scripts/prerender.mjs (NOT touched)<br/>regenerates sitemap.xml at build"]
+
+    MD --> Plugin --> PostsTS
+    MD --> RawGlob --> BlogPost
+    PostsTS --> BlogPreview
+    PostsTS --> Search
+    PostsTS -.build step.-> Prerender
+
+    MD -. "links out to (no content duplicated)" .-> A["idporten-bankid-kommunal-innlogging.md"]
+    MD -. links .-> B["idrettshall-tildeling-...-revisjonsspor.md"]
+    MD -. links .-> C["brukerstyring-og-tilgangskontroll.md"]
+    MD -. links .-> D["ssa-l-2026-bookingsystem-kommune.md"]
+    MD -. "shares cover image with" .-> E["6+ existing posts using<br/>gdpr_iso27001_hero_no.webp"]
 ```
 
-## Files likely affected
-- `src/components/CookieConsent.tsx` (the fix)
+## Not done here (out of scope, noted for the record)
+- No change to `/sikkerhet` page — its FAQ already states the same facts at a
+  higher level; this post is the article-length, "teknisk" keyword-targeted
+  companion, not a replacement.
+- No systemic guard/index/registry added anywhere, per the issue's explicit
+  scope note.
