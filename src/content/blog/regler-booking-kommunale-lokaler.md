@@ -11,7 +11,7 @@ cover: "/images/blog/digdir_designsystemet_hero_no.webp"
 keywords: ["regler for booking kommunale lokaler", "prosedyrer booking kommune", "krav til leietaker kommunalt lokale", "søke om lokale kommune regler", "godkjenning booking kommune", "avbestillingsregler kommunalt lokale", "klage på avslått søknad lokale"]
 ---
 
-Skal du booke et kommunalt lokale, møtes du som regel av tre spørsmål på én gang: hvem har egentlig lov til å booke dette, hva må jeg dokumentere før søknaden godkjennes, og hva skjer hvis jeg avbestiller eller får avslag. De fleste kommuner har svarene spredt på flere sider, eller bare i hodet til saksbehandleren. Denne guiden samler reglene, prosedyren og kravene på ett sted, både for deg som søker et lokale og for deg som kommunalt ansatt skal forvalte de samme reglene på den andre siden av søknaden.
+Skal du booke et kommunalt lokale, møtes du som regel av tre spørsmål på én gang: hvem har egentlig lov til å booke dette, hva må jeg dokumentere før søknaden godkjennes, og hva skjer hvis jeg avbestiller eller får avslag. De fleste kommuner har svarene spredt på flere sider, eller bare i hodet til saksbehandleren. Denne guiden samler reglene, prosedyren og kravene på ett sted, både for deg som søker et lokale og for deg som, som kommunalt ansatt, skal forvalte de samme reglene på den andre siden av søknaden.
 
 ## Hvem kan booke et kommunalt lokale
 
@@ -30,7 +30,7 @@ Manglende dokumentasjon er den vanligste årsaken til at en søknad blir sendt t
 - **Formål og antall deltakere**, slik at lokalet faktisk passer arrangementet.
 - **Medlemsliste eller organisasjonsnummer** for lag og foreninger som søker om redusert pris.
 - **Forsikringsbevis** ved arrangementer med mange gjester eller ved bruk av eget utstyr.
-- **Skjenkebevilling** dersom det skal serveres alkohol, søkt separat hos kommunen i god tid før arrangementet.
+- **Skjenkebevilling** dersom det skal serveres alkohol, som må søkes separat hos kommunen i god tid før arrangementet.
 
 Sjekk hva som kreves for akkurat ditt lokale og formål før du sender søknaden. Det er forskjellen på en søknad som godkjennes samme dag, og en som må sendes inn på nytt fordi ett dokument manglet.
 
@@ -40,7 +40,7 @@ Selve prosedyren følger som regel fire faste trinn, uansett om du booker en gym
 
 1. **Søknad eller direkte booking.** Enkle lokaler kan ofte bookes direkte, mens andre krever en forespørsel fordi kapasitet eller prioritet må vurderes.
 2. **Vurdering mot kravene.** Saksbehandler sjekker at dokumentasjonen er på plass, at datoen faktisk er ledig, og at søknaden passer kategorien den er meldt inn under.
-3. **Godkjenning eller avslag med begrunnelse.** Et avslag skal alltid komme med en konkret grunn, slik at du som søker vet nøyaktig hva som må rettes opp før du sender inn på nytt. Se [godkjenningsflyten og revisjonssporet i praksis](/blogg/godkjenningsflyt-revisjonsspor-booking-re-forespørsel) for hvorfor et avslag re-behandles i stedet for å bli overstyrt, og hvorfor det er et krav i mange kommunale anskaffelser.
+3. **Godkjenning eller avslag med begrunnelse.** Et avslag skal alltid komme med en konkret grunn, slik at du som søker vet nøyaktig hva som må rettes opp før du sender inn på nytt. Se [godkjenningsflyten og revisjonssporet i praksis](/blogg/godkjenningsflyt-revisjonsspor-booking-re-forespørsel) for hvorfor et avslag re-behandles i stedet for å bli overstyrt, og hvorfor det er et krav i kommunens egen anskaffelse av bookingsystemet.
 4. **Bekreftelse.** Lokalet er først reservert når du har mottatt en formell bekreftelse, ikke ved en muntlig beskjed eller en forespørsel som fortsatt venter på svar.
 
 I systemer med automatisk godkjenning er svaret klart i løpet av minutter. Der en saksbehandler må vurdere søknaden manuelt, tar det gjerne 1-3 virkedager, spesielt ved sesongtildeling eller store arrangementer.
@@ -69,7 +69,7 @@ Endring av dato regnes ofte som en ny booking dersom det er kort tid til opprinn
 
 ## Hva skjer hvis søknaden avvises
 
-Et avslag skal komme med en skriftlig begrunnelse, ikke bare en generisk melding om at lokalet ikke er tilgjengelig. Som søker har du normalt rett til å be om en ny vurdering dersom du mener avslaget bygger på feil grunnlag, for eksempel at et dokument faktisk var vedlagt eller at datoen likevel var ledig. For deg som kommunalt ansatt betyr det samme prinsippet at et avslag skal kunne forklares i etterkant: hvem avslo, når, og på hvilket grunnlag. Et regelverk som ikke tåler at noen spør "hvorfor", er ikke et regelverk du kan stå bak i en klagesak.
+Et avslag skal komme med en skriftlig begrunnelse, ikke bare en generisk melding om at lokalet ikke er tilgjengelig. Som søker har du normalt rett til å be om en ny vurdering dersom du mener avslaget bygger på feil grunnlag, for eksempel at et dokument faktisk var vedlagt eller at datoen likevel var ledig. Regnes avslaget som et enkeltvedtak, for eksempel ved avslag på redusert pris eller fast sesongtildeling, gjelder klageretten etter forvaltningsloven, normalt med tre ukers klagefrist fra du mottok vedtaket. Et rent avslag på en enkeltstående booking behandles ofte enklere, som en ny vurdering hos samme saksbehandler eller nærmeste leder, men prinsippet er det samme: du har krav på å få vite hvorfor. For deg som kommunalt ansatt betyr det samme prinsippet at et avslag skal kunne forklares i etterkant: hvem avslo, når, og på hvilket grunnlag. Et regelverk som ikke tåler at noen spør «hvorfor», er ikke et regelverk du kan stå bak i en klagesak.
 
 ## Sjekkliste før du booker
 
