@@ -121,3 +121,49 @@ posts are likewise absent). No issues found in this lens.
   boundary described in `brukerstyring-og-tilgangskontroll.md`.
 - Re-ran the word-count check (1043 words) and `pnpm vitest run` (16 files /
   35 tests, all green) after the edit.
+
+## Round 3 — adversarial editorial read + full-branch regression sweep
+
+Two parallel agents: one did a final skeptical-editor pass over the whole
+post again (not re-checking rounds 1-2's fixed points beyond a one-line spot
+check), the other looked past the single content file at the whole branch
+diff versus `origin/main` for anything rounds 1-2 hadn't covered (leftover
+files, tracked build output, proof-file sanity, file count).
+
+**Editorial lens** — spot-checked rounds 1-2's fixes (all held up), then
+found one more real issue: the login section claimed kommune saksbehandlere
+and driftsledere use "samme inngang" (the same BankID/ID-porten entry) as
+citizens, and that this "fjerner passord som angrepsvektor helt." That
+directly contradicts `idporten-bankid-kommunal-innlogging.md`'s own
+"Hva med ansatte i kommunen?" section, which says employees authenticate via
+the kommune's FEIDE-based identity management (SAML 2.0), not ID-porten —
+and a third post, `phishing-resistente-innlogginger-idporten-bankid.md`,
+describes yet a different employee flow (ID-porten with staff credentials, or
+magic-link/SMS). Three sibling posts disagree with each other on this exact
+point; my post shouldn't have picked the single strongest, unhedged version
+without reconciling it — especially since my own checklist bullet 1 already
+implicitly asks "which mechanism for citizens, which for kommuneansatte,"
+acknowledging they can differ.
+
+**Regression-sweep lens** — one confirmed action item, everything else
+clean: `AGENT-GOAL.md` is still present and tracked (expected at this point
+in the workflow — it's deleted as the last step before opening the PR, not
+during review — but flagged correctly as something that must not ship).
+`git status` clean, no stray uncommitted files. `dist`/`dist-server` properly
+gitignored and nothing from either was ever tracked. Both proof PNGs
+committed, non-zero, reasonably sized (159 KB / 431 KB). Exactly one content
+file added across the whole branch (`teknisk-funksjonalitet-sikkerhet-bookingsystem.md`);
+everything else in the diff is `AGENT-SPEC.md`, `AGENT-REVIEW.md`, or `proof/`.
+
+### What I changed after round 3
+- Reworded the login section: citizens are described as logging in via
+  BankID/ID-porten with no per-service password (well-supported across every
+  source); kommune employees are now described generically as authenticating
+  through "kommunens egen identitetsløsning" with role-based access mapped
+  automatically from their existing role there — true regardless of which of
+  the three disagreeing sibling posts is most current, and no longer claims
+  the "same entry" or a blanket "fjerner passord helt" for the employee path.
+- Re-ran the word-count check (1064 words) and `pnpm vitest run` (16 files /
+  35 tests, all green) after the edit.
+- No action needed yet on `AGENT-GOAL.md` — deleting it is the scheduled last
+  step before opening the PR, per the workflow's own ordering.
