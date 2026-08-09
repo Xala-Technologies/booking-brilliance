@@ -82,6 +82,7 @@ Digilist er ikke det eneste alternativet en kommune vurderer når BookUp ikke le
 ## Kilder
 
 - [SSA-L 2026: full kravguide til kommunalt bookingsystem](/blogg/ssa-l-2026-bookingsystem-kommune) – Digilists gjennomgang av kravene i Statens standardavtale for løpende tjenestekjøp (SSA-L), sist oppdatert 2026-07-25.
+- [Lokalbooking med geografisk søk: finn ledig lokale i din by](/blogg/lokalbooking-geografisk-sok) – hvorfor punktløsninger som BookUp typisk løser ett sted godt, men ikke søk på tvers av byer og kommuner.
 - [Digilists bookingsystem for kommuner](/bookingsystem-kommune) – produktside med funksjonsoversikt for offentlig sektor.
 - [Sikkerhet hos Digilist](/sikkerhet) – dokumentasjon av SSA-L 2026-samsvar og sertifiseringer.
 
