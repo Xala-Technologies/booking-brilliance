@@ -1,192 +1,220 @@
-# XAL-1137: Deep review log
+# XAL-1141: Deep review log
 
-Change under review: new post `src/content/blog/lokalbooking-geografisk-sok.md`,
-a new FAQ entry in `src/content/blogFaq.mjs`, and one small cross-link edit each
-in three existing posts (`bookup-og-eksisterende-booking-losninger.md`,
-`idrettshall-ledige-tider-sok-book-varsling-tvers-kommuner.md`,
-`leie-sal-kommune-guide-fra-sok-til-booking.md`). Content-only change — no
-application code touched. Lenses were adapted from code-review defaults to fit
-a content change: correctness (facts/links/schema), regression (build/tests/
-sitemap/redirects), SEO/security (structured data, claims, no injected
-markup), scope (smallest valid change, no forbidden shared files touched).
+Change under review: one new file,
+`src/content/blog/teknisk-funksjonalitet-sikkerhet-bookingsystem.md`
+(a Norwegian blog post), plus `AGENT-SPEC.md` and `proof/*.png`.
 
-## Round 1 — correctness / regression / SEO+security / scope
+## Round 1 — correctness / regression-duplication / security / scope
 
-Four parallel agents, each told to REFUTE the change over `git diff`.
+Four parallel agents, each told to REFUTE the change over the actual file
+contents (and `git show 63231fa` for the scope lens).
 
-**Correctness** — Verified frontmatter parses correctly against
-`BlogFrontmatter`/`parseFrontmatter` (date, slug, keywords array all valid),
-the new `POST_FAQ["lokalbooking-geografisk-sok"]` entry matches the post's
-"## Vanlige spørsmål" section word-for-word (same invariant enforced for one
-other slug by `src/content/blogFaq.test.ts`), all internal markdown links
-resolve to real posts/routes, the cover image exists, and the GFM table
-parses correctly. **Found a real issue**: the Oslo/Bergen/Trondheim
-comparison table stated unsourced price-level rankings ("Prisnivå: Generelt
-høyest" for Oslo, "Generelt lavest" for Trondheim) as if factual, one
-paragraph above a disclaimer stating Digilist doesn't set prices at all —
-internally contradictory. **Fixed**: removed the "Prisnivå" row entirely,
-reworded the remaining rows to explicit "Typisk ..." framing, and added a
-sentence before the table stating it's a general tendency, not
-Digilist-set pricing.
+**Correctness** — found two real defects:
+1. The post defined SSA-L as "Statens standardavtale for programvare som
+   tjeneste". Every other post in the repo (15+, cross-checked with grep)
+   defines it as "Statens standardavtale for løpende tjenestekjøp" — my
+   phrasing was simply wrong, not a stylistic variant.
+2. The audit-log line "loggen kan ikke endres av den samme kontoen som gjorde
+   endringen" was an invented, uncorroborated specific claim — no other post
+   or `Sikkerhet.tsx` makes that particular assertion. The closest
+   established claim (`integrasjon-med-offentlige-systemer-og-autentisering.md`:
+   "Loggen er uforanderlig, verken administratorer i kommunen eller
+   Digilist-support kan slette enkeltoppføringer") is different and better
+   supported.
+   Everything else checked out: ISO 27001/27701 "sertifisert" (not "i
+   prosess") matches `Sikkerhet.tsx` and other posts; all four internal links
+   resolved; frontmatter conventions matched; no Norwegian grammar errors.
 
-**Regression** — `pnpm test` (35/35), `pnpm build` (248 posts, +1 from base's
-247, exactly the new post; sitemap.xml gained exactly one `<url>`, no
-duplicates, no drops), `guard-blog-redirects.mjs` (all 4 changed posts clear,
-no 3xx collisions). No hardcoded slug list, featured-posts array, or feed
-generator needed updating. Confirmed `AGENT-SPEC.md` is documentation-only
-(not imported anywhere) and is intentionally overwritten per-branch (same
-pattern as the prior merged XAL-1053 ticket). Non-blocking observation (not a
-regression): the post discusses Oslo/Bergen/Trondheim but didn't originally
-link to the existing dedicated city pages at `/lokaler-til-leie/<by>`
-(`src/content/lokalerByer.ts`) — **addressed**: added links to those three
-city pages in the "Oslo, Bergen, Trondheim" section, since this directly
-strengthens the ticket's own geographic-search goal.
+**Regression / duplication** — found the most important issue of the round:
+`integrasjon-med-offentlige-systemer-og-autentisering.md` (slug
+`id-porten-bankid-integrasjon-kommune-booking`) covers the same three pillars
+(ID-porten/BankID auth, immutable audit log, RBAC) in comparable depth, and I
+had not read it before writing (my pre-writing grep pass found it but I only
+skimmed the file list, not the file itself). Real keyword overlap also
+flagged against `brukerstyring-og-tilgangskontroll.md` (`rollebasert
+tilgang`), `ssa-l-2026-bookingsystem-kommune.md` (`SSA-L 2026`), and
+`idrettshall-tildeling-saksbehandler-godkjenning-revisjonsspor.md`
+(`revisjonsspor`, published the same day). Slug and cover-image reuse
+(`gdpr_iso27001_hero_no.webp`, already used by 6 other posts) were both
+confirmed clean — reuse is the established norm here, not a collision risk.
 
-**SEO/security** — Keywords array has no exact duplicates and the
-city-specific variants reflect real body content, not stuffing. Title/
-description length is within the range of sibling posts. FAQPage JSON-LD
-validated as parseable and the Q&A text is byte-for-byte present in the
-rendered HTML (no Search Console visible-content mismatch risk). No secrets/
-PII/injected markup anywhere in the diff. Author attribution matches every
-other post in the corpus. **Found a minor issue**: one sentence about BookUp
-("Det de ikke løser, er søket som går på tvers...") stated a claim about a
-real third-party product's feature set as flat fact, less hedged than the
-rest of the post and less hedged than the sibling BookUp-comparison post's
-style. **Fixed**: reworded to "Det de vanligvis ikke er bygget for..." and
-softened the closing clause to match the hedged tone used elsewhere.
+**Security** — no issues. Markdown renders through `ReactMarkdown` with only
+`remarkGfm` (no `rehype-raw`), so there's no HTML-injection surface either
+way; the post contains no raw HTML regardless. Audit-log description stays at
+the same marketing-level detail already public on `/sikkerhet`. No
+unsupported certification claims (matched existing "sertifisert" wording) and
+no external links besides internal `/blogg/*` and `/sikkerhet` paths.
 
-**Scope** — Diff touches exactly the new post, its FAQ entry, and one-line/
-one-sentence cross-links in three existing posts — all justified by the
-ticket. Confirmed none of the explicitly forbidden shared files
-(`scripts/prerender.mjs`, `src/entry-server.tsx`, `scripts/verify-live.mjs`,
-`build-plugins/*`, `vite.config.ts`) were touched. Confirmed `AGENT-GOAL.md`
-is still present (correct at this stage — deleted only immediately before
-opening the PR) and that overwriting `AGENT-SPEC.md` per-branch is the
-established, not novel, pattern. No unrelated formatting/dependency changes.
+**Scope** — clean. Diff is exactly the new post, `AGENT-SPEC.md`, and
+`proof/*.png`; no shared build/render script touched. One doc-accuracy
+defect: `AGENT-SPEC.md` described a keyword (`"teknisk sikkerhet
+bookingsystem"`) that wasn't actually in the file's frontmatter (the real
+second keyword was `"sikkerhet bookingsystem kommune"`).
 
-**Round 1 verdict:** two real issues found and fixed (unsourced price-ranking
-claim contradicting the platform's own pricing disclaimer; one under-hedged
-competitor claim), one improvement made (added links to the existing
-Oslo/Bergen/Trondheim city landing pages). Re-ran `pnpm build`, `pnpm test`,
-`npx tsc --noEmit`, and `node scripts/guard-blog-redirects.mjs` after the
-fixes — all green (248 posts, 35/35 tests, 0 type errors, 4/4 posts clear of
-redirect collisions).
+### What I changed after round 1
+- Fixed the SSA-L acronym expansion to "Statens standardavtale for løpende
+  tjenestekjøp" and turned the mention into a link to
+  `/blogg/ssa-l-2026-bookingsystem-kommune`, matching how every other post
+  refers to it.
+- Rewrote the audit-log sentence to use the same, already-established
+  "uforanderlig … verken administratorer i kommunen eller Digilist-support
+  kan slette enkeltoppføringer" claim instead of the invented
+  same-account-lockout detail.
+- Added an explicit cross-link from the login section to
+  `integrasjon-med-offentlige-systemer-og-autentisering.md`, framing it as
+  "the technical integration deep dive" so the two posts read as a
+  hub-(checklist)-and-spoke-(architecture) pair for search engines and
+  readers, rather than two pieces chasing the same intent.
+- Corrected `AGENT-SPEC.md`'s keyword list to match the actual frontmatter,
+  and added the missed near-duplicate post plus the mitigation taken to the
+  "HOW IT WORKS NOW" section.
+- Re-ran `node scripts/check-blog-word-count.mjs` after edits (still 1019
+  words, well above the 200-word floor) and re-confirmed all internal links
+  resolve.
 
-## Round 2 — sharpened lenses (adversarial fact-check, independent skepticism on ticket intent)
+## Round 2 — deeper fact-check + SEO/rendering regression
 
-**Adversarial fact-check** — Re-read the post fresh (not trusting round 1's
-summary) and diffed the FAQ body text against `blogFaq.mjs` programmatically:
-still an exact word-for-word match, round 1's edits to the table/BookUp
-paragraph didn't disturb it. Verified the three new `/lokaler-til-leie/<by>`
-links resolve by reading `src/App.tsx`'s route, `LokalerTilLeieBy.tsx`'s
-lookup, and `lokalerByer.ts`'s `BYER` keys directly (not assumed). Re-ran
-`pnpm build`/`pnpm test` independently — both green. No remaining unhedged
-factual claims found. One stylistic note (the city-links sentence reads
-slightly promotional) — not blocking, left as a judgment call.
+Two parallel agents: one re-verified round 1's fixes landed correctly and
+then read every remaining factual sentence line by line against
+`Sikkerhet.tsx` and 3+ other posts; the other did a full `pnpm build` +
+`pnpm vitest run` pass focused on structured data, sitemap, blog listing, and
+the AEO corpus file — none of which round 1 had checked.
 
-**Independent skepticism on ticket intent** — Checked whether the post
-actually explains "lokal-first søkemønster" as a real behavioral concept
-(it does, in a dedicated section) and whether "lokalbooking" has genuine
-on-page emphasis, not just frontmatter presence (it does: title, first
-paragraph, "Kort svar", two H2s, FAQ heading). **Found a real issue this
-round's narrower lens was built to catch and round 1 wasn't**: the "på tvers
-av kommunegrenser" section and the "ikke et gjennomsnitt" table intro were a
-near-paraphrase of an argument already published the same day in
-`idrettshall-ledige-tider-sok-book-varsling-tvers-kommuner.md` — same
-construction, genericized from idrettshaller to lokaler broadly, thin
-differentiation from a post it also links to. **Fixed**: reworded the table
-intro sentence to a different construction (per-city actual terms shown
-separately, not a stated "not-an-average" claim), and reworded the
-kommunegrense section to explicitly generalize beyond idrettshaller ("ikke
-bare idrettshaller") with an inline link deferring the sport-specific case to
-the existing post, instead of re-deriving the same argument — makes the two
-posts complementary (general lokalbooking vs. idrettshall-specific) rather
-than redundant. Also confirmed `readingMinutes: 7` is consistent with the
-corpus's words-per-minute convention (167.7 wpm vs. 153-192 wpm on 3 sibling
-posts checked), and that `tag: "Privatperson"` on a post covering both
-private and business use cases matches established practice (70/248 posts in
-the corpus do the same, including the topically similar idrettshall post) —
-neither needed a change.
+**Fact-check lens** — round 1's three fixes all verified correct (SSA-L
+phrasing now matches 11+ other posts, audit-log claim now verbatim-consistent
+with the linked integration post, new cross-link resolves). One new, real
+issue found: the "avansert administrasjon" section (then line 38) claimed the
+*kommune* sets up and adjusts rights for all four listed roles — including
+"lagkoordinator" and "bedriftsfullmakt." Cross-checked against
+`brukerstyring-og-tilgangskontroll.md` and
+`registrere-lag-organisasjon-booke-kommunale-lokaler.md`: lagkoordinator is
+the *team's own* admin role, and a business's booking-confirmation authority
+is controlled by the business itself, not the kommune. The sentence conflated
+kommune-administered RBAC with tenant-internal self-administration, which
+blurs a real multi-tenant boundary, ironic given the post's own checklist
+asks vendors to prove tenant isolation. Everything else re-checked clean: ISO
+checklist phrasing matches ~5 other posts' generic due-diligence language
+(not a Digilist-specific hedge), description (158 chars) and title (78
+chars) are within the corpus's normal range, and the "fjerner passord som
+angrepsvektor helt" claim is narrower than, not contradicting, the phishing
+post's more hedged claim.
 
-Re-ran `pnpm build`, `pnpm test`, `npx tsc --noEmit` after the round-2 edits
-— all green (248 posts, 35/35 tests, 0 type errors).
+**SEO/rendering lens** — ran a full `pnpm build` and inspected the actual
+prerendered output, not just the source markdown. Confirmed: exactly one
+`<h1>` matching the frontmatter title; `Article` JSON-LD present with
+`headline`/`description` matching frontmatter and `articleSection: "IT-leder"`
+matching `tag`; canonical URL and all Open Graph tags (including
+`og:locale=nb_NO`) correct; the post appears exactly once in
+`dist/sitemap.xml` with the right `<lastmod>`; it appears correctly as the
+first (most recent) entry on the blog listing page, sorted by date as
+expected; `pnpm vitest run` still green (16 files / 35 tests). Confirmed the
+post's correct *absence* from `dist/llms-full.txt` is expected behavior (that
+file is a static FAQ corpus, not a per-post index — verified other linked
+posts are likewise absent). No issues found in this lens.
 
-## Round 3 — rendered output + full link-graph audit
+### What I changed after round 2
+- Rewrote the "avansert administrasjon" paragraph to separate kommune-level
+  role administration (saksbehandler, driftsleder, administrator — set up and
+  adjusted by the kommune) from tenant-internal self-administration
+  (lagkoordinator, bedriftsfullmakt — set up and adjusted by the team or
+  business itself, without kommune involvement), matching the tenant
+  boundary described in `brukerstyring-og-tilgangskontroll.md`.
+- Re-ran the word-count check (1043 words) and `pnpm vitest run` (16 files /
+  35 tests, all green) after the edit.
 
-Read the entire rendered `dist/blogg/lokalbooking-geografisk-sok/index.html`,
-not just the source markdown. Confirmed: the comparison table renders
-correctly through `BlogTable.tsx`'s established stacked-layout behavior (this
-site never renders GFM tables as literal `<table>` — a pre-existing,
-intentional design, not a defect); the 7 TOC anchors and 7 `<h2 id>` elements
-match byte-for-byte in slug, text, and order; no leaked markdown syntax
-(`**`, unresolved `[]()`, stray `#`/`|---`) anywhere in the rendered text.
-`dist/sitemap.xml` has exactly one entry for the new slug with a `<lastmod>`
-matching its frontmatter date, no duplicate `<loc>` values anywhere in the
-332-URL sitemap. Extracted and checked all 9 links in the current post
-state (not sampled) — all 9 resolve to a real post file or registered route.
-Re-read the 3 edited existing posts in full current context — round 2's
-edits to the new post didn't leave any dangling reference in them; all three
-still read naturally and link correctly. Fresh `pnpm test` (35/35), `pnpm
-build` (248 posts, sitemap intact), `npx tsc --noEmit` (0 errors), and a
-direct production redirect-classification probe of all 4 changed slugs
-(bypassing `guard-blog-redirects.mjs`'s git-diff-based no-op on a clean tree)
-— all 4 classified "free" (HTTP 200, no 3xx claim).
+## Round 3 — adversarial editorial read + full-branch regression sweep
 
-**Round 3 verdict:** clean, no changes made.
+Two parallel agents: one did a final skeptical-editor pass over the whole
+post again (not re-checking rounds 1-2's fixed points beyond a one-line spot
+check), the other looked past the single content file at the whole branch
+diff versus `origin/main` for anything rounds 1-2 hadn't covered (leftover
+files, tracked build output, proof-file sanity, file count).
 
-## Round 4 — final sign-off (skeptical re-read + full diff/commit audit)
+**Editorial lens** — spot-checked rounds 1-2's fixes (all held up), then
+found one more real issue: the login section claimed kommune saksbehandlere
+and driftsledere use "samme inngang" (the same BankID/ID-porten entry) as
+citizens, and that this "fjerner passord som angrepsvektor helt." That
+directly contradicts `idporten-bankid-kommunal-innlogging.md`'s own
+"Hva med ansatte i kommunen?" section, which says employees authenticate via
+the kommune's FEIDE-based identity management (SAML 2.0), not ID-porten —
+and a third post, `phishing-resistente-innlogginger-idporten-bankid.md`,
+describes yet a different employee flow (ID-porten with staff credentials, or
+magic-link/SMS). Three sibling posts disagree with each other on this exact
+point; my post shouldn't have picked the single strongest, unhedged version
+without reconciling it — especially since my own checklist bullet 1 already
+implicitly asks "which mechanism for citizens, which for kommuneansatte,"
+acknowledging they can differ.
 
-**Diff/commit audit** — Diffed every changed file (`git diff
-origin/main...HEAD`) against what this log claims was done. All three
-cross-link edits and the `blogFaq.mjs` FAQ entry matched the log exactly
-(Prisnivå row removed, BookUp sentence softened, city links added, FAQ
-word-for-word match to the post's "## Vanlige spørsmål" section). **Found a
-real gap**: Round 3's write-up of this file (the "Round 3" section above) had
-never actually been committed — `git status` showed `AGENT-REVIEW.md` as
-modified against `HEAD` (971704f), which only contains Round 1 + Round 2.
-Round 3 made no code changes, so nothing was at risk of being lost, but the
-log itself was sitting uncommitted this whole time. Fixed by committing it
-along with this round's changes.
+**Regression-sweep lens** — one confirmed action item, everything else
+clean: `AGENT-GOAL.md` is still present and tracked (expected at this point
+in the workflow — it's deleted as the last step before opening the PR, not
+during review — but flagged correctly as something that must not ship).
+`git status` clean, no stray uncommitted files. `dist`/`dist-server` properly
+gitignored and nothing from either was ever tracked. Both proof PNGs
+committed, non-zero, reasonably sized (159 KB / 431 KB). Exactly one content
+file added across the whole branch (`teknisk-funksjonalitet-sikkerhet-bookingsystem.md`);
+everything else in the diff is `AGENT-SPEC.md`, `AGENT-REVIEW.md`, or `proof/`.
 
-**Fresh skeptical re-read** — Read the full post front-to-back as a first-time
-reader. Found one real leftover from layering edits across rounds: the last
-sentence of "Slik filtrerer du..." ("Legger du til flere byer i samme søk,
-... viser Digilist treff for begge steder side om side, med egne priser og
-egen tilgjengelighet per sted.") and the opening sentence of the very next
-section, "Oslo, Bergen, Trondheim: hvorfor prisregulativet ikke er det
-samme" ("Legger du på flere byer i samme søk, vises hvert enkelt sted med
-sine egne, faktiske vilkår, ikke slått sammen til ett tall."), made the same
-point — multiple-city search results are shown separately, not merged —
-back-to-back with only an `<h2>` between them. This is the round-2 table-intro
-rewrite (meant to differentiate from the idrettshall post) landing right next
-to a pre-existing sentence saying almost the same thing, never reconciled
-against its immediate neighbor. **Fixed**: replaced the redundant opening
-sentence with a leaner transition ("Vilkårene varierer mer mellom byene enn
-mange forventer, selv om søket viser dem side om side i samme kalender.")
-that keeps the "terms vary more than expected" point (needed to justify the
-table) without repeating the "shown separately" claim already made one
-sentence earlier. Verified in the rebuilt `dist/blogg/lokalbooking-geografisk-sok/index.html`
-that the old duplicate phrase is gone and the new sentence renders correctly.
+### What I changed after round 3
+- Reworded the login section: citizens are described as logging in via
+  BankID/ID-porten with no per-service password (well-supported across every
+  source); kommune employees are now described generically as authenticating
+  through "kommunens egen identitetsløsning" with role-based access mapped
+  automatically from their existing role there — true regardless of which of
+  the three disagreeing sibling posts is most current, and no longer claims
+  the "same entry" or a blanket "fjerner passord helt" for the employee path.
+- Re-ran the word-count check (1064 words) and `pnpm vitest run` (16 files /
+  35 tests, all green) after the edit.
 
-Also checked and found no issue: the H2 "hvorfor prisregulativet ikke er det
-samme" is a defensible heading even though Round 1 removed the literal
-"Prisnivå" data row — the section still explains price *variation* via
-demand differences, municipal discount schemes, and the closing sentence
-that price/cancellation terms are always set by the individual utleier/
-kommune, not Digilist. No typos found. FAQ block in `blogFaq.mjs` re-diffed
-programmatically against the post's "## Vanlige spørsmål" section — still an
-exact word-for-word match after the fix (the fix only touched the earlier
-"Oslo, Bergen, Trondheim" section, not the FAQ). `AGENT-GOAL.md` confirmed
-still present (correct — deleted only immediately before opening the PR).
+## Round 4 — final holistic refute pass + independent fresh-eyes read
 
-**Full verification stack, fresh** — `npx tsc --noEmit`: 0 errors. `pnpm
-test`: 16 files, 35/35 passed. `pnpm build`: 248 posts, 332-URL sitemap
-regenerated, word-count floor passes on all 248 posts (source and rendered).
-`pnpm lint`: 0 errors, 40 pre-existing warnings, none in `blogFaq.mjs` or any
-`src/content/blog/*.md` file — confirmed markdown/`.mjs` content files are a
-no-op for the react-hooks/react-refresh lint rules, as expected.
+Two parallel agents: one did a final targeted pass on the certification and
+checklist sections plus a `cat -A` sweep for encoding/whitespace artifacts;
+the other read the file with zero prior context, as an independent second
+opinion, re-verifying every link, the frontmatter, and reading-time math from
+scratch rather than trusting earlier rounds' conclusions.
 
-**Round 4 verdict:** one real issue found and fixed (back-to-back redundant
-sentence from layered rounds 1-2 edits landing next to each other), one
-process gap fixed (Round 3's log entry committed for the first time). Full
-verification stack green. Branch is ready for PR.
+**Holistic refute lens** — spot-checked rounds 1-3's five fixes (all correct
+now), then found a sixth real issue: "De krever dokumenterte kontroller for
+nøyaktig disse tre områdene" (ISO 27001/27701 require documented controls
+for *exactly* these three areas) overclaimed precision. The site's own
+`gdpr-iso-datalokasjon-norge.md` describes ISO 27001 as covering five
+distinct areas (policies, risk management, access/logging/incident handling,
+supplier agreements, continuous audit) and explicitly caveats what the
+certification does *not* guarantee — my post's "nøyaktig disse tre" framing
+wasn't established anywhere else on the site. No IA/redundancy problem
+between the certification section and the checklist, and no encoding or
+stray-whitespace artifacts in the file.
+
+**Fresh-eyes lens** — independently re-verified all 6 internal links resolve
+(including the `#kontakt` anchor, checked against `CTASection.tsx`),
+frontmatter completeness, and that `readingMinutes: 7` is plausible for the
+actual word count. Found one real issue: "for eksempel når en leiekontrakt
+skal ha rettskraft" misuses "rettskraft" — a specific Norwegian
+civil-procedure term for a final, unappealable court judgment (tvisteloven)
+— where "rettsgyldig" (legally valid/binding) is the correct word for a
+lease. Noted this exact misuse already exists in
+`idporten-bankid-kommunal-innlogging.md` too, but flagged it as still wrong
+in this post regardless of the sibling post's pre-existing error.
+
+### What I changed after round 4
+- Reworded the ISO 27001/27701 sentence to "blant de dokumenterte kontrollene
+  ... inngår nettopp disse tre ... i tillegg til risikostyring og
+  leverandøroppfølging for øvrig" — stating the three areas are part of what
+  the certifications cover, not an exhaustive/exact list, consistent with
+  `gdpr-iso-datalokasjon-norge.md`.
+- Fixed "rettskraft" → "rettsgyldig" for the lease-contract example (did not
+  touch the pre-existing instance in the sibling post — out of scope for this
+  change).
+- Re-ran the word-count check (1075 words) and `pnpm vitest run` (16 files /
+  35 tests, all green) after the edits.
+
+Four rounds run, each finding and fixing at least one real issue (seven
+defects total: wrong SSA-L expansion, invented audit-log detail, missed
+near-duplicate post, conflated kommune/tenant roles, contested
+employee-login claim, overclaimed ISO scope, and one legal-term misuse). No
+round came back empty, so this review stops at four as scoped rather than
+continuing further — the post has been read end-to-end, line by line, by
+eight independent agent passes across four rounds.
+- No action needed yet on `AGENT-GOAL.md` — deleting it is the scheduled last
+  step before opening the PR, per the workflow's own ordering.

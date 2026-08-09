@@ -1,105 +1,156 @@
-# XAL-1137: Content gap — Lokalbooking og geografisk søk
+# XAL-1141: Content gap — Teknisk funksjonalitet og sikkerhet i bookingsystem
 
 ## WHAT THIS IS
-A content gap, not a code bug: no post on digilist.no currently targets the
-search term "lokalbooking" combined with a geography-filtered search pattern
-(search narrowed to Oslo, Bergen, Trondheim, etc.), or contrasts that
-local-first search behaviour with single-purpose tools like BookUp. The fix
-is a new Norwegian-Bokmål blog article — no application code changes — that
-covers how a renter/booker filters availability by city/kommune across
-Digilist's multi-tenant calendar, and positions that against the
-single-location assumption baked into point tools like BookUp.
+Digilist's SEO agent flagged that no page on digilist.no targets the search term
+"teknisk" combined with "funksjonalitet og sikkerhet i bookingsystem" — the query
+a kommune IT-leder or administrator uses when evaluating a booking vendor's
+technical/security posture before procurement. The ask is a new Norwegian blog
+post that consolidates three specific capabilities — secure public-sector login
+(ID-porten/BankID), audit trail (revisjonsspor), and advanced administration
+(role-based access) — and frames them as what makes Digilist certifiable
+(ISO 27001/27701, SSA-L 2026) and differentiated from generic booking tools.
+
+This is NOT a case of writing something from scratch: each of the three named
+capabilities already has deep, dedicated coverage elsewhere on the site. What's
+missing is a single consolidated "spec sheet" piece that ties functionality +
+security together as one evaluation checklist for the procurement/certification
+stage of the buyer journey — the exact stage "teknisk" signals — and links out to
+the deep-dive posts instead of duplicating them.
 
 ## HOW IT WORKS NOW
-- Blog posts are plain Markdown files with YAML frontmatter, one per post, in
-  `src/content/blog/*.md` (247 files). Filename = slug + `.md`. Schema is
-  `BlogFrontmatter` in `src/lib/blogFrontmatter.ts:5-18`: `slug, title,
-  description, date, updated?, author, role?, readingMinutes?, tag?, cover?,
-  keywords?`.
-- No manual registry. `build-plugins/blogMetaPlugin.ts:21-39` (Vite virtual
-  module `virtual:blog-meta`) scans the directory at build/dev time and feeds
-  `src/lib/posts.ts` (`getAllPosts()` → `/blogg` index, homepage teaser,
-  search) and `src/lib/postContent.ts:13-29` (raw body glob for the article
-  page). Route `src/App.tsx:362` (`/blogg/:slug`) is generic —
-  `src/pages/BlogPost.tsx:88-91` resolves the slug at render time.
-- `scripts/prerender.mjs` prerenders `/blogg/<slug>/index.html` for every
-  post and regenerates `sitemap.xml` (lines ~2495-2705) — fully automatic
-  from the presence of the `.md` file.
-- SEO: `src/components/SEO.tsx`, driven by `BlogPost.tsx:132-162`
-  (`title`, `description`, canonical, OG, `Article` JSON-LD from
-  `article {...}`). `DEFAULT_KEYWORDS` (`SEO.tsx:48-49`) already lists
-  `lokalbooking` sitewide, so this post reinforces an existing target term
-  rather than introducing a new one.
-- `scripts/check-blog-word-count.mjs` enforces a 200-word floor on both the
-  markdown source and the rendered `<article>` — a floor, not a target;
-  sibling posts run ~1,000-1,700 words.
-- `scripts/guard-blog-redirects.mjs` (pre-push) quarantines any new post
-  whose slug collides with a standing server-side 301 — picking an unclaimed
-  slug avoids this.
-- Confirmed via grep (see exploration): no existing post's core topic is
-  "lokalbooking + geography filter across cities"; `lokalbooking` and
-  `geografisk` appear only as passing terms elsewhere, and BookUp is
-  discussed only as a platform-consolidation angle
-  (`bookup-og-eksisterende-booking-losninger.md`), never tied to
-  geographic/local-first search. No near-duplicate exists.
+- Blog posts are plain markdown files in `src/content/blog/*.md`, one per page.
+  There is no content-collection schema/zod validator — the frontmatter contract
+  is informally defined by `src/lib/blogFrontmatter.ts` (`BlogFrontmatter`
+  interface, lines 5-18): `slug`, `title`, `description`, `date`, `author`
+  required-in-practice; `updated`, `role`, `readingMinutes`, `tag`, `cover`,
+  `keywords` optional. No enum on `tag` (29 free-text values in use, e.g.
+  `IT-leder`, `Sikkerhet`). `keywords` is a plain string array (existing posts:
+  5-8 items). Nothing validates that `cover` points to a real file, and cover
+  images are explicitly reused across many posts (`gdpr_iso27001_hero_no.webp`
+  alone appears in 6+ posts already) — reuse is the norm, not an edge case.
+- Discovery is fully automatic: `build-plugins/blogMetaPlugin.ts` globs every
+  `.md` in `src/content/blog/` at build/dev/test time into the `virtual:blog-meta`
+  module; `src/lib/posts.ts` sorts by `date`; `src/lib/postContent.ts` does a
+  separate raw-text glob for the article body. **Dropping a new `.md` file is
+  the entire integration — no index, router, or nav file needs touching.**
+  `public/sitemap.xml` is a stale build artifact regenerated by
+  `scripts/prerender.mjs` at build time — out of scope to hand-edit (and off
+  the "do not touch shared build scripts" list regardless).
+- Existing coverage I read before writing, confirmed by grep + direct read:
+  - `src/pages/Sikkerhet.tsx` — the `/sikkerhet` marketing page: FAQ + principle
+    list already states all three items (BankID/ID-porten login, audit-logg,
+    rollebasert tilgang) plus ISO 27001/27701 and SSA-L 2026 certification, but
+    as short FAQ answers, not an article, and not targeting "teknisk".
+  - `idporten-bankid-kommunal-innlogging.md` (823 words) — deep dive on how
+    ID-porten/BankID integration actually works (SAML/OIDC flow, eID levels).
+  - `phishing-resistente-innlogginger-idporten-bankid.md`,
+    `magic-link-sms-bankid-sikker-innlogging.md` — login-method deep dives.
+  - `integrasjon-med-offentlige-systemer-og-autentisering.md` (slug
+    `id-porten-bankid-integrasjon-kommune-booking`) — the closest overlap,
+    found by round-1 review (I'd missed it in the initial grep pass): a deep
+    architecture/integration piece covering ID-porten/BankID auth, Entra
+    ID/Outlook sync, and a sample audit-log line format, aimed at the
+    technical-integration reader. My post targets the earlier,
+    procurement/checklist stage of the same buyer journey and doesn't repeat
+    its API-flow or log-format detail — but the overlap was real enough that
+    I added an explicit cross-link to it from my post's login section, so
+    search engines and readers see them as a hub-and-spoke pair (checklist →
+    deep technical dive) rather than two pieces competing for the same intent.
+  - `idrettshall-tildeling-saksbehandler-godkjenning-revisjonsspor.md`
+    (1282 words) — audit trail covered as part of a caseworker-workflow
+    narrative, not as a standalone technical capability.
+  - `brukerstyring-og-tilgangskontroll.md` (909 words) — RBAC/admin roles,
+    deep dive on user types and permissions.
+  - `compliance-sikkerhet-og-datavern.md` (slug `datalokasjon-norge-gdpr-kommunal-booking`),
+    `ssa-l-2026-bookingsystem-kommune.md`, `penetrasjonstesting-sikkerhetsrevisjon-saas-leverandor.md`,
+    `cyberangrep-norske-kommuner-bookingsystem.md`, `ddos-ransomware-beredskap-bookingplattform.md`
+    — data location, procurement-contract compliance, pentesting, and incident
+    response, each as its own deep dive.
+  - Confirmed via `grep -l 'keywords:.*teknisk' src/content/blog/*.md` and
+    `grep -rl '"teknisk"' src/content/blog/*.md` — **zero** existing posts
+    target "teknisk" as a keyword, and no post's `slug` collides with the one
+    I'm about to add (`grep -h "^slug:" src/content/blog/*.md | sort | uniq -d`
+    → empty).
 
 ## WHAT CHANGES
-Add one new file: `src/content/blog/lokalbooking-geografisk-sok.md`
-(slug `lokalbooking-geografisk-sok`), following the established frontmatter
-schema and body structure (intro → **Kort svar:** → `## H2` sections → table
-→ `## Kilder` internal links → `## Ta neste steg` CTA). Content covers:
-geography/city filtering (Oslo, Bergen, Trondheim, kommune-crossing search),
-why local-first search matters for the renter, and how that differs from a
-single-location tool like BookUp. No other file needs to change — the
-publishing pipeline (index, sitemap, prerender, SEO) is fully automatic from
-the file's presence, per "HOW IT WORKS NOW" above.
+One new file: `src/content/blog/teknisk-funksjonalitet-sikkerhet-bookingsystem.md`.
+
+- `tag: "IT-leder"` (consistent with other procurement/evaluation-stage posts
+  like `bookingsystem-kommunale-lokaler-guide-it-leder.md`).
+- `cover: "/images/blog/gdpr_iso27001_hero_no.webp"` — reused, matches the
+  certification/security visual theme already established for this cover.
+- `keywords` includes `"teknisk funksjonalitet bookingsystem"` and
+  `"sikkerhet bookingsystem kommune"` as primary terms, plus the three
+  sub-capabilities and the certification terms (ISO 27001, SSA-L).
+- Structure: short framing intro (why "teknisk" is a distinct evaluation stage,
+  separate from price/UX), then one `## H2` section each for secure login,
+  audit trail, and advanced administration — each 2-3 paragraphs summarizing
+  the capability and linking out to the relevant deep-dive post(s) rather than
+  repeating their content — then a certification/differentiation section tying
+  the three together against ISO 27001/27701 and SSA-L 2026, a practical
+  "sjekkliste" (checklist) section an IT-leder can use during vendor evaluation,
+  and a closing CTA paragraph, matching the convention seen in
+  `brukerstyring-og-tilgangskontroll.md` and `cyberangrep-norske-kommuner-bookingsystem.md`
+  (no body `# H1`, no inline images, internal links as `[text](/blogg/slug)`).
+  Target ~900-1100 words, in line with the 625-1282 word range of comparable posts.
+
+This is the smallest valid change: one markdown file, no touches to
+`scripts/prerender.mjs`, `src/entry-server.tsx`, `scripts/verify-live.mjs`,
+`vite.config.ts`, or `build-plugins/blogMetaPlugin.ts` — all of which the
+issue's scope note explicitly says not to touch because every SEO branch
+funnels through them and conflicts on merge.
 
 ## BLAST RADIUS
-- New file only; nothing existing is edited, so no other post, page, or
-  script is at risk of a regression.
-- `getAllPosts()` / `/blogg` index, homepage teaser, and site search all pick
-  the new post up automatically — verified this is additive (they render
-  every post in `src/content/blog/`, no allowlist to update).
-- `sitemap.xml` and prerendered `/blogg/<slug>/index.html` are generated at
-  build time by `scripts/prerender.mjs` for every post — new entry added
-  automatically, not hand-maintained.
-- Internal links: the new post links to and will be linked from
-  `bookup-og-eksisterende-booking-losninger.md` (BookUp comparison),
-  `idrettshall-ledige-tider-sok-book-varsling-tvers-kommuner.md` (cross-
-  kommune search), and `leie-sal-kommune-guide-fra-sok-til-booking.md`
-  (search-to-booking flow) — these three existing posts get a one-line
-  "Kilder"/related addition each so the link is bidirectional; that is the
-  only edit to pre-existing files.
-- `scripts/guard-blog-redirects.mjs` will probe the new slug against live
-  digilist.no redirects on next push; chosen slug
-  (`lokalbooking-geografisk-sok`) does not match any existing post or known
-  consolidated topic, so it is not expected to be claimed.
-- No FAQ JSON-LD entry added to `src/content/blogFaq.mjs` unless the article
-  body ends up with a matching "Vanlige spørsmål" section.
+- **Build/discovery**: none beyond the new file being picked up by the existing
+  glob in `build-plugins/blogMetaPlugin.ts` and `src/lib/postContent.ts` — both
+  are read-only consumers of the directory, unmodified by this change.
+- **Sitemap**: regenerated automatically from the live post list next time
+  `scripts/prerender.mjs` runs; not hand-edited here.
+- **Cover image**: `gdpr_iso27001_hero_no.webp` is shared with 6+ other posts
+  already — adding a 7th reference changes no code path (the file is read
+  as-is by whatever renders `cover`; nothing keys off cover uniqueness).
+- **Slug/routing**: `getPostBySlug` (`src/lib/postContent.ts`) does a first-match
+  lookup by slug; confirmed no existing post uses this slug, so no collision.
+- **Nothing else** reads, imports, or links to this new file before it exists —
+  it has no other callers to break, only the reverse (once merged, other posts
+  could later choose to link to it, but that's out of scope for this change).
+
+## MERMAID DIAGRAM
 
 ```mermaid
-graph TD
-  MD["src/content/blog/lokalbooking-geografisk-sok.md (new)"] -->|scanned at build/dev| Plugin["build-plugins/blogMetaPlugin.ts (virtual:blog-meta)"]
-  Plugin --> Posts["src/lib/posts.ts (getAllPosts)"]
-  Posts --> Index["/blogg index + homepage teaser + site search"]
-  MD -->|raw body glob| PostContent["src/lib/postContent.ts"]
-  PostContent --> BlogPost["src/pages/BlogPost.tsx (/blogg/:slug)"]
-  BlogPost --> SEO["src/components/SEO.tsx (title/meta/OG/Article JSON-LD)"]
-  MD -->|prerendered at build| Prerender["scripts/prerender.mjs"]
-  Prerender --> Sitemap["sitemap.xml"]
-  Prerender --> Static["/blogg/lokalbooking-geografisk-sok/index.html"]
-  MD -->|pre-push slug probe| Guard["scripts/guard-blog-redirects.mjs"]
-  MD -->|word-count floor| WordCount["scripts/check-blog-word-count.mjs"]
-  MD -.internal links.-> BookUpPost["bookup-og-eksisterende-booking-losninger.md"]
-  MD -.internal links.-> TverskommunePost["idrettshall-ledige-tider-sok-book-varsling-tvers-kommuner.md"]
-  MD -.internal links.-> SearchFlowPost["leie-sal-kommune-guide-fra-sok-til-booking.md"]
+flowchart TD
+    MD["src/content/blog/teknisk-funksjonalitet-sikkerhet-bookingsystem.md<br/>(new file, this change)"]
+
+    subgraph BuildTime["Build-time discovery (read-only, unmodified)"]
+        Plugin["build-plugins/blogMetaPlugin.ts<br/>globs *.md into virtual:blog-meta"]
+        RawGlob["src/lib/postContent.ts<br/>import.meta.glob raw body"]
+    end
+
+    subgraph Runtime["Runtime consumers (unmodified)"]
+        PostsTS["src/lib/posts.ts<br/>getAllPosts() sorted by date"]
+        BlogPost["src/pages/BlogPost.tsx<br/>renders /blogg/:slug"]
+        BlogPreview["src/pages/BlogPreview.tsx<br/>listing/teaser cards"]
+        Search["Navbar sitewide search corpus"]
+    end
+
+    Prerender["scripts/prerender.mjs (NOT touched)<br/>regenerates sitemap.xml at build"]
+
+    MD --> Plugin --> PostsTS
+    MD --> RawGlob --> BlogPost
+    PostsTS --> BlogPreview
+    PostsTS --> Search
+    PostsTS -.build step.-> Prerender
+
+    MD -. "links out to (no content duplicated)" .-> A["idporten-bankid-kommunal-innlogging.md"]
+    MD -. links .-> B["idrettshall-tildeling-...-revisjonsspor.md"]
+    MD -. links .-> C["brukerstyring-og-tilgangskontroll.md"]
+    MD -. links .-> D["ssa-l-2026-bookingsystem-kommune.md"]
+    MD -. "shares cover image with" .-> E["6+ existing posts using<br/>gdpr_iso27001_hero_no.webp"]
 ```
 
-## Files likely affected
-- `src/content/blog/lokalbooking-geografisk-sok.md` (new — the post)
-- `src/content/blog/bookup-og-eksisterende-booking-losninger.md` (add one
-  cross-link in "Kilder")
-- `src/content/blog/idrettshall-ledige-tider-sok-book-varsling-tvers-kommuner.md`
-  (add one cross-link)
-- `src/content/blog/leie-sal-kommune-guide-fra-sok-til-booking.md` (add one
-  cross-link)
+## Not done here (out of scope, noted for the record)
+- No change to `/sikkerhet` page — its FAQ already states the same facts at a
+  higher level; this post is the article-length, "teknisk" keyword-targeted
+  companion, not a replacement.
+- No systemic guard/index/registry added anywhere, per the issue's explicit
+  scope note.
