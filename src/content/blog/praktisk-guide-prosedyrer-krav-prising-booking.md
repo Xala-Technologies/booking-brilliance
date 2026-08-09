@@ -5,13 +5,13 @@ description: "Slik setter bookingansvarlige i kommune og hos private utleiere op
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
-readingMinutes: 7
+readingMinutes: 6
 tag: "Bookingansvarlig"
 cover: "/images/blog/booking_calendar_hero_no.webp"
 keywords: ["praktisk guide booking", "prosedyrer for booking", "krav til leietaker booking", "sette opp prising booking", "bookingansvarlig kommune og privat", "administrere booking effektivt"]
 ---
 
-De fleste guidene om booking er skrevet for den som leter etter et lokale, ikke for den som skal administrere det. Denne er for deg som sitter på andre siden: en kommunal saksbehandler eller driftsleder, eller en privat utleier, som skal sette opp og drifte bookingen selv. Uansett om du forvalter idrettshaller for en kommune eller leier ut et selskapslokale privat, går jobben din gjennom de samme tre trinnene: hvilke krav stiller du til den som booker, hvilken prosedyre følger en booking fra forespørsel til gjennomføring, og hvordan setter du opp prisene slik at de faktisk følges. Denne guiden går praktisk gjennom alle tre.
+Krav, prosedyrer og prising for booking er som regel skrevet som tre separate emner: én artikkel om godkjenningsflyt, én om avbestillingsregler, én om prismodeller. Har du ansvaret for å faktisk sette opp bookingen, enten som kommunal saksbehandler eller driftsleder, eller som privat utleier, trenger du de tre sammen, i den rekkefølgen du faktisk bruker dem: hvilke krav stiller du til den som booker, hvilken prosedyre følger en booking fra forespørsel til gjennomføring, og hvordan setter du opp prisene slik at de faktisk følges. Denne guiden går praktisk gjennom alle tre, og peker videre til de dype gjennomgangene der du trenger mer detalj.
 
 ## Krav: hvem kan booke hva
 
@@ -19,7 +19,7 @@ Før du åpner kalenderen for booking, må du bestemme hvem som får booke, og h
 
 **Hvem er målgruppen?** En kommune skiller typisk mellom lag og foreninger med medlemsrabatt, innbyggere som privatpersoner, og kommersielle aktører som bedrifter og eksterne arrangører. En privat utleier har som regel færre kategorier, men samme prinsipp: en fast leietaker med sesongavtale har andre vilkår enn en enkeltbooking til en helgefest.
 
-**Hva må dokumenteres før en booking godkjennes?** For kommunale lokaler er dette ofte medlemsliste for lag, forsikringsbevis for arrangementer med mange gjester, eller riktig antall deltakere i søknaden, mangler her er den vanligste årsaken til at en søknad avvises og må sendes inn på nytt. For private utleiere handler kravene mer om husregler: røykeforbud, maksimalt antall gjester, eller når lokalet senest må være ryddet. Skriv kravene ned og gjør dem synlige *før* noen booker, ikke som en overraskelse i en e-post etterpå. Det er forskjellen mellom en leietaker som aksepterer vilkårene med ett klikk, og en tvist du må rydde opp i etter arrangementet.
+**Hva må dokumenteres før en booking godkjennes?** For kommunale lokaler er dette ofte medlemsliste for lag, forsikringsbevis for arrangementer med mange gjester, eller riktig antall deltakere i søknaden. Manglende dokumentasjon på ett av disse punktene er den vanligste årsaken til at en søknad avvises og må sendes inn på nytt. For private utleiere handler kravene mer om husregler: røykeforbud, maksimalt antall gjester, eller når lokalet senest må være ryddet. Skriv kravene ned og gjør dem synlige *før* noen booker, ikke som en overraskelse i en e-post etterpå. Det er forskjellen mellom en leietaker som aksepterer vilkårene med ett klikk, og en tvist du må rydde opp i etter arrangementet.
 
 ## Prosedyrer: fra forespørsel til gjennomført booking
 
@@ -47,8 +47,8 @@ Grunnprinsippene er like, men detaljene skiller seg på noen punkter:
 | | Kommune | Privat utleier |
 |---|---|---|
 | Hvem setter grunnsatsen | Kommunestyret vedtar, driftsleder forvalter | Utleier bestemmer selv |
-| Typisk krav til leietaker | Medlemsliste, forsikringsbevis, deltakerantall | Husregler, depositum |
-| Hva en avvisning må inneholde | Begrunnelse, ofte med dokumentasjonskrav i anskaffelsen (SSA-L) | Begrunnelse og gjerne forslag til alternativ dato |
+| Typisk krav til leietaker | Medlemsliste, forsikringsbevis, deltakerantall | Husregler ved booking |
+| Hva en avvisning må inneholde | Begrunnelse, med et loggført godkjenningstrinn som ofte er et krav i selve driftsavtalen (SSA-L) | Begrunnelse og gjerne forslag til alternativ dato |
 | Hvem godkjenner | Saksbehandler | Utleier selv |
 
 Skillet er nyttig å kjenne, men det endrer ikke selve strukturen: krav, prosedyre og pris er de samme tre trinnene enten du forvalter tjue kommunale idrettshaller eller ett selskapslokale i borettslaget.
@@ -63,4 +63,4 @@ Sett opp booking-administrasjonen i denne rekkefølgen, så unngår du å måtte
 4. Sett avbestillingsfrister og gebyrstruktur før første booking kommer inn, ikke etterpå.
 5. Test prisene mot faktisk belegg de første månedene, og juster.
 
-Vil du se hvordan krav, godkjenningsprosedyre og prising settes opp praktisk i Digilist, enten du administrerer booking for en kommune eller som privat utleier? [Book en demo](/demo), så viser vi oppsettet med utgangspunkt i dine egne lokaler og rutiner.
+Vil du se hvordan krav, godkjenningsprosedyre og prising settes opp praktisk i Digilist, enten du administrerer booking for en kommune eller som privat utleier? [Book en demo](/book-demo), så viser vi oppsettet med utgangspunkt i dine egne lokaler og rutiner.
