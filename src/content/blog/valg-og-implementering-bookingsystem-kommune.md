@@ -11,7 +11,7 @@ cover: "/images/blog/ssal_2026_booking_hero.webp"
 keywords: ["valg av bookingsystem kommune", "implementering bookingsystem kommune", "bookingsystem beslutningsprosess kommune", "velge bookingsystem kommune", "kommunale beslutningstakere bookingsystem", "fra behov til drift bookingsystem"]
 ---
 
-De fleste guidene om kommunalt bookingsystem er skrevet til IT-lederen alene: kravspesifikasjon, terskelverdi, SSA-L, GDPR. Det er riktig innhold, men det dekker bare halve beslutningen. I praksis er valg av bookingsystem en beslutning flere roller eier sammen, og implementeringen som følger etter signering avgjør om investeringen faktisk gir gevinst. Denne guiden går gjennom hele løpet i rekkefølge, fra hvem som bør sitte ved bordet til hvordan dere måler effekten et halvt år etter go-live, og peker videre til de dype gjennomgangene der du trenger mer detalj på ett enkelt steg.
+De fleste guidene om kommunalt bookingsystem er skrevet til IT-lederen alene: kravspesifikasjon, terskelverdi, SSA-L, GDPR. Det er riktig innhold, men det dekker bare halve beslutningen. I praksis er valg av bookingsystem en beslutning flere roller eier sammen, og implementeringen som følger etter signering avgjør om investeringen faktisk gir gevinst. Denne guiden går gjennom hele løpet i rekkefølge, fra hvem som bør sitte ved bordet til hvordan dere måler effekten i månedene etter go-live, og peker videre til de dype gjennomgangene der du trenger mer detalj på ett enkelt steg.
 
 ## Hvem bør sitte ved bordet
 
@@ -34,7 +34,7 @@ De konkrete symptomene som utløser en anskaffelse, og en fullstendig sjekkliste
 
 ## Kravspesifikasjon og anskaffelsesprosedyre
 
-Med business casen på plass, skriver IT og virksomhetsområdet kravspesifikasjonen sammen, basert på behovet dere har kartlagt, ikke på funksjonene i dagens system. Anskaffelsesprosedyren avhenger av kontraktsverdi: under 100 000 kroner er anskaffelsen unntatt anskaffelsesloven, mellom denne grensen og den nasjonale terskelverdien gjelder lovens grunnkrav uten kunngjøringsplikt, og over EØS-terskelverdien kreves full anbudsprosedyre med kunngjøring på Doffin. Sjekk alltid oppdaterte beløp hos Digitaliseringsdirektoratet (Digdir) før dere fastsetter prosedyre. Avtaleformen som normalt brukes for et bookingsystem som løpende tjeneste er SSA-L.
+Med business casen på plass, skriver IT og virksomhetsområdet kravspesifikasjonen sammen, basert på behovet dere har kartlagt, ikke på funksjonene i dagens system. Anskaffelsesprosedyren avhenger av kontraktsverdi: under 100 000 kroner er anskaffelsen unntatt anskaffelsesloven, mellom denne grensen og den nasjonale terskelverdien gjelder lovens grunnkrav uten kunngjøringsplikt, og over EØS-terskelverdien kreves full anbudsprosedyre med kunngjøring på Doffin. Sjekk alltid oppdaterte beløp hos Direktoratet for forvaltning og økonomistyring (DFØ) på anskaffelser.no før dere fastsetter prosedyre. Avtaleformen som normalt brukes for et bookingsystem som løpende tjeneste er SSA-L.
 
 Full detalj på kravdokument, tildelingskriterier og avtalevilkår finner du i de to guidene lenket over.
 
@@ -62,7 +62,7 @@ Business casen dere bygget i behovskartleggingen bør følges opp, ikke arkivere
 
 **Liten kommune, én idrettshall.** Prosessen er kort: driftsleder og IT-ansvarlig (ofte samme person eller et lite team) kartlegger behovet, kommunedirektøren godkjenner en anskaffelse under nasjonal terskelverdi uten kunngjøringsplikt, og implementeringen er i praksis onboarding-ukens fem dager. Den største risikoen er manglende oppfølging av opplæring, siden det sjelden er en dedikert ressurs til det etterpå.
 
-**Mellomstor kommune, sal, møterom og idrettshall på tvers av virksomhetsområder.** Her er alle fire rollene reelt separate personer, kravspesifikasjonen må dekke ulike godkjenningsflyter per lokaltype, og kontraktsverdien ligger ofte over den nasjonale terskelverdien, som utløser en lengre anbudsprosedyre. Implementeringen bør deles opp: én virksomhetsområde går live først som pilot, med de andre etter to til fire uker, slik at kommunikasjonsplanen og opplæringen kan justeres før full utrulling.
+**Mellomstor kommune, sal, møterom og idrettshall på tvers av virksomhetsområder.** Her er alle fire rollene reelt separate personer, kravspesifikasjonen må dekke ulike godkjenningsflyter per lokaltype, og kontraktsverdien ligger ofte over EØS-terskelverdien, som utløser full anbudsprosedyre med kunngjøring på Doffin. Implementeringen bør deles opp: én virksomhetsområde går live først som pilot, med de andre etter to til fire uker, slik at kommunikasjonsplanen og opplæringen kan justeres før full utrulling.
 
 ## Neste steg
 
