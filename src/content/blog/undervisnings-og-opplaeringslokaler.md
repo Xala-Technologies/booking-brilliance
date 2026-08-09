@@ -33,38 +33,23 @@ Fordi behovet varierer fra kurs til kurs, holder det sjelden med én generisk «
 
 Felles for alle tre er at de i dag ofte må ringe eller sende e-post for å få vite prisen på et lokale, og at svaret kan ta dager å komme. Det gjør det vanskelig å sammenligne alternativer og planlegge et kursbudsjett med sikkerhet.
 
-## Rimelig pris, synlig før du booker
+## Rimelig pris, men bare hvis den er synlig først
 
-Prisen på undervisningslokaler varierer betydelig med hvem som leier og hvor lenge, og det er nettopp denne variasjonen som gjør synlig prising viktig:
+Det som gjør et undervisningslokale «rimelig» er sjelden kronebeløpet alene. Det er at prisen faktisk lar seg sammenligne før du bestemmer deg. Et grupperom til 12 og et auditorium til 60 koster naturlig nok forskjellig, men i dag må mange kursarrangører, språkskoler og opplæringsleverandører innhente pris på flere lokaler manuelt, ett og ett, før de kan se hvilket alternativ som faktisk er billigst for akkurat deres kurs.
 
-- **Frivillige og ideelle kursholdere**, for eksempel lag og foreninger som arrangerer kurs for egne medlemmer, får ofte redusert sats eller gratis leie, særlig hvis organisasjonen er registrert i Frivillighetsregisteret.
-- **Språkskoler og private kursarrangører** betaler normalt en fast time- eller dagspris, som i Digilist vises direkte i kalenderen før bestilling bekreftes, uten at du må be om et tilbud først.
-- **Opplæringsleverandører med lengre kursrekker** kan ofte forhandle en samlet pris for flere dager eller en hel sesong, synlig i systemet samtidig som ledigheten sjekkes.
+I Digilist er prisen en del av søkeresultatet, ikke noe du ber om separat. Det betyr at en språkskole som vurderer to grupperom i samme bydel kan se totalprisen for hele semesteret på begge, side om side, samme ettermiddag. Rabatt for frivillige og ideelle kursholdere som er registrert i Frivillighetsregisteret vises automatisk, uten at noen må søke om det for hver enkelt booking.
 
-Fordi prisen er koblet til hvem som booker og vises i kalenderen med én gang, kan en språkskole sammenligne kostnaden ved to ulike lokaler samme ettermiddag, i stedet for å vente på svar fra to ulike saksbehandlere.
+## Lett-bookbar handler om hva du slipper, ikke hva du gjør
 
-## Lett-bookbar: fra søk til bekreftelse uten telefon
+Et undervisningslokale er ikke lett-bookbart fordi bookingskjemaet har få felter. Det er lett-bookbart fordi tre ting kursarrangører, språkskoler og opplæringsleverandører ellers bruker tid på, faller bort:
 
-Det som gjør et undervisningslokale «lett-bookbart» er ikke bare at det finnes ledig kapasitet, men at hele veien fra søk til bekreftet booking kan gjøres selv, uten å vente på noen andre:
+- **Ingen venting på svar fra en saksbehandler** før du vet om lokalet er ledig og hva det koster. Begge deler står i kalenderen med én gang.
+- **Ingen ny henvendelse per kurs.** En språkskole med fire parallelle kveldskurs kan sette opp alle fire mot fire ulike lokaler i samme økt, i stedet for fire separate telefonrunder.
+- **Ingen risiko for at rommet allerede er tatt.** Fordi ledigheten oppdateres i det en booking bekreftes, unngår to kursarrangører å konkurrere om samme dato uten å vite det.
 
-1. **Søk på sted, kapasitet og dato.** Filtrer på antall deltakere, område og hvilke datoer eller ukedager kurset skal gå.
-2. **Se pris og utstyr med én gang.** Prosjektor, whiteboard, trådløst nett og pris vises i samme oversikt, slik at du slipper å ringe for å avklare det grunnleggende.
-3. **Book flere dager eller en hel serie i én operasjon.** En språkskole som trenger samme rom hver tirsdag i ti uker booker hele serien samtidig, ikke uke for uke.
-4. **Bekreft med innlogging.** Private kursarrangører og språkskoler bekrefter med vanlig innlogging; kommunale enheter og innbyggere kan bekrefte med ID-porten eller BankID der kommunen krever det.
-5. **Motta kvittering umiddelbart.** Adresse, tidspunkt og eventuell adgangskode følger med kvitteringen, klar til å sendes videre til kursdeltakerne.
+## Ett kurs, ett lokale hele veien
 
-Fordi kalenderen oppdateres i sanntid i det en booking bekreftes, unngår to kursarrangører å booke samme rom samme uke uten å vite om det, noe som ellers er en vanlig kilde til dobbeltbooking når ledighet sjekkes manuelt.
-
-## Praktiske krav til et undervisningslokale
-
-Uavhengig av om det er en kommune eller en privat utleier som stiller lokalet til rådighet, går de samme kravene igjen for undervisnings- og opplæringslokaler:
-
-- **Ansvarlig booker** står oppført med navn og kontaktinfo for hele kursperioden.
-- **Avbestillingsfrist** er ofte lengre for flerdagers kurs enn for enkeltmøter, gjerne én til to uker, fordi bookingen blokkerer mye kapasitet.
-- **Ryddefrist** angir når rommet skal være klart til neste bruker, typisk innen et gitt klokkeslett dagen etter siste kursdag.
-- **Utstyrsansvar** for prosjektor og annet AV-utstyr, med melding om skader før neste kursholder tar i bruk rommet.
-
-Disse kravene vises i bookingsystemet før bekreftelse, slik at både utleier og kursarrangør har samme forventning fra første booking. For en dypere gjennomgang av selve klasseromsformatet, flerdagersbooking og kommunal internopplæring, se [klasseromsleie til kurs og opplæring](/blogg/klasseromsleie-til-kurs-og-opplaering).
+Et kurs som strekker seg over flere uker eller flere dager på rad har et annet krav enn et enkeltmøte: samme rom må være ledig hver gang, ikke bare ved første booking. For klasseromsformatet spesifikt — flerdagersbooking, ansvarlig booker, avbestillingsfrist og ryddefrist — se den fulle gjennomgangen i [klasseromsleie til kurs og opplæring](/blogg/klasseromsleie-til-kurs-og-opplaering). Det som gjelder ekstra for undervisnings- og opplæringslokaler utover klasserommet, er at et auditorium eller en samlingssal til en større sertifiseringssamling ofte må bookes måneder i forveien, og at opplæringsleverandøren da trenger bekreftelse på at nøyaktig det rommet, med nøyaktig den kapasiteten, er reservert for hele perioden, ikke bare til det først ledige tidspunktet.
 
 ## Vanlige spørsmål
 
