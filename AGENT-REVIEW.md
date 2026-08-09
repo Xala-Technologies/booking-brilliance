@@ -1,220 +1,262 @@
-# XAL-1141: Deep review log
+# XAL-1150: Deep review log
 
-Change under review: one new file,
-`src/content/blog/teknisk-funksjonalitet-sikkerhet-bookingsystem.md`
-(a Norwegian blog post), plus `AGENT-SPEC.md` and `proof/*.png`.
+Change under review: `src/content/blog/undervisnings-og-opplaeringslokaler.md`
+(new Norwegian Bokmål blog post), a matching `POST_FAQ` entry in
+`src/content/blogFaq.mjs`, and `AGENT-SPEC.md`.
 
-## Round 1 — correctness / regression-duplication / security / scope
+## Round 1 — correctness / regression / security / scope
 
-Four parallel agents, each told to REFUTE the change over the actual file
-contents (and `git show 63231fa` for the scope lens).
+Four parallel agents, each told to REFUTE the change, run over
+`git diff 28ea183 61b4f88` (the state right after the post was first written).
 
-**Correctness** — found two real defects:
-1. The post defined SSA-L as "Statens standardavtale for programvare som
-   tjeneste". Every other post in the repo (15+, cross-checked with grep)
-   defines it as "Statens standardavtale for løpende tjenestekjøp" — my
-   phrasing was simply wrong, not a stylistic variant.
-2. The audit-log line "loggen kan ikke endres av den samme kontoen som gjorde
-   endringen" was an invented, uncorroborated specific claim — no other post
-   or `Sikkerhet.tsx` makes that particular assertion. The closest
-   established claim (`integrasjon-med-offentlige-systemer-og-autentisering.md`:
-   "Loggen er uforanderlig, verken administratorer i kommunen eller
-   Digilist-support kan slette enkeltoppføringer") is different and better
-   supported.
-   Everything else checked out: ISO 27001/27701 "sertifisert" (not "i
-   prosess") matches `Sikkerhet.tsx` and other posts; all four internal links
-   resolved; frontmatter conventions matched; no Norwegian grammar errors.
+**Correctness** — checked frontmatter shape against `BlogFrontmatter`
+(`src/lib/blogFrontmatter.ts`), the internal link target
+(`klasseromsleie-til-kurs-og-opplaering.md` exists with the matching slug),
+byte-for-byte verbatim match of all 3 FAQ question/answer pairs between the
+post body and `blogFaq.mjs` (checked programmatically, not by eye), slug
+consistency across frontmatter/filename/FAQ key, markdown syntax, and that
+product claims (ID-porten, BankID, Frivillighetsregisteret,
+serietidsbestillinger) are established terminology already used elsewhere in
+the corpus. **No issues found.**
 
-**Regression / duplication** — found the most important issue of the round:
-`integrasjon-med-offentlige-systemer-og-autentisering.md` (slug
-`id-porten-bankid-integrasjon-kommune-booking`) covers the same three pillars
-(ID-porten/BankID auth, immutable audit log, RBAC) in comparable depth, and I
-had not read it before writing (my pre-writing grep pass found it but I only
-skimmed the file list, not the file itself). Real keyword overlap also
-flagged against `brukerstyring-og-tilgangskontroll.md` (`rollebasert
-tilgang`), `ssa-l-2026-bookingsystem-kommune.md` (`SSA-L 2026`), and
-`idrettshall-tildeling-saksbehandler-godkjenning-revisjonsspor.md`
-(`revisjonsspor`, published the same day). Slug and cover-image reuse
-(`gdpr_iso27001_hero_no.webp`, already used by 6 other posts) were both
-confirmed clean — reuse is the established norm here, not a collision risk.
+**Regression** — grepped the whole repo for anything that hardcodes a post
+count, iterates all `POST_FAQ` keys, or asserts a specific corpus size; ran
+`scripts/check-blog-word-count.mjs` and `scripts/check-title-lengths.mjs`
+directly; confirmed tags are derived dynamically from frontmatter
+(`src/pages/Blog.tsx`) with no enum to update; confirmed no slug collision
+exists anywhere in `src/content/blog/*.md`. **No issues found.**
 
-**Security** — no issues. Markdown renders through `ReactMarkdown` with only
-`remarkGfm` (no `rehype-raw`), so there's no HTML-injection surface either
-way; the post contains no raw HTML regardless. Audit-log description stays at
-the same marketing-level detail already public on `/sikkerhet`. No
-unsupported certification claims (matched existing "sertifisert" wording) and
-no external links besides internal `/blogg/*` and `/sikkerhet` paths.
+**Security** — confirmed the post body contains no raw HTML/script tags/JS
+URIs, no secrets or internal infra details, that `https://digilist.no/demo`
+and the internal `/blogg/klasseromsleie-til-kurs-og-opplaering` link are
+established, already-used patterns elsewhere in the corpus, and that
+`AGENT-SPEC.md` doesn't leak anything sensitive. **No issues found.**
 
-**Scope** — clean. Diff is exactly the new post, `AGENT-SPEC.md`, and
-`proof/*.png`; no shared build/render script touched. One doc-accuracy
-defect: `AGENT-SPEC.md` described a keyword (`"teknisk sikkerhet
-bookingsystem"`) that wasn't actually in the file's frontmatter (the real
-second keyword was `"sikkerhet bookingsystem kommune"`).
+**Scope** — confirmed only the three expected files changed, no forbidden
+shared build/render script was touched, and that the previous
+`AGENT-SPEC.md`/`AGENT-REVIEW.md` content (from the already-merged,
+unrelated XAL-1141) was safe to fully overwrite. **Found one real issue:**
+several sections — the pricing breakdown, the 5-step booking walkthrough,
+and the "praktiske krav" bullet list — were near-verbatim structural clones
+of the equivalent sections in the existing
+`klasseromsleie-til-kurs-og-opplaering.md` post (same skeleton, same order,
+same wording for the four "praktiske krav" items, same three-tier pricing
+split). The reviewer's independent assessment: the three named personas
+(kursarrangører, språkskoler, opplæringsleverandører) and the
+affordability/self-service framing the ticket asked for *are* a genuine,
+underserved gap relative to the existing post — but the surrounding
+boilerplate risked shipping this as a near-duplicate URL that cannibalizes
+keyword space rather than a distinct piece of content.
 
-### What I changed after round 1
-- Fixed the SSA-L acronym expansion to "Statens standardavtale for løpende
-  tjenestekjøp" and turned the mention into a link to
-  `/blogg/ssa-l-2026-bookingsystem-kommune`, matching how every other post
-  refers to it.
-- Rewrote the audit-log sentence to use the same, already-established
-  "uforanderlig … verken administratorer i kommunen eller Digilist-support
-  kan slette enkeltoppføringer" claim instead of the invented
-  same-account-lockout detail.
-- Added an explicit cross-link from the login section to
-  `integrasjon-med-offentlige-systemer-og-autentisering.md`, framing it as
-  "the technical integration deep dive" so the two posts read as a
-  hub-(checklist)-and-spoke-(architecture) pair for search engines and
-  readers, rather than two pieces chasing the same intent.
-- Corrected `AGENT-SPEC.md`'s keyword list to match the actual frontmatter,
-  and added the missed near-duplicate post plus the mitigation taken to the
-  "HOW IT WORKS NOW" section.
-- Re-ran `node scripts/check-blog-word-count.mjs` after edits (still 1019
-  words, well above the 200-word floor) and re-confirmed all internal links
-  resolve.
+### What changed after round 1
 
-## Round 2 — deeper fact-check + SEO/rendering regression
+Rewrote the pricing section, the "lett-bookbar" section and the "praktiske
+krav" section (`src/content/blog/undervisnings-og-opplaeringslokaler.md`):
+- Pricing now compares cost **across venue types** (grupperom vs.
+  auditorium/samlingssal) and leads with "the price is only useful if you
+  can compare it before deciding" instead of repeating the sibling post's
+  persona-tier pricing breakdown almost verbatim.
+- The 5-step numbered booking walkthrough was replaced with a shorter,
+  differently-framed section on what self-service booking removes (no
+  waiting on a caseworker, no repeat calls per parallel course, no
+  double-booking risk) rather than restating the same 5 steps.
+- The "praktiske krav" bullet list (ansvarlig booker / avbestillingsfrist /
+  ryddefrist / utstyrsansvar) was cut entirely and replaced with one
+  paragraph that names what's *specific* to undervisningslokaler
+  (auditorium/samlingssal booked months ahead for a fixed room+capacity)
+  and points to the sibling post's existing deep dive on the shared
+  klasserom-specific requirements, instead of restating them.
+- FAQ section and its `POST_FAQ` entry were left untouched (verified still
+  byte-for-byte matching after the edit) — that section was not flagged.
 
-Two parallel agents: one re-verified round 1's fixes landed correctly and
-then read every remaining factual sentence line by line against
-`Sikkerhet.tsx` and 3+ other posts; the other did a full `pnpm build` +
-`pnpm vitest run` pass focused on structured data, sitemap, blog listing, and
-the AEO corpus file — none of which round 1 had checked.
+Re-ran after the fix: `pnpm build` (prerender + word-count gate, still
+passes for all 261 posts), `vitest run src/content/blogFaq.test.ts
+src/content/blog-xal739-aeo.test.ts` (4/4 pass), `node
+scripts/check-title-lengths.mjs` (60 chars, unflagged). Word count dropped
+from 1056 to 941 words — still well above the 200-word floor.
 
-**Fact-check lens** — round 1's three fixes all verified correct (SSA-L
-phrasing now matches 11+ other posts, audit-log claim now verbatim-consistent
-with the linked integration post, new cross-link resolves). One new, real
-issue found: the "avansert administrasjon" section (then line 38) claimed the
-*kommune* sets up and adjusts rights for all four listed roles — including
-"lagkoordinator" and "bedriftsfullmakt." Cross-checked against
-`brukerstyring-og-tilgangskontroll.md` and
-`registrere-lag-organisasjon-booke-kommunale-lokaler.md`: lagkoordinator is
-the *team's own* admin role, and a business's booking-confirmation authority
-is controlled by the business itself, not the kommune. The sentence conflated
-kommune-administered RBAC with tenant-internal self-administration, which
-blurs a real multi-tenant boundary, ironic given the post's own checklist
-asks vendors to prove tenant isolation. Everything else re-checked clean: ISO
-checklist phrasing matches ~5 other posts' generic due-diligence language
-(not a Digilist-specific hedge), description (158 chars) and title (78
-chars) are within the corpus's normal range, and the "fjerner passord som
-angrepsvektor helt" claim is narrower than, not contradicting, the phishing
-post's more hedged claim.
+## Round 2 — correctness / regression / security / scope-duplication re-check
 
-**SEO/rendering lens** — ran a full `pnpm build` and inspected the actual
-prerendered output, not just the source markdown. Confirmed: exactly one
-`<h1>` matching the frontmatter title; `Article` JSON-LD present with
-`headline`/`description` matching frontmatter and `articleSection: "IT-leder"`
-matching `tag`; canonical URL and all Open Graph tags (including
-`og:locale=nb_NO`) correct; the post appears exactly once in
-`dist/sitemap.xml` with the right `<lastmod>`; it appears correctly as the
-first (most recent) entry on the blog listing page, sorted by date as
-expected; `pnpm vitest run` still green (16 files / 35 tests). Confirmed the
-post's correct *absence* from `dist/llms-full.txt` is expected behavior (that
-file is a static FAQ corpus, not a per-post index — verified other linked
-posts are likewise absent). No issues found in this lens.
+Four parallel agents, run over `git diff 28ea183 55ca580` (base through the
+round-1 fix commit), each re-checking their lens against the revised
+content and one of them specifically re-litigating the round-1 duplication
+finding from scratch rather than trusting the fix commit's own claim.
 
-### What I changed after round 2
-- Rewrote the "avansert administrasjon" paragraph to separate kommune-level
-  role administration (saksbehandler, driftsleder, administrator — set up and
-  adjusted by the kommune) from tenant-internal self-administration
-  (lagkoordinator, bedriftsfullmakt — set up and adjusted by the team or
-  business itself, without kommune involvement), matching the tenant
-  boundary described in `brukerstyring-og-tilgangskontroll.md`.
-- Re-ran the word-count check (1043 words) and `pnpm vitest run` (16 files /
-  35 tests, all green) after the edit.
+**Correctness** — verified the new pricing section's auditorium/grupperom
+capacity claims (60 / 12) are consistent with the room-type ranges
+introduced earlier in the same post (grupperom 10–30, auditorium/samlingssal
+40+); confirmed programmatically that the FAQ section (untouched by the fix
+commit) still matches `POST_FAQ["undervisnings-og-opplaeringslokaler"]`
+byte-for-byte; confirmed the internal link still resolves; grepped for
+dangling references to the deleted 5-step list or "praktiske krav" bullets
+(none found); re-confirmed word count and markdown balance. **No issues
+found.**
 
-## Round 3 — adversarial editorial read + full-branch regression sweep
+**Regression** — re-ran `check-blog-word-count.mjs` (261/261 pass),
+`check-title-lengths.mjs` (60 chars), and both targeted vitest files (4/4
+pass); grepped `dist/blogg/undervisnings-og-opplaeringslokaler/index.html`
+directly and confirmed the prerendered HTML actually contains the H1, all 3
+FAQ questions, and a `"@type":"FAQPage"` JSON-LD block — not just present in
+source markdown; grepped the whole repo for the exact removed phrasing
+(the old 5-step intro line, the old "Ansvarlig booker"/"Avbestillingsfrist"
+wording) and found only unrelated occurrences in two untouched sibling
+posts, confirming nothing else depended on the deleted text; confirmed
+`src/lib/posts.ts`'s sort places the new post in today's top tie-group with
+no manual step. **No issues found.**
 
-Two parallel agents: one did a final skeptical-editor pass over the whole
-post again (not re-checking rounds 1-2's fixed points beyond a one-line spot
-check), the other looked past the single content file at the whole branch
-diff versus `origin/main` for anything rounds 1-2 hadn't covered (leftover
-files, tracked build output, proof-file sanity, file count).
+**Security** — re-scanned the rewritten sections for raw HTML/script
+content, secrets, and injection patterns; reconfirmed both link targets are
+byte-identical to round 1 and still legitimate. **No issues found.**
 
-**Editorial lens** — spot-checked rounds 1-2's fixes (all held up), then
-found one more real issue: the login section claimed kommune saksbehandlere
-and driftsledere use "samme inngang" (the same BankID/ID-porten entry) as
-citizens, and that this "fjerner passord som angrepsvektor helt." That
-directly contradicts `idporten-bankid-kommunal-innlogging.md`'s own
-"Hva med ansatte i kommunen?" section, which says employees authenticate via
-the kommune's FEIDE-based identity management (SAML 2.0), not ID-porten —
-and a third post, `phishing-resistente-innlogginger-idporten-bankid.md`,
-describes yet a different employee flow (ID-porten with staff credentials, or
-magic-link/SMS). Three sibling posts disagree with each other on this exact
-point; my post shouldn't have picked the single strongest, unhedged version
-without reconciling it — especially since my own checklist bullet 1 already
-implicitly asks "which mechanism for citizens, which for kommuneansatte,"
-acknowledging they can differ.
+**Scope/duplication re-check** — independently re-read both posts in full
+and compared section-by-section against the three round-1 clones, without
+taking the fix commit's message at its word: the numbered booking
+walkthrough is gone from the new post (replaced by a 3-bullet "what
+self-service removes" framing with no procedural steps); the 4-item
+"praktiske krav" list is gone, replaced by a single sentence naming the four
+shared terms once as a pointer to the sibling post's existing deep dive,
+not a restatement; the 3-tier persona pricing list is gone, replaced by
+prose about price comparability across venue types. Keyword arrays between
+the two posts share no identical strings. One minor residual overlap noted
+(a single near-duplicate clause about real-time availability updates,
+appearing once in each post) — judged not disqualifying, since it describes
+one real, singular product fact rather than restating a whole section.
+**Verdict: the round-1 finding is resolved** — this reads as two distinct
+articles with the overlapping procedural specifics properly consolidated
+into one canonical post via internal linking, not duplicated.
 
-**Regression-sweep lens** — one confirmed action item, everything else
-clean: `AGENT-GOAL.md` is still present and tracked (expected at this point
-in the workflow — it's deleted as the last step before opening the PR, not
-during review — but flagged correctly as something that must not ship).
-`git status` clean, no stray uncommitted files. `dist`/`dist-server` properly
-gitignored and nothing from either was ever tracked. Both proof PNGs
-committed, non-zero, reasonably sized (159 KB / 431 KB). Exactly one content
-file added across the whole branch (`teknisk-funksjonalitet-sikkerhet-bookingsystem.md`);
-everything else in the diff is `AGENT-SPEC.md`, `AGENT-REVIEW.md`, or `proof/`.
+## Round 3 — fresh-angle pass over the same diff
 
-### What I changed after round 3
-- Reworded the login section: citizens are described as logging in via
-  BankID/ID-porten with no per-service password (well-supported across every
-  source); kommune employees are now described generically as authenticating
-  through "kommunens egen identitetsløsning" with role-based access mapped
-  automatically from their existing role there — true regardless of which of
-  the three disagreeing sibling posts is most current, and no longer claims
-  the "same entry" or a blanket "fjerner passord helt" for the employee path.
-- Re-ran the word-count check (1064 words) and `pnpm vitest run` (16 files /
-  35 tests, all green) after the edit.
+Four parallel agents, run over `git diff 28ea183 55ca580`, each explicitly
+told to look past what rounds 1-2 already checked and find something new —
+correctness from a native-Bokmål-reader angle instead of a mechanical
+frontmatter check, regression via consumers not yet inspected
+(homepage teaser/search corpus truncation, og:image handling, image
+optimizer, redirect guard), security via the CI/supply-chain angle instead
+of re-scanning the same markdown, and scope via a literal clause-by-clause
+re-read of the ticket's own acceptance line in `AGENT-GOAL.md`.
 
-## Round 4 — final holistic refute pass + independent fresh-eyes read
+**Correctness — found two real issues.** Reading the post as a native
+speaker: (1) a genuine grammar error, "det først ledige tidspunktet" should
+be "det første ledige tidspunktet" (ordinal in a definite noun phrase takes
+the adjectival form; the reviewer cross-checked this is the house idiom by
+finding "den første ledige tiden" already used correctly in a sibling
+post). (2) The opening three-clause sentence had no governing main verb —
+a stacked sentence fragment relying on the next sentence to complete the
+thought, inconsistent with how every other sampled post opens. Everything
+else (description length, keyword coverage, product-claim consistency
+against 3+ sibling posts, title/H1 rendering) checked out.
 
-Two parallel agents: one did a final targeted pass on the certification and
-checklist sections plus a `cat -A` sweep for encoding/whitespace artifacts;
-the other read the file with zero prior context, as an independent second
-opinion, re-verifying every link, the frontmatter, and reading-time math from
-scratch rather than trusting earlier rounds' conclusions.
+**Regression — no issues found.** Checked `BlogPreviewSection.tsx` and the
+sitewide search corpus for description-length truncation risk (this post's
+172-char description is unremarkable against the corpus's 162-char average,
+231-char max, no truncation logic exists to break); confirmed
+`scripts/prerender.mjs`'s og:image handling and `verify-live.mjs`'s
+image-diversity check (warning-only, doesn't fire since the 12 newest posts
+already use 7+ distinct covers) are unaffected by reusing a shared cover;
+confirmed the preview-size image variant already exists on disk; confirmed
+`scripts/guard-blog-redirects.mjs` is a new-slug-only check with no
+retroactive rename risk relevant here; re-ran `eslint` on `blogFaq.mjs`
+clean.
 
-**Holistic refute lens** — spot-checked rounds 1-3's five fixes (all correct
-now), then found a sixth real issue: "De krever dokumenterte kontroller for
-nøyaktig disse tre områdene" (ISO 27001/27701 require documented controls
-for *exactly* these three areas) overclaimed precision. The site's own
-`gdpr-iso-datalokasjon-norge.md` describes ISO 27001 as covering five
-distinct areas (policies, risk management, access/logging/incident handling,
-supplier agreements, continuous audit) and explicitly caveats what the
-certification does *not* guarantee — my post's "nøyaktig disse tre" framing
-wasn't established anywhere else on the site. No IA/redundancy problem
-between the certification section and the checklist, and no encoding or
-stray-whitespace artifacts in the file.
+**Security — no issues found.** Checked the CI/supply-chain angle: no
+GitHub Actions workflow triggers additional deploy/external-service calls
+specifically because a new blog post exists (deploy only fires on push to
+`main`, unchanged by this diff; `indexnow-submit.mjs` exists but isn't
+wired into any workflow); confirmed the new `blogFaq.mjs` object literal
+has no computed keys/function calls/interpolation; re-read `AGENT-GOAL.md`
+and confirmed the shipped post traces cleanly to the ticket's stated scope
+with no unexplained links or claims; re-checked the `AGENT-SPEC.md` mermaid
+diagram and Notes section for leaked infra details — none found.
 
-**Fresh-eyes lens** — independently re-verified all 6 internal links resolve
-(including the `#kontakt` anchor, checked against `CTASection.tsx`),
-frontmatter completeness, and that `readingMinutes: 7` is plausible for the
-actual word count. Found one real issue: "for eksempel når en leiekontrakt
-skal ha rettskraft" misuses "rettskraft" — a specific Norwegian
-civil-procedure term for a final, unappealable court judgment (tvisteloven)
-— where "rettsgyldig" (legally valid/binding) is the correct word for a
-lease. Noted this exact misuse already exists in
-`idporten-bankid-kommunal-innlogging.md` too, but flagged it as still wrong
-in this post regardless of the sibling post's pre-existing error.
+**Scope — found one real issue.** Re-reading the ticket's acceptance line
+in `AGENT-GOAL.md` clause by clause against the post: kursarrangører,
+språkskoler, and opplæringsleverandører were all covered as named personas;
+"rimelige" and "lett-bookbare" were both covered as section-level framing.
+But the clause "Digilist støtter pedagogiske og faglige arrangementer med
+lokalbooking" had been dropped entirely — zero occurrences of "pedagog" or
+"faglig" anywhere in the post, and the post frames everything as "kurs"
+specifically, narrower than the ticket's "faglige arrangementer." Also
+confirmed the post is Bokmål throughout with no stray Nynorsk/English,
+`AGENT-GOAL.md` is still present and untouched by any commit so far, and
+the round-1 cross-link is one-directional (the sibling post has zero diff
+across the whole branch).
 
-### What I changed after round 4
-- Reworded the ISO 27001/27701 sentence to "blant de dokumenterte kontrollene
-  ... inngår nettopp disse tre ... i tillegg til risikostyring og
-  leverandøroppfølging for øvrig" — stating the three areas are part of what
-  the certifications cover, not an exhaustive/exact list, consistent with
-  `gdpr-iso-datalokasjon-norge.md`.
-- Fixed "rettskraft" → "rettsgyldig" for the lease-contract example (did not
-  touch the pre-existing instance in the sibling post — out of scope for this
-  change).
-- Re-ran the word-count check (1075 words) and `pnpm vitest run` (16 files /
-  35 tests, all green) after the edits.
+### What changed after round 3
 
-Four rounds run, each finding and fixing at least one real issue (seven
-defects total: wrong SSA-L expansion, invented audit-log detail, missed
-near-duplicate post, conflated kommune/tenant roles, contested
-employee-login claim, overclaimed ISO scope, and one legal-term misuse). No
-round came back empty, so this review stops at four as scoped rather than
-continuing further — the post has been read end-to-end, line by line, by
-eight independent agent passes across four rounds.
-- No action needed yet on `AGENT-GOAL.md` — deleting it is the scheduled last
-  step before opening the PR, per the workflow's own ordering.
+`src/content/blog/undervisnings-og-opplaeringslokaler.md`:
+- Fixed "det først ledige tidspunktet" → "det første ledige tidspunktet".
+- Rewrote the opening three-clause sentence into three separate complete
+  sentences, each with its own main verb, instead of one ungrammatical
+  stacked fragment.
+- Added a new paragraph after the room-types list explicitly naming
+  "pedagogiske og faglige arrangementer" (fagdag, forelesningsrekke,
+  bedriftsintern workshop) as content Digilist's booking flow treats the
+  same as a course — covering the ticket's acceptance clause that had been
+  dropped.
+
+Re-ran after the fix: `vitest run src/content/blogFaq.test.ts
+src/content/blog-xal739-aeo.test.ts` (4/4 pass), `node
+scripts/check-title-lengths.mjs` (60 chars, unflagged), `pnpm build`
+(prerender + word-count gate, still passes for all 261 posts). Word count
+now 998 words (up from 941, still comfortably above the 200-word floor).
+FAQ section and `POST_FAQ` entry re-verified byte-for-byte matching after
+the edit (the FAQ section itself was not touched).
+
+## Round 4 — final pass on the fully fixed diff
+
+Four parallel agents, run over the final diff `28ea183..40415ab` (base
+through all three fix commits), each re-checking their lens once more to
+confirm rounds 1-3's fixes actually hold together and that stacking three
+separate edit passes on the same file didn't introduce or leave anything
+new.
+
+**Correctness** — read the full post fresh as if for the first time: no
+leftover artifacts or broken transitions between sections after three
+rounds of edits. Specifically checked the newest paragraph (pedagogiske og
+faglige arrangementer) reads naturally in context and its one product claim
+("Digilist skiller ikke mellom kurs og slike faglige arrangementer i
+bookingflyten") matches an established house idiom already used in two
+sibling posts, rather than asserting something new and unverified.
+Re-verified the rewritten opening is now three grammatically complete
+sentences. Re-verified the FAQ section still matches `POST_FAQ` byte-for-byte
+on the truly final file state (not trusting earlier rounds' checks).
+Re-ran the word-count gate. **No issues found.**
+
+**Regression** — ran the FULL test suite (`npx vitest run`, all 16 files /
+35 tests, not just the two targeted files), a full `pnpm build`, and
+`eslint` on `blogFaq.mjs` — all green. Confirmed `blogFaq.mjs`'s diff
+across the whole branch is still exactly the one clean addition from round
+1, untouched by the two later fix commits that only edited the `.md` file.
+**One process note, not a shipped-code defect:** at the time this agent
+ran, `AGENT-REVIEW.md` itself was mid-edit (this document) and the
+`proof/` screenshot was untracked — correctly flagged as unfinished
+bookkeeping to commit before opening the PR, not a defect in the reviewed
+change. Also flagged that the branch had drifted from `origin/main` and
+would need a sync before push — addressed in the SYNC step below, per the
+workflow's own ordering (sync happens after review, before push).
+
+**Security** — final scan of the two newest additions (the pedagogiske/
+faglige paragraph and the rewritten opening) for raw HTML/script content
+and secrets — clean. Full-file scan across all three edit rounds for
+prompt-injection phrasing and hidden Unicode control characters — none
+found. Confirmed no stray temp/editor artifacts (`.bak`/`.tmp`/`.swp`) were
+left in the repo from the editing process. **No issues found.**
+
+**Scope** — final `git diff 28ea183 40415ab --stat` confirms exactly three
+files changed across all three commits: the post, `blogFaq.mjs`, and
+`AGENT-SPEC.md`. Re-confirmed all six clauses of the ticket's acceptance
+line are now covered, quoting the specific sentence that now covers the
+previously-missing "pedagogiske og faglige arrangementer" clause.
+Re-confirmed no forbidden shared build/render file was touched at any
+point across all three commits. **No issues found — ready to ship.**
+
+### Outcome
+
+Four rounds run. Round 1 found and fixed a structural-duplication risk
+against a sibling post. Round 2 independently re-verified that fix actually
+resolved the concern rather than just rewording it. Round 3 found and
+fixed a genuine grammar error, an ungrammatical opening sentence, and one
+dropped ticket acceptance clause. Round 4 re-checked all four lenses on the
+fully fixed diff and found nothing further — full test suite (35/35), full
+build, and word-count gate (261/261 posts) all green on the final commit.
