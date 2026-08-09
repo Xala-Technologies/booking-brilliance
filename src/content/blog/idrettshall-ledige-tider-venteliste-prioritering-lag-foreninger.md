@@ -2,7 +2,7 @@
 slug: idrettshall-ledige-tider-venteliste-prioritering-lag-foreninger
 title: "Ledige enkelttimer i idrettshallen: venteliste, prioritering og bytte for lag"
 description: "Slik ser laget ledige enkelttimer i idrettshallen i sanntid, havner riktig i venteliste, forstår hvem som prioriteres, og bytter eller avlyser uten å ringe driftsleder."
-date: 2026-08-08
+date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7
