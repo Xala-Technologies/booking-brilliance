@@ -59,9 +59,9 @@ function textOf(node: ReactNode): string {
  * Norwegian decimals use a comma and thousands use a space, so both count.
  */
 function numberIn(text: string): number | null {
-  const m = /-?\d[\d\s ]*(?:[.,]\d+)?/.exec(text.replace(/\s+/g, " ").trim());
+  const m = /-?\d[\d\s\u00A0]*(?:[.,]\d+)?/.exec(text.replace(/\s+/g, " ").trim());
   if (!m) return null;
-  const n = Number(m[0].replace(/[\s ]/g, "").replace(",", "."));
+  const n = Number(m[0].replace(/[\s\u00A0]/g, "").replace(",", "."));
   return Number.isFinite(n) ? n : null;
 }
 
@@ -111,7 +111,7 @@ export function isChartable(parsed: Parsed): boolean {
     if (!label || !value) return false;
     if (numberIn(value) === null) return false;
     // The value cell must be MOSTLY the number, not a sentence containing one.
-    return value.replace(/[-\d\s .,%]|kr|NOK/gi, "").length <= 2;
+    return value.replace(/[-\d\s\u00A0.,%]|kr|NOK/gi, "").length <= 2;
   });
 }
 
