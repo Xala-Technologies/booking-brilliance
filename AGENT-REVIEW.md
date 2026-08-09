@@ -71,3 +71,53 @@ second keyword was `"sikkerhet bookingsystem kommune"`).
 - Re-ran `node scripts/check-blog-word-count.mjs` after edits (still 1019
   words, well above the 200-word floor) and re-confirmed all internal links
   resolve.
+
+## Round 2 — deeper fact-check + SEO/rendering regression
+
+Two parallel agents: one re-verified round 1's fixes landed correctly and
+then read every remaining factual sentence line by line against
+`Sikkerhet.tsx` and 3+ other posts; the other did a full `pnpm build` +
+`pnpm vitest run` pass focused on structured data, sitemap, blog listing, and
+the AEO corpus file — none of which round 1 had checked.
+
+**Fact-check lens** — round 1's three fixes all verified correct (SSA-L
+phrasing now matches 11+ other posts, audit-log claim now verbatim-consistent
+with the linked integration post, new cross-link resolves). One new, real
+issue found: the "avansert administrasjon" section (then line 38) claimed the
+*kommune* sets up and adjusts rights for all four listed roles — including
+"lagkoordinator" and "bedriftsfullmakt." Cross-checked against
+`brukerstyring-og-tilgangskontroll.md` and
+`registrere-lag-organisasjon-booke-kommunale-lokaler.md`: lagkoordinator is
+the *team's own* admin role, and a business's booking-confirmation authority
+is controlled by the business itself, not the kommune. The sentence conflated
+kommune-administered RBAC with tenant-internal self-administration, which
+blurs a real multi-tenant boundary, ironic given the post's own checklist
+asks vendors to prove tenant isolation. Everything else re-checked clean: ISO
+checklist phrasing matches ~5 other posts' generic due-diligence language
+(not a Digilist-specific hedge), description (158 chars) and title (78
+chars) are within the corpus's normal range, and the "fjerner passord som
+angrepsvektor helt" claim is narrower than, not contradicting, the phishing
+post's more hedged claim.
+
+**SEO/rendering lens** — ran a full `pnpm build` and inspected the actual
+prerendered output, not just the source markdown. Confirmed: exactly one
+`<h1>` matching the frontmatter title; `Article` JSON-LD present with
+`headline`/`description` matching frontmatter and `articleSection: "IT-leder"`
+matching `tag`; canonical URL and all Open Graph tags (including
+`og:locale=nb_NO`) correct; the post appears exactly once in
+`dist/sitemap.xml` with the right `<lastmod>`; it appears correctly as the
+first (most recent) entry on the blog listing page, sorted by date as
+expected; `pnpm vitest run` still green (16 files / 35 tests). Confirmed the
+post's correct *absence* from `dist/llms-full.txt` is expected behavior (that
+file is a static FAQ corpus, not a per-post index — verified other linked
+posts are likewise absent). No issues found in this lens.
+
+### What I changed after round 2
+- Rewrote the "avansert administrasjon" paragraph to separate kommune-level
+  role administration (saksbehandler, driftsleder, administrator — set up and
+  adjusted by the kommune) from tenant-internal self-administration
+  (lagkoordinator, bedriftsfullmakt — set up and adjusted by the team or
+  business itself, without kommune involvement), matching the tenant
+  boundary described in `brukerstyring-og-tilgangskontroll.md`.
+- Re-ran the word-count check (1043 words) and `pnpm vitest run` (16 files /
+  35 tests, all green) after the edit.

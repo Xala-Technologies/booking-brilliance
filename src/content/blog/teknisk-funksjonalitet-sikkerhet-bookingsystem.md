@@ -35,7 +35,7 @@ I praksis betyr det at hver mutasjon, ikke bare hver innlogging, skrives til en 
 
 ## Avansert administrasjon uten å måtte kode
 
-Et bookingsystem med bare én brukerrolle blir fort enten for åpent (alle kan endre alt) eller en flaskehals (kun én person kan gjøre noe utenfor egen booking). Avansert administrasjon betyr at kommunen selv kan sette opp roller, saksbehandler, driftsleder, lagkoordinator, bedriftsfullmakt, og justere rettighetene deres, uten at det krever ny kode eller en supportsak til leverandøren hver gang organisasjonen endrer seg.
+Et bookingsystem med bare én brukerrolle blir fort enten for åpent (alle kan endre alt) eller en flaskehals (kun én person kan gjøre noe utenfor egen booking). Avansert administrasjon betyr at kommunen selv kan sette opp og justere sine egne roller, saksbehandler, driftsleder, administrator, uten at det krever ny kode eller en supportsak til leverandøren. Samme prinsipp gjelder nedover i tenanten: et lag eller en bedrift administrerer sine egne interne roller, som lagkoordinator eller bedriftsfullmakt, uten at kommunen må involveres i den enkelte organisasjonens medlemsliste.
 
 Dette er beskrevet i detalj, med de faktiske brukertypene og rollene Digilist skiller mellom, i [brukerstyring og tilgangskontroll for lag, privat og bedrift](/blogg/brukerstyring-og-tilgangskontroll).
 
