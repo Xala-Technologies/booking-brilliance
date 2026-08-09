@@ -89,4 +89,4 @@ Minnestunder har dessuten ofte kortere planleggingshorisont enn andre arrangemen
 
 ## Kom i gang
 
-Hele prosessen, fra søk til bekreftet booking, betaling og eventuell avbestilling, går raskere når kommunen har samlet alt i én løsning i stedet for telefon, e-post og separate skjemaer. Med Digilist søker du opp ledig sal i din kommune direkte i kalenderen, ser pris og vilkår med det samme, og booker uten å vente på svar per telefon eller e-post. Sjekk om din kommune bruker Digilist, og finn ledig sal til neste arrangement på minutter.
+Hele prosessen, fra søk til bekreftet booking, betaling og eventuell avbestilling, går raskere når kommunen har samlet alt i én løsning i stedet for telefon, e-post og separate skjemaer. Med Digilist søker du opp ledig sal i din kommune direkte i kalenderen, ser pris og vilkår med det samme, og booker uten å vente på svar per telefon eller e-post. Trenger du en sal i en annen by eller kommune enn din egen, kan du [søke lokalbooking filtrert på geografi](/blogg/lokalbooking-geografisk-sok) og sammenligne flere steder i samme søk. Sjekk om din kommune bruker Digilist, og finn ledig sal til neste arrangement på minutter.

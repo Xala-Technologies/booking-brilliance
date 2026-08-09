@@ -57,6 +57,8 @@ For deg som bor nær en kommunegrense, eller som spiller kamper i flere haller i
 
 Merk at vilkårene for avbestilling, depositum og eventuell forhåndsgodkjenning kan variere fra kommune til kommune selv om søkeopplevelsen er den samme. Sjekk alltid vilkårene som vises for den konkrete hallen før du bekrefter.
 
+Det samme geografiske søket gjelder for lokalbooking generelt, ikke bare idrettshaller – se hvordan [lokalbooking filtrert på geografi](/blogg/lokalbooking-geografisk-sok) fungerer for møterom, selskapslokaler og andre lokaltyper på tvers av byer.
+
 ## Hva koster en ledig enkelttime
 
 Prisen varierer med hvem som booker og når:
