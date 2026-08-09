@@ -11,7 +11,7 @@ cover: "/images/blog/digdir_designsystemet_hero_no.webp"
 keywords: ["regler for booking kommunale lokaler", "prosedyrer booking kommune", "krav til leietaker kommunalt lokale", "søke om lokale kommune regler", "godkjenning booking kommune", "avbestillingsregler kommunalt lokale", "klage på avslått søknad lokale"]
 ---
 
-Skal du booke et kommunalt lokale, møtes du som regel av tre spørsmål på én gang: hvem har egentlig lov til å booke dette, hva må jeg dokumentere før søknaden godkjennes, og hva skjer hvis jeg avbestiller eller får avslag. De fleste kommuner har svarene spredt på flere sider, eller bare i hodet til saksbehandleren. Denne guiden samler reglene, prosedyren og kravene på ett sted, både for deg som søker et lokale og for deg som skal forvalte de samme reglene som kommunalt ansatt, på den andre siden av søknaden.
+Skal du booke et kommunalt lokale, møtes du som regel av tre spørsmål på én gang: hvem har egentlig lov til å booke dette, hva må du dokumentere før søknaden godkjennes, og hva skjer hvis du avbestiller eller får avslag. De fleste kommuner har svarene spredt på flere sider, eller bare i hodet til saksbehandleren. Denne guiden samler reglene, prosedyren og kravene på ett sted, både for deg som søker et lokale og for deg som skal forvalte de samme reglene som kommunalt ansatt, på den andre siden av søknaden.
 
 ## Hvem kan booke et kommunalt lokale
 
@@ -40,7 +40,7 @@ Selve prosedyren følger som regel fire faste trinn, uansett om du booker en gym
 
 1. **Søknad eller direkte booking.** Enkle lokaler kan ofte bookes direkte, mens andre krever en forespørsel fordi kapasitet eller prioritet må vurderes.
 2. **Vurdering mot kravene.** Saksbehandler sjekker at dokumentasjonen er på plass, at datoen faktisk er ledig, og at søknaden passer kategorien den er meldt inn under.
-3. **Godkjenning eller avslag med begrunnelse.** Et avslag skal komme med en konkret grunn, slik at du som søker vet nøyaktig hva som må rettes opp før du sender inn på nytt. Se [godkjenningsflyten og revisjonssporet i praksis](/blogg/godkjenningsflyt-revisjonsspor-booking-re-forespørsel) for hvorfor et avslag re-behandles i stedet for å bli overstyrt, og hvorfor det er et krav i kommunens egen anskaffelse av bookingsystemet.
+3. **Godkjenning eller avslag med begrunnelse.** Et avslag skal komme med en konkret grunn, slik at du som søker vet nøyaktig hva som må rettes opp før du sender inn på nytt. Se [godkjenningsflyten og revisjonssporet i praksis](/blogg/godkjenningsflyt-revisjonsspor-booking-re-forespørsel) for hvorfor et avslag behandles på nytt i stedet for å bli overstyrt, og hvorfor det er et krav i kommunens egen anskaffelse av bookingsystemet.
 4. **Bekreftelse.** Lokalet er først reservert når du har mottatt en formell bekreftelse, ikke ved en muntlig beskjed eller en forespørsel som fortsatt venter på svar.
 
 I systemer med automatisk godkjenning er svaret klart i løpet av minutter. Der en saksbehandler må vurdere søknaden manuelt, tar det gjerne 1-3 virkedager for en enkeltstående booking. Sesongtildeling er en egen, langt lengre prosess, som regel med søknadsfrist flere uker før sesongen starter, fordi hele fordelingen mellom lag og foreninger vurderes samlet.
@@ -77,6 +77,6 @@ Begrunnelsen fra trinn 3 er også utgangspunktet for hva du kan gjøre videre de
 2. Skaff dokumentasjonen (medlemsliste, forsikringsbevis, skjenkebevilling) før du sender søknaden.
 3. Les bruksreglene for akkurat det lokalet du booker, ikke bare de generelle.
 4. Sjekk avbestillingsfristene før du planlegger et arrangement med usikker dato.
-5. Be om skriftlig begrunnelse dersom søknaden avslås, og bruk den til å rette opp før du sender inn på nytt.
+5. Be om en konkret begrunnelse dersom søknaden avslås, og bruk den til å rette opp før du sender inn på nytt.
 
-Er du kommunalt ansatt og skal sette opp krav, godkjenningsprosedyre og prisregler for lokalene dere forvalter, dekker [den praktiske guiden til krav, prosedyrer og prising](/blogg/praktisk-guide-prosedyrer-krav-prising-booking) selve oppsettet fra bookingansvarliges ståsted. Vil du se hvordan regler, dokumentasjonskrav og godkjenning fungerer i praksis for søkere i deres kommune? [Book en demo](/book-demo), så viser vi oppsettet med utgangspunkt i deres egne lokaler og rutiner.
+Er du kommunalt ansatt og skal sette opp krav, godkjenningsprosedyre og prisregler for lokalene du forvalter, dekker [den praktiske guiden til krav, prosedyrer og prising](/blogg/praktisk-guide-prosedyrer-krav-prising-booking) selve oppsettet fra bookingansvarliges ståsted. Vil du se hvordan regler, dokumentasjonskrav og godkjenning fungerer i praksis for søkere i din kommune? [Book en demo](/book-demo), så viser vi oppsettet med utgangspunkt i dine egne lokaler og rutiner.
