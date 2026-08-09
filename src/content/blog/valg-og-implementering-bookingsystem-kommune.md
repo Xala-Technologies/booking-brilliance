@@ -1,7 +1,7 @@
 ---
 slug: valg-og-implementering-bookingsystem-kommune
 title: "Valg og implementering av bookingsystem for kommune"
-description: "Hele beslutningsprosessen for kommunalt bookingsystem, fra hvem som bør sitte ved bordet til gevinstrealisering etter go-live, med bruk-cases for IT-ledere og kommunale beslutningstakere."
+description: "Hele beslutningsprosessen for kommunalt bookingsystem, fra hvem som bør sitte ved bordet til gevinstrealisering etter go-live, med praktiske eksempler for IT-ledere og kommunale beslutningstakere."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
@@ -34,7 +34,7 @@ De konkrete symptomene som utløser en anskaffelse, og en fullstendig sjekkliste
 
 ## Kravspesifikasjon og anskaffelsesprosedyre
 
-Med business casen på plass, skriver IT og virksomhetsområdet kravspesifikasjonen sammen, basert på behovet dere har kartlagt, ikke på funksjonene i dagens system. Anskaffelsesprosedyren avhenger av kontraktsverdi: under 100 000 kroner er anskaffelsen unntatt anskaffelsesloven, mellom denne grensen og den nasjonale terskelverdien gjelder lovens grunnkrav uten kunngjøringsplikt, og over EØS-terskelverdien kreves full anbudsprosedyre med kunngjøring på Doffin. Sjekk alltid oppdaterte beløp hos Digitaliseringsdirektoratet (DFØ) før dere fastsetter prosedyre. Avtaleformen som normalt brukes for et bookingsystem som løpende tjeneste er SSA-L.
+Med business casen på plass, skriver IT og virksomhetsområdet kravspesifikasjonen sammen, basert på behovet dere har kartlagt, ikke på funksjonene i dagens system. Anskaffelsesprosedyren avhenger av kontraktsverdi: under 100 000 kroner er anskaffelsen unntatt anskaffelsesloven, mellom denne grensen og den nasjonale terskelverdien gjelder lovens grunnkrav uten kunngjøringsplikt, og over EØS-terskelverdien kreves full anbudsprosedyre med kunngjøring på Doffin. Sjekk alltid oppdaterte beløp hos Digitaliseringsdirektoratet (Digdir) før dere fastsetter prosedyre. Avtaleformen som normalt brukes for et bookingsystem som løpende tjeneste er SSA-L.
 
 Full detalj på kravdokument, tildelingskriterier og avtalevilkår finner du i de to guidene lenket over.
 
@@ -46,7 +46,7 @@ Vi går gjennom en vektet sammenligningsmatrise og en femårig kostnadsmodell i 
 
 ## Implementering: fra signering til drift
 
-Kontraktsignering er ikke sluttpunktet, det er starten på den fasen som faktisk avgjør om investeringen gir gevinst. Den mekaniske delen, altså konfigurasjon, datamigrering og go-live uke for uke, er beskrevet i [onboarding-guiden](/blogg/onboarding-uke-til-live). Det som oftest mangler i planen, er de tre organisatoriske risikoene som senker bruken selv når systemet fungerer teknisk som det skal:
+Kontraktsignering er ikke sluttpunktet — det er starten på den fasen som faktisk avgjør om investeringen gir gevinst. Den mekaniske delen, altså konfigurasjon, datamigrering og go-live dag for dag, er beskrevet i [onboarding-guiden](/blogg/onboarding-uke-til-live). Det som oftest mangler i planen, er de tre organisatoriske risikoene som senker bruken selv når systemet fungerer teknisk som det skal:
 
 **Lav bruk blant saksbehandlere.** Et system som krever at saksbehandlere jobber annerledes enn de er vant til, blir raskt omgått, gjerne tilbake til regneark for «de vanskelige tilfellene». Løsning: involver saksbehandlerne i konfigurasjonen av godkjenningsflyten, ikke bare i opplæringen etterpå.
 
@@ -56,9 +56,9 @@ Kontraktsignering er ikke sluttpunktet, det er starten på den fasen som faktisk
 
 ## Gevinstrealisering: mål effekten etter go-live
 
-Business casen dere bygget i behovskartleggingen bør følges opp, ikke arkiveres. Tre til seks måneder etter go-live, mål det dere la til grunn da dere prioriterte saken: tidsbruk til manuell koordinering, andel bookinger som håndteres uten saksbehandlerinvolvering, og antall supporthenvendelser knyttet til booking. Avvik fra planen er ikke et tegn på at valget var feil, det er informasjon dere trenger for å justere opplæring eller konfigurasjon før neste budsjettrunde, og det er dokumentasjonen som gjør neste digitaliseringsprosjekt lettere å prioritere.
+Business casen dere bygget i behovskartleggingen bør følges opp, ikke arkiveres. Tre til seks måneder etter go-live, mål det dere la til grunn da dere prioriterte saken: tidsbruk til manuell koordinering, andel bookinger som håndteres uten saksbehandlerinvolvering, og antall supporthenvendelser knyttet til booking. Avvik fra planen er ikke et tegn på at valget var feil — det er informasjon dere trenger for å justere opplæring eller konfigurasjon før neste budsjettrunde, og det er dokumentasjonen som gjør neste digitaliseringsprosjekt lettere å prioritere.
 
-## To bruk-cases: ulik skala, samme rekkefølge
+## To eksempler: ulik skala, samme rekkefølge
 
 **Liten kommune, én idrettshall.** Prosessen er kort: driftsleder og IT-ansvarlig (ofte samme person eller et lite team) kartlegger behovet, kommunedirektøren godkjenner en anskaffelse under nasjonal terskelverdi uten kunngjøringsplikt, og implementeringen er i praksis onboarding-ukens fem dager. Den største risikoen er manglende oppfølging av opplæring, siden det sjelden er en dedikert ressurs til det etterpå.
 
