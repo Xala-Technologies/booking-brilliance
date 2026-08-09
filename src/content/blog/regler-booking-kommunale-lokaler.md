@@ -11,7 +11,7 @@ cover: "/images/blog/digdir_designsystemet_hero_no.webp"
 keywords: ["regler for booking kommunale lokaler", "prosedyrer booking kommune", "krav til leietaker kommunalt lokale", "søke om lokale kommune regler", "godkjenning booking kommune", "avbestillingsregler kommunalt lokale", "klage på avslått søknad lokale"]
 ---
 
-Skal du booke et kommunalt lokale, møtes du som regel av tre spørsmål på én gang: hvem har egentlig lov til å booke dette, hva må jeg dokumentere før søknaden godkjennes, og hva skjer hvis jeg avbestiller eller får avslag. De fleste kommuner har svarene spredt på flere sider, eller bare i hodet til saksbehandleren. Denne guiden samler reglene, prosedyren og kravene på ett sted, både for deg som søker et lokale og for deg som, som kommunalt ansatt, skal forvalte de samme reglene på den andre siden av søknaden.
+Skal du booke et kommunalt lokale, møtes du som regel av tre spørsmål på én gang: hvem har egentlig lov til å booke dette, hva må jeg dokumentere før søknaden godkjennes, og hva skjer hvis jeg avbestiller eller får avslag. De fleste kommuner har svarene spredt på flere sider, eller bare i hodet til saksbehandleren. Denne guiden samler reglene, prosedyren og kravene på ett sted, både for deg som søker et lokale og for deg som skal forvalte de samme reglene som kommunalt ansatt, på den andre siden av søknaden.
 
 ## Hvem kan booke et kommunalt lokale
 
@@ -43,7 +43,7 @@ Selve prosedyren følger som regel fire faste trinn, uansett om du booker en gym
 3. **Godkjenning eller avslag med begrunnelse.** Et avslag skal alltid komme med en konkret grunn, slik at du som søker vet nøyaktig hva som må rettes opp før du sender inn på nytt. Se [godkjenningsflyten og revisjonssporet i praksis](/blogg/godkjenningsflyt-revisjonsspor-booking-re-forespørsel) for hvorfor et avslag re-behandles i stedet for å bli overstyrt, og hvorfor det er et krav i kommunens egen anskaffelse av bookingsystemet.
 4. **Bekreftelse.** Lokalet er først reservert når du har mottatt en formell bekreftelse, ikke ved en muntlig beskjed eller en forespørsel som fortsatt venter på svar.
 
-I systemer med automatisk godkjenning er svaret klart i løpet av minutter. Der en saksbehandler må vurdere søknaden manuelt, tar det gjerne 1-3 virkedager, spesielt ved sesongtildeling eller store arrangementer.
+I systemer med automatisk godkjenning er svaret klart i løpet av minutter. Der en saksbehandler må vurdere søknaden manuelt, tar det gjerne 1-3 virkedager for en enkeltstående booking. Sesongtildeling er en egen, langt lengre prosess, som regel med søknadsfrist flere uker før sesongen starter, fordi hele fordelingen mellom lag og foreninger vurderes samlet.
 
 ## Regler for bruk av lokalet
 
@@ -59,9 +59,9 @@ Brudd på bruksreglene er den vanligste grunnen til at et depositum holdes tilba
 
 ## Avbestilling og endring – reglene som gjelder
 
-Avbestilling har egne regler, og de bør være like tydelige som selve bookingreglene. Vanlige frister:
+Avbestilling har egne regler, og de bør være like tydelige som selve bookingreglene. Fristene varierer mellom kommuner, men følger som regel samme trappetrinn:
 
-- Full refusjon ved avbestilling godt før arrangementet, som regel mer enn 14 dager i forveien.
+- Full refusjon ved avbestilling godt i forveien, gjerne to til fire uker før arrangementet avhengig av kommunens eget regelverk.
 - Delvis refusjon ved avbestilling nærmere arrangementet.
 - Ingen refusjon ved sen avbestilling eller uteblivelse.
 
