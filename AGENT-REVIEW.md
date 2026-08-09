@@ -216,3 +216,73 @@ duplicates.
   undervurderer" → "lett undervurderer"; fixed "eier retten" → "har retten".
 - Re-ran the full build pipeline and `pnpm vitest run` (16 files / 35 tests,
   all green) after the edits.
+
+## Round 4 — final holistic refute pass + independent fresh-eyes read
+
+Two parallel agents: one did a targeted final pass (encoding/whitespace
+sweep, redundancy check between the Prising section and the comparison
+table, checklist-vs-current-wording consistency, and one more legal-claim
+cross-check against the linked godkjenningsflyt post), explicitly told to
+assume all eleven round 1-3 fixes were correct and not re-check them; the
+other read the file completely cold, with zero prior context, independently
+re-verifying every link, the full frontmatter, the reading-time math, and
+doing its own from-scratch Norwegian-language read.
+
+**Holistic refute lens** — no encoding/whitespace issues (`cat -A`-style
+sweep and a Unicode invisible-character scan both clean, UTF-8 correct
+throughout). No redundancy or contradiction between the Prising section and
+the comparison table after three rounds of edits — the table compresses the
+prose without repeating or conflicting with it, and depositum/gebyr content
+stays exclusively in the prose as intended by round 1's fix. All 5 checklist
+items still map cleanly onto current section wording, with no leftover
+reference to pre-fix terminology (confirmed no stray "avvist godkjenning"
+remained before round 4's own fix below). The surviving legal claim ("krav i
+kommunale anskaffelser") was re-checked against
+`godkjenningsflyt-revisjonsspor-booking-re-forespørsel.md` one more time and
+is consistent with that post's own framing.
+
+**Fresh-eyes lens** — independently re-verified all five links (four
+`/blogg/*` slugs plus `/book-demo`) resolve, frontmatter is complete and
+parses cleanly against the site's actual regex-based parser
+(`src/lib/blogFrontmatter.ts`), and recomputed the word count (1000 words)
+and implied reading speed (167 wpm) independently, landing on the same
+figures as round 1's math. Found two new, real issues on a fresh read:
+1. Line 30 used "re-forespørres", an invented English-prefix/Norwegian-verb
+   hybrid that isn't natural Bokmål, and it restated — more weakly — the
+   same idea the previous sentence had already made with the established
+   phrase "sende inn på nytt".
+2. The closing CTA paragraph's "enten...eller" construction wasn't
+   parallel ("du administrerer booking for en kommune" vs. "som privat
+   utleier"), unlike the intro's correctly-parallel version of the same
+   distinction.
+   Also surfaced, not a defect: the frontmatter `readingMinutes: 6` and the
+   article page's own live-computed reading time (`Math.round(wordCount/200)`
+   in `BlogPost.tsx`) will show slightly different numbers (6 vs. 5) for
+   this post — confirmed this is a pre-existing sitewide gap between
+   authored and computed reading time present on sibling posts too, not
+   something this post introduces.
+
+### What I changed after round 4
+- Reworded the step-3 sentence to drop "re-forespørres" in favor of
+  "behandles på nytt" and restructured it so it no longer repeats the prior
+  sentence's point, just states the underlying principle once.
+- Rewrote the closing CTA sentence's "enten...eller" clause to be fully
+  parallel, matching the intro's phrasing ("enten du er saksbehandler eller
+  driftsleder i en kommune, eller privat utleier selv").
+- Re-ran the full build pipeline and `pnpm vitest run` (16 files / 35 tests,
+  all green) after the edits.
+
+Four rounds run. Round 1 found and fixed five real defects (SSA-L
+mischaracterization, misplaced depositum, a broken sentence, a dead CTA
+link, a wrong readingMinutes value) plus one substantive structural
+decision (kept the hub approach, fixed the near-duplicate opening). Round 2
+confirmed those fixes and the full build/SEO surface, surfacing one
+pre-existing systemic gap (listing-page pagination tie-break) explicitly
+left out of scope. Round 3 found and fixed four more real issues (a
+contradiction-in-terms, a table/prose legal-basis mismatch, an unsupported
+table detail, an inconsistent pillar ordering) plus two minor wording
+fixes. Round 4 found and fixed two more real issues (an invented word, a
+non-parallel sentence) on independent fresh reads, and confirmed everything
+else held. No round came back completely empty on real, fixable defects
+until round 4's structural/legal cross-checks — which is why this review
+runs the full four rounds as scoped rather than stopping early.
