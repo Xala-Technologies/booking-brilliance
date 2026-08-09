@@ -164,3 +164,55 @@ Nothing in the post content — round 2 confirmed all round-1 fixes and found
 no new defect in the file itself. The listing-pagination gap and the
 prerender double-run artifact are both pre-existing, systemic, and outside
 this ticket's scope (shared files), so neither was touched.
+
+## Round 3 — adversarial editorial read + full-branch regression sweep
+
+Two parallel agents: one did a fresh skeptical-editor read of the whole post
+(explicitly told not to re-check the five round-1 fixes, only look for
+anything new), the other swept the whole branch state (commits, diff,
+worktree, ignored files) for anything content review wouldn't catch.
+
+**Editorial lens** — found four real issues:
+1. "en avvist godkjenning re-forespørres" (line 30) is a contradiction in
+   terms — something rejected was, by definition, never approved
+   ("godkjenning" = approval). Every other instance in the post correctly
+   calls the rejected thing a "forespørsel".
+2. The table's kommune avvisning-cell ("krav i selve driftsavtalen (SSA-L)")
+   stated a different legal basis than the prose right above it in step 3
+   ("krav i kommunale anskaffelser") — same row, two different framings of
+   the same fact.
+3. The table's private-utleier avvisning-cell added "forslag til alternativ
+   dato", a detail with zero support anywhere else in the post — an
+   asymmetric, unbacked claim next to a fully-sourced kommune cell.
+4. The title lists the three pillars as "prosedyrer, krav og prising", while
+   the description, the intro sentence, and every H2 use the order "krav,
+   prosedyrer, prising" — a small but real inconsistency.
+   Two minor items also fixed: two unqualified superlative claims ("den
+   vanligste årsaken", "oftest undervurderer") stated as fact with no
+   backing, and "eier retten" (a calque) where natural Bokmål is "har
+   retten". The comparison table's other three rows, both numbered lists
+   (4-step prosedyre, 5-step sjekkliste), and the frontmatter description
+   length/accuracy were all separately re-checked and found clean.
+
+**Regression-sweep lens** — clean. `git log 67601bf..HEAD` showed exactly 3
+commits, each doing what its message claims; `git diff 67601bf..HEAD --stat`
+showed exactly the 3 expected files (the post, AGENT-SPEC.md,
+AGENT-REVIEW.md); `git status --short` and `--ignored` showed no stray
+tracked or untracked artifacts; none of the forbidden shared build files
+were touched; `AGENT-GOAL.md` confirmed present, tracked, and unmodified
+(expected at this stage); no leftover TODO/FIXME/wrong-ticket-number text in
+either doc file; exactly one new file under `src/content/blog/`, no
+duplicates.
+
+### What I changed after round 3
+- Fixed "avvist godkjenning" → "avvist forespørsel" (step 3).
+- Reworded the table's kommune avvisning-cell to state the same legal basis
+  as the prose ("krav i kommunale anskaffelser"), and removed the unbacked
+  "forslag til alternativ dato" detail from the private-utleier cell,
+  leaving both cells symmetric and each backed by the prose above them.
+- Swapped the title's pillar order to "krav, prosedyrer og prising",
+  matching the description, intro, and H2 order everywhere else in the post.
+- Softened "den vanligste årsaken" → "en vanlig årsak" and "oftest
+  undervurderer" → "lett undervurderer"; fixed "eier retten" → "har retten".
+- Re-ran the full build pipeline and `pnpm vitest run` (16 files / 35 tests,
+  all green) after the edits.
