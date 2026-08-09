@@ -1,75 +1,105 @@
-# XAL-1053: E2E failure — blog index click timeout
+# XAL-1137: Content gap — Lokalbooking og geografisk søk
 
 ## WHAT THIS IS
-The fleet's E2E test `blog index lists posts and a post opens with its cover + body`
-(`/root/xaheen-agent-fleet/tools/e2e-agent/tests/public-surfaces.spec.ts`) goes to
-`/blogg` and clicks the first `a[href^="/blogg/"]` link. On a fresh browser session
-(no `cookie-consent` localStorage key — exactly what a new Playwright context is),
-the site's cookie banner slides up from the bottom of the viewport ~1s after the
-page mounts. That banner's outer wrapper is a full-width, ~260px-tall `fixed`
-block sitting above everything else (`z-50`) — including the transparent padding
-around the visible card, not just the card itself. The first blog post row is tall
-(cover image + heading + description) and sits partly inside that bottom band once
-scrolled into view, so its click target can be intercepted by the (invisible,
-padding-only) part of the banner's hit area. That's an intermittent click-blocker,
-not a data or animation problem — it doesn't depend on network speed or the blog
-content at all.
+A content gap, not a code bug: no post on digilist.no currently targets the
+search term "lokalbooking" combined with a geography-filtered search pattern
+(search narrowed to Oslo, Bergen, Trondheim, etc.), or contrasts that
+local-first search behaviour with single-purpose tools like BookUp. The fix
+is a new Norwegian-Bokmål blog article — no application code changes — that
+covers how a renter/booker filters availability by city/kommune across
+Digilist's multi-tenant calendar, and positions that against the
+single-location assumption baked into point tools like BookUp.
 
 ## HOW IT WORKS NOW
-- `src/components/CookieConsent.tsx` — mounted once, site-wide, in `src/App.tsx:479`.
-  `useEffect` (line 9-16) checks `localStorage.getItem("cookie-consent")`; if unset,
-  `setTimeout(() => setIsVisible(true), 1000)`. When visible, renders:
-  ```
-  <div className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6 animate-slide-up">
-    <div className="container mx-auto ... max-w-6xl">
-      <div className="bg-card/95 ... rounded-2xl shadow-2xl p-6 md:p-8"> ...visible card... </div>
-    </div>
-  </div>
-  ```
-  Neither the outer `fixed` div nor the `container` div has `pointer-events-none`,
-  so the whole rectangle — including the `p-4`/`md:p-6` padding around the card
-  and any letterboxing outside `max-w-6xl` — is a live click target, not just the
-  visible card.
-- `src/pages/Blog.tsx:203-283` — each post is a `<Link>` wrapping a `py-8 lg:py-12`
-  row (cover image, meta, heading, description); on desktop this row is ~300-390px
-  tall, so part of it can fall inside the banner's bottom band once scrolled to.
-- Confirmed live with a throwaway Playwright probe against `https://digilist.no/blogg`
-  (viewport 1280×720, fresh context): first-link bounding box after settling was
-  `{x:48, y:832, width:1184, height:358}` (i.e. spanning well past the fold), and the
-  cookie-consent bounding box was `{x:0, y:457, width:1280, height:263}` — a
-  full-width band covering the bottom 37% of the viewport, well beyond the visible
-  card's actual footprint.
+- Blog posts are plain Markdown files with YAML frontmatter, one per post, in
+  `src/content/blog/*.md` (247 files). Filename = slug + `.md`. Schema is
+  `BlogFrontmatter` in `src/lib/blogFrontmatter.ts:5-18`: `slug, title,
+  description, date, updated?, author, role?, readingMinutes?, tag?, cover?,
+  keywords?`.
+- No manual registry. `build-plugins/blogMetaPlugin.ts:21-39` (Vite virtual
+  module `virtual:blog-meta`) scans the directory at build/dev time and feeds
+  `src/lib/posts.ts` (`getAllPosts()` → `/blogg` index, homepage teaser,
+  search) and `src/lib/postContent.ts:13-29` (raw body glob for the article
+  page). Route `src/App.tsx:362` (`/blogg/:slug`) is generic —
+  `src/pages/BlogPost.tsx:88-91` resolves the slug at render time.
+- `scripts/prerender.mjs` prerenders `/blogg/<slug>/index.html` for every
+  post and regenerates `sitemap.xml` (lines ~2495-2705) — fully automatic
+  from the presence of the `.md` file.
+- SEO: `src/components/SEO.tsx`, driven by `BlogPost.tsx:132-162`
+  (`title`, `description`, canonical, OG, `Article` JSON-LD from
+  `article {...}`). `DEFAULT_KEYWORDS` (`SEO.tsx:48-49`) already lists
+  `lokalbooking` sitewide, so this post reinforces an existing target term
+  rather than introducing a new one.
+- `scripts/check-blog-word-count.mjs` enforces a 200-word floor on both the
+  markdown source and the rendered `<article>` — a floor, not a target;
+  sibling posts run ~1,000-1,700 words.
+- `scripts/guard-blog-redirects.mjs` (pre-push) quarantines any new post
+  whose slug collides with a standing server-side 301 — picking an unclaimed
+  slug avoids this.
+- Confirmed via grep (see exploration): no existing post's core topic is
+  "lokalbooking + geography filter across cities"; `lokalbooking` and
+  `geografisk` appear only as passing terms elsewhere, and BookUp is
+  discussed only as a platform-consolidation angle
+  (`bookup-og-eksisterende-booking-losninger.md`), never tied to
+  geographic/local-first search. No near-duplicate exists.
 
 ## WHAT CHANGES
-Add `pointer-events-none` to the outer `fixed` wrapper in `CookieConsent.tsx` and
-`pointer-events-auto` back on the inner visible card div. `pointer-events` is
-inherited, so the card and everything inside it (text links, both buttons, the
-close button) keep working exactly as before; only the surrounding transparent
-padding/letterboxing stops intercepting clicks meant for the page underneath.
-This is the smallest fix that removes the click-blocker without touching layout,
-copy, or the consent logic itself.
+Add one new file: `src/content/blog/lokalbooking-geografisk-sok.md`
+(slug `lokalbooking-geografisk-sok`), following the established frontmatter
+schema and body structure (intro → **Kort svar:** → `## H2` sections → table
+→ `## Kilder` internal links → `## Ta neste steg` CTA). Content covers:
+geography/city filtering (Oslo, Bergen, Trondheim, kommune-crossing search),
+why local-first search matters for the renter, and how that differs from a
+single-location tool like BookUp. No other file needs to change — the
+publishing pipeline (index, sitemap, prerender, SEO) is fully automatic from
+the file's presence, per "HOW IT WORKS NOW" above.
 
 ## BLAST RADIUS
-- `CookieConsent` is mounted exactly once, site-wide (`src/App.tsx:479`) — this
-  change affects every page while the banner is showing, not just `/blogg`. That's
-  intended: the same invisible-hit-area problem exists on any page with content
-  reachable near the bottom of the viewport (grep confirms no other page opts out).
-- No other component reads or reaches into `CookieConsent`'s DOM (`grep -rl
-  CookieConsent src/` → only `App.tsx` and the component itself) and nothing relies
-  on the wrapper's oversized hit area (no click-outside-to-dismiss handler exists —
-  dismissal is only via the two buttons/close icon, all inside the card).
-- `pointer-events` is inherited in CSS, so the accept/reject/close buttons (all
-  descendants of the card, which gets `pointer-events-auto`) are unaffected.
+- New file only; nothing existing is edited, so no other post, page, or
+  script is at risk of a regression.
+- `getAllPosts()` / `/blogg` index, homepage teaser, and site search all pick
+  the new post up automatically — verified this is additive (they render
+  every post in `src/content/blog/`, no allowlist to update).
+- `sitemap.xml` and prerendered `/blogg/<slug>/index.html` are generated at
+  build time by `scripts/prerender.mjs` for every post — new entry added
+  automatically, not hand-maintained.
+- Internal links: the new post links to and will be linked from
+  `bookup-og-eksisterende-booking-losninger.md` (BookUp comparison),
+  `idrettshall-ledige-tider-sok-book-varsling-tvers-kommuner.md` (cross-
+  kommune search), and `leie-sal-kommune-guide-fra-sok-til-booking.md`
+  (search-to-booking flow) — these three existing posts get a one-line
+  "Kilder"/related addition each so the link is bidirectional; that is the
+  only edit to pre-existing files.
+- `scripts/guard-blog-redirects.mjs` will probe the new slug against live
+  digilist.no redirects on next push; chosen slug
+  (`lokalbooking-geografisk-sok`) does not match any existing post or known
+  consolidated topic, so it is not expected to be claimed.
+- No FAQ JSON-LD entry added to `src/content/blogFaq.mjs` unless the article
+  body ends up with a matching "Vanlige spørsmål" section.
 
 ```mermaid
 graph TD
-  App[App.tsx] -->|mounts once, site-wide| CC[CookieConsent.tsx]
-  CC -->|fixed, bottom, z-50, FULL hit-area today| Overlay[outer wrapper div]
-  Overlay --> Card[visible card: accept/reject/close]
-  Blog[Blog.tsx post list] -->|Link rows can sit under the bottom band| Overlay
-  E2E[e2e-agent: public-surfaces.spec.ts] -->|clicks first post link| Blog
-  Overlay -. intercepts click meant for .-> Blog
+  MD["src/content/blog/lokalbooking-geografisk-sok.md (new)"] -->|scanned at build/dev| Plugin["build-plugins/blogMetaPlugin.ts (virtual:blog-meta)"]
+  Plugin --> Posts["src/lib/posts.ts (getAllPosts)"]
+  Posts --> Index["/blogg index + homepage teaser + site search"]
+  MD -->|raw body glob| PostContent["src/lib/postContent.ts"]
+  PostContent --> BlogPost["src/pages/BlogPost.tsx (/blogg/:slug)"]
+  BlogPost --> SEO["src/components/SEO.tsx (title/meta/OG/Article JSON-LD)"]
+  MD -->|prerendered at build| Prerender["scripts/prerender.mjs"]
+  Prerender --> Sitemap["sitemap.xml"]
+  Prerender --> Static["/blogg/lokalbooking-geografisk-sok/index.html"]
+  MD -->|pre-push slug probe| Guard["scripts/guard-blog-redirects.mjs"]
+  MD -->|word-count floor| WordCount["scripts/check-blog-word-count.mjs"]
+  MD -.internal links.-> BookUpPost["bookup-og-eksisterende-booking-losninger.md"]
+  MD -.internal links.-> TverskommunePost["idrettshall-ledige-tider-sok-book-varsling-tvers-kommuner.md"]
+  MD -.internal links.-> SearchFlowPost["leie-sal-kommune-guide-fra-sok-til-booking.md"]
 ```
 
 ## Files likely affected
-- `src/components/CookieConsent.tsx` (the fix)
+- `src/content/blog/lokalbooking-geografisk-sok.md` (new — the post)
+- `src/content/blog/bookup-og-eksisterende-booking-losninger.md` (add one
+  cross-link in "Kilder")
+- `src/content/blog/idrettshall-ledige-tider-sok-book-varsling-tvers-kommuner.md`
+  (add one cross-link)
+- `src/content/blog/leie-sal-kommune-guide-fra-sok-til-booking.md` (add one
+  cross-link)

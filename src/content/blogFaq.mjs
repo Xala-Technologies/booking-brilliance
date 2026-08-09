@@ -96,4 +96,26 @@ export const POST_FAQ = {
         "Mange kommuner tilbyr gratis eller sterkt rabatterte priser til lag og foreninger registrert i Frivillighetsregisteret, både for møterom og selskapslokaler. Prisen avhenger av hvem som booker, så oppgi formålet ditt for å se riktig sats i bookingsystemet.",
     },
   ],
+  "lokalbooking-geografisk-sok": [
+    {
+      question: "Kan jeg søke på tvers av flere byer samtidig?",
+      answer:
+        "Ja, du kan legge inn flere byer eller kommuner i samme søk, og Digilist viser treff for alle stedene side om side med egne priser og egen tilgjengelighet.",
+    },
+    {
+      question: "Er prisene like i Oslo, Bergen og Trondheim?",
+      answer:
+        "Nei, hver utleier og kommune setter sitt eget prisregulativ. Søket viser reelle priser per sted, ikke et gjennomsnitt.",
+    },
+    {
+      question: "Må jeg vite navnet på lokalet for å finne det?",
+      answer:
+        "Nei, det geografiske søket er laget nettopp for situasjonen der du kjenner stedet, men ikke navnet på et bestemt lokale ennå.",
+    },
+    {
+      question: "Fungerer geografisk søk for både privatpersoner og bedrifter?",
+      answer:
+        "Ja, samme søkefunksjon brukes uansett om du booker som privatperson, lag, forening eller bedrift.",
+    },
+  ],
 };
