@@ -206,3 +206,84 @@ pre-existing, not a defect.
 - Added the økonomi/innkjøp parenthetical to bruk-case 1 per item 8.
 - Rebuilt and re-ran `pnpm vitest run` — both green after the edits
   (16 files / 35 tests, word-count check passes).
+
+## Round 4 — final holistic refute pass + independent fresh-eyes read
+
+Two parallel agents: one did a targeted final pass (encoding/whitespace
+sweep, redundancy check, bruk-case-vs-body consistency after round 3's
+edits, one more legal-claim cross-check against the linked idrettshall
+post), explicitly told to assume all eleven round 1-3 fixes were correct
+and not re-check them; the other read the file completely cold, with zero
+prior context, independently re-verifying every link, the full
+frontmatter, the reading-time math, and doing its own from-scratch
+Norwegian-language read as a first-time reader.
+
+**Holistic refute lens** — no encoding/whitespace issues (byte-level sweep
+clean, UTF-8 correct throughout, æ/ø/å all render properly). No redundancy
+between the Sammenligning section and any other section. The two bruk-case
+boxes are internally coherent with each other and with the Fire roller
+list and procurement paragraph after round 3's edits. Confirmed the
+threshold logic matched the idrettshall post's own framing structurally —
+though this comparison point became moot after this round's own finding
+below, which corrected both this post and (implicitly) flagged the same
+gap in the idrettshall post's framing as pre-existing and out of scope.
+
+**Fresh-eyes lens** — independently re-verified all five `/blogg/*` links
+plus `/book-demo` resolve, frontmatter is complete and parses cleanly, and
+recomputed word count (1026 words) and implied reading speed (171 wpm) —
+plausible and within the site's own established 134-174 wpm range across
+sibling posts. Found one genuine, real issue neither of the first three
+rounds caught: the procurement paragraph's threshold explanation jumped
+straight from "under national terskelverdi → no kunngjøringsplikt" to
+"over EØS-terskelverdi → full anbudsprosedyre with Doffin kunngjøring,"
+omitting the middle tier. Verified via web search (anskaffelser.no): FOA
+§ 8-17 requires Doffin kunngjøring for del II anskaffelser — i.e.
+kunngjøringsplikt on Doffin actually starts at the **national**
+terskelverdi, not the EØS terskelverdi; the EØS threshold additionally
+requires kunngjøring in the EU's TED database. The post (and the
+idrettshall post it structurally followed) stated no kunngjøringsplikt
+existed until the EØS threshold, which understates when a kommune actually
+has to publish a competition.
+
+### What I changed after round 4
+- Rewrote the procurement paragraph to correctly describe all three tiers:
+  under 100 000 kr (unntatt), 100 000 kr to national terskelverdi (del I,
+  no kunngjøringsplikt), national to EØS terskelverdi (del II, Doffin
+  kunngjøring required), and over EØS terskelverdi (del III, Doffin + TED).
+- Updated the mellomstor-kommune bruk-case to say "kunngjøring på både
+  Doffin og TED" instead of "kunngjøring på Doffin" alone, matching the
+  corrected main-body framing.
+- Rebuilt and re-ran `pnpm vitest run` — both green after the edits
+  (16 files / 35 tests, word-count check passes).
+
+Four rounds run. Round 1 found and fixed five real defects (an agency
+mislabel, a mischaracterized link, a calqued term, two comma splices).
+Round 2 confirmed those fixes, then found and fixed three more (round 1's
+own agency fix was itself wrong and got corrected to the real agency, an
+intro/body measurement-window mismatch, a threshold mix-up in a bruk-case)
+plus surfaced one pre-existing, out-of-scope systemic gap (listing-page
+same-date sort tie-break). Round 3 found and fixed eight issues (an
+unsupported superlative, a gender-agreement error, a missing preposition,
+a dangling-fragment sentence, a du/dere inconsistency, an ambiguous verb,
+an ownership-wording tweak, and a bruk-case completeness gap). Round 4
+found and fixed one more real issue (an incomplete procurement-threshold
+explanation, verified against the actual regulation via web search) on an
+independent fresh read, and confirmed everything else held on a final
+holistic pass. No round came back completely empty of real, fixable
+defects until this file was rebuilt and retested six times total — which
+is why this review runs the full four rounds as scoped rather than
+stopping early.
+
+## Proof
+
+This is new content, not a fix to existing behavior, so only an AFTER
+state applies (there is no "before" — the page didn't exist). Verified
+with a full production build (`vite build` + SSR + `scripts/prerender.mjs`)
+served via `vite preview`, then captured with `agent-browser`:
+- `proof/after-valg-og-implementering-bookingsystem-kommune.png` — the
+  published post's top (title, tag, author, reading time) at
+  `/blogg/valg-og-implementering-bookingsystem-kommune`.
+- `proof/after-valg-og-implementering-bookingsystem-kommune-eksempler.png`
+  — the "To eksempler" section further down the page, with round 3 and
+  round 4's fixes (four-role parity, correct threshold/Doffin+TED wording)
+  visible in the live rendered output.
