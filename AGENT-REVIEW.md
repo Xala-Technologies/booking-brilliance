@@ -143,3 +143,66 @@ scope note explicitly says not to touch).
   anbudsprosedyre, matching the post's own procurement paragraph.
 - Rebuilt and re-ran `pnpm vitest run` — both green after the edits
   (16 files / 35 tests, word-count check passes).
+
+## Round 3 — adversarial editorial read + full-branch regression sweep
+
+Two parallel agents: one did a fresh skeptical Bokmål-copyeditor read of
+the whole post with zero prior context, explicitly told not to re-check
+rounds 1-2's fixes; the other swept the whole branch (commits, diff,
+worktree, ignored files) for anything content review wouldn't catch.
+
+**Editorial lens** — found eight issues, six real and fixed, two judged
+not worth a content change:
+1. "Den vanligste årsaken..." — an unsupported superlative stated as bare
+   fact. Softened to "En vanlig årsak...".
+2. "én virksomhetsområde" — wrong gender article; "område" is neuter
+   ("et område"), so it should be "ett virksomhetsområde". Fixed.
+3. "fortsetter henvendelsene inn de gamle kanalene" — missing preposition,
+   ungrammatical. Fixed to "fortsetter henvendelsene å komme inn i de
+   gamle kanalene".
+4. "...blir raskt omgått, gjerne tilbake til regneark..." — a dangling
+   fragment with no verb connecting the second clause. Fixed to "...blir
+   raskt omgått: saksbehandlerne går gjerne tilbake til regneark...".
+5. Inconsistent reader address: two sentences used singular "du"/"din"
+   while the rest of the piece consistently uses plural "dere". Fixed both
+   to "dere".
+6. "hvordan systemet virker den dagen" — ambiguous verb ("virker" can mean
+   "functions" or "seems"). Changed to "fungerer" to remove the ambiguity.
+   Two findings judged not to need a content change:
+7. **Ownership wording, not a real contradiction**: "IT ... eier den
+   tekniske kravspesifikasjonen" (roller-section) vs. "IT og
+   virksomhetsområdet skriver kravspesifikasjonen sammen" (kravspec
+   section) read as conflicting sole-vs-joint ownership. Reworded the
+   roller-section bullet to "IT ... har ansvaret for de tekniske kravene"
+   so it no longer implies sole authorship of the whole document, which
+   both matches the kravspec section's joint-authorship claim and is a
+   more accurate description of what an IT-avdeling actually does in this
+   process.
+8. **Bruk-case 1 not mentioning Økonomi og innkjøp explicitly**: valid
+   observation, not a contradiction — added a short parenthetical noting
+   the small-kommune team "også dekker økonomi og innkjøp", since in a
+   kommune small enough to combine driftsleder and IT-ansvarlig into one
+   person or small team, the same team typically also handles this role
+   rather than having it disappear.
+
+**Regression-sweep lens** — clean. `git log 60470a1..HEAD` showed six
+commits at the time of this round, each doing what its message claims;
+`git diff 60470a1..HEAD --stat` showed exactly the three expected files
+(the post, `AGENT-SPEC.md`, `AGENT-REVIEW.md`); `git status --short` and
+`--ignored` showed no stray tracked or untracked artifacts beyond the
+standard build/dependency directories; none of the forbidden shared build
+files were touched; `AGENT-GOAL.md` confirmed present, tracked, and
+unmodified (expected at this stage); no TODO/FIXME or wrong-ticket-number
+text in either doc file — the one XAL-1139 mention in this file's own
+round-1 section is a self-aware note about pre-existing stale content in
+the base commit, not an error introduced by this branch. Exactly one new
+file under `src/content/blog/`, no duplicates. `proof/` contains ten PNGs
+from prior unrelated tickets, untouched by this branch — noted as
+pre-existing, not a defect.
+
+### What I changed after round 3
+- Fixed items 1-6 above directly in the post.
+- Reworded the roller-section IT bullet per item 7's resolution.
+- Added the økonomi/innkjøp parenthetical to bruk-case 1 per item 8.
+- Rebuilt and re-ran `pnpm vitest run` — both green after the edits
+  (16 files / 35 tests, word-count check passes).
