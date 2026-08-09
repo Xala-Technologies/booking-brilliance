@@ -11,7 +11,7 @@ cover: "/images/blog/sanntidskalender_hero_no.webp"
 keywords: ["undervisningslokaler", "opplæringslokaler", "leie undervisningslokale", "rimelig undervisningslokale", "språkskole lokale", "opplæringsleverandør lokale", "booking undervisningslokale"]
 ---
 
-En språkskole som skal sette opp et nytt kveldskurs i norsk, en opplæringsleverandør som trenger lokale til en sertifiseringsrekke for tredje kvartal, en kursarrangør som selger ut et helgekurs og må finne rom til 25 deltakere på under en uke. Alle tre møter det samme hinderet: undervisnings- og opplæringslokaler er ofte vanskelige å finne prisen på før du ringer, og enda vanskeligere å booke uten å vente på svar fra en saksbehandler. Her går vi gjennom hva som kjennetegner gode undervisningslokaler, hvem som trenger dem, og hvordan rimelig pris og selvbetjent booking henger sammen i praksis.
+En språkskole skal sette opp et nytt kveldskurs i norsk. En opplæringsleverandør trenger lokale til en sertifiseringsrekke for tredje kvartal. En kursarrangør selger ut et helgekurs og må finne rom til 25 deltakere på under en uke. Alle tre møter det samme hinderet: undervisnings- og opplæringslokaler er ofte vanskelige å finne prisen på før du ringer, og enda vanskeligere å booke uten å vente på svar fra en saksbehandler. Her går vi gjennom hva som kjennetegner gode undervisningslokaler, hvem som trenger dem, og hvordan rimelig pris og selvbetjent booking henger sammen i praksis.
 
 ## Hva regnes som undervisnings- og opplæringslokaler?
 
@@ -22,6 +22,8 @@ Begrepet dekker et bredere spekter enn ett enkelt klasserom. I praksis leier kur
 - **Mindre grupperom** ved siden av hovedrommet, til gruppearbeid og praktiske øvelser under samme kurs.
 
 Fordi behovet varierer fra kurs til kurs, holder det sjelden med én generisk «møterom ledig»-status. En sertifiseringssamling for 60 stiller andre krav enn et språkkurs for 12, og prisen bør reflektere det, ikke bare tidspunktet på døgnet.
+
+Det samme gjelder pedagogiske og faglige arrangementer som ikke er et «kurs» i tradisjonell forstand: en fagdag, en forelesningsrekke i regi av en fagforening, eller en workshop en opplæringsleverandør holder for en enkelt bedriftskunde. Digilist skiller ikke mellom kurs og slike faglige arrangementer i bookingflyten — begge deler bookes på samme måte, med samme synlige pris og samme sanntids tilgjengelighet.
 
 ## Tre målgrupper, samme flaskehals
 
@@ -49,7 +51,7 @@ Et undervisningslokale er ikke lett-bookbart fordi bookingskjemaet har få felte
 
 ## Ett kurs, ett lokale hele veien
 
-Et kurs som strekker seg over flere uker eller flere dager på rad har et annet krav enn et enkeltmøte: samme rom må være ledig hver gang, ikke bare ved første booking. For klasseromsformatet spesifikt — flerdagersbooking, ansvarlig booker, avbestillingsfrist og ryddefrist — se den fulle gjennomgangen i [klasseromsleie til kurs og opplæring](/blogg/klasseromsleie-til-kurs-og-opplaering). Det som gjelder ekstra for undervisnings- og opplæringslokaler utover klasserommet, er at et auditorium eller en samlingssal til en større sertifiseringssamling ofte må bookes måneder i forveien, og at opplæringsleverandøren da trenger bekreftelse på at nøyaktig det rommet, med nøyaktig den kapasiteten, er reservert for hele perioden, ikke bare til det først ledige tidspunktet.
+Et kurs som strekker seg over flere uker eller flere dager på rad har et annet krav enn et enkeltmøte: samme rom må være ledig hver gang, ikke bare ved første booking. For klasseromsformatet spesifikt — flerdagersbooking, ansvarlig booker, avbestillingsfrist og ryddefrist — se den fulle gjennomgangen i [klasseromsleie til kurs og opplæring](/blogg/klasseromsleie-til-kurs-og-opplaering). Det som gjelder ekstra for undervisnings- og opplæringslokaler utover klasserommet, er at et auditorium eller en samlingssal til en større sertifiseringssamling ofte må bookes måneder i forveien, og at opplæringsleverandøren da trenger bekreftelse på at nøyaktig det rommet, med nøyaktig den kapasiteten, er reservert for hele perioden, ikke bare til det første ledige tidspunktet.
 
 ## Vanlige spørsmål
 
