@@ -165,5 +165,56 @@ everything else in the diff is `AGENT-SPEC.md`, `AGENT-REVIEW.md`, or `proof/`.
   the "same entry" or a blanket "fjerner passord helt" for the employee path.
 - Re-ran the word-count check (1064 words) and `pnpm vitest run` (16 files /
   35 tests, all green) after the edit.
+
+## Round 4 — final holistic refute pass + independent fresh-eyes read
+
+Two parallel agents: one did a final targeted pass on the certification and
+checklist sections plus a `cat -A` sweep for encoding/whitespace artifacts;
+the other read the file with zero prior context, as an independent second
+opinion, re-verifying every link, the frontmatter, and reading-time math from
+scratch rather than trusting earlier rounds' conclusions.
+
+**Holistic refute lens** — spot-checked rounds 1-3's five fixes (all correct
+now), then found a sixth real issue: "De krever dokumenterte kontroller for
+nøyaktig disse tre områdene" (ISO 27001/27701 require documented controls
+for *exactly* these three areas) overclaimed precision. The site's own
+`gdpr-iso-datalokasjon-norge.md` describes ISO 27001 as covering five
+distinct areas (policies, risk management, access/logging/incident handling,
+supplier agreements, continuous audit) and explicitly caveats what the
+certification does *not* guarantee — my post's "nøyaktig disse tre" framing
+wasn't established anywhere else on the site. No IA/redundancy problem
+between the certification section and the checklist, and no encoding or
+stray-whitespace artifacts in the file.
+
+**Fresh-eyes lens** — independently re-verified all 6 internal links resolve
+(including the `#kontakt` anchor, checked against `CTASection.tsx`),
+frontmatter completeness, and that `readingMinutes: 7` is plausible for the
+actual word count. Found one real issue: "for eksempel når en leiekontrakt
+skal ha rettskraft" misuses "rettskraft" — a specific Norwegian
+civil-procedure term for a final, unappealable court judgment (tvisteloven)
+— where "rettsgyldig" (legally valid/binding) is the correct word for a
+lease. Noted this exact misuse already exists in
+`idporten-bankid-kommunal-innlogging.md` too, but flagged it as still wrong
+in this post regardless of the sibling post's pre-existing error.
+
+### What I changed after round 4
+- Reworded the ISO 27001/27701 sentence to "blant de dokumenterte kontrollene
+  ... inngår nettopp disse tre ... i tillegg til risikostyring og
+  leverandøroppfølging for øvrig" — stating the three areas are part of what
+  the certifications cover, not an exhaustive/exact list, consistent with
+  `gdpr-iso-datalokasjon-norge.md`.
+- Fixed "rettskraft" → "rettsgyldig" for the lease-contract example (did not
+  touch the pre-existing instance in the sibling post — out of scope for this
+  change).
+- Re-ran the word-count check (1075 words) and `pnpm vitest run` (16 files /
+  35 tests, all green) after the edits.
+
+Four rounds run, each finding and fixing at least one real issue (seven
+defects total: wrong SSA-L expansion, invented audit-log detail, missed
+near-duplicate post, conflated kommune/tenant roles, contested
+employee-login claim, overclaimed ISO scope, and one legal-term misuse). No
+round came back empty, so this review stops at four as scoped rather than
+continuing further — the post has been read end-to-end, line by line, by
+eight independent agent passes across four rounds.
 - No action needed yet on `AGENT-GOAL.md` — deleting it is the scheduled last
   step before opening the PR, per the workflow's own ordering.
