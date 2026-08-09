@@ -45,6 +45,17 @@ the deep-dive posts instead of duplicating them.
     ID-porten/BankID integration actually works (SAML/OIDC flow, eID levels).
   - `phishing-resistente-innlogginger-idporten-bankid.md`,
     `magic-link-sms-bankid-sikker-innlogging.md` — login-method deep dives.
+  - `integrasjon-med-offentlige-systemer-og-autentisering.md` (slug
+    `id-porten-bankid-integrasjon-kommune-booking`) — the closest overlap,
+    found by round-1 review (I'd missed it in the initial grep pass): a deep
+    architecture/integration piece covering ID-porten/BankID auth, Entra
+    ID/Outlook sync, and a sample audit-log line format, aimed at the
+    technical-integration reader. My post targets the earlier,
+    procurement/checklist stage of the same buyer journey and doesn't repeat
+    its API-flow or log-format detail — but the overlap was real enough that
+    I added an explicit cross-link to it from my post's login section, so
+    search engines and readers see them as a hub-and-spoke pair (checklist →
+    deep technical dive) rather than two pieces competing for the same intent.
   - `idrettshall-tildeling-saksbehandler-godkjenning-revisjonsspor.md`
     (1282 words) — audit trail covered as part of a caseworker-workflow
     narrative, not as a standalone technical capability.
@@ -69,7 +80,7 @@ One new file: `src/content/blog/teknisk-funksjonalitet-sikkerhet-bookingsystem.m
 - `cover: "/images/blog/gdpr_iso27001_hero_no.webp"` — reused, matches the
   certification/security visual theme already established for this cover.
 - `keywords` includes `"teknisk funksjonalitet bookingsystem"` and
-  `"teknisk sikkerhet bookingsystem"` as primary terms, plus the three
+  `"sikkerhet bookingsystem kommune"` as primary terms, plus the three
   sub-capabilities and the certification terms (ISO 27001, SSA-L).
 - Structure: short framing intro (why "teknisk" is a distinct evaluation stage,
   separate from price/UX), then one `## H2` section each for secure login,

@@ -25,13 +25,13 @@ De tre kravene som går igjen i så godt som enhver kommunal kravspesifikasjon e
 
 Et bookingsystem som håndterer navn, kontaktinformasjon og betalingshistorikk kan ikke basere seg på et eget passordregime. Offentlig sektor har allerede løst dette gjennom ID-porten, og BankID er innbyggernes vante inngang.
 
-I Digilist logger innbyggere inn med BankID gjennom ID-porten, og kommunens egne saksbehandlere og driftsledere bruker samme inngang med rollestyrt tilgang etterpå. Det fjerner passord som angrepsvektor helt, og gir en signert, verifisert identitet på hver handling som krever det, for eksempel når en leiekontrakt skal ha rettskraft. Den fulle mekanikken bak dette, inkludert eID-nivåer og hva som skjer når en bruker ikke har BankID, er beskrevet i [ID-porten og BankID: pålitelig innlogging i kommunale tjenester](/blogg/idporten-bankid-kommunal-innlogging), med phishing-motstand utdypet i [phishingresistente innlogginger med ID-porten og BankID](/blogg/phishing-resistente-innlogginger-idporten-bankid).
+I Digilist logger innbyggere inn med BankID gjennom ID-porten, og kommunens egne saksbehandlere og driftsledere bruker samme inngang med rollestyrt tilgang etterpå. Det fjerner passord som angrepsvektor helt, og gir en signert, verifisert identitet på hver handling som krever det, for eksempel når en leiekontrakt skal ha rettskraft. Den fulle mekanikken bak dette, inkludert eID-nivåer og hva som skjer når en bruker ikke har BankID, er beskrevet i [ID-porten og BankID: pålitelig innlogging i kommunale tjenester](/blogg/idporten-bankid-kommunal-innlogging), med phishing-motstand utdypet i [phishingresistente innlogginger med ID-porten og BankID](/blogg/phishing-resistente-innlogginger-idporten-bankid). Den tekniske integrasjonsflyten mot ID-porten og kommunens Microsoft 365-miljø, inkludert Outlook-kalendersync, er dokumentert i [ID-porten og BankID: slik sikrer Digilist bookingen din](/blogg/id-porten-bankid-integrasjon-kommune-booking).
 
 ## Revisjonsspor: sporbarhet på hver endring
 
 En kommune må kunne svare på "hvem gjorde denne endringen, og når" for enhver booking, godkjenning eller avvisning, ikke fordi det er hyggelig å ha, men fordi det er en forutsetning for saksbehandling som skal tåle en klage eller en tvist om en avbestilling.
 
-I praksis betyr det at hver mutasjon, ikke bare hver innlogging, skrives til en egen logg med tidsstempel og bruker, atskilt fra selve dataen den beskriver, slik at loggen ikke kan endres av den samme kontoen som gjorde endringen. Hvordan det ser ut i en reell arbeidsflyt, fra søknad til vedtak med fullt revisjonsspor, er vist i [idrettshall ledige tider: saksbehandlerens vei fra søknad til vedtak](/blogg/idrettshall-tildeling-saksbehandler-godkjenning-revisjonsspor).
+I praksis betyr det at hver mutasjon, ikke bare hver innlogging, skrives til en egen, uforanderlig logg med tidsstempel og bruker, atskilt fra selve dataen den beskriver, slik at verken kommunens administratorer eller Digilist-support kan slette enkeltoppføringer i ettertid. Hvordan det ser ut i en reell arbeidsflyt, fra søknad til vedtak med fullt revisjonsspor, er vist i [idrettshall ledige tider: saksbehandlerens vei fra søknad til vedtak](/blogg/idrettshall-tildeling-saksbehandler-godkjenning-revisjonsspor).
 
 ## Avansert administrasjon uten å måtte kode
 
@@ -41,7 +41,7 @@ Dette er beskrevet i detalj, med de faktiske brukertypene og rollene Digilist sk
 
 ## Hvorfor dette er kjernen i sertifisering, ikke et tillegg til den
 
-ISO 27001 (informasjonssikkerhet) og ISO 27701 (personverninformasjon) er ikke sertifikater man får for å love å være forsiktig. De krever dokumenterte kontroller for nøyaktig disse tre områdene: hvem får tilgang, hvordan tilgang autentiseres, og hvordan endringer spores og kan revideres i ettertid. Det samme gjelder kravene i SSA-L 2026, Statens standardavtale for programvare som tjeneste, som norske kommuner i økende grad legger til grunn ved anskaffelse.
+ISO 27001 (informasjonssikkerhet) og ISO 27701 (personverninformasjon) er ikke sertifikater man får for å love å være forsiktig. De krever dokumenterte kontroller for nøyaktig disse tre områdene: hvem får tilgang, hvordan tilgang autentiseres, og hvordan endringer spores og kan revideres i ettertid. Det samme gjelder kravene i [SSA-L](/blogg/ssa-l-2026-bookingsystem-kommune), Statens standardavtale for løpende tjenestekjøp, som norske kommuner i økende grad legger til grunn ved anskaffelse av bookingsystem som SaaS.
 
 Det er derfor sikker innlogging, revisjonsspor og rollestyrt administrasjon ikke er tre separate "nice to have"-funksjoner. De er de tre tekniske søylene et sertifiseringsregime faktisk måler, og en leverandør som mangler én av dem kan ikke dokumentere resten på en troverdig måte, uansett hvor bra kalenderfunksjonen er. Det er også her et bookingsystem bygget for kommunal drift skiller seg tydeligst fra en generisk løsning laget for et helt annet marked.
 
