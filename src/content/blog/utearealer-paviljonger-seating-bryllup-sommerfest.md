@@ -82,4 +82,4 @@ Les også [Bryllupslokale 2026: type, pris, dato og alt dere må sjekke](/blogg/
 
 ## Book demo hos Digilist
 
-Skal dere finne og sammenligne utearealer, paviljonger og utesitteplasser til bryllup eller sommerfest uten å bruke uker på e-postrunder og telefonsamtaler? [Book en demo](/demo) hos Digilist, så viser vi hvordan dere ser ledighet, kapasitet og pris for utearealet samlet på ett sted, og booker direkte når dere finner det som passer.
+Skal dere finne og sammenligne utearealer, paviljonger og utesitteplasser til bryllup eller sommerfest uten å bruke uker på e-postrunder og telefonsamtaler? [Book en demo](/book-demo) hos Digilist, så viser vi hvordan dere ser ledighet, kapasitet og pris for utearealet samlet på ett sted, og booker direkte når dere finner det som passer.
