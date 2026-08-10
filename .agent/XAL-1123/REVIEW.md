@@ -204,3 +204,60 @@ round; re-ran `npx vitest run` (20 files, 40 tests, all green) and
 `node scripts/check-blog-word-count.mjs` / `node scripts/check-title-lengths.mjs`
 to confirm the working tree is still clean after the review pass — both
 pass, unchanged from Round 2.
+
+## Round 4
+
+**Lens: scope** — is anything in this diff *not* the stated change? Drive-by
+edits, unrelated tidying, files nobody asked to have touched.
+
+Checked `git diff origin/main...HEAD --stat` and `--name-status` directly,
+independent of what the SPEC/earlier rounds already said was touched:
+
+```
+ .agent/XAL-1123/REVIEW.md                                    | 206 ++++++++
+ .agent/XAL-1123/SPEC.md                                       | 158 +++++++
+ src/content/blog/foreninger-lag-mote-arrangement-booking.md   |  71 +++
+ 3 files changed, 435 insertions(+)
+```
+
+1. **File count and kind.** Exactly three files, all three additions
+   (`git diff --name-status` shows `A` for all three, no `M`, no `D`). Two
+   are this ticket's own process docs (`SPEC.md`, `REVIEW.md` — required by
+   the workflow contract, not drive-by), one is the single content file the
+   SPEC's "WHAT CHANGES" section commits to delivering. No third-party file
+   — no script, no test, no other blog post, no config — appears anywhere in
+   the diff.
+2. **No unrelated tidying inside the touched files.** Read the new post's
+   full 71-line body end to end (reproduced above) — every line is either
+   frontmatter for this post or body prose about foreninger/lag booking
+   styremøter, årsmøte or sosiale sammenkomster. No leftover TODO, no
+   commented-out draft paragraph, no formatting-only line that doesn't carry
+   content.
+3. **Branch hygiene.** `git log origin/main..HEAD --oneline` shows exactly
+   five commits, all XAL-1123-labeled (one chore, one content, three
+   review). No commit from another ticket got carried onto this branch, and
+   no merge commit that could have dragged in someone else's diff.
+4. **Internal links stay inside the stated linking plan.** The SPEC's "WHAT
+   CHANGES" section names the exact adjacent posts and category pages this
+   post should link to (the four "Lag og foreninger" siblings plus
+   `/bookingsystem-utleie` / `/bookingsystem-kommune`). Re-grepped the
+   published body for every `/blogg/` and `/bookingsystem` link: it links to
+   `sesongleie-fordeling-lag-foreninger`,
+   `sal-generalforsamling-borettslag-styreleder`,
+   `frivillig-organisasjon-bookingsystem-medlemstilgang`,
+   `registrere-lag-organisasjon-booke-kommunale-lokaler`, and
+   `moterom-kommune-finn-og-book-ledige-lokaler` — five internal links, all
+   from the adjacent-posts set the SPEC identified during its gap analysis,
+   plus one external `/demo` CTA link consistent with every other post's
+   closing CTA. No link to an unrelated page, and no `/bookingsystem-utleie`
+   or `/bookingsystem-kommune` link is actually present despite being named
+   in the SPEC as a possibility — a minor spec/output mismatch, not a scope
+   violation (the SPEC described the linking strategy loosely, and the five
+   posts actually linked already cover the stated audiences without needing
+   the category pages too; not a defect worth a commit to force in
+   unnecessary links).
+
+**Finding: none.** The diff is exactly the three files the ticket requires —
+one content file, two mandated process docs — with no drive-by edits,
+unrelated cleanup, or off-ticket commits anywhere in the branch history. No
+code changes made this round.
