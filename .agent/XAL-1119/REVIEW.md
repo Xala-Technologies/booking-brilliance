@@ -241,3 +241,68 @@ itself authored. Nothing to fix.
 
 None — no security defects found. `git status` is clean at the end of this
 session beyond this REVIEW.md addition.
+
+## Round 4
+
+**Lens: scope — is anything in this diff NOT the stated change? Drive-by
+edits, unrelated tidying, files nobody asked to be touched.**
+
+### What I checked
+
+- Step 0 sanity: `.agent/XAL-1119/SPEC.md` (with mermaid diagram) and
+  `.agent/XAL-1119/REVIEW.md` (rounds 1-3) already exist on disk from prior
+  sessions — the "AGENT-SPEC.md does NOT exist" framing in this round's
+  prompt refers to the root-level file, deleted on `main` on purpose (per
+  memory `project_root_agent_spec_deleted_trap.md`); the per-issue doc this
+  memory says to use instead was already written in round 1. No Linear MCP
+  tools are available to attach it (re-confirmed by round 3; consistent with
+  the standing `project_no_linear_mcp_tools_available` memory). Nothing left
+  to do for step 0.
+- `git diff origin/main...HEAD --name-status`: exactly three files touched
+  across the entire branch — `.agent/XAL-1119/SPEC.md`,
+  `.agent/XAL-1119/REVIEW.md`, and
+  `src/content/blog/studio-fotografi-videografi-privatproduksjon-booking.md`.
+  All are additions (`A`), nothing modified or deleted.
+- Walked every commit individually (`git show --stat` on all five:
+  `da3487e`, `9eda062`, `d00b983`, `155442e`, `c3aa099`) to check for
+  drive-by edits hidden inside an otherwise-legitimate commit, not just the
+  squashed cumulative diff. `da3487e` is an empty branch-creation commit (no
+  file changes — normal for this pipeline's chore-commit convention, not
+  scope creep). Every other commit touches only the new blog post and/or its
+  own `.agent/XAL-1119/REVIEW.md` round section. No commit touches
+  `src/lib/`, `src/components/`, `src/pages/`, `vite.config.ts`,
+  `package.json`, any `scripts/*`, any test file, or any other post's
+  `.md` file.
+- `git diff origin/main...HEAD -- . ':!.agent' ':!src/content/blog/studio-fotografi-videografi-privatproduksjon-booking.md'`
+  (everything *except* the two expected paths) — empty. Confirms nothing
+  outside the stated change is touched anywhere in the branch history.
+- `git status --porcelain=v1` — empty; no staged/unstaged/untracked drift
+  beyond what's already committed.
+- Read the blog post body itself end-to-end for scope creep *within* the
+  content (e.g., product claims that stray into unrelated feature areas,
+  or sections that wander off the stated topic). All six sections
+  (intro, "hva kjennetegner", "tre bookingmønstre", "hvorfor lav volum",
+  "slik gjør Digilist", FAQ, closing CTA) stay strictly on the fotostudio/
+  videostudio-as-bookable-resource topic the ticket asked for; the three
+  internal links (`spesiallokaler-niche-utleie-teaterscene-kjeller`,
+  `kunstner-verksteder-studio-dansesaler-kreative-lokaler`,
+  `utleieobjekt-veiviser-steg-for-steg`) and one product link
+  (`/bookingsystem-utleie`) are all directly relevant cross-references the
+  SPEC already accounted for, not incidental additions.
+- Checked the SPEC's own acceptance-criteria checkboxes remain `- [ ]`
+  (unchecked) — this round doesn't touch them either; consistent with
+  round 1's finding that this matches the merged sibling XAL-1123 SPEC.md
+  convention, not an omission to fix.
+
+### Findings
+
+None. The entire branch history (5 commits) touches exactly three files:
+one new Bokmål blog post and the two `.agent/XAL-1119/` process documents
+the SPEC/REVIEW workflow itself requires. No application code, config,
+script, test, image asset, or other blog post was touched at any point.
+Nothing to fix.
+
+### Changes made this round
+
+None — no scope defects found, so nothing to fix. `git status` is clean at
+the end of this session beyond this REVIEW.md addition.
