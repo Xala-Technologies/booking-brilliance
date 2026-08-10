@@ -1,7 +1,7 @@
-# XAL-1151: Deep review log
+# XAL-1154: Deep review log
 
 Change under review: one new file,
-`src/content/blog/leie-lokale-sammenligne-egenskaper-kapasitet-utstyr.md`
+`src/content/blog/utearealer-paviljonger-seating-bryllup-sommerfest.md`
 (a Norwegian blog post), plus `AGENT-SPEC.md`.
 
 ## Round 1 — correctness / regression-duplication / security / scope
@@ -9,258 +9,237 @@ Change under review: one new file,
 Four parallel agents, each told to REFUTE the change over the actual file
 contents and `git diff origin/main..HEAD`.
 
-**Correctness** — found three real defects:
-1. Line 20: a fronted conditional ("Skal du sammenligne...") followed by a
-   subject-before-verb main clause ("guiden ... viser"), violating Norwegian
-   V2 word order — the finite verb must directly follow the comma. Every
-   other fronted-conditional sentence in the post (e.g. line 46, "Er du
-   driftsleder ... er [guiden] det riktige stedet") gets this right.
-2. Line 26: the post claimed a missing equipment checkbox on a listing "som
-   regel" means the equipment doesn't exist, not that the utleier forgot to
-   list it — directly contradicted by `utleieobjekt-veiviser-steg-for-steg.md`
-   ("Du kan publisere uten en lang funksjonsliste – den kan du fylle ut
-   senere"), which documents that an incomplete feature list is a normal,
-   expected state on the platform.
-3. Line 26: invented two items ("pauserom", "skjerm") into what read as
-   Digilist's actual checkbox field list; the veiviser post's real field
-   list is wifi, kjøkken, prosjektor, lydanlegg, parkering, garderober —
-   "pauserom" and "skjerm" aren't among them.
-   Everything else checked out: internal consistency between the table and
-   the prose, all five internal links resolve, frontmatter matches
-   `blogFrontmatter.ts`'s contract, and `readingMinutes: 5` for the (then)
-   860-word body checked against five sibling posts' actual words-per-minute
-   ratio (135–201 wpm range) lands mid-range, not just the two posts
-   initially spot-checked.
+**Correctness** — found one real grammar defect: line 24 shifted from the
+plural antecedent "alle tre" to singular "den" mid-sentence ("...den må tåle
+antall gjester..."), breaking agreement. Everything else checked out:
+internal links (`/blogg/velge-bryllupslokale-guide-2026`,
+`/blogg/leie-bryllupslokale-kapasitet-inkludert-skjenkebevilling`,
+`/book-demo`) all resolve against real files/routes, frontmatter matches
+sibling conventions (author/role/tag/cover/readingMinutes all consistent),
+and the real-time-calendar/direct-booking claims in the CTA and the
+"Slik sjekker og booker" section match how sibling posts describe the same
+product feature — no overstatement. Also flagged a lower-confidence
+redundancy: two separate checklist bullets both led with "Strøm", one for
+lyd/lys and one for patioovner heating, reading as an editing inconsistency.
 
-**Regression / duplication** — no true duplicate of the generic,
-cross-venue-type "compare characteristics before booking" angle exists in
-the 273-post corpus. Closest analogs are all narrower: the wedding-specific
-kapasitet/vilkår/tilgjengelighet checklist posts, and
-`selskapslokaler-typer-og-hvordan-velge.md`'s sittende/stående explanation
-(selskapslokaler-only). Grepped 8 distinctive phrases from the new post
-against the whole corpus — zero verbatim reuse found, so the "pris isn't
-what matters, X is" opening device (also used by a wedding post from days
-earlier) is independently worded, not copied. Tag (`Privatperson`, the most
-common value) and cover image (reused by 55 other posts) both consistent
-with precedent. No slug collision.
+**Regression / duplication** — the most substantive finding: the "Vær og
+plan B" section was near-verbatim to material already published in
+`velge-bryllupslokale-guide-2026.md` (same three-question structure, same
+"innendørs alternativ ... uten ekstra kostnad" / "responstid" / "hvem tar
+avgjørelsen" phrasing) and one sentence in
+`leie-bryllupslokale-kapasitet-inkludert-skjenkebevilling.md` ("Et telt til
+80 gjester kan fort koste like mye som selve lokalleien" vs. this post's
+near-identical "et telt til 80 gjester fort koster like mye som selve leien
+av selskapslokalet"). Slug, cover image reuse (`en_plattform_hero_no.webp`,
+already shared by 28 posts), and the `Privatperson` tag (81 existing uses)
+were all confirmed clean — no collision, reuse is the established
+convention. No other post targets "utearealer" as a primary keyword.
 
-**Security** — no issues. `BlogPost.tsx` renders via `<ReactMarkdown
-remarkPlugins={[remarkGfm]}>` with no `rehype-raw` and no
-`dangerouslySetInnerHTML` anywhere in the blog render path, so raw HTML in
-the markdown (there is none) wouldn't execute regardless. No secrets or
-internal infra in either file. The one external link
-(`https://digilist.no`) matches the identical pattern already used in 17+
-other posts. The Tilgjengelighet section reads as reader-facing advice
-("sjekk om..."), not a Digilist accessibility-compliance claim.
+**Security** — no issues. No raw HTML/script in the markdown; the render
+pipeline (`ReactMarkdown` + `remarkGfm`, no `rehype-raw` anywhere in the
+repo, no `dangerouslySetInnerHTML` in the blog path) wouldn't execute raw
+HTML even if present. No secrets or internal infra in either file. All
+three links are internal/relative. The `skjenkebevilling` mentions are
+framed as "sjekk med stedet/kommunen," not definitive legal advice.
 
-**Scope** — clean. Diff is exactly the new post and `AGENT-SPEC.md`; none of
-the forbidden shared files (`scripts/prerender.mjs`, `src/entry-server.tsx`,
-`scripts/verify-live.mjs`, `vite.config.ts`,
-`build-plugins/blogMetaPlugin.ts`) appear in the diff, `git status --short`
-was clean, and `AGENT-GOAL.md` is present, tracked, and unmodified as
-expected at this stage (scheduled for deletion right before the PR, not
-before).
+**Scope** — clean except one stray uncommitted change: `pnpm-workspace.yaml`
+had gained an `allowBuilds` block from my own local `pnpm approve-builds`
+step (needed to install native deps in this fresh worktree) — unrelated to
+the ticket, reverted with `git checkout -- pnpm-workspace.yaml` before
+committing anything. The diff itself contains only the new post plus
+`AGENT-GOAL.md`/`AGENT-SPEC.md`; none of the forbidden shared files
+(`scripts/prerender.mjs`, `src/entry-server.tsx`, `scripts/verify-live.mjs`,
+`vite.config.ts`, `build-plugins/blogMetaPlugin.ts`, `src/lib/posts.ts`,
+`src/pages/Blog.tsx`) were touched.
 
 ### What I changed after round 1
-- Fixed the V2 word-order error on line 20 ("... viser [guiden] hvordan
-  ...", verb directly after the comma).
-- Softened the "missing checkbox = equipment doesn't exist" claim on line 26
-  to match what the veiviser post actually documents: a missing field can
-  mean either the equipment doesn't exist or the listing isn't fully filled
-  in yet, so the advice is to ask rather than assume.
-- Removed "pauserom" and "skjerm" from the equipment list on line 26,
-  matching the veiviser post's actual field names (wifi, kjøkken,
-  prosjektor, lydanlegg).
-- Re-ran the full build pipeline (`optimize-images`, `vite build`, SSR
-  build, `prerender.mjs`, `check-blog-word-count.mjs`) and `pnpm test` —
-  both green after the edit (16 files / 35 tests, word-count check green on
-  both markdown and prerendered HTML; recomputed word count 874, still
-  ~175 wpm at `readingMinutes: 5`, no change needed).
+- Fixed the "de"/"den" pronoun-agreement break (line 24).
+- Renamed the "Strøm og oppvarming" bullet to "Oppvarming ved kveldskulde"
+  and reworded it to add a detail (own strømkrets, sized for guest count)
+  that wasn't already covered by the earlier "Strøm på stedet" bullet, so
+  the two bullets no longer overlap in scope.
+- Rewrote the telt/paviljong cost sentence so it makes the same point
+  (get the all-in price, not just the tent rental) without echoing the
+  sibling post's specific "kan fort koste like mye som selve lokalleien"
+  wording.
+- Rewrote the "Vær og plan B" section from a three-question list into
+  flowing prose with a different structure and different specifics
+  (decision deadline, who has final say, cost of the fallback), keeping
+  the same underlying facts a reader needs but no longer matching the
+  sibling post's paragraph sentence-for-sentence.
+- Reverted the unrelated `pnpm-workspace.yaml` change (local tooling
+  artifact from installing dependencies in this worktree, not part of the
+  diff).
+- Re-ran the full build pipeline (`optimize-images` → `vite build` → SSR
+  build → `prerender.mjs` → `check-blog-word-count.mjs`) and
+  `npx vitest run` — both green after the edits (16 files / 35 tests,
+  word-count check passes on both markdown and prerendered HTML).
 
-## Round 2 — fresh fact-check + full build/SEO regression
+## Round 2 — re-verify round 1's fixes + fresh editorial/SEO pass
 
-Two parallel agents: one re-read every remaining factual/process claim
-(platform-field claims, the comparison table, all five cross-link framings,
-the illustrative sittende/stående numbers, and a fresh independent
-grammar/spelling pass), explicitly told not to re-check round 1's three
-fixes; the other ran the full production build from a clean `dist`/
-`dist-server`, inspected the prerendered HTML/sitemap/listing page
-directly, and ran the test suite.
+Two parallel agents: one re-verified all four round-1 fixes landed
+correctly, re-checked the rewritten "Vær og plan B" section and telt-cost
+sentence one more time against the two sibling posts, fact-checked every
+remaining claim against three more related posts, and ran a full clean
+production build with direct HTML/sitemap inspection; the other did a fresh
+skeptical-editor read of the whole post plus a frontmatter/metadata/heading/
+checklist/link-anchor audit, explicitly told not to assume round 1 caught
+everything.
 
-**Fact-check lens** — platform claims, the table, and all five cross-link
-framings all checked out against the six related posts read for this round
-(`utleieobjekt-veiviser-steg-for-steg.md`,
-`selskapslokaler-typer-og-hvordan-velge.md`,
-`hva-er-et-forsamlingslokale.md`,
-`leie-lokale-billigst-kommune-sammenlign-lokaltyper.md`,
-`moterom-kommune-finn-og-book-ledige-lokaler.md`,
-`kapasitetsstyring-idrettsanlegg-driftsleder.md`) — no invented claim, no
-link pointing to a post that doesn't actually cover what it's framed as
-covering. The "seksti stående, tretti sittende" example was checked and
-confirmed adequately hedged as an illustration ("et rom", "gjerne"), not a
-universal rule. Found one real grammar defect and two minor consistency
-nits:
-1. "finnes det heis hvis lokalet ligger i etasje" — missing an
-   article/specifier, not standard Bokmål.
-2. A nonstandard comma before "og" in the Fasiliteter section's list,
-   inconsistent with the post's own list style elsewhere.
-3. The table capitalized "Wifi" while the prose used lowercase "wifi".
+**Fact-check + build lens** — first three round-1 fixes (pronoun, bullet
+rename, telt-cost sentence) verified correctly applied and reading
+naturally in context. The fourth fix (the "Vær og plan B" rewrite) was only
+partially fixed: it still carried a verbatim 5-word phrase ("dere, eller
+vertskapet på stedet") lifted from `velge-bryllupslokale-guide-2026.md`, a
+near-identical sentence template ("spesielt i mai og september, når
+værutsiktene er minst pålitelige" vs. that post's "spesielt i mai og
+september når været er minst forutsigbart"), and a verbatim 5-word phrase
+("innendørs alternativ i samme bygning") lifted from
+`leie-bryllupslokale-kapasitet-inkludert-skjenkebevilling.md` — the
+structural rewrite hadn't touched the distinctive phrasing itself. No new
+factual contradictions found against `utendorsfasiliteter-booking-og-
+tilgjengelighet.md`, `leie-utstyr-til-fest-telt-bord-lyd-servering.md`, or
+`leie-selskapslokale-bryllup-fest.md`. One low-severity terminology nuance
+noted, not fixed: this post says "engangsløyve" where the kapasitet post
+says "ambulerende bevilling" for a temporary skjenkebevilling — both
+legitimate terms for related but not strictly identical routes, not a
+contradiction. Full clean build (`rm -rf dist dist-server && npm run
+build`) passed; direct inspection of the prerendered HTML confirmed exactly
+one `<h1>`, correct canonical URL, complete Open Graph tags, and exactly
+one sitemap entry.
 
-**Build/SEO lens** — ran the full pipeline once from a clean state
-(`rm -rf dist dist-server` → `optimize-images.mjs` → `vite build` → SSR
-build → `prerender.mjs` → `check-blog-word-count.mjs` → `pnpm test`): every
-step passed, no error-level output, 16/16 test files, 35/35 tests green.
-Direct inspection of
-`dist/blogg/leie-lokale-sammenligne-egenskaper-kapasitet-utstyr/index.html`
-confirmed exactly one `<h1>` matching the title, correct Article JSON-LD,
-canonical URL, Open Graph/Twitter tags, all five internal links plus the
-external CTA rendered as real `<a href>` tags, and exactly one sitemap
-entry (357 total URLs). Checked the known pre-existing listing-pagination
-gap from the prior XAL-1139 review specifically for this post: six posts
-share today's date, and this post is one of them, landing at position 2 of
-6 on `/blogg` page 1 — no defect, the post is visible on the listing page.
+**Editorial/SEO lens** — found two real issues: (1) "private arrangement"
+(wrong plural — should be "private arrangementer") in the frontmatter
+description and twice in the body; (2) the second internal link's anchor
+text was stale — it read "Bryllupslokale: kapasitet, inkludert utstyr og
+skjenkebevilling" but the actual title of
+`leie-bryllupslokale-kapasitet-inkludert-skjenkebevilling.md` is
+"Bryllupslokale 2026: kapasitet, totalpris og hva som faktisk er
+inkludert". Everything else checked out clean: title length (60 chars, in
+line with siblings, confirmed via `scripts/check-title-lengths.mjs`
+reporting "ok"), `utearealer` correctly the first/primary keyword, heading
+structure (H2s only, no skips or duplicates), and every checklist item
+traceable to body content explained earlier in the post.
 
 ### What I changed after round 2
-- Fixed "i etasje" → "i en etasje over bakkeplan" (line 30).
-- Removed the nonstandard comma before "og" in the Fasiliteter list
-  (line 34).
-- Lowercased "Wifi" → "wifi" in the comparison table to match the prose's
-  usage (line 42).
-- Re-ran the full build pipeline and `pnpm test` (16 files / 35 tests, all
-  green) after the edits.
+- Fixed "private arrangement" → "private arrangementer" in the frontmatter
+  `description` and in both body occurrences (intro paragraph and the
+  "Hva er utearealer..." section).
+- Fixed the second internal link's anchor text to match the real title of
+  `leie-bryllupslokale-kapasitet-inkludert-skjenkebevilling.md`.
+- Reworded the "Vær og plan B" section a second time to remove the three
+  remaining lifted phrases, restating the same underlying facts (decision
+  deadline, who decides, cost of the fallback, and why a same-building
+  alternative lowers risk) with genuinely different sentence construction
+  and vocabulary this time, not just a different list-vs-prose structure.
+- Re-ran the full build pipeline and `npx vitest run` — both green
+  (16 files / 35 tests, word-count check passes on markdown and prerendered
+  HTML).
 
-## Round 3 — adversarial editorial read + full-branch regression sweep
+## Round 3 — cold fresh-eyes copyedit + full-branch regression sweep
 
-Two parallel agents: one did a fresh skeptical-editor read of the whole post
-(explicitly told not to re-check rounds 1-2's six fixes, only look for
-anything new — unsupported superlatives, table/checklist symmetry,
-pillar-naming drift, redundancy, one more independent language pass), the
-other swept the whole branch state (commits, diff, worktree, ignored files,
-lockfiles) for anything content review wouldn't catch.
+Two parallel agents, zero prior context, told to independently re-verify
+everything rather than trust any earlier "fixed" claim: one did a
+skeptical-copyeditor read plus one more overlap check against the two
+sibling posts; the other swept the whole branch (commits, diff, working
+tree, forbidden files) for anything content review wouldn't catch.
 
-**Editorial lens** — found five real issues:
-1. Three unsupported "most/all" claims stated as flat fact with no backing:
-   the intro's "De fleste som skal leie et lokale, sammenligner pris først",
-   "De vanligste punktene å sjekke er wifi, kjøkken, prosjektor og
-   lydanlegg", and the table's "Feil tall her er den vanligste årsaken til
-   at et lokale føles for trangt".
-2. The Kapasitet table row was stylistically asymmetric against the other
-   four rows — a different phrase structure in "Hva du sjekker," and it
-   broke the "Avgjør om..." template every other row's "Hvorfor det betyr
-   noe" cell used.
-3. The 5-item checklist had no item covering Planløsning (møblering/
-   soneinndeling), while Kapasitet got two separate items — an uneven
-   mapping from the four body pillars to the checklist.
-4. The frontmatter `description` named only "Kapasitet, utstyr,
-   tilgjengelighet og fasiliteter," dropping "planløsning" even though it's
-   a distinct pillar with its own paragraph and table row.
-5. "Utstyr er den andre halvdelen av bildet" read as an English-idiom
-   calque rather than natural Bokmål.
+**Fresh-eyes copyedit lens** — found one more real grammar error of the
+same class as round 1's de/den bug: "akkurat **den** oppsettet" should be
+"akkurat **det** oppsettet" (`oppsett` is neuter). Confirmed the round-1 and
+round-2 fixes (de/den agreement, "private arrangementer") held and found no
+further instance of that error class elsewhere. Also found that round 2's
+"Vær og plan B" rewrite still hadn't removed all the overlap: the closing
+CTA paragraph was a near-verbatim clone of `velge-bryllupslokale-guide-
+2026.md`'s CTA opening ("...uten å bruke uker på e-postrunder og
+telefonsamtaler? Book en demo hos Digilist..."), and three of the seven
+closing-checklist bullets shared near-identical sentence templates with
+bullets in that post and in `leie-bryllupslokale-kapasitet-inkludert-
+skjenkebevilling.md` (same "Har X, eller må dere søke selv" / "Er totalpris
+inkludert X, eller kommer det i tillegg" frames, just the noun swapped) —
+round 2's dedup pass had covered the body sections but missed the checklist
+and CTA. All three links, and the full frontmatter, re-verified clean.
 
-**Regression-sweep lens** — clean, with one important caveat surfaced and
-resolved: a naive `git diff origin/main..HEAD --stat` showed a spurious
-deletion of an unrelated post
-(`leie-sal-billigst-kommunal-privat-totalpris-sammenligning.md`) because
-`origin/main` had advanced by one unrelated commit after this branch
-diverged — confirmed via `git diff <merge-base>..HEAD --stat` that this
-branch itself only ever touched the four expected files (`AGENT-GOAL.md`,
-`AGENT-SPEC.md`, `AGENT-REVIEW.md`, the new post). Flagged as needing a
-merge with the now-advanced `origin/main` before the PR is opened (done at
-the sync step), not a content defect. No forbidden shared files touched, no
-stray tracked/untracked files, no TODO/FIXME/wrong-ticket text, exactly one
-new file under `src/content/blog/`, and `pnpm-workspace.yaml` /
-`package.json` / lockfiles confirmed untouched by any commit on this branch
-(the local `pnpm approve-builds` run used to install dependencies for
-testing never leaked into a commit).
+**Regression-sweep lens** — clean except one process gap, not a content
+defect: `AGENT-REVIEW.md`'s round-2 write-up existed only in the working
+tree, not yet committed. Confirmed: exactly 3 content-relevant files in the
+diff at that point (the post, `AGENT-SPEC.md`, `AGENT-GOAL.md`), all 5
+commits' messages matched their actual `--stat` content, no forbidden
+shared file touched, exactly one new post under `src/content/blog/`,
+`AGENT-GOAL.md` present/tracked/unmodified as expected at this stage, no
+stray TODO/FIXME or wrong-ticket-number text, `pnpm-workspace.yaml` clean
+(round 1's revert held).
 
 ### What I changed after round 3
-- Reworded the intro's opening claim from a flat "most renters" assertion
-  to a reader-directed statement ("Skal du leie et lokale, er pris gjerne
-  det du sammenligner først").
-- Reworded "De vanligste punktene å sjekke er..." to "Sjekk gjerne disse
-  fire punktene:..." — same four items, framed as guidance rather than an
-  unbacked popularity claim.
-- Reworded the Kapasitet table row's "Hvorfor det betyr noe" cell to match
-  the "Avgjør om..." template used by the other four rows, dropping the
-  unsupported "vanligste årsak" claim.
-- Shortened the Kapasitet row's "Hva du sjekker" cell to match the other
-  rows' comma-list style.
-- Added a checklist item for Planløsning and merged the two Kapasitet items
-  into one, so all four body pillars now map onto the 5-item checklist.
-- Added "planløsning" to the frontmatter description.
-- Reworded "Utstyr er den andre halvdelen av bildet" to "Utstyr er den
-  andre halvparten av vurderingen."
-- Re-ran the full build pipeline and `pnpm test` (16 files / 35 tests, all
-  green) after the edits.
+- Fixed "den oppsettet" → "det oppsettet" (line 40).
+- Rewrote the closing CTA paragraph with a different opening and structure,
+  keeping the same offer (see real-time availability, book a demo) without
+  echoing the sibling post's specific phrasing.
+- Reworded the three overlapping checklist bullets (skjenkebevilling,
+  innendørs-alternativ, totalpris) so each states the same underlying check
+  with different sentence construction than the matching bullets in the two
+  sibling posts.
+- Committed the pending `AGENT-REVIEW.md` update from round 2, closing the
+  process gap the sweep found.
+- Re-ran the full build pipeline and `npx vitest run` — both green
+  (16 files / 35 tests, word-count check passes on markdown and prerendered
+  HTML).
 
-## Round 4 — final holistic refute pass + independent fresh-eyes read
+## Round 4 — final holistic pass + independent cold read
 
 Two parallel agents: one did a targeted final pass (encoding/whitespace
-sweep, redundancy check between the table and the prose, checklist-vs-
-current-wording consistency, an accessibility legal cross-check against
-`godkjenningsflyt-revisjonsspor-booking-re-forespørsel.md`, and the updated
-description's grammar), explicitly told to assume all eleven round 1-3
-fixes were correct and not re-check them; the other read the file
-completely cold, with zero prior context, independently re-verifying every
-link, the full frontmatter, the reading-time math, and doing its own
-from-scratch Norwegian-language read.
+sweep, redundancy check between the definitional and checklist sections,
+checklist-vs-body consistency, and one more skjenkebevilling cross-check),
+explicitly told to assume all prior fixes were correct and look only for
+anything new; the other read the file completely cold, with zero prior
+context, independently re-verifying every link, the full frontmatter, and
+the reading-time math from scratch.
 
-**Holistic refute lens** — no encoding/whitespace issues (`cat -A` sweep
-and a non-ASCII scan both clean; the only non-ASCII hit was the correctly
-spelled "buffé"). Checklist items all mapped correctly onto the current
-(post round-3) body wording, with no leftover reference to the old
-two-item Kapasitet phrasing. The accessibility legal cross-check was moot:
-`godkjenningsflyt-revisjonsspor-booking-re-forespørsel.md` doesn't discuss
-accessibility at all, so there was nothing to cross-check against. Found
-one real issue: the table's Utstyr row ("wifi, kjøkken, prosjektor og
-lydanlegg") repeated the prose sentence immediately above it verbatim,
-word-for-word — the only exact duplicate among the five table rows.
+**Holistic refute lens** — no encoding/whitespace issues (clean UTF-8, only
+expected æøå/em-dash non-ASCII characters, no CRLF or trailing whitespace).
+No redundancy between the definitional section and the mid-article
+checklist — topic-sentence-then-detail structure, not duplication. Found
+one real same-file inconsistency: the closing checklist's "Vet dere hvem
+som bestemmer og hva det koster hvis uteplassen må byttes ut samme dag"
+(line 74) didn't match the "Vær og plan B" section's own wording, which
+said the same cost applied "samme uke" (line 53) — a timeframe mismatch
+introduced across the earlier rewrite rounds. Re-checked skjenkebevilling
+content against `leie-bryllupslokale-kapasitet-inkludert-skjenkebevilling.md`
+one more time — consistent, no contradiction.
 
-**Fresh-eyes lens** — independently re-verified all five internal links
-plus the external CTA resolve/match house style, recomputed the word count
-(868–884 words depending on whether table pipes are counted) and reading
-speed (~174 wpm) against five sibling posts' own ratios (135–186 wpm range)
-— squarely in range, not an outlier. Frontmatter re-checked clean against
-`blogFrontmatter.ts`'s parser. Found four real issues on a fresh read:
-1. Line 56: "med kapasitet, utstyr og fasiliteter synlig for hvert lokale"
-   — number-agreement error; a three-item coordinated list needs the
-   plural "synlige", not singular "synlig".
-2. Line 20: "hvordan" appeared twice in one sentence (once inside a link's
-   anchor text, once in the main clause) — confusing on first parse.
-3. "knirkefritt" used three times within ~15 lines (H2 heading, the
-   paragraph under it, and the summary table) — repetitive rather than
-   deliberate.
-4. Line 56: "Når du har egenskapene klare" read as a slightly stiff,
-   translated-sounding collocation for native Bokmål.
+**Fresh-eyes lens** — independently re-verified all three links resolve,
+frontmatter is complete and matches the schema of two randomly-picked
+sibling posts field-by-field, and recomputed the word count (1302 words)
+and implied reading speed (186 wpm) — within the plausible range and close
+enough to two sibling posts' own ratios (203-205 wpm) that `readingMinutes:
+7` needs no change. Confirmed `src/pages/Blog.tsx` renders `readingMinutes`
+directly from frontmatter with no live computation, so there's no
+authored-vs-computed mismatch to worry about (a pre-existing, sitewide
+static pattern, not specific to this post). One nit found: "utepatioovner"
+is a redundant compound ("ute-" + "patio" already implies outdoors).
 
 ### What I changed after round 4
-- Reworded the table's Utstyr row's prose counterpart (line 26) to explain
-  *why* each item matters (wifi til presentasjoner, kjøkken til servering,
-  prosjektor til bilder eller video, lydanlegg til tale eller musikk)
-  instead of repeating the table's bare list verbatim.
-- Shortened the link anchor text on line 20 from "guiden til hvordan du
-  finner billigste egnede lokale i kommunen" to "guiden til billigste
-  egnede lokale i kommunen", removing the doubled "hvordan".
-- Reworded the Fasiliteter H2 and its matching table cell from
-  "knirkefritt" to "glir problemfritt", leaving the mid-paragraph use of
-  "knirkefritt" as the sole remaining instance.
-- Fixed "synlig" → "synlige" for plural agreement (line 56).
-- Reworded "Når du har egenskapene klare" to "Når du vet hvilke egenskaper
-  som betyr noe for deg" (line 56).
-- Re-ran the full build pipeline and `pnpm test` (16 files / 35 tests, all
-  green) after the edits.
+- Fixed the checklist to say "samme dag" instead of "samme uke", matching
+  the "Vær og plan B" section's own wording.
+- Fixed "utepatioovner" → "patioovner".
+- Re-ran the full build pipeline and `npx vitest run` — both green
+  (16 files / 35 tests, word-count check passes on markdown and prerendered
+  HTML).
 
-Four rounds run. Round 1 found and fixed three real defects (a word-order
-error, an unsupported product claim contradicted by a sibling post, and an
-invented equipment-field detail). Round 2 found and fixed one real grammar
-defect plus two minor consistency nits. Round 3 found and fixed five real
-issues (three unsupported superlatives, a table/checklist asymmetry, and a
-description omission) plus one calque. Round 4 found and fixed five more
-real issues (a verbatim table/prose duplication, a grammar-agreement error,
-a doubled word, a repetitive word choice, and a stiff collocation) on
-independent fresh reads. No round came back completely empty on real,
-fixable defects, which is why this review runs the full four rounds as
-scoped rather than stopping early.
+Four rounds run. Round 1 found and fixed a pronoun-agreement error, a
+checklist redundancy, and the most substantial issue — near-verbatim
+phrasing overlap with two sibling posts in the "Vær og plan B" and
+"Paviljong eller telt" sections — plus reverted a stray local-tooling file
+change. Round 2 found the dedup rewrite had only partially removed the
+overlap (three lifted phrases survived) plus a real grammar error and a
+stale link anchor text. Round 3 found a second de/den-class agreement
+error and discovered the dedup pass had missed the closing CTA and three
+checklist bullets entirely. Round 4 found one same-file internal
+inconsistency (a timeframe mismatch introduced by the earlier rewrites) and
+one minor wording nit, with everything else — links, frontmatter, word
+count, encoding, cross-file consistency — independently re-verified clean.
+No round came back completely empty on real, fixable defects, which is why
+this review ran the full four rounds as scoped.
 
 ## Proof
 
@@ -268,9 +247,9 @@ This is new content, not a fix to existing behavior, so only an AFTER state
 applies (there is no "before" — the page didn't exist). Verified with a
 full production build (`vite build` + SSR + `scripts/prerender.mjs`) served
 via `vite preview`, then captured with `agent-browser`:
-- `proof/after-leie-lokale-sammenligne-egenskaper-kapasitet-utstyr.png` —
-  the published post's top (title, tag, author, reading time) at
-  `/blogg/leie-lokale-sammenligne-egenskaper-kapasitet-utstyr`.
-- `proof/after-leie-lokale-sammenligne-egenskaper-kapasitet-utstyr-table.png`
-  — the comparison table rendering correctly further down the page, with
-  all four rounds' fixes visible in the live output.
+- `proof/after-utearealer-post.png` — the published post's top (title,
+  description, author, reading time, tag, table of contents) at
+  `/blogg/utearealer-paviljonger-seating-bryllup-sommerfest`.
+- `proof/after-utearealer-post-checklist-cta.png` — the closing
+  "Sjekkliste før dere booker uteareal" section rendering correctly with
+  round 3's rewritten checklist bullets.
