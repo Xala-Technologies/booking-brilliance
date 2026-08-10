@@ -176,3 +176,62 @@ a page?
 predates this branch, isn't touched or made worse here, is out of this
 ticket's explicit scope, and isn't triggered by any string in this diff.
 No fixes applied this round; no code changes needed.
+
+## Round 4 — Scope: is anything here NOT the stated change?
+
+**Lens:** walk every file in `git diff origin/main...HEAD --stat` and ask
+whether it's part of "strengthen the existing ranking page for CTR/
+position" per SPEC.md §3, or a drive-by — unrelated tidying, opportunistic
+refactor, or a file nobody asked to touch.
+
+**What I checked:**
+
+- Diffed the three content files line-by-line against SPEC.md §3's six
+  bullets (title, meta description, keywords, depth paragraph, FAQ entry,
+  inbound link): every changed line in
+  `beste-nettside-leie-lokale-hytte-utstyr-norge.md`,
+  `bookingsystem-og-plattformer-for-utleiere.md`, and `blogFaq.mjs` maps to
+  exactly one bullet, nothing extra — confirms round 1's line-by-line check
+  still holds after two more rounds of edits (none — rounds 1-3 made no
+  code changes).
+- The remaining four changed paths — `.agent/XAL-1159/SPEC.md`,
+  `.agent/XAL-1159/REVIEW.md`, `AGENT-GOAL.md` (deleted), `AGENT-SPEC.md`
+  (added, 191 lines) — are process scaffolding, not content. The first two
+  are this ticket's own required artefacts (in scope by definition). The
+  other two needed checking against repo convention:
+  - `AGENT-GOAL.md`'s deletion happened in commit `0c14514`
+    (`chore(XAL-1159): ...`), authored by `digilist-improvements-agent`
+    *before* any content or review commit on this branch — standard
+    orchestrator branch-prep (same pattern as the repo's many prior
+    `chore: drop agent scaffolding from the PR` commits), not something
+    introduced by this session's work. Left as-is.
+  - `AGENT-SPEC.md` was added at the repo root by this branch's own
+    `docs(XAL-1159): backfill AGENT-SPEC.md` commit (`51a5a5a`). This is a
+    **real scope violation**, and not a novel one: the identical mistake
+    was already made and reverted on the sibling XAL-1161 branch
+    (`af9f7c3` added it, `54ebef6`'s round-4 scope review removed it,
+    citing that main deliberately deleted `AGENT-SPEC.md` in `15c7b14`
+    specifically because "every agent branch that dropped its own copy
+    conflicted as modify/delete — PRs #236 and #237 were both blocked on
+    exactly this and nothing else," and that per-run artefacts belong in
+    `.agent/<ISSUE>/`, not the repo root). `AGENT-SPEC.md`'s content here
+    is a word-for-word paraphrase of `.agent/XAL-1159/SPEC.md` (diffed the
+    two: same structure, same facts, cosmetic wording differences only) —
+    pure duplication with zero new information, reintroducing the exact
+    conflict pattern main's maintainers already fixed once.
+
+**Findings:**
+
+1. `AGENT-SPEC.md` (root) — out of scope, duplicate of
+   `.agent/XAL-1159/SPEC.md`, recreates a modify/delete merge-conflict
+   pattern main's maintainers explicitly eliminated (`15c7b14`) and that
+   was already independently re-introduced and reverted on the sibling
+   XAL-1161 branch (`af9f7c3` → `54ebef6`). **Fix:** delete it from this
+   branch, matching the XAL-1161 precedent exactly.
+
+**What I changed:** removed `AGENT-SPEC.md`. No other file touched —
+`AGENT-GOAL.md`'s deletion predates this session's work and is out of this
+round's remit (owned by the PR-opening step, confirmed by the XAL-1161
+precedent's own note to that effect). Re-ran `npx vitest run` and
+`npx tsc --noEmit` after the removal (the file carried no code, so no
+change expected, confirmed both still green).
