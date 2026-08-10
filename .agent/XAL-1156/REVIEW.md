@@ -240,3 +240,63 @@ incidentally a hardening, not a weakening, of route-matching behavior.
 ### What changed
 
 Nothing. No commit made for this round — this lens found nothing to fix.
+
+## Round 4
+
+**Lens: scope** — is anything in this diff NOT the stated change? Drive-by
+edits, unrelated tidying, files nobody asked for.
+
+### What it looked at
+
+- `git diff --name-status origin/main...HEAD`: exactly 5 paths touched —
+  `.agent/XAL-1156/SPEC.md` and `.agent/XAL-1156/REVIEW.md` (this workflow's
+  own required process artifacts, not product code) plus the three files
+  SPEC.md's "WHAT CHANGES" section names: `server/nginx.snippet.conf`,
+  `src/components/MobileMenu.tsx`, `src/components/MobileMenu.test.tsx`
+  (new). No other file in the repo was touched by any commit on this branch
+  relative to `origin/main`.
+- Confirmed the branch's other-looking commits
+  (`84e8c01`/`dcdd354`/`8c9a111`, XAL-1160/1159/1161 content work) are
+  already in `origin/main` — they show up in `git log` on this branch only
+  because it was merged from `origin/main` (`27f1cc1`), not because this
+  branch introduced them. `git diff origin/main...HEAD` already excludes
+  them; verified by their absence from the 5-file stat above.
+- `MobileMenu.tsx`: full-file line count check (`218` lines on
+  `origin/main`, `224` here, diff reports `+8/-2`) — the arithmetic matches
+  exactly one hunk touched (the `<img>` line plus a 6-line explanatory
+  comment above it). No reformatting, import churn, or unrelated edits
+  elsewhere in the file.
+- `server/nginx.snippet.conf`: the only edits outside the three new
+  `location` blocks (which exist solely to carry the ticket's
+  compression/caching findings) are adding `^~` to the pre-existing
+  `location /api/` and a comment explaining why. That's not a drive-by —
+  round 1 and round 3 both already established it's load-bearing: without
+  it, the three new regex `location`s this diff adds would shadow `/api/`
+  for any proxied path ending in a static extension. It's a required
+  consequence of the in-scope change, not an unrelated touch.
+- `MobileMenu.test.tsx`: new file, scoped to exactly the one behavior this
+  diff changes (asserts the drawer's logo `src`), not a broader test sweep.
+- Checked every line of both process docs (`SPEC.md`, `REVIEW.md`) for
+  claims about work done outside the three code files — none; both
+  documents describe only the nginx/MobileMenu change and the review
+  rounds themselves.
+- Re-read the four ticket findings in SPEC.md against the diff one more
+  time: LCP/Lighthouse-score (performance) are addressed by the
+  `MobileMenu.tsx` transfer-size fix (SPEC.md is explicit that the 3.90s LCP
+  figure itself didn't reproduce, and says so rather than inventing a fix
+  for a number that wasn't real); "reduce inlined markup/defer
+  non-critical/server compression" and "Cache-Control with revalidation"
+  (sustainability) are addressed by `nginx.snippet.conf`'s `gzip` block and
+  the three `Cache-Control` locations. Nothing in the diff serves a fifth
+  purpose.
+
+### What it found
+
+No scope defects. Every changed line traces back to one of the four ticket
+findings or is a required side-effect of an in-scope change (`^~ /api/`).
+No drive-by tidying, no unrelated files, no reformatting beyond the actual
+edits.
+
+### What changed
+
+Nothing. No commit made for this round — this lens found nothing to fix.
