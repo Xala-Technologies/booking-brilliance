@@ -33,13 +33,15 @@ Kjenner du disse ordene, er resten av lokalesøket for det meste å sette de rik
 
 ## Hvilke lokaletyper finnes?
 
-De fleste lokalesøk lander i en av disse hovedkategoriene:
+De fleste lokalesøk lander i en av disse bygningskategoriene:
 
 - **Møterom og grupperom**: korttidsbooking for timer eller deler av en dag, ofte selvbetjent uten saksbehandling.
-- **Selskapslokaler**: grendehus, klubbhus og private festlokaler innredet for bursdager, jubileer og private feiringer.
-- **Kulturhus og saler**: kulturhus og festsaler for konserter, seminarer og større arrangementer, ofte med scene eller lydanlegg.
+- **Grendehus, samfunnshus og festsaler**: de vanligste rammene for private feiringer som bursdag, bryllup og jubileum – dette er lokalene som oftest kalles selskapslokaler.
+- **Kulturhus og kommunale saler**: brukes til konserter, seminarer og større arrangementer, men leies også ofte ut til private selskaper.
 - **Idrettshaller og gymsaler**: trening, kamper og skoleidrett, som oftest fordelt gjennom sesongtildeling med restplasser lagt ut til enkelttimer.
 - **Uteanlegg og baner**: fotballbaner, tennisbaner og andre utendørsanlegg, bookes gjennom samme system som innendørslokalene.
+
+Selskapslokale er altså ikke en egen bygningskategori, men en bruksbetegnelse på lokaler – ofte grendehus, kulturhus eller private festlokaler – som leies ut til private feiringer.
 
 For en fullstendig gjennomgang av lokaltypene i en kommune, se [hva er et forsamlingslokale? Lokaletyper og bookingrutiner i kommunen](/blogg/hva-er-et-forsamlingslokale). Skal du spesifikt leie til en privat feiring, dekker [selskapslokaler: typer, pris og hvordan du velger riktig](/blogg/selskapslokaler-typer-og-hvordan-velge) det i detalj. Vil du sammenligne alle lokaltypene i en kommune opp mot hverandre, går [denne oversikten over lokaltyper og priser](/blogg/leie-lokale-billigst-kommune-sammenlign-lokaltyper) mer i dybden.
 
@@ -75,7 +77,7 @@ Når du kjenner ordene og har en idé om lokaltype og budsjett, er selve søket 
 Lokalesøk er å lete etter, sammenligne og booke et ledig lokale til et arrangement, møte eller en fast aktivitet, ved å filtrere på sted, dato, kapasitet og pris i stedet for å kontakte utleiere en etter en.
 
 **Hva er forskjellen på et forsamlingslokale og et selskapslokale?**
-Forsamlingslokale er en bredere, ofte bygningsteknisk betegnelse på lokaler godkjent for at mange kan samles samtidig, og omfatter i kommunal sammenheng blant annet kulturhus, grendehus og festsaler. Selskapslokale er en mer spesifikk betegnelse på lokaler innredet for private feiringer som bursdager og jubileer – flere selskapslokaler, som grendehus og kulturhus, oppfyller også kravene til et forsamlingslokale, men et lite møterom er det normalt ikke.
+Forsamlingslokale er en bredere, ofte bygningsteknisk betegnelse på lokaler godkjent for at mange kan samles samtidig, og omfatter i kommunal sammenheng blant annet kulturhus, grendehus og festsaler. Selskapslokale er ikke en egen bygningskategori, men en bruksbetegnelse på et lokale – ofte et grendehus, kulturhus eller privat festlokale – som leies ut til private feiringer som bursdager og jubileer. Slike lokaler oppfyller som regel også kravene til et forsamlingslokale, mens et lite møterom normalt ikke gjør det.
 
 **Hva koster det å leie et lokale?**
 Det spenner fra gratis for kommunale møterom til lag og foreninger, via 1 500–15 000 kroner per dag for grendehus og kulturhus, til 15 000 kroner og oppover for private festlokaler med servering inkludert. Se [full prisguide](/blogg/hva-koster-det-a-leie-selskapslokale-eller-moterom) for detaljer per lokaltype.
