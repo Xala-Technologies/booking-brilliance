@@ -54,3 +54,80 @@ re-read from the SPEC) and held up. No correctness defects found this
 round.
 
 **Changes made this round:** none — nothing to fix.
+
+## Round 2 — Regression
+
+**Lens:** what ELSE reads this code path, beyond the files the diff itself
+touches? Grepped every consumer of the touched markdown file's slug and
+fields (`title`, `description`, `updated`, body text), not just the ones
+already named in SPEC.md, and checked each one against the old vs. new
+values for anything that could have silently depended on the old copy.
+
+**Consumers traced (via `getAllPosts()` / `virtual:blog-meta` and direct
+slug grep):**
+
+- `src/lib/posts.ts` — sorts posts by `date` (unchanged: `2026-08-07`), not
+  `updated`. Confirmed no other file sorts/filters by `.updated` except the
+  two `dateModified` JSON-LD sites already named in SPEC.md
+  (`BlogPost.tsx:153`, `prerender.mjs:2507`) — the frontmatter fix can't
+  have reordered anything.
+- `src/components/BlogPreviewSection.tsx` (homepage teaser, top 6 posts)
+  and `src/pages/Blog.tsx` (blog listing/search) — both render `post.title`
+  / `post.description` directly as plain strings with no length assertion
+  or fixed-line-count layout logic that the old copy's length happened to
+  satisfy; new title (67 chars) and description (148 chars) are close in
+  length to the old ones (69 / ~200 chars), so no new overflow behavior.
+- `src/lib/search/corpus.ts` (sitewide search index) — maps `getAllPosts()`
+  generically into search items; no pinned string for this slug's title or
+  description. Picks up the new copy automatically, which is desirable
+  (better search snippet), not a regression.
+- `src/entry-server.main-landmark.test.tsx` — uses `getAllPosts()[0]` as
+  "first post rendered" and asserts on landmark *structure* only (one
+  `<main>`, nav before it, footer after), never on this post's specific
+  title/description text. Unaffected regardless of whether this post is
+  first (sort key `date` didn't change).
+- `src/lib/post-slugs.test.ts` (slug-uniqueness guard) and
+  `src/lib/leie-selskapslokale-description.test.ts` (a *different* post's
+  meta-description length guard) — grepped, neither references this slug.
+- `src/content/blog-xal739-aeo.test.ts` — grepped, pins a different slug
+  (`hva-koster-det-a-leie-selskapslokale-eller-moterom`), not this one.
+- No `.snap` snapshot files exist in the repo; no sitemap test exists that
+  pins post content. `git grep` for the old title string
+  ("leie lokale, hytte eller utstyr i Norge (2026)") turns up only inside
+  `.agent/XAL-1163/SPEC.md` (a doc, not code — see below), confirming
+  nothing executable hardcoded the old title.
+
+**Cross-ticket dependency found and checked — XAL-1163 (merged to `main`,
+PR #242, now in this branch's history via the earlier merge commit):**
+that ticket's entire "no code work needed" verdict rests on this same
+page's FAQPage JSON-LD citing the AEO target query
+("beste nettside for å leie lokale, hytte eller utstyr i Norge") verbatim,
+sourced from `blogFaq.mjs`'s `POST_FAQ[slug]` entry and asserted by
+`blogFaq.test.ts`. Read XAL-1163's SPEC in full to check whether XAL-1161
+could invalidate it: its own blast-radius section names the mechanism as
+`POST_FAQ` → `BlogPost.tsx`/`SEO.tsx` (client) and `prerender.mjs` (static)
+→ FAQPage JSON-LD, entirely independent of the post's `title` field (which
+it only mentions as background context, not as load-bearing evidence).
+XAL-1161 does not touch `blogFaq.mjs` or the body's `## Vanlige spørsmål`
+section (confirmed by diff and by Round 1), and `blogFaq.test.ts` still
+passes — so the AEO citation mechanism XAL-1163 relies on is intact.
+Noted for the record since it's the kind of overlap this lens exists to
+catch: the new H1/title ("Beste nettside for å leie lokale, hytte og
+utstyr: 4 alternativer") no longer contains the literal phrase "i Norge"
+that XAL-1163's target query does, but the exact-match text XAL-1163
+actually depends on (URL slug, `keywords` frontmatter, and the FAQ
+question/answer pair) is all untouched, so this is a title/H1-only
+divergence from the literal query string, not a break of the citation
+mechanism.
+
+**Verification re-run this round:** `npx vitest run` — 17 files / 36 tests,
+all still passing (re-ran fresh, not reusing Round 1's cached result).
+`npx tsc --noEmit` — clean.
+
+**Findings: none.** No consumer outside the files SPEC.md already named
+depended on the old title/description/updated values in a way this change
+breaks. The one cross-ticket dependency found (XAL-1163's AEO verdict) was
+checked in full and confirmed unaffected — its load-bearing mechanism
+(FAQPage JSON-LD) doesn't touch the fields this branch changed.
+
+**Changes made this round:** none — nothing to fix.
