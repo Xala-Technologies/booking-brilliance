@@ -22,8 +22,8 @@ Det som gjør lokalesøk vanskeligere enn det høres ut, er at bransjen bruker m
 ## Ord du møter i et lokalesøk
 
 - **Lokale**: samlebetegnelse på ethvert rom eller bygg som leies ut til møter, arrangementer eller aktiviteter – fra et lite møterom til en hel idrettshall.
-- **Lokaletype**: kategorien lokalet tilhører, for eksempel møterom, selskapslokale, idrettshall eller forsamlingslokale. Lokaltypen avgjør både pris og hvilke regler som gjelder.
-- **Forsamlingslokale**: et lokale godkjent for at flere mennesker kan samles samtidig, med krav til rømningsvei, brannsikring og makskapasitet. Se [hva et forsamlingslokale faktisk er](/blogg/hva-er-et-forsamlingslokale) for lokaltypene som faller inn under dette.
+- **Lokaletype**: kategorien lokalet tilhører, for eksempel møterom, selskapslokale, idrettshall eller forsamlingslokale. Lokaletypen avgjør både pris og hvilke regler som gjelder.
+- **Forsamlingslokale**: en bredere, ofte bygningsteknisk betegnelse på lokaler godkjent for at mange mennesker kan samles samtidig, med krav til rømningsvei, brannsikring og makskapasitet. I kommunal sammenheng brukes ordet gjerne om kulturhus, grendehus, samfunnshus og festsaler samlet – et lite møterom for fire personer regnes normalt ikke som forsamlingslokale i teknisk forstand, selv om det booker via samme system. Se [hva et forsamlingslokale faktisk er](/blogg/hva-er-et-forsamlingslokale) for lokaltypene som faller inn under dette.
 - **Kapasitet**: hvor mange personer lokalet er godkjent for, ofte oppgitt både som sittende og stående – de to tallene kan avvike mye.
 - **Depositum**: et beløp du betaler på forhånd som sikkerhet mot skader eller manglende opprydding, og som normalt tilbakebetales etter arrangementet.
 - **Prisregulativ**: kommunens offentlige prisliste for utleie av egne lokaler, som skal følges likt for alle som booker samme lokaltype.
@@ -36,8 +36,8 @@ Kjenner du disse ordene, er resten av lokalesøket for det meste å sette de rik
 De fleste lokalesøk lander i en av disse hovedkategoriene:
 
 - **Møterom og grupperom**: korttidsbooking for timer eller deler av en dag, ofte selvbetjent uten saksbehandling.
-- **Selskapslokaler**: grendehus, kulturhus, klubbhus og private festlokaler innredet for bursdager, jubileer og private feiringer.
-- **Forsamlingslokaler og saler**: kulturhus og festsaler for konserter, seminarer og større arrangementer.
+- **Selskapslokaler**: grendehus, klubbhus og private festlokaler innredet for bursdager, jubileer og private feiringer.
+- **Kulturhus og saler**: kulturhus og festsaler for konserter, seminarer og større arrangementer, ofte med scene eller lydanlegg.
 - **Idrettshaller og gymsaler**: trening, kamper og skoleidrett, som oftest fordelt gjennom sesongtildeling med restplasser lagt ut til enkelttimer.
 - **Uteanlegg og baner**: fotballbaner, tennisbaner og andre utendørsanlegg, bookes gjennom samme system som innendørslokalene.
 
@@ -75,7 +75,7 @@ Når du kjenner ordene og har en idé om lokaltype og budsjett, er selve søket 
 Lokalesøk er å lete etter, sammenligne og booke et ledig lokale til et arrangement, møte eller en fast aktivitet, ved å filtrere på sted, dato, kapasitet og pris i stedet for å kontakte utleiere en etter en.
 
 **Hva er forskjellen på et forsamlingslokale og et selskapslokale?**
-Forsamlingslokale er en bredere, ofte bygningsteknisk betegnelse på lokaler godkjent for at mange kan samles samtidig, og omfatter blant annet kulturhus og grendehus. Selskapslokale er en undergruppe av dette, spesifikt innredet for private feiringer som bursdager og jubileer.
+Forsamlingslokale er en bredere, ofte bygningsteknisk betegnelse på lokaler godkjent for at mange kan samles samtidig, og omfatter i kommunal sammenheng blant annet kulturhus, grendehus og festsaler. Selskapslokale er en mer spesifikk betegnelse på lokaler innredet for private feiringer som bursdager og jubileer – flere selskapslokaler, som grendehus og kulturhus, oppfyller også kravene til et forsamlingslokale, men et lite møterom er det normalt ikke.
 
 **Hva koster det å leie et lokale?**
 Det spenner fra gratis for kommunale møterom til lag og foreninger, via 1 500–15 000 kroner per dag for grendehus og kulturhus, til 15 000 kroner og oppover for private festlokaler med servering inkludert. Se [full prisguide](/blogg/hva-koster-det-a-leie-selskapslokale-eller-moterom) for detaljer per lokaltype.

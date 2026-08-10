@@ -105,7 +105,7 @@ export const POST_FAQ = {
     {
       question: "Hva er forskjellen på et forsamlingslokale og et selskapslokale?",
       answer:
-        "Forsamlingslokale er en bredere, ofte bygningsteknisk betegnelse på lokaler godkjent for at mange kan samles samtidig, og omfatter blant annet kulturhus og grendehus. Selskapslokale er en undergruppe av dette, spesifikt innredet for private feiringer som bursdager og jubileer.",
+        "Forsamlingslokale er en bredere, ofte bygningsteknisk betegnelse på lokaler godkjent for at mange kan samles samtidig, og omfatter i kommunal sammenheng blant annet kulturhus, grendehus og festsaler. Selskapslokale er en mer spesifikk betegnelse på lokaler innredet for private feiringer som bursdager og jubileer – flere selskapslokaler, som grendehus og kulturhus, oppfyller også kravene til et forsamlingslokale, men et lite møterom er det normalt ikke.",
     },
     {
       question: "Hva koster det å leie et lokale?",
