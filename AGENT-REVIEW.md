@@ -128,3 +128,67 @@ share today's date, and this post is one of them, landing at position 2 of
   usage (line 42).
 - Re-ran the full build pipeline and `pnpm test` (16 files / 35 tests, all
   green) after the edits.
+
+## Round 3 — adversarial editorial read + full-branch regression sweep
+
+Two parallel agents: one did a fresh skeptical-editor read of the whole post
+(explicitly told not to re-check rounds 1-2's six fixes, only look for
+anything new — unsupported superlatives, table/checklist symmetry,
+pillar-naming drift, redundancy, one more independent language pass), the
+other swept the whole branch state (commits, diff, worktree, ignored files,
+lockfiles) for anything content review wouldn't catch.
+
+**Editorial lens** — found five real issues:
+1. Three unsupported "most/all" claims stated as flat fact with no backing:
+   the intro's "De fleste som skal leie et lokale, sammenligner pris først",
+   "De vanligste punktene å sjekke er wifi, kjøkken, prosjektor og
+   lydanlegg", and the table's "Feil tall her er den vanligste årsaken til
+   at et lokale føles for trangt".
+2. The Kapasitet table row was stylistically asymmetric against the other
+   four rows — a different phrase structure in "Hva du sjekker," and it
+   broke the "Avgjør om..." template every other row's "Hvorfor det betyr
+   noe" cell used.
+3. The 5-item checklist had no item covering Planløsning (møblering/
+   soneinndeling), while Kapasitet got two separate items — an uneven
+   mapping from the four body pillars to the checklist.
+4. The frontmatter `description` named only "Kapasitet, utstyr,
+   tilgjengelighet og fasiliteter," dropping "planløsning" even though it's
+   a distinct pillar with its own paragraph and table row.
+5. "Utstyr er den andre halvdelen av bildet" read as an English-idiom
+   calque rather than natural Bokmål.
+
+**Regression-sweep lens** — clean, with one important caveat surfaced and
+resolved: a naive `git diff origin/main..HEAD --stat` showed a spurious
+deletion of an unrelated post
+(`leie-sal-billigst-kommunal-privat-totalpris-sammenligning.md`) because
+`origin/main` had advanced by one unrelated commit after this branch
+diverged — confirmed via `git diff <merge-base>..HEAD --stat` that this
+branch itself only ever touched the four expected files (`AGENT-GOAL.md`,
+`AGENT-SPEC.md`, `AGENT-REVIEW.md`, the new post). Flagged as needing a
+merge with the now-advanced `origin/main` before the PR is opened (done at
+the sync step), not a content defect. No forbidden shared files touched, no
+stray tracked/untracked files, no TODO/FIXME/wrong-ticket text, exactly one
+new file under `src/content/blog/`, and `pnpm-workspace.yaml` /
+`package.json` / lockfiles confirmed untouched by any commit on this branch
+(the local `pnpm approve-builds` run used to install dependencies for
+testing never leaked into a commit).
+
+### What I changed after round 3
+- Reworded the intro's opening claim from a flat "most renters" assertion
+  to a reader-directed statement ("Skal du leie et lokale, er pris gjerne
+  det du sammenligner først").
+- Reworded "De vanligste punktene å sjekke er..." to "Sjekk gjerne disse
+  fire punktene:..." — same four items, framed as guidance rather than an
+  unbacked popularity claim.
+- Reworded the Kapasitet table row's "Hvorfor det betyr noe" cell to match
+  the "Avgjør om..." template used by the other four rows, dropping the
+  unsupported "vanligste årsak" claim.
+- Shortened the Kapasitet row's "Hva du sjekker" cell to match the other
+  rows' comma-list style.
+- Added a checklist item for Planløsning and merged the two Kapasitet items
+  into one, so all four body pillars now map onto the 5-item checklist.
+- Added "planløsning" to the frontmatter description.
+- Reworded "Utstyr er den andre halvdelen av bildet" to "Utstyr er den
+  andre halvparten av vurderingen."
+- Re-ran the full build pipeline and `pnpm test` (16 files / 35 tests, all
+  green) after the edits.

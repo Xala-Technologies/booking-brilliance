@@ -1,7 +1,7 @@
 ---
 slug: leie-lokale-sammenligne-egenskaper-kapasitet-utstyr
 title: "Lokaleegenskaper og kapasitet: slik sammenligner du lokaler før du booker"
-description: "Kapasitet, utstyr, tilgjengelighet og fasiliteter forklart, slik at du vet nøyaktig hva du skal sjekke og sammenligne før du booker et lokale – uansett type."
+description: "Kapasitet, planløsning, utstyr, tilgjengelighet og fasiliteter forklart, slik at du vet nøyaktig hva du skal sjekke og sammenligne før du booker et lokale – uansett type."
 date: 2026-08-10
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
@@ -11,7 +11,7 @@ cover: "/images/blog/booking_calendar_hero_no.webp"
 keywords: ["lokaleegenskaper", "sammenligne lokaler kapasitet", "utstyr lokale leie", "tilgjengelighet lokale leie", "hva sjekke før du booker lokale", "kapasitet lokale leie"]
 ---
 
-De fleste som skal leie et lokale, sammenligner pris først. Det som faktisk avgjør om dagen går bra, er som regel noe annet: får alle plass slik dere trenger det, finnes utstyret dere er avhengige av, kommer alle seg dit, og er fasilitetene på plass. Dette er lokalets egenskaper, og de er informasjonen du bør sammenligne før du i det hele tatt begynner å se på pris. Denne guiden går gjennom hva du skal se etter, uansett om du leier et møterom, en sal, en idrettshall eller et selskapslokale.
+Skal du leie et lokale, er pris gjerne det du sammenligner først. Det som faktisk avgjør om dagen går bra, er som regel noe annet: får alle plass slik dere trenger det, finnes utstyret dere er avhengige av, kommer alle seg dit, og er fasilitetene på plass. Dette er lokalets egenskaper, og de er informasjonen du bør sammenligne før du i det hele tatt begynner å se på pris. Denne guiden går gjennom hva du skal se etter, uansett om du leier et møterom, en sal, en idrettshall eller et selskapslokale.
 
 ## Kapasitet: riktig antall, ikke bare et tall
 
@@ -23,7 +23,7 @@ Den offisielle kapasiteten er heller ikke det samme som en praktisk kapasitet. E
 
 Et kvadratmetertall sier lite alene. Planløsningen avgjør om rommet faktisk kan møbleres slik du trenger: ett stort åpent gulv egner seg til noe annet enn et rom delt opp i mindre soner. Be om en skisse eller sjekk bildene nøye hvis møblering er avgjørende for deg.
 
-Utstyr er den andre halvdelen av bildet. De vanligste punktene å sjekke er wifi, kjøkken, prosjektor og lydanlegg. På Digilist er dette egne avkrysningsfelt i lokalets profil, ikke noe du må gjette deg til fra en beskrivelsestekst, så du kan sammenligne to lokaler felt for felt i stedet for å ringe og spørre. Mangler et felt i annonsen, kan det bety at utstyret ikke finnes, men det kan også bety at utleier ikke har fylt ut hele lista ennå – spør heller enn å anta, hvis akkurat det punktet er avgjørende for deg.
+Utstyr er den andre halvparten av vurderingen. Sjekk gjerne disse fire punktene: wifi, kjøkken, prosjektor og lydanlegg. På Digilist er dette egne avkrysningsfelt i lokalets profil, ikke noe du må gjette deg til fra en beskrivelsestekst, så du kan sammenligne to lokaler felt for felt i stedet for å ringe og spørre. Mangler et felt i annonsen, kan det bety at utstyret ikke finnes, men det kan også bety at utleier ikke har fylt ut hele lista ennå – spør heller enn å anta, hvis akkurat det punktet er avgjørende for deg.
 
 ## Tilgjengelighet: kommer alle seg dit og inn
 
@@ -37,7 +37,7 @@ Garderobe, toaletter i tilstrekkelig antall, uteareal og mulighet for catering e
 
 | Egenskap | Hva du sjekker | Hvorfor det betyr noe |
 |---|---|---|
-| Kapasitet | Sittende vs. stående, og praktisk kapasitet med innslag i rommet | Feil tall her er den vanligste årsaken til at et lokale føles for trangt |
+| Kapasitet | Sittende vs. stående, margin for innslag i rommet | Avgjør om lokalet faktisk føles passe stort på dagen, ikke bare på papiret |
 | Planløsning | Kvadratmeter, soneinndeling, mulighet for ønsket møblering | Avgjør om aktiviteten faktisk passer i rommet, ikke bare om den får plass |
 | Utstyr | wifi, kjøkken, prosjektor og lydanlegg | Avgjør om du trenger å leie inn utstyr i tillegg |
 | Tilgjengelighet | Parkering, kollektivforbindelse, trinnfri adkomst | Avgjør om alle gjestene faktisk kommer seg dit og inn |
@@ -47,8 +47,8 @@ Skal du inn i en spesifikk lokaltype, går [guiden til møterom i kommunen](/blo
 
 ## Sjekkliste før du booker
 
-1. Avklar riktig kapasitetstall for din anledning: sittende eller stående.
-2. Legg inn en margin hvis arrangementet har innslag som krever egen plass.
+1. Avklar riktig kapasitetstall for din anledning (sittende eller stående), med en margin hvis arrangementet har innslag som krever egen plass.
+2. Sjekk om planløsningen faktisk kan møbleres slik du trenger.
 3. Sjekk utstyrslisten mot det du faktisk trenger, ikke bare det du håper finnes.
 4. Sjekk parkering, kollektivforbindelse og trinnfri adkomst hvis det er relevant for gjestene dine.
 5. Avklar hva som er inkludert i prisen, og hva som må bestilles i tillegg.
