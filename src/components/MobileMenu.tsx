@@ -117,7 +117,13 @@ export function MobileMenu() {
             className="inline-flex items-center gap-3"
             aria-label="Digilist, forsiden"
           >
-            <img src="/logo.svg" alt="" aria-hidden="true" width={64} height={64} className="h-9 w-auto" />
+            {/* logo-64.webp (2.4KB), not logo.svg (147KB) — this drawer is
+                always mounted (just translated off-screen), so an eager
+                <img> here fetches on every page load whether or not the
+                menu is ever opened. Navbar/Footer already use the same
+                webp for this identical decorative mark next to the
+                wordmark. */}
+            <img src="/logo-64.webp" alt="" aria-hidden="true" width={64} height={64} className="h-9 w-auto" />
             <span
               className="font-serif text-2xl text-ink leading-none"
               style={{
