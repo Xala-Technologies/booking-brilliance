@@ -337,3 +337,36 @@ All gates re-verified green after the revert: `npx vitest run` (40/40),
 `node scripts/check-blog-word-count.mjs`,
 `node scripts/check-title-lengths.mjs`, `pnpm lint` (0 errors), `pnpm
 build`.
+
+## Proof (new behaviour — after only)
+
+This is a pure content addition (a new blog post), so there is no "before"
+state to capture — the post didn't exist on `origin/main`. Ran `pnpm
+dev:client` (Vite dev server, port 8080) and drove it with `agent-browser`:
+
+1. **`.agent/XAL-1115/proof/blogpost-viewport-top.png`** — above-the-fold
+   render of `http://localhost:8080/blogg/bryllupsmottak-bankettsaler-storre-selskaper-hoy-kontraktverdi`.
+   Confirms the post renders end-to-end through the real client pipeline
+   (frontmatter → `virtual:blog-meta` → `getAllPosts()` → `BlogPost.tsx` →
+   `postContent.ts` raw body via `react-markdown`): H1 "Bryllupsmottak og
+   bankettsaler: det mest lønnsomme segmentet", tag chip "UTLEIER", "6 MIN
+   LESETID · 10. AUGUST 2026", author byline, and the "I DENNE ARTIKKELEN"
+   TOC sidebar built from the post's own headings. Verified via
+   `document.title` / `document.querySelector('h1').textContent` before the
+   screenshot — both match the frontmatter `title` exactly.
+2. **`.agent/XAL-1115/proof/blogpost-full.png`** — full-page render of the
+   same URL, showing the entire article body through to the footer CTA.
+3. **`.agent/XAL-1115/proof/blog-index-search-bankettsal.png`** — the blog
+   index at `/blogg`, cookie consent dismissed, search box filtered to
+   "bankettsal", showing exactly one result ("1 AV 324 ARTIKLER") — the new
+   post, correctly tagged "UTLEIER" and dated "10. AUGUST 2026". Proves the
+   post is discoverable through the real search UI (`src/lib/search/corpus.ts`
+   → the `/blogg` filter box), not just reachable by a hand-typed URL, and
+   that it doesn't collide with or get shadowed by any of the other 323
+   posts.
+
+No Linear MCP tools are available in this environment (re-confirmed this
+session, consistent with `.agent/XAL-1115/SPEC.md`'s "Linear attachment
+status" section and the prior XAL-1151 finding in memory), so these images
+could not be attached to the Linear issue directly; they're committed to
+the branch instead.
