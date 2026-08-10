@@ -235,3 +235,50 @@ round's remit (owned by the PR-opening step, confirmed by the XAL-1161
 precedent's own note to that effect). Re-ran `npx vitest run` and
 `npx tsc --noEmit` after the removal (the file carried no code, so no
 change expected, confirmed both still green).
+
+## Step 0 note (resumed session)
+
+This session resumed with an instruction to write a root-level
+`AGENT-SPEC.md`. That file already exists in spirit as
+`.agent/XAL-1159/SPEC.md` (§1-4, including the blast-radius mermaid
+diagram) — Round 4 above already added, diffed, and then deliberately
+*removed* a root-level `AGENT-SPEC.md` copy, because it exactly reproduces
+a merge-conflict pattern main's maintainers eliminated on purpose
+(`15c7b14`) and that had already been made and reverted once before on the
+sibling XAL-1161 branch (`af9f7c3` → `54ebef6`). Recreating it here would
+re-introduce the same known problem, not fix an actually-skipped step, so
+it was not recreated. Linear MCP tools are still unavailable in this
+environment (re-checked via `ToolSearch`, same result as XAL-1151/1155/1161
+in this same worktree) — the spec cannot be attached to the Linear issue
+from this session.
+
+## Proof
+
+Change type: content depth/CTR-surface edits to an existing, already-live
+blog post — no test-observable "before" state for prose/title/meta/FAQ/link
+content (nothing was broken; text just didn't exist yet), so proof is
+AFTER-only, per the merge gate's own rule ("adding new behaviour → the
+AFTER only").
+
+- `npx vitest run` — 17 files / 36 tests, all green (includes
+  `blogFaq.test.ts`, which pins the new 5th `POST_FAQ` entry against the
+  markdown body verbatim, and the SSR `entry-server.h1.test.tsx` suite).
+- `npx tsc --noEmit` — clean.
+- Visual, via `agent-browser` against `pnpm dev:client`
+  (`http://localhost:8080`), saved to `.agent/XAL-1159/proof/`:
+  - `01-page-title-h1.png` — new H1 "Digilist vs. Airbnb: beste nettside
+    for lokale, hytte og utstyr" and new dek/meta-description sentence
+    naming Airbnb and Hygglo explicitly, live on
+    `/blogg/beste-nettside-leie-lokale-hytte-utstyr-norge`.
+  - `02-new-faq-entry.png` — the new 5th FAQ heading "Har Airbnb utstyr til
+    hytta i tillegg til overnatting?" rendered in the page's "Vanlige
+    spørsmål" section.
+  - `03-internal-link-in-context.png` — the new inbound link on
+    `/blogg/bookingsystem-og-plattformer-for-utleiere`, reading "Digilist
+    sammenlignet med Airbnb, Hygglo og norgesbooking.no for lokale, hytte
+    og utstyr", pointing at the target post.
+- Also confirmed via `agent-browser eval` (not screenshotted, DOM-level):
+  `document.title` and the SEO `<meta name="description">` match the new
+  frontmatter exactly; the JSON-LD `<script>` block's `FAQPage` entries
+  include the new question text verbatim (`textContent.includes(...)` ===
+  `true`); the new inbound link's `href` resolves to the exact target slug.
