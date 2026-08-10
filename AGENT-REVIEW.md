@@ -135,3 +135,121 @@ traceable to body content explained earlier in the post.
 - Re-ran the full build pipeline and `npx vitest run` — both green
   (16 files / 35 tests, word-count check passes on markdown and prerendered
   HTML).
+
+## Round 3 — cold fresh-eyes copyedit + full-branch regression sweep
+
+Two parallel agents, zero prior context, told to independently re-verify
+everything rather than trust any earlier "fixed" claim: one did a
+skeptical-copyeditor read plus one more overlap check against the two
+sibling posts; the other swept the whole branch (commits, diff, working
+tree, forbidden files) for anything content review wouldn't catch.
+
+**Fresh-eyes copyedit lens** — found one more real grammar error of the
+same class as round 1's de/den bug: "akkurat **den** oppsettet" should be
+"akkurat **det** oppsettet" (`oppsett` is neuter). Confirmed the round-1 and
+round-2 fixes (de/den agreement, "private arrangementer") held and found no
+further instance of that error class elsewhere. Also found that round 2's
+"Vær og plan B" rewrite still hadn't removed all the overlap: the closing
+CTA paragraph was a near-verbatim clone of `velge-bryllupslokale-guide-
+2026.md`'s CTA opening ("...uten å bruke uker på e-postrunder og
+telefonsamtaler? Book en demo hos Digilist..."), and three of the seven
+closing-checklist bullets shared near-identical sentence templates with
+bullets in that post and in `leie-bryllupslokale-kapasitet-inkludert-
+skjenkebevilling.md` (same "Har X, eller må dere søke selv" / "Er totalpris
+inkludert X, eller kommer det i tillegg" frames, just the noun swapped) —
+round 2's dedup pass had covered the body sections but missed the checklist
+and CTA. All three links, and the full frontmatter, re-verified clean.
+
+**Regression-sweep lens** — clean except one process gap, not a content
+defect: `AGENT-REVIEW.md`'s round-2 write-up existed only in the working
+tree, not yet committed. Confirmed: exactly 3 content-relevant files in the
+diff at that point (the post, `AGENT-SPEC.md`, `AGENT-GOAL.md`), all 5
+commits' messages matched their actual `--stat` content, no forbidden
+shared file touched, exactly one new post under `src/content/blog/`,
+`AGENT-GOAL.md` present/tracked/unmodified as expected at this stage, no
+stray TODO/FIXME or wrong-ticket-number text, `pnpm-workspace.yaml` clean
+(round 1's revert held).
+
+### What I changed after round 3
+- Fixed "den oppsettet" → "det oppsettet" (line 40).
+- Rewrote the closing CTA paragraph with a different opening and structure,
+  keeping the same offer (see real-time availability, book a demo) without
+  echoing the sibling post's specific phrasing.
+- Reworded the three overlapping checklist bullets (skjenkebevilling,
+  innendørs-alternativ, totalpris) so each states the same underlying check
+  with different sentence construction than the matching bullets in the two
+  sibling posts.
+- Committed the pending `AGENT-REVIEW.md` update from round 2, closing the
+  process gap the sweep found.
+- Re-ran the full build pipeline and `npx vitest run` — both green
+  (16 files / 35 tests, word-count check passes on markdown and prerendered
+  HTML).
+
+## Round 4 — final holistic pass + independent cold read
+
+Two parallel agents: one did a targeted final pass (encoding/whitespace
+sweep, redundancy check between the definitional and checklist sections,
+checklist-vs-body consistency, and one more skjenkebevilling cross-check),
+explicitly told to assume all prior fixes were correct and look only for
+anything new; the other read the file completely cold, with zero prior
+context, independently re-verifying every link, the full frontmatter, and
+the reading-time math from scratch.
+
+**Holistic refute lens** — no encoding/whitespace issues (clean UTF-8, only
+expected æøå/em-dash non-ASCII characters, no CRLF or trailing whitespace).
+No redundancy between the definitional section and the mid-article
+checklist — topic-sentence-then-detail structure, not duplication. Found
+one real same-file inconsistency: the closing checklist's "Vet dere hvem
+som bestemmer og hva det koster hvis uteplassen må byttes ut samme dag"
+(line 74) didn't match the "Vær og plan B" section's own wording, which
+said the same cost applied "samme uke" (line 53) — a timeframe mismatch
+introduced across the earlier rewrite rounds. Re-checked skjenkebevilling
+content against `leie-bryllupslokale-kapasitet-inkludert-skjenkebevilling.md`
+one more time — consistent, no contradiction.
+
+**Fresh-eyes lens** — independently re-verified all three links resolve,
+frontmatter is complete and matches the schema of two randomly-picked
+sibling posts field-by-field, and recomputed the word count (1302 words)
+and implied reading speed (186 wpm) — within the plausible range and close
+enough to two sibling posts' own ratios (203-205 wpm) that `readingMinutes:
+7` needs no change. Confirmed `src/pages/Blog.tsx` renders `readingMinutes`
+directly from frontmatter with no live computation, so there's no
+authored-vs-computed mismatch to worry about (a pre-existing, sitewide
+static pattern, not specific to this post). One nit found: "utepatioovner"
+is a redundant compound ("ute-" + "patio" already implies outdoors).
+
+### What I changed after round 4
+- Fixed the checklist to say "samme dag" instead of "samme uke", matching
+  the "Vær og plan B" section's own wording.
+- Fixed "utepatioovner" → "patioovner".
+- Re-ran the full build pipeline and `npx vitest run` — both green
+  (16 files / 35 tests, word-count check passes on markdown and prerendered
+  HTML).
+
+Four rounds run. Round 1 found and fixed a pronoun-agreement error, a
+checklist redundancy, and the most substantial issue — near-verbatim
+phrasing overlap with two sibling posts in the "Vær og plan B" and
+"Paviljong eller telt" sections — plus reverted a stray local-tooling file
+change. Round 2 found the dedup rewrite had only partially removed the
+overlap (three lifted phrases survived) plus a real grammar error and a
+stale link anchor text. Round 3 found a second de/den-class agreement
+error and discovered the dedup pass had missed the closing CTA and three
+checklist bullets entirely. Round 4 found one same-file internal
+inconsistency (a timeframe mismatch introduced by the earlier rewrites) and
+one minor wording nit, with everything else — links, frontmatter, word
+count, encoding, cross-file consistency — independently re-verified clean.
+No round came back completely empty on real, fixable defects, which is why
+this review ran the full four rounds as scoped.
+
+## Proof
+
+This is new content, not a fix to existing behavior, so only an AFTER state
+applies (there is no "before" — the page didn't exist). Verified with a
+full production build (`vite build` + SSR + `scripts/prerender.mjs`) served
+via `vite preview`, then captured with `agent-browser`:
+- `proof/after-utearealer-post.png` — the published post's top (title,
+  description, author, reading time, tag, table of contents) at
+  `/blogg/utearealer-paviljonger-seating-bryllup-sommerfest`.
+- `proof/after-utearealer-post-checklist-cta.png` — the closing
+  "Sjekkliste før dere booker uteareal" section rendering correctly with
+  round 3's rewritten checklist bullets.
