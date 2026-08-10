@@ -49,3 +49,67 @@ SPA vs. static `prerender.mjs`) staying consistent?
 paths stay consistent, the FAQ test's body-mirror assertion holds for the
 new 5th entry, and the full test suite + typecheck are green. No fixes
 applied this round.
+
+## Round 2 — Regression: what else reads this code path?
+
+**Lens:** the diff touches `beste-nettside-leie-lokale-hytte-utstyr-norge.md`
+(title/description/keywords/body), `blogFaq.mjs` (new `POST_FAQ` entry), and
+`bookingsystem-og-plattformer-for-utleiere.md` (new inbound link). Round 1
+verified these against SPEC.md's own stated blast radius. This round instead
+grepped every consumer of the touched *fields* (slug, `keywords`, `POST_FAQ`)
+site-wide — not just the files SPEC.md already named — to see if anything
+outside that stated radius depended on the old values.
+
+**What I checked:**
+
+- Grepped the slug (`beste-nettside-leie-lokale-hytte-utstyr-norge`) across
+  the whole repo, not just `src/content/blog/*.md`: only the post itself,
+  `blogFaq.mjs`, `blogFaq.test.ts`, and the one new inbound link reference
+  it. No sitemap, redirect map, or route config hardcodes it elsewhere.
+- Grepped every consumer of `POST_FAQ` (`scripts/prerender.mjs`,
+  `src/pages/BlogPost.tsx`, `src/content/blogFaq.test.ts`) plus one more
+  round 1 didn't mention: `src/content/blog-xal739-aeo.test.ts`. Read it —
+  it pins a *different* slug
+  (`hva-koster-det-a-leie-selskapslokale-eller-moterom`) and a different
+  query entirely (XAL-739's AEO answer page). Unaffected by this diff;
+  confirmed it still passes.
+- Grepped every consumer of a post's `keywords` field beyond
+  `SEO.tsx`/`relatedSolutions()` (which SPEC.md already covered):
+  `src/pages/Blog.tsx:59` folds `p.keywords` into the blog listing page's
+  client-side search haystack, and `src/lib/search/corpus.ts:106` folds it
+  into the site-wide command-palette search corpus. Both now additionally
+  match "airbnb hytte utstyr" search terms for this post — additive,
+  expected, not a regression (no test pins either list's exact contents for
+  this slug).
+- Checked `src/lib/chatbot/rag.ts`, which also scores by `entry.keywords` —
+  confirmed it reads `FAQ_CATEGORIES` from `src/content/faq.ts`, a wholly
+  separate FAQ dataset from `blogFaq.mjs`'s `POST_FAQ`. Not touched by this
+  diff.
+- Checked `scripts/prerender.mjs`'s `llms-full.txt` FAQ-corpus generator
+  (lines 2570-2596) — also sourced from `src/content/faq.ts`
+  (`FAQ_CATEGORIES`/`allFAQ`), not `POST_FAQ`. Not touched by this diff.
+- Checked `BlogPost.tsx`'s TOC extractor (`extractHeadings`,
+  `src/pages/BlogPost.tsx:69`, regex `^##\s+(.+?)\s*$`) — matches only `##`
+  (H2), not `###` (H3). The new FAQ entry is a `###` heading, consistent
+  with the existing 4, so it does not appear in the in-article TOC — same
+  as its siblings, not a regression.
+- Checked `scripts/verify-live.mjs`'s duplicate-`<title>` guard
+  (`findDuplicateTitles`, rule `title.duplicate`) against the new title
+  "Digilist vs. Airbnb: beste nettside for lokale, hytte og utstyr" —
+  grepped every `title:` frontmatter value across `src/content/blog/*.md`
+  for exact duplicates; none found. Also confirmed `expectedTitle()` does
+  no truncation that could collapse two different long titles into one
+  (it only conditionally appends a `" — Digilist"` suffix), so no
+  collision risk beyond an exact match. Ran `node scripts/verify-live.mjs
+  --self-test` — its offline parser self-check passes.
+- Checked `src/lib/post-slugs.test.ts` (guards against two files resolving
+  to the same slug) — this diff doesn't add or rename any file/slug, so
+  unaffected; still passes.
+- Re-ran the full suite after this lens: `npx vitest run` — 17 files / 36
+  tests, all green.
+
+**Findings:** none. Every other consumer of the touched slug, `keywords`,
+and `POST_FAQ` fields either doesn't reach this post at all, or picks up
+the new values in a way that's additive and expected rather than breaking
+an existing invariant (test-pinned or otherwise). No fixes applied this
+round.
