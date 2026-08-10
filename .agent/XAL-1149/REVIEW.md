@@ -278,3 +278,46 @@ or the standard `.agent/<TICKET>/` process record this repo's convention
 requires. Nothing to fix; no commit needed beyond this record. Re-ran
 `npx vitest run` (19 files, 38 tests, all pass) one more time before closing
 out — tree is green.
+
+## Round 5 — Visual proof
+
+This is new content (no "before" state exists to capture — the page didn't
+exist on `origin/main`), so the only proof that applies is an AFTER capture
+of the rendered page, per this repo's proof convention. Rounds 1–4 already
+verified correctness/regression/security/scope from the diff and test suite;
+this round adds the one piece those rounds didn't produce: a live render.
+
+Ran `pnpm dev:client` (vite on `:8081`) and drove it with `agent-browser`:
+
+- `.agent/XAL-1149/proof/after-treningsrom-gymhaller-post-top.png` — confirms
+  the `<h1>` ("Treningsrom og gymhaller: booking for private
+  gymoperatører"), the `readingMinutes: 6` fix from round 1 rendering as
+  "6 MIN LESETID" (not the original 7), the `Utleier` tag, and the
+  table-of-contents built from the post's own H2s.
+- `.agent/XAL-1149/proof/after-treningsrom-gymhaller-post-faq.png` — confirms
+  the closing `## Gjør treningsrommene dine bookbare` heading renders while
+  the CTA paragraph beneath it (`[Book en demo](...)`) is stripped from the
+  body, matching round 1's `isCta()` finding rather than contradicting it —
+  and confirms the "Relaterte løsninger" / related-post cross-links render.
+- `agent-browser eval "document.querySelectorAll('h1').length"` → `1` on the
+  live-rendered route, corroborating the SSR single-`<h1>` invariant round 2
+  checked at the test level.
+- `agent-browser get text "a[href*='trenings-og-badeanlegg']"` → returned the
+  exact anchor text from the post body, confirming the one internal link
+  round 1 verified resolves to a real target also renders as a working link
+  in the browser, not just in the source markdown.
+
+No new findings — this round is confirmatory, not a fix. Linear attach:
+still unreachable, no Linear MCP tool is available in this environment
+(confirmed XAL-1151 and repeated every round since; see also the step-0
+note below).
+
+**Step 0 / root `AGENT-SPEC.md`, asked for again this round:** not done,
+same reasoning as rounds 2 and 4, now with one more data point. Since round
+4 the repo gained `1f15d02 docs(XAL-1156): backfill AGENT-SPEC.md (step 0
+was skipped this branch)` — a *third* sibling branch making this exact
+move, on top of XAL-1159 and XAL-1161, both of which had it reverted in
+their own round-4 scope pass. `.agent/XAL-1149/SPEC.md` already carries the
+diagram and verdict the step exists to produce, and recreating a root copy
+would only reintroduce the modify/delete collision `15c7b14` was written to
+stop. Leaving it out.
