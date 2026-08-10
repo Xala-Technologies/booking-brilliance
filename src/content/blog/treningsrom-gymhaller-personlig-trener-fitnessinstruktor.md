@@ -5,7 +5,7 @@ description: "Personlige trenere og fitnessinstruktører trenger fleksible treni
 date: 2026-08-10
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
-readingMinutes: 7
+readingMinutes: 6
 tag: "Utleier"
 cover: "/images/blog/booking_calendar_hero_no.webp"
 keywords: ["treningsrom", "booke treningsrom", "leie treningsrom", "gymhall booking", "bookingsystem for gym", "private gymoperatører", "booking for personlig trener"]
