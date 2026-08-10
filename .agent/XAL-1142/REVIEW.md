@@ -260,3 +260,51 @@ exactly the content addition plus its process artifacts. Re-ran `pnpm test`
 after the revert to confirm nothing depended on it (build-time package
 approval only affects a fresh `pnpm install`, not an already-populated
 `node_modules`): 20 files / 40 tests still pass. Committed separately.
+
+## Round 5 — Visual proof
+
+This is new content — the page didn't exist on `origin/main`, so there is
+no "before" state to capture; only an AFTER render of the live page applies,
+per this repo's proof convention (`[[project_pnpm_build_needs_approve_builds]]`
+sibling tickets XAL-1143/1145/1149 used the same shape). Ran `pnpm
+dev:client` (Vite on `:8080`) and drove it with `agent-browser`:
+
+- `.agent/XAL-1142/proof/after-tilgjengelighet-post-top.png` — full-page
+  capture of `/blogg/tilgjengelighet-lokaler-nedsatt-funksjonsevne`.
+  `document.title` and the single `<h1>`
+  ("Tilgjengelighet ved booking av lokaler: krav og løsning") match the
+  frontmatter, `readingMinutes: 7` renders as "7 MIN LESETID", the
+  `Utleier` tag shows, and the table of contents lists all six of the
+  post's own H2s in order.
+- `.agent/XAL-1142/proof/after-tilgjengelighet-post-faq.png` — scrolled to
+  the "Vanlige spørsmål om tilgjengelighet ved booking av lokaler" section;
+  confirms the FAQ block and closing CTA heading render, and that the one
+  internal link (`a[href*='universell-utforming-wcag-kommunal-booking']`)
+  resolves with the expected anchor text ("guiden til universell utforming
+  og WCAG i kommunal booking") — a live-render confirmation of what Round 1
+  only checked against source markdown.
+- `.agent/XAL-1142/proof/after-blogg-listing.png` — `/blogg` listing page,
+  scrolled to the new post's card, confirming `getAllPosts()` picked it up
+  with no registration step (`document.querySelectorAll('a')` includes an
+  `href` containing the post's slug).
+
+No new findings — this round is confirmatory, not a fix.
+
+**Linear attachment:** unreachable. No Linear MCP tool is available in this
+environment (confirmed XAL-1151 and reconfirmed here via `ToolSearch`,
+matching every prior sibling ticket — XAL-1143, XAL-1145, XAL-1149 hit the
+same wall). The three PNGs above are committed to the branch under
+`.agent/XAL-1142/proof/` and referenced in the PR body instead; a human
+with Linear access should attach them to XAL-1142 manually.
+
+**Step 0 / AGENT-SPEC.md note:** the resume instructions for this run
+assumed a root-level `AGENT-SPEC.md` was still missing. Per
+`[[project_root_agent_spec_deleted_trap]]`, that file was deliberately
+removed repo-wide on `main` (`15c7b14`) because per-branch copies collide
+on every merge; this workflow uses `.agent/<ISSUE>/SPEC.md` instead, which
+already exists here (written in the interrupted prior session, before
+Round 1's review even began) with the full "what/how/changes/blast
+radius" writeup and mermaid diagram. No root file was recreated.
+
+**Changes made this round:** None to the tracked content diff — added the
+three proof screenshots under `.agent/XAL-1142/proof/` and this section.
