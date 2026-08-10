@@ -72,7 +72,19 @@ keyword or this specific multi-lokaltype teambuilding scenario.
     (`tag: "Privatperson"`) — julebord/firmafest venues for private parties
     and company celebrations, not teambuilding/coaching.
   - `grep -rli "teambuilding\|team building\|team-building"
-    src/content/blog/*.md` → zero hits anywhere before this change.
+    src/content/blog/*.md` → **correction (round 2 regression review): this
+    claim was wrong.** The command actually returns four pre-existing hits
+    (`idrettshall-booking-flere-haller-samlefaktura-bedrift.md`,
+    `idrettshall-ledige-tider-book-enkelttime-privatperson.md`,
+    `idrettshall-ledige-tider-booke-uten-lag-privatperson.md`,
+    `idrettshall-privat-utleier-ledige-tider-booking-drift.md`, all on
+    `origin/main` since 2026-08-09, commit `e5c74c9`). In every one,
+    "teambuilding" is a passing example use-case in body/description text
+    only — never in the title, H1, slug, or `keywords:` frontmatter. This
+    post is still the only one targeting "teambuilding" as a *primary*
+    keyword (title, slug, URL, keywords list), so the no-duplicate verdict
+    below holds; see `.agent/XAL-1145/REVIEW.md` Round 2 for the full
+    severity assessment.
   - `grep -rli "arrangement" src/content/blog/*.md` → many hits, but all in
     wedding (`bryllupslokale-*`), municipal event (`billettlosning-*`,
     `uterom-grontareal-arrangementer-kommune`), or general-venue posts —

@@ -77,3 +77,85 @@ Checked:
   from.
 
 No other correctness issues found this round.
+
+## Round 2 — Regression
+
+Lens: what ELSE reads this code path? Grepped every consumer of
+`src/content/blog/*.md` (not just the six SPEC.md's BLAST RADIUS names),
+verified nothing depended on the old (pre-this-post) behaviour.
+
+Consumers found beyond SPEC's list, via
+`grep -rln "content/blog\|getAllPosts\|blog-meta\|postContent"`:
+
+- `src/lib/post-slugs.test.ts` — asserts every post's slug is globally
+  unique via `getAllPosts()`. Pass.
+- `src/content/blog-xal739-aeo.test.ts` — pins `getPostBySlug` output for a
+  *different* slug (`hva-koster-...`). Unaffected by an unrelated addition.
+- `src/entry-server.main-landmark.test.tsx` — calls `getAllPosts()[0]` (the
+  *first* post after sort) and SSRs it as the "first lazy route rendered"
+  regression case for a real historical bug (suspended-fallback treated as
+  settled). This is the one consumer that could plausibly break from adding
+  a post: `src/lib/posts.ts:19` sorts `[...blogMeta].sort((a,b) => a.date <
+  b.date ? 1 : -1)` — stable, but 41 other posts already share this post's
+  `date: 2026-08-10`, so ties break on `blogMetaPlugin.ts`'s `fs.readdir`
+  order (filesystem-dependent, not alphabetical). Ran the test: new post did
+  not become index 0, test passes.
+- `src/entry-server.h1.test.tsx` — pins other slugs, unaffected.
+- `src/lib/webp-sources.test.ts` — validates every post's `cover` resolves
+  to a real, non-preview image via `previewCover()`. This post reuses
+  `booking_calendar_hero_no.webp` (already validated for sibling posts).
+  Pass.
+- `src/lib/search/corpus.ts` (Navbar search) and
+  `src/components/BlogPreviewSection.tsx` (homepage teaser,
+  `getAllPosts().slice(0, 6)`) — both consume `getAllPosts()` generically,
+  no hardcoded slug/count/order assumption. A new dated-today post
+  displacing an older one from the 6-post teaser is the *intended*
+  behaviour of "newest 6", not a regression.
+- `convex/content/publish.ts`, `scripts/sync-convex-blog-to-fs.ts`,
+  `scripts/dedup-blog-drafts.ts`, `tools/content-agent/src/{publish,
+  generate}.ts` — a separate Convex-draft → filesystem sync pipeline for a
+  *different* authoring path. This post was committed directly, never a
+  Convex draft, so none of these read or could collide with it.
+
+Ran the full suite fresh, not just the files touched by SPEC's blast
+radius: `npx vitest run` → **20 files, 40 tests, all pass.** Ran a full
+clean build (`rm -rf dist dist-server && pnpm build`) end to end: 397
+sitemap URLs (one new entry for this slug, no dupes), critical CSS inlined
+on 398/398 pages, `check-blog-word-count.mjs` passes for all 313 posts
+(source and rendered HTML), new post's prerendered HTML has exactly one
+`<h1>` and a correct canonical URL. No consumer choked on the new file, no
+existing behaviour changed for any other post.
+
+**Found (fixed this round):**
+
+- SPEC.md's BLAST RADIUS section asserted `grep -rli "teambuilding\|team
+  building\|team-building" src/content/blog/*.md` returned **zero hits**
+  before this change. Re-ran that exact command against the pre-existing
+  posts (excluding the new file): it returns **four hits** —
+  `idrettshall-booking-flere-haller-samlefaktura-bedrift.md` (uses
+  "teambuilding" five times, including in its `description:` frontmatter),
+  `idrettshall-ledige-tider-book-enkelttime-privatperson.md`,
+  `idrettshall-ledige-tider-booke-uten-lag-privatperson.md`, and
+  `idrettshall-privat-utleier-ledige-tider-booking-drift.md`. Confirmed via
+  `git log --oneline --all` + `git merge-base --is-ancestor` these all
+  landed on `origin/main` on 2026-08-09 (commit `e5c74c9`), well before
+  this branch's fork point — a pre-existing research gap in SPEC.md's own
+  dedup grep, not a concurrent-fleet collision. Round 1's re-run of the
+  same grep checked only whether the *three named* near-neighbor posts
+  covered the combined scenario and didn't notice the "zero hits" claim
+  itself was wrong.
+  - Severity assessed as low, not a blocker: in all four existing posts,
+    "teambuilding" appears only as one example use-case among several
+    (company sports nights, birthday parties, general idrettshall booking)
+    inside body text or a description — never in the title, H1, slug, or
+    `keywords:` frontmatter. This post is the only one in the corpus with
+    "teambuilding" in its title, URL slug, and keywords list, so it's still
+    the sole page targeting the keyword as a *primary* term — normal
+    secondary-keyword overlap, not primary-keyword cannibalization. The
+    ticket's core verdict (real, unowned content gap) stands.
+  - Fix: corrected the false "zero hits" claim in SPEC.md's BLAST RADIUS
+    section to state the actual grep result and this severity assessment,
+    so the record doesn't carry a factual error forward for a future round
+    or reader to trust unverified.
+
+No other regressions found this round.
