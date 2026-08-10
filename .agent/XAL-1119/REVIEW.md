@@ -306,3 +306,34 @@ Nothing to fix.
 
 None — no scope defects found, so nothing to fix. `git status` is clean at
 the end of this session beyond this REVIEW.md addition.
+
+## Proof (new behaviour — after only)
+
+This is a pure content addition (a new blog post), so there is no "before"
+state to capture — the post didn't exist. Ran `pnpm dev:client` (Vite dev
+server, port 8080) and drove it with `agent-browser`:
+
+1. **`.agent/XAL-1119/proof/blogpost-viewport-top.png`** — above-the-fold
+   render of `http://localhost:8080/blogg/studio-fotografi-videografi-privatproduksjon-booking`.
+   Confirms the post renders end-to-end through the real client pipeline
+   (frontmatter → `virtual:blog-meta` → `getAllPosts()` → `BlogPost.tsx` →
+   `postContent.ts` raw body via `react-markdown`): correct H1 ("Studio for
+   fotografi, videografi og privatproduksjon: booking"), tag chip
+   ("Utleier"), author/role/date line, meta description, and the "I denne
+   artikkelen" TOC sidebar built from the post's own headings. Verified via
+   `document.title` / `document.querySelector('h1').textContent` before the
+   screenshot, both matching the frontmatter exactly.
+2. **`.agent/XAL-1119/proof/blogpost-full.png`** — full-page render of the
+   same URL, showing the entire article body through to the footer CTA.
+3. **`.agent/XAL-1119/proof/blog-index-search-fotostudio.png`** — the blog
+   index at `/blogg`, search box filtered to "fotostudio", showing exactly
+   one result ("1 AV 323 ARTIKLER") — the new post, correctly tagged
+   "UTLEIER" and dated "10. AUGUST 2026". This proves the post is
+   discoverable through the real search UI, not just reachable by a
+   hand-typed URL, and that it doesn't collide with or get shadowed by any
+   of the other 322 posts.
+
+No Linear MCP tools are available in this environment (re-confirmed this
+session — see below), so these images could not be attached to the Linear
+issue directly; they're committed to the branch instead, per the SPEC's
+existing "Linear attachment status" note.
