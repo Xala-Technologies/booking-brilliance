@@ -135,3 +135,72 @@ regression — noting it here so a future SPEC pass for a similar content-only
 ticket greps for `findDuplicateTitles`/`verify-live`/`guard-blog-redirects`
 explicitly rather than only the metadata-pipeline files. No code changes
 made this round.
+
+## Round 3
+
+**Lens: security** — authz, tenant isolation, injection, secrets, and anything
+user-supplied that reaches a query, a path or a page.
+
+The diff is a single new Markdown content file (plus the two `.agent/`
+documentation files from Rounds 0-2) — no code, no schema, no route, no
+data-layer changes. Confirmed there is no authz or tenant-isolation surface
+at all here: nothing in this change touches auth, roles, tenants, or a
+database query, so that half of the lens has no target to check. The
+remaining question is what happens to the new post's content once it flows
+through the render/build pipeline, since blog frontmatter fields
+(`title`, `description`) do get interpolated into HTML at multiple points:
+
+1. **Markdown → DOM rendering (`src/pages/BlogPost.tsx`).** Uses
+   `react-markdown` with only `remarkGfm` — no `rehype-raw` plugin and no
+   `allowDangerousHtml` anywhere in the tree (grepped the whole render path).
+   `react-markdown` without `rehype-raw` treats raw HTML in the source as
+   literal text, not markup, so even if the `.md` body contained a
+   `<script>` tag it would render inert. Confirmed the new post's body
+   contains no raw HTML at all (grepped for `<` in the body — none).
+2. **Link rendering.** The custom `a` component override in `BlogPost.tsx`
+   only special-cases `href`s in a fixed `CHAT_HREFS` set (opens the
+   chatbot); every other link renders as a plain `<a href>` with whatever
+   `href` markdown produced — no `target="_blank"` is injected, so there's
+   no reverse-tabnabbing risk added by this diff. The new post's 5 internal
+   links are relative `/blogg/<slug>` paths verified to resolve to existing
+   files (already checked in Round 1), and the sole external link is
+   `https://digilist.no/demo` — same registrable domain as the site itself,
+   not a third-party or lookalike domain.
+3. **JSON-LD emission (`scripts/prerender.mjs`).** Both `ldHTML` and
+   `articleScript` build the `<script type="application/ld+json">` body via
+   `JSON.stringify(...)`, not string concatenation — standard, safe
+   serialization. (Noted for the record, not a new finding: `JSON.stringify`
+   doesn't escape a literal `</script>` substring inside a string value,
+   which is a generic latent risk for *any* post whose title/description
+   ever contained that exact substring — pre-existing across all 322 posts,
+   not introduced here. The new post's `title`/`description` contain no such
+   substring.)
+4. **Meta-tag interpolation (`scripts/prerender.mjs:2292-2339`).** `<title>`,
+   `og:title`, meta `description`, `og:description` are all inserted via
+   plain template-string `.replace(...)` with no HTML-escaping helper in the
+   file (grepped for `escapeHtml`/`escapeAttr` — none exists). This is a
+   pre-existing gap shared by every post, not something this diff
+   introduces, but since the lens is "what does *this* diff's user-facing
+   content actually put through that unescaped path" — checked the new
+   post's `title` and `description` fields for `"`, `<`, `>`, or `&`
+   characters that could break out of the attribute or tag: none present.
+5. **Secrets.** Grepped the new file and both `.agent/XAL-1123/*.md` docs for
+   anything resembling a key, token, or credential — none. Content is
+   editorial prose plus internal/external links, nothing environment- or
+   credential-shaped.
+6. **Frontmatter parsing (`src/lib/blogFrontmatter.ts`).** The custom
+   YAML-subset parser only reads a fixed set of known keys per the
+   `BlogFrontmatter` interface; there's no `eval`, no dynamic key lookup, and
+   the parser doesn't reach into `Object.prototype`-shaped keys from
+   frontmatter content, so no prototype-pollution surface either.
+
+**Finding: none.** No authz/tenant surface exists in this diff to check, no
+raw HTML or script content in the new post, no secrets, and the two
+unescaped-interpolation code paths in `prerender.mjs` (meta tags, JSON-LD)
+are pre-existing patterns shared by all 322 posts rather than something this
+change introduces — and this post's own `title`/`description` don't contain
+any character that would exploit either gap. No code changes made this
+round; re-ran `npx vitest run` (20 files, 40 tests, all green) and
+`node scripts/check-blog-word-count.mjs` / `node scripts/check-title-lengths.mjs`
+to confirm the working tree is still clean after the review pass — both
+pass, unchanged from Round 2.
