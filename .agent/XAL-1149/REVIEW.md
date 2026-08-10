@@ -67,3 +67,89 @@ Found and fixed one real inconsistency:
 No other correctness issues found this round. Re-ran
 `check-blog-word-count.mjs`, `check-title-lengths.mjs`, and the full
 `vitest run` after the fix — all still pass.
+
+## Round 2 — Regression
+
+Lens: what ELSE reads this code path — not just the files this diff touched
+— and does anything depend on behaviour this diff changes? Grepped every
+consumer of `src/content/blog/*.md` beyond the six SPEC.md already named,
+and re-ran the full suite repeatedly (not once) to catch load-dependent
+regressions a single green run would hide.
+
+Note on step 0 / `AGENT-SPEC.md`: the resumed-run preamble this round started
+from said the root-level `AGENT-SPEC.md` doesn't exist and asked me to write
+it. I did not. `git log --all` shows that exact move already made and
+reverted twice on sibling branches this session (XAL-1159: `51a5a5a` backfill
+→ `00143fc` revert; XAL-1161: `af9f7c3` backfill → `54ebef6` revert), plus
+main itself deliberately deleted a tracked root `AGENT-SPEC.md` in `15c7b14`
+specifically because every agent branch's own copy collided as
+modify/delete against main's, and that blocked PRs #236 and #237 on nothing
+else. `.agent/XAL-1149/SPEC.md` already carries the diagram and verdict the
+step exists to produce; recreating the root file would just reintroduce the
+merge-conflict trap main already paid to remove, for a file that would only
+get deleted again by a later round. No Linear MCP tool is available in this
+environment either way (confirmed XAL-1151/1155/1159/1161), so "attach it to
+the issue" was unreachable regardless of where the file lived.
+
+Checked, beyond round 1's six-consumer blast radius:
+
+- `src/components/BlogPreviewSection.tsx` (homepage teaser, `getAllPosts().slice(0, 6)`)
+  and `src/pages/Blog.tsx` (`/blogg` listing + tag filter + pagination) —
+  both read `getAllPosts()` generically, no hardcoded slug/count/tag list.
+  The new post's `tag: "Utleier"` is an existing filter value already in the
+  tag set; adding one more post under it doesn't add a tag, doesn't change
+  pagination math beyond one more row, and doesn't require a code change.
+- `src/lib/search/corpus.ts` — new post is picked up by the same
+  `getAllPosts().map(...)` that builds `blogItems`; no fixed corpus length
+  assumed anywhere in `searchCorpus()`'s scoring.
+- `src/lib/post-slugs.test.ts` — generic uniqueness guard, not a fixed list;
+  new slug doesn't collide with any of the other 311.
+- `src/lib/webp-sources.test.ts` — asserts every post's `previewCover()`
+  path exists on disk. The new post reuses an existing cover
+  (`booking_calendar_hero_no.webp`), and its `-preview.webp` sibling is
+  already committed — confirmed both exist.
+- `scripts/dedup-blog-drafts.ts` / `scripts/sync-convex-blog-to-fs.ts` — both
+  operate on Convex-side published drafts, keyed by slug, writing into this
+  same directory. This post was authored directly (not synced from Convex),
+  so neither script touches it; if a future Convex draft ever used this
+  exact slug it would overwrite the file, but that's the sync script's
+  documented, pre-existing behaviour for any slug collision, not something
+  this diff introduces or changes.
+- `entry-server.h1.test.tsx`, `.route-split.test.tsx`, `.heading-outline.test.tsx`
+  — all pin specific existing slugs/routes, not "whatever post is first",
+  so the new post can't shift what they render.
+
+Found one real regression, not in the files this diff touched but in a test
+that depends on the *size* of the directory this diff adds to:
+
+- **`entry-server.main-landmark.test.tsx` intermittently timed out at the
+  vitest default 5000ms once this post was added, only under full-suite
+  parallel execution** (`vitest run` — the exact command `pr-check.yml` runs
+  to gate every PR). Root-caused, not assumed: the failing test renders
+  `getAllPosts()[0]` (currently a different, unrelated post — this post
+  sorts to index 1, not 0, so its own content isn't what's rendered), so the
+  new file itself was never the thing being rendered slowly; the timeout
+  comes from every SSR test re-globbing an ever-larger
+  `src/content/blog/*.md` directory on each `render()` call. Isolated the
+  cause by A/B testing the exact same worktree: with this post removed, 3/3
+  full-suite runs passed; with it restored, 2/4 runs failed on this test
+  (flaky, not deterministic — consistent with a marginal timing budget, not
+  a hang). Cross-checked against a clean `origin/main` worktree at the same
+  merge base (`154e284`, already carrying XAL-1152 + XAL-1155's added
+  posts): 3/3 passed there too. So this diff's one extra file is what tips
+  an already-marginal test over the 5s wall — not a one-off fluke, and not
+  something the next post to land here would fix by coincidence; the next
+  addition after this one hits the same wall again.
+  - **Fix applied:** `vitest.config.ts` — added `test.testTimeout: 20000`.
+    Scoped to the actual cause (wall-clock budget that shrinks every time a
+    post is added) rather than patching the one test that happened to hit
+    it first; the sibling SSR tests (`h1`, `route-split`, `heading-outline`)
+    share the same growing-glob cost and would be next.
+  - Verified: 4/4 full-suite `vitest run` after the fix, plus a full
+    `pnpm build` (`check-blog-word-count.mjs` and the rendered-HTML word
+    count gate both pass at 312/312 posts).
+
+No other regressions found. Everything that reads `src/content/blog/*.md`
+keys off directory contents generically; nothing hardcodes a count, slug
+list, or "the first/last post" assumption except the one test above, which
+is now fixed.
