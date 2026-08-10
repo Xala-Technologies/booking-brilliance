@@ -150,3 +150,64 @@ silently broken (would have shown up as a vitest failure either way, and
 Nothing — this lens found no regression. Re-ran `npx vitest run` (17 files
 / 36 tests, all green) and `npx tsc --noEmit` (clean) to confirm the branch
 is still in the same state round 1 left it.
+
+## Round 3 — security
+
+Lens: authz, tenant isolation, injection, secrets, and anything
+user-supplied that reaches a query, a path, or a page. Not correctness
+(round 1) or regression (round 2) again — this round asks whether the diff
+opens any new attack surface, not whether it works or breaks something
+else.
+
+**Full current diff re-confirmed narrow** — `git diff origin/main...HEAD
+--stat` shows exactly five files: `AGENT-GOAL.md` (new, agent scaffolding),
+`AGENT-REVIEW.md` (this file), `AGENT-SPEC.md`, `src/components/ThemedVideo.test.tsx`
+(new), `src/components/ThemedVideo.tsx` (2 lines: 1 changed, 1 unchanged
+context). `pnpm-workspace.yaml` — the `allowBuilds` scope-creep round 1
+flagged and reverted — stays reverted; `git status --short` is clean, so
+nothing round 1/2 fixed has crept back.
+
+**Authz / tenant isolation** — not applicable. `digilist.no` marketing
+pages (`Index.tsx` → `HeroSection.tsx` → `ThemedVideo.tsx`) are
+unauthenticated, public, single-tenant static/prerendered content; no
+session, role, org-scoping, or `app.digilist.no` API call exists anywhere
+in this render path. The `preload` attribute is a browser resource hint
+with no server round-trip of its own — changing its value can't cross a
+tenant boundary that doesn't exist on this page.
+
+**Injection** — checked every value that reaches the DOM through this
+diff. `HeroSection.tsx:183-197` passes `ThemedVideo` two `Variant` objects
+(`webm`/`mp4`/`poster`) as hardcoded string literals under `/videos/...`
+and a hardcoded `ariaLabel` — no template interpolation, no data read from
+a URL param, query string, CMS field, or API response. Inside
+`ThemedVideo.tsx`, those same literals flow straight into `<source src=...>`
+and the `poster`/`aria-label` attributes via JSX (React-escaped, not
+`dangerouslySetInnerHTML`, no `href`/`src` built by string concatenation).
+The one line this ticket changes, `preload="metadata"`, is a fixed string
+literal, not a variable — there is no user-controllable input anywhere on
+this component's call path, so there's no injection surface to widen or
+close.
+
+**Secrets** — `grep -niE
+"api[_-]?key|secret|token|password|authorization|bearer"` across
+`AGENT-SPEC.md`, `AGENT-REVIEW.md`, and both `ThemedVideo` files: zero
+hits. No `.env`, credential, or infra endpoint appears in any file this
+branch touches.
+
+**Paths** — all three asset paths per variant (`webm`, `mp4`, `poster`)
+are literal strings under `/videos/`, defined once at the single call site
+(`HeroSection.tsx:183-197`) and never constructed from a runtime value, so
+there's no path-traversal or open-redirect surface introduced or affected
+by this change.
+
+**Dependencies** — no `package.json`/lockfile edit in this diff (confirmed
+via the `--stat` above); the `pnpm-workspace.yaml` `allowBuilds` block
+round 1 removed (which would have blanket-trusted native postinstall
+scripts across the workspace) has not reappeared.
+
+### What I changed after round 3
+Nothing — this lens found no security issue. The diff has no auth/tenant
+code, no user-supplied value reaching a query/path/page, and no secrets;
+`preload="metadata"` is a static attribute on a static, hardcoded resource
+list. Re-ran `npx vitest run` (17 files / 36 tests, all green) and `npx tsc
+--noEmit` (clean) to confirm the branch is unchanged from round 2's state.
