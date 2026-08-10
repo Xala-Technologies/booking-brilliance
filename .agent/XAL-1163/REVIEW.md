@@ -66,3 +66,67 @@ prerender paths, not just one).
 
 **Changed:** nothing — no fix was needed. No commit from this round beyond
 this file.
+
+## Round 2 — REGRESSION
+
+**Question:** what ELSE reads this code path, and did anything depend on the
+old behaviour? This branch's diff (`git diff origin/main...HEAD --stat`) is
+still only 4 files — `.agent/XAL-1163/{SPEC,REVIEW}.md`, `AGENT-GOAL.md`,
+`pnpm-workspace.yaml` — none of which is application code. So the regression
+surface isn't "did I break a function callers rely on", it's: does the one
+real config change (`pnpm-workspace.yaml`'s new `allowBuilds` block) affect
+anything beyond this worktree, and does anything else in the fleet collide
+with the files this branch touches.
+
+**What I checked:**
+
+- Traced every consumer of `POST_FAQ` / `blogFaq.mjs` again from scratch
+  (`grep -rn "POST_FAQ|blogFaq" src scripts`) to confirm Round 1's list was
+  complete: `src/pages/BlogPost.tsx` (client JSON-LD via `SEO.tsx`) and
+  `scripts/prerender.mjs` (static JSON-LD) are still the only two consumers.
+  No third reader (sitemap generator, RSS/feed script, search-index builder)
+  exists. Since no file in this diff modifies any of `blogFaq.mjs`,
+  `BlogPost.tsx`, `SEO.tsx`, or `prerender.mjs`, there is no behavior for a
+  consumer to regress against — this axis is moot by construction, not by
+  omission.
+- The one substantive diff hunk, `pnpm-workspace.yaml`'s new `allowBuilds`
+  block (`'@swc/core'`, `better-sqlite3`, `esbuild`, `sharp`: all `true`), is
+  a **workspace-root** file — its effect isn't scoped to this ticket, it
+  applies to every `pnpm install` in the monorepo, including CI, once this
+  merges. Checked whether CI currently depends on these builds being
+  *skipped*:
+  - `.github/workflows/pr-check.yml` and `deploy.yml` both run
+    `pnpm install --frozen-lockfile` then `pnpm build` today, on `main`,
+    *without* this `allowBuilds` block. Pulled recent run history with
+    `gh run list --workflow=pr-check.yml` — last 5 runs all `success`. So the
+    build-script-skip warning pnpm currently emits for these 4 packages is
+    provably non-fatal to the existing pipeline; nothing depends on the
+    scripts staying blocked, so turning them on can't un-break something
+    that was silently relying on the skip.
+  - Checked for lockfile markers (`requiresBuild: true`) that would reveal
+    packages needing approval that this list misses — none present in this
+    lockfile format, so couldn't cross-check completeness that way; fell
+    back to the CI-green evidence above, which only needs the *existing*
+    list to not regress, not to be exhaustive.
+  - `gh pr list` across the repo for any open PR touching `pnpm-workspace.yaml`
+    or `AGENT-GOAL.md` (the two root files this branch adds/edits, where
+    sibling fleet branches are most likely to collide per
+    `[[project_concurrent_fleet_agents]]`) — zero hits. No merge-conflict
+    exposure from concurrent branches on these files right now.
+  - `tools/improvements-agent/src/{prepare,implement}.ts` are the only code
+    that reads/writes `AGENT-GOAL.md` by name, and only by presence
+    (write it on prepare, instruct deletion before PR) — nothing parses its
+    placeholder body, so leaving the unfilled contract template in the tree
+    mid-flow (as Round 1 already noted) doesn't regress that tooling either.
+- Re-ran `npx vitest run src/content/blogFaq.test.ts`: **2 passed**, same as
+  Round 1 — confirms nothing drifted between rounds.
+
+**Findings:** none. The branch's only non-doc change is an additive,
+workspace-wide `pnpm-workspace.yaml` config block; CI's own recent run
+history shows the build steps it touches already succeed without it, so
+enabling them can't regress a dependency that was silently relying on the
+skip. No application code path changed, so there is no caller/consumer to
+break. No concurrent open PR touches the same root files.
+
+**Changed:** nothing — no fix was needed. No commit from this round beyond
+this file.
