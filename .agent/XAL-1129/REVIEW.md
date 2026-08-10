@@ -151,3 +151,75 @@ run` and `node scripts/check-title-lengths.mjs` to confirm the revert
 didn't disturb anything else — both green.
 
 No other regressions found this round.
+
+## Round 3 — Security
+
+Lens: authz, tenant isolation, injection, secrets, and anything user-supplied
+that reaches a query, a path or a page. Re-confirmed at the top that no
+Linear MCP server is reachable in this environment (`ToolSearch` for
+Linear-related tools returns nothing), matching
+[[project_no_linear_mcp_tools_available]] — SPEC.md's Linear-attachment note
+still stands, nothing new to attach it with this round either.
+
+`git diff origin/main...HEAD` still touches exactly three files, all
+additions: `.agent/XAL-1129/SPEC.md`, `.agent/XAL-1129/REVIEW.md`, and the
+one content file, `src/content/blog/booking-funksjonalitet-systemkrav-gdpr-
+sms-kalender-tilgang.md`. No application code, no config, no build script
+changed by this diff — the security surface this round has to check is the
+content file's *text* and how the existing (unmodified) pipeline treats it,
+not new code logic.
+
+Checked, all clean:
+
+- **Injection / XSS via markdown content.** Grepped the new post for
+  `<script`, `javascript:`, `onerror=`, `onload=`, `<iframe`,
+  `data:text/html` — zero hits. Confirmed how the body actually renders:
+  `src/pages/BlogPost.tsx` uses `ReactMarkdown` with only `remarkGfm` (no
+  `rehype-raw`), so even if a future post *did* contain raw HTML, React
+  Markdown treats it as literal text rather than parsing it into DOM —
+  stored XSS via post body isn't reachable through this pipeline as
+  configured. Not a defect in this diff either way; verified rather than
+  assumed given the security lens.
+- **Secrets.** Grepped the new file for
+  `api[_-]?key|secret|password|token|bearer|-----BEGIN` (case-insensitive)
+  — zero hits. Content is public marketing copy about GDPR/SMS/kalender/
+  tilgang positioning; no credentials, internal hostnames, or environment
+  values anywhere in it.
+- **Links / open-redirect / SSRF-adjacent.** Extracted every markdown link
+  target in the file (9 total): 6 internal `/blogg/<slug>` spoke links, the
+  2 money-page links (`/bookingsystem-kommune`, `/bookingsystem-utleie`),
+  and the closing `/book-demo` CTA (the link Round 1 already fixed from the
+  broken `/demo`). All 9 are relative, same-origin paths — no external
+  domains, no `javascript:`/`data:` URIs, nothing an attacker-controlled
+  redirect could hide behind. Cover image reuses an existing on-disk asset
+  path, not a new external URL.
+- **Frontmatter → page-head injection.** `title`/`description` are the two
+  fields most likely to land unescaped in `<title>`/`<meta content="...">`
+  during prerender. Neither contains a literal `"`, `<`, `>`, or `&` that
+  could break out of an HTML attribute or tag — checked by reading the raw
+  frontmatter values directly, not just eyeballing the rendered output.
+  `src/lib/blogFrontmatter.ts`'s hand-rolled YAML-subset parser (regex-based
+  `key: value` line matching, not a real YAML lib) is a pre-existing,
+  site-wide component this diff doesn't touch or introduce; this post's
+  values are ordinary quoted strings that parse the same way every other
+  post's frontmatter does, so it's not a new attack surface — noted, not
+  filed.
+- **Authz / tenant isolation.** Not applicable to this diff. Per
+  [[project_repo_has_no_booking_domain]], this repo has no booking product
+  code, no tenant model, no auth middleware for this change to weaken — the
+  post *describes* Digilist's ID-porten/BankID/RBAC posture in prose, it
+  doesn't implement or touch any of it. Confirmed the diff contains no
+  changes to `src/App.tsx` routing, any auth/session code, or Convex
+  functions — the 3-file diff stat above rules this out structurally, not
+  just by reading the prose.
+- **User-supplied input reaching a query/path/page.** None exists in this
+  diff — the entire change is agent-authored static content committed
+  directly to the repo, not user input flowing through any runtime code
+  path. The `SOLUTION_PAGES` auto-linker (`BlogPost.tsx:31-37`) matches
+  against this post's own static title/tag/keywords, which are fixed at
+  commit time, not attacker-controllable at request time.
+
+**No security findings this round.** The diff's entire security surface is
+one static Markdown file with no HTML, no scripts, no secrets, no external
+links, and no code changes — genuinely nothing for this lens to catch here.
+No fixes to make; nothing to re-test beyond what Rounds 1-2 already re-ran.
