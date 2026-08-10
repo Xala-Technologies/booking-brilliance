@@ -163,3 +163,75 @@ the old and new content.
 ### What I changed
 
 Nothing — no defects found under this lens. No commit from this round.
+
+## Round 3 — SECURITY
+
+Lens: authz, tenant isolation, injection, secrets, and anything
+user-supplied that reaches a query, a path, or a page.
+
+### What I checked
+
+- Full diff (`git diff origin/main...HEAD`) file by file: `.agent/XAL-1160/
+  REVIEW.md` and `SPEC.md` (docs, no runtime surface), `AGENT-GOAL.md`
+  (deleted scaffolding, no runtime surface), `src/content/blog/
+  digitalt-bookingsystem-hva-er-det.md` (the actual content change), and
+  `src/lib/digitalt-bookingsystem-description.test.ts` (new test, static
+  assertion only) — confirmed this branch has zero code-path changes, only
+  static markdown content and its frontmatter.
+- Grepped the diff itself for credential-shaped strings (`api[_-]?key`,
+  `token`, `secret`, `password`, `bearer`, `authorization:`) — the only
+  hits are the words "secret"/"token" appearing in prose (a checklist
+  template line and Round 2's own description of `.replace()`'s special
+  `$`-token handling), not actual secret values.
+- Grepped the new markdown body for raw-HTML/script injection vectors
+  (`<script`, `javascript:`, `data:text/html`, `onerror=`, `onclick=`,
+  `<iframe`, `<img ... src=`) — none present. The new content is plain
+  markdown prose, a bullet list, and standard `[text](/path)` links.
+- Re-checked (independently of Round 2's regex-parsing pass) the two
+  frontmatter fields that flow into `scripts/prerender.mjs`'s
+  `patchHTML()` `String.prototype.replace(regex, templateString)` call —
+  grepped `title:`/`description:` for `$`, `<`, `>` (all three have
+  special meaning to `.replace`'s string-replacement form or would break
+  out of an HTML attribute/tag) — none present in either field.
+- Traced how `title`/`description` reach `Article` JSON-LD in
+  `src/components/SEO.tsx:371` — `script.textContent =
+  JSON.stringify(blocks)`. `JSON.stringify` escapes quotes/backslashes
+  itself and the result is assigned via `.textContent` (not
+  `dangerouslySetInnerHTML`/`innerHTML`), so there's no string-concatenation
+  or raw-HTML-injection path here regardless of what characters the
+  description contains.
+- Confirmed this repo has no tenant/authz model for content to leak
+  across (blog posts are public, unauthenticated, statically prerendered
+  — no session, no RBAC check, no per-tenant data anywhere in this file
+  or its consumers) — consistent with prior confirmed findings that this
+  repo is marketing/content-ops only with no booking/tenant domain.
+- Confirmed nothing in this change is user-supplied at request time: the
+  title, description, stats-box numbers, and both new internal links
+  (`/bruksomrader/moterom`, `/bruksomrader/idrettshaller-gymsaler`) are
+  hardcoded strings the agent wrote into the `.md` file at commit time,
+  not values interpolated from a query string, route param, form field,
+  or any other request-time input — so there is no injection surface for
+  an actual attacker to control here, as opposed to a hypothetical one.
+- Checked `react-markdown`'s config at the one render site
+  (`BlogPost.tsx`, `remarkGfm` only, confirmed by Round 1/2) for a
+  `rehype-raw`-style plugin that would let raw HTML through — none is
+  configured, so even if the markdown source did contain an HTML tag it
+  would render as escaped text, not execute. This is pre-existing
+  configuration, unchanged by this branch, checked here only to confirm
+  the new content isn't exploiting a gap that happens to exist.
+- New test file (`digitalt-bookingsystem-description.test.ts`) — asserts
+  only a `string.length` bound on data already resolved via
+  `getAllPosts()`; no dynamic input, no secrets, no filesystem/network
+  access beyond what the existing test harness already does.
+
+### What I found
+
+No security issues. This branch has no authz/tenant surface (none exists
+in this repo), no injection surface (all new strings are static,
+attacker-uncontrolled, and pass through `JSON.stringify`/textContent or a
+regex-substitution path already confirmed clean of the specific
+metacharacters that matter to it), and no secrets.
+
+### What I changed
+
+Nothing — no defects found under this lens. No commit from this round.
