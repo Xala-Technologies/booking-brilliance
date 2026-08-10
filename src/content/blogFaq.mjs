@@ -101,6 +101,28 @@ export const POST_FAQ = {
         "Mange kommuner tilbyr gratis eller sterkt rabatterte priser til lag og foreninger registrert i Frivillighetsregisteret, både for møterom og selskapslokaler. Prisen avhenger av hvem som booker, så oppgi formålet ditt for å se riktig sats i bookingsystemet.",
     },
   ],
+  "lokalesok-definisjoner-lokaletyper-priser": [
+    {
+      question: "Hva er lokalesøk?",
+      answer:
+        "Lokalesøk er å lete etter, sammenligne og booke et ledig lokale til et arrangement, møte eller en fast aktivitet, ved å filtrere på sted, dato, kapasitet og pris i stedet for å kontakte utleiere en etter en.",
+    },
+    {
+      question: "Hva er forskjellen på et forsamlingslokale og et selskapslokale?",
+      answer:
+        "Forsamlingslokale er en bredere, ofte bygningsteknisk betegnelse på lokaler godkjent for at mange kan samles samtidig, og omfatter i kommunal sammenheng blant annet kulturhus, grendehus og festsaler. Selskapslokale er ikke en egen bygningskategori, men en bruksbetegnelse på et lokale – ofte et grendehus, kulturhus eller privat festlokale – som leies ut til private feiringer som bursdager og jubileer. Slike lokaler oppfyller som regel også kravene til et forsamlingslokale, mens et lite møterom normalt ikke gjør det.",
+    },
+    {
+      question: "Hva koster det å leie et lokale?",
+      answer:
+        "Det spenner fra gratis for kommunale møterom til lag og foreninger, via 1 500–15 000 kroner per dag for grendehus og kulturhus, til 15 000 kroner og oppover for private festlokaler med servering inkludert.",
+    },
+    {
+      question: "Kan jeg søke lokale uten å vite nøyaktig hvilket sted jeg vil leie?",
+      answer:
+        "Ja. Et geografisk lokalesøk lar deg velge by eller kommune først, og deretter dato, kapasitet og lokaltype, slik at du får treff på tvers av alle lokaler i området i stedet for å måtte kjenne til hvert utleiested fra før.",
+    },
+  ],
   "lokalbooking-geografisk-sok": [
     {
       question: "Kan jeg søke på tvers av flere byer samtidig?",
