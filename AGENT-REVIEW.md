@@ -1,302 +1,276 @@
-# XAL-1139: Deep review log
+# XAL-1151: Deep review log
 
 Change under review: one new file,
-`src/content/blog/praktisk-guide-prosedyrer-krav-prising-booking.md`
+`src/content/blog/leie-lokale-sammenligne-egenskaper-kapasitet-utstyr.md`
 (a Norwegian blog post), plus `AGENT-SPEC.md`.
 
 ## Round 1 — correctness / regression-duplication / security / scope
 
 Four parallel agents, each told to REFUTE the change over the actual file
-contents and `git diff 67601bf..HEAD`.
+contents and `git diff origin/main..HEAD`.
 
 **Correctness** — found three real defects:
-1. The kommune-vs-privat comparison table claimed a rejection must contain
-   "dokumentasjonskrav i anskaffelsen (SSA-L)", conflating SSA-L's actual
-   requirement (the vendor's *system* must log who/when/why per approval
-   step) with the content of an individual rejection letter to a citizen or
-   lag — those are different things, and the table stated the wrong one.
-2. The table listed "depositum" as a private-utleier krav-til-leietaker item,
-   contradicting the post's own structure two paragraphs earlier, which
-   places depositum under Prising, not Krav.
-3. A genuinely broken sentence in the Krav section: a comma splice
-   ("...i søknaden, mangler her er den vanligste årsaken...") that lost its
-   antecedent and didn't parse.
-   Everything else checked out: all four internal links resolve (verified
-   against both frontmatter and the actual `dist/blogg/*` build output,
-   including the non-ASCII `ø` slug), krav/prosedyre/pris claims matched the
-   linked source posts, Norwegian grammar was otherwise clean.
+1. Line 20: a fronted conditional ("Skal du sammenligne...") followed by a
+   subject-before-verb main clause ("guiden ... viser"), violating Norwegian
+   V2 word order — the finite verb must directly follow the comma. Every
+   other fronted-conditional sentence in the post (e.g. line 46, "Er du
+   driftsleder ... er [guiden] det riktige stedet") gets this right.
+2. Line 26: the post claimed a missing equipment checkbox on a listing "som
+   regel" means the equipment doesn't exist, not that the utleier forgot to
+   list it — directly contradicted by `utleieobjekt-veiviser-steg-for-steg.md`
+   ("Du kan publisere uten en lang funksjonsliste – den kan du fylle ut
+   senere"), which documents that an incomplete feature list is a normal,
+   expected state on the platform.
+3. Line 26: invented two items ("pauserom", "skjerm") into what read as
+   Digilist's actual checkbox field list; the veiviser post's real field
+   list is wifi, kjøkken, prosjektor, lydanlegg, parkering, garderober —
+   "pauserom" and "skjerm" aren't among them.
+   Everything else checked out: internal consistency between the table and
+   the prose, all five internal links resolve, frontmatter matches
+   `blogFrontmatter.ts`'s contract, and `readingMinutes: 5` for the (then)
+   860-word body checked against five sibling posts' actual words-per-minute
+   ratio (135–201 wpm range) lands mid-range, not just the two posts
+   initially spot-checked.
 
-**Regression / duplication** — the most substantive finding of the round: the
-post's content overlaps with 4-5 already-published, persona-specific posts
-(`leiepriser-kommunale-lokaler-driftsleder-guide.md`,
-`prissetting-sal-kommune-driftsleder-differensiert-pris.md`,
-`leie-ut-pa-digilist-guide-for-utleiere.md`,
-`saksbehandler-godkjenne-avvise-kommunisere.md`), and the opening hook was a
-near-verbatim reuse of `leiepriser-kommunale-lokaler-driftsleder-guide.md`'s
-own opening framing ("De fleste guider ... er skrevet for leietakeren ...
-Denne er for deg som sitter på andre siden"). Also flagged: the new
-`tag: "Bookingansvarlig"` is a single-use, 30th distinct tag value.
-Slug/filename and cover image were both confirmed clean (no collision,
-`booking_calendar_hero_no.webp` exists and is already shared by 49 posts).
+**Regression / duplication** — no true duplicate of the generic,
+cross-venue-type "compare characteristics before booking" angle exists in
+the 273-post corpus. Closest analogs are all narrower: the wedding-specific
+kapasitet/vilkår/tilgjengelighet checklist posts, and
+`selskapslokaler-typer-og-hvordan-velge.md`'s sittende/stående explanation
+(selskapslokaler-only). Grepped 8 distinctive phrases from the new post
+against the whole corpus — zero verbatim reuse found, so the "pris isn't
+what matters, X is" opening device (also used by a wedding post from days
+earlier) is independently worded, not copied. Tag (`Privatperson`, the most
+common value) and cover image (reused by 55 other posts) both consistent
+with precedent. No slug collision.
 
-**Security** — no issues. `react-markdown` + `remark-gfm` only, no
-`rehype-raw` anywhere in the render pipeline and no `dangerouslySetInnerHTML`
-in `BlogPost.tsx`/`BlogPreview.tsx`, so raw HTML in the `.md` (there is none)
-wouldn't execute regardless. No secrets or internal infra in either file. The
-one SSA-L mention doesn't claim Digilist certification and is strictly
-lighter than existing posts' compliance claims. One functional (non-security)
-defect found: the `/demo` CTA link 404s — the real route is `/book-demo`
-(`src/App.tsx:299`) — a pre-existing broken-link convention shared by 4 other
-live posts, but worth fixing in this file regardless of being pre-existing
-elsewhere.
+**Security** — no issues. `BlogPost.tsx` renders via `<ReactMarkdown
+remarkPlugins={[remarkGfm]}>` with no `rehype-raw` and no
+`dangerouslySetInnerHTML` anywhere in the blog render path, so raw HTML in
+the markdown (there is none) wouldn't execute regardless. No secrets or
+internal infra in either file. The one external link
+(`https://digilist.no`) matches the identical pattern already used in 17+
+other posts. The Tilgjengelighet section reads as reader-facing advice
+("sjekk om..."), not a Digilist accessibility-compliance claim.
 
 **Scope** — clean. Diff is exactly the new post and `AGENT-SPEC.md`; none of
 the forbidden shared files (`scripts/prerender.mjs`, `src/entry-server.tsx`,
 `scripts/verify-live.mjs`, `vite.config.ts`,
 `build-plugins/blogMetaPlugin.ts`) appear in the diff, `git status --short`
-was clean, and `AGENT-GOAL.md` is present and tracked as expected at this
-stage (scheduled for deletion right before the PR, not before).
+was clean, and `AGENT-GOAL.md` is present, tracked, and unmodified as
+expected at this stage (scheduled for deletion right before the PR, not
+before).
 
 ### What I changed after round 1
-- Rewrote the intro so it makes the same "administrator, not renter" framing
-  point without echoing the leiepriser post's specific wording — the intro
-  now explicitly names the gap this post fills (the three topics are usually
-  written up separately; this is the sequence a bookingansvarlig actually
-  uses them in) rather than restating another post's hook.
-- Fixed the SSA-L table cell to describe the actual requirement (a logged
-  approval step in the driftsavtale), not an invented claim about rejection-
-  letter contents.
-- Removed "depositum" from the table's krav-til-leietaker row (replaced with
-  "Husregler ved booking") so the table matches the prose's own krav/pris
-  split.
-- Fixed the broken comma-splice sentence in the Krav section.
-- Fixed `/demo` → `/book-demo` (the actual route in `src/App.tsx`).
-- Recomputed word count (1009 words) against the other four read posts'
-  actual words-per-`readingMinutes` ratio (~156-193 wpm) and corrected
-  `readingMinutes` from 7 to 6 to match.
-- Re-ran the full build (optimize-images, vite build, SSR build, prerender,
-  word-count check) and `pnpm vitest run` — both green after the edit
-  (16 files / 35 tests, word-count check passes on both markdown and
-  prerendered HTML).
+- Fixed the V2 word-order error on line 20 ("... viser [guiden] hvordan
+  ...", verb directly after the comma).
+- Softened the "missing checkbox = equipment doesn't exist" claim on line 26
+  to match what the veiviser post actually documents: a missing field can
+  mean either the equipment doesn't exist or the listing isn't fully filled
+  in yet, so the advice is to ask rather than assume.
+- Removed "pauserom" and "skjerm" from the equipment list on line 26,
+  matching the veiviser post's actual field names (wifi, kjøkken,
+  prosjektor, lydanlegg).
+- Re-ran the full build pipeline (`optimize-images`, `vite build`, SSR
+  build, `prerender.mjs`, `check-blog-word-count.mjs`) and `pnpm test` —
+  both green after the edit (16 files / 35 tests, word-count check green on
+  both markdown and prerendered HTML; recomputed word count 874, still
+  ~175 wpm at `readingMinutes: 5`, no change needed).
 
-**Decision on the duplication finding, not a defect fix**: the pattern this
-post follows — a consolidated practical hub that links out to existing
-persona-specific deep dives instead of repeating them — is the established
-precedent in this repo for exactly this kind of ticket (see the prior
-XAL-1141 post, which explicitly states "This is NOT a case of writing
-something from scratch ... What's missing is a single consolidated piece").
-The real, fixable problem was the near-verbatim opening line (fixed above),
-not the hub structure itself: no existing post targets "bookingansvarlig" as
-a persona spanning both kommune and private markets at once, or sequences
-krav → prosedyre → pris as one operational flow — every existing post is
-scoped to one market and one of the three topics. Kept the hub approach.
+## Round 2 — fresh fact-check + full build/SEO regression
 
-**Decision on the new tag, not a defect fix**: `tag: "Bookingansvarlig"` is
-a single-use value, but single-use tags are already the norm in this corpus
-(15+ existing tags — `Onboarding`, `Mobil`, `Kurs`, `Kommunikasjon`,
-`Sesongleie`, etc. — appear exactly once). No existing tag (`Driftsleder`,
-`Saksbehandler`, `Utleier`) names a persona spanning both markets, and using
-one of those would misrepresent this post as belonging to a single market.
-Kept the new tag value.
+Two parallel agents: one re-read every remaining factual/process claim
+(platform-field claims, the comparison table, all five cross-link framings,
+the illustrative sittende/stående numbers, and a fresh independent
+grammar/spelling pass), explicitly told not to re-check round 1's three
+fixes; the other ran the full production build from a clean `dist`/
+`dist-server`, inspected the prerendered HTML/sitemap/listing page
+directly, and ran the test suite.
 
-## Round 2 — deeper fact-check + build/SEO regression
-
-Two parallel agents: one re-verified round 1's five fixes landed correctly
-and then did a fresh line-by-line re-read of every remaining factual/process
-claim against six related posts (the four from round 1 plus
-`saksbehandler-godkjenne-avvise-kommunisere.md` and
-`prissetting-sal-kommune-driftsleder-differensiert-pris.md`, both flagged by
-round 1's duplication lens as additional overlapping posts); the other ran a
-full production build from a clean `dist`/`dist-server` and inspected the
-prerendered HTML, sitemap, and blog listing page directly.
-
-**Fact-check lens** — all five round-1 fixes verified correctly applied.
-Re-checked every claim in the post (documentation requirements, the
-rejection/re-request principle, lokale-frigjøring/dobbeltbooking risk,
-avbestilling/refusjon, private pricing practice, all four comparison-table
-cells, all four cross-links' target slugs) against the six source posts —
-no new contradiction, overstatement, or wrong detail found. One phrasing
-difference noted and judged not a real conflict: this post calls
-depositum/avbestillingsgebyr part of "prisstrukturen," while
-`prissetting-sal-kommune-driftsleder-differensiert-pris.md` calls depositum
-"ikke inntekt, det er en risikobuffer" — different framings (setup process
-vs. revenue accounting), not a factual disagreement.
+**Fact-check lens** — platform claims, the table, and all five cross-link
+framings all checked out against the six related posts read for this round
+(`utleieobjekt-veiviser-steg-for-steg.md`,
+`selskapslokaler-typer-og-hvordan-velge.md`,
+`hva-er-et-forsamlingslokale.md`,
+`leie-lokale-billigst-kommune-sammenlign-lokaltyper.md`,
+`moterom-kommune-finn-og-book-ledige-lokaler.md`,
+`kapasitetsstyring-idrettsanlegg-driftsleder.md`) — no invented claim, no
+link pointing to a post that doesn't actually cover what it's framed as
+covering. The "seksti stående, tretti sittende" example was checked and
+confirmed adequately hedged as an illustration ("et rom", "gjerne"), not a
+universal rule. Found one real grammar defect and two minor consistency
+nits:
+1. "finnes det heis hvis lokalet ligger i etasje" — missing an
+   article/specifier, not standard Bokmål.
+2. A nonstandard comma before "og" in the Fasiliteter section's list,
+   inconsistent with the post's own list style elsewhere.
+3. The table capitalized "Wifi" while the prose used lowercase "wifi".
 
 **Build/SEO lens** — ran the full pipeline once from a clean state
 (`rm -rf dist dist-server` → `optimize-images.mjs` → `vite build` → SSR
-build → `prerender.mjs` → `check-blog-word-count.mjs` → `pnpm vitest run`):
-all steps passed, 16/16 test files, 35/35 tests green, word-count check
-green on both markdown and prerendered HTML. Direct inspection of
-`dist/blogg/praktisk-guide-prosedyrer-krav-prising-booking/index.html`
-confirmed exactly one `<h1>` matching the title, correct `Article` JSON-LD,
-canonical URL, Open Graph/Twitter tags, and exactly one sitemap entry — all
-green.
-
-One real, but out-of-scope, gap surfaced: the post does **not** appear on
-the static `/blogg` listing page's first page. `src/pages/Blog.tsx`
-prerenders only the first `PAGE_SIZE = 6` posts, and `src/lib/posts.ts`
-sorts by `date` with day-only granularity (no time-of-day). 57 other posts
-in `src/content/blog/*.md` already share this post's `date: 2026-08-09`
-value (same-day "Daily blog agent" batches per git log), so among same-date
-posts the tie-break falls to `fs.readdir()`'s filesystem order, not any real
-recency signal — a pre-existing structural gap in the listing/sort logic
-affecting many same-day posts, not something this post's content introduced
-or that a single-file content change can fix. Fixing it would mean editing
-`src/lib/posts.ts` and/or `src/pages/Blog.tsx` (shared rendering code used
-by every post), which this ticket's own scope note explicitly says not to
-do, since every SEO branch funnels through shared files like that and
-conflicts on merge. Noting it here as a separate, systemic follow-up rather
-than acting on it in this change. The individual post page, its SEO
-metadata, and its sitemap entry are unaffected and all correct — only its
-position on the *listing* page is affected.
-
-The build/SEO agent also hit and self-corrected a `scripts/prerender.mjs`
-non-idempotency artifact from running the script twice on an already-built
-`dist/` during its own investigation (second run reuses a stale
-already-injected homepage body as the template for every route). That is an
-artifact of running the shared script twice, not of this change, and does
-not occur in the actual single-run build path. Also out of scope per the
-"don't touch shared build scripts" rule — noted for the record, not acted
-on.
+build → `prerender.mjs` → `check-blog-word-count.mjs` → `pnpm test`): every
+step passed, no error-level output, 16/16 test files, 35/35 tests green.
+Direct inspection of
+`dist/blogg/leie-lokale-sammenligne-egenskaper-kapasitet-utstyr/index.html`
+confirmed exactly one `<h1>` matching the title, correct Article JSON-LD,
+canonical URL, Open Graph/Twitter tags, all five internal links plus the
+external CTA rendered as real `<a href>` tags, and exactly one sitemap
+entry (357 total URLs). Checked the known pre-existing listing-pagination
+gap from the prior XAL-1139 review specifically for this post: six posts
+share today's date, and this post is one of them, landing at position 2 of
+6 on `/blogg` page 1 — no defect, the post is visible on the listing page.
 
 ### What I changed after round 2
-Nothing in the post content — round 2 confirmed all round-1 fixes and found
-no new defect in the file itself. The listing-pagination gap and the
-prerender double-run artifact are both pre-existing, systemic, and outside
-this ticket's scope (shared files), so neither was touched.
+- Fixed "i etasje" → "i en etasje over bakkeplan" (line 30).
+- Removed the nonstandard comma before "og" in the Fasiliteter list
+  (line 34).
+- Lowercased "Wifi" → "wifi" in the comparison table to match the prose's
+  usage (line 42).
+- Re-ran the full build pipeline and `pnpm test` (16 files / 35 tests, all
+  green) after the edits.
 
 ## Round 3 — adversarial editorial read + full-branch regression sweep
 
 Two parallel agents: one did a fresh skeptical-editor read of the whole post
-(explicitly told not to re-check the five round-1 fixes, only look for
-anything new), the other swept the whole branch state (commits, diff,
-worktree, ignored files) for anything content review wouldn't catch.
+(explicitly told not to re-check rounds 1-2's six fixes, only look for
+anything new — unsupported superlatives, table/checklist symmetry,
+pillar-naming drift, redundancy, one more independent language pass), the
+other swept the whole branch state (commits, diff, worktree, ignored files,
+lockfiles) for anything content review wouldn't catch.
 
-**Editorial lens** — found four real issues:
-1. "en avvist godkjenning re-forespørres" (line 30) is a contradiction in
-   terms — something rejected was, by definition, never approved
-   ("godkjenning" = approval). Every other instance in the post correctly
-   calls the rejected thing a "forespørsel".
-2. The table's kommune avvisning-cell ("krav i selve driftsavtalen (SSA-L)")
-   stated a different legal basis than the prose right above it in step 3
-   ("krav i kommunale anskaffelser") — same row, two different framings of
-   the same fact.
-3. The table's private-utleier avvisning-cell added "forslag til alternativ
-   dato", a detail with zero support anywhere else in the post — an
-   asymmetric, unbacked claim next to a fully-sourced kommune cell.
-4. The title lists the three pillars as "prosedyrer, krav og prising", while
-   the description, the intro sentence, and every H2 use the order "krav,
-   prosedyrer, prising" — a small but real inconsistency.
-   Two minor items also fixed: two unqualified superlative claims ("den
-   vanligste årsaken", "oftest undervurderer") stated as fact with no
-   backing, and "eier retten" (a calque) where natural Bokmål is "har
-   retten". The comparison table's other three rows, both numbered lists
-   (4-step prosedyre, 5-step sjekkliste), and the frontmatter description
-   length/accuracy were all separately re-checked and found clean.
+**Editorial lens** — found five real issues:
+1. Three unsupported "most/all" claims stated as flat fact with no backing:
+   the intro's "De fleste som skal leie et lokale, sammenligner pris først",
+   "De vanligste punktene å sjekke er wifi, kjøkken, prosjektor og
+   lydanlegg", and the table's "Feil tall her er den vanligste årsaken til
+   at et lokale føles for trangt".
+2. The Kapasitet table row was stylistically asymmetric against the other
+   four rows — a different phrase structure in "Hva du sjekker," and it
+   broke the "Avgjør om..." template every other row's "Hvorfor det betyr
+   noe" cell used.
+3. The 5-item checklist had no item covering Planløsning (møblering/
+   soneinndeling), while Kapasitet got two separate items — an uneven
+   mapping from the four body pillars to the checklist.
+4. The frontmatter `description` named only "Kapasitet, utstyr,
+   tilgjengelighet og fasiliteter," dropping "planløsning" even though it's
+   a distinct pillar with its own paragraph and table row.
+5. "Utstyr er den andre halvdelen av bildet" read as an English-idiom
+   calque rather than natural Bokmål.
 
-**Regression-sweep lens** — clean. `git log 67601bf..HEAD` showed exactly 3
-commits, each doing what its message claims; `git diff 67601bf..HEAD --stat`
-showed exactly the 3 expected files (the post, AGENT-SPEC.md,
-AGENT-REVIEW.md); `git status --short` and `--ignored` showed no stray
-tracked or untracked artifacts; none of the forbidden shared build files
-were touched; `AGENT-GOAL.md` confirmed present, tracked, and unmodified
-(expected at this stage); no leftover TODO/FIXME/wrong-ticket-number text in
-either doc file; exactly one new file under `src/content/blog/`, no
-duplicates.
+**Regression-sweep lens** — clean, with one important caveat surfaced and
+resolved: a naive `git diff origin/main..HEAD --stat` showed a spurious
+deletion of an unrelated post
+(`leie-sal-billigst-kommunal-privat-totalpris-sammenligning.md`) because
+`origin/main` had advanced by one unrelated commit after this branch
+diverged — confirmed via `git diff <merge-base>..HEAD --stat` that this
+branch itself only ever touched the four expected files (`AGENT-GOAL.md`,
+`AGENT-SPEC.md`, `AGENT-REVIEW.md`, the new post). Flagged as needing a
+merge with the now-advanced `origin/main` before the PR is opened (done at
+the sync step), not a content defect. No forbidden shared files touched, no
+stray tracked/untracked files, no TODO/FIXME/wrong-ticket text, exactly one
+new file under `src/content/blog/`, and `pnpm-workspace.yaml` /
+`package.json` / lockfiles confirmed untouched by any commit on this branch
+(the local `pnpm approve-builds` run used to install dependencies for
+testing never leaked into a commit).
 
 ### What I changed after round 3
-- Fixed "avvist godkjenning" → "avvist forespørsel" (step 3).
-- Reworded the table's kommune avvisning-cell to state the same legal basis
-  as the prose ("krav i kommunale anskaffelser"), and removed the unbacked
-  "forslag til alternativ dato" detail from the private-utleier cell,
-  leaving both cells symmetric and each backed by the prose above them.
-- Swapped the title's pillar order to "krav, prosedyrer og prising",
-  matching the description, intro, and H2 order everywhere else in the post.
-- Softened "den vanligste årsaken" → "en vanlig årsak" and "oftest
-  undervurderer" → "lett undervurderer"; fixed "eier retten" → "har retten".
-- Re-ran the full build pipeline and `pnpm vitest run` (16 files / 35 tests,
-  all green) after the edits.
+- Reworded the intro's opening claim from a flat "most renters" assertion
+  to a reader-directed statement ("Skal du leie et lokale, er pris gjerne
+  det du sammenligner først").
+- Reworded "De vanligste punktene å sjekke er..." to "Sjekk gjerne disse
+  fire punktene:..." — same four items, framed as guidance rather than an
+  unbacked popularity claim.
+- Reworded the Kapasitet table row's "Hvorfor det betyr noe" cell to match
+  the "Avgjør om..." template used by the other four rows, dropping the
+  unsupported "vanligste årsak" claim.
+- Shortened the Kapasitet row's "Hva du sjekker" cell to match the other
+  rows' comma-list style.
+- Added a checklist item for Planløsning and merged the two Kapasitet items
+  into one, so all four body pillars now map onto the 5-item checklist.
+- Added "planløsning" to the frontmatter description.
+- Reworded "Utstyr er den andre halvdelen av bildet" to "Utstyr er den
+  andre halvparten av vurderingen."
+- Re-ran the full build pipeline and `pnpm test` (16 files / 35 tests, all
+  green) after the edits.
 
 ## Round 4 — final holistic refute pass + independent fresh-eyes read
 
 Two parallel agents: one did a targeted final pass (encoding/whitespace
-sweep, redundancy check between the Prising section and the comparison
-table, checklist-vs-current-wording consistency, and one more legal-claim
-cross-check against the linked godkjenningsflyt post), explicitly told to
-assume all eleven round 1-3 fixes were correct and not re-check them; the
-other read the file completely cold, with zero prior context, independently
-re-verifying every link, the full frontmatter, the reading-time math, and
-doing its own from-scratch Norwegian-language read.
+sweep, redundancy check between the table and the prose, checklist-vs-
+current-wording consistency, an accessibility legal cross-check against
+`godkjenningsflyt-revisjonsspor-booking-re-forespørsel.md`, and the updated
+description's grammar), explicitly told to assume all eleven round 1-3
+fixes were correct and not re-check them; the other read the file
+completely cold, with zero prior context, independently re-verifying every
+link, the full frontmatter, the reading-time math, and doing its own
+from-scratch Norwegian-language read.
 
-**Holistic refute lens** — no encoding/whitespace issues (`cat -A`-style
-sweep and a Unicode invisible-character scan both clean, UTF-8 correct
-throughout). No redundancy or contradiction between the Prising section and
-the comparison table after three rounds of edits — the table compresses the
-prose without repeating or conflicting with it, and depositum/gebyr content
-stays exclusively in the prose as intended by round 1's fix. All 5 checklist
-items still map cleanly onto current section wording, with no leftover
-reference to pre-fix terminology (confirmed no stray "avvist godkjenning"
-remained before round 4's own fix below). The surviving legal claim ("krav i
-kommunale anskaffelser") was re-checked against
-`godkjenningsflyt-revisjonsspor-booking-re-forespørsel.md` one more time and
-is consistent with that post's own framing.
+**Holistic refute lens** — no encoding/whitespace issues (`cat -A` sweep
+and a non-ASCII scan both clean; the only non-ASCII hit was the correctly
+spelled "buffé"). Checklist items all mapped correctly onto the current
+(post round-3) body wording, with no leftover reference to the old
+two-item Kapasitet phrasing. The accessibility legal cross-check was moot:
+`godkjenningsflyt-revisjonsspor-booking-re-forespørsel.md` doesn't discuss
+accessibility at all, so there was nothing to cross-check against. Found
+one real issue: the table's Utstyr row ("wifi, kjøkken, prosjektor og
+lydanlegg") repeated the prose sentence immediately above it verbatim,
+word-for-word — the only exact duplicate among the five table rows.
 
-**Fresh-eyes lens** — independently re-verified all five links (four
-`/blogg/*` slugs plus `/book-demo`) resolve, frontmatter is complete and
-parses cleanly against the site's actual regex-based parser
-(`src/lib/blogFrontmatter.ts`), and recomputed the word count (1000 words)
-and implied reading speed (167 wpm) independently, landing on the same
-figures as round 1's math. Found two new, real issues on a fresh read:
-1. Line 30 used "re-forespørres", an invented English-prefix/Norwegian-verb
-   hybrid that isn't natural Bokmål, and it restated — more weakly — the
-   same idea the previous sentence had already made with the established
-   phrase "sende inn på nytt".
-2. The closing CTA paragraph's "enten...eller" construction wasn't
-   parallel ("du administrerer booking for en kommune" vs. "som privat
-   utleier"), unlike the intro's correctly-parallel version of the same
-   distinction.
-   Also surfaced, not a defect: the frontmatter `readingMinutes: 6` and the
-   article page's own live-computed reading time (`Math.round(wordCount/200)`
-   in `BlogPost.tsx`) will show slightly different numbers (6 vs. 5) for
-   this post — confirmed this is a pre-existing sitewide gap between
-   authored and computed reading time present on sibling posts too, not
-   something this post introduces.
+**Fresh-eyes lens** — independently re-verified all five internal links
+plus the external CTA resolve/match house style, recomputed the word count
+(868–884 words depending on whether table pipes are counted) and reading
+speed (~174 wpm) against five sibling posts' own ratios (135–186 wpm range)
+— squarely in range, not an outlier. Frontmatter re-checked clean against
+`blogFrontmatter.ts`'s parser. Found four real issues on a fresh read:
+1. Line 56: "med kapasitet, utstyr og fasiliteter synlig for hvert lokale"
+   — number-agreement error; a three-item coordinated list needs the
+   plural "synlige", not singular "synlig".
+2. Line 20: "hvordan" appeared twice in one sentence (once inside a link's
+   anchor text, once in the main clause) — confusing on first parse.
+3. "knirkefritt" used three times within ~15 lines (H2 heading, the
+   paragraph under it, and the summary table) — repetitive rather than
+   deliberate.
+4. Line 56: "Når du har egenskapene klare" read as a slightly stiff,
+   translated-sounding collocation for native Bokmål.
 
 ### What I changed after round 4
-- Reworded the step-3 sentence to drop "re-forespørres" in favor of
-  "behandles på nytt" and restructured it so it no longer repeats the prior
-  sentence's point, just states the underlying principle once.
-- Rewrote the closing CTA sentence's "enten...eller" clause to be fully
-  parallel, matching the intro's phrasing ("enten du er saksbehandler eller
-  driftsleder i en kommune, eller privat utleier selv").
-- Re-ran the full build pipeline and `pnpm vitest run` (16 files / 35 tests,
-  all green) after the edits.
+- Reworded the table's Utstyr row's prose counterpart (line 26) to explain
+  *why* each item matters (wifi til presentasjoner, kjøkken til servering,
+  prosjektor til bilder eller video, lydanlegg til tale eller musikk)
+  instead of repeating the table's bare list verbatim.
+- Shortened the link anchor text on line 20 from "guiden til hvordan du
+  finner billigste egnede lokale i kommunen" to "guiden til billigste
+  egnede lokale i kommunen", removing the doubled "hvordan".
+- Reworded the Fasiliteter H2 and its matching table cell from
+  "knirkefritt" to "glir problemfritt", leaving the mid-paragraph use of
+  "knirkefritt" as the sole remaining instance.
+- Fixed "synlig" → "synlige" for plural agreement (line 56).
+- Reworded "Når du har egenskapene klare" to "Når du vet hvilke egenskaper
+  som betyr noe for deg" (line 56).
+- Re-ran the full build pipeline and `pnpm test` (16 files / 35 tests, all
+  green) after the edits.
 
-Four rounds run. Round 1 found and fixed five real defects (SSA-L
-mischaracterization, misplaced depositum, a broken sentence, a dead CTA
-link, a wrong readingMinutes value) plus one substantive structural
-decision (kept the hub approach, fixed the near-duplicate opening). Round 2
-confirmed those fixes and the full build/SEO surface, surfacing one
-pre-existing systemic gap (listing-page pagination tie-break) explicitly
-left out of scope. Round 3 found and fixed four more real issues (a
-contradiction-in-terms, a table/prose legal-basis mismatch, an unsupported
-table detail, an inconsistent pillar ordering) plus two minor wording
-fixes. Round 4 found and fixed two more real issues (an invented word, a
-non-parallel sentence) on independent fresh reads, and confirmed everything
-else held. No round came back completely empty on real, fixable defects
-until round 4's structural/legal cross-checks — which is why this review
-runs the full four rounds as scoped rather than stopping early.
+Four rounds run. Round 1 found and fixed three real defects (a word-order
+error, an unsupported product claim contradicted by a sibling post, and an
+invented equipment-field detail). Round 2 found and fixed one real grammar
+defect plus two minor consistency nits. Round 3 found and fixed five real
+issues (three unsupported superlatives, a table/checklist asymmetry, and a
+description omission) plus one calque. Round 4 found and fixed five more
+real issues (a verbatim table/prose duplication, a grammar-agreement error,
+a doubled word, a repetitive word choice, and a stiff collocation) on
+independent fresh reads. No round came back completely empty on real,
+fixable defects, which is why this review runs the full four rounds as
+scoped rather than stopping early.
 
 ## Proof
 
 This is new content, not a fix to existing behavior, so only an AFTER state
-applies (there is no "before" — the page didn't exist). Verified with a full
-production build (`vite build` + SSR + `scripts/prerender.mjs`) served via
-`vite preview`, then captured with `agent-browser`:
-- `proof/after-praktisk-guide-booking.png` — the published post's top
-  (title, tag, author, reading time, table of contents) at
-  `/blogg/praktisk-guide-prosedyrer-krav-prising-booking`.
-- `proof/after-praktisk-guide-booking-table.png` — the kommune-vs-privat
-  comparison table rendering correctly further down the page, with all of
-  round 3's table fixes visible in the live output.
-
+applies (there is no "before" — the page didn't exist). Verified with a
+full production build (`vite build` + SSR + `scripts/prerender.mjs`) served
+via `vite preview`, then captured with `agent-browser`:
+- `proof/after-leie-lokale-sammenligne-egenskaper-kapasitet-utstyr.png` —
+  the published post's top (title, tag, author, reading time) at
+  `/blogg/leie-lokale-sammenligne-egenskaper-kapasitet-utstyr`.
+- `proof/after-leie-lokale-sammenligne-egenskaper-kapasitet-utstyr-table.png`
+  — the comparison table rendering correctly further down the page, with
+  all four rounds' fixes visible in the live output.
