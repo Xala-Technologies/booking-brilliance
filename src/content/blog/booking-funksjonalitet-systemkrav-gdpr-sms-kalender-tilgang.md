@@ -54,4 +54,4 @@ Et unnvikende svar på noen av disse fire er mer avslørende enn et perfekt demo
 
 GDPR-forsvarlig datalagring, SMS-varsling, sanntidskalender med ekstern synkronisering og rollestyrt tilgangsstyring er ikke fire separate tilleggsmoduler i Digilist, de er samme grunnmur, uavhengig av om lokalet leies ut av en kommune eller en privatperson. Se hvordan funksjonaliteten er bygget for kommunal drift på [Digilists bookingsystem for kommune](/bookingsystem-kommune), eller for private utleiere av selskapslokaler, gårder og møterom på [Digilists bookingsystem for utleie](/bookingsystem-utleie).
 
-**[Book demo →](/demo)**
+**[Book demo →](/book-demo)**
