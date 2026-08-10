@@ -165,3 +165,79 @@ diff regressed.
 
 None — no regressions found, nothing to fix. `git status` is clean at the
 end of this session beyond this REVIEW.md addition.
+
+## Round 3
+
+**Lens: security — authz, tenant isolation, injection, secrets, and anything
+user-supplied that reaches a query, a path, or a page.**
+
+### What I checked
+
+- Confirmed step 0 (SPEC + diagram) was already done in round 1: the root
+  `AGENT-SPEC.md` this round's prompt asked about is the file deleted on
+  `main` on purpose (per memory `project_root_agent_spec_deleted_trap.md`);
+  the per-issue `.agent/XAL-1119/SPEC.md` already exists, already has the
+  mermaid diagram, and already documents that no Linear MCP tools are
+  available to attach it. Nothing new to do here.
+- Confirmed the diff's actual blast radius via `git diff origin/main...HEAD
+  --stat`: one new Markdown post plus the two `.agent/XAL-1119/` docs — zero
+  application code touched. No route handler, API endpoint, database query,
+  auth check, or tenant-scoping logic is anywhere in this diff, so the
+  classic authz/tenant-isolation questions don't have a surface to attach to
+  here; this is a static-content-only change picked up by a build-time glob.
+- **Frontmatter parsing** (`src/lib/blogFrontmatter.ts:parseFrontmatter`):
+  hand-rolled regex/line parser, no `eval`, no `Function()`, no YAML library
+  with unsafe-load semantics. Verified the new post's frontmatter block
+  parses cleanly against it — quoted strings for `title`/`description`
+  don't contain embedded unescaped quotes that could desync the naive
+  `startsWith('"') && endsWith('"')` stripping, and the `keywords` array
+  entries contain no commas that would break the naive `split(",")`.
+- **Markdown rendering** (`src/pages/BlogPost.tsx`): uses `react-markdown` +
+  `remark-gfm` with no `rehype-raw` plugin and no `dangerouslySetInnerHTML`
+  anywhere in the render path — raw HTML in Markdown source is rendered as
+  literal text, not parsed as HTML, so even if the post body contained a
+  `<script>` tag it would not execute. Confirmed the new post's body
+  contains no raw HTML, no `javascript:`/`data:` URIs, and no markdown-link
+  syntax pointing anywhere but relative `/blogg/...`, `/bookingsystem-utleie`,
+  and `https://digilist.no/demo` — the last of these matches the exact URL
+  convention already used by 5+ sibling posts (grepped), not a new or
+  suspicious domain.
+- **JSON-LD injection**: `scripts/prerender.mjs` builds all structured-data
+  blocks via `JSON.stringify(...)` (`ldHTML`, `articleScript` at lines 2276
+  and 2546), which correctly escapes quotes/newlines — no string
+  concatenation building JSON by hand anywhere in that path. Moot for this
+  post specifically anyway, since (per round 2) its FAQ section has no
+  matching `src/content/blogFaq.mjs` entry, so it never reaches the FAQPage
+  JSON-LD branch at all.
+- **Secrets**: grepped the full diff (`git diff origin/main...HEAD`) for
+  `key|secret|token|password|api[_-]?key|ssh|BEGIN ` — the only hits are the
+  substring "key" inside the word "keyword" in the SPEC/REVIEW prose
+  (round 1/2's own commentary about the `keywords` frontmatter field).
+  Nothing resembling a credential, connection string, or private key
+  anywhere in the new content.
+- **Path/slug safety**: the new slug
+  (`studio-fotografi-videografi-privatproduksjon-booking`) contains only
+  `[a-z0-9-]`, matches the filename exactly, and is consumed only as an
+  object key / route param inside code already exercised by 300+ existing
+  posts — no path-traversal characters (`../`, `%2e%2e`, backslashes) for
+  `extractFrontmatter`'s filename fallback or the `/blogg/:slug` route to
+  mishandle.
+- **User-supplied input**: there is none in this diff. The post is
+  agent-authored static content, not data submitted by an end user, so there
+  is no untrusted-input boundary being crossed into a query, path, or page —
+  the "user-supplied" half of this lens's question doesn't apply to a
+  content-only PR by construction.
+
+### Findings
+
+None. This diff has no application code, no auth/tenant logic, no
+hand-built HTML/JSON-LD string concatenation, no secrets, and no
+attacker-controlled input — the frontmatter parser and Markdown renderer it
+flows through are both safe by construction (regex-based parsing with no
+eval; `react-markdown` with no raw-HTML passthrough) for content the agent
+itself authored. Nothing to fix.
+
+### Changes made this round
+
+None — no security defects found. `git status` is clean at the end of this
+session beyond this REVIEW.md addition.
