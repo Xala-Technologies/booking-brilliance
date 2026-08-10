@@ -145,3 +145,67 @@ isn't one of its own drafts.
 
 **Changes made this round:** None — no regression surface found, so
 nothing to fix.
+
+## Round 3 — Security
+
+**Lens:** Authz, tenant isolation, injection, secrets, and anything
+user-supplied that reaches a query, a path or a page. Read the full diff
+(`git diff origin/main...HEAD`) plus the rendering pipeline the new content
+flows through, rather than assuming a content-only PR is automatically safe.
+
+**Checked:**
+
+1. **No user-supplied input anywhere in this diff.** The new file
+   (`src/content/blog/tilgjengelighet-lokaler-nedsatt-funksjonsevne.md`) is
+   author-written static Markdown, committed to the repo — not data
+   submitted through a form, API, or Convex mutation at request time. There
+   is no query, no tenant/org context, and no authz check to bypass in a
+   static blog post.
+2. **Markdown-to-HTML injection surface** — grepped for `react-markdown`
+   usage (`src/pages/BlogPost.tsx:231`, `BlogPreview.tsx:296`): neither
+   passes `rehype-raw` or `allowDangerousHtml`, and no
+   `dangerouslySetInnerHTML` exists anywhere in the blog render path
+   (confirmed the only repo-wide hit is unrelated,
+   `src/components/ui/chart.tsx`). Raw HTML/`<script>` embedded in a
+   post body would render as inert literal text, not execute — checked
+   this new post's body directly for `<script`, `<img`, `<iframe`,
+   `javascript:`, `onerror=`/`onclick=`: zero hits, moot either way.
+3. **Links in the new post** — one internal link
+   (`/blogg/universell-utforming-wcag-kommunal-booking`, already verified
+   live in Round 1) and one external link
+   (`https://digilist.no/demo`, the site's own domain, matching the CTA
+   pattern used by every sibling gap-fill post). No off-domain or
+   attacker-controlled URL introduced.
+4. **Frontmatter → `<Seo>` / JSON-LD** (`BlogPost.tsx:133-134,150-151`)
+   — `title`/`description` flow into React JSX text (auto-escaped) and into
+   a JSON-LD block; this rendering path is pre-existing and shared by 300+
+   posts, not something this diff changes. The new post's `title`/
+   `description` strings contain no quote-breaking or script-breaking
+   sequences that could matter even if it did.
+5. **Secrets/credentials** — `git diff origin/main...HEAD` grepped for
+   `api[_-]?key|token|secret|password|BEGIN (RSA|PRIVATE)|sk-...`: zero real
+   hits (the one regex match was the word "keyed" inside REVIEW.md prose
+   from Round 2, not a credential).
+6. **`pnpm-workspace.yaml` `allowBuilds` addition** (flagged in Round 1,
+   confirmed harmless in Round 2 for the frozen-lockfile CI gate) —
+   re-checked from a supply-chain angle this round: all four packages
+   (`@swc/core`, `better-sqlite3`, `esbuild`, `sharp`) are pre-existing
+   dependencies already resolved in `pnpm-lock.yaml` (zero lines of diff on
+   that file), so this only approves postinstall build scripts for packages
+   already in the dependency graph — it does not pull in a new package or
+   widen what code can run at install time.
+7. **No tenant/multi-tenant surface at all in this diff** — the ticket adds
+   a single global marketing blog post with no per-tenant/per-org data,
+   consistent with `[[project_repo_has_no_booking_domain]]`: this repo is
+   marketing/content-ops only, so there is no RBAC or tenant-isolation code
+   path for a blog post to cross.
+
+**Findings:** None. Nothing in this diff accepts user input, builds a query
+or file path from external data, touches authz/tenant boundaries, or
+embeds executable content. The rendering pipeline it flows through
+(react-markdown without raw-HTML plugins, `<Seo>`/JSON-LD via JSX
+auto-escaping) was already safe against injection before this diff and is
+unchanged by it.
+
+**Changes made this round:** None — no security defect found, so nothing
+to fix.
