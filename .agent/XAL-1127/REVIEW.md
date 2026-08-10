@@ -125,3 +125,59 @@ broke, and the two consumers SPEC.md missed (`Blog.tsx`'s tag filter,
 out to depend only on generic, already-passing invariants (a real tag
 value; a post that SSRs cleanly), not anything this specific post could
 violate. No changes made this round.
+
+## Round 3 — Security
+
+**Lens:** authz, tenant isolation, injection, secrets, and anything
+user-supplied that reaches a query, a path or a page. Read `SPEC.md`,
+`REVIEW.md` rounds 1–2, and `git diff origin/main...HEAD` end to end
+(the full diff is three files: `SPEC.md`, `REVIEW.md`, and the one new
+`.md` post — no code changed).
+
+**Checked:**
+
+- Confirmed this repo has no booking/product domain to leak across
+  tenants in the first place ([[project_repo_has_no_booking_domain]]) —
+  there is no authz boundary or tenant model this diff could cross, and
+  this diff adds zero application code, zero routes, zero API calls.
+  There is nothing for "authz" or "tenant isolation" to mean here.
+- Read the full body of the new post
+  (`src/content/blog/bookingsystem-integrasjoner-kalender-epost-notifikasjoner.md`)
+  looking for injection surface: no `<script>`, `<iframe>`, `javascript:`,
+  `onerror=`/`onload=`, or any raw HTML tag at all
+  (`grep -n "http://\|https://\|<script\|<iframe\|javascript:\|onerror=\|onload="`
+  → zero matches). Every link in the body is a relative path
+  (`/blogg/<slug>`, `/bookingsystem-kommune`, `/bookingsystem-utleie`,
+  `/book-demo`) — no external URL, so no open-redirect or
+  attacker-controlled-domain risk even in principle.
+- Traced how the body actually renders: `BlogPost.tsx` feeds
+  `post.content` to `ReactMarkdown` with only `remarkPlugins={[remarkGfm]}`
+  — confirmed via
+  `grep -rn "rehype-raw\|rehypeRaw\|allowDangerousHtml" src/` (zero
+  matches) that `rehype-raw` is not wired in anywhere in this codebase, so
+  even if the markdown *did* contain raw HTML, react-markdown would not
+  render it as live DOM. Also confirmed no `dangerouslySetInnerHTML` in
+  `BlogPost.tsx` at all. XSS-via-markdown is not reachable from this file
+  regardless of content, and this file's content has none anyway.
+- Frontmatter fields (`title`, `description`, `keywords`, `tag`, `cover`,
+  `author`, `role`) flow into the `<SEO>` component (title tag, meta tags,
+  JSON-LD `article` block) the same way every other post's frontmatter
+  does — this is a pre-existing, shared code path this diff doesn't touch
+  and every sibling post already exercises in production, so it's out of
+  this diff's blast radius, not a new risk introduced here. The values
+  themselves are hand-authored plain Norwegian sentences, not
+  attacker-controlled input, and contain no quote-breaking or
+  template-injection characters.
+- Grepped the new file and the two `.agent/XAL-1127/*.md` docs for
+  anything resembling a secret (API key, token, connection string,
+  credential) — none present; the only "sensitive"-looking string is the
+  author's public name/role, which is the same on every other post.
+- `git status --porcelain` clean; `git diff origin/main...HEAD --stat`
+  confirms the diff is exactly the 3 files above, nothing else changed
+  underneath this round (in particular, `pnpm-workspace.yaml` — the
+  recurring scope-creep file flagged in round 1 — is still absent from the
+  diff).
+
+**Found:** nothing. This is a pure static-content diff with no query, no
+path, no authz surface, and no injection vector reachable from the
+rendering pipeline as it exists today. No changes made this round.
