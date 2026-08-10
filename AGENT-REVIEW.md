@@ -211,3 +211,61 @@ code, no user-supplied value reaching a query/path/page, and no secrets;
 `preload="metadata"` is a static attribute on a static, hardcoded resource
 list. Re-ran `npx vitest run` (17 files / 36 tests, all green) and `npx tsc
 --noEmit` (clean) to confirm the branch is unchanged from round 2's state.
+
+## Round 4 — scope
+
+Lens: is anything in this diff NOT the stated change — drive-by edits,
+unrelated tidying, files nobody asked for. Not correctness/regression/
+security again (rounds 1-3) — this round only asks "should this hunk exist
+in this PR at all?"
+
+First had to resolve a merge: this branch arrived one commit behind
+`origin/main` (which had gained `f35b3b1`, a concurrent fleet branch's
+XAL-1154 blog-post merge). `git merge origin/main` conflicted in exactly
+the two files this review already knew are per-branch scratch docs reused
+across concurrent branches — `AGENT-SPEC.md` and `AGENT-REVIEW.md` —
+because `origin/main`'s copies were XAL-1154's spec/review content (same
+filename-collision pattern this file's own header note already documents
+happening once before, with XAL-1151). Resolved `--ours` on both, keeping
+this branch's XAL-1166 content: these files document *this* branch's
+change, not `main`'s, so keeping the incoming ticket's content (or
+splicing the two tickets' logs together) would have thrown away this
+branch's own review trail for no benefit. Three other files —
+`src/content/blog/utearealer-paviljonger-seating-bryllup-sommerfest.md`
+and two `proof/*.png` screenshots — merged in cleanly with no conflict
+(XAL-1154's actual deliverable, arriving from `main`, not authored by this
+branch, and outside this diff once compared against the new `origin/main`
+tip). Re-ran `npx vitest run` (17/17 files, 36/36 tests) and `npx tsc
+--noEmit` after the merge commit — both clean, confirming the merge itself
+didn't regress the build.
+
+With the merge settled, re-checked `git diff origin/main...HEAD --stat`:
+exactly five files — `AGENT-GOAL.md` (new; auto-generated task scaffolding
+from the Digilist Improvements Agent, documents the assignment itself
+rather than implementing anything, not authored by any review round),
+`AGENT-REVIEW.md` (this file), `AGENT-SPEC.md` (this branch's spec),
+`src/components/ThemedVideo.test.tsx` (new, 69 lines, scoped to asserting
+the one attribute this ticket changes), and `src/components/ThemedVideo.tsx`
+(1 line changed, 1 unchanged line of context — `preload="auto"` →
+`preload="metadata"`, nothing else in the file touched). `git status
+--short` and `git status --ignored --short` both clean — no stray
+untracked files, and `pnpm-workspace.yaml` (round 1's flagged-and-reverted
+scope creep) has not resurfaced; `git diff origin/main...HEAD --
+pnpm-workspace.yaml` is empty.
+
+### What I changed after round 4
+Nothing in product code or tests — this lens found no new scope violation.
+The only action taken was the required merge-conflict resolution above
+(keeping `--ours` on the two shared scratch files), which is itself
+scope-neutral: it restores this branch's own content rather than adding
+anything new. Re-ran `npx vitest run` (17 files / 36 tests, all green) and
+`npx tsc --noEmit` (clean) to confirm the branch is still green after the
+merge.
+
+Four rounds run across this ticket: round 1 found and reverted a real scope
+violation (`pnpm-workspace.yaml`'s `allowBuilds` block) and corrected an
+overstated CLS claim; round 2 confirmed no regression in any other consumer
+of `ThemedVideo`/`HeroSection`; round 3 confirmed no security surface;
+round 4 confirmed the diff is still exactly the one-line attribute change
+plus its test and docs, with no drive-by edits, after resolving a routine
+merge conflict from a concurrent fleet branch. Nothing further to fix.
