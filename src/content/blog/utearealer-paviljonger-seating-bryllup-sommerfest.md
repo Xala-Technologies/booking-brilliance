@@ -42,7 +42,7 @@ Et uteareal er ikke ferdig bare fordi det finnes plen og en paviljong på bildet
 - **Underlag.** Gress, grus og brostein oppfører seg ulikt med høye hæler, rullestol og barnevogn, og et underlag som er tørt i mai kan bli søle i september. Spør om det finnes dansegulv eller plater som kan legges ut ved behov.
 - **Toalett i gangavstand.** Utearealer langt fra hovedbygget trenger egne toalettløsninger for et helt arrangement, ikke bare det nærmeste innendørs toalettet gjestene i praksis ikke finner.
 - **Skjenkebevilling utendørs.** En innendørs skjenkebevilling dekker ikke automatisk uteservering. Sjekk at stedet har utvidet bevilling for arealet dere skal bruke, eller at dere selv må søke kommunen om et engangsløyve.
-- **Oppvarming ved kveldskulde.** Norske sommerkvelder blir fort kjølige etter klokken 22, så spør om utepatioovner er inkludert i prisen, står på egen strømkrets, og er nok til antall gjester, eller om de må leies separat.
+- **Oppvarming ved kveldskulde.** Norske sommerkvelder blir fort kjølige etter klokken 22, så spør om patioovner er inkludert i prisen, står på egen strømkrets, og er nok til antall gjester, eller om de må leies separat.
 
 ## Paviljong eller telt: hva er egentlig forskjellen
 
@@ -50,7 +50,7 @@ En fast paviljong er montert av arrangementsstedet, ofte med gulv, tak og sider 
 
 ## Vær og plan B: den viktigste sjekken av alle
 
-En skjermet paviljong med lukkbare sider tåler mer vind og regn enn en åpen utesitteplass, men ingen uteareal er værsikkert nok til å stå uten en avtalt beslutningsprosess for dårlig vær. Det som avgjør hvor godt den prosessen fungerer i praksis, er ikke om det finnes en plan B i teorien, men tre konkrete detaljer dere bør få skriftlig før dere booker: hvor sent på dagen kan beslutningen om å flytte tas uten at det koster ekstra, hvem sitter med beslutningsmyndigheten, og hva et eventuelt telt eller alternativt lokale koster i tillegg dersom uteplassen blir uaktuell samme uke.
+En skjermet paviljong med lukkbare sider tåler mer vind og regn enn en åpen utesitteplass, men ingen uteareal er værsikkert nok til å stå uten en avtalt beslutningsprosess for dårlig vær. Det som avgjør hvor godt den prosessen fungerer i praksis, er ikke om det finnes en plan B i teorien, men tre konkrete detaljer dere bør få skriftlig før dere booker: hvor sent på dagen kan beslutningen om å flytte tas uten at det koster ekstra, hvem sitter med beslutningsmyndigheten, og hva et eventuelt telt eller alternativt lokale koster i tillegg dersom uteplassen blir uaktuell samme dag.
 
 Ligger et brukbart alternativ til uteplassen i samme bygg, blir overgangen enkel uansett hvem som til slutt bestemmer. Er uteplassen derimot et frittstående areal uten noe å flytte til i nærheten, bør avbestillings- og refusjonsreglene ved dårlig vær stå skriftlig i bookingbekreftelsen og ikke bare avtales muntlig på befaringen — vårmånedene og tidlig høst er de periodene der dette faktisk blir satt på prøve.
 
