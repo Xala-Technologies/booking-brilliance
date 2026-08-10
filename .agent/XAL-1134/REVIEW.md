@@ -242,3 +242,53 @@ anything like it) came back.
 post plus the two mandated `.agent/XAL-1134/*` process artifacts, no
 deletions, no drive-by edits, no unrelated files touched. No fixes made
 this round.
+
+## Round 5 — Visual proof
+
+This is new content (no "before" state exists to capture — the page didn't
+exist on `origin/main`), so the only proof that applies is an AFTER capture
+of the rendered page, per this repo's proof convention (same call as the
+XAL-1149 sibling ticket). Rounds 1–4 already verified correctness/
+regression/security/scope from the diff and test suite; this round adds a
+live render.
+
+Ran `pnpm dev:client` (vite on `:8080`) and drove it with `agent-browser`:
+
+- `.agent/XAL-1134/proof/after-spesialiserte-idrettssteder-post-top.png` —
+  confirms the `<h1>` ("Spesialiserte idrettssteder: tennis, bowling,
+  basketball"), the `Lag og foreninger` tag, the date (10. august 2026),
+  and the auto-generated table of contents built from the post's own H2s.
+- `.agent/XAL-1134/proof/after-spesialiserte-idrettssteder-post-faq.png` —
+  confirms the "Vanlige spørsmål om booking av spesialiserte idrettssteder"
+  H2 renders, the internal cross-link to
+  `idrettshall-ledige-tider-per-banetype-lag-foreninger` renders as a
+  working in-body link (anchor text "ledig tid i idrettshallen per
+  banetype"), and the "Relaterte artikler" related-post block renders.
+- `agent-browser eval "document.querySelectorAll('h1').length"` → `1` on
+  the live-rendered route, corroborating the SSR single-`<h1>` invariant
+  round 2 checked at the test level.
+- `agent-browser get text "a[href*='idrettshall-ledige-tider-per-banetype-lag-foreninger']"`
+  → `"ledig tid i idrettshallen per banetype"`, confirming the one internal
+  link SPEC.md names resolves to a real target and renders as a working
+  link in the browser, not just in the source markdown.
+- Opened `/blogg` and confirmed the new post's title + description render
+  in the listing (`agent-browser get text "body"` matched both strings),
+  i.e. `getAllPosts()` / `blogMetaPlugin.ts` picked the new file up with no
+  code change, as SPEC.md's "WHAT CHANGES" section claimed.
+
+**Non-finding worth recording, not a bug:** the live page shows "5 MIN
+LESETID", not the "6" SPEC.md's frontmatter states. Read
+`src/pages/BlogPost.tsx:98-101` — the single-post page computes reading
+time live from `post.content.split(/\s+/).length / 200` (1076 words → 5.4
+→ rounds to 5) and ignores the `readingMinutes` frontmatter field entirely.
+That field *is* read, via `src/lib/blogFrontmatter.ts`, by the `/blogg`
+listing page and the homepage preview widget (`Blog.tsx`,
+`BlogPreviewSection.tsx`), so the frontmatter value isn't dead — it just
+isn't what the individual post route displays. This is pre-existing,
+corpus-wide behavior (every post's `BlogPost.tsx` route recomputes its own
+number), not something this post introduced or needs to match; leaving
+`readingMinutes: 6` as-is, consistent with the rest of the corpus.
+
+No fixes made this round — confirmatory only. Linear attach: still
+unreachable, no Linear MCP tool available in this environment (confirmed
+XAL-1151 and every round since).
