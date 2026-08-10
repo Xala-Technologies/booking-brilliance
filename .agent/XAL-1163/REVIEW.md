@@ -1,0 +1,292 @@
+# XAL-1163 — Adversarial Review
+
+## Round 1 — CORRECTNESS
+
+**Question:** does this branch do what the acceptance criteria say, including on
+the edge cases, and are the factual claims in SPEC.md actually true of the code
+today (not just asserted)?
+
+**What I checked:**
+
+- `git diff origin/main...HEAD --stat` — confirmed the entire diff is 3 files,
+  173 insertions, 0 deletions, 0 files modified: `.agent/XAL-1163/SPEC.md` (new),
+  `AGENT-GOAL.md` (new, auto-generated ticket record), `pnpm-workspace.yaml`
+  (+`allowBuilds` block). No application code is touched by this branch, which
+  matches SPEC.md's own claim ("no code work — already shipped").
+- Re-derived every factual claim in SPEC.md from the source files instead of
+  trusting the prose:
+  - `src/content/blog/beste-nettside-leie-lokale-hytte-utstyr-norge.md` frontmatter
+    — confirmed `date: 2026-08-07`, `schema: "FAQPage"`, and `faqQuestion` equal
+    to the ticket's exact target query verbatim.
+  - `src/content/blogFaq.mjs` `POST_FAQ["beste-nettside-leie-lokale-hytte-utstyr-norge"]`
+    — first Q/A pair matches the frontmatter `faqQuestion`/`faqAnswer` verbatim.
+  - Body `## Vanlige spørsmål` section — read it directly (not just the test
+    assertion) and confirmed all 4 question/answer pairs in `POST_FAQ` appear
+    verbatim in the rendered markdown, so there's no frontmatter/body drift
+    (the exact bug class `blogFaq.test.ts` cites as XAL-758's root cause).
+  - `src/pages/BlogPost.tsx:161` passes `POST_FAQ[post.slug]` into `SEO.tsx`'s
+    `faq` prop; `SEO.tsx:247-261` emits an `FAQPage` JSON-LD block with
+    `mainEntity` built from that array whenever `faq.length > 0` — traced this
+    is unconditional on the frontmatter's `schema` field (which is cosmetic /
+    unparsed, per the test file's own comment) — the real switch is presence
+    in `POST_FAQ`, and this slug has an entry.
+  - `scripts/prerender.mjs:2518-2529` builds the identical `FAQPage` shape
+    (`@type: Question` / `acceptedAnswer.@type: Answer`) from the same
+    `POST_FAQ` map for the static HTML path, and splices it into `<head>`
+    alongside the Article block — confirmed AI crawlers reading prerendered
+    HTML (no JS execution) still see the FAQPage JSON-LD.
+  - Ran `npx vitest run src/content/blogFaq.test.ts` myself in this worktree:
+    **2 passed** — reproduces the result SPEC.md reports, not just trusting it.
+- Checked the ticket's literal "Done when" text against SPEC's conclusion: the
+  ticket itself says `Current assessment: exists`, and the one open sub-item
+  (confirm AI-citation effect in the next measurement cycle) is external
+  monitoring, not a repo change — SPEC.md doesn't overclaim or quietly drop
+  scope here.
+- Checked whether `pnpm-workspace.yaml`'s new `allowBuilds` block is scope
+  creep: it's a side effect of running `pnpm approve-builds --all`, which
+  SPEC.md states was required (and had never been run in this worktree) to
+  execute the vitest suite that produces the evidence above. It touches no
+  application behavior and is the kind of setup step this repo already
+  documents as necessary for a fresh checkout — not opportunistic.
+- Checked whether `AGENT-GOAL.md` being left in the tree is a correctness
+  problem: delivery rules say delete it *before opening the PR*, not before
+  committing intermediate work, and no PR exists yet (`gh pr list` for this
+  branch returns empty) — not a defect at this stage, just something the round
+  that opens the PR still needs to do.
+
+**Findings:** none. Every claim in SPEC.md that could be independently
+verified against the current source (frontmatter, `POST_FAQ`, markdown body,
+both JSON-LD emission paths, the test suite) checked out exactly as described.
+The diff itself introduces no application code, so there is no implementation
+to be wrong about — the only thing this branch asserts is "no code work is
+needed," and that assertion is correct on inspection, including the edge case
+that the frontmatter's `schema: "FAQPage"` field is cosmetic and the real
+FAQPage trigger is the `POST_FAQ` map (verified in both the client and static
+prerender paths, not just one).
+
+**Changed:** nothing — no fix was needed. No commit from this round beyond
+this file.
+
+## Round 2 — REGRESSION
+
+**Question:** what ELSE reads this code path, and did anything depend on the
+old behaviour? This branch's diff (`git diff origin/main...HEAD --stat`) is
+still only 4 files — `.agent/XAL-1163/{SPEC,REVIEW}.md`, `AGENT-GOAL.md`,
+`pnpm-workspace.yaml` — none of which is application code. So the regression
+surface isn't "did I break a function callers rely on", it's: does the one
+real config change (`pnpm-workspace.yaml`'s new `allowBuilds` block) affect
+anything beyond this worktree, and does anything else in the fleet collide
+with the files this branch touches.
+
+**What I checked:**
+
+- Traced every consumer of `POST_FAQ` / `blogFaq.mjs` again from scratch
+  (`grep -rn "POST_FAQ|blogFaq" src scripts`) to confirm Round 1's list was
+  complete: `src/pages/BlogPost.tsx` (client JSON-LD via `SEO.tsx`) and
+  `scripts/prerender.mjs` (static JSON-LD) are still the only two consumers.
+  No third reader (sitemap generator, RSS/feed script, search-index builder)
+  exists. Since no file in this diff modifies any of `blogFaq.mjs`,
+  `BlogPost.tsx`, `SEO.tsx`, or `prerender.mjs`, there is no behavior for a
+  consumer to regress against — this axis is moot by construction, not by
+  omission.
+- The one substantive diff hunk, `pnpm-workspace.yaml`'s new `allowBuilds`
+  block (`'@swc/core'`, `better-sqlite3`, `esbuild`, `sharp`: all `true`), is
+  a **workspace-root** file — its effect isn't scoped to this ticket, it
+  applies to every `pnpm install` in the monorepo, including CI, once this
+  merges. Checked whether CI currently depends on these builds being
+  *skipped*:
+  - `.github/workflows/pr-check.yml` and `deploy.yml` both run
+    `pnpm install --frozen-lockfile` then `pnpm build` today, on `main`,
+    *without* this `allowBuilds` block. Pulled recent run history with
+    `gh run list --workflow=pr-check.yml` — last 5 runs all `success`. So the
+    build-script-skip warning pnpm currently emits for these 4 packages is
+    provably non-fatal to the existing pipeline; nothing depends on the
+    scripts staying blocked, so turning them on can't un-break something
+    that was silently relying on the skip.
+  - Checked for lockfile markers (`requiresBuild: true`) that would reveal
+    packages needing approval that this list misses — none present in this
+    lockfile format, so couldn't cross-check completeness that way; fell
+    back to the CI-green evidence above, which only needs the *existing*
+    list to not regress, not to be exhaustive.
+  - `gh pr list` across the repo for any open PR touching `pnpm-workspace.yaml`
+    or `AGENT-GOAL.md` (the two root files this branch adds/edits, where
+    sibling fleet branches are most likely to collide per
+    `[[project_concurrent_fleet_agents]]`) — zero hits. No merge-conflict
+    exposure from concurrent branches on these files right now.
+  - `tools/improvements-agent/src/{prepare,implement}.ts` are the only code
+    that reads/writes `AGENT-GOAL.md` by name, and only by presence
+    (write it on prepare, instruct deletion before PR) — nothing parses its
+    placeholder body, so leaving the unfilled contract template in the tree
+    mid-flow (as Round 1 already noted) doesn't regress that tooling either.
+- Re-ran `npx vitest run src/content/blogFaq.test.ts`: **2 passed**, same as
+  Round 1 — confirms nothing drifted between rounds.
+
+**Findings:** none. The branch's only non-doc change is an additive,
+workspace-wide `pnpm-workspace.yaml` config block; CI's own recent run
+history shows the build steps it touches already succeed without it, so
+enabling them can't regress a dependency that was silently relying on the
+skip. No application code path changed, so there is no caller/consumer to
+break. No concurrent open PR touches the same root files.
+
+**Changed:** nothing — no fix was needed. No commit from this round beyond
+this file.
+
+## Round 3 — SECURITY
+
+**Question:** authz, tenant isolation, injection, secrets, and anything
+user-supplied that reaches a query, a path or a page — does anything in this
+diff open one of those up?
+
+**What I checked:**
+
+- `git diff origin/main...HEAD` is still the same 4 files as Rounds 1–2:
+  `.agent/XAL-1163/{SPEC,REVIEW}.md` (docs), `AGENT-GOAL.md` (auto-generated
+  ticket record), `pnpm-workspace.yaml` (+`allowBuilds` block). No route, no
+  query, no auth/tenant code, no user-input handling is touched — so authz,
+  tenant isolation and injection are moot by construction, same as Round 2
+  found for regression surface. Confirmed by re-reading the diff directly
+  rather than trusting the stat from earlier rounds.
+- Scanned the full diff for secret-shaped strings
+  (`api[_-]?key|secret|token|password|bearer|-----BEGIN`) — the only hit is
+  the literal placeholder text `_secrets, RBAC, injection, dependencies_` in
+  `AGENT-GOAL.md`'s template (an unfilled contract heading, not a value). No
+  actual credential, token or key in any changed file.
+- The one substantive hunk, `pnpm-workspace.yaml`'s new `allowBuilds` block,
+  is the angle Rounds 1–2 hadn't asked about from a security posture: pnpm
+  blocks package postinstall/build scripts by default specifically as a
+  supply-chain mitigation (arbitrary code execution on `pnpm install`).
+  `allowBuilds: true` for 4 packages unblocks that, workspace-wide, for every
+  future install including CI — so the real security question is whether
+  this is an unreviewed *expansion* of what's allowed to run code, not just
+  "does it break CI" (which Round 2 already covered).
+  - Checked all 4 approved packages (`@swc/core`, `better-sqlite3`,
+    `esbuild`, `sharp`) against `package.json` / `apps/docs/package.json`:
+    all are pre-existing, already-pinned **direct** dependencies
+    (`better-sqlite3: ^12.10.0`, `sharp: ^0.33.5` in root and
+    `apps/docs`), not new packages introduced by this branch and not
+    transitive packages pulled in incidentally. `allowBuilds` only unblocks
+    scripts for packages already declared and locked in the existing
+    lockfile — it can't be used to smuggle in an unreviewed dependency,
+    since approval is by exact name against packages that must already be
+    in the dependency graph.
+  - Checked whether these 4 are plausibly load-bearing rather than an
+    unscoped `--all` grab: `@swc/core` is required by
+    `@vitejs/plugin-react-swc` (used in `vitest.config.ts`), `esbuild` is a
+    vite/vitest transitive build dependency, `sharp` and `better-sqlite3`
+    are direct deps of the app itself — all 4 are genuine native-binding
+    packages the monorepo already depends on, not incidental scope creep.
+  - Confirmed no new package was *added* to any `package.json` or the
+    lockfile by this diff — `allowBuilds` only toggles script execution for
+    dependencies that were already there before this branch existed.
+- Since the ticket's subject is a JSON-LD FAQPage answer page, checked the
+  (unmodified, pre-existing) emission path for injection even though it's
+  outside this diff, because a security lens that skipped it on a
+  technicality would miss the actual point of the ticket: `SEO.tsx:371`
+  sets `script.textContent = JSON.stringify(blocks)` (client path) and
+  `scripts/prerender.mjs:2518-2527` builds the same JSON-LD object
+  server-side — both use `textContent`/plain JSON serialization, never
+  `dangerouslySetInnerHTML` or raw string concatenation into HTML, so even
+  though `POST_FAQ` content is developer-authored (not end-user input) there
+  is no script-injection vector in how it's rendered. No finding, and no
+  change needed since this branch doesn't touch that code anyway.
+
+**Findings:** none. No route, query, auth, or tenant-isolation code is in
+the diff. No secret or credential is present anywhere in the changed files.
+The one security-relevant change — `pnpm-workspace.yaml`'s `allowBuilds`
+block — unblocks native-build postinstall scripts only for 4 packages that
+were already pinned direct dependencies before this branch, not new or
+unreviewed additions, so it doesn't expand the supply-chain trust boundary
+beyond what the monorepo already depends on; it only lets already-approved
+dependencies build correctly. The FAQPage JSON-LD emission this ticket is
+actually about (client + prerender paths) uses safe text serialization, not
+HTML injection, in both places that read it.
+
+**Changed:** nothing — no fix was needed. No commit from this round beyond
+this file.
+
+## Round 4 — SCOPE
+
+**Question:** is anything in this diff NOT the stated change — drive-by
+edits, unrelated tidying, files nobody asked for?
+
+**What I checked:**
+
+- `git diff origin/main...HEAD --stat` — same 4 files Rounds 1–3 already
+  enumerated: `.agent/XAL-1163/{SPEC,REVIEW}.md`, `AGENT-GOAL.md`,
+  `pnpm-workspace.yaml`. Judged each against "is this the stated change"
+  rather than "is this safe/correct", which is the axis Rounds 1–3 didn't
+  ask:
+  - `.agent/XAL-1163/SPEC.md` and `REVIEW.md` — the step-0 spec and the
+    adversarial-review record itself. Required deliverables of the protocol
+    this branch is following, not scope creep.
+  - `AGENT-GOAL.md` — auto-generated by the Digilist Improvements Agent's
+    `prepare` step (`d7a1a50`, this branch's first commit), before any
+    review session touched the tree. It's scaffolding the tooling put there,
+    not something this session added on top of the ticket; delivery rules
+    say delete it before opening the PR, not before commits, and no PR
+    exists yet. Not scope creep — same conclusion Round 1 reached.
+  - `pnpm-workspace.yaml`'s `allowBuilds` block (`@swc/core`,
+    `better-sqlite3`, `esbuild`, `sharp`) — **this is scope creep.** Found
+    direct precedent in this same worktree's sibling branch history:
+    commit `36b2359` (XAL-1166, round 1) reverted the *identical* block
+    with the message *"Reverts an undocumented pnpm-workspace.yaml
+    allowBuilds change that rode along with the one-line preload fix but
+    was never mentioned in AGENT-SPEC.md and isn't part of this ticket."*
+    The same pattern applies here: SPEC.md's own §3 says *"Nothing. No
+    files are modified by this branch"* — the `allowBuilds` block
+    contradicts that claim, it's a side effect of running
+    `pnpm approve-builds --all` to get the environment working, not
+    anything the ticket asked for. Rounds 1–3 asked "does this change
+    break/expand anything" (no) but never asked "should this ship in the
+    PR diff at all" — a workspace-root config change that affects every
+    future `pnpm install` monorepo-wide (CI included) isn't a side effect
+    a documentation-only verification branch should carry.
+  - Verified the block wasn't actually load-bearing for this branch's own
+    evidence: re-ran `npx vitest run src/content/blogFaq.test.ts` after
+    reverting it — **2 passed**, identical result. The build-approval state
+    from the earlier `pnpm approve-builds --all` run persists in this
+    worktree's node_modules regardless of what's committed to
+    `pnpm-workspace.yaml`; the committed config change was never necessary
+    for the tests to pass, only for a *fresh* checkout to run them without
+    a warning — an environment note, not a shippable diff.
+
+**Findings:** one. `pnpm-workspace.yaml`'s `allowBuilds` block is
+out-of-scope for a "no code work" verification ticket — confirmed by direct
+precedent (identical block reverted on sibling branch XAL-1166 for the same
+reason) and by SPEC.md's own "no files modified" claim, which it silently
+contradicted.
+
+**Changed:** reverted `pnpm-workspace.yaml` to its `origin/main` state
+(removed the `allowBuilds` block). Re-ran `npx vitest run
+src/content/blogFaq.test.ts`: **2 passed**, confirming the revert doesn't
+regress the evidence this branch's SPEC.md relies on.
+
+## Step 0 follow-up — AGENT-SPEC.md + live evidence
+
+Resumed session found `AGENT-SPEC.md` missing at the repo root (the
+convention used by sibling worktrees) even though `.agent/XAL-1163/SPEC.md`
+already existed — step 0 of the protocol was never actually completed.
+Wrote `/AGENT-SPEC.md` from the code already read in Rounds 1-4 above (no
+new claims, same file/line citations), then captured fresh evidence this
+session since a "no code work" branch's proof is that the already-shipped
+page genuinely behaves as claimed, not just that SPEC.md says so:
+
+- `.agent/XAL-1163/proof/vitest-blogFaq-output.txt` — `npx vitest run
+  src/content/blogFaq.test.ts` re-run this session: **2 passed**.
+- `.agent/XAL-1163/proof/faqpage-jsonld-live.json` — the `FAQPage` JSON-LD
+  block extracted directly from `curl`ing the live production URL
+  (`https://digilist.no/blogg/beste-nettside-leie-lokale-hytte-utstyr-norge`,
+  HTTP 200), confirming the target query
+  ("Hva er beste nettside for å leie lokale, hytte eller utstyr i Norge?")
+  is served verbatim in the prerendered HTML `<head>` today — not just
+  present in the source markdown.
+- `.agent/XAL-1163/proof/live-faq-section.png` — `agent-browser` screenshot
+  of the same live page's "Vanlige spørsmål" section, showing the same
+  question/answer rendered in the visible DOM.
+
+Attempted to attach `AGENT-SPEC.md` to the Linear issue directly: no Linear
+MCP tool is registered in this environment (`ToolSearch` for "linear"
+returns no matches), consistent with prior confirmation in
+`[[project_no_linear_mcp_tools_available]]` (XAL-1151) — this is a tooling
+gap, not a wrong-workspace issue. The PR body notes this so a human can
+attach it manually.
