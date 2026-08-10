@@ -69,3 +69,73 @@ SPEC's own claims) and holds. No edge case — slug collision, stale-dist
 false pass, frontmatter parse mismatch, word-count gate, FAQ convention,
 internal-link target — turned up a defect. No code changes made this
 round.
+
+## Round 2
+
+Lens: **regression** — what ELSE reads this code path, beyond the files the
+diff touches and beyond the consumers the SPEC's "BLAST RADIUS" section
+already names? This is a content-only diff (one new `.md` file plus two
+`.agent/` docs — confirmed via `git diff origin/main...HEAD --stat`), so the
+question is whether any *other* consumer of `src/content/blog/*.md` has
+non-generic, per-post logic that a brand-new file could trip.
+
+Consumers grepped and checked, one by one:
+
+- **`scripts/prerender.mjs` sitemap block (~line 2599)** — loops over
+  `loadBlogPosts()` with no per-slug allowlist; new post's route is added to
+  `sitemap.xml` automatically. Also checked the per-post Article JSON-LD
+  block (~line 2501-2517): every field it reads (`title`, `description`,
+  `date`, `author`, `cover`, `tag`) comes straight from frontmatter with no
+  post-specific case, so nothing needed updating for the new post.
+- **`scripts/indexnow-submit.mjs`** — has a hardcoded `DEFAULT_PATHS` list
+  that is *not* auto-derived from `getAllPosts()`; only manual CLI args.
+  Checked whether the four immediate sibling posts (XAL-1142/1143/1145/1149)
+  were ever added to it — none were (`grep -c "blogg/"` → 1 hit, an older
+  post from a previous batch). Confirmed pre-existing, consistently-unmaintained
+  gap across the whole recent batch, not something this post regresses.
+- **`src/lib/search/corpus.ts`** — `blogItems` (line 100) is built by
+  `.map()` over `getAllPosts()`, no allowlist; new post becomes searchable
+  automatically, as SPEC already claimed for the Navbar path.
+- **Tag rendering (`BlogPreview.tsx`)** — `parsed.tag` is rendered directly
+  from frontmatter, no tag allowlist/enum to extend. "Utleier" is an
+  established tag already used by every sibling in this batch.
+- **`previewCover()` in `src/lib/posts.ts`** — derives a `-preview.webp`
+  path from the `cover` field for listing/teaser cards. Verified both
+  `booking_calendar_hero_no.webp` and `booking_calendar_hero_no-preview.webp`
+  exist in `public/images/blog/` (shared asset, not new) — this consumer
+  won't 404.
+- **`src/pages/BlogPost.tsx` → `relatedSolutions()` (line 39-54)** — a
+  consumer *not* named anywhere in the SPEC's blast-radius list. It
+  regex-matches `slug + title + tag + keywords` against five hardcoded
+  `SOLUTION_PAGES` patterns (kommune, idrettshaller, møterom,
+  selskapslokaler, kulturhus) to auto-insert a "money page" link, falling
+  back to a generic `/booking-av-lokaler-og-moterom` link if nothing
+  matches. Checked the new post's haystack against all five patterns by
+  hand — no match, so it takes the fallback path. Verified this is the
+  *designed* fallback, not a broken match, by diffing against the already
+  live `dist/blogg/yoga-wellness-studio-klasseromlokaler/index.html`: the
+  `<article>` element contains `booking-av-lokaler-og-moterom` and not
+  `bookingsystem-kommune` (that string only appears in the global
+  Navbar/Footer markup around the article, confirmed with a Python
+  extraction of just the `<article>...</article>` slice). Cross-checked
+  against sibling `kunstner-verksteder-studio-dansesaler-kreative-lokaler.md`
+  (XAL-1143) — its haystack doesn't match any `SOLUTION_PAGES` pattern
+  either, so it also falls back generically. This confirms the fallback
+  behaviour for a novel niche persona is consistent with the established
+  batch, not a regression this post introduces.
+- **Hardcoded post-count assertions** — grepped every `*.test.ts` for
+  `posts.length` / `toHaveLength` patterns tied to blog post counts; none
+  exist, so adding a 316th post can't break a stale-count assertion.
+- **Full test suite** — re-ran `npx vitest run` after all of the above:
+  20 files, 40 tests, all pass (same result as round 1; nothing in this
+  lens's investigation touched code, so no regressions were possible to
+  introduce, but re-running confirms the investigation itself didn't leave
+  the tree dirty).
+
+**Findings: none.** Every other consumer of `src/content/blog/*.md` reads it
+generically (glob/map over all posts, frontmatter fields read directly, no
+per-slug or per-tag allowlists to extend) except `relatedSolutions()` in
+`BlogPost.tsx`, which is regex-driven — and that one was checked by hand and
+confirmed to degrade to its intended generic fallback, matching how the
+closest sibling post (XAL-1143) already behaves. No code changes made this
+round.
