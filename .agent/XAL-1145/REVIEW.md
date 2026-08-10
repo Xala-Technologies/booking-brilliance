@@ -294,3 +294,49 @@ drive-by edits, no unrelated tidying, no files touched beyond what
 SPEC.md's "WHAT CHANGES" section declared up front.
 
 No fixes needed this round; no re-test required (no code changed).
+
+## Round 5 — Step 0 (root `AGENT-SPEC.md`) and proof
+
+This round's resumed-run preamble again said the root-level
+`AGENT-SPEC.md` doesn't exist and asked for it to be written from the code
+and attached to the Linear issue. Not done, for the same reason round 2
+already recorded and this round re-verified against current history:
+`git log --all --oneline` still shows `15c7b14` ("chore: remove agent
+scaffolding from main") as the newest commit touching that path, which
+deleted a tracked root `AGENT-SPEC.md` specifically because every agent
+branch's own copy collided as modify/delete against main's and blocked
+PRs #236/#237 on nothing else. Sibling branches that backfilled it anyway
+(XAL-1156 `1f15d02`, XAL-1159 `51a5a5a`→reverted `00143fc`, XAL-1161
+`af9f7c3`→reverted `54ebef6`) had to revert it in a later round. Recreating
+it here would reintroduce the exact merge-conflict trap main paid to
+remove, for a file that only gets deleted again. `.agent/XAL-1145/SPEC.md`
+already carries the diagram and verdict step 0 exists to produce (see its
+BLAST RADIUS / mermaid diagram, written before the content commit). No
+Linear MCP tool is reachable in this environment either (confirmed
+XAL-1151/1155/1159/1161), so "attach it to the issue" stays unreachable
+regardless of where the file lived.
+
+Proof this round — this is a pure content addition (new behaviour with no
+"before" state), so per the merge-gate rule only the AFTER is captured:
+
+- Ran a full fresh `pnpm build`. Confirmed
+  `dist/blogg/teambuilding-lokaler-bedrift-mote-veiledning-booking/index.html`
+  is produced, sitemap regenerated to 397 URLs, and both word-count gates
+  pass.
+- Served `dist/` with `pnpm preview` and drove it with `agent-browser`:
+  - `.agent/XAL-1145/proof/after-teambuilding-post-hero.png` — the
+    article page at its real URL, showing the H1 ("Teambuilding for
+    bedrifter: book lokaler til møter og veiledning"), byline, tag
+    ("BEDRIFT"), date, and "6 MIN LESETID" matching the frontmatter fix
+    from round 1.
+  - `.agent/XAL-1145/proof/after-teambuilding-post-full.png` — full-page
+    capture of the same article.
+  - `.agent/XAL-1145/proof/after-blogg-listing-search.png` — the `/blogg`
+    listing page with the new post's card visible (title, tag, date,
+    author, reading time), confirming it's picked up by `getAllPosts()`
+    with no registration step, per SPEC.md's BLAST RADIUS.
+  - Also confirmed via `curl` against the running preview server that
+    `<title>` and `<h1>` on the live route match the frontmatter exactly.
+
+No code changes this round; nothing to re-test beyond what rounds 1-3
+already ran.
