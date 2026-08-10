@@ -209,3 +209,54 @@ unchanged by it.
 
 **Changes made this round:** None — no security defect found, so nothing
 to fix.
+
+## Round 4 — Scope
+
+**Lens:** Is anything in this diff NOT the stated change? Read
+`git diff origin/main...HEAD --stat` and inspected every file it touched for
+whether it belongs to "write and publish the tilgjengelighet blog post," or
+is a drive-by/environmental edit that rode along in the earlier checkpoint
+commit.
+
+**Checked:**
+
+1. **Full file list** (`git diff origin/main...HEAD --name-only`): four
+   files — `.agent/XAL-1142/SPEC.md`, `.agent/XAL-1142/REVIEW.md` (the
+   process artifacts this workflow requires for every ticket, not scope
+   creep), `src/content/blog/tilgjengelighet-lokaler-nedsatt-funksjonsevne.md`
+   (the actual content addition, confirmed content-only in Round 1), and
+   `pnpm-workspace.yaml`.
+2. **`pnpm-workspace.yaml`** — the diff adds an `allowBuilds:` block
+   (`@swc/core`, `better-sqlite3`, `esbuild`, `sharp`) that Rounds 1–3 each
+   noticed and separately declared "harmless" but never evaluated for scope,
+   explicitly deferring that judgment to a later round. This round is that
+   later round. Traced it to `046f87c` ("checkpoint — session ended before
+   the agent pushed"), a WIP commit from the interrupted prior session — the
+   change is a side effect of running `pnpm approve-builds --all` locally
+   (per `[[project_pnpm_build_needs_approve_builds]]`, a known fresh-checkout
+   step) that got swept into a commit rather than left as local, uncommitted
+   state. It has nothing to do with writing or publishing a blog post.
+3. **Cross-branch check** — diffed `pnpm-workspace.yaml` against
+   `origin/main` on the three sibling gap-fill branches that shipped the
+   same shape of ticket (XAL-1143, XAL-1145, XAL-1149): **zero of them touch
+   this file.** That rules out "every session needs this, it's just usually
+   forgotten" — it confirms this is local session noise specific to this
+   branch's interrupted checkpoint, not a repo-wide requirement worth
+   carrying in this diff. Committing it here would also make this branch an
+   unnecessary merge-conflict source against `pnpm-workspace.yaml` for any
+   of the other ~10 concurrently active `agent/xal-11xx-*` branches that
+   touch the same file for their own unrelated reasons
+   (`[[project_concurrent_fleet_agents]]`).
+
+**Findings:**
+
+- `pnpm-workspace.yaml`'s `allowBuilds` addition is out of scope for this
+  ticket — a local build-environment convenience that leaked into a commit,
+  not a change the content goal asked for or depends on.
+
+**Changes made this round:** Reverted `pnpm-workspace.yaml` to its
+`origin/main` state (dropped the `allowBuilds` block), leaving the diff as
+exactly the content addition plus its process artifacts. Re-ran `pnpm test`
+after the revert to confirm nothing depended on it (build-time package
+approval only affects a fresh `pnpm install`, not an already-populated
+`node_modules`): 20 files / 40 tests still pass. Committed separately.
