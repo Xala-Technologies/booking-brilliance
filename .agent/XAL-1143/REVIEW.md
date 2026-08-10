@@ -61,3 +61,36 @@
 - Checked for tidying-adjacent changes (formatting passes, renamed variables, reordered imports) that sometimes ride along with content PRs — none present; this diff is purely additive.
 
 **Verdict:** No scope findings. The diff is exactly the three files the ticket requires: one new Norwegian-language blog post plus its own SPEC/REVIEW process record. No drive-by edits, no unrelated files, no code touched at all. No changes made this round.
+
+## Round 5 — Visual proof
+
+This is new content (no "before" state exists to capture — the page didn't
+exist on `origin/main`), so the only proof that applies is an AFTER capture
+of the rendered page, per this repo's proof convention. Rounds 1–4 already
+verified correctness/regression/security/scope from the diff and test suite;
+this round adds the one piece those rounds didn't produce: a live render.
+
+Ran `pnpm dev:client` (vite on `:8080`) and drove it with `agent-browser`:
+
+- `.agent/XAL-1143/proof/after-kunstner-verksteder-post-top.png` — confirms
+  the `<h1>` ("Kunstner-verksteder, studio og dansesaler: booking"), the
+  `readingMinutes: 6` rendering as "6 MIN LESETID", the `Utleier` tag, the
+  byline/date, and the table-of-contents built from the post's own H2s
+  (including the round-2-shortened description rendering correctly above the
+  fold).
+- `.agent/XAL-1143/proof/after-kunstner-verksteder-post-faq.png` — confirms
+  the "Vanlige spørsmål om booking av kunstner-verksteder og dansesaler"
+  FAQ section renders with all four Q&A pairs, and the internal link to
+  `/blogg/leie-ovingsrom-musikk-dans-studio` (the neighbor post cited in
+  SPEC.md) renders inline in the body text just above it.
+- `agent-browser eval "document.querySelectorAll('h1').length"` → `1` on the
+  live-rendered route, corroborating the SSR single-`<h1>` invariant round 1
+  checked at the build level.
+
+**Note:** Linear attachment was attempted but no Linear MCP tools are
+available in this environment (consistent with prior confirmation on
+XAL-1151) — the two proof images are committed to
+`.agent/XAL-1143/proof/` in the repo instead, and referenced here.
+
+**Verdict:** No findings. Live render matches SPEC.md's stated scope and
+every claim made in rounds 1–4.
