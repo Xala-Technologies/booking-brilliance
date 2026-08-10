@@ -1,7 +1,7 @@
 ---
 slug: digitalt-bookingsystem-hva-er-det
 title: "Digitalt bookingsystem – hva er det? Forklart i 6 steg"
-description: "Hva er et digitalt bookingsystem, og hvordan skiller det seg fra en delt kalender eller et regneark? Se de 6 stegene fra forespørsel til bekreftet reservasjon, hvem som bruker det, og hva du bør sjekke før du velger løsning."
+description: "Hva er et digitalt bookingsystem? Se de 6 stegene fra forespørsel til bekreftet reservasjon, hvem som bruker det, og hva du bør sjekke før du velger løsning."
 date: 2026-07-27
 updated: 2026-08-10
 author: "Ibrahim Rahmani"
