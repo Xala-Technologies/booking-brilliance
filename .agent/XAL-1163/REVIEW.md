@@ -130,3 +130,76 @@ break. No concurrent open PR touches the same root files.
 
 **Changed:** nothing — no fix was needed. No commit from this round beyond
 this file.
+
+## Round 3 — SECURITY
+
+**Question:** authz, tenant isolation, injection, secrets, and anything
+user-supplied that reaches a query, a path or a page — does anything in this
+diff open one of those up?
+
+**What I checked:**
+
+- `git diff origin/main...HEAD` is still the same 4 files as Rounds 1–2:
+  `.agent/XAL-1163/{SPEC,REVIEW}.md` (docs), `AGENT-GOAL.md` (auto-generated
+  ticket record), `pnpm-workspace.yaml` (+`allowBuilds` block). No route, no
+  query, no auth/tenant code, no user-input handling is touched — so authz,
+  tenant isolation and injection are moot by construction, same as Round 2
+  found for regression surface. Confirmed by re-reading the diff directly
+  rather than trusting the stat from earlier rounds.
+- Scanned the full diff for secret-shaped strings
+  (`api[_-]?key|secret|token|password|bearer|-----BEGIN`) — the only hit is
+  the literal placeholder text `_secrets, RBAC, injection, dependencies_` in
+  `AGENT-GOAL.md`'s template (an unfilled contract heading, not a value). No
+  actual credential, token or key in any changed file.
+- The one substantive hunk, `pnpm-workspace.yaml`'s new `allowBuilds` block,
+  is the angle Rounds 1–2 hadn't asked about from a security posture: pnpm
+  blocks package postinstall/build scripts by default specifically as a
+  supply-chain mitigation (arbitrary code execution on `pnpm install`).
+  `allowBuilds: true` for 4 packages unblocks that, workspace-wide, for every
+  future install including CI — so the real security question is whether
+  this is an unreviewed *expansion* of what's allowed to run code, not just
+  "does it break CI" (which Round 2 already covered).
+  - Checked all 4 approved packages (`@swc/core`, `better-sqlite3`,
+    `esbuild`, `sharp`) against `package.json` / `apps/docs/package.json`:
+    all are pre-existing, already-pinned **direct** dependencies
+    (`better-sqlite3: ^12.10.0`, `sharp: ^0.33.5` in root and
+    `apps/docs`), not new packages introduced by this branch and not
+    transitive packages pulled in incidentally. `allowBuilds` only unblocks
+    scripts for packages already declared and locked in the existing
+    lockfile — it can't be used to smuggle in an unreviewed dependency,
+    since approval is by exact name against packages that must already be
+    in the dependency graph.
+  - Checked whether these 4 are plausibly load-bearing rather than an
+    unscoped `--all` grab: `@swc/core` is required by
+    `@vitejs/plugin-react-swc` (used in `vitest.config.ts`), `esbuild` is a
+    vite/vitest transitive build dependency, `sharp` and `better-sqlite3`
+    are direct deps of the app itself — all 4 are genuine native-binding
+    packages the monorepo already depends on, not incidental scope creep.
+  - Confirmed no new package was *added* to any `package.json` or the
+    lockfile by this diff — `allowBuilds` only toggles script execution for
+    dependencies that were already there before this branch existed.
+- Since the ticket's subject is a JSON-LD FAQPage answer page, checked the
+  (unmodified, pre-existing) emission path for injection even though it's
+  outside this diff, because a security lens that skipped it on a
+  technicality would miss the actual point of the ticket: `SEO.tsx:371`
+  sets `script.textContent = JSON.stringify(blocks)` (client path) and
+  `scripts/prerender.mjs:2518-2527` builds the same JSON-LD object
+  server-side — both use `textContent`/plain JSON serialization, never
+  `dangerouslySetInnerHTML` or raw string concatenation into HTML, so even
+  though `POST_FAQ` content is developer-authored (not end-user input) there
+  is no script-injection vector in how it's rendered. No finding, and no
+  change needed since this branch doesn't touch that code anyway.
+
+**Findings:** none. No route, query, auth, or tenant-isolation code is in
+the diff. No secret or credential is present anywhere in the changed files.
+The one security-relevant change — `pnpm-workspace.yaml`'s `allowBuilds`
+block — unblocks native-build postinstall scripts only for 4 packages that
+were already pinned direct dependencies before this branch, not new or
+unreviewed additions, so it doesn't expand the supply-chain trust boundary
+beyond what the monorepo already depends on; it only lets already-approved
+dependencies build correctly. The FAQPage JSON-LD emission this ticket is
+actually about (client + prerender paths) uses safe text serialization, not
+HTML injection, in both places that read it.
+
+**Changed:** nothing — no fix was needed. No commit from this round beyond
+this file.
