@@ -260,3 +260,33 @@ contradicted.
 (removed the `allowBuilds` block). Re-ran `npx vitest run
 src/content/blogFaq.test.ts`: **2 passed**, confirming the revert doesn't
 regress the evidence this branch's SPEC.md relies on.
+
+## Step 0 follow-up — AGENT-SPEC.md + live evidence
+
+Resumed session found `AGENT-SPEC.md` missing at the repo root (the
+convention used by sibling worktrees) even though `.agent/XAL-1163/SPEC.md`
+already existed — step 0 of the protocol was never actually completed.
+Wrote `/AGENT-SPEC.md` from the code already read in Rounds 1-4 above (no
+new claims, same file/line citations), then captured fresh evidence this
+session since a "no code work" branch's proof is that the already-shipped
+page genuinely behaves as claimed, not just that SPEC.md says so:
+
+- `.agent/XAL-1163/proof/vitest-blogFaq-output.txt` — `npx vitest run
+  src/content/blogFaq.test.ts` re-run this session: **2 passed**.
+- `.agent/XAL-1163/proof/faqpage-jsonld-live.json` — the `FAQPage` JSON-LD
+  block extracted directly from `curl`ing the live production URL
+  (`https://digilist.no/blogg/beste-nettside-leie-lokale-hytte-utstyr-norge`,
+  HTTP 200), confirming the target query
+  ("Hva er beste nettside for å leie lokale, hytte eller utstyr i Norge?")
+  is served verbatim in the prerendered HTML `<head>` today — not just
+  present in the source markdown.
+- `.agent/XAL-1163/proof/live-faq-section.png` — `agent-browser` screenshot
+  of the same live page's "Vanlige spørsmål" section, showing the same
+  question/answer rendered in the visible DOM.
+
+Attempted to attach `AGENT-SPEC.md` to the Linear issue directly: no Linear
+MCP tool is registered in this environment (`ToolSearch` for "linear"
+returns no matches), consistent with prior confirmation in
+`[[project_no_linear_mcp_tools_available]]` (XAL-1151) — this is a tooling
+gap, not a wrong-workspace issue. The PR body notes this so a human can
+attach it manually.
