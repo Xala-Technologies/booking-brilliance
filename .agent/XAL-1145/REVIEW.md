@@ -236,3 +236,61 @@ posts it would affect.
 
 No code changes made this round; nothing to re-test beyond what round 2
 already ran (full suite + full build, both green).
+
+## Round 4 — Scope
+
+Lens: is anything here NOT the stated change? Looked for drive-by edits,
+unrelated tidying, or files nobody asked to have touched. Worked from
+`git diff origin/main...HEAD --stat` and `--name-only` (the full file list,
+not just the files earlier rounds happened to open) and cross-checked each
+file against SPEC.md's "WHAT CHANGES".
+
+Checked:
+
+- **Full file list for the branch** — `git log --oneline origin/main..HEAD`
+  shows exactly 5 commits, all `XAL-1145`-scoped (the chore/content commit
+  plus rounds 1-3). `git diff origin/main...HEAD --stat` shows exactly
+  3 files touched, all pure additions (488 insertions, 0 deletions, 0
+  renames, 0 file modifications to anything pre-existing):
+  - `src/content/blog/teambuilding-lokaler-bedrift-mote-veiledning-booking.md`
+    (new) — the one content change the ticket asked for.
+  - `.agent/XAL-1145/SPEC.md` (new) — the required step-0 investigation
+    record.
+  - `.agent/XAL-1145/REVIEW.md` (new) — the required adversarial-review
+    record, including this section.
+  No other file in the repo — no sibling blog post, no script, no config,
+  no test, no `dist/`/`dist-server/` build output — appears anywhere in the
+  diff.
+- **No edits to existing posts** — confirmed via the stat output there are
+  zero modifications to any of the other 313 posts in
+  `src/content/blog/*.md`. Round 2's dedup-severity finding (four
+  pre-existing posts already use "teambuilding" as a secondary keyword)
+  could have tempted a fix-the-neighbors drive-by (e.g. trimming
+  "teambuilding" out of those posts' descriptions to reduce keyword
+  overlap); no such edit was made — correctly out of scope for a
+  content-addition ticket, and round 2 explicitly reasoned about severity
+  instead of touching those files.
+- **No shared-infrastructure edits** — rounds 1 and 3 both surfaced
+  pre-existing, unrelated issues while investigating (round 1:
+  `check-title-lengths.mjs` convention; round 3: `prerender.mjs`'s
+  unescaped JSON-LD and unvalidated slug, shared by all 313 posts). Neither
+  was touched. Round 1's only actual code change was inside the new post's
+  own frontmatter (`title:` field), not a script or shared component —
+  in-scope because it's a change to the file this ticket adds, not a
+  drive-by elsewhere.
+- **No stray content in the two doc files** —
+  `grep -n "XAL-" .agent/XAL-1145/SPEC.md .agent/XAL-1145/REVIEW.md` returns
+  only `XAL-1145` (this ticket) and one legitimate cross-reference to
+  `XAL-1149` (cited in SPEC.md and round 1 as precedent for the
+  `readingMinutes` bug class, not scope creep — it's a citation, nothing
+  from that ticket was copied in or modified).
+- **`git status`** — clean; no untracked or modified files sitting outside
+  the diff (no stray `dist/` output, no editor artifacts, no leftover
+  scratch files from earlier sessions).
+
+**Found:** nothing. The entire diff is the one new blog post plus the two
+process documents the workflow itself requires (SPEC.md, REVIEW.md) — no
+drive-by edits, no unrelated tidying, no files touched beyond what
+SPEC.md's "WHAT CHANGES" section declared up front.
+
+No fixes needed this round; no re-test required (no code changed).
