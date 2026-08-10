@@ -82,3 +82,86 @@ reading the referenced posts rather than trusting the SPEC's own assertion.
 None — no correctness defects found, so nothing to fix. Diff is unchanged
 from before this round; `git status` is clean at the end of this session
 beyond this REVIEW.md addition.
+
+## Round 2
+
+**Lens: regression — what ELSE reads the blog-content pipeline besides the
+files the SPEC's blast-radius section already names, and did anything depend
+on behaviour this diff could plausibly disturb? The diff itself only adds one
+new file (`src/content/blog/studio-fotografi-videografi-privatproduksjon-booking.md`)
+plus the two `.agent/XAL-1119/` docs — no existing code was touched — so the
+question is purely "does any consumer choke on, or silently mishandle, the
+new file," not "did an edit break an existing call site."
+
+### What I checked
+
+- Re-grepped every file that reads `content/blog\|getAllPosts\|virtual:blog-meta\|postContent`
+  across `src` and `scripts` (20 hits) — a superset of the SPEC's own
+  blast-radius list — and read the ones round 1 hadn't already exercised
+  directly: `src/pages/BlogPost.tsx` (`relatedSolutions`, `sidebarRelated`,
+  `extractHeadings`/TOC), `scripts/prerender.mjs`'s FAQPage/Article
+  JSON-LD block, `src/lib/search/corpus.ts`.
+- `relatedSolutions()` in `BlogPost.tsx:31-53` regex-matches
+  slug+title+tag+keywords against 5 `SOLUTION_PAGES` categories
+  (kommune/idrettshall/møterom/selskapslokale/kulturhus) and falls back to a
+  generic "Booking av lokaler og møterom" link if none match. The new post's
+  haystack (studio/fotografi/videografi/booking/content/greenscreen/podcast)
+  matches none of the 5 categories, so it hits the pre-existing fallback —
+  same code path every non-matching post already takes, not a new failure
+  mode, and it renders a valid link either way.
+- `sidebarRelated` in `BlogPost.tsx:110-117` backfills same-tag posts then
+  newest-others, deduped by slug — pure function over `getAllPosts()`, no
+  fixed-size assumption that a new post could violate.
+- FAQPage schema (`scripts/prerender.mjs:2518-2529`): opt-in via
+  `POST_FAQ[post.slug]`; the new post's `## Vanlige spørsmål` section has no
+  matching `src/content/blogFaq.mjs` entry, so `faqLD` is `null` and it's
+  silently skipped — same opt-in gap round 1 already found and accepted as
+  established convention (not re-litigating it; noting it here only because
+  the regression lens needs to confirm the *skip path itself* still works,
+  i.e. `postFaq ? {...} : null` doesn't throw or emit malformed JSON-LD for
+  an unregistered slug — confirmed, prerender ran clean, see below).
+- `src/lib/search/corpus.ts` builds `SearchItem[]` from `getAllPosts()` with
+  no length caps or per-post keyword-count assumptions; the new post's 8
+  keywords (vs. sibling posts' typical 5-8) is within the existing range.
+- **`public/sitemap.xml`** (tracked static file, not the build-generated
+  `dist/sitemap.xml`) — checked whether this content-only diff was expected
+  to update it. It contains only 19 URLs total (10 `/blogg/` URLs, all from
+  the `bryllupslokale`/`leie-selskapslokale` family, last touched in PR #208
+  / XAL-715) against 323 actual posts, and does **not** contain the new
+  slug. Confirmed via `git show` on the two most recent sibling merges
+  (577c836 XAL-1123, 0d2297e XAL-1127) that neither of them touched
+  `public/sitemap.xml` either — it's a pre-existing, sitewide-stale legacy
+  file that no content post in this family updates; `dist/sitemap.xml`
+  (regenerated at build time by `scripts/prerender.mjs:2599-2705`) is the
+  one that actually stays in sync, and it does contain the new slug (1 hit).
+  Not a regression introduced by this diff.
+- Re-ran the full gate suite to confirm nothing regressed for any *other*
+  post as a side effect of the new file: `npx vitest run` — 20 files / 40
+  tests green, including `src/entry-server.h1.test.tsx` and
+  `src/entry-server.main-landmark.test.tsx` (generic SSR structural tests,
+  not post-specific — round 1's log didn't call these out by name).
+  `node scripts/check-blog-word-count.mjs` — 323/323 pass. `node
+  scripts/check-title-lengths.mjs` — new post still 61/65 chars; the 137
+  other posts already over 65 chars are pre-existing and this check is
+  informational-only (exits 0 regardless).
+- `scripts/dedup-blog-drafts.ts`, `scripts/sync-convex-blog-to-fs.ts` (the
+  two files in the consumer grep round 1's blast-radius section didn't
+  quote in full) — read both; they operate on the separate Convex-backed
+  draft table via `ConvexHttpClient`, keyed by draft IDs, never touch
+  `src/content/blog/*.md` directly. Confirmed unaffected, matching the
+  SPEC's claim.
+
+### Findings
+
+None. Every other consumer of the blog pipeline reads the new post through
+the same glob/`getAllPosts()` machinery every existing post already goes
+through — nothing hardcodes a post count, a fixed slug list, or an
+assumption the new file violates. The one static artifact that doesn't
+auto-include the new post (`public/sitemap.xml`) is confirmed pre-existing,
+sitewide staleness untouched by every recent sibling PR, not something this
+diff regressed.
+
+### Changes made this round
+
+None — no regressions found, nothing to fix. `git status` is clean at the
+end of this session beyond this REVIEW.md addition.
