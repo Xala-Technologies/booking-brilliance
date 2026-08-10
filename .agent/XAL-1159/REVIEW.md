@@ -113,3 +113,66 @@ and `POST_FAQ` fields either doesn't reach this post at all, or picks up
 the new values in a way that's additive and expected rather than breaking
 an existing invariant (test-pinned or otherwise). No fixes applied this
 round.
+
+## Round 3 — Security: authz, tenant isolation, injection, secrets
+
+**Lens:** does anything in this diff touch access control or tenant
+boundaries, introduce an injection vector (markdown/JS/JSON-LD), leak a
+secret, or route unsanitized/user-supplied input into a query, a path, or
+a page?
+
+**What I checked:**
+
+- Confirmed the full diff's actual code surface: two blog markdown files
+  (`beste-nettside-leie-lokale-hytte-utstyr-norge.md`,
+  `bookingsystem-og-plattformer-for-utleiere.md`) and one data file
+  (`blogFaq.mjs`), all edited with static, agent-authored Norwegian prose.
+  No route, middleware, API handler, database query, or auth/session code
+  is touched — so there is no authz or tenant-isolation surface in this
+  diff at all (this repo has no multi-tenant or booking domain to begin
+  with, per prior confirmed findings in this worktree).
+- Checked the new frontmatter (`title`, `description`, `keywords`) and the
+  new `blogFaq.mjs` entry for characters that could break out of their
+  containing syntax: no unescaped `"`, no backtick, no `<script`, no HTML
+  tags, no `</script>` sequence anywhere in the new content (grepped for
+  `<`, `` ` ``, and `script` across the changed `.md` file — only hits are
+  the word "description:" line itself, nothing structural). The new
+  `blogFaq.mjs` object uses plain double-quoted JS strings with no
+  embedded quotes, consistent with `tsc`/vitest already passing.
+- Traced how this content actually reaches the page to check for an
+  injection vector independent of this diff's specific text: JSON-LD in
+  the live path is built via `script.textContent = JSON.stringify(blocks)`
+  (`src/components/SEO.tsx:371`) — `textContent`, not `innerHTML`, so even
+  hostile input couldn't inject markup. The static prerender path
+  (`scripts/prerender.mjs:2276`, `:2546`) instead string-interpolates
+  `JSON.stringify(...)` directly into an HTML template literal for the
+  `<script>` tag, which does NOT escape a literal `</script>` sequence —
+  a real HTML-injection pattern in general, but (a) pre-existing in
+  `prerender.mjs`, not introduced or widened by this diff, (b) explicitly
+  out of scope per this ticket's own SPEC.md and the shared-file warning
+  every SEO branch is bound by, and (c) not reachable here since none of
+  the new title/description/FAQ text contains `</script>` or any HTML
+  metacharacter. Not fixing it in this branch — flagging it as a
+  pre-existing systemic gap worth its own one-off ticket, per the SPEC's
+  own escalation guidance for exactly this situation.
+- Checked the new inbound link's href
+  (`/blogg/beste-nettside-leie-lokale-hytte-utstyr-norge`): a hardcoded
+  relative path to an existing internal route, not derived from any
+  user-supplied or external input — no open-redirect or path-traversal
+  surface.
+- Grepped the entire diff for secret-shaped strings (`api[_-]?key`,
+  `secret`, `token`, `password`, `bearer`, AWS key prefixes, PEM headers)
+  — the only hit is the literal placeholder text `_secrets, RBAC,
+  injection, dependencies_` inside the deleted `AGENT-GOAL.md` template,
+  not an actual credential.
+- Confirmed `AGENT-SPEC.md` (new) and the deleted `AGENT-GOAL.md` contain
+  only planning prose already reviewed under SPEC.md's own content in
+  round 1; no environment values, tokens, or internal URLs beyond the
+  already-public `digilist.no`/Linear links carried over from the prior
+  ticket's file.
+
+**Findings:** none introduced by this diff. The one latent issue found
+(`prerender.mjs`'s un-escaped `</script>` interpolation in JSON-LD output)
+predates this branch, isn't touched or made worse here, is out of this
+ticket's explicit scope, and isn't triggered by any string in this diff.
+No fixes applied this round; no code changes needed.
