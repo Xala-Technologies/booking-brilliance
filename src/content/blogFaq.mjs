@@ -118,4 +118,21 @@ export const POST_FAQ = {
         "Ja, samme søkefunksjon brukes uansett om du booker som privatperson, lag, forening eller bedrift.",
     },
   ],
+  "undervisnings-og-opplaeringslokaler": [
+    {
+      question: "Hva koster det å leie et undervisningslokale?",
+      answer:
+        "Prisen varierer med hvem som booker og hvor lenge. Frivillige og ideelle kursholdere får ofte redusert sats, mens språkskoler og private kursarrangører normalt betaler en fast time- eller dagspris. I Digilist vises prisen i kalenderen før du bekrefter bookingen.",
+    },
+    {
+      question: "Kan en språkskole booke samme rom hver uke gjennom et helt semester?",
+      answer:
+        "Ja. Digilist støtter serietidsbestillinger, slik at en språkskole kan booke for eksempel hver tirsdag klokken 18–20 gjennom hele semesteret i én operasjon, i stedet for å booke uke for uke.",
+    },
+    {
+      question: "Må jeg ringe for å få vite om et lokale er ledig?",
+      answer:
+        "Nei. Ledigheten vises i sanntid i kalenderen, sammen med pris og utstyr, slik at du kan søke, sammenligne og bekrefte bookingen selv uten å kontakte en saksbehandler.",
+    },
+  ],
 };
