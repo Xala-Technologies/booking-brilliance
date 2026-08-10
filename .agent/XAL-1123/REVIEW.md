@@ -1,0 +1,295 @@
+## Round 1
+
+**Lens: correctness** — does the change do what the acceptance criteria say, on the edge cases too?
+
+What I checked, against `.agent/XAL-1123/SPEC.md`'s acceptance criteria and
+`git diff origin/main...HEAD`:
+
+1. **Tag taxonomy.** `tag: "Lag og foreninger"` — compared against every distinct
+   `tag:` value across `src/content/blog/*.md`; it's an existing, correctly-spelled
+   value, not a near-miss new tag.
+2. **Topic coverage vs. the stated gap.** Read the three sections
+   (styremøte / årsmøte-generalforsamling / sosiale sammenkomster) against the
+   spec's claim that no existing post covers a forening's own internal meetings.
+   Cross-read the four adjacent posts the new post links to
+   (`sesongleie-fordeling-lag-foreninger.md`,
+   `sal-generalforsamling-borettslag-styreleder.md`,
+   `frivillig-organisasjon-bookingsystem-medlemstilgang.md`,
+   `moterom-kommune-finn-og-book-ledige-lokaler.md`) — confirmed each covers a
+   genuinely different angle (municipal season-slot allocation, borettslag AGM
+   pricing, member login/access, citizen real-time room search) and the new
+   post doesn't restate their content, only references it. No duplication.
+3. **Factual consistency with linked posts.** The new post claims foreninger
+   "søker som regel om lavere frivillighetssats enn et boligselskap, siden
+   foreningen normalt ikke regnes som næringsvirksomhet" — checked against
+   `sal-generalforsamling-borettslag-styreleder.md`, which independently states
+   "Frivillige lag og foreninger betaler ofte redusert sats... men et
+   boligselskap regnes normalt som næringsvirksomhet." Consistent, not
+   contradictory.
+4. **Internal links resolve.** All 5 internal `/blogg/<slug>` links point at
+   files that actually exist under `src/content/blog/` (verified each path on
+   disk, not just plausible-looking slugs).
+5. **Build gates.**
+   - `node scripts/check-blog-word-count.mjs` → passes, all 322 posts
+     (including the new one) ≥ 200 words in Markdown source.
+   - Ad hoc word count on the new post body: 1382 words, well over the
+     threshold — not a borderline pass.
+   - `node scripts/check-title-lengths.mjs` → `ok 55 foreninger-lag-mote-arrangement-booking.md`,
+     under the 65-char rendered limit.
+   - `npx vitest run` → 20 test files, 40 tests, all green, including
+     `src/lib/post-slugs.test.ts` (slug uniqueness) and the generic
+     cross-post structural tests (`entry-server.h1.test.tsx`,
+     `entry-server.main-landmark.test.tsx`, `webp-sources.test.ts`).
+   - `npx eslint` on the new file → only the expected "file ignored, no
+     matching configuration" warning for `.md` (Markdown isn't linted, per
+     spec); no errors. Ran full-project `eslint . --max-warnings=0` too — the
+     40 warnings that surface are all pre-existing, in unrelated
+     `src/pages/admin/Intelligence*.tsx` files, untouched by this diff.
+6. **Frontmatter shape.** Checked every field against the `BlogFrontmatter`
+   interface in `src/lib/blogFrontmatter.ts` (slug, title, description, date,
+   author, role, readingMinutes, tag, cover, keywords) — all present, all
+   correctly typed for the custom YAML-subset parser (quoted strings,
+   bracketed array for `keywords`). `date: 2026-08-10` matches the format of
+   every other post and today's date. `readingMinutes: 7` is consistent with
+   the 1382-word body (~200 wpm).
+7. **Keyword cannibalization.** Grepped the exact keyword `"foreninger"`
+   across every post's `keywords:` array — only this new post uses it, so no
+   internal competition for that exact-match term.
+
+**Finding: none.** Every acceptance-criteria line item checks out, including
+the edge cases (slug collision, factual consistency with cross-linked posts,
+non-duplication of the two adjacent audiences the spec called out by name).
+No code changes made this round — this was a pure verification pass.
+
+## Round 2
+
+**Lens: regression** — what else reads this code path (not just the files
+the diff touched), and did anything depend on the old behaviour (322 posts,
+no `foreninger-lag-mote-arrangement-booking` slug, no "Foreninger og lag:
+book lokale..." title)?
+
+Re-derived the consumer list independently of the SPEC's own "Blast radius"
+section (grepped `content/blog\|getAllPosts\|virtual:blog-meta\|postContent\|
+BlogFrontmatter` across `src` + `scripts` fresh, rather than trusting the
+list already written down) to catch anything Round 1 or the SPEC missed:
+
+1. **Two consumers not named in the SPEC's blast-radius list**, both real
+   build/deploy gates:
+   - `scripts/verify-live.mjs` — post-deploy check with a
+     `findDuplicateTitles()` pass that groups every post by the exact
+     `<title>` `prerender.mjs` would emit and fails the deploy if two posts
+     collide. Ran it offline (imported the exported pure `parseFrontmatter`/
+     `findDuplicateTitles` helpers, no live fetch) against all 322 posts
+     including the new one: **0 duplicate-title groups.** Also let the script
+     run its live probe (network was reachable from this sandbox) — 322
+     posts detected, 10 newest sampled, all green, no duplicate titles live
+     either.
+   - `scripts/guard-blog-redirects.mjs` — pre-push guard that quarantines a
+     new post if its slug already resolves (via server-side 301) to a
+     *different* existing article, i.e. the topic was previously consolidated
+     away. `changedBlogFiles()` reads `git status`, so it only checks
+     uncommitted files — since this post is already committed from the prior
+     session, the guard wouldn't see it on a normal run. Probed the exact
+     scenario by hand: `GET https://digilist.no/blogg/foreninger-lag-mote-arrangement-booking`
+     with `redirect: "manual"` → `200`, no `Location` header. Classifies as
+     `"free"` (not `"claimed"`) under the guard's own `classifyRedirect()`
+     logic — confirmed the 200 is the SPA's catch-all shell (`<title>Digilist
+     · Én plattform for alt som leies ut</title>`, same as a deliberately
+     nonexistent slug I probed for comparison), not a real 301 collision. No
+     standing redirect claims this slug.
+2. **Homepage preview (`BlogPreviewSection.tsx`)** does `getAllPosts().slice(0,
+   6)` — the new post (`date: 2026-08-10`, today) becomes the newest and will
+   now displace whatever was previously slot 6 on the homepage. This is the
+   *intended* automatic-pickup behaviour the SPEC describes, not a regression
+   — grepped for any test or snapshot that hardcodes which posts appear in
+   the homepage preview or asserts a specific "latest post"; found none.
+3. **Search corpus (`src/lib/search/corpus.ts`)** builds `blogItems` by
+   mapping over `getAllPosts()` at line 100 — no hardcoded list, new post
+   becomes searchable automatically as the SPEC claimed. No stale/duplicate
+   entry risk since there's exactly one `SearchItem` per post, keyed off the
+   post itself.
+4. **Chatbot RAG (`src/lib/chatbot/rag.ts`)**, initially flagged because it
+   wasn't in the SPEC's list either — read it fully: `retrieve()` only scores
+   against `FAQ_CATEGORIES`/`allFAQEntries`, never touches blog posts. Not a
+   consumer of this change at all; false lead, ruled out.
+5. **Sitemap** — `public/sitemap.xml` exists on disk but is fully
+   regenerated by `scripts/prerender.mjs` (`sitemapEntries` built from
+   `getAllPosts()`, written to `dist/sitemap.xml`) at build time, not
+   hand-maintained. No stale-sitemap risk from adding a file directly to
+   `src/content/blog/`.
+6. **`scripts/indexnow-submit.mjs`** has a hardcoded `DEFAULT_PATHS` array
+   that does *not* include most blog posts (by design — it's a manually
+   invoked CLI for submitting a specific set of URLs, not a build gate that
+   iterates every post). Confirmed it isn't wired into any automated
+   pipeline step that would need updating for a new post.
+7. **Full test suite** re-run after all of the above: `npx vitest run` → 20
+   files, 40 tests, all green (same counts as Round 1 — nothing shifted).
+   `node scripts/check-blog-word-count.mjs` → "All 322 blog posts have at
+   least 200 words." `node scripts/check-title-lengths.mjs` →
+   `ok 55 foreninger-lag-mote-arrangement-booking.md`.
+
+**Finding: none.** Nothing depended on the pre-change post count or slug
+set in a way this addition breaks. The two consumers missing from the SPEC's
+blast-radius list are a documentation gap in Round 0's SPEC, not a code
+regression — noting it here so a future SPEC pass for a similar content-only
+ticket greps for `findDuplicateTitles`/`verify-live`/`guard-blog-redirects`
+explicitly rather than only the metadata-pipeline files. No code changes
+made this round.
+
+## Round 3
+
+**Lens: security** — authz, tenant isolation, injection, secrets, and anything
+user-supplied that reaches a query, a path or a page.
+
+The diff is a single new Markdown content file (plus the two `.agent/`
+documentation files from Rounds 0-2) — no code, no schema, no route, no
+data-layer changes. Confirmed there is no authz or tenant-isolation surface
+at all here: nothing in this change touches auth, roles, tenants, or a
+database query, so that half of the lens has no target to check. The
+remaining question is what happens to the new post's content once it flows
+through the render/build pipeline, since blog frontmatter fields
+(`title`, `description`) do get interpolated into HTML at multiple points:
+
+1. **Markdown → DOM rendering (`src/pages/BlogPost.tsx`).** Uses
+   `react-markdown` with only `remarkGfm` — no `rehype-raw` plugin and no
+   `allowDangerousHtml` anywhere in the tree (grepped the whole render path).
+   `react-markdown` without `rehype-raw` treats raw HTML in the source as
+   literal text, not markup, so even if the `.md` body contained a
+   `<script>` tag it would render inert. Confirmed the new post's body
+   contains no raw HTML at all (grepped for `<` in the body — none).
+2. **Link rendering.** The custom `a` component override in `BlogPost.tsx`
+   only special-cases `href`s in a fixed `CHAT_HREFS` set (opens the
+   chatbot); every other link renders as a plain `<a href>` with whatever
+   `href` markdown produced — no `target="_blank"` is injected, so there's
+   no reverse-tabnabbing risk added by this diff. The new post's 5 internal
+   links are relative `/blogg/<slug>` paths verified to resolve to existing
+   files (already checked in Round 1), and the sole external link is
+   `https://digilist.no/demo` — same registrable domain as the site itself,
+   not a third-party or lookalike domain.
+3. **JSON-LD emission (`scripts/prerender.mjs`).** Both `ldHTML` and
+   `articleScript` build the `<script type="application/ld+json">` body via
+   `JSON.stringify(...)`, not string concatenation — standard, safe
+   serialization. (Noted for the record, not a new finding: `JSON.stringify`
+   doesn't escape a literal `</script>` substring inside a string value,
+   which is a generic latent risk for *any* post whose title/description
+   ever contained that exact substring — pre-existing across all 322 posts,
+   not introduced here. The new post's `title`/`description` contain no such
+   substring.)
+4. **Meta-tag interpolation (`scripts/prerender.mjs:2292-2339`).** `<title>`,
+   `og:title`, meta `description`, `og:description` are all inserted via
+   plain template-string `.replace(...)` with no HTML-escaping helper in the
+   file (grepped for `escapeHtml`/`escapeAttr` — none exists). This is a
+   pre-existing gap shared by every post, not something this diff
+   introduces, but since the lens is "what does *this* diff's user-facing
+   content actually put through that unescaped path" — checked the new
+   post's `title` and `description` fields for `"`, `<`, `>`, or `&`
+   characters that could break out of the attribute or tag: none present.
+5. **Secrets.** Grepped the new file and both `.agent/XAL-1123/*.md` docs for
+   anything resembling a key, token, or credential — none. Content is
+   editorial prose plus internal/external links, nothing environment- or
+   credential-shaped.
+6. **Frontmatter parsing (`src/lib/blogFrontmatter.ts`).** The custom
+   YAML-subset parser only reads a fixed set of known keys per the
+   `BlogFrontmatter` interface; there's no `eval`, no dynamic key lookup, and
+   the parser doesn't reach into `Object.prototype`-shaped keys from
+   frontmatter content, so no prototype-pollution surface either.
+
+**Finding: none.** No authz/tenant surface exists in this diff to check, no
+raw HTML or script content in the new post, no secrets, and the two
+unescaped-interpolation code paths in `prerender.mjs` (meta tags, JSON-LD)
+are pre-existing patterns shared by all 322 posts rather than something this
+change introduces — and this post's own `title`/`description` don't contain
+any character that would exploit either gap. No code changes made this
+round; re-ran `npx vitest run` (20 files, 40 tests, all green) and
+`node scripts/check-blog-word-count.mjs` / `node scripts/check-title-lengths.mjs`
+to confirm the working tree is still clean after the review pass — both
+pass, unchanged from Round 2.
+
+## Round 4
+
+**Lens: scope** — is anything in this diff *not* the stated change? Drive-by
+edits, unrelated tidying, files nobody asked to have touched.
+
+Checked `git diff origin/main...HEAD --stat` and `--name-status` directly,
+independent of what the SPEC/earlier rounds already said was touched:
+
+```
+ .agent/XAL-1123/REVIEW.md                                    | 206 ++++++++
+ .agent/XAL-1123/SPEC.md                                       | 158 +++++++
+ src/content/blog/foreninger-lag-mote-arrangement-booking.md   |  71 +++
+ 3 files changed, 435 insertions(+)
+```
+
+1. **File count and kind.** Exactly three files, all three additions
+   (`git diff --name-status` shows `A` for all three, no `M`, no `D`). Two
+   are this ticket's own process docs (`SPEC.md`, `REVIEW.md` — required by
+   the workflow contract, not drive-by), one is the single content file the
+   SPEC's "WHAT CHANGES" section commits to delivering. No third-party file
+   — no script, no test, no other blog post, no config — appears anywhere in
+   the diff.
+2. **No unrelated tidying inside the touched files.** Read the new post's
+   full 71-line body end to end (reproduced above) — every line is either
+   frontmatter for this post or body prose about foreninger/lag booking
+   styremøter, årsmøte or sosiale sammenkomster. No leftover TODO, no
+   commented-out draft paragraph, no formatting-only line that doesn't carry
+   content.
+3. **Branch hygiene.** `git log origin/main..HEAD --oneline` shows exactly
+   five commits, all XAL-1123-labeled (one chore, one content, three
+   review). No commit from another ticket got carried onto this branch, and
+   no merge commit that could have dragged in someone else's diff.
+4. **Internal links stay inside the stated linking plan.** The SPEC's "WHAT
+   CHANGES" section names the exact adjacent posts and category pages this
+   post should link to (the four "Lag og foreninger" siblings plus
+   `/bookingsystem-utleie` / `/bookingsystem-kommune`). Re-grepped the
+   published body for every `/blogg/` and `/bookingsystem` link: it links to
+   `sesongleie-fordeling-lag-foreninger`,
+   `sal-generalforsamling-borettslag-styreleder`,
+   `frivillig-organisasjon-bookingsystem-medlemstilgang`,
+   `registrere-lag-organisasjon-booke-kommunale-lokaler`, and
+   `moterom-kommune-finn-og-book-ledige-lokaler` — five internal links, all
+   from the adjacent-posts set the SPEC identified during its gap analysis,
+   plus one external `/demo` CTA link consistent with every other post's
+   closing CTA. No link to an unrelated page, and no `/bookingsystem-utleie`
+   or `/bookingsystem-kommune` link is actually present despite being named
+   in the SPEC as a possibility — a minor spec/output mismatch, not a scope
+   violation (the SPEC described the linking strategy loosely, and the five
+   posts actually linked already cover the stated audiences without needing
+   the category pages too; not a defect worth a commit to force in
+   unnecessary links).
+
+**Finding: none.** The diff is exactly the three files the ticket requires —
+one content file, two mandated process docs — with no drive-by edits,
+unrelated cleanup, or off-ticket commits anywhere in the branch history. No
+code changes made this round.
+
+## Proof (new behaviour — after only)
+
+This is a pure content addition (a new blog post), so there is no "before"
+state to capture — the post didn't exist. Ran `pnpm dev:client` (Vite dev
+server, port 8080) and drove it with `agent-browser`:
+
+1. **`.agent/XAL-1123/proof/blogpost-full.png`** — full-page render of
+   `http://localhost:8080/blogg/foreninger-lag-mote-arrangement-booking`.
+   Confirms the post renders end-to-end through the real client pipeline
+   (frontmatter → `virtual:blog-meta` → `getAllPosts()` → `BlogPost.tsx` →
+   `postContent.ts` raw body via `react-markdown`): correct H1 ("Foreninger
+   og lag: book lokale til styremøte og årsmøte"), hero image, tag chip
+   ("Lag og foreninger"), author/date/reading-time line, body sections
+   (styremøte / årsmøte / sosiale sammenkomster), "Relaterte artikler"
+   sidebar linking the four adjacent posts named in the SPEC, and the
+   standard footer CTA. Verified via `document.title` /
+   `document.querySelector('h1').textContent` before the screenshot, both
+   matching the frontmatter exactly.
+2. **`.agent/XAL-1123/proof/blogpost-viewport-top.png`** — above-the-fold
+   viewport screenshot of the same page (what a visitor actually sees first).
+3. **`.agent/XAL-1123/proof/blog-index-search-styremote.png`** — the blog
+   index at `/blogg`, search box filtered to "styremøte", showing exactly
+   one result ("1 av 322 artikler") — the new post, correctly tagged and
+   dated 10. august 2026. This proves the post is discoverable through the
+   real search UI, not just reachable by a hand-typed URL, and that it
+   doesn't collide with or get shadowed by any of the other 321 posts.
+
+No Linear MCP tools are available in this environment (re-confirmed this
+session), so these images could not be attached to the Linear issue
+directly; they're committed to the branch instead, per the SPEC's existing
+note on this same limitation.
