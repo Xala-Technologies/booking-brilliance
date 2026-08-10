@@ -248,3 +248,49 @@ diff's scope.** One real pre-existing gap identified and characterized
 above for visibility, not fixed, because it predates this branch, isn't
 touched by it, and isn't triggered by any content in the repo today
 including the new post. No code changes this round.
+
+## Round 4 — Scope
+
+Lens: is anything in this diff NOT the stated change — drive-by edits,
+unrelated tidying, files nobody asked to be touched? `git diff
+origin/main...HEAD --stat` is the whole basis for this lens; read it fresh
+rather than trusting Rounds 1–3's characterization of it.
+
+- **Full diff, three files, zero deletions, zero modifications to existing
+  files:** `.agent/XAL-1128/SPEC.md` (new, 225 lines), `.agent/XAL-1128/REVIEW.md`
+  (new/growing, this file), and
+  `src/content/blog/spesiallokaler-niche-utleie-teaterscene-kjeller.md`
+  (new, 52 lines). `git diff origin/main...HEAD --stat -- . ':!.agent'`
+  confirms the product-facing diff is that one blog post file alone —
+  52 insertions, 0 deletions, nothing else.
+- **No drive-by tidying.** Nothing in any existing file (frontmatter
+  schema, build plugins, other blog posts, configs, lockfiles) is touched.
+  No renamed files, no reformatted neighbors, no "while I was in there"
+  edits.
+- **`pnpm-workspace.yaml`** — SPEC records that `pnpm approve-builds --all`
+  dirtied this file locally and it was reverted with `git checkout --`
+  before the first commit (00a00b2/9165d39). Re-checked here: it does not
+  appear in `git diff origin/main...HEAD --stat` and `git status --short`
+  is clean, so no trace of that drive-by survived into any commit on this
+  branch.
+- **The two `.agent/XAL-1128/*.md` files** are process artifacts the
+  workflow itself requires (spec + review log), not scope creep — they
+  document this exact change and nothing else; neither references or
+  touches any other ticket's files.
+- **In-body links stay in-lane.** The new post links to 4 existing slugs
+  (`kunstner-verksteder-studio-dansesaler-kreative-lokaler`,
+  `sal-for-kulturarrangementer-og-seminarer`,
+  `utleieobjekt-veiviser-steg-for-steg`,
+  `spesialiserte-idrettssteder-tennis-bowling-basketball-gym`) as
+  references only — none of those files are modified by this diff, so
+  "linking to adjacent content" never became "editing adjacent content."
+- **No other tickets' files present.** `git log --oneline -10` shows this
+  branch built on top of several unrelated sibling-ticket merge commits
+  already on `main` (XAL-1129, 1131, 1134, 1135, 1142) — none of their
+  files reappear as modified in this branch's own diff; `git diff
+  origin/main...HEAD` is scoped to XAL-1128 only.
+
+**Findings: none.** The diff is exactly the single new blog post plus its
+required SPEC/REVIEW process docs — no drive-by edits, no unrelated files,
+no scope creep. Nothing to fix this round; no code changes beyond this
+REVIEW.md entry.
