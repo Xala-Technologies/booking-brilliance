@@ -37,7 +37,7 @@ For bryllup med over 100 gjester anbefaler de fleste arrangementssteder en fast 
 
 Et uteareal er ikke ferdig bare fordi det finnes plen og en paviljong på bildet. Sjekk alltid dette før dere booker:
 
-- **Kapasitet med og uten møblering.** En paviljong oppgitt for 80 stående blir gjerne 50 sittende med bord og stoler. Be alltid om kapasitet for akkurat den oppsettet dere planlegger, ikke stedets generelle maks.
+- **Kapasitet med og uten møblering.** En paviljong oppgitt for 80 stående blir gjerne 50 sittende med bord og stoler. Be alltid om kapasitet for akkurat det oppsettet dere planlegger, ikke stedets generelle maks.
 - **Strøm på stedet.** Lydanlegg, lyskjeder og eventuelt en kjølevogn til drikke krever egne uttak. Spør konkret om antall uttak og hvor de sitter i forhold til der dere planlegger scene og bar.
 - **Underlag.** Gress, grus og brostein oppfører seg ulikt med høye hæler, rullestol og barnevogn, og et underlag som er tørt i mai kan bli søle i september. Spør om det finnes dansegulv eller plater som kan legges ut ved behov.
 - **Toalett i gangavstand.** Utearealer langt fra hovedbygget trenger egne toalettløsninger for et helt arrangement, ikke bare det nærmeste innendørs toalettet gjestene i praksis ikke finner.
@@ -70,12 +70,12 @@ I Digilist vises utearealer i samme sanntidskalender som resten av et arrangemen
 - Finnes det nok strøm der lyd, lys og bar skal stå
 - Dekker underlaget behovet for dansegulv, høye hæler og rullestol
 - Er det toalett i gangavstand fra utearealet
-- Har stedet skjenkebevilling for uteservering, eller må dere søke selv
-- Finnes det et innendørs alternativ i samme bygning ved dårlig vær
-- Er totalprisen for telt, møblering og montering inkludert, eller kommer det i tillegg
+- Dekker skjenkebevillingen faktisk uteservering, eller trengs det et eget løyve
+- Vet dere hvem som bestemmer og hva det koster hvis uteplassen må byttes ut samme dag
+- Har dere fått totalprisen for telt og montering skriftlig, ikke bare grunnprisen på leien
 
 Les også [Bryllupslokale 2026: type, pris, dato og alt dere må sjekke](/blogg/velge-bryllupslokale-guide-2026) for en bredere gjennomgang av lokaletyper, og [Bryllupslokale 2026: kapasitet, totalpris og hva som faktisk er inkludert](/blogg/leie-bryllupslokale-kapasitet-inkludert-skjenkebevilling) hvis dere fortsatt vurderer innendørs kontra utendørs ramme for hele arrangementet.
 
 ## Book demo hos Digilist
 
-Skal dere finne og sammenligne utearealer, paviljonger og utesitteplasser til bryllup eller sommerfest uten å bruke uker på e-postrunder og telefonsamtaler? [Book en demo](/book-demo) hos Digilist, så viser vi hvordan dere ser ledighet, kapasitet og pris for utearealet samlet på ett sted, og booker direkte når dere finner det som passer.
+I stedet for å sende samme forespørsel til flere arrangementssteder og vente på svar i dagevis, kan dere se ledighet, kapasitet og pris for utearealer og paviljonger direkte i kalenderen. [Book en demo](/book-demo) hos Digilist, så viser vi hvordan det ser ut for akkurat de datoene og gjestetallene dere planlegger for.
