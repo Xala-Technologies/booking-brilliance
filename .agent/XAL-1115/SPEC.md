@@ -61,8 +61,12 @@ I confirmed the gap by:
   `tag: "Privatperson"` and about choosing/pricing/booking a bryllupslokale
   from the couple's perspective (`bryllupslokale-pris-*`, `*-kapasitet-*`,
   `*-kontrakt-avbestilling-depositum*`, `*-vigsel-mottakelse-*`, etc.).
-- `grep -liE "bankettsal|banquet" src/content/blog/*.md` — **zero hits**. The
-  exact term "bankettsal" is not used anywhere in the corpus.
+- `grep -liE "bankettsal|banquet" src/content/blog/*.md` — one incidental
+  hit, corrected in review round 1: `bryllupslokale-filtrer-stil-uteareal-tilgjengelighet.md`
+  uses "bankettsal" once, describing a hotel's "ferdig oppdekket bankettsal"
+  as one bullet in a venue-style comparison for couples. Not a treatment of
+  banquet capacity or owner economics, so it doesn't duplicate this post, but
+  the original "zero hits" claim here was imprecise.
 - `grep -liE "bryllupsmottak" src/content/blog/*.md` — **zero hits** as a
   primary topic (the word "mottakelse" appears in
   `bryllupslokale-vigsel-mottakelse-ett-eller-to-lokaler.md`, but that post is
