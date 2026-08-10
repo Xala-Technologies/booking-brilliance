@@ -1,8 +1,9 @@
 ---
 slug: digitalt-bookingsystem-hva-er-det
-title: "Digitalt bookingsystem: hva er det, og hvordan fungerer det?"
-description: "Hva et digitalt bookingsystem er, hvordan det skiller seg fra en delt kalender eller et regneark, hvem som bruker det, og hva du bør se etter før du velger løsning."
+title: "Digitalt bookingsystem – hva er det? Forklart i 6 steg"
+description: "Hva er et digitalt bookingsystem, og hvordan skiller det seg fra en delt kalender eller et regneark? Se de 6 stegene fra forespørsel til bekreftet reservasjon, hvem som bruker det, og hva du bør sjekke før du velger løsning."
 date: 2026-07-27
+updated: 2026-08-10
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7
@@ -11,7 +12,14 @@ cover: "/images/blog/digital_booking_importance_hero_no.webp"
 keywords: ["digitalt bookingsystem", "hva er et bookingsystem", "digital booking", "booking av lokaler og ressurser", "velge bookingsystem"]
 ---
 
-Søket «digitalt bookingsystem» dukker som regel opp når noen står midt i et konkret problem: et regneark som ikke lenger holder oversikt, en innboks full av bookingforespørsler på e-post, eller dobbeltbestilte lokaler fordi to personer jobbet i to forskjellige lister. Denne artikkelen svarer på grunnlagsspørsmålet - hva et digitalt bookingsystem faktisk er - før du går videre til å vurdere konkrete leverandører.
+Søket «digitalt bookingsystem» dukker som regel opp når noen står midt i et konkret problem: et regneark som ikke lenger holder oversikt, en innboks full av bookingforespørsler på e-post, eller dobbeltbestilte lokaler fordi to personer jobbet i to forskjellige lister. Denne artikkelen svarer på grunnlagsspørsmålet - hva et digitalt bookingsystem faktisk er, og de 6 stegene det styrer i praksis - før du går videre til å vurdere konkrete leverandører.
+
+**I korte trekk:**
+
+- **3 ressurstyper** kan bookes digitalt: lokaler/anlegg, utstyr/ressurser og tjenester/timer.
+- **4 brukergrupper** bruker det mest: kommuner, private utleiere, lag/foreninger og bedrifter.
+- **6 steg** fra forespørsel til bekreftet, betalt reservasjon.
+- Skiller seg fra en delt kalender ved rollestyring, prisregler og godkjenningsflyt.
 
 ## Hva er et digitalt bookingsystem
 
@@ -23,7 +31,7 @@ Det som gjør det til et *system* og ikke bare en kalender, er reglene rundt boo
 
 Prinsippet er det samme uansett bransje, men hva som faktisk bookes varierer mye:
 
-- **Lokaler og anlegg:** møterom, idrettshaller, gymsaler, kulturhus, forsamlingslokaler og uteområder.
+- **Lokaler og anlegg:** [møterom](/bruksomrader/moterom), [idrettshaller og gymsaler](/bruksomrader/idrettshaller-gymsaler), kulturhus, forsamlingslokaler og uteområder.
 - **Utstyr og ressurser:** biler, verktøy, AV-utstyr eller andre delte ressurser med begrenset antall.
 - **Tjenester og timer:** konsultasjoner, behandlingstimer eller andre avtaler bundet til én utøver av gangen.
 
@@ -80,4 +88,8 @@ Svarene avgjør om du trenger en enkel bookingkalender eller en fullverdig platt
 
 ## Neste steg
 
-Skal du velge et digitalt bookingsystem for kommunale lokaler, gir [guiden for kommunalt bookingsystem](/blogg/kommunalt-bookingsystem-hva-er-det) en grundigere gjennomgang av ID-porten, SSA-L og kostnad. Leier du ut lokaler kommersielt, kan du se hvordan [Digilists bookingsystem for utleie](/bookingsystem-utleie) håndterer betaling og kalenderstyring for private utleiere. Er du eiendomseier, privatperson eller organisasjon og skal velge mellom annonse, markedsplass og dedikert plattform, går [bookingsystem og plattformer for utleiere](/blogg/bookingsystem-og-plattformer-for-utleiere) gjennom sjekklisten.
+Nå vet du hva et digitalt bookingsystem er og de 6 stegene det styrer. Hvilken retning passer for deg?
+
+- **Kommunale lokaler:** [guiden for kommunalt bookingsystem](/blogg/kommunalt-bookingsystem-hva-er-det) går grundigere gjennom ID-porten, SSA-L og kostnad.
+- **Kommersiell utleie:** se hvordan [Digilists bookingsystem for utleie](/bookingsystem-utleie) håndterer betaling og kalenderstyring for private utleiere.
+- **Velge mellom annonse, markedsplass eller plattform:** [bookingsystem og plattformer for utleiere](/blogg/bookingsystem-og-plattformer-for-utleiere) går gjennom sjekklisten.
