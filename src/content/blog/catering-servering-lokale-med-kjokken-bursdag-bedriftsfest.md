@@ -52,4 +52,4 @@ I Digilist ser du kjøkkenfasilitetene til hvert lokale spesifisert før du book
 
 ## Book lokale og catering samlet, uten gjetting om kjøkkenet
 
-Skal du feire bursdag, arrangere bedriftsfest eller planlegge et julebord, trenger du ikke lenger gjette hva et lokales "kjøkken" faktisk innebærer eller sende forespørsler til fem cateringleverandører og vente på svar. Digilist viser kjøkkenfasiliteter og servering tydelig på hvert lokale, og lar deg booke lokale, cateringleverandør og utstyr i samme bestilling. [Book en demo](https://digilist.no/demo) og se hvordan catering og servering blir like enkelt å booke som selve lokalet.
+Skal du feire bursdag, arrangere bedriftsfest eller planlegge et julebord, trenger du ikke lenger gjette hva et lokales "kjøkken" faktisk innebærer eller sende forespørsler til fem cateringleverandører og vente på svar. Digilist viser kjøkkenfasiliteter og servering tydelig på hvert lokale, og lar deg booke lokale, cateringleverandør og utstyr i samme bestilling, med fast servering merket tydelig der det gjelder.
