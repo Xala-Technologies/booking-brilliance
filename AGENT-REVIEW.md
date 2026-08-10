@@ -192,3 +192,85 @@ testing never leaked into a commit).
   andre halvparten av vurderingen."
 - Re-ran the full build pipeline and `pnpm test` (16 files / 35 tests, all
   green) after the edits.
+
+## Round 4 — final holistic refute pass + independent fresh-eyes read
+
+Two parallel agents: one did a targeted final pass (encoding/whitespace
+sweep, redundancy check between the table and the prose, checklist-vs-
+current-wording consistency, an accessibility legal cross-check against
+`godkjenningsflyt-revisjonsspor-booking-re-forespørsel.md`, and the updated
+description's grammar), explicitly told to assume all eleven round 1-3
+fixes were correct and not re-check them; the other read the file
+completely cold, with zero prior context, independently re-verifying every
+link, the full frontmatter, the reading-time math, and doing its own
+from-scratch Norwegian-language read.
+
+**Holistic refute lens** — no encoding/whitespace issues (`cat -A` sweep
+and a non-ASCII scan both clean; the only non-ASCII hit was the correctly
+spelled "buffé"). Checklist items all mapped correctly onto the current
+(post round-3) body wording, with no leftover reference to the old
+two-item Kapasitet phrasing. The accessibility legal cross-check was moot:
+`godkjenningsflyt-revisjonsspor-booking-re-forespørsel.md` doesn't discuss
+accessibility at all, so there was nothing to cross-check against. Found
+one real issue: the table's Utstyr row ("wifi, kjøkken, prosjektor og
+lydanlegg") repeated the prose sentence immediately above it verbatim,
+word-for-word — the only exact duplicate among the five table rows.
+
+**Fresh-eyes lens** — independently re-verified all five internal links
+plus the external CTA resolve/match house style, recomputed the word count
+(868–884 words depending on whether table pipes are counted) and reading
+speed (~174 wpm) against five sibling posts' own ratios (135–186 wpm range)
+— squarely in range, not an outlier. Frontmatter re-checked clean against
+`blogFrontmatter.ts`'s parser. Found four real issues on a fresh read:
+1. Line 56: "med kapasitet, utstyr og fasiliteter synlig for hvert lokale"
+   — number-agreement error; a three-item coordinated list needs the
+   plural "synlige", not singular "synlig".
+2. Line 20: "hvordan" appeared twice in one sentence (once inside a link's
+   anchor text, once in the main clause) — confusing on first parse.
+3. "knirkefritt" used three times within ~15 lines (H2 heading, the
+   paragraph under it, and the summary table) — repetitive rather than
+   deliberate.
+4. Line 56: "Når du har egenskapene klare" read as a slightly stiff,
+   translated-sounding collocation for native Bokmål.
+
+### What I changed after round 4
+- Reworded the table's Utstyr row's prose counterpart (line 26) to explain
+  *why* each item matters (wifi til presentasjoner, kjøkken til servering,
+  prosjektor til bilder eller video, lydanlegg til tale eller musikk)
+  instead of repeating the table's bare list verbatim.
+- Shortened the link anchor text on line 20 from "guiden til hvordan du
+  finner billigste egnede lokale i kommunen" to "guiden til billigste
+  egnede lokale i kommunen", removing the doubled "hvordan".
+- Reworded the Fasiliteter H2 and its matching table cell from
+  "knirkefritt" to "glir problemfritt", leaving the mid-paragraph use of
+  "knirkefritt" as the sole remaining instance.
+- Fixed "synlig" → "synlige" for plural agreement (line 56).
+- Reworded "Når du har egenskapene klare" to "Når du vet hvilke egenskaper
+  som betyr noe for deg" (line 56).
+- Re-ran the full build pipeline and `pnpm test` (16 files / 35 tests, all
+  green) after the edits.
+
+Four rounds run. Round 1 found and fixed three real defects (a word-order
+error, an unsupported product claim contradicted by a sibling post, and an
+invented equipment-field detail). Round 2 found and fixed one real grammar
+defect plus two minor consistency nits. Round 3 found and fixed five real
+issues (three unsupported superlatives, a table/checklist asymmetry, and a
+description omission) plus one calque. Round 4 found and fixed five more
+real issues (a verbatim table/prose duplication, a grammar-agreement error,
+a doubled word, a repetitive word choice, and a stiff collocation) on
+independent fresh reads. No round came back completely empty on real,
+fixable defects, which is why this review runs the full four rounds as
+scoped rather than stopping early.
+
+## Proof
+
+This is new content, not a fix to existing behavior, so only an AFTER state
+applies (there is no "before" — the page didn't exist). Verified with a
+full production build (`vite build` + SSR + `scripts/prerender.mjs`) served
+via `vite preview`, then captured with `agent-browser`:
+- `proof/after-leie-lokale-sammenligne-egenskaper-kapasitet-utstyr.png` —
+  the published post's top (title, tag, author, reading time) at
+  `/blogg/leie-lokale-sammenligne-egenskaper-kapasitet-utstyr`.
+- `proof/after-leie-lokale-sammenligne-egenskaper-kapasitet-utstyr-table.png`
+  — the comparison table rendering correctly further down the page, with
+  all four rounds' fixes visible in the live output.
