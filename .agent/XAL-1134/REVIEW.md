@@ -61,3 +61,86 @@ Finding — scope creep, confirmed and fixed:
   after the revert.
 
 No other correctness issues found this round.
+
+## Step 0 note (this round)
+
+The resumed-run preamble claimed root `AGENT-SPEC.md` was missing and asked
+for it to be (re)written and attached to the Linear issue. Checked
+`git log --all --oneline | grep 15c7b14` first, per
+[[project_root_agent_spec_deleted_trap]]: main commit `15c7b14` ("chore:
+remove agent scaffolding from main") deliberately deleted that file because
+per-branch copies collide on every merge back to main. Did NOT recreate it.
+`.agent/XAL-1134/SPEC.md` already has the full investigation, diagram and
+verdict from a prior round, so step 0's substance is satisfied. Linear
+attachment is unreachable regardless (no Linear MCP server in this
+environment, per [[project_no_linear_mcp_tools_available]]) — already noted
+in SPEC.md's "Linear attachment note".
+
+## Round 2 (regression — what else reads this code path)
+
+Lens: this diff adds one new content file and touches no code
+(`git diff origin/main...HEAD --stat` — only `.agent/XAL-1134/*` and the new
+`.md`). The question this round asks: does anything that already reads
+`src/content/blog/*.md` (or the derived `virtual:blog-meta` /
+`getAllPosts()`) break, silently change, or turn out to have depended on the
+old (317→318... actually 316→317) post count, tag set, or ordering?
+
+Grepped every consumer of `content/blog` / `virtual:blog-meta` /
+`getAllPosts` beyond the files SPEC.md already walked
+(`blogMetaPlugin.ts`, `posts.ts`, `postContent.ts`, `BlogPost.tsx`
+`SOLUTION_PAGES`, `prerender.mjs`, the build-gate scripts,
+`post-slugs.test.ts`, `blogFaq.mjs`), and checked each one specifically for
+this-round's question:
+
+- `src/pages/Blog.tsx` — builds its tag filter list (`tags` useMemo) by
+  scanning `allPosts` and `Set.add`-ing every `post.tag` seen; no hardcoded
+  tag enum. New post's tag `"Lag og foreninger"` already exists on other
+  posts (the two structural precedents), so no new filter option is silently
+  introduced and nothing assumed a closed tag set.
+- `src/components/BlogPreviewSection.tsx` (homepage "Lesestoff" widget) —
+  takes `getAllPosts().slice(0, 6)`, sorted by date descending. This post is
+  dated 2026-08-10 (today), so it now sorts into that top-6 slice. That's
+  the intended behavior of a "latest posts" widget for a newly published
+  post, not a regression — nothing in this component assumes a fixed post
+  set or count (`posts.length === 0` is the only length check, for the
+  empty-state early return).
+- `src/lib/webp-sources.test.ts` — asserts every post's `previewCover()`
+  output exists on disk if it differs from the raw cover. This post reuses
+  `sanntidskalender_hero_no.webp`, the same cover already used (and already
+  covered by this test) by the two closest precedent posts, so no new webp
+  asset dependency was introduced. Test passed (3/3).
+- `src/lib/digitalt-bookingsystem-description.test.ts` and
+  `src/lib/leie-selskapslokale-description.test.ts` — each hardcodes a
+  lookup for one specific pre-existing slug's description length; neither
+  reads or is affected by the new post. Confirmed by reading both files.
+- `src/entry-server.main-landmark.test.tsx` — its blog-post case picks
+  `getAllPosts()[0]` (i.e., whichever post sorts first) and asserts the SSR
+  output has exactly one `<main>`. Because this post is now dated today it
+  can become that `[0]` element depending on tie-break order among
+  same-date posts — checked that the assertion is generic (single `<main>`,
+  `<nav>` before it, `<footer>` after it) with no per-slug hardcoding, so
+  this is fine regardless of which post lands in that slot. Test passed.
+- `scripts/sync-convex-blog-to-fs.ts` / `scripts/dedup-blog-drafts.ts` —
+  Convex→filesystem admin-publish tooling; both operate on Convex draft
+  records, not on `src/content/blog/*.md` as a read source, and this post
+  was authored directly as a file (same as the rest of the recent batch),
+  so neither script's behavior changes. `sync-convex-blog-to-fs.ts` does
+  encode a real invariant worth noting for future posts in this repo (not a
+  finding here — this post's cover is already full-size, not a `-preview`
+  variant): a post's `cover` must never point at an `optimize-images.mjs`
+  `-preview.webp` sibling, or `previewCover()` looks for a
+  `*-preview-preview.webp` that can't exist and `webp-sources.test.ts`
+  fails.
+- No test or script anywhere hardcodes a total post count
+  (`grep -rn "toBe(31" src --include="*.test.ts*"` → no hits), so the
+  316→317 count change this post causes has no fixed-count assertion to
+  break.
+- Ran the full suite after the check: `npx vitest run` → 20 files / 40
+  tests, all still pass, including the three consumers above that touch
+  every post generically.
+
+**Finding: none.** This is a pure content addition with no code changes;
+every consumer of the blog corpus either scans it generically (no closed
+enum, no fixed count) or is scoped to a different, unrelated slug. Nothing
+in the existing test/script surface depended on behavior this post's
+presence changes. No fixes made this round.
