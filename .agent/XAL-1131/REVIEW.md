@@ -80,3 +80,21 @@ The block (`allowBuilds: '@swc/core', better-sqlite3, esbuild, sharp`) is a `pnp
 **Fix:** reverted `pnpm-workspace.yaml` to its `origin/main` state (dropped the `allowBuilds` block). Re-ran the full gate suite to confirm the revert doesn't break local building in this session (build scripts just get skipped with a warning, same as any fresh checkout without the block): `pnpm build` and `npx vitest run` both still pass. Diff against `origin/main` is now content-only: the new blog post plus the two `.agent/XAL-1131/*.md` process files.
 
 **Verified correct (no changes needed):** the blog post file itself, and both `.agent/XAL-1131/*.md` process files, are exactly the stated change — one new post, plus the SPEC/REVIEW record this protocol requires. No other drive-by edits, no unrelated tidying, nothing else touched.
+
+## Round 5 — Proof
+
+**Lens:** this ticket adds new behaviour (a blog post that did not exist before) — per the merge-gate rule, only an AFTER capture is required, no "before" state to preserve. Since the surface is visual (a rendered page), proof was captured with `agent-browser` against a real build, not just gate output.
+
+**How:**
+- `pnpm build` had already run this session (Round 1–4 verification); confirmed the working tree is clean and `dist/blogg/catering-servering-lokale-med-kjokken-bursdag-bedriftsfest/index.html` matches the committed `.md` (no diff between `HEAD` and the working tree).
+- Served `dist/` locally (`npx serve -l 4173 dist`) and drove it with `agent-browser`.
+- `agent-browser open http://localhost:4173/blogg/catering-servering-lokale-med-kjokken-bursdag-bedriftsfest/` → loaded, page title confirmed as `Catering og servering: finn lokale med kjøkken – Digilist`.
+- `agent-browser screenshot --full .agent/XAL-1131/proof/01-blog-post-full.png` — full-page capture of the live rendered post.
+- `agent-browser screenshot .agent/XAL-1131/proof/02-hero-above-fold.png` — above-the-fold capture (H1, dek, byline, hero image, TOC sidebar).
+- Cross-checked the two in-body links directly against the prerendered HTML (`grep -o 'href="/tjenester/catering"'` and `grep -o 'href="/blogg/leie-utstyr-til-fest-telt-bord-lyd-servering"'` on the `dist` file) — both present, matching what Round 1/2 already confirmed.
+
+**What the screenshots show:**
+- `proof/02-hero-above-fold.png` — the H1 (`Catering og servering: finn lokale med kjøkken`), full dek, byline/date, hero image, and the article TOC sidebar all render correctly at the live route.
+- `proof/01-blog-post-full.png` — the entire article body end to end: all sections (kjøkkenfasilitet-tiers, fast servering vs. frittstående catering, per-anledning krav, "Slik løser Digilist", FAQ), both in-body links, and — specifically re-verifying Round 2's fix — the closing paragraph under "Book lokale og catering samlet, uten gjetting om kjøkkenet" renders with its full summary text (not silently stripped by `BlogPost.tsx`'s CTA stripper), followed by the site's own "NESTE STEG" CTA band below it.
+
+**Linear attachment:** attempted; no Linear MCP tool is reachable in this environment (`ToolSearch` for "linear" returns no matches), consistent with [[project_no_linear_mcp_tools_available]]. Screenshots are committed to `.agent/XAL-1131/proof/` in the branch instead, so the evidence travels with the code even though it couldn't be attached to the issue directly.
