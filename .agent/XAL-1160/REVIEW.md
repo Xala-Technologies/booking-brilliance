@@ -79,3 +79,87 @@ frontmatter parsing (both parsers), tests, and prose all check out.
   160-char truncation failure going forward.
 - Re-ran `npx vitest run` (18 files / 37 tests, all green) and
   `npx tsc --noEmit` (clean) after the fix.
+
+## Round 2 — REGRESSION
+
+Lens: what ELSE reads this code path — not just the files this branch
+edited, but every consumer of the touched slug/fields, and anything that
+might have depended on the *old* title/description/frontmatter shape?
+
+### What I checked
+
+- Grepped every `.ts`/`.tsx`/`.mjs`/`.js`/`.json` file for the literal
+  slug `digitalt-bookingsystem-hva-er-det` and for the exact old title
+  string — only hits are the new description test (this branch) and the
+  one inbound link from `bookingsystem-og-plattformer-for-utleiere.md`
+  (already noted in SPEC §4, confirmed still resolves — the link text
+  doesn't embed the target's title, so it's unaffected by the title
+  change).
+- `src/lib/search/corpus.ts` (`getSearchCorpus`) — not mentioned in the
+  SPEC's blast-radius section at all, so treated it as unverified. It maps
+  every post's `title`/`description` straight into `SearchItem.title`/
+  `.subtitle` with no length assumption or slicing. The two render sites,
+  `src/components/GlobalSearch.tsx:280-285` and
+  `src/components/chatbot/ResultCards.tsx:47-48`, clip with CSS
+  (`truncate`, `line-clamp-1/2`), not character counts — so the new
+  56-char title and 157-char description (both similar in length to the
+  old 60/164-char pair) render fine; this path was never at risk but
+  wasn't independently confirmed before.
+- `scripts/indexnow-submit.mjs` — static `DEFAULT_PATHS` list, this slug
+  isn't in it (never was) — no interaction with this branch.
+- `public/llms.txt` / `public/llms-full.txt` — confirmed these are
+  hand-curated static files, not generated from `src/content/blog/*.md`
+  at build time (`scripts/prerender.mjs` only appends a FAQ-corpus chapter
+  to `llms-full.txt` from `src/content/faq.ts`, unrelated to blog posts).
+  This slug isn't listed in either file, before or after — no drift to
+  cause.
+- Every consumer of the new `updated` frontmatter field: `BlogPost.tsx:153`
+  and `prerender.mjs:2507` both only feed it into `dateModified` for
+  `Article` JSON-LD (SPEC already covered this). Checked the two places
+  that could plausibly *also* read it and would change behaviour if they
+  did — `src/pages/Blog.tsx` (listing sort/filter) and
+  `src/components/BlogPreviewSection.tsx` (teaser card date) — both use
+  `post.date` only, never `post.updated`. So adding `updated` doesn't
+  reorder the blog index or change the visible teaser date; it only
+  changes `dateModified` in structured data, as intended.
+- `src/lib/posts.ts:19` — `getAllPosts()` sorts by `date` (unchanged:
+  `2026-07-27`), not `updated` — confirmed the new `updated` field can't
+  silently move this post's position in `getAllPosts()`, which matters
+  because `src/entry-server.main-landmark.test.tsx:30` renders whatever
+  `getAllPosts()[0]` happens to be. Order is unaffected, so that test's
+  target route is unaffected by this branch.
+- Checked for a global (all-posts) description-length test that the new
+  per-slug test in Round 1 might duplicate or conflict with — none exists;
+  only two per-slug tests exist (`leie-selskapslokale-description.test.ts`,
+  this branch's new `digitalt-bookingsystem-description.test.ts`), same
+  pattern, no collision.
+- `scripts/prerender.mjs`'s `patchHTML()` (lines 2292-2352) — the actual
+  string substitution that writes `meta.title`/`meta.description` into
+  `<title>`, `<meta name="description">`, `og:title/description`,
+  `twitter:title/description` via `String.prototype.replace(regex,
+  templateString)`. Verified the new title/description contain no `$`
+  (which `.replace`'s string-replacement form treats specially as a
+  pattern token) and no `"` or `<`/`>` that could break out of the
+  attribute or tag — confirmed by direct inspection of both strings, not
+  just by trusting Round 1's regex-parsing check (parsing in ≠ substituting
+  out). This branch is also the first post in the repo to use an en-dash
+  (`–`) in a title (`grep '^title:.*–' src/content/blog/*.md` — only this
+  file matches) — traced it through `patchHTML()` and confirmed
+  `String.prototype.replace` has no special handling for `–`, so it's
+  inert in this context.
+- Re-ran `npx vitest run` after all of the above — 18 files / 37 tests,
+  all green, unchanged from Round 1's post-fix state.
+
+### What I found
+
+No regressions. Every consumer this branch's changed fields (`title`,
+`description`, `updated`, body markdown) flow through — including three
+(`corpus.ts`/search, `Blog.tsx`/listing sort, `patchHTML()`'s actual
+substitution logic) that the SPEC's blast-radius section either didn't
+name or only checked one layer of (regex parsing, not string
+substitution) — was traced independently and confirmed unaffected by both
+the old and new content.
+
+### What I changed
+
+Nothing — no defects found under this lens. No commit from this round.
