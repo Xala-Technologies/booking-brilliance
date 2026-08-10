@@ -25,6 +25,11 @@ export const POST_FAQ = {
         "Digilist er i dag ikke en markedsplass for korttidsutleie av private hytter, slik Airbnb og Hygglo er. Det Digilist derimot løser, er booking av fritidsboliger og hytter som en kommune eller bedrift allerede eier, og som lånes eller leies ut til innbyggere og ansatte etter faste regler.",
     },
     {
+      question: "Har Airbnb utstyr til hytta i tillegg til overnatting?",
+      answer:
+        "Nei, Airbnb formidler overnatting mellom privatpersoner, ikke utleie av utstyr utover det vertskapet velger å ha med i hytta. Skal du leie utstyr som kanoer, sykler eller campingutstyr i tillegg, er Hygglo en egen markedsplass for privat utstyrsutleie. Digilist løser en tredje variant: kommuner og bedrifter som eier både fritidsboliger og utstyr kan administrere booking av begge deler i samme kalender og betalingsflyt, i stedet for to separate systemer.",
+    },
+    {
       question: "Passer Digilist for private utleiere, eller bare for kommuner?",
       answer:
         "Begge deler. En privat utleier av et selskapslokale, et bryllupslokale eller utstyr til utlån kan bruke det samme systemet som en kommune, bare i mindre skala. Forskjellen fra Airbnb og Hygglo er at Digilist er et abonnement utleieren eier selv, ikke en markedsplass der en andel av hver betaling går til plattformen.",
