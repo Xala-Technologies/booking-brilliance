@@ -294,3 +294,46 @@ rather than trusting Rounds 1–3's characterization of it.
 required SPEC/REVIEW process docs — no drive-by edits, no unrelated files,
 no scope creep. Nothing to fix this round; no code changes beyond this
 REVIEW.md entry.
+
+## Round 5 — Visual proof
+
+This is new content — the route didn't exist on `origin/main`, so there is
+no "before" state to capture, only an AFTER render, per this repo's proof
+convention (same call as the XAL-1134/XAL-1129 siblings). Ran `pnpm
+dev:client` (vite on `:8080`) and drove it with `agent-browser`:
+
+- `.agent/XAL-1128/proof/after-spesiallokaler-post-top.png` — confirms the
+  `<h1>` ("Spesiallokaler og niche-utleie: fra teaterscene til kjeller"),
+  the `UTLEIER` tag, the date (10. august 2026), the description, and the
+  auto-generated table of contents built from the post's own H2s, all
+  live-rendered at `/blogg/spesiallokaler-niche-utleie-teaterscene-kjeller`.
+- `.agent/XAL-1128/proof/after-spesiallokaler-post-faq.png` — confirms the
+  "Vanlige spørsmål om spesiallokaler og niche-utleie" H2 and its two Q&A
+  pairs render, and the in-body cross-link to
+  `spesialiserte-idrettssteder-tennis-bowling-basketball-gym` (anchor text
+  "Spesialiserte idrettssteder: tennis, bowling, basketball") renders as a
+  working link.
+- `agent-browser eval "document.querySelectorAll('h1').length"` → `1` on
+  the live-rendered route.
+- `agent-browser get attr "a[href*='...']" href` for all 4 in-body links
+  (`spesialiserte-idrettssteder-tennis-bowling-basketball-gym`,
+  `kunstner-verksteder-studio-dansesaler-kreative-lokaler`,
+  `sal-for-kulturarrangementer-og-seminarer`,
+  `utleieobjekt-veiviser-steg-for-steg`) → all four resolve to the correct
+  `/blogg/<slug>` href, confirmed in the live DOM, not just the prerendered
+  HTML source Round 1 checked.
+- Opened `/blogg` and confirmed
+  `document.body.innerText.includes('Spesiallokaler og niche-utleie')` →
+  `true`, i.e. `getAllPosts()` / `blogMetaPlugin.ts` picked the new file up
+  into the listing with no code change, as SPEC.md's "WHAT CHANGES" section
+  claimed.
+
+**Non-finding worth recording, not a bug:** the live page shows "5 MIN
+LESETID", not the "6" the frontmatter states — same rounding behavior
+`readingMinutes` display already showed on the XAL-1134 sibling; not this
+diff's bug, pre-existing site-wide rounding/display logic.
+
+**Findings: none.** Live render matches SPEC.md's claims and the
+prerendered HTML Round 1 already checked. Dev server stopped cleanly after
+capture (`agent-browser close --all`, confirmed port 8080 down). No code
+changes this round beyond the two screenshots and this REVIEW.md entry.

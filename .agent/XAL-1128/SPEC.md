@@ -219,7 +219,11 @@ flowchart TD
 
 No Linear MCP server is reachable in this environment (`ToolSearch` for
 Linear-related tools returns nothing) — matches
-[[project_no_linear_mcp_tools_available]] from XAL-1151, re-confirmed here.
-This SPEC could not be attached to the XAL-1128 issue nor commented on
-directly; it's committed to the branch instead so the review phase carries
-the same evidence an attachment would.
+[[project_no_linear_mcp_tools_available]] from XAL-1151, re-confirmed here
+(and again during Round 5's proof capture). Neither this SPEC nor the
+Round 5 visual-proof screenshots
+(`.agent/XAL-1128/proof/after-spesiallokaler-post-top.png`,
+`.agent/XAL-1128/proof/after-spesiallokaler-post-faq.png`) could be
+attached to or commented on the XAL-1128 issue directly; both are
+committed to the branch instead so the review phase and any future session
+carry the same evidence an attachment would.
