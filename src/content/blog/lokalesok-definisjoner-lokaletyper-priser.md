@@ -5,7 +5,7 @@ description: "Hva betyr egentlig lokalesøk, og hvilke ord møter du underveis? 
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
-readingMinutes: 7
+readingMinutes: 8
 tag: "Privatperson"
 cover: "/images/blog/booking_calendar_hero_no.webp"
 keywords: ["lokalesøk", "hva er lokalesøk", "søke lokale", "lokaletyper", "leie lokale definisjoner", "hva koster det å leie lokale", "lokale til leie oversikt"]
@@ -38,6 +38,7 @@ De fleste lokalesøk lander i en av disse bygningskategoriene:
 - **Møterom og grupperom**: korttidsbooking for timer eller deler av en dag, ofte selvbetjent uten saksbehandling.
 - **Grendehus, samfunnshus og festsaler**: de vanligste rammene for private feiringer som bursdag, bryllup og jubileum – dette er lokalene som oftest kalles selskapslokaler.
 - **Kulturhus og kommunale saler**: brukes til konserter, seminarer og større arrangementer, men leies også ofte ut til private selskaper.
+- **Private festlokaler, gårder og hoteller**: høyere standard enn de kommunale alternativene, ofte med servering og personale inkludert i prisen.
 - **Idrettshaller og gymsaler**: trening, kamper og skoleidrett, som oftest fordelt gjennom sesongtildeling med restplasser lagt ut til enkelttimer.
 - **Uteanlegg og baner**: fotballbaner, tennisbaner og andre utendørsanlegg, bookes gjennom samme system som innendørslokalene.
 
