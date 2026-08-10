@@ -165,3 +165,78 @@ overlap with what changed, or already matches this diff's new behaviour.
 ### What changed
 
 Nothing. No commit made for this round.
+
+## Round 3
+
+**Lens: security** — authz, tenant isolation, injection, secrets, and anything
+user-supplied that reaches a query, a path, or a page.
+
+### What it looked at
+
+- Tenant/authz surface: this repo has no booking/product domain to leak
+  across (memory: [repo has no booking domain at all]) — confirmed nothing
+  in this diff touches `server/index.mjs`'s admin routes
+  (`/api/audits/state`, `/api/content/*`, `/api/agents*`, all gated by
+  `authorized(req)` / `ADMIN_BASIC_AUTH`) or introduces any new one. The only
+  code files touched are `MobileMenu.tsx` (a static asset path string) and
+  its test — neither takes user input.
+- Injection: `server/nginx.snippet.conf`'s three new `location` blocks are
+  fixed regex/prefix strings, not built from any request data, env var, or
+  template interpolation — no injection surface. The `\.(?:png|jpg|...)$`
+  extension list is a static alternation, properly anchored (`$`), not
+  attacker-influenceable.
+- Secrets: grepped the whole diff — no credentials, tokens, or key material
+  added. Cross-checked `server/index.mjs` (untouched by this diff) for
+  where `ANTHROPIC_API_KEY`/`RESEND_API_KEY`/`ADMIN_BASIC_AUTH` are used:
+  all three stay server-side (outbound `Authorization`/`x-api-key` headers to
+  Anthropic/Resend); `/api/health` only ever exposes `Boolean(...)` of each,
+  never the value.
+- Whether the new `gzip on` + `gzip_types application/json` +
+  `gzip_proxied any` combination opens a BREACH-style compression oracle on
+  `/api/*` responses (gzip settings are server-block-scoped, so they're
+  inherited by the `^~ /api/` proxy location too, not just the new static
+  locations) — checked for the two preconditions BREACH needs: (1) a secret
+  in the response body (session token, CSRF token) and (2) attacker-supplied
+  input reflected in that same response. Found neither: this API has no
+  cookies/sessions/CSRF anywhere (`grep -n "csrf\|session\|Set-Cookie"
+  server/index.mjs` → zero hits — auth is stateless HTTP Basic, and even
+  `/api/health`, `/api/agents`, `/api/audits/*` return static
+  catalog/config/boolean data, never a value that varies with request
+  content the caller controls). No secret-bearing, input-reflecting response
+  exists for a compression oracle to have anything to extract. Not a
+  regression this diff needs to guard against.
+- Whether the extension-catch-all location's inclusion of `.svg` — served
+  without CSP/`X-Content-Type-Options` re-declared as `nosniff` is present,
+  but SVG can still execute embedded `<script>` if navigated to directly —
+  is exploitable: checked whether any `.svg` served by this app is
+  user-influenced. It isn't — `find public dist -iname "*.svg"` and `grep -rln
+  "multer\|upload\|formidable" server/ scripts/` confirm every SVG is a
+  build-time, developer-committed asset (logo, client logos, blog hero
+  illustrations); there's no upload path or dynamic-SVG-generation route
+  anywhere in the repo. No attacker can get content into an `.svg` this
+  location serves, so the missing CSP on that response has nothing to gate.
+- Re-confirmed (independent of round 1's read) that `location ^~ /api/` is a
+  security-*positive* change, not just a correctness one: without it, a
+  regex location could shadow an admin API path that happened to end in a
+  static extension, silently serving a 404 from disk instead of hitting
+  `authorized(req)` — i.e. failing open to "not found" rather than to
+  "unauthenticated 200", so even the failure mode was already safe, but
+  `^~` removes the ambiguity entirely.
+- Whether `Cache-Control: public` on the three new locations could cause any
+  admin/authenticated response to be cached: the three locations match only
+  `/assets/`, `/fonts/`, and fixed static extensions — none overlap with
+  `/api/` (which `^~` guarantees always wins), so no admin JSON response can
+  ever land under a `public`-cache location.
+
+### What it found
+
+No security defects. This diff has no authz/tenant-isolation surface (none
+exists in this repo), introduces no injection vector (all new nginx config
+is static), adds no secrets, and the one plausible compression-oracle
+question (gzip now covering `/api/*` JSON) doesn't apply because the API has
+no secret-bearing response to extract via BREACH. The `^~ /api/` change is
+incidentally a hardening, not a weakening, of route-matching behavior.
+
+### What changed
+
+Nothing. No commit made for this round — this lens found nothing to fix.
