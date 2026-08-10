@@ -72,3 +72,93 @@ Checked, all confirmed correct:
 **Findings: none.** Nothing to fix this round — all acceptance criteria and
 edge cases checked out against the live code and build output, not just
 against SPEC's prior narration of them.
+
+## Round 2 — Regression
+
+Lens: what ELSE reads this code path, not just the files this diff touched?
+`git diff origin/main...HEAD --stat` confirms the diff is 3 files (both
+`.agent/XAL-1128/*.md` plus the one new blog post) — so "regression" here
+means: every existing consumer of `src/content/blog/*.md` that ran fine
+against 319 posts, does it still behave correctly against 320, with this
+specific new file's frontmatter/content?
+
+Traced every consumer via `grep -rln "content/blog"` and
+`grep -rln "getAllPosts|virtual:blog-meta"` (broader net than SPEC's Blast
+Radius section, which only listed the ones SPEC's own diff touched) and
+checked each one against the new file specifically:
+
+- **`src/entry-server.main-landmark.test.tsx` — dynamic fixture, not a
+  hardcoded slug.** This test does `const [firstPost] = getAllPosts()` and
+  renders `/blogg/${firstPost.slug}` — since `getAllPosts()` sorts by date
+  descending and the new post is dated 2026-08-10 (today, newest in the
+  corpus), **this test now silently exercises the new post** as its "single
+  `<main>` landmark, even as the first lazily-loaded route" fixture, instead
+  of whatever post held that position before this branch. Worth flagging
+  explicitly because it's exactly the kind of coupling this lens exists to
+  catch — a test whose target quietly shifted underneath this diff without
+  the diff itself touching that test file. Re-ran it standalone: passes
+  (2.9s, SSR renders exactly one `<main>`). No regression, but it means
+  *this specific post's* SSR output was pressure-tested by that assertion,
+  not a stale post's.
+- **`src/entry-server.h1.test.tsx`** — by contrast, pins two specific slugs
+  (`automatisert-avbooking-...`, `leie-bryllupslokale`) rather than
+  `getAllPosts()[0]`, so it's structurally immune to new-post churn. No
+  interaction with this diff.
+- **`src/lib/webp-sources.test.ts`** — iterates `getAllPosts()` and asserts
+  `previewCover(post.cover)` exists on disk for every post, so the new
+  post's cover is a real input to this test, not just the posts it was
+  written against. Cover is `/images/blog/booking_calendar_hero_no.webp`;
+  confirmed both it and its `booking_calendar_hero_no-preview.webp` sibling
+  are present (`ls public/images/blog/`), so `previewCover()` resolves and
+  the test passes. This is the exact failure mode the test's own docstring
+  warns about (a newly added post/tile with a cover whose `-preview.webp`
+  was never generated) — checked it directly rather than trusting the
+  green run to have exercised the right path.
+- **`scripts/sync-convex-blog-to-fs.ts`** — Convex→FS sync tool. Read it in
+  full to confirm it's additive/idempotent only (writes files pulled from
+  Convex, no `unlink`/directory-diff/delete-orphans logic found via
+  `grep -n "unlink|rmSync"` → zero hits). A directly-committed `.md` file
+  that never went through Convex is not at risk of being deleted or
+  overwritten by a future `pnpm content:sync` run.
+- **`scripts/prerender.mjs` sitemap block (~line 2599-2705)** — sitemap
+  entries for blog posts are `...posts.map(...)`, no fixed-length array or
+  count assertion; new post added itself as one more `<url>` automatically.
+  Confirmed via `pnpm build` output: `✓ /sitemap.xml regenerated (404
+  URLs)` (was presumably 403 before this post; not independently verified
+  pre-diff, but the mechanism is structurally incapable of dropping or
+  miscounting entries — it's a plain array spread).
+- **`src/pages/BlogPost.tsx` `relatedSolutions()` / `sidebarRelated`** —
+  checked the new post's slug+title+tag+keywords against the
+  `SOLUTION_PAGES` regexes (kommune, idrettshall, møterom, selskapslokale,
+  kulturhus): none match, so it falls back to the generic
+  `/booking-av-lokaler-og-moterom` link — a real, working route, not a
+  broken fallback. `sidebarRelated` (same-tag "Utleier" posts, backfilled
+  with newest) has no minimum-count assumption that a new post could
+  violate.
+- **`src/components/BlogPreviewSection.tsx`** (`getAllPosts().slice(0, 6)`,
+  homepage strip) — the new post, being newest, now occupies one of the 6
+  homepage slots, pushing the previous 6th post out. This is the intended
+  behavior of every prior post addition in this batch, not a defect
+  introduced here.
+- **`tools/content-agent/*`, `convex/content/publish.ts`,
+  `scripts/dedup-blog-drafts.ts`** — all operate on the Convex-drafts side
+  of the pipeline (generation prompts, admin-publish flow, draft dedup);
+  none read or enumerate the committed `src/content/blog/*.md` corpus in a
+  way this file could disrupt. `dedup-blog-drafts.ts`'s own docstring notes
+  it leaves "the live site — served from committed src/content/blog/*.md —
+  untouched."
+- **No RSS/Atom feed generator exists** (`grep -rln "rss|feed.xml|atom"`
+  over non-node_modules `.ts`/`.tsx`/`.mjs` turned up only unrelated
+  content-agent source-type strings and one `LeieKonferanselokale.tsx` hit
+  that isn't blog-related) — nothing there to regress.
+- **Full re-run, independent of SPEC/Round 1's prior claims.**
+  `npx vitest run` → 20 files / 40 tests green. `pnpm build` → prerendered
+  405 pages incl. `/blogg/spesiallokaler-niche-utleie-teaterscene-kjeller/index.html`,
+  word-count gate passed for all 320 posts (both source and rendered
+  checks), sitemap regenerated with the new URL. `git status --short`
+  clean before and after — no drive-by diff.
+
+**Findings: none.** Every consumer this lens could find — including one
+(`entry-server.main-landmark.test.tsx`) whose target silently shifted onto
+this exact new post via date-sort — still behaves correctly. Nothing
+fixed this round; no code changes beyond this REVIEW.md entry.
