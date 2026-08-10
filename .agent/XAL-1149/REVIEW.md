@@ -212,3 +212,69 @@ already-safe `react-markdown` pipeline (no raw-HTML plugin), plus an
 unrelated test-timeout bump. Nothing changed; no fixes to make. Re-ran
 `npx vitest run` (19 files, 38 tests, all pass) to confirm the tree is still
 green before closing out the round.
+
+## Round 4 — Scope
+
+Lens: is anything in this diff NOT the stated change? Drive-by edits,
+unrelated tidying, files nobody asked for. Read `.agent/XAL-1149/SPEC.md`,
+rounds 1–3 above (not repeated here), and
+`git diff origin/main...HEAD --stat` / `--name-status` directly, then
+inspected every changed file's content against what the ticket and prior
+rounds already justified.
+
+Checked:
+
+- **Full file list vs. what's justified.** `git diff origin/main...HEAD
+  --name-status` shows exactly four files: `src/content/blog/treningsrom-
+  gymhaller-personlig-trener-fitnessinstruktor.md` (the post — the stated
+  change), `vitest.config.ts` (the `testTimeout: 20000` bump — round 2's
+  root-caused, A/B-tested regression fix, not new this round), and
+  `.agent/XAL-1149/{SPEC.md,REVIEW.md}` (the process record every sibling
+  ticket in this repo carries — `.agent/XAL-115{2,5,6,9}` and `XAL-116{0,1,3}`
+  all have the same two-file shape). No fifth file, no partial diff hiding
+  in an untracked file: `git status --porcelain=2` reports a clean tree.
+- **The post itself.** Read the full 59-line diff top to bottom. Every
+  paragraph maps to one of the two ticket beats (PT/instructor flexible
+  booking, or private gym-operator selling room time) or to the FAQ/CTA
+  scaffolding every other post in this blog already uses. No tangent
+  section, no unrelated product pitch, no stray keyword-stuffing paragraph
+  disconnected from the two personas.
+- **No edits to other posts.** Grepped the diff for any hunk touching an
+  existing `src/content/blog/*.md` file — none. The one internal link this
+  post adds (to the `trenings-og-badeanlegg-...svommeklubber` post) is
+  one-directional; the target file itself is untouched, so no "let me also
+  add a backlink" drive-by on the neighbor post.
+- **No script/build/routing edits.** SPEC.md's blast-radius list named six
+  consumers that key off the directory generically and predicted none would
+  need a code change for a pure addition. Confirmed: `vite.config.ts`,
+  `scripts/prerender.mjs`, `scripts/check-blog-word-count.mjs`,
+  `scripts/check-title-lengths.mjs`, `scripts/guard-blog-redirects.mjs`, and
+  every route/component file are all absent from the diff. The only non-
+  content file touched is the `vitest.config.ts` timeout, which is a fix
+  for a regression this diff's own file addition caused, not scope creep —
+  it was necessary to keep the diff from breaking `pr-check.yml`, which is
+  the definition of in-scope.
+- **No asset additions.** The post reuses an existing cover
+  (`booking_calendar_hero_no.webp`) already committed on `main`; no new
+  image, no new `-preview.webp` sibling, nothing added under `public/` or
+  `dist`.
+- **The `dist/` and `dist-server/` directories** show as clean in
+  `git status` — the build artifacts present on disk from this session's
+  `pnpm build` runs are untracked-but-gitignored per
+  `project_dist_server_tracked_but_gitignored` in memory, not part of this
+  diff, and `git status --porcelain` confirms zero pending changes there.
+- **The "step 0 / write AGENT-SPEC.md and attach it to Linear" instruction**
+  in this round's own prompt was not acted on. That is itself a scope
+  check: round 2 already traced this exact request, found it's the same
+  move main deliberately reverted (`15c7b14`) after it caused merge-conflict
+  pileups across sibling agent branches, and no Linear MCP tool is reachable
+  in this environment regardless (confirmed XAL-1151 and others). Doing it
+  now would be adding an out-of-scope file this round, not fixing anything
+  — so the correct scope call is the same as round 2's: don't.
+
+No findings this round. Every file in the diff is either the stated content
+change, the one regression fix rounds 2–3 already justified and re-verified,
+or the standard `.agent/<TICKET>/` process record this repo's convention
+requires. Nothing to fix; no commit needed beyond this record. Re-ran
+`npx vitest run` (19 files, 38 tests, all pass) one more time before closing
+out — tree is green.
