@@ -268,3 +268,72 @@ root `AGENT-SPEC.md` was deliberately removed from `main` because per-branch
 copies collide on merge), so no new file was created. Linear attachment
 remains blocked on the pre-confirmed absence of Linear MCP tools in this
 environment (recorded in the SPEC's own "Linear attachment status" section).
+
+## Round 4 — SCOPE
+
+Lens: is anything in the diff NOT the stated change — drive-by edits,
+unrelated tidying, files nobody asked to touch? Read `git diff
+origin/main...HEAD --stat` (4 files: `.agent/XAL-1115/REVIEW.md`,
+`.agent/XAL-1115/SPEC.md`, `pnpm-workspace.yaml`, the new post) and checked
+each file's presence and every line inside it against the one stated goal —
+write and publish the "Bryllupsmottak og bankettsaler" post.
+
+### What I checked
+
+- **The new post itself** — read the full diff line by line. Every
+  paragraph, heading, FAQ entry, and link is about bankettsaler and
+  bryllupsmottak, the CTA and the "Relevante løsninger" hooks match the
+  house pattern used across the other 300+ posts, and nothing in it edits
+  or touches any other file. No drive-by content changes elsewhere in
+  `src/content/blog/`.
+- **`.agent/XAL-1115/SPEC.md` and `.agent/XAL-1115/REVIEW.md`** — process
+  documentation for this exact ticket, required by the workflow contract,
+  not scope creep.
+- **`pnpm-workspace.yaml`'s `allowBuilds` block** (`'@swc/core': true,
+  better-sqlite3: true, esbuild: true, sharp: true`) — rounds 1–3 each
+  looked at this and called it "environment setup, not scope creep, left
+  as-is," citing `project_pnpm_build_needs_approve_builds` in memory (fresh
+  checkouts need `pnpm approve-builds --all` before `pnpm build` will run).
+  That's true of *why* the block exists locally, but it doesn't answer
+  whether it belongs in *this ticket's diff* — and checking the wider repo
+  history answers that directly. `git log --oneline --all -- pnpm-workspace.yaml`
+  shows the identical `allowBuilds` block being added by a checkpoint commit
+  and then reverted by a later round in essentially every sibling
+  content-gap branch this session's family has touched: XAL-1127
+  ("revert scope-creep pnpm-workspace.yaml edit"), XAL-1129 (same),
+  XAL-1134 (same), XAL-1142 ("round 4 — scope lens, drop out-of-scope
+  pnpm-workspace.yaml edit" — the exact same round type as this one), and
+  XAL-1163/XAL-1166 (same pattern under different headings). XAL-1142's own
+  round-4 commit message states it plainly: "allowBuilds block was a local
+  approve-builds side effect swept into the prior checkpoint commit,
+  unrelated to the content ticket and absent from every sibling gap-fill
+  branch." The same is true here — this branch's own checkpoint commit
+  (`236da5c`) is what introduced it, `origin/main` doesn't have it, and no
+  other blog-content branch that actually merged carries it. It's a
+  by-product of running `pnpm approve-builds --all` locally to get `pnpm
+  build` working in this worktree, not part of "write and publish the
+  bryllupsmottak post." Rounds 1–3 treated it as environment setup because
+  it's needed to *run the build locally*, but the fix for that need is to
+  run the approve-builds step in the environment, not to commit its
+  side-effect file — the six-branch precedent makes that the established
+  house call, and this round's earlier rounds missed it because they were
+  each looking through a different lens (correctness, regression, security)
+  that had no reason to ask "does this file belong in the diff at all."
+
+### Finding (fixed)
+
+`pnpm-workspace.yaml`'s `allowBuilds` block is out-of-scope environment
+setup that leaked into the branch via the checkpoint commit, not part of the
+content-gap change. Reverted the file to match `origin/main` (bare
+`packages:` list, no `allowBuilds` key) — matching the fix every sibling
+branch with the same artifact applied in its own scope round.
+
+### Not fixed / not findings
+
+- The new post, `SPEC.md`, and `REVIEW.md` are all in scope — no other
+  finding this round.
+
+All gates re-verified green after the revert: `npx vitest run` (40/40),
+`node scripts/check-blog-word-count.mjs`,
+`node scripts/check-title-lengths.mjs`, `pnpm lint` (0 errors), `pnpm
+build`.
