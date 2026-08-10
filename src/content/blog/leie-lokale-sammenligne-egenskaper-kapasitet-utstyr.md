@@ -17,13 +17,13 @@ De fleste som skal leie et lokale, sammenligner pris først. Det som faktisk avg
 
 Et lokale oppgir som regel kapasitet på to måter: sittende og stående. Forskjellen er stor. Et rom som tar seksti stående, tar gjerne bare tretti sittende rundt bord, fordi bord og stoler krever langt mer plass enn et publikum som står. Sjekk hvilket tall som gjelder for din anledning, ikke bare det høyeste tallet i annonsen.
 
-Den offisielle kapasiteten er heller ikke det samme som en praktisk kapasitet. Et lokale godkjent for hundre personer kan i praksis føles trangt med hundre gjester, et dansegulv, en buffé og en scene i samme rom. Legg gjerne inn en margin, spesielt hvis arrangementet har innslag som krever egen plass. Skal du sammenligne flere lokaler til samme arrangement, [guiden til hvordan du finner billigste egnede lokale i kommunen](/blogg/leie-lokale-billigst-kommune-sammenlign-lokaltyper) viser hvordan kapasitet og pris kan vurderes sammen når flere alternativer er aktuelle.
+Den offisielle kapasiteten er heller ikke det samme som en praktisk kapasitet. Et lokale godkjent for hundre personer kan i praksis føles trangt med hundre gjester, et dansegulv, en buffé og en scene i samme rom. Legg gjerne inn en margin, spesielt hvis arrangementet har innslag som krever egen plass. Skal du sammenligne flere lokaler til samme arrangement, viser [guiden til hvordan du finner billigste egnede lokale i kommunen](/blogg/leie-lokale-billigst-kommune-sammenlign-lokaltyper) hvordan kapasitet og pris kan vurderes sammen når flere alternativer er aktuelle.
 
 ## Planløsning og utstyr: hva som faktisk finnes på stedet
 
 Et kvadratmetertall sier lite alene. Planløsningen avgjør om rommet faktisk kan møbleres slik du trenger: ett stort åpent gulv egner seg til noe annet enn et rom delt opp i mindre soner. Be om en skisse eller sjekk bildene nøye hvis møblering er avgjørende for deg.
 
-Utstyr er den andre halvdelen av bildet. De vanligste punktene å sjekke er wifi, kjøkken eller pauserom, prosjektor eller skjerm, og lydanlegg. På Digilist er dette egne avkrysningsfelt i lokalets profil, ikke noe du må gjette deg til fra en beskrivelsestekst, så du kan sammenligne to lokaler felt for felt i stedet for å ringe og spørre. Mangler et felt i annonsen, betyr det som regel at utstyret ikke finnes, ikke at utleier bare har glemt å nevne det.
+Utstyr er den andre halvdelen av bildet. De vanligste punktene å sjekke er wifi, kjøkken, prosjektor og lydanlegg. På Digilist er dette egne avkrysningsfelt i lokalets profil, ikke noe du må gjette deg til fra en beskrivelsestekst, så du kan sammenligne to lokaler felt for felt i stedet for å ringe og spørre. Mangler et felt i annonsen, kan det bety at utstyret ikke finnes, men det kan også bety at utleier ikke har fylt ut hele lista ennå – spør heller enn å anta, hvis akkurat det punktet er avgjørende for deg.
 
 ## Tilgjengelighet: kommer alle seg dit og inn
 
