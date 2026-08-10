@@ -91,9 +91,22 @@ headless, Lighthouse `--throttling-method=devtools` (not simulate, per PR
 Lighthouse's own Performance/LCP numbers are within this VPS's known noise
 band (see memory: `marketing_lighthouse_score_noise`) and don't separate
 cleanly before/after — CPU-bound TBT (~1-1.4s) dominates the score on this
-shared box regardless of the video attribute. CLS is flat (no regression) in
-both conditions and matches the pre-existing ~0.155-0.16 baseline (dominated
-by an unrelated CTA-button layout shift, not the video or the H1).
+shared box regardless of the video attribute. CLS is flat (no regression
+caused by this change) in both conditions at ~0.155-0.16, but that number is
+well outside `docs/xal-316-lcp-handoff.md`'s documented CLS baseline for this
+same VPS/methodology (0.001-0.010) and the ticket's own "current
+~0.001-0.101" framing. Re-running Lighthouse's `layout-shifts` audit against
+the current build (independent of this branch's change, reproduced with
+`preload="metadata"` already applied) attributes ~88% of the 0.159 total
+(0.1407) to the CTA button row (`div.mt-8.flex...` — "Finn ledige
+lokaler"/"Book demo") shifting, with a further ~0.024 from the H1 itself
+(the rotating first word changing width) — genuinely "not the video," but
+not purely "not the H1" either, and not a number this trace can wave through
+as an established baseline: nothing in the repo documents 0.155-0.16 as
+expected. This predates and is unrelated to the one-line `preload` change
+(identical on both sides of the before/after comparison), so it is out of
+this ticket's scope to fix, but it is a live discrepancy against XAL-316's
+own numbers worth a follow-up ticket rather than being asserted away here.
 
 A direct `PerformanceObserver({type: "largest-contentful-paint"})` check
 (the same method XAL-316's original comment cites) is more informative than

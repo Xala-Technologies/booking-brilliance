@@ -1,276 +1,81 @@
-# XAL-1151: Deep review log
+# XAL-1166: Deep review log
 
-Change under review: one new file,
-`src/content/blog/leie-lokale-sammenligne-egenskaper-kapasitet-utstyr.md`
-(a Norwegian blog post), plus `AGENT-SPEC.md`.
+Change under review: `src/components/ThemedVideo.tsx:65` `preload="auto"` →
+`preload="metadata"`, plus `src/components/ThemedVideo.test.tsx` (new) and
+`AGENT-SPEC.md`. Diff taken against `origin/main...HEAD`.
 
-## Round 1 — correctness / regression-duplication / security / scope
+Note on this file: it previously contained the review log for XAL-1151 (a
+different, already-merged ticket — `adaa250`/#239 on `main`), carried over
+unchanged by the `Merge remote-tracking branch 'origin/main'` commit on this
+branch. That content didn't pertain to this diff, so it has been replaced
+here rather than appended to, to avoid mixing two unrelated tickets' review
+logs in one file.
 
-Four parallel agents, each told to REFUTE the change over the actual file
-contents and `git diff origin/main..HEAD`.
+## Round 1 — correctness
 
-**Correctness** — found three real defects:
-1. Line 20: a fronted conditional ("Skal du sammenligne...") followed by a
-   subject-before-verb main clause ("guiden ... viser"), violating Norwegian
-   V2 word order — the finite verb must directly follow the comma. Every
-   other fronted-conditional sentence in the post (e.g. line 46, "Er du
-   driftsleder ... er [guiden] det riktige stedet") gets this right.
-2. Line 26: the post claimed a missing equipment checkbox on a listing "som
-   regel" means the equipment doesn't exist, not that the utleier forgot to
-   list it — directly contradicted by `utleieobjekt-veiviser-steg-for-steg.md`
-   ("Du kan publisere uten en lang funksjonsliste – den kan du fylle ut
-   senere"), which documents that an incomplete feature list is a normal,
-   expected state on the platform.
-3. Line 26: invented two items ("pauserom", "skjerm") into what read as
-   Digilist's actual checkbox field list; the veiviser post's real field
-   list is wifi, kjøkken, prosjektor, lydanlegg, parkering, garderober —
-   "pauserom" and "skjerm" aren't among them.
-   Everything else checked out: internal consistency between the table and
-   the prose, all five internal links resolve, frontmatter matches
-   `blogFrontmatter.ts`'s contract, and `readingMinutes: 5` for the (then)
-   860-word body checked against five sibling posts' actual words-per-minute
-   ratio (135–201 wpm range) lands mid-range, not just the two posts
-   initially spot-checked.
+Lens: does the diff do what the four acceptance criteria in `AGENT-GOAL.md`
+say, including edge cases — not a style/security/scope pass (those are
+later rounds).
 
-**Regression / duplication** — no true duplicate of the generic,
-cross-venue-type "compare characteristics before booking" angle exists in
-the 273-post corpus. Closest analogs are all narrower: the wedding-specific
-kapasitet/vilkår/tilgjengelighet checklist posts, and
-`selskapslokaler-typer-og-hvordan-velge.md`'s sittende/stående explanation
-(selskapslokaler-only). Grepped 8 distinctive phrases from the new post
-against the whole corpus — zero verbatim reuse found, so the "pris isn't
-what matters, X is" opening device (also used by a wedding post from days
-earlier) is independently worded, not copied. Tag (`Privatperson`, the most
-common value) and cover image (reused by 55 other posts) both consistent
-with precedent. No slug collision.
+**Criterion 1 (single-line attribute change, no other ThemedVideo behavior
+change)** — verified true for `ThemedVideo.tsx` itself: the diff to that
+file is exactly the one `preload` attribute. But `AGENT-SPEC.md`'s own "WHAT
+CHANGES" section asserted "One attribute, one line" / "no ... caller
+change" while the actual `git diff origin/main...HEAD` also touched
+`pnpm-workspace.yaml`, adding a repo-wide `allowBuilds` block
+(`@swc/core`, `better-sqlite3`, `esbuild`, `sharp`) — undocumented anywhere
+in the spec, unrelated to the ticket (it's a `pnpm approve-builds`
+convenience for fresh checkouts, not something this ticket asked for), and
+a real scope violation of `AGENT-GOAL.md`'s "smallest valid change ...
+no hidden dependency" delivery rule. It doesn't affect `ThemedVideo`
+directly, but it's a security-adjacent change (it blanket-trusts native
+postinstall scripts for the whole workspace) that has no business riding
+along with a one-line Lighthouse fix.
 
-**Security** — no issues. `BlogPost.tsx` renders via `<ReactMarkdown
-remarkPlugins={[remarkGfm]}>` with no `rehype-raw` and no
-`dangerouslySetInnerHTML` anywhere in the blog render path, so raw HTML in
-the markdown (there is none) wouldn't execute regardless. No secrets or
-internal infra in either file. The one external link
-(`https://digilist.no`) matches the identical pattern already used in 17+
-other posts. The Tilgjengelighet section reads as reader-facing advice
-("sjekk om..."), not a Digilist accessibility-compliance claim.
+**Criterion 2 (Lighthouse trace, devtools-throttled, before/after
+Performance score)** — the trace itself used the correct mode
+(`--throttling-method=devtools`, matching PR #107's finding that simulate
+mode is noisy on this VPS). Not yet recorded in an actual PR description
+since no PR exists yet at this stage — expected, not a defect of the code.
 
-**Scope** — clean. Diff is exactly the new post and `AGENT-SPEC.md`; none of
-the forbidden shared files (`scripts/prerender.mjs`, `src/entry-server.tsx`,
-`scripts/verify-live.mjs`, `vite.config.ts`,
-`build-plugins/blogMetaPlugin.ts`) appear in the diff, `git status --short`
-was clean, and `AGENT-GOAL.md` is present, tracked, and unmodified as
-expected at this stage (scheduled for deletion right before the PR, not
-before).
+**Criterion 3 (H1 stays the LCP element; CLS does not regress from its
+current ~0.001-0.101 range)** — the H1-stays-LCP half holds up: both
+before/after `PerformanceObserver` readings in `AGENT-SPEC.md` show the
+`<h1>` as the LCP element, consistent with `HeroSection.tsx:76-79` and
+`docs/xal-316-lcp-handoff.md`. The CLS half did not hold up as originally
+written. I reproduced the measurement myself (`npx lighthouse` against the
+current `dist/` build already running on `localhost:4173`, same
+`--throttling-method=devtools` flag, `CHROME_PATH` pointed at the cached
+puppeteer Chrome): CLS = 0.159, matching `AGENT-SPEC.md`'s reported
+0.155-0.16. That number is real, not fabricated — but it is 15-160x
+`docs/xal-316-lcp-handoff.md`'s documented baseline for this identical VPS
+and methodology (CLS 0.001-0.010, median 0.001) and outside the ticket's
+own "current ~0.001-0.101" framing. `AGENT-SPEC.md` had asserted this was
+"the pre-existing ~0.155-0.16 baseline" — a baseline that is not documented
+anywhere in the repo. I pulled the Lighthouse `layout-shifts` audit to check
+the underlying claim ("an unrelated CTA-button layout shift, not the video
+or the H1"): ~88% of the 0.159 (0.1407) does come from the CTA-button row
+shifting, confirming "not the video." But the H1 itself also appears in the
+shift list (~0.024, from the rotating first word changing width), so "not
+the H1" was not quite accurate either. Since this reproduces identically
+regardless of the `preload` value (both sides of `AGENT-SPEC.md`'s
+before/after table show ~0.155-0.16), it predates and is unrelated to this
+one-line change — not something this narrow ticket should fix — but writing
+it off as an established "baseline" without evidence understated a real,
+live discrepancy against XAL-316's own numbers.
+
+**Criterion 4 (all existing tests pass)** — confirmed: `npx vitest run` →
+17 files / 36 tests green, `npx tsc --noEmit` clean, both re-verified after
+this round's fixes.
 
 ### What I changed after round 1
-- Fixed the V2 word-order error on line 20 ("... viser [guiden] hvordan
-  ...", verb directly after the comma).
-- Softened the "missing checkbox = equipment doesn't exist" claim on line 26
-  to match what the veiviser post actually documents: a missing field can
-  mean either the equipment doesn't exist or the listing isn't fully filled
-  in yet, so the advice is to ask rather than assume.
-- Removed "pauserom" and "skjerm" from the equipment list on line 26,
-  matching the veiviser post's actual field names (wifi, kjøkken,
-  prosjektor, lydanlegg).
-- Re-ran the full build pipeline (`optimize-images`, `vite build`, SSR
-  build, `prerender.mjs`, `check-blog-word-count.mjs`) and `pnpm test` —
-  both green after the edit (16 files / 35 tests, word-count check green on
-  both markdown and prerendered HTML; recomputed word count 874, still
-  ~175 wpm at `readingMinutes: 5`, no change needed).
-
-## Round 2 — fresh fact-check + full build/SEO regression
-
-Two parallel agents: one re-read every remaining factual/process claim
-(platform-field claims, the comparison table, all five cross-link framings,
-the illustrative sittende/stående numbers, and a fresh independent
-grammar/spelling pass), explicitly told not to re-check round 1's three
-fixes; the other ran the full production build from a clean `dist`/
-`dist-server`, inspected the prerendered HTML/sitemap/listing page
-directly, and ran the test suite.
-
-**Fact-check lens** — platform claims, the table, and all five cross-link
-framings all checked out against the six related posts read for this round
-(`utleieobjekt-veiviser-steg-for-steg.md`,
-`selskapslokaler-typer-og-hvordan-velge.md`,
-`hva-er-et-forsamlingslokale.md`,
-`leie-lokale-billigst-kommune-sammenlign-lokaltyper.md`,
-`moterom-kommune-finn-og-book-ledige-lokaler.md`,
-`kapasitetsstyring-idrettsanlegg-driftsleder.md`) — no invented claim, no
-link pointing to a post that doesn't actually cover what it's framed as
-covering. The "seksti stående, tretti sittende" example was checked and
-confirmed adequately hedged as an illustration ("et rom", "gjerne"), not a
-universal rule. Found one real grammar defect and two minor consistency
-nits:
-1. "finnes det heis hvis lokalet ligger i etasje" — missing an
-   article/specifier, not standard Bokmål.
-2. A nonstandard comma before "og" in the Fasiliteter section's list,
-   inconsistent with the post's own list style elsewhere.
-3. The table capitalized "Wifi" while the prose used lowercase "wifi".
-
-**Build/SEO lens** — ran the full pipeline once from a clean state
-(`rm -rf dist dist-server` → `optimize-images.mjs` → `vite build` → SSR
-build → `prerender.mjs` → `check-blog-word-count.mjs` → `pnpm test`): every
-step passed, no error-level output, 16/16 test files, 35/35 tests green.
-Direct inspection of
-`dist/blogg/leie-lokale-sammenligne-egenskaper-kapasitet-utstyr/index.html`
-confirmed exactly one `<h1>` matching the title, correct Article JSON-LD,
-canonical URL, Open Graph/Twitter tags, all five internal links plus the
-external CTA rendered as real `<a href>` tags, and exactly one sitemap
-entry (357 total URLs). Checked the known pre-existing listing-pagination
-gap from the prior XAL-1139 review specifically for this post: six posts
-share today's date, and this post is one of them, landing at position 2 of
-6 on `/blogg` page 1 — no defect, the post is visible on the listing page.
-
-### What I changed after round 2
-- Fixed "i etasje" → "i en etasje over bakkeplan" (line 30).
-- Removed the nonstandard comma before "og" in the Fasiliteter list
-  (line 34).
-- Lowercased "Wifi" → "wifi" in the comparison table to match the prose's
-  usage (line 42).
-- Re-ran the full build pipeline and `pnpm test` (16 files / 35 tests, all
-  green) after the edits.
-
-## Round 3 — adversarial editorial read + full-branch regression sweep
-
-Two parallel agents: one did a fresh skeptical-editor read of the whole post
-(explicitly told not to re-check rounds 1-2's six fixes, only look for
-anything new — unsupported superlatives, table/checklist symmetry,
-pillar-naming drift, redundancy, one more independent language pass), the
-other swept the whole branch state (commits, diff, worktree, ignored files,
-lockfiles) for anything content review wouldn't catch.
-
-**Editorial lens** — found five real issues:
-1. Three unsupported "most/all" claims stated as flat fact with no backing:
-   the intro's "De fleste som skal leie et lokale, sammenligner pris først",
-   "De vanligste punktene å sjekke er wifi, kjøkken, prosjektor og
-   lydanlegg", and the table's "Feil tall her er den vanligste årsaken til
-   at et lokale føles for trangt".
-2. The Kapasitet table row was stylistically asymmetric against the other
-   four rows — a different phrase structure in "Hva du sjekker," and it
-   broke the "Avgjør om..." template every other row's "Hvorfor det betyr
-   noe" cell used.
-3. The 5-item checklist had no item covering Planløsning (møblering/
-   soneinndeling), while Kapasitet got two separate items — an uneven
-   mapping from the four body pillars to the checklist.
-4. The frontmatter `description` named only "Kapasitet, utstyr,
-   tilgjengelighet og fasiliteter," dropping "planløsning" even though it's
-   a distinct pillar with its own paragraph and table row.
-5. "Utstyr er den andre halvdelen av bildet" read as an English-idiom
-   calque rather than natural Bokmål.
-
-**Regression-sweep lens** — clean, with one important caveat surfaced and
-resolved: a naive `git diff origin/main..HEAD --stat` showed a spurious
-deletion of an unrelated post
-(`leie-sal-billigst-kommunal-privat-totalpris-sammenligning.md`) because
-`origin/main` had advanced by one unrelated commit after this branch
-diverged — confirmed via `git diff <merge-base>..HEAD --stat` that this
-branch itself only ever touched the four expected files (`AGENT-GOAL.md`,
-`AGENT-SPEC.md`, `AGENT-REVIEW.md`, the new post). Flagged as needing a
-merge with the now-advanced `origin/main` before the PR is opened (done at
-the sync step), not a content defect. No forbidden shared files touched, no
-stray tracked/untracked files, no TODO/FIXME/wrong-ticket text, exactly one
-new file under `src/content/blog/`, and `pnpm-workspace.yaml` /
-`package.json` / lockfiles confirmed untouched by any commit on this branch
-(the local `pnpm approve-builds` run used to install dependencies for
-testing never leaked into a commit).
-
-### What I changed after round 3
-- Reworded the intro's opening claim from a flat "most renters" assertion
-  to a reader-directed statement ("Skal du leie et lokale, er pris gjerne
-  det du sammenligner først").
-- Reworded "De vanligste punktene å sjekke er..." to "Sjekk gjerne disse
-  fire punktene:..." — same four items, framed as guidance rather than an
-  unbacked popularity claim.
-- Reworded the Kapasitet table row's "Hvorfor det betyr noe" cell to match
-  the "Avgjør om..." template used by the other four rows, dropping the
-  unsupported "vanligste årsak" claim.
-- Shortened the Kapasitet row's "Hva du sjekker" cell to match the other
-  rows' comma-list style.
-- Added a checklist item for Planløsning and merged the two Kapasitet items
-  into one, so all four body pillars now map onto the 5-item checklist.
-- Added "planløsning" to the frontmatter description.
-- Reworded "Utstyr er den andre halvdelen av bildet" to "Utstyr er den
-  andre halvparten av vurderingen."
-- Re-ran the full build pipeline and `pnpm test` (16 files / 35 tests, all
-  green) after the edits.
-
-## Round 4 — final holistic refute pass + independent fresh-eyes read
-
-Two parallel agents: one did a targeted final pass (encoding/whitespace
-sweep, redundancy check between the table and the prose, checklist-vs-
-current-wording consistency, an accessibility legal cross-check against
-`godkjenningsflyt-revisjonsspor-booking-re-forespørsel.md`, and the updated
-description's grammar), explicitly told to assume all eleven round 1-3
-fixes were correct and not re-check them; the other read the file
-completely cold, with zero prior context, independently re-verifying every
-link, the full frontmatter, the reading-time math, and doing its own
-from-scratch Norwegian-language read.
-
-**Holistic refute lens** — no encoding/whitespace issues (`cat -A` sweep
-and a non-ASCII scan both clean; the only non-ASCII hit was the correctly
-spelled "buffé"). Checklist items all mapped correctly onto the current
-(post round-3) body wording, with no leftover reference to the old
-two-item Kapasitet phrasing. The accessibility legal cross-check was moot:
-`godkjenningsflyt-revisjonsspor-booking-re-forespørsel.md` doesn't discuss
-accessibility at all, so there was nothing to cross-check against. Found
-one real issue: the table's Utstyr row ("wifi, kjøkken, prosjektor og
-lydanlegg") repeated the prose sentence immediately above it verbatim,
-word-for-word — the only exact duplicate among the five table rows.
-
-**Fresh-eyes lens** — independently re-verified all five internal links
-plus the external CTA resolve/match house style, recomputed the word count
-(868–884 words depending on whether table pipes are counted) and reading
-speed (~174 wpm) against five sibling posts' own ratios (135–186 wpm range)
-— squarely in range, not an outlier. Frontmatter re-checked clean against
-`blogFrontmatter.ts`'s parser. Found four real issues on a fresh read:
-1. Line 56: "med kapasitet, utstyr og fasiliteter synlig for hvert lokale"
-   — number-agreement error; a three-item coordinated list needs the
-   plural "synlige", not singular "synlig".
-2. Line 20: "hvordan" appeared twice in one sentence (once inside a link's
-   anchor text, once in the main clause) — confusing on first parse.
-3. "knirkefritt" used three times within ~15 lines (H2 heading, the
-   paragraph under it, and the summary table) — repetitive rather than
-   deliberate.
-4. Line 56: "Når du har egenskapene klare" read as a slightly stiff,
-   translated-sounding collocation for native Bokmål.
-
-### What I changed after round 4
-- Reworded the table's Utstyr row's prose counterpart (line 26) to explain
-  *why* each item matters (wifi til presentasjoner, kjøkken til servering,
-  prosjektor til bilder eller video, lydanlegg til tale eller musikk)
-  instead of repeating the table's bare list verbatim.
-- Shortened the link anchor text on line 20 from "guiden til hvordan du
-  finner billigste egnede lokale i kommunen" to "guiden til billigste
-  egnede lokale i kommunen", removing the doubled "hvordan".
-- Reworded the Fasiliteter H2 and its matching table cell from
-  "knirkefritt" to "glir problemfritt", leaving the mid-paragraph use of
-  "knirkefritt" as the sole remaining instance.
-- Fixed "synlig" → "synlige" for plural agreement (line 56).
-- Reworded "Når du har egenskapene klare" to "Når du vet hvilke egenskaper
-  som betyr noe for deg" (line 56).
-- Re-ran the full build pipeline and `pnpm test` (16 files / 35 tests, all
-  green) after the edits.
-
-Four rounds run. Round 1 found and fixed three real defects (a word-order
-error, an unsupported product claim contradicted by a sibling post, and an
-invented equipment-field detail). Round 2 found and fixed one real grammar
-defect plus two minor consistency nits. Round 3 found and fixed five real
-issues (three unsupported superlatives, a table/checklist asymmetry, and a
-description omission) plus one calque. Round 4 found and fixed five more
-real issues (a verbatim table/prose duplication, a grammar-agreement error,
-a doubled word, a repetitive word choice, and a stiff collocation) on
-independent fresh reads. No round came back completely empty on real,
-fixable defects, which is why this review runs the full four rounds as
-scoped rather than stopping early.
-
-## Proof
-
-This is new content, not a fix to existing behavior, so only an AFTER state
-applies (there is no "before" — the page didn't exist). Verified with a
-full production build (`vite build` + SSR + `scripts/prerender.mjs`) served
-via `vite preview`, then captured with `agent-browser`:
-- `proof/after-leie-lokale-sammenligne-egenskaper-kapasitet-utstyr.png` —
-  the published post's top (title, tag, author, reading time) at
-  `/blogg/leie-lokale-sammenligne-egenskaper-kapasitet-utstyr`.
-- `proof/after-leie-lokale-sammenligne-egenskaper-kapasitet-utstyr-table.png`
-  — the comparison table rendering correctly further down the page, with
-  all four rounds' fixes visible in the live output.
+- Reverted `pnpm-workspace.yaml` to `origin/main`'s version, removing the
+  undocumented `allowBuilds` block — out of scope for this ticket, not
+  mentioned in `AGENT-SPEC.md`'s stated "one attribute, one line" change.
+- Reworded `AGENT-SPEC.md`'s CLS paragraph to state plainly that 0.155-0.16
+  is unexplained against the documented XAL-316 baseline (0.001-0.010)
+  rather than asserting it as a known "pre-existing baseline," to correct
+  the CTA-button-only claim with the H1's smaller contribution, and to flag
+  it as a follow-up-ticket candidate rather than resolved.
+- Re-ran `npx vitest run` (17 files / 36 tests, all green) and
+  `npx tsc --noEmit` (clean) after both edits.
