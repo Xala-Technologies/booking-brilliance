@@ -183,3 +183,88 @@ need its own review. Left as-is; not fixed, noted for whoever next touches
 
 No code changes this round (the one finding is pre-existing and out of
 scope, per above). All gates re-verified green: `npx vitest run` (40/40).
+
+## Round 3 — SECURITY
+
+Lens: authz, tenant isolation, injection, secrets, and anything
+user-supplied that reaches a query, a path, or a page. Read the full diff
+(`git diff origin/main...HEAD` — 4 files, 448 insertions, no deletions: the
+new post, `pnpm-workspace.yaml`'s `allowBuilds` block, and the two `.agent`
+docs) and traced every place its content actually lands at runtime.
+
+### What I checked
+
+- **Authz / tenant isolation** — not applicable to this diff. It adds a
+  static Markdown file to a public, unauthenticated marketing blog; no
+  database, session, role, or tenant-scoped code path is touched. Confirmed
+  by the diff stat itself (content + one config file only, no `src/`
+  application code changed).
+- **Rendering pipeline / stored-content XSS** — `src/pages/BlogPost.tsx`
+  renders post bodies with `react-markdown` + `remark-gfm` only; no
+  `rehype-raw` plugin is registered anywhere in the tree (`grep -rn
+  "rehype-raw|rehypeRaw" src/ vite.config.ts` — no hits), so raw HTML inside
+  a post body is escaped as text, not executed, regardless of what the
+  Markdown contains. Confirmed the new post has no embedded HTML, no
+  `javascript:`/`data:` URLs, and no unusual link syntax — every link is a
+  plain `https://` or an internal `/blogg/<slug>`, `/bookingsystem-utleie`
+  path.
+  `title`/`description`/byline fields are interpolated into JSX (auto-escaped
+  by React) and into JSON-LD (`JSON.stringify`'d, same pattern as all 323
+  existing posts) — the new post's frontmatter is plain prose with no quotes,
+  angle brackets, or script-breaking characters, so it doesn't exercise
+  whatever systemic JSON-in-`<script>` escaping behavior the blog engine has
+  one way or the other. Not a finding: pre-existing engine behavior common to
+  every post, not something this diff introduces or is uniquely exposed to.
+- **Frontmatter parsing** (`src/lib/blogFrontmatter.ts`) — read in full.
+  `parseFrontmatter` is a hand-rolled regex line parser: no `eval`, no
+  `new Function`, no YAML/JS deserializer with an object-injection surface.
+  Values are only ever cast with `as string`/`as number`, never executed.
+- **Path-shaped sink for a content-controlled field**: `post.slug` is the one
+  frontmatter value that ends up directly inside a filesystem path,
+  `join(DIST, "blogg", post.slug)` in `scripts/prerender.mjs:2562`, with no
+  character-set validation anywhere in the pipeline before that join — only
+  a uniqueness check (`src/lib/post-slugs.test.ts`), never a path-traversal
+  check. That's a real latent gap in the *pipeline* (a `slug: "../../evil"`
+  in some future post's frontmatter would prerender outside `dist/blogg/`),
+  but it is not introduced by this diff and not exploitable by it: this
+  post's `slug` is
+  `bryllupsmottak-bankettsaler-storre-selskaper-hoy-kontraktverdi`, lowercase
+  ASCII/digits/hyphens only, matching the filename and the convention every
+  other one of the 323 existing posts already follows. Fixing pipeline-wide
+  slug sanitization is out of scope for a single content-gap ticket (same
+  call round 2 made for the pre-existing `isCta` stripper bug) — noted here
+  for whoever next touches `prerender.mjs` or the frontmatter contract.
+- **Secrets** — `git diff origin/main...HEAD | grep -iE
+  "api[_-]?key|secret|token|password|BEGIN (RSA|PRIVATE)|ghp_|sk-"` → no
+  hits. `pnpm-workspace.yaml`'s `allowBuilds` block only lists four known
+  package names (`@swc/core`, `better-sqlite3`, `esbuild`, `sharp`) with
+  boolean values — an explicit lifecycle-script allowlist (narrows what pnpm
+  will run post-install), not a new capability grant or a credential.
+- **External links / domain spoofing** — the post's one external link is
+  `https://digilist.no/demo`, the same production domain and CTA target used
+  by 31 of 35 other posts (confirmed in round 1); no lookalike domain, no
+  redirect-through-third-party pattern.
+
+### Findings
+
+None. This diff has no application code surface for authz, tenant
+isolation, or injection to act on — it is a static content file plus a
+build-tooling config change. The one latent issue found (unsanitized `slug`
+reaching a filesystem path in `prerender.mjs`) is a pre-existing, pipeline-
+wide gap this diff does not introduce and is not exploitable through, so
+nothing was fixed this round.
+
+All gates re-verified green: `npx vitest run` (40/40),
+`node scripts/check-blog-word-count.mjs`, `node scripts/check-title-lengths.mjs`,
+`pnpm lint` (0 errors).
+
+Also confirmed at the start of this round: `.agent/XAL-1115/SPEC.md` already
+exists (written by the session that made the `content(XAL-1115)` commit) and
+already contains the mermaid diagram, blast radius, and acceptance criteria
+— step 0 was in fact completed earlier, despite this round's prompt
+asserting otherwise. Per `project_root_agent_spec_deleted_trap.md` in
+memory, the per-branch `.agent/XAL-1115/SPEC.md` is the correct location (a
+root `AGENT-SPEC.md` was deliberately removed from `main` because per-branch
+copies collide on merge), so no new file was created. Linear attachment
+remains blocked on the pre-confirmed absence of Linear MCP tools in this
+environment (recorded in the SPEC's own "Linear attachment status" section).
