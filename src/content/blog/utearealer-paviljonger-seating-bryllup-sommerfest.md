@@ -21,7 +21,7 @@ Utearealer er samlebetegnelsen på uteplassen som hører til et selskapslokale, 
 - **Telt**, enten leid separat eller inkludert hos arrangementsstedet, som gir mer fleksibel kapasitet enn en fast paviljong, men krever egen bakke- og strømplanlegging.
 - **Utesitteplasser**, faste benker, hagemøbler eller løs møblering på plen, terrasse eller gårdsplass, gjerne brukt til mingling og aperitiff før gjestene flytter innendørs eller til paviljongen for middag.
 
-Felles for alle tre er at de selges som en opplevelse i markedsføringen, men fungerer som en teknisk installasjon i praksis: den må tåle antall gjester, ha strøm der lyd og lys trengs, og ha en løsning for vær som ikke er "vi håper det blir fint".
+Felles for alle tre er at de selges som en opplevelse i markedsføringen, men fungerer som en teknisk installasjon i praksis: de må tåle antall gjester, ha strøm der lyd og lys trengs, og ha en løsning for vær som ikke er "vi håper det blir fint".
 
 ## Når passer uteareal best til bryllup og sommerfest
 
@@ -42,21 +42,17 @@ Et uteareal er ikke ferdig bare fordi det finnes plen og en paviljong på bildet
 - **Underlag.** Gress, grus og brostein oppfører seg ulikt med høye hæler, rullestol og barnevogn, og et underlag som er tørt i mai kan bli søle i september. Spør om det finnes dansegulv eller plater som kan legges ut ved behov.
 - **Toalett i gangavstand.** Utearealer langt fra hovedbygget trenger egne toalettløsninger for et helt arrangement, ikke bare det nærmeste innendørs toalettet gjestene i praksis ikke finner.
 - **Skjenkebevilling utendørs.** En innendørs skjenkebevilling dekker ikke automatisk uteservering. Sjekk at stedet har utvidet bevilling for arealet dere skal bruke, eller at dere selv må søke kommunen om et engangsløyve.
-- **Strøm og oppvarming ved kveldskulde.** Norske sommerkvelder blir fort kjølige etter klokken 22, så spør om utepatioovner er inkludert eller må leies separat.
+- **Oppvarming ved kveldskulde.** Norske sommerkvelder blir fort kjølige etter klokken 22, så spør om utepatioovner er inkludert i prisen, står på egen strømkrets, og er nok til antall gjester, eller om de må leies separat.
 
 ## Paviljong eller telt: hva er egentlig forskjellen
 
-En fast paviljong er montert av arrangementsstedet, ofte med gulv, tak og sider som allerede tåler norsk vær, og krever ingen egen leie eller montering fra deres side. Et leid telt gir mer fleksibel kapasitet, siden dere velger størrelse etter gjestetall i stedet for stedets faste ramme, men det legger ansvaret for bakke, strøm og værsikring over på dere eller en egen leverandør. Spør konkret om totalprisen inkluderer montering, gulv og sider, siden et telt til 80 gjester fort koster like mye som selve leien av selskapslokalet når dette kommer i tillegg.
+En fast paviljong er montert av arrangementsstedet, ofte med gulv, tak og sider som allerede tåler norsk vær, og krever ingen egen leie eller montering fra deres side. Et leid telt gir mer fleksibel kapasitet, siden dere velger størrelse etter gjestetall i stedet for stedets faste ramme, men det legger ansvaret for bakke, strøm og værsikring over på dere eller en egen leverandør. Be alltid om totalprisen med montering, gulv og sider inkludert før dere sammenligner et leid telt mot en fast paviljong — leverandørens grunnpris for selve teltduken sier lite alene, og et fullt utstyrt telt for et større selskap kan i praksis fordoble det beløpet.
 
 ## Vær og plan B: den viktigste sjekken av alle
 
-Norsk sommervær er upålitelig nok til at ethvert arrangement med uteareal trenger en konkret plan B, ikke bare et løfte om at "vi ordner noe". Spør stedet om tre ting helt konkret:
+En skjermet paviljong med lukkbare sider tåler mer vind og regn enn en åpen utesitteplass, men ingen uteareal er værsikkert nok til å stå uten en avtalt beslutningsprosess for dårlig vær. Det som avgjør hvor godt den prosessen fungerer i praksis, er ikke om det finnes en plan B i teorien, men tre konkrete detaljer dere bør få skriftlig før dere booker: hvor sent på dagen kan beslutningen om å flytte tas uten at det koster ekstra, hvem har siste ord om den beslutningen (dere, eller vertskapet på stedet), og hva et eventuelt telt eller innendørslokale koster i tillegg dersom uteplassen blir uaktuell samme uke.
 
-1. Finnes det et innendørs alternativ i samme bygning som kan brukes samme dag uten ekstra kostnad?
-2. Hvor lang responstid har stedet hvis dere må flytte hele eller deler av arrangementet innendørs med kort varsel?
-3. Hvem tar avgjørelsen om å flytte: dere, eller vertskapet på stedet, og når senest må den avgjørelsen tas?
-
-Steder med både uteareal og et reelt innendørs alternativ i samme bygning gir lavest risiko. Rene utearealer uten backup bør prises inn med en klar forventning om at dere kan ende med telt som ekstrakostnad, spesielt i mai og september.
+Uteareal med et reelt innendørs alternativ i samme bygning gir lavest risiko fordi overgangen ikke krever ekstra logistikk. Bestiller dere en ren uteplass uten et slikt alternativ i nærheten, bør avbestillings- og refusjonsvilkårene ved vær stå i avtalen, ikke bare loves muntlig — spesielt i mai og september, når værutsiktene er minst pålitelige.
 
 ## Slik sjekker og booker dere uteareal i sanntid
 
