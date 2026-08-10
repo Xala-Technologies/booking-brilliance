@@ -139,3 +139,71 @@ per-slug or per-tag allowlists to extend) except `relatedSolutions()` in
 confirmed to degrade to its intended generic fallback, matching how the
 closest sibling post (XAL-1143) already behaves. No code changes made this
 round.
+
+## Round 3
+
+Lens: **security** — authz, tenant isolation, injection, secrets, and
+anything user-supplied that reaches a query, a path or a page. `git diff
+origin/main...HEAD` still touches exactly three files (two `.agent/` docs,
+one new `.md` post) — no application code changed, so the question is
+whether the *content* of the new post, or the pipeline it flows through,
+opens any of those holes.
+
+What was checked, and what came back:
+
+- **Authz / tenant isolation** — not applicable. Confirmed (again, per
+  standing memory of this repo) there is no booking/product domain, no
+  data queries, and no multi-tenant model in this repo at all; this diff
+  is a static Markdown file with no runtime data access. Nothing to
+  isolate.
+- **Secrets** — `grep -niE "api[_-]?key|secret|token|password|bearer|sk-
+  [a-z0-9]|AKIA[0-9A-Z]{16}"` across the new post and both `.agent/`
+  files: zero hits.
+- **Raw HTML / script injection in the Markdown body** — `grep -nE
+  "<[a-zA-Z/]"` on the post body: zero hits, no raw HTML tags at all.
+  Confirmed this matters structurally, not just for this file: read
+  `src/pages/BlogPost.tsx`'s `<ReactMarkdown remarkPlugins={[remarkGfm]}>`
+  (line 231) — no `rehype-raw` (or any raw-HTML-passthrough plugin) is
+  wired in, so `react-markdown` HTML-escapes any literal `<`/`>` in
+  Markdown source by default. Even a post that *did* contain a stray
+  `<script>` tag couldn't execute it through this render path. Checked
+  `scripts/prerender.mjs` too — it renders through the same React
+  component tree (no separate markdown-to-HTML library, no
+  `dangerouslySetInnerHTML` call anywhere in the file) — confirmed with
+  `grep -n "dangerouslySetInnerHTML\|ReactMarkdown\|remark\|rehype" scripts/prerender.mjs`,
+  zero matches, meaning SSR reuses the same escaping guarantees rather
+  than a second, possibly-laxer renderer.
+- **`javascript:`/`data:` URI links** — `grep -niE
+  "javascript:|data:text|onerror=|onload="` on the post body: zero hits.
+  The only two links in the body
+  (`/blogg/kunstner-verksteder-studio-dansesaler-kreative-lokaler` and
+  `https://digilist.no/demo`) are both plain Markdown-syntax links to a
+  confirmed-existing internal route and the site's own known demo page —
+  no open-redirect or scheme-confusion surface.
+- **JSON-LD `<script>` injection via frontmatter fields** — `SEO.tsx`
+  (line 371) and `prerender.mjs` (lines 2276, 2546) both build a JSON-LD
+  block with `JSON.stringify(...)` interpolated directly into a
+  `<script type="application/ld+json">` string, which is a latent risk
+  *in general* (a `</script>` substring inside `title`/`description`
+  could break out of the script context) — but this is pre-existing
+  pipeline code untouched by this diff, and checked whether *this* post's
+  frontmatter could trigger it: `sed -n '1,12p' ... | grep -oE
+  '</script'` on `title`, `description`, and `keywords` — zero hits, and
+  none of those fields contain `<`, `>`, or `"` at all. Not a new
+  vulnerability introduced here; noted but out of scope to fix on a
+  content-only diff that doesn't touch the shared SEO/prerender code.
+- **User-supplied input reaching a query or path** — none exists in this
+  change. The Markdown file is authored content, not end-user input; the
+  slug that becomes the `/blogg/<slug>` route comes from static
+  frontmatter fixed at build time via a build-time glob, not from a
+  runtime parameter — no path-traversal or route-confusion surface.
+
+**Findings: none.** No secrets, no raw-HTML/script injection surface (and
+verified *why* not, at the render-pipeline level, not just by grepping this
+one file), no unsafe link schemes, no authz/tenant-isolation surface to
+speak of in a content-only repo. One latent, pre-existing pattern was
+noted (unescaped `JSON.stringify` into a `<script>` tag in `SEO.tsx` /
+`prerender.mjs`) but it is not touched by this diff and this post's
+frontmatter doesn't trigger it, so no fix was made this round — flagging
+it here for anyone doing a security pass on that shared code later. No
+code changes made this round.
