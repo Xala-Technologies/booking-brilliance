@@ -207,3 +207,56 @@ noted (unescaped `JSON.stringify` into a `<script>` tag in `SEO.tsx` /
 frontmatter doesn't trigger it, so no fix was made this round — flagging
 it here for anyone doing a security pass on that shared code later. No
 code changes made this round.
+
+## Round 4
+
+Lens: **scope** — is anything in this diff NOT the stated change? Drive-by
+edits, unrelated tidying, files nobody asked for.
+
+`git diff origin/main...HEAD --stat` / `--name-status` / `--numstat`:
+exactly three files, all additions, zero deletions/modifications —
+
+- `.agent/XAL-1135/SPEC.md` (171 lines, new) — the step-0 architecture doc
+  this ticket's process requires.
+- `.agent/XAL-1135/REVIEW.md` (209 lines before this round, new) — rounds
+  1-3 of this same review log.
+- `src/content/blog/yoga-wellness-studio-klasseromlokaler.md` (60 lines,
+  new) — the one blog post the ticket asked for.
+
+`grep -c "^-" ` on the raw diff returns 3, all three are `--- /dev/null`
+file-creation headers, not a single line of existing content removed or
+altered anywhere in the tree.
+
+Checked beyond the diffstat, in case something was touched but landed back
+at its original content (would show as 0 net lines but still be a
+drive-by):
+
+- `find .agent -type f` shows entries for nine other tickets
+  (XAL-1142/1143/1145/1149/1152/1155/1156/1159/1160/1161/1163) — all
+  pre-existing on `origin/main` from already-merged PRs, none appear in
+  the `git diff` and none were touched this session.
+- Read the new post's full body (`src/content/blog/yoga-wellness-studio-klasseromlokaler.md`,
+  all 60 lines) end to end: every section — persona vignette, "what is a
+  bookable studio", the three booking patterns, the pricing/membership
+  list, the Digilist how-it-works paragraph, FAQ, closing CTA — stays on
+  the yoga/wellness-studio topic the ticket named. No aside about an
+  unrelated persona, no unrelated internal links beyond the one to the
+  adjacent XAL-1143 post the SPEC called out, no stray keyword stuffing
+  for topics outside this niche.
+- No sibling `.md` posts, no `blogFaq.mjs`, no build script, no config
+  file, no `package.json` — nothing outside the three files above was
+  touched. `git status` is clean (no untracked/uncommitted stragglers
+  either).
+
+**Findings: none.** The diff is minimal and fully accounted for by the
+stated change — one new blog post plus the two process docs the workflow
+itself requires. Nothing extraneous, nothing drive-by. No fixes were
+needed this round, so no code changes were made.
+
+## Round 4 — outcome
+
+All four review rounds (correctness, regression, security, scope) are now
+complete with no findings across three separate sessions. The change is
+one new Norwegian-language blog post
+(`src/content/blog/yoga-wellness-studio-klasseromlokaler.md`) plus its
+required `.agent/XAL-1135/` process docs, ready to merge.
