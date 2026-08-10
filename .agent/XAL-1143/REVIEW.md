@@ -1,0 +1,96 @@
+# XAL-1143 — Adversarial Review
+
+## Round 1 — Correctness
+
+**Lens:** Does the change do what the acceptance criteria say, including edge cases? Read `.agent/XAL-1143/SPEC.md`, the diff (`git diff origin/main...HEAD`), and exercised the actual build/test pipeline rather than just reading the markdown.
+
+**What was checked:**
+- Ticket coverage: does the post actually cover kunstner-verksted, studio, dansesal as a resource type, and all three named use cases (hobby, kurs, profesjonell bruk) from the operator's side? Read the full post body — confirmed all three are covered with distinct booking-shape descriptions (drop-in enkelttime / serietidsbestilling over flere uker / fast avtale-periode), matching the SPEC's stated scope.
+- Frontmatter correctness against `BlogFrontmatter` (`src/lib/blogFrontmatter.ts`): all required fields present, `date` is today's date matching sibling posts committed same day, `tag: "Utleier"` is a free-form value with no hardcoded allow-list in `Blog.tsx` (tags are derived from posts at runtime via `useMemo`), so it renders correctly as a filter option — verified by grep, no hits for a hardcoded tag enum.
+- `cover` image path (`/images/blog/booking_calendar_hero_no.webp`) exists on disk in `public/images/blog/` and is already reused by 67 other posts — not a broken/one-off asset reference.
+- Internal link target `/blogg/leie-ovingsrom-musikk-dans-studio` — confirmed that slug exists and the route `/blogg/:slug` is registered in `App.tsx`.
+- Build-time guards: `scripts/check-blog-word-count.mjs` (314/314 posts pass, including the new one), `scripts/check-title-lengths.mjs` (new post's rendered title is 61 chars, under the 65-char informational threshold), `scripts/guard-blog-redirects.mjs` (no-op, pure addition, 0 posts to check), no slug collisions (`src/lib/post-slugs.test.ts` passes with the new file included).
+- Full `pnpm vitest run` — 20 files / 40 tests pass, including `entry-server.h1.test.tsx` and `entry-server.main-landmark.test.tsx`, which are the regression guards for the exact "blog post prerenders as an empty/wrong shell" class of bug this repo has hit before.
+- Ran the actual production build pipeline end-to-end (`vite build && vite build --ssr ... && node scripts/prerender.mjs && node scripts/check-blog-word-count.mjs`) rather than trusting the markdown alone, and inspected the rendered `dist/blogg/kunstner-verksteder-studio-dansesaler-kreative-lokaler/index.html`: exactly one `<h1>` containing the post's own title (not a fallback/homepage shell), correct `<title>`/meta description/canonical, Article JSON-LD present, sitemap.xml contains the new route.
+
+**False alarm caught and resolved during verification (not a code defect):** running `node scripts/prerender.mjs` in isolation against a `dist/` left over from an earlier partial build made the new post (and every other route) render with the *homepage's* hero content in `<div id="root">` instead of its own body. Root-caused this to `injectBody()` in `scripts/prerender.mjs` matching only a literal empty `<div id="root"></div>`; the stale `dist/index.html` on disk was itself already SSR-injected from a prior run, so the regex silently no-op'd for every route and left the old body in place. This is an artifact of skipping build steps locally, not a bug in the diff — a clean `vite build && vite build --ssr ... && node scripts/prerender.mjs` run (the actual `package.json` `build` script) produces the correct per-route `<h1>` every time, confirmed above. No fix needed; noted here only so a later round doesn't rediscover the same false trail.
+
+**Verdict:** No correctness defects found in the diff. The post fulfills the ticket's stated scope (kunstner-verksted/studio/dansesal, three use cases, operator persona), integrates cleanly with every consumer of `src/content/blog/*.md`, and passes every existing build gate and test. No code changes made this round.
+
+## Round 2 — Regression
+
+**Lens:** What ELSE reads `src/content/blog/*.md` beyond the eight consumers SPEC already listed, and does the new file break any assumption an existing consumer depends on? Grepped every reference to `content/blog`, `getAllPosts`, and `virtual:blog-meta` across the repo (not just the files this diff touched), then read each hit.
+
+**Consumers found beyond SPEC's blast-radius list, checked individually:**
+- `src/lib/post-slugs.test.ts` — uniqueness guard across all slugs. New slug (`kunstner-verksteder-studio-dansesaler-kreative-lokaler`) doesn't collide with any existing one. Pass.
+- `src/entry-server.main-landmark.test.tsx` — takes `getAllPosts()[0]` (the newest post by date) to SSR-render as a regression probe for the lazy-route `<main>` bug. It doesn't hardcode a slug, so whichever post sorts first (this one, dated today, ties with the other same-day posts and wins/loses the tie by glob order — stable sort, harmless either way) still exercises the same code path correctly. No dependency on which specific post is "first" — verified the test still passes.
+- `src/lib/webp-sources.test.ts` — asserts every post's `previewCover()` output exists on disk. New post reuses `booking_calendar_hero_no.webp`; confirmed `booking_calendar_hero_no-preview.webp` is already committed in `public/images/blog/`. Pass.
+- `src/lib/digitalt-bookingsystem-description.test.ts`, `src/lib/leie-selskapslokale-description.test.ts` — both hand-added, single-slug guards asserting `description.length < 160`, with a comment citing **XAL-787**: descriptions get truncated by Google/og/twitter past ~160 chars. Neither test targets the new post (they're pinned to two older slugs), so they can't catch a regression of the same failure mode in new content — and that's exactly what happened: **the new post's frontmatter `description` is 169 characters**, over the threshold this repo already learned the hard way. `scripts/prerender.mjs` writes `meta.description` verbatim into `<meta name="description">`, `og:description`, `twitter:description`, and the Article JSON-LD `description` field (lines ~2202/2237/2264/2299/2338/2352) — no truncation, no build-time gate catches it for posts other than those two. This is a real, previously-known-and-fixed failure mode silently reproduced because the guard is per-slug, not global.
+- `scripts/dedup-blog-drafts.ts`, `scripts/sync-convex-blog-to-fs.ts`, `src/pages/BlogPreview.tsx` — all part of the Convex draft→fs publishing pipeline, not the published-post read path. They write *to* or read drafts *before* they land in `src/content/blog/`; irrelevant to a file that's already committed. Confirmed by reading each in full — no assumption about post count, slug set, or content shape that this addition could violate.
+- `src/lib/search/corpus.ts` — maps `getAllPosts()` generically into search items, no hardcoded post list or count. Pass.
+- `server/index.mjs` (chatbot `list_blog_posts` tool) and `public/llms.txt`/`llms-full.txt` — read blog data dynamically at runtime (deployed `blog-meta.json` or live sitemap) or only reference `/blogg` generically; nothing in this repo's source needs updating for a new post to appear there.
+- `src/components/BlogPreviewSection.tsx` (homepage teaser, `getAllPosts().slice(0, 6)`) — the new post's today's-date will push the previous 6th-newest post out of the homepage carousel. This is the designed behavior (freshest content surfaces first), not a regression — same mechanism every prior post addition already went through.
+
+**What was fixed:** Shortened the `description` frontmatter field from 169 to 147 characters, keeping the `kunstner` keyword and the operator-facing value proposition, so it matches the `<160` convention the rest of the codebase already enforces (just not globally). Re-ran the full `pnpm vitest run` suite and the production build pipeline (`vite build && vite build --ssr ... && node scripts/prerender.mjs && node scripts/check-blog-word-count.mjs`) after the change to confirm the shorter description renders correctly in `<meta>`, `og:`, `twitter:`, and JSON-LD tags with no other regressions.
+
+**Verdict:** One real finding — a known, previously-incident-worthy failure mode (over-length meta description, XAL-787) reproduced in the new post because the existing guard is per-slug rather than global. Fixed in this round. No changes needed anywhere else; every other consumer of the blog-post read path handles the new file correctly by construction (generic glob/directory iteration, no hardcoded slug or count assumptions).
+
+## Round 3 — Security
+
+**Lens:** Authz, tenant isolation, injection, secrets, and anything user-supplied that reaches a query, a path, or a page. This diff adds one authored markdown file (`src/content/blog/kunstner-verksteder-studio-dansesaler-kreative-lokaler.md`) plus the SPEC/REVIEW docs from earlier rounds — no application code, no query, no auth surface, no multi-tenant data path. Checked whether that "it's just content" framing actually holds, rather than assuming it.
+
+**What was checked:**
+- **Authz / tenant isolation:** N/A by construction — this is a static marketing blog post, not a booking-domain artifact. Confirmed (again, consistent with `[[project_repo_has_no_booking_domain]]` in memory) that `src/content/blog/*.md` has no relationship to any tenant-scoped data, RBAC, or booking resource records; it's read generically by glob/`readdir` (per SPEC's blast-radius list) with no per-tenant filtering anywhere in that path. Nothing to leak across tenants because nothing here is tenant-scoped.
+- **Injection via frontmatter → HTML:** Traced how `title`/`description`/`keywords` reach the page. `scripts/prerender.mjs` writes these into `<title>`, `<meta name="description">`, `og:*`, `twitter:*`, and Article JSON-LD (same lines Round 2 already read). Checked the new post's frontmatter values character-by-character for anything that could break attribute quoting or inject a tag (`"`, `<`, `>`, `` ` ``): none present — title/description use only letters, digits, Norwegian diacritics, colons, commas, and an en dash. Not a new escaping mechanism to verify, just confirmed this content doesn't exercise whatever escaping (or lack of it) already exists in that pre-existing script — that script itself is unchanged by this diff, so a gap there would be a pre-existing repo issue, not something this round introduces or can fix without expanding scope beyond the ticket.
+- **Injection via markdown body → rendered page:** `src/pages/BlogPost.tsx` renders the body with `ReactMarkdown` + `remarkGfm` only — no `rehype-raw` plugin, no `dangerouslySetInnerHTML` anywhere in that component (grepped the whole render path). Raw HTML embedded in markdown source is therefore escaped/rendered as literal text by React, not injected as DOM — confirmed no raw HTML exists in the new post's body anyway (it's pure markdown prose, headings, a bulleted list, bold Q&A pairs, and two links).
+- **Path traversal via `slug`:** `scripts/prerender.mjs:2562` does `join(DIST, "blogg", post.slug)` — an unsanitized `slug` field (e.g. containing `../`) would let a post write outside `dist/blogg/`. Checked the new post's `slug: kunstner-verksteder-studio-dansesaler-kreative-lokaler` — matches its filename exactly, lowercase letters/digits/hyphens only, no traversal sequence. This is authored content from the same trusted publishing pipeline as the other 314 posts, not attacker-supplied input, so the theoretical unsanitized-`join` pattern in `prerender.mjs` is pre-existing code this diff doesn't touch and isn't the new post's defect to fix.
+- **Secrets:** Scanned the new file for API keys, tokens, internal URLs, or credentials — none. `author`/`role` (`"Ibrahim Rahmani"` / `"Grunnlegger, Digilist"`) is the same public byline already committed identically on all 314 existing posts (verified via grep), not a leaked internal detail.
+- **Outbound links:** Both links in the post (`/blogg/leie-ovingsrom-musikk-dans-studio` internal, `https://digilist.no/demo` external) match the exact patterns used across the rest of the corpus (grepped `digilist.no/demo` across all posts — same domain, same style, no `target="_blank"` anywhere in this repo's blog markdown so no `rel="noopener"` gap to check).
+
+**Verdict:** No security findings in this diff. It's a pure content addition with no authz surface, no tenant data, no unescaped user input, no secrets, and no path-traversal-relevant slug value. No code changes made this round.
+
+## Round 4 — Scope
+
+**Lens:** Is anything in this diff NOT the stated change? Drive-by edits, unrelated tidying, files nobody asked to be touched. Ran `git diff origin/main...HEAD --name-only` and `git log --stat origin/main..HEAD` to enumerate every file touched by every commit on this branch, then checked each one against the ticket's stated scope (add one Norwegian blog post targeting "kunstner").
+
+**What was checked:**
+- Full file list across all four commits on this branch (`chore` scaffold, `content` add, and rounds 1–3 of review): exactly three files exist in the diff — `.agent/XAL-1143/SPEC.md`, `.agent/XAL-1143/REVIEW.md`, and `src/content/blog/kunstner-verksteder-studio-dansesaler-kreative-lokaler.md`. No fourth file, tracked or untracked (`git status --porcelain` is empty).
+- `SPEC.md` and `REVIEW.md` are the required process record for this workflow (blast-radius analysis and the adversarial-review log itself), not incidental edits — they document the one content change, they don't make a second one.
+- Diffed the blog post itself line-by-line: every paragraph is on-topic for kunstner-verksted/studio/dansesal booking across the three named use cases (hobby, kurs, profesjonell bruk), consistent with `SPEC.md`'s stated scope. No unrelated sections, no stray edits to other posts, no changes to shared components, build scripts, config, or `package.json`.
+- Confirmed no other existing blog post file was touched (`git diff origin/main...HEAD -- src/content/blog/` shows only the one new file being added, nothing else in that directory modified).
+- Checked for tidying-adjacent changes (formatting passes, renamed variables, reordered imports) that sometimes ride along with content PRs — none present; this diff is purely additive.
+
+**Verdict:** No scope findings. The diff is exactly the three files the ticket requires: one new Norwegian-language blog post plus its own SPEC/REVIEW process record. No drive-by edits, no unrelated files, no code touched at all. No changes made this round.
+
+## Round 5 — Visual proof
+
+This is new content (no "before" state exists to capture — the page didn't
+exist on `origin/main`), so the only proof that applies is an AFTER capture
+of the rendered page, per this repo's proof convention. Rounds 1–4 already
+verified correctness/regression/security/scope from the diff and test suite;
+this round adds the one piece those rounds didn't produce: a live render.
+
+Ran `pnpm dev:client` (vite on `:8080`) and drove it with `agent-browser`:
+
+- `.agent/XAL-1143/proof/after-kunstner-verksteder-post-top.png` — confirms
+  the `<h1>` ("Kunstner-verksteder, studio og dansesaler: booking"), the
+  `readingMinutes: 6` rendering as "6 MIN LESETID", the `Utleier` tag, the
+  byline/date, and the table-of-contents built from the post's own H2s
+  (including the round-2-shortened description rendering correctly above the
+  fold).
+- `.agent/XAL-1143/proof/after-kunstner-verksteder-post-faq.png` — confirms
+  the "Vanlige spørsmål om booking av kunstner-verksteder og dansesaler"
+  FAQ section renders with all four Q&A pairs, and the internal link to
+  `/blogg/leie-ovingsrom-musikk-dans-studio` (the neighbor post cited in
+  SPEC.md) renders inline in the body text just above it.
+- `agent-browser eval "document.querySelectorAll('h1').length"` → `1` on the
+  live-rendered route, corroborating the SSR single-`<h1>` invariant round 1
+  checked at the build level.
+
+**Note:** Linear attachment was attempted but no Linear MCP tools are
+available in this environment (consistent with prior confirmation on
+XAL-1151) — the two proof images are committed to
+`.agent/XAL-1143/proof/` in the repo instead, and referenced here.
+
+**Verdict:** No findings. Live render matches SPEC.md's stated scope and
+every claim made in rounds 1–4.
