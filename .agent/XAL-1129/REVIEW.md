@@ -223,3 +223,61 @@ Checked, all clean:
 one static Markdown file with no HTML, no scripts, no secrets, no external
 links, and no code changes — genuinely nothing for this lens to catch here.
 No fixes to make; nothing to re-test beyond what Rounds 1-2 already re-ran.
+
+## Round 4 — Scope
+
+Lens: is anything here NOT the stated change — drive-by edits, unrelated
+tidying, files nobody asked for.
+
+Also handled leftover step-0 confusion first: this session's prompt claimed
+`AGENT-SPEC.md` doesn't exist and step 0 was never finished. Checked —
+`.agent/XAL-1129/SPEC.md` already exists (written in commit `36ef95e`) and is
+a complete, non-stale spec with the diagram, blast radius, and verification
+log. The prompt's framing assumed the old root-level `AGENT-SPEC.md` path,
+which is deleted on purpose per
+[[project_root_agent_spec_deleted_trap]] — per-branch specs live at
+`.agent/<ISSUE>/SPEC.md` instead, and that file is present and complete. No
+Linear MCP server is reachable in this environment (confirmed again this
+round), matching [[project_no_linear_mcp_tools_available]], so the
+attachment step is and remains impossible — already documented honestly in
+SPEC.md's own "Linear attachment note", nothing new to add. Treating step 0
+as satisfied; not recreating a root `AGENT-SPEC.md`.
+
+Scope check itself, run directly against the full range, not just the tip
+commit:
+
+- `git diff origin/main...HEAD --stat` → exactly three files, all additions:
+  `.agent/XAL-1129/REVIEW.md`, `.agent/XAL-1129/SPEC.md`, and the one content
+  file `src/content/blog/booking-funksjonalitet-systemkrav-gdpr-sms-kalender-tilgang.md`.
+  502 insertions, 0 deletions, 0 other files touched.
+- Walked every commit in `origin/main..HEAD` individually
+  (`git log --stat`), not just the squashed diff, specifically looking for a
+  file that was touched and then reverted (which wouldn't show in the final
+  diff but would still indicate a drive-by habit worth flagging): found
+  exactly one, `pnpm-workspace.yaml`, added by the `060cb08` checkpoint
+  commit and reverted by Round 2 (`8ad1d5f`) — already caught, fixed, and
+  logged by Round 2, not repeated here. No other commit touched any file
+  outside the three that remain in the final diff.
+- Re-ran `git status --porcelain` and `git diff origin/main -- pnpm-workspace.yaml`
+  to confirm the Round 2 revert is still clean and nothing has regressed it
+  back — both empty, `pnpm-workspace.yaml` matches `origin/main` exactly.
+- Read the full body of the new blog post end to end. All six spoke links,
+  both money-page links, and the closing CTA link are on-topic for the
+  stated four pillars (GDPR, SMS, kalender, tilgang) and the dual kommune/
+  utleier audience — no unrelated topics, no extra sections, no padding
+  content added beyond what SPEC.md described.
+- Checked for stray untracked files that could indicate scope creep in
+  progress (`git status --porcelain --ignored=matching`): only pre-existing,
+  locally-gitignored fleet scaffolding (`AGENT-GOAL.md`, `node_modules/`,
+  `dist/`, `dist-server/`, `apps/docs/node_modules/`) — none tracked in this
+  branch's history, none part of any commit in `origin/main..HEAD`.
+- Confirmed no `package.json`, lockfile, CI/workflow, or other build-config
+  file is touched anywhere in the range.
+
+**No scope findings this round.** The diff is exactly the one content file
+plus its own SPEC/REVIEW paper trail — the only drive-by this ticket ever
+had (`pnpm-workspace.yaml`) was already caught and reverted by Round 2. No
+fixes to make this round; full `npx vitest run` and
+`node scripts/check-title-lengths.mjs` re-run anyway as a final sanity
+check before closing out the four-round contract — both green, no changes
+needed to either.
