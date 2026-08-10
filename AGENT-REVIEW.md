@@ -79,3 +79,74 @@ this round's fixes.
   it as a follow-up-ticket candidate rather than resolved.
 - Re-ran `npx vitest run` (17 files / 36 tests, all green) and
   `npx tsc --noEmit` (clean) after both edits.
+
+## Round 2 — regression
+
+Lens: what ELSE reads this code path — not just the two files this branch
+edited — and did anything depend on the old `preload="auto"` behavior?
+Grepped every consumer of `ThemedVideo`, `HeroSection`, `preload`, and the
+hero video's own asset paths across the repo (not just `src/`), re-read the
+component for event listeners or ref reads that could assume eager-loaded
+video state, and checked whether the hero's layout depends on the video's
+intrinsic dimensions.
+
+**`ThemedVideo` has exactly one caller** — `grep -rn "ThemedVideo" --include
+"*.ts" --include "*.tsx" src/` returns only `HeroSection.tsx:11` (import)
+and `HeroSection.tsx:183` (JSX call), plus the new test file. No other
+component instantiates it, so there is no second call site that could have
+relied on the old `preload="auto"` value.
+
+**`HeroSection` has exactly one caller** — only `src/pages/Index.tsx:92`
+renders `<HeroSection />`, on the `/` route. No other page pulls in this
+video, so the blast radius is confirmed single-route, matching
+`AGENT-SPEC.md`'s claim.
+
+**No sibling component was touched or needed to be** — `VideoPlaceholder.tsx`
+(used by `Leie.tsx`, `Billettsystem.tsx`, `MarketplaceHub.tsx`,
+`UseCasePage.tsx`) also sets `preload: "auto"` on an autoplaying video, but
+it is a distinct, unrelated component on different routes — not a second
+instance of the code this ticket targets, and the ticket names only
+`ThemedVideo.tsx:65`. Confirmed it doesn't import from or share logic with
+`ThemedVideo.tsx` (separate file, separate props, no shared helper). Leaving
+it untouched is correct scope, not a missed spot.
+
+**No hidden dependency on eager video loading inside `ThemedVideo.tsx`
+itself** — re-read the whole component: no `ref` on the `<video>`, no
+`loadeddata`/`canplaythrough`/`durationchange` listener, nothing reads
+`video.readyState` or `video.duration`. The only state is the `mounted`
+flag driving the light/dark variant swap, which is independent of how much
+of the media has downloaded. So there's no code path that silently assumed
+`preload="auto"`'s eager fetch to become "ready" sooner.
+
+**No CLS regression path via lost intrinsic dimensions** — the concern
+worth checking: does `preload="metadata"` (vs `"auto"`) delay when the
+browser knows the video's width/height, and could that reflow the hero
+layout? No — `HeroSection.tsx:183` passes `style={{ aspectRatio: "16 / 9"
+}}` directly on `ThemedVideo`, so the box size is fixed by CSS before any
+frame of the video loads, regardless of `preload` value. This independently
+confirms round 1's finding that the ~0.155-0.16 CLS reading is unrelated to
+this change (CTA row + H1 rotating word, not the video) — there's no
+mechanism by which downgrading `preload` could touch layout at all here.
+
+**No build/prerender-time special-casing of the video** — `grep -n
+"video\|webm\|mp4"` in `scripts/prerender.mjs` matches nothing but an
+unrelated FAQ answer string ("videomøteutstyr"); the prerender script has
+no logic keyed off the video's preload attribute or asset paths (unlike the
+hero *image*, which does get a build-time `<link rel="preload">` injected —
+a different code path, and per the comment at `HeroSection.tsx:76-79` that
+one is deliberately left alone by this ticket).
+
+**No test suite, CI config, or e2e harness references the old behavior** —
+no Playwright/e2e directory exists in this repo (the real e2e suite lives
+in the separate fleet tool per prior confirmed finding), no
+`.github` workflow or `lighthouserc` config references `preload` or
+`ThemedVideo`, and the only test touching this component is the new
+`ThemedVideo.test.tsx` added by this branch itself — so there was no
+existing test pinned to `preload="auto"` that this change could have
+silently broken (would have shown up as a vitest failure either way, and
+`npx vitest run` was re-verified green this round).
+
+### What I changed after round 2
+Nothing — this lens found no regression. Re-ran `npx vitest run` (17 files
+/ 36 tests, all green) and `npx tsc --noEmit` (clean) to confirm the branch
+is still in the same state round 1 left it.
