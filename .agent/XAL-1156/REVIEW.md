@@ -83,3 +83,85 @@ Nothing wrong with the diff itself.
 Nothing. This lens found no correctness defects to fix — the diff matches
 what SPEC.md claims it does, on the edge cases checked above. No commit made
 for this round.
+
+## Round 2
+
+**Lens: regression** — what ELSE reads this code path? Every consumer of the
+changed files/paths was grepped (not just the three edited files), to check
+nothing depended on the pre-change behaviour.
+
+### What it looked at
+
+- `logo.svg` / `logo-64.webp`: every reference across `src/`, `scripts/`,
+  `docs/`, `server/` — confirmed `HeroPlatformPreview.tsx:209` and
+  `SEO.tsx:150` (org schema `logo` field) and `scripts/prerender.mjs:2068`
+  still legitimately use the full `logo.svg` (not the decorative-mark case
+  this diff fixes) and are untouched. No third consumer of the drawer's
+  decorative mark exists beyond `Navbar.tsx`/`Footer.tsx` (already on
+  `logo-64.webp`) and the now-fixed `MobileMenu.tsx`.
+- `MobileMenu` importers: only `Navbar.tsx` (confirmed, matches SPEC.md's
+  claim) and the new test file.
+- `nginx.snippet` references repo-wide: `infra/apply-security-headers.sh`,
+  `server/README.md`, `server/index.mjs`, `tools/site-intelligence/REMEDIATION.md`.
+  Read each — all four are false-positive substring matches (`nginx/snippets`,
+  "nginx snippet" prose, `systemd/nginx-snippet` prose in a chatbot
+  system-prompt string) or point at a *different* file
+  (`infra/nginx/security-headers.conf`, applied only to
+  status/dev/dashboard.dev/docs.digilist.no — **not** digilist.no, the domain
+  this ticket and this diff touch). No script actually reads or applies
+  `server/nginx.snippet.conf`; SPEC.md's "manually-applied, zero effect until
+  pasted" claim holds.
+- Whether `infra/nginx/security-headers.conf`'s header values (applied to the
+  *other* subdomains) conflict with or contradict the values this diff
+  re-declares for digilist.no — they differ (`X-XSS-Protection "0"` vs this
+  diff's `"1; mode=block"`, no `preload` on HSTS vs this diff's `preload`),
+  but that's pre-existing, intentional divergence between subdomains, not
+  something this diff touches or should reconcile — this diff's values match
+  `DEPLOYMENT.md`'s already-documented digilist.no header set exactly.
+- `deploy.sh`'s CDN-purge layer (`CF_ZONE_ID`/`CF_API_TOKEN`, "Layer 4"):
+  checked whether a live Cloudflare layer in front of digilist.no would
+  change how the new `Cache-Control`/`gzip` headers actually reach end users.
+  The script's own comment says purging is "No-op until a CDN is wired", and
+  neither `server/.env.example` nor the repo's tracked `.env` defines
+  `CF_ZONE_ID` — confirms no CDN currently sits between origin and users, so
+  this diff's origin-level headers are what clients actually see today. (The
+  DDoS blog post's "Digilist bruker en kommersiell CDN" line is marketing
+  copy about Digilist's own product pitch, not a statement about this repo's
+  infra, and isn't evidence to the contrary.)
+- Whether the new nginx regex locations actually match the real build output,
+  using the checked-in `dist/` from a prior build (round 1 only reasoned
+  about this; round 2 listed it directly): `dist/assets/` is JS/CSS only,
+  `dist/fonts/` is `.woff2` only, and every non-hashed static file actually
+  shipped (`favicon-48.png`, `icon.png`, `og-image.png`, `manifest.webmanifest`,
+  `logo.svg`, `logo-64.webp`, `dist/videos/*.mp4`/`*.webm`/`*-poster.jpg`,
+  `dist/images`, `dist/hero`, `dist/clients`, `dist/integrations` — `.jpg`,
+  `.png`, `.svg`, `.webp`) is covered by the extension catch-all. `.xml`
+  (`sitemap.xml`), `.txt` (`robots.txt`, `llms.txt`, two hashed `.txt`
+  files), and `.html` fall through uncached, same as before this diff — not
+  a regression, just untouched (HTML staying uncached matches `deploy.sh`'s
+  existing "origin's no-cache HTML headers" assumption).
+- Whether `MobileMenu.test.tsx`'s `createRoot`/`act`/manual
+  `IS_REACT_ACT_ENVIRONMENT` pattern and `// @vitest-environment jsdom`
+  per-file override (needed because `vitest.config.ts`'s default `test.environment`
+  is `"node"`) is a new, untested pattern that could behave differently across
+  test files sharing a worker — checked against the three pre-existing files
+  using the identical pattern (`CookieConsent.test.tsx`, `ThemedVideo.test.tsx`,
+  `SEO.dedupe-ldjson.test.tsx`): all four are byte-for-byte identical in setup
+  structure. Not a new risk, an established convention.
+- Re-ran `npx tsc --noEmit` (clean) and `npx vitest run` on the changed test
+  file plus a repo-wide search for any other test that snapshots or asserts
+  on Navbar/MobileMenu output (`Navbar.test.tsx` doesn't exist; no other test
+  references `logo.svg`/`logo-64` besides the new file) — nothing else reads
+  the drawer's rendered output.
+
+### What it found
+
+No regressions. Every path that could plausibly have depended on the old
+`logo.svg` reference, the old headerless/uncompressed nginx behaviour, or the
+old `location /api/` prefix-match semantics was traced to its actual
+consumers (or lack thereof), and each one either doesn't exist, doesn't
+overlap with what changed, or already matches this diff's new behaviour.
+
+### What changed
+
+Nothing. No commit made for this round.
