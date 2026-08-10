@@ -1,0 +1,32 @@
+Command-output proof: MobileMenu.test.tsx run against pre-fix code vs the
+current (fixed) code. Same test file, two different MobileMenu.tsx.
+
+BEFORE (test file copied onto a worktree checked out at commit 96d6700 —
+the pre-fix state, MobileMenu.tsx still has <img src="/logo.svg" .../>):
+
+  $ cd /tmp/xal1156-before && npx vitest run src/components/MobileMenu.test.tsx
+
+   ❯ src/components/MobileMenu.test.tsx (1 test | 1 failed) 76ms
+     × MobileMenu logo asset > renders the drawer's decorative logo as logo-64.webp, not logo.svg 75ms
+       → expected '/logo.svg' to be '/logo-64.webp' // Object.is equality
+
+  ⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+   FAIL  src/components/MobileMenu.test.tsx > MobileMenu logo asset > renders the drawer's decorative logo as logo-64.webp, not logo.svg
+  AssertionError: expected '/logo.svg' to be '/logo-64.webp' // Object.is equality
+
+  Expected: "/logo-64.webp"
+  Received: "/logo.svg"
+
+   Test Files  1 failed (1)
+        Tests  1 failed (1)
+
+AFTER (same test file, run on this branch's HEAD, where MobileMenu.tsx now
+has <img src="/logo-64.webp" .../>):
+
+  $ npx vitest run src/components/MobileMenu.test.tsx
+
+   ✓ src/components/MobileMenu.test.tsx (1 test) 70ms
+
+   Test Files  1 passed (1)
+        Tests  1 passed (1)

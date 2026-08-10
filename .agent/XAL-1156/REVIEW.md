@@ -300,3 +300,46 @@ edits.
 ### What changed
 
 Nothing. No commit made for this round — this lens found nothing to fix.
+
+## Proof of work
+
+`MobileMenu.tsx`'s logo-asset fix changes behaviour that existed both before
+and after (the drawer's decorative `<img>` was always mounted, always
+fetching the wrong asset) — so it was captured on both sides before the
+"before" state disappeared for good, by building the exact pre-fix commit
+(`96d6700`, the parent of the fix commit `623bde1`) in a throwaway worktree
+and diffing it against the current build. Evidence lives in
+`.agent/XAL-1156/proof/`:
+
+- `01-before-page.png` / `02-before-drawer-open.png` — pre-fix build
+  (`dist/` from commit `96d6700`) served locally, mobile viewport, drawer
+  opened via `agent-browser`. DOM eval confirms the rendered `<img>` is
+  still `src="/logo.svg"`.
+- `03-after-drawer-open.png` / `04-after-page.png` — same flow against the
+  current HEAD's `dist/`. DOM eval confirms `src="/logo-64.webp"`. Visually
+  identical layout to the before screenshots (same `width`/`height`/
+  `className`), confirming the swap is asset-only.
+- `logo-asset-size.txt` — `curl -sI` `Content-Length` for each build's
+  drawer asset: **147,179 bytes (`image/svg+xml`) before → 2,456 bytes
+  (`image/webp`) after**, i.e. the ~144.7 KB/page-load saving `SPEC.md`
+  claims, reproduced directly rather than only inferred from a Lighthouse
+  trace.
+- `mobilemenu-test-before-after.txt` — `MobileMenu.test.tsx` (this branch's
+  new regression test) copied onto the pre-fix worktree and run there:
+  **fails** (`expected '/logo.svg' to be '/logo-64.webp'`) on `96d6700`,
+  **passes** on the current HEAD. Failing-before/passing-after test output,
+  not just a "tests are green" claim.
+
+Not captured as before/after: the `nginx.snippet.conf` gzip/`Cache-Control`
+change. It's the "infra, not deployed by anything in this repo" case per
+SPEC.md's BLAST RADIUS section — no `nginx` binary is available in this
+sandbox to run `nginx -t` against, and even a successful syntax check
+wouldn't demonstrate the headers reaching a real client, since this file is
+manually pasted into the live VPS config and reloaded by a human, not by
+any script this repo runs. **What a human should check after applying this
+snippet to the live `digilist.no` nginx config and reloading**: `curl -sI
+https://digilist.no/assets/<any-hashed-file>.js` should show `Cache-Control:
+public, max-age=31536000, immutable` and a `Content-Encoding: gzip` (or
+`br`, if the VPS's `ngx_brotli` module turns out to be present) on text
+responses; `curl -sI https://digilist.no/api/health` should still reach the
+Node process (not 404 from static) confirming `^~` didn't break the proxy.
