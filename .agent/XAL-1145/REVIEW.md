@@ -159,3 +159,80 @@ existing behaviour changed for any other post.
     or reader to trust unverified.
 
 No other regressions found this round.
+
+## Round 3 — Security
+
+Lens: authz, tenant isolation, injection, secrets, and anything
+user-supplied that reaches a query, a path, or a page. Worked against the
+diff (`git diff origin/main...HEAD`), not just the two docs — the only
+runtime-relevant file in it is the new markdown post itself.
+
+Checked:
+
+- **Tenant isolation / authz** — this repo has no booking backend, no auth,
+  no multi-tenant data model at all (confirmed repo-wide in an earlier
+  session, see memory `project_repo_has_no_booking_domain`). A new static
+  blog post carries zero authz surface: no route guard, no role check, no
+  per-tenant data to leak across. N/A, not a gap — there is nothing here
+  for this lens to find because the domain doesn't exist in this repo.
+- **User-supplied input reaching a query/path/page** — none. The new file
+  is agent-authored content committed directly to the repo; nothing in the
+  request/render path takes untrusted input and feeds it into this post.
+  The one place a *slug* value ever reaches a filesystem path is
+  `scripts/prerender.mjs:2562` (`join(DIST, "blogg", post.slug)`) and
+  `scripts/prerender.mjs:2495` (`/blogg/${post.slug}`) — this post's own
+  `slug:` frontmatter is `teambuilding-lokaler-bedrift-mote-veiledning-booking`,
+  matches the filename exactly (already verified round 1), and contains
+  only `[a-z0-9-]`, so no `../` or path-separator payload reaches that
+  `join()`/template literal. (The fact that `prerender.mjs` doesn't
+  independently validate `slug` against a traversal pattern is pre-existing
+  architecture untouched by this diff — out of scope for a content-only PR
+  and not something this round introduces or worsens.)
+- **Markdown → HTML injection (XSS)** — `src/pages/BlogPost.tsx` renders
+  the body through `react-markdown` (`ReactMarkdown` +`remarkGfm`), and
+  `rehype-raw` is not installed or imported anywhere in `src/`
+  (`grep -rn "rehype-raw\|rehypeRaw" src/ package.json` → zero hits), so
+  raw HTML inside a post body is stripped/escaped by `react-markdown`'s
+  default sanitizing behaviour, not rendered as live markup — a
+  `<script>`/`onerror=`/`javascript:`-style payload in a post body
+  wouldn't execute even if present. Confirmed the new post's body contains
+  none of that anyway: `grep -nE '<script|javascript:|onerror=|onload=|<iframe|<img|<a |data:text/html'`
+  → zero hits. No markdown links (`[text](url)`) in the post at all, so no
+  open-redirect/href risk either.
+- **JSON-LD injection** — `scripts/prerender.mjs` builds this post's
+  `<script type="application/ld+json">` block via `JSON.stringify` on
+  frontmatter-derived fields (title/description), which doesn't escape a
+  literal `</script>` sequence inside a string value — a value containing
+  `</script><script>...` could in principle break out of the JSON-LD block
+  in the static HTML. This post's `title`/`description`/`keywords` contain
+  no `<`, `>`, `&`, or `"` characters at all (verified by inspecting the
+  frontmatter block directly), so nothing in this diff exercises that
+  pattern. (Same caveat as the slug point above: the missing escaping in
+  `prerender.mjs` is pre-existing, shared by all 313 posts, and not
+  something this diff introduces — flagged for awareness, not fixed here,
+  since fixing shared prerender logic is outside a content-only ticket's
+  blast radius and risks regressing 312 other posts' JSON-LD untested by
+  this round.)
+- **Secrets** — scanned the new markdown file for API keys, tokens,
+  passwords, bearer tokens, and PEM/private-key headers
+  (`grep -niE 'api[_-]?key|secret|token|password|bearer|-----BEGIN|sk-[a-z0-9]|ghp_'`)
+  → zero hits. `author: "Ibrahim Rahmani"` / `role: "Grunnlegger, Digilist"`
+  matches the exact byline used on all 313 existing posts (`grep -l`
+  confirms), not a new PII disclosure.
+- **Pricing/factual claims as a disclosure risk** — the post states
+  indicative price ranges (kr/time, depositum) as generic market figures,
+  consistent with round 1's "Product-claim consistency" finding; no
+  customer-specific, tenant-specific, or internal data is referenced.
+
+**Found:** nothing exploitable introduced by this diff. The two
+pre-existing gaps noted above (`prerender.mjs` doesn't validate `slug`
+against path-traversal characters before `join()`; JSON-LD blocks across
+all posts aren't escaped against a literal `</script>` in a string field)
+predate this branch, apply identically to all 313 other posts, and aren't
+exercised by this post's actual content — recorded here for visibility,
+not fixed, since a content-only PR touching one new file is the wrong
+place to change shared prerender logic untested against the other 312
+posts it would affect.
+
+No code changes made this round; nothing to re-test beyond what round 2
+already ran (full suite + full build, both green).
