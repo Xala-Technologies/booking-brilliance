@@ -226,3 +226,40 @@ it.
 **Found:** nothing. The diff is exactly the stated change — one blog post
 plus its required spec/review artifacts, fully additive, no drive-by
 edits anywhere. No changes made this round.
+
+## Visual proof
+
+New behaviour (a page that did not exist before this ticket) — only an
+"after" state is possible, per the merge gate's own rule. Captured live
+against `pnpm dev:client` (localhost:8080) in this checkout, cookie banner
+dismissed ("Godta alle"), at
+`/blogg/bookingsystem-integrasjoner-kalender-epost-notifikasjoner`:
+
+- `proof/01-hero-above-fold.png` — above-the-fold render: exact `<h1>`
+  title text ("Bookingsystem-integrasjoner: kalender, e-post og
+  notifikasjoner"), the dek paragraph naming the three-channel angle
+  (kalendersync, e-postbekreftelse, SMS-påminnelse as one chain, not three
+  features), byline/date, and the "I denne artikkelen" ToC linking every
+  section SPEC.md describes (hvorfor "har kalender og SMS" ≠ integrert →
+  kalenderintegrasjon → e-postintegrasjon → SMS/notifikasjoner → hvordan de
+  kobles sammen → no-show i tall → sjekkliste) — confirms the frontmatter
+  and heading structure actually render, not just parse.
+- `proof/02-blog-post-full.png` — full-page render, confirms end to end:
+  every section body text, the two internal cross-links visible in-body
+  (sanntidskalender post, and the "Digilist bookingsystem for kommune"
+  page), the "Digilist: kalender, e-post og notifikasjon som én kjede"
+  closing section linking both `/bookingsystem-kommune`-style money pages,
+  and — most importantly — the article-page CTA band ("Klar for å se
+  Digilist i praksis?" → Book demo) rendering exactly once, which is the
+  live evidence that the body's own `[Book demo →](/book-demo)` paragraph
+  was correctly deduped by `isCta()` and didn't double up with the page's
+  built-in CTA band.
+
+## Linear attachment
+
+Re-confirmed this session: no Linear MCP server is reachable in this
+environment (`ToolSearch` for Linear-related tools returns nothing),
+matching [[project_no_linear_mcp_tools_available]]. The proof images above
+are committed to the branch at `.agent/XAL-1127/proof/` instead, so the
+evidence travels with the diff even though it can't be attached to the
+XAL-1127 issue directly from this session.
