@@ -1,0 +1,31 @@
+Command-output proof: MobileMenu drawer logo asset, before vs after.
+
+BEFORE (built from commit 96d6700, the pre-fix state — MobileMenu.tsx still
+had <img src="/logo.svg" .../> in the always-mounted drawer):
+
+  $ curl -sI http://localhost:4501/logo.svg | grep -i "content-length\|content-type"
+  Content-Length: 147179
+  Content-Type: image/svg+xml
+
+AFTER (current HEAD — MobileMenu.tsx now has <img src="/logo-64.webp" .../>):
+
+  $ curl -sI http://localhost:4502/logo-64.webp | grep -i "content-length\|content-type"
+  Content-Length: 2456
+  Content-Type: image/webp
+
+Both servers were `npx serve -s dist` over the respective build's `dist/`
+output (before: /tmp/xal1156-before built at 96d6700; after: this repo's
+tracked dist/, built at the current HEAD). The drawer's actual rendered
+<img> src was confirmed via agent-browser DOM eval on each server before
+capturing these sizes (see 01–04 screenshots in this directory):
+
+  BEFORE: document.querySelector('aside header img')?.outerHTML
+    -> <img src="/logo.svg" alt="" aria-hidden="true" width="64" height="64" class="h-9 w-auto">
+
+  AFTER:  document.querySelector('aside header img')?.outerHTML
+    -> <img src="/logo-64.webp" alt="" aria-hidden="true" width="64" height="64" class="h-9 w-auto">
+
+Net effect: 147,179 -> 2,456 bytes for this decorative mark, fetched
+unconditionally on every page load site-wide (the drawer is always mounted,
+never conditionally rendered) regardless of whether the visitor ever opens
+the mobile menu. Saves ~144.7 KB / page load.

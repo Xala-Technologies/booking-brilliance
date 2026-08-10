@@ -25,6 +25,11 @@ export const POST_FAQ = {
         "Digilist er i dag ikke en markedsplass for korttidsutleie av private hytter, slik Airbnb og Hygglo er. Det Digilist derimot løser, er booking av fritidsboliger og hytter som en kommune eller bedrift allerede eier, og som lånes eller leies ut til innbyggere og ansatte etter faste regler.",
     },
     {
+      question: "Har Airbnb utstyr til hytta i tillegg til overnatting?",
+      answer:
+        "Nei, Airbnb formidler overnatting mellom privatpersoner, ikke utleie av utstyr utover det vertskapet velger å ha med i hytta. Skal du leie utstyr som kanoer, sykler eller campingutstyr i tillegg, er Hygglo en egen markedsplass for privat utstyrsutleie. Digilist løser en tredje variant: kommuner og bedrifter som eier både fritidsboliger og utstyr kan administrere booking av begge deler i samme kalender og betalingsflyt, i stedet for to separate systemer.",
+    },
+    {
       question: "Passer Digilist for private utleiere, eller bare for kommuner?",
       answer:
         "Begge deler. En privat utleier av et selskapslokale, et bryllupslokale eller utstyr til utlån kan bruke det samme systemet som en kommune, bare i mindre skala. Forskjellen fra Airbnb og Hygglo er at Digilist er et abonnement utleieren eier selv, ikke en markedsplass der en andel av hver betaling går til plattformen.",
@@ -138,6 +143,23 @@ export const POST_FAQ = {
       question: "Fungerer geografisk søk for både privatpersoner og bedrifter?",
       answer:
         "Ja, samme søkefunksjon brukes uansett om du booker som privatperson, lag, forening eller bedrift.",
+    },
+  ],
+  "undervisnings-og-opplaeringslokaler": [
+    {
+      question: "Hva koster det å leie et undervisningslokale?",
+      answer:
+        "Prisen varierer med hvem som booker og hvor lenge. Frivillige og ideelle kursholdere får ofte redusert sats, mens språkskoler og private kursarrangører normalt betaler en fast time- eller dagspris. I Digilist vises prisen i kalenderen før du bekrefter bookingen.",
+    },
+    {
+      question: "Kan en språkskole booke samme rom hver uke gjennom et helt semester?",
+      answer:
+        "Ja. Digilist støtter serietidsbestillinger, slik at en språkskole kan booke for eksempel hver tirsdag klokken 18–20 gjennom hele semesteret i én operasjon, i stedet for å booke uke for uke.",
+    },
+    {
+      question: "Må jeg ringe for å få vite om et lokale er ledig?",
+      answer:
+        "Nei. Ledigheten vises i sanntid i kalenderen, sammen med pris og utstyr, slik at du kan søke, sammenligne og bekrefte bookingen selv uten å kontakte en saksbehandler.",
     },
   ],
 };

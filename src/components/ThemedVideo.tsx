@@ -62,7 +62,7 @@ export function ThemedVideo({
       muted
       loop
       playsInline
-      preload="auto"
+      preload="metadata"
       poster={variant.poster}
       aria-label={ariaLabel}
     >
