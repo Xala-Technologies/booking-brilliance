@@ -131,3 +131,82 @@ checked in full and confirmed unaffected — its load-bearing mechanism
 (FAQPage JSON-LD) doesn't touch the fields this branch changed.
 
 **Changes made this round:** none — nothing to fix.
+
+## Round 3 — Security
+
+**Lens:** authz, tenant isolation, injection, secrets, and anything
+user-supplied that reaches a query, a path, or a page. Read the full diff
+(`git diff origin/main...HEAD`), then traced every place the changed
+strings (title, description, body markdown, new links) actually flow to,
+rather than assuming a content-only diff is automatically safe.
+
+**Checked:**
+
+- **Injection surface of the new content itself:** new title/description
+  strings contain no quotes, angle brackets, or other HTML-special
+  characters that could break out of an attribute or tag context. Not
+  attacker-controlled either way — authored by this session, same trust
+  level as the rest of the corpus.
+- **Markdown → HTML rendering path:** `BlogPost.tsx` renders body markdown
+  via `react-markdown` + `remark-gfm` only — grepped for `rehype-raw` and
+  `dangerouslySetInnerHTML` across `scripts/prerender.mjs`,
+  `src/pages/BlogPost.tsx`, `src/components/SEO.tsx`: none present. Raw
+  HTML embedded in markdown is not rendered as HTML by this pipeline, so
+  even hostile markdown body content couldn't inject a script tag through
+  this post. The new content added this round (bullet list, bold lead-ins,
+  two inline links, one CTA link) is all plain, supported Markdown/GFM
+  syntax — nothing exercises an unusual renderer path.
+- **`SEO.tsx` meta-tag injection:** `setMeta()` (`SEO.tsx:99-106`) sets
+  content via `element.setAttribute("content", content)` — a DOM API, not
+  string concatenation into an HTML template — so it's immune to
+  attribute-breakout injection regardless of what's in `title`/
+  `description`. JSON-LD blocks are built as plain JS objects and
+  serialized (consistent with `prerender.mjs`'s pattern below), which
+  escapes correctly.
+- **`prerender.mjs` `patchHTML()` (static path) — pre-existing gap, not
+  introduced by this diff:** `title`/`description` are spliced into the
+  static `<title>`, `<meta name="title">`, and `<meta name="description">`
+  tags via raw `.replace()` string interpolation
+  (`scripts/prerender.mjs:2286-2296`) with **no HTML-escaping**, unlike the
+  adjacent `keywords` merge three lines below it which explicitly does
+  `.replace(/"/g, "&quot;")` before interpolating. Confirmed this function
+  is unchanged by this branch (diff touches only the one `.md` file) and
+  that the new title/description values contain no `"`/`<`/`>` characters,
+  so nothing breaks out of the tag today. Flagging as a pre-existing
+  latent gap for whoever next edits `patchHTML()` or a post whose
+  title/description might contain a quote — not a defect of this diff,
+  and not fixed here since it's out of this ticket's file scope
+  (`scripts/prerender.mjs` is explicitly out of scope per SPEC.md's
+  "WHAT CHANGES" section, and touching shared prerender code is exactly
+  the cross-branch conflict risk the ticket warns against).
+- **New internal links / CTA route:** `/bruksomrader/idrettshaller-gymsaler`,
+  `/bruksomrader/moterom`, `/bookingsystem-utleie` — all three confirmed as
+  public, unauthenticated marketing routes in `src/App.tsx:305,378-379`
+  (`<BookingsystemUtleie>`, `<UseCaseMoterom>`, `<UseCaseIdrettshaller>`).
+  None cross into `/dashboard`, `/admin`, or any authenticated/tenant-scoped
+  surface — no privilege or tenant-boundary concern.
+- **Tenant isolation / authz:** not applicable — this diff touches no
+  query, no API call, no auth-gated route, no tenant-scoped data. It's a
+  static content file consumed by two read-only rendering paths (client SPA
+  and build-time prerender), neither of which takes user input at request
+  time for this route.
+- **Secrets:** grepped the full diff (including `.agent/`,
+  `AGENT-GOAL.md`, `AGENT-SPEC.md` scaffolding added this branch) for
+  key/token/secret/password/bearer patterns — only hit is the literal
+  string "Security considerations" in a checklist template header, not an
+  actual secret.
+
+**Verification re-run this round:** `npx vitest run` — 17 files / 36 tests,
+all still passing. `npx tsc --noEmit` — clean.
+
+**Findings: none.** This diff has no authz, tenant-isolation, injection, or
+secrets surface — it's a static-content edit to one blog post's
+frontmatter and body, rendered through paths that don't interpolate raw
+HTML from markdown and don't string-concat the changed fields into
+attribute contexts (client path uses `setAttribute`; the one raw-concat
+site, `patchHTML()`, is pre-existing, untouched by this diff, and not
+triggered by the new content's character set). Noted the `patchHTML()`
+escaping gap for future awareness; not fixing it here as it's outside this
+ticket's file scope and not exploitable by this diff's actual content.
+
+**Changes made this round:** none — nothing to fix.
