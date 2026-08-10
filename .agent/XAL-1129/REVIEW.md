@@ -281,3 +281,35 @@ fixes to make this round; full `npx vitest run` and
 `node scripts/check-title-lengths.mjs` re-run anyway as a final sanity
 check before closing out the four-round contract — both green, no changes
 needed to either.
+
+## Visual proof
+
+New behaviour (a page that did not exist before this ticket) — only an
+"after" state is possible, per the merge gate's own rule. Captured live
+against `pnpm dev:client` (localhost:8080) in this checkout, cookie banner
+dismissed, at `/blogg/booking-funksjonalitet-systemkrav-gdpr-sms-kalender-tilgang`:
+
+- `proof/01-hero-above-fold.png` — above-the-fold render: exact `<h1>`
+  title text, the dek paragraph naming all four pillars (GDPR/personvern,
+  SMS-varsling, kalendersync, tilgangsstyring), and the "I denne artikkelen"
+  ToC linking each pillar section plus the sjekkliste and the kommune/
+  utleier closing section — confirms the frontmatter and heading structure
+  SPEC.md describes actually render, not just parse.
+- `proof/02-blog-post-full.png` — full-page render, confirms end to end:
+  all four pillar sections with their outbound spoke links, the sjekkliste,
+  the "Digilist for kommune og privat utleiere" section linking both
+  `/bookingsystem-kommune` and `/bookingsystem-utleie` money pages, and —
+  most importantly — the article-page CTA band ("Klar for å se Digilist i
+  praksis?" → Book demo) rendering correctly, which is the live evidence
+  that Round 1's `/demo` → `/book-demo` fix didn't regress the working CTA
+  band underneath it.
+
+## Linear attachment
+
+Re-confirmed again this session (image-attachment step): no Linear MCP
+server is reachable in this environment (`ToolSearch` for Linear-related
+tools returns nothing), matching
+[[project_no_linear_mcp_tools_available]]. The proof images above are
+committed to the branch at `.agent/XAL-1129/proof/` instead, so the
+evidence travels with the diff even though it can't be attached to the
+XAL-1129 issue directly from this session.
