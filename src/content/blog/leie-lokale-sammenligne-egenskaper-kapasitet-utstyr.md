@@ -27,11 +27,11 @@ Utstyr er den andre halvdelen av bildet. De vanligste punktene å sjekke er wifi
 
 ## Tilgjengelighet: kommer alle seg dit og inn
 
-Tilgjengelighet handler om mer enn avstand på kartet. Sjekk om det er parkering i gangavstand, og om den er gratis eller avgiftsbelagt. Sjekk kollektivforbindelse hvis noen av gjestene ikke kjører selv. Og sjekk selve adkomsten inn i lokalet: er det trinnfritt, finnes det heis hvis lokalet ligger i etasje, og er dørene brede nok for rullestol eller barnevogn. Dette er spesielt viktig hvis du inviterer et bredt publikum du ikke kjenner behovene til på forhånd, og det er ofte informasjonen som er vanskeligst å finne uten å spørre direkte – så spør, hvis annonsen ikke sier det eksplisitt.
+Tilgjengelighet handler om mer enn avstand på kartet. Sjekk om det er parkering i gangavstand, og om den er gratis eller avgiftsbelagt. Sjekk kollektivforbindelse hvis noen av gjestene ikke kjører selv. Og sjekk selve adkomsten inn i lokalet: er det trinnfritt, finnes det heis hvis lokalet ligger i en etasje over bakkeplan, og er dørene brede nok for rullestol eller barnevogn. Dette er spesielt viktig hvis du inviterer et bredt publikum du ikke kjenner behovene til på forhånd, og det er ofte informasjonen som er vanskeligst å finne uten å spørre direkte – så spør, hvis annonsen ikke sier det eksplisitt.
 
 ## Fasiliteter: detaljene som avgjør om dagen går knirkefritt
 
-Garderobe, toaletter i tilstrekkelig antall, uteareal, og mulighet for catering eller egen matlaging er detaljene som sjelden avgjør om du booker et lokale i utgangspunktet, men som avgjør om dagen faktisk går knirkefritt. Sjekk også hva som er inkludert i prisen og hva som er tilleggstjenester: bord og stoler følger som regel med, mens duker, servise eller teknisk personell ofte må bestilles separat.
+Garderobe, toaletter i tilstrekkelig antall, uteareal og mulighet for catering eller egen matlaging er detaljene som sjelden avgjør om du booker et lokale i utgangspunktet, men som avgjør om dagen faktisk går knirkefritt. Sjekk også hva som er inkludert i prisen og hva som er tilleggstjenester: bord og stoler følger som regel med, mens duker, servise eller teknisk personell ofte må bestilles separat.
 
 ## Egenskaper å sammenligne, uansett lokaletype
 
@@ -39,7 +39,7 @@ Garderobe, toaletter i tilstrekkelig antall, uteareal, og mulighet for catering 
 |---|---|---|
 | Kapasitet | Sittende vs. stående, og praktisk kapasitet med innslag i rommet | Feil tall her er den vanligste årsaken til at et lokale føles for trangt |
 | Planløsning | Kvadratmeter, soneinndeling, mulighet for ønsket møblering | Avgjør om aktiviteten faktisk passer i rommet, ikke bare om den får plass |
-| Utstyr | Wifi, kjøkken, prosjektor, lydanlegg | Avgjør om du trenger å leie inn utstyr i tillegg |
+| Utstyr | wifi, kjøkken, prosjektor og lydanlegg | Avgjør om du trenger å leie inn utstyr i tillegg |
 | Tilgjengelighet | Parkering, kollektivforbindelse, trinnfri adkomst | Avgjør om alle gjestene faktisk kommer seg dit og inn |
 | Fasiliteter | Garderobe, toaletter, uteareal, catering | Avgjør om dagen går knirkefritt, ikke bare om lokalet passer |
 

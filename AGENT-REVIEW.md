@@ -76,3 +76,55 @@ before).
   both green after the edit (16 files / 35 tests, word-count check green on
   both markdown and prerendered HTML; recomputed word count 874, still
   ~175 wpm at `readingMinutes: 5`, no change needed).
+
+## Round 2 — fresh fact-check + full build/SEO regression
+
+Two parallel agents: one re-read every remaining factual/process claim
+(platform-field claims, the comparison table, all five cross-link framings,
+the illustrative sittende/stående numbers, and a fresh independent
+grammar/spelling pass), explicitly told not to re-check round 1's three
+fixes; the other ran the full production build from a clean `dist`/
+`dist-server`, inspected the prerendered HTML/sitemap/listing page
+directly, and ran the test suite.
+
+**Fact-check lens** — platform claims, the table, and all five cross-link
+framings all checked out against the six related posts read for this round
+(`utleieobjekt-veiviser-steg-for-steg.md`,
+`selskapslokaler-typer-og-hvordan-velge.md`,
+`hva-er-et-forsamlingslokale.md`,
+`leie-lokale-billigst-kommune-sammenlign-lokaltyper.md`,
+`moterom-kommune-finn-og-book-ledige-lokaler.md`,
+`kapasitetsstyring-idrettsanlegg-driftsleder.md`) — no invented claim, no
+link pointing to a post that doesn't actually cover what it's framed as
+covering. The "seksti stående, tretti sittende" example was checked and
+confirmed adequately hedged as an illustration ("et rom", "gjerne"), not a
+universal rule. Found one real grammar defect and two minor consistency
+nits:
+1. "finnes det heis hvis lokalet ligger i etasje" — missing an
+   article/specifier, not standard Bokmål.
+2. A nonstandard comma before "og" in the Fasiliteter section's list,
+   inconsistent with the post's own list style elsewhere.
+3. The table capitalized "Wifi" while the prose used lowercase "wifi".
+
+**Build/SEO lens** — ran the full pipeline once from a clean state
+(`rm -rf dist dist-server` → `optimize-images.mjs` → `vite build` → SSR
+build → `prerender.mjs` → `check-blog-word-count.mjs` → `pnpm test`): every
+step passed, no error-level output, 16/16 test files, 35/35 tests green.
+Direct inspection of
+`dist/blogg/leie-lokale-sammenligne-egenskaper-kapasitet-utstyr/index.html`
+confirmed exactly one `<h1>` matching the title, correct Article JSON-LD,
+canonical URL, Open Graph/Twitter tags, all five internal links plus the
+external CTA rendered as real `<a href>` tags, and exactly one sitemap
+entry (357 total URLs). Checked the known pre-existing listing-pagination
+gap from the prior XAL-1139 review specifically for this post: six posts
+share today's date, and this post is one of them, landing at position 2 of
+6 on `/blogg` page 1 — no defect, the post is visible on the listing page.
+
+### What I changed after round 2
+- Fixed "i etasje" → "i en etasje over bakkeplan" (line 30).
+- Removed the nonstandard comma before "og" in the Fasiliteter list
+  (line 34).
+- Lowercased "Wifi" → "wifi" in the comparison table to match the prose's
+  usage (line 42).
+- Re-ran the full build pipeline and `pnpm test` (16 files / 35 tests, all
+  green) after the edits.
