@@ -153,3 +153,62 @@ No other regressions found. Everything that reads `src/content/blog/*.md`
 keys off directory contents generically; nothing hardcodes a count, slug
 list, or "the first/last post" assumption except the one test above, which
 is now fixed.
+
+## Round 3 — Security
+
+Lens: authz, tenant isolation, injection, secrets, and anything user-supplied
+that reaches a query, a path, or a page. Read `.agent/XAL-1149/SPEC.md`,
+`.agent/XAL-1149/REVIEW.md` (rounds 1–2, not repeated here), and
+`git diff origin/main...HEAD` directly — the diff is two files: the new
+markdown post and a `testTimeout` bump in `vitest.config.ts`.
+
+Checked:
+
+- **Authz / tenant isolation.** No route, middleware, API handler, or
+  Convex function touched. The diff is a static content file plus a test
+  timeout config; there is no runtime authorization surface in it at all.
+  N/A, not "checked and clean" by omission — confirmed by reading the full
+  diff, not assumed from the file list.
+- **Injection via the post body.** Checked whether the new markdown could
+  carry an XSS payload through to either render path:
+  - Client route (`src/pages/BlogPost.tsx:231`) renders the body through
+    `<ReactMarkdown remarkPlugins={[remarkGfm]}>` with no `rehype-raw` (or
+    any other raw-HTML plugin) in the plugin list — `react-markdown`
+    strips embedded HTML by default, so even a post body containing literal
+    `<script>`/`<img onerror=...>` tags would render as escaped text, not
+    execute. Confirmed no `dangerouslySetInnerHTML` anywhere in
+    `BlogPost.tsx` for the article body.
+  - Static build path (`scripts/prerender.mjs`) doesn't parse or render
+    Markdown itself — it calls the same SSR `render()` export
+    (`dist-server/entry-server.js`, built from the same React tree) that
+    the client uses, so it's the same `ReactMarkdown` pipeline, not a
+    second unsanitized renderer.
+  - Grepped the new file's body for `<script`, `javascript:`, `onerror=`,
+    `onload=`, `data:text/html`, `<iframe`, raw `<a href=` — none present;
+    the only link is the standard `[Book en demo](https://digilist.no/demo)`
+    markdown-link CTA, same first-party URL pattern every other post uses.
+  - No FAQPage JSON-LD is emitted for this post (no `POST_FAQ` entry, per
+    round 1), so the inline Q&A markdown never reaches the
+    `JSON.stringify`-built `<script type="application/ld+json">` block —
+    no structured-data injection surface either.
+- **Path safety.** `prerender.mjs` writes each post to
+  `dist/blogg/<slug>/index.html` using the frontmatter `slug`. Confirmed
+  `slug: treningsrom-gymhaller-personlig-trener-fitnessinstruktor` matches
+  `^[a-z0-9-]+$` (filesystem-safe, no `..`, `/`, or encoded traversal
+  characters) and matches the filename exactly, consistent with every
+  other post. This file is hand-authored in-repo, not submitted through
+  any runtime form, so there's no attacker-controlled input reaching this
+  path build in this diff.
+- **Secrets.** Grepped the full diff for API-key/token/secret/bearer/PEM
+  shaped strings — none found. Frontmatter, body, and the `vitest.config.ts`
+  hunk contain no credentials.
+- **`vitest.config.ts` change.** Adds `test.testTimeout: 20000` globally.
+  No security implication — it doesn't touch what's tested, mocked, or
+  skipped, only how long a test is allowed to run before vitest fails it.
+
+No findings this round. This diff has no runtime authz/tenant/query surface
+to review — it's a static Bokmål content file rendered through the existing,
+already-safe `react-markdown` pipeline (no raw-HTML plugin), plus an
+unrelated test-timeout bump. Nothing changed; no fixes to make. Re-ran
+`npx vitest run` (19 files, 38 tests, all pass) to confirm the tree is still
+green before closing out the round.
