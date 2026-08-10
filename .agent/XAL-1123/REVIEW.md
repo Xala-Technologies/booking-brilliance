@@ -261,3 +261,35 @@ independent of what the SPEC/earlier rounds already said was touched:
 one content file, two mandated process docs — with no drive-by edits,
 unrelated cleanup, or off-ticket commits anywhere in the branch history. No
 code changes made this round.
+
+## Proof (new behaviour — after only)
+
+This is a pure content addition (a new blog post), so there is no "before"
+state to capture — the post didn't exist. Ran `pnpm dev:client` (Vite dev
+server, port 8080) and drove it with `agent-browser`:
+
+1. **`.agent/XAL-1123/proof/blogpost-full.png`** — full-page render of
+   `http://localhost:8080/blogg/foreninger-lag-mote-arrangement-booking`.
+   Confirms the post renders end-to-end through the real client pipeline
+   (frontmatter → `virtual:blog-meta` → `getAllPosts()` → `BlogPost.tsx` →
+   `postContent.ts` raw body via `react-markdown`): correct H1 ("Foreninger
+   og lag: book lokale til styremøte og årsmøte"), hero image, tag chip
+   ("Lag og foreninger"), author/date/reading-time line, body sections
+   (styremøte / årsmøte / sosiale sammenkomster), "Relaterte artikler"
+   sidebar linking the four adjacent posts named in the SPEC, and the
+   standard footer CTA. Verified via `document.title` /
+   `document.querySelector('h1').textContent` before the screenshot, both
+   matching the frontmatter exactly.
+2. **`.agent/XAL-1123/proof/blogpost-viewport-top.png`** — above-the-fold
+   viewport screenshot of the same page (what a visitor actually sees first).
+3. **`.agent/XAL-1123/proof/blog-index-search-styremote.png`** — the blog
+   index at `/blogg`, search box filtered to "styremøte", showing exactly
+   one result ("1 av 322 artikler") — the new post, correctly tagged and
+   dated 10. august 2026. This proves the post is discoverable through the
+   real search UI, not just reachable by a hand-typed URL, and that it
+   doesn't collide with or get shadowed by any of the other 321 posts.
+
+No Linear MCP tools are available in this environment (re-confirmed this
+session), so these images could not be attached to the Linear issue
+directly; they're committed to the branch instead, per the SPEC's existing
+note on this same limitation.
