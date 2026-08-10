@@ -144,3 +144,55 @@ every consumer of the blog corpus either scans it generically (no closed
 enum, no fixed count) or is scoped to a different, unrelated slug. Nothing
 in the existing test/script surface depended on behavior this post's
 presence changes. No fixes made this round.
+
+## Round 3 (security — authz, tenant isolation, injection, secrets, user input)
+
+Lens: this round asks whether anything user-supplied reaches a query, a
+path, or a page, and whether the diff introduces an authz/tenant-isolation
+gap, an injection vector, or a leaked secret. `git diff origin/main...HEAD
+--stat` confirms the diff is still just `.agent/XAL-1134/*` plus the one new
+`.md` file — no code changed, so there is no new query, route, or auth check
+for this round to inspect on its own merits. Checked anyway, on the actual
+content, not just "it's markdown so it's fine":
+
+- **Authz / tenant isolation.** N/A — no code touched, no query added,
+  nothing in this diff reads or writes tenant-scoped data. The post is
+  static prose baked at build time by `scripts/prerender.mjs`, same as
+  every other post in the 317-post corpus.
+- **Injection.** Scanned the new file for `<script`, `<iframe`,
+  `javascript:`, `onerror=`/`onload=`, `<img`, `<a `, `data:text/html`, and
+  bare `http://` — none present (`grep -niE` over the full body, zero
+  matches). Even if raw HTML were present, it wouldn't execute: `BlogPost.tsx`
+  renders post bodies with `ReactMarkdown` + `remarkGfm` only — no
+  `rehype-raw` plugin and no `dangerouslySetInnerHTML` anywhere in the blog
+  render path (`grep -rln "dangerouslySetInnerHTML|rehype-raw|rehypeRaw"
+  src/ build-plugins/ scripts/` → only an unrelated hit in
+  `src/components/ui/chart.tsx`, nothing in the blog post pipeline), so
+  `react-markdown`'s default HTML-escaping is the actual backstop here, not
+  just "this content happens to be clean."
+- **YAML/frontmatter injection.** All frontmatter string values that could
+  contain a colon or special character (`title`, `description`, `author`,
+  `role`, `cover`) are double-quoted; `slug` is bare but matches
+  `^[a-z0-9-]+$` (verified with a regex check), so it can't break out of the
+  YAML block or, downstream, be used as a path-traversal payload when
+  `prerender.mjs` and `postContent.ts` build the `dist/blogg/<slug>/`
+  output path from it.
+- **Secrets.** Scanned for API keys, tokens, passwords, bearer strings, IPs,
+  and email addresses (`grep -niE
+  'api[_-]?key|secret|password|token|bearer|<ip>|<email>'`) — zero matches.
+  Only real "identity" data in the file is the existing public byline
+  (`author: "Ibrahim Rahmani"`), same as every other post in the corpus.
+- **User-supplied data reaching a query/path/page.** There is none in this
+  diff — the only two links in the body are hardcoded, verified targets: the
+  internal cross-link to `/blogg/idrettshall-ledige-tider-per-banetype-lag-foreninger`
+  (file exists in `src/content/blog/`) and the CTA
+  `https://digilist.no/demo`, which matches the majority convention already
+  used by 18 other posts in the corpus (a handful use relative `/demo`
+  instead — a pre-existing inconsistency across the whole corpus, not
+  something this post introduces or that has any security implication).
+  Neither is attacker-controlled or built from input at request time.
+
+**Finding: none.** No authz surface, no injection vector, no secret, no
+attacker-reachable path in this diff — it's a static, build-time-baked
+Markdown file with clean frontmatter and no embedded HTML/script content.
+No fixes made this round.
