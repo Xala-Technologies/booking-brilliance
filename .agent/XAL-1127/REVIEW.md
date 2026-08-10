@@ -181,3 +181,48 @@ user-supplied that reaches a query, a path or a page. Read `SPEC.md`,
 **Found:** nothing. This is a pure static-content diff with no query, no
 path, no authz surface, and no injection vector reachable from the
 rendering pipeline as it exists today. No changes made this round.
+
+## Round 4 — Scope
+
+**Lens:** is anything in this diff NOT the stated change? Drive-by edits,
+unrelated tidying, files nobody asked to be touched. Read `SPEC.md`,
+`REVIEW.md` rounds 1–3 (round 1 already caught and reverted a
+`pnpm-workspace.yaml` scope-creep instance of the recurring
+`git add -A`-checkpoint failure mode), then re-derived the diff boundary
+from scratch rather than trusting the earlier rounds' characterization of
+it.
+
+**Checked:**
+
+- `git diff origin/main...HEAD --stat` — exactly 3 files:
+  `.agent/XAL-1127/REVIEW.md`, `.agent/XAL-1127/SPEC.md`, and the one new
+  post `src/content/blog/bookingsystem-integrasjoner-kalender-epost-notifikasjoner.md`.
+  435 insertions, **0 deletions** — the diff is purely additive, nothing
+  pre-existing was modified or removed anywhere in the tree.
+- `git status --porcelain=v1 --untracked-files=all` — empty. No untracked
+  files sitting in the worktree outside git's view (e.g. no stray
+  `pnpm-workspace.yaml` edit, no leftover build artifact, no `dist/`
+  drift) that a later careless `git add -A` could sweep in.
+- Confirmed the round-1 `pnpm-workspace.yaml` `allowBuilds` scope-creep
+  (the recurring failure mode on sibling tickets XAL-1129/XAL-1134) is
+  still absent from the diff — re-verified independently rather than
+  taking round 3's note on faith, since that's exactly the kind of file a
+  fresh `pnpm install`/`approve-builds` run during this round could have
+  silently reintroduced. It did not.
+- Read the new post's full body end-to-end again looking for content that
+  strays from the stated angle (kalender/e-post/SMS integrasjon,
+  no-show): every section maps directly to the SPEC's stated structure
+  (why "has calendar+SMS" ≠ integrated → kalenderintegrasjon →
+  e-postintegrasjon → SMS/notifikasjoner → hendelsesdrevet kjede →
+  no-show-tall → sjekkliste → CTA). No off-topic section, no unrelated
+  product claim, no second angle smuggled in.
+- The two `.agent/XAL-1127/*.md` files are the process artifacts this
+  workflow itself requires (spec-before-code, review-after-code), not
+  scope creep — every sibling ticket in this batch carries the same two
+  files alongside its one content file.
+- No `package.json`, lockfile, config file, CI workflow, other blog post,
+  route, or component appears anywhere in the diff.
+
+**Found:** nothing. The diff is exactly the stated change — one blog post
+plus its required spec/review artifacts, fully additive, no drive-by
+edits anywhere. No changes made this round.
