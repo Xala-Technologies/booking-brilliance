@@ -57,3 +57,71 @@ against the real gates and rendered output — not just the raw `.md`.
   of the `git add -A` checkpoint habit, not a one-off. Reverted
   `pnpm-workspace.yaml` to `origin/main`'s version; re-ran the full test
   suite (20/20 files, 40/40 tests) to confirm nothing depended on it.
+
+## Round 2 — Regression
+
+**Lens:** this diff is a single new `.md` file — what ELSE reads the blog
+corpus that a new entry could disturb? Grepped every consumer of
+`src/lib/posts.ts` (not just the three SPEC named — `BlogPreview.tsx`,
+`BlogPost.tsx`, `search/corpus.ts`) and every build-time script that scans
+`src/content/blog/*.md`, then re-ran the full gates to confirm none of them
+regressed with the new file present.
+
+**Consumers found beyond what SPEC.md listed, all checked:**
+
+- `src/pages/Blog.tsx` — listing/search/tag-filter page. Tag "Plattform" is
+  already a used value (confirmed round 1), so it doesn't create an
+  orphan filter bucket. Filtering/pagination logic is generic over
+  `getAllPosts()`, no hardcoded count or slug.
+- `src/components/BlogPreviewSection.tsx` (homepage "Innsikt" carousel) —
+  `getAllPosts().slice(0, 6)`, sorted by date desc. The new post is dated
+  2026-08-10 (today), so it now displaces the oldest of the previous top-6
+  from the homepage carousel. This is intended editorial behavior (newest
+  post should surface), not a bug.
+- `src/lib/webp-sources.test.ts` — iterates `getAllPosts()` and asserts
+  every post's cover has a committed webp preview sibling on disk. Runs
+  against the new post's cover (`availability_calendar_hero_no.webp`,
+  reused from ~33 other posts) — passed, so the preview asset is already
+  committed.
+- `src/entry-server.main-landmark.test.tsx` — takes `getAllPosts()[0]`
+  (the *current* most-recent post, whatever that is) and SSR-renders it to
+  assert exactly one `<main>` landmark. Because the new post is dated
+  2026-08-10, it's now (or ties for) `firstPost`, so this run actually
+  exercised the new post's own SSR output for the first time, not just a
+  sibling's. Passed.
+- `src/lib/digitalt-bookingsystem-description.test.ts`,
+  `src/lib/leie-selskapslokale-description.test.ts` — both hardcode a
+  specific *other* slug and assert its description length; unaffected by
+  an added post, confirmed by reading (not just running).
+- `src/lib/search/corpus.ts` — merges `getAllPosts()` into the search/
+  chatbot corpus with no cap, no dedup-by-title logic that a new entry
+  could trip.
+- Static `public/sitemap.xml` does **not** contain the new slug (nor do
+  two other existing sibling posts' slugs) — traced this to
+  `scripts/prerender.mjs` (~line 2599), which regenerates
+  `dist/sitemap.xml` from scratch at build time; `public/sitemap.xml` is a
+  separate, pre-existing, unused-by-build static file. Not a regression
+  introduced by this diff.
+- `scripts/push-clean-blog-to-convex.ts`, `auto-publish-blogs.ts`,
+  `sync-convex-blog-to-fs.ts`, `dedup-blog-drafts.ts`,
+  `diag-blog-drafts.ts` — a separate Convex-backed draft pipeline exists,
+  but none of these are wired into `pnpm build`, `pnpm test`, or
+  `.github/workflows/pr-check.yml` (which runs only lint/test/build). They
+  are operator-invoked (`content:sync`, `content:autopublish`, etc.) and
+  out of this diff's blast radius.
+
+**Verified, not just read:**
+
+- `npx vitest run` — 20/20 files, 40/40 tests green (same count as round
+  1), including the two tests above that now touch the new post's own SSR
+  output for the first time.
+- `pnpm lint` — 0 errors; the 40 warnings reported are all pre-existing,
+  in files this diff never touches.
+- `git status --porcelain` — clean before and after this round.
+
+**Found:** nothing. No consumer outside the ones SPEC.md already named
+broke, and the two consumers SPEC.md missed (`Blog.tsx`'s tag filter,
+`entry-server.main-landmark.test.tsx`'s dynamic `firstPost`) both turned
+out to depend only on generic, already-passing invariants (a real tag
+value; a post that SSRs cleanly), not anything this specific post could
+violate. No changes made this round.
