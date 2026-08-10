@@ -320,3 +320,48 @@ lens, and the one action the round's preamble asked for was correctly
 withheld rather than applied. No commit from this round beyond this
 review entry.
 
+## Round 5 — VISUAL PROOF
+
+This is a content/SERP-snippet rewrite of an already-published page, so the
+"before" is a real state that existed on `origin/main` and would be lost
+once this branch merges — captured it now, from this worktree, before
+opening the PR.
+
+### What I did
+
+- Started `npx vite --port 8080` (client only, no API needed to render a
+  blog post) against the branch's current (post-fix) content and opened
+  `/blogg/digitalt-bookingsystem-hva-er-det` with `agent-browser`.
+  `document.title` = "Digitalt bookingsystem – hva er det? Forklart i 6
+  steg", `meta[name="description"]` = the 157-char Round-1-fixed copy.
+  Full-page screenshot: `.agent/XAL-1160/proof/after-page.png` — shows the
+  new title, the new "I korte trekk" stats box, the two new
+  `/bruksomrader/*` links, and the restructured "Neste steg" CTA list.
+- Checked out `origin/main`'s version of
+  `src/content/blog/digitalt-bookingsystem-hva-er-det.md` into the working
+  tree only (`git checkout origin/main -- <path>`), **killed and restarted**
+  the vite dev server (`blogMetaPlugin.ts`'s `load()` reads the file via
+  `fs.readFile` at module-load time, not via an import graph edge, so it
+  doesn't hot-reload on file change — a stale server kept serving the new
+  title after the file was swapped, until the process itself was replaced),
+  and reloaded the same URL. `document.title` = the old "Digitalt
+  bookingsystem: hva er det, og hvordan fungerer det?",
+  `meta[name="description"]` = the old 164-char copy. Full-page screenshot:
+  `.agent/XAL-1160/proof/before-page.png` — no stats box, plain "Neste steg"
+  paragraph, no `/bruksomrader/*` links, confirming the visual delta this
+  branch delivers.
+- Restored the branch's committed content
+  (`git checkout HEAD -- src/content/blog/digitalt-bookingsystem-hva-er-det.md`),
+  killed the dev server, and re-ran `npx vitest run` (18 files / 37 tests,
+  green) to confirm the working tree is back to exactly what's on this
+  branch's HEAD before committing the proof images.
+
+### Linear attachment
+
+No Linear MCP tools are available in this environment (re-confirmed via
+`ToolSearch` for "linear attachment upload create_attachment issue" — no
+match), same as SPEC.md's note and the prior XAL-1151/XAL-1161 finding.
+The proof images are committed to this branch and referenced here instead;
+attaching them to the Linear issue itself is not reachable from this
+session.
+
