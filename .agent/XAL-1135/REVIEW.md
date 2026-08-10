@@ -260,3 +260,30 @@ complete with no findings across three separate sessions. The change is
 one new Norwegian-language blog post
 (`src/content/blog/yoga-wellness-studio-klasseromlokaler.md`) plus its
 required `.agent/XAL-1135/` process docs, ready to merge.
+
+## Proof (this session)
+
+This is new behaviour (a blog post that didn't exist before), so there is
+no "before" state to capture — only the after. Rendered the real build
+(`vite build` output already in `dist/`, prerendered by `scripts/prerender.mjs`
+same-day) and served it with `vite preview --outDir dist --port 4173`, then
+drove it with `agent-browser` to confirm the page actually renders end to
+end, not just that the source file and word-count gate look right on paper:
+
+- `.agent/XAL-1135/proof/after-yoga-wellness-studio-post-top.png` —
+  `http://localhost:4173/blogg/yoga-wellness-studio-klasseromlokaler`, page
+  top. Confirms `document.title` and the rendered `<h1>` both read "Studio-
+  og klasseromlokaler for yoga og wellness: booking", byline/date render
+  correctly, and the "I denne artikkelen" TOC lists all five body headings.
+- `.agent/XAL-1135/proof/after-yoga-wellness-studio-post-faq.png` — scrolled
+  to the "Vanlige spørsmål om booking av yoga- og wellness-studio" heading.
+  Confirms the FAQ section renders with real Q&A content, and shows the one
+  internal link to `kunstner-verksteder-studio-dansesaler-kreative-lokaler`
+  rendering as a working in-body link, not raw Markdown syntax.
+
+**Linear attachment**: no Linear MCP server is reachable in this
+environment (`ToolSearch` for Linear tools returns nothing — same result as
+XAL-1151, see project memory `no-linear-mcp-tools-available`). The two
+screenshots above could not be attached to the XAL-1135 issue directly;
+they're committed to the branch instead, same as the SPEC already is, so
+the PR carries the same evidence an attachment would.
