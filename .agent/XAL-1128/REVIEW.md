@@ -162,3 +162,89 @@ checked each one against the new file specifically:
 (`entry-server.main-landmark.test.tsx`) whose target silently shifted onto
 this exact new post via date-sort — still behaves correctly. Nothing
 fixed this round; no code changes beyond this REVIEW.md entry.
+
+## Round 3 — Security
+
+Lens: authz, tenant isolation, injection, secrets, and anything
+user-supplied that reaches a query, a path or a page. This diff is
+content-only (one new `.md` file plus the two `.agent/XAL-1128/*.md` docs,
+per `git diff origin/main...HEAD --stat`) — no product code, no
+booking/tenant domain lives in this repo at all (confirmed repeatedly in
+prior tickets, see [[project_repo_has_no_booking_domain]]), so authz and
+tenant isolation have no surface here. Worked the injection/secrets/paths
+angle instead, on both the new content itself and the pipeline it flows
+through:
+
+- **Secrets scan.** `grep -inE "api[_-]?key|secret|token|password|bearer|sk-[a-z0-9]{10,}|AKIA[0-9A-Z]{16}"`
+  against the new file → zero matches. No credentials, no tokens.
+- **Raw HTML / script injection in the markdown body.**
+  `grep -inE "<script|<iframe|<style|javascript:|onerror=|onclick=|<img|<a "`
+  → zero matches. The body is plain Markdown text and Markdown links
+  (`[label](url)`), no raw HTML embedded.
+- **Frontmatter attribute-breaking characters.** Checked every quoted
+  frontmatter value (`title`, `description`, `author`, `role`, `tag`,
+  `cover`, `keywords`) for unescaped `"` that would break out of the YAML
+  string or, downstream, an HTML attribute — none found; all quotes are
+  the single opening/closing pair, properly balanced.
+- **Link targets.** All 4 in-body links resolve to real internal
+  `/blogg/<slug>` routes already confirmed to exist (Round 1); the one
+  external link is `https://digilist.no/demo`, the same CTA target every
+  sibling post in this batch uses — no open redirect, no third-party
+  domain, no `javascript:`/`data:` URI.
+- **Slug safety.** `slug: spesiallokaler-niche-utleie-teaterscene-kjeller`
+  matches `^[a-z0-9-]+$` — no `../`, no encoded characters, nothing that
+  could escape the `dist/blogg/<slug>/` directory this gets baked into.
+- **Downstream rendering path — React side.** `src/pages/BlogPost.tsx`
+  renders `post.title` / `post.description` as JSX children
+  (`{post.title}`, `{post.description}`), which React escapes
+  automatically; `src/components/SEO.tsx` builds the JSON-LD block via
+  `script.textContent = JSON.stringify(blocks)` (line ~371) — `textContent`,
+  not `innerHTML`, so this is not vulnerable to script-breakout even if a
+  title/description contained `</script>`. Confirmed by reading the
+  component, not assumed.
+- **Downstream rendering path — SSR prerender side, real latent gap found
+  but not triggered by this content.** `scripts/prerender.mjs` (~line
+  2290-2358) builds `<title>`, `<meta name="title">`,
+  `<meta name="description">`, `og:title`, `og:description`,
+  `twitter:title`, `twitter:description` via raw template-string
+  interpolation of `meta.title` / `meta.description` directly into the
+  HTML string — e.g.
+  `` `<title>${meta.title}</title>` `` — with **no HTML-escaping**. (By
+  contrast, the adjacent `keywords` replacement two blocks down does
+  escape: `.replace(/"/g, "&quot;")` at line 2323 — so the gap is
+  specific to title/description/canonical, not a blanket omission.) A
+  title or description containing `"` or `<` would break out of the
+  attribute or tag it's interpolated into in the *prerendered static
+  HTML* — a real HTML-injection surface. Checked whether this diff's post
+  triggers it: it doesn't (`title`, `description` here contain neither
+  character). Checked whether it's a pre-existing, latent, corpus-wide gap
+  or something new: wrote a script that parsed `title`/`description` out
+  of all 320 `src/content/blog/*.md` files (frontmatter, not the
+  prerendered output) and tested each for `<`/`>` — zero matches across
+  the whole corpus, this post included. So: real bug in shared
+  infrastructure this content flows through, but (a) pre-existing — not
+  introduced by this diff, `prerender.mjs` isn't touched by
+  `git diff origin/main...HEAD`; (b) not exploitable by any content
+  currently in the repo, including the new post; (c) the actual risk
+  surface is upstream of this repo, in whatever produces `title`/
+  `description` values that land in these files (the content-agent/Convex
+  draft pipeline) — out of scope to fix from a content-only ticket editing
+  one `.md` file, per the same reasoning Round 1 used for the pre-existing
+  `isCta()` paragraph-popping behavior. Not fixing pre-existing,
+  untouched, unexploited shared infra from a single-post content ticket;
+  flagging here so it's on record rather than silently noticed and
+  dropped.
+- **User-supplied input.** None reaches this diff at all — the post is
+  authored directly as a file in the repo by a human, not generated from
+  request parameters, form input, or any runtime user-controlled source.
+  The Convex/content-agent draft pipeline that *does* handle
+  generated/user-adjacent input (`tools/content-agent/*`,
+  `convex/content/publish.ts`) is untouched by this diff (confirmed in
+  Round 2's blast-radius trace) and out of scope for the same reason.
+
+**Findings: none that this diff introduces or that are fixable from this
+diff's scope.** One real pre-existing gap identified and characterized
+(`prerender.mjs` unescaped title/description interpolation) — recorded
+above for visibility, not fixed, because it predates this branch, isn't
+touched by it, and isn't triggered by any content in the repo today
+including the new post. No code changes this round.
