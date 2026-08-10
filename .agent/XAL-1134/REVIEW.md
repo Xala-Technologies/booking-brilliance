@@ -196,3 +196,49 @@ content, not just "it's markdown so it's fine":
 attacker-reachable path in this diff — it's a static, build-time-baked
 Markdown file with clean frontmatter and no embedded HTML/script content.
 No fixes made this round.
+
+## Round 4 (scope — is anything here NOT the stated change?)
+
+Lens: does the diff contain anything beyond "write and publish one SEO
+blog post for XAL-1134" — drive-by edits, unrelated tidying, files nobody
+asked to touch? Re-ran `git diff origin/main...HEAD --name-status` and
+`--stat` fresh in this round rather than trusting round 1's characterization
+of the diff, since round 1 is exactly where the earlier `pnpm-workspace.yaml`
+scope creep was found and fixed — the thing to check is whether it (or
+anything like it) came back.
+
+- `git status --porcelain=v1` → clean. Nothing uncommitted, nothing
+  untracked left lying around from an earlier session's local verification
+  steps (`pnpm install`, `pnpm approve-builds --all`, `pnpm build`, `npx
+  vitest run`).
+- `git diff origin/main...HEAD --stat` → exactly three files, 463
+  insertions, **zero deletions**:
+  - `.agent/XAL-1134/SPEC.md` (new) — the required step-0 investigation
+    record, not scope creep, it's the artifact this SDLC step mandates.
+  - `.agent/XAL-1134/REVIEW.md` (new) — this review log itself, same
+    category.
+  - `src/content/blog/spesialiserte-idrettssteder-tennis-bowling-basketball-gym.md`
+    (new) — the one blog post the ticket asks for.
+  No other file in the repo appears in the diff at all — confirmed by
+  reading the full `--name-status` output, not just the `--stat` summary.
+- Specifically re-checked `pnpm-workspace.yaml` (the file round 1 found and
+  reverted): `git diff origin/main...HEAD -- pnpm-workspace.yaml` → empty.
+  The revert from round 1 held; nothing re-introduced it in rounds 2 or 3.
+- Read the full body of the new `.md` file end to end looking for content
+  that drifts outside "spesialiserte idrettssteder (tennis, bowling,
+  basketball, gym) for idrettslag/privatpersoner, turnering og trening" —
+  every section (persona vignette, spesialisert-vs-flerbrukshall
+  distinction, turnering/fast-trening/enkelttime booking patterns,
+  per-sport requirements, "hvordan Digilist løser det", FAQ, CTA) is
+  on-topic for the ticket; no unrelated sport, persona, or feature got
+  pulled in along the way.
+- Frontmatter reuses only pre-existing, already-referenced assets (cover
+  image, internal link target) rather than introducing new binary assets
+  or new pages — nothing outside the single `.md` file was needed to make
+  this post work, consistent with the "no code changes" claim in SPEC.md's
+  "WHAT CHANGES" section.
+
+**Finding: none.** The diff is exactly the stated change: one new blog
+post plus the two mandated `.agent/XAL-1134/*` process artifacts, no
+deletions, no drive-by edits, no unrelated files touched. No fixes made
+this round.
