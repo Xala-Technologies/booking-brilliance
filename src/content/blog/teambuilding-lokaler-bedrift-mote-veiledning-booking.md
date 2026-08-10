@@ -1,6 +1,6 @@
 ---
 slug: teambuilding-lokaler-bedrift-mote-veiledning-booking
-title: "Teambuilding for bedrifter: book lokaler til aktivitet, møter og veiledning"
+title: "Teambuilding for bedrifter: book lokaler til møter og veiledning"
 description: "Skal bedriften arrangere teambuilding? Se hvordan dere booker aktivitetslokaler, uteområder, møterom og veiledningsrom i sanntid, samlet på én faktura."
 date: 2026-08-10
 author: "Ibrahim Rahmani"
