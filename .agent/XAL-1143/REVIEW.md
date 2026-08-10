@@ -48,3 +48,16 @@
 - **Outbound links:** Both links in the post (`/blogg/leie-ovingsrom-musikk-dans-studio` internal, `https://digilist.no/demo` external) match the exact patterns used across the rest of the corpus (grepped `digilist.no/demo` across all posts — same domain, same style, no `target="_blank"` anywhere in this repo's blog markdown so no `rel="noopener"` gap to check).
 
 **Verdict:** No security findings in this diff. It's a pure content addition with no authz surface, no tenant data, no unescaped user input, no secrets, and no path-traversal-relevant slug value. No code changes made this round.
+
+## Round 4 — Scope
+
+**Lens:** Is anything in this diff NOT the stated change? Drive-by edits, unrelated tidying, files nobody asked to be touched. Ran `git diff origin/main...HEAD --name-only` and `git log --stat origin/main..HEAD` to enumerate every file touched by every commit on this branch, then checked each one against the ticket's stated scope (add one Norwegian blog post targeting "kunstner").
+
+**What was checked:**
+- Full file list across all four commits on this branch (`chore` scaffold, `content` add, and rounds 1–3 of review): exactly three files exist in the diff — `.agent/XAL-1143/SPEC.md`, `.agent/XAL-1143/REVIEW.md`, and `src/content/blog/kunstner-verksteder-studio-dansesaler-kreative-lokaler.md`. No fourth file, tracked or untracked (`git status --porcelain` is empty).
+- `SPEC.md` and `REVIEW.md` are the required process record for this workflow (blast-radius analysis and the adversarial-review log itself), not incidental edits — they document the one content change, they don't make a second one.
+- Diffed the blog post itself line-by-line: every paragraph is on-topic for kunstner-verksted/studio/dansesal booking across the three named use cases (hobby, kurs, profesjonell bruk), consistent with `SPEC.md`'s stated scope. No unrelated sections, no stray edits to other posts, no changes to shared components, build scripts, config, or `package.json`.
+- Confirmed no other existing blog post file was touched (`git diff origin/main...HEAD -- src/content/blog/` shows only the one new file being added, nothing else in that directory modified).
+- Checked for tidying-adjacent changes (formatting passes, renamed variables, reordered imports) that sometimes ride along with content PRs — none present; this diff is purely additive.
+
+**Verdict:** No scope findings. The diff is exactly the three files the ticket requires: one new Norwegian-language blog post plus its own SPEC/REVIEW process record. No drive-by edits, no unrelated files, no code touched at all. No changes made this round.
