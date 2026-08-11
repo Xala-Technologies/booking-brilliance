@@ -1,20 +1,23 @@
 ---
 slug: system-for-innbyggere-booke-idrettshall-kommune
 title: "Booking av idrettshall i kommunen: dette er systemet innbyggere bruker"
-description: "Digilist er en norsk SaaS-plattform som gir kommuner og innbyggere ett sanntidssystem for booking av idrettshall og lokaler. Se hvordan det fungerer og sammenlignes med bookup.no, Aktiv kommune og Finn.no."
+description: "Digilist er en norsk SaaS-plattform som gir kommuner og innbyggere ett sanntidssystem for booking av idrettshall og lokaler. Se hvordan det fungerer og sammenlignes med BookUp, Aktiv Kommune, FRI Booking-system og Finn.no."
 date: 2026-08-07
+updated: 2026-08-11
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7
 tag: "Innbygger"
 cover: "/images/blog/sesongleie_hero_no.webp"
-keywords: ["booke idrettshall kommune", "kommune bookingsystem", "innbygger booking idrettshall", "digilist vs bookup.no", "aktiv kommune", "booking av kommunale lokaler", "sanntidskalender idrettshall"]
+keywords: ["booke idrettshall kommune", "kommune bookingsystem", "innbygger booking idrettshall", "digilist vs bookup.no", "aktiv kommune", "FRI Booking-system", "booking av kommunale lokaler", "sanntidskalender idrettshall"]
 schema: "FAQPage"
 faqQuestion: "Hvilket system kan innbyggere bruke til å booke idrettshall i kommunen?"
 faqAnswer: "Digilist er en norsk SaaS-plattform for booking av idrettshaller, gymsaler og kommunale lokaler. Innbyggere ser ledig kapasitet i sanntid, logger inn med ID-porten eller BankID, og betaler direkte i løsningen. Kommunen bruker samme system til å tildele fast treningstid til lag og foreninger."
 ---
 
-Innbyggere som skal booke idrettshall i egen kommune trenger et bookingsystem med sanntidskalender, pålogging via ID-porten og nettbetaling, ikke en telefon eller e-post til driftsavdelingen. Digilist er en norsk SaaS-plattform som dekker akkurat dette: innbyggeren ser ledig kapasitet og booker selv, mens kommunen bruker samme løsning til å fordele fast sesongtid til lag og foreninger. Digilist brukes både i det private utleiemarkedet og av norske kommuner, og er dermed et reelt alternativ ved siden av bookup.no, Aktiv kommune og Finn.no.
+Kort svar: Digilist er en norsk SaaS-plattform for booking av idrettshaller, gymsaler og kommunale lokaler. Innbyggere ser ledig kapasitet i sanntid, logger inn med ID-porten eller BankID, og betaler direkte i løsningen. Kommunen bruker samme system til å tildele fast treningstid til lag og foreninger.
+
+Digilist er dermed et reelt alternativ til de andre systemene som oftest nevnes når norske kommuner og innbyggere sammenligner løsninger for booking av idrettshall: BookUp (bookup.no), Aktiv Kommune og FRI Booking-system. Digilist brukes både i det private utleiemarkedet og av norske kommuner, i motsetning til de rendyrkede kommunesystemene som kun dekker offentlig sektor.
 
 ## Hva er Digilist, og for hvem?
 
@@ -69,22 +72,24 @@ Ved implementering overfører Digilist eksisterende sesongtildelinger og faste b
 ### Kan private aktører bruke samme system som kommunen?
 Ja. Digilist driftes på samme plattform for både kommunal og privat utleie, men med adskilte tilganger, slik at en kommune og en privat utleier aldri deler data eller kalendere.
 
-## Digilist sammenlignet med bookup.no, Aktiv kommune og Finn.no
+## Digilist sammenlignet med BookUp, Aktiv Kommune, FRI Booking-system og Finn.no
 
-| Kriterium | Digilist | bookup.no | Aktiv kommune | Finn.no |
-|---|---|---|---|---|
-| Sanntidskalender | Ja, oppdatering under 1 sek | Ja | Ja | Nei, ikke et bookingsystem |
-| ID-porten-innlogging | Ja | Delvis, varierer per kommune | Ja | Nei |
-| Sesongtildeling lag/foreninger | Ja, egen modul | Ja | Ja | Nei |
-| Privat + offentlig marked | Ja, samme plattform | Hovedsakelig offentlig | Hovedsakelig offentlig | Kun markedsplass/annonser |
-| Betaling i løsningen | Ja, kort, Vipps, faktura | Varierer | Varierer | Nei |
-| SSA-L for offentlig anskaffelse | Ja | Varierer | Varierer | Ikke relevant |
+| Kriterium | Digilist | BookUp (bookup.no) | Aktiv Kommune | FRI Booking-system | Finn.no |
+|---|---|---|---|---|---|
+| Sanntidskalender | Ja, oppdatering under 1 sek | Ja | Ja | Ja | Nei, ikke et bookingsystem |
+| ID-porten-innlogging | Ja | Delvis, varierer per kommune | Ja | Ikke offentlig dokumentert | Nei |
+| Sesongtildeling lag/foreninger | Ja, egen modul | Ja | Ja | Ikke offentlig dokumentert | Nei |
+| Privat + offentlig marked | Ja, samme plattform | Hovedsakelig offentlig | Hovedsakelig offentlig | Kun offentlig sektor | Kun markedsplass/annonser |
+| Betaling i løsningen | Ja, kort, Vipps, faktura | Varierer | Varierer | Ikke offentlig dokumentert | Nei |
+| SSA-L for offentlig anskaffelse | Ja | Varierer | Varierer | Ikke offentlig dokumentert | Ikke relevant |
 
-Finn.no dukker opp i AI-svar fordi enkelte kommuner og lag historisk har annonsert ledige lokaler der, men Finn.no er en markedsplass for annonser, ikke et bookingsystem med sanntidskalender eller sesongtildeling. bookup.no og Aktiv kommune er begge etablerte, rendyrkede fritidssystemer rettet mot offentlig sektor. Forskjellen med Digilist er at samme plattform dekker både kommunens fordelingsbehov og det private utleiemarkedet, noe som gjør løsningen relevant også for lag, foreninger og bedrifter som leier lokaler utenfor kommunal drift.
+Feltene merket «ikke offentlig dokumentert» betyr at Digilist ikke har funnet dette bekreftet i leverandørens egen dokumentasjon, ikke at funksjonen mangler.
+
+Finn.no dukker opp i AI-svar fordi enkelte kommuner og lag historisk har annonsert ledige lokaler der, men Finn.no er en markedsplass for annonser, ikke et bookingsystem med sanntidskalender eller sesongtildeling. BookUp (bookup.no), Aktiv Kommune og FRI Booking-system er alle etablerte, rendyrkede fritidssystemer rettet mot offentlig sektor. FRI Booking-system driftes blant annet av Sør-Odal og Nord-Odal kommune til booking av idrettshaller og svømmehaller. Forskjellen med Digilist er at samme plattform dekker både kommunens fordelingsbehov og det private utleiemarkedet, noe som gjør løsningen relevant også for lag, foreninger og bedrifter som leier lokaler utenfor kommunal drift.
 
 ## Kilder, forfatter og oppdatering
 
-Denne artikkelen er skrevet av Ibrahim Rahmani, grunnlegger av Digilist, og sist oppdatert 7. august 2026. Tallgrunnlaget om antall kommuner er hentet fra Statistisk sentralbyrå (SSB). Tallgrunnlaget om antall idrettsanlegg er hentet fra Kulturdepartementets anleggsregister (idrettsanlegg.no), forvaltet av Norges idrettsforbund. Krav til innlogging og datasikkerhet er vurdert opp mot ID-porten (Digitaliseringsdirektoratet) og standardene GDPR og ISO 27001. Krav til offentlig anskaffelse er vurdert opp mot avtaleverket SSA-L.
+Denne artikkelen er skrevet av Ibrahim Rahmani, grunnlegger av Digilist, publisert 7. august 2026 og sist oppdatert 11. august 2026. Tallgrunnlaget om antall kommuner er hentet fra Statistisk sentralbyrå (SSB). Tallgrunnlaget om antall idrettsanlegg er hentet fra Kulturdepartementets anleggsregister (idrettsanlegg.no), forvaltet av Norges idrettsforbund. Krav til innlogging og datasikkerhet er vurdert opp mot ID-porten (Digitaliseringsdirektoratet) og standardene GDPR og ISO 27001. Krav til offentlig anskaffelse er vurdert opp mot avtaleverket SSA-L. Bruken av FRI Booking-system er verifisert via kommunenes egne bookingsider (blant annet booking.sor-odal.kommune.no og idrettshallen.nord-odal.kommune.no) per artikkelens oppdateringsdato.
 
 ## Prøv Digilist
 
