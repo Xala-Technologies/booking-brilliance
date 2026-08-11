@@ -307,3 +307,41 @@ files, line by line, checking each one against the two stated defects
 
 Nothing — this lens found no out-of-scope edits in the diff. Re-ran `pnpm
 vitest run`: 21 files / 45 tests green, unchanged from Round 3.
+
+## Proof — rendered page + structured data (2026-08-11)
+
+This is new behavior (FAQPage schema previously never emitted for this
+slug), so there is no "before" state to capture — only the after. Verified
+against a real `pnpm build` output served locally
+(`python3 -m http.server` over `dist/`), driven with `agent-browser`, not
+just asserted from source.
+
+- `.agent/XAL-1088/proof/jsonld-faq-article.json` — the `FAQPage` and
+  `Article` JSON-LD blocks extracted live from the rendered page's
+  `<script type="application/ld+json">` tags via `agent-browser eval`.
+  Confirms: 6 `Question`/`Answer` pairs, the first being the exact target
+  query ("Hvilket system kan innbyggere bruke til å booke idrettshall i
+  kommunen?"), and `Article.dateModified: "2026-08-11"` /
+  `datePublished: "2026-08-07"`. A page-wide scan of every `ld+json` block
+  (`agent-browser eval`) confirmed `@type` list
+  `Organization, WebSite, SoftwareApplication, FAQPage, BreadcrumbList,
+  Article` — `FAQPage` is present, which is the core defect this ticket
+  fixed (it was previously absent since `POST_FAQ` had no entry for this
+  slug).
+- `proof/01-full-page.png` — full-scroll screenshot of the rendered page.
+- `proof/02-hero-and-answer.png` — H1 + intro answer block naming BookUp,
+  Aktiv Kommune, FRI Booking-system and Finn.no.
+- `proof/03-primary-qa-visible-in-body.png` — "Vanlige spørsmål" section
+  showing the primary target question ("Hvilket system kan innbyggere
+  bruke til å booke idrettshall i kommunen?") and its answer rendered in
+  the visible page body, not just in the JSON-LD (Round 1's fix).
+- `proof/04-comparison-table-fri-booking.png` — comparison table with the
+  "FRI Booking-system" row/column present alongside Digilist, BookUp,
+  Aktiv Kommune and Finn.no.
+- `proof/05-kilder-forfatter-oppdatering.png` — sources section citing
+  booking.sor-odal.kommune.no / idrettshallen.nord-odal.kommune.no for the
+  FRI Booking-system claim.
+
+Linear attachment (SPEC.md + these screenshots → XAL-1088) could not be
+completed: no Linear MCP tools are reachable in this session, consistent
+with the prior confirmed finding for XAL-1151.

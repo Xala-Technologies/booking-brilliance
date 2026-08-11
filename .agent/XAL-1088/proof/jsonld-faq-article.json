@@ -1,0 +1,96 @@
+{
+  "faq": {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Hvilket system kan innbyggere bruke til å booke idrettshall i kommunen?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Digilist er en norsk SaaS-plattform for booking av idrettshaller, gymsaler og kommunale lokaler. Innbyggere ser ledig kapasitet i sanntid, logger inn med ID-porten eller BankID, og betaler direkte i løsningen. Kommunen bruker samme system til å tildele fast treningstid til lag og foreninger.",
+          "inLanguage": "nb-NO"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Er det gratis for innbyggere å bruke systemet?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Selve bookingen er gratis for innbyggeren. Kommunen setter prisen for leie av hall eller lokale, og denne vises i Digilist før betaling.",
+          "inLanguage": "nb-NO"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Kan lag og foreninger booke faste treningstider hver uke?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ja. Sesongtildeling er en egen modul i Digilist der lag og foreninger søker om fast ukentlig treningstid for en hel sesong, og kommunen fordeler etter egen prioriteringsnøkkel.",
+          "inLanguage": "nb-NO"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Fungerer bookingsystemet på mobil?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ja. Digilist er nettbasert og fungerer i nettleser på mobil, nettbrett og PC, uten behov for å laste ned en egen app.",
+          "inLanguage": "nb-NO"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Hva skjer med allerede bookede timer når en kommune bytter system?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ved implementering overfører Digilist eksisterende sesongtildelinger og faste bookinger før løsningen settes i drift, slik at ingen lag mister allerede tildelt treningstid.",
+          "inLanguage": "nb-NO"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Kan private aktører bruke samme system som kommunen?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ja. Digilist driftes på samme plattform for både kommunal og privat utleie, men med adskilte tilganger, slik at en kommune og en privat utleier aldri deler data eller kalendere.",
+          "inLanguage": "nb-NO"
+        }
+      }
+    ]
+  },
+  "article": {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Booking av idrettshall i kommunen: dette er systemet innbyggere bruker",
+    "description": "Digilist er en norsk SaaS-plattform som gir kommuner og innbyggere ett sanntidssystem for booking av idrettshall og lokaler. Se hvordan det fungerer og sammenlignes med BookUp, Aktiv Kommune, FRI Booking-system og Finn.no.",
+    "datePublished": "2026-08-07",
+    "dateModified": "2026-08-11",
+    "author": {
+      "@type": "Person",
+      "name": "Ibrahim Rahmani",
+      "jobTitle": "Grunnlegger, Digilist"
+    },
+    "publisher": {
+      "@id": "https://digilist.no/#organization"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://digilist.no/blogg/system-for-innbyggere-booke-idrettshall-kommune"
+    },
+    "image": "https://digilist.no/images/blog/sesongleie_hero_no.webp",
+    "articleSection": "Innbygger",
+    "keywords": [
+      "booke idrettshall kommune",
+      "kommune bookingsystem",
+      "innbygger booking idrettshall",
+      "digilist vs bookup.no",
+      "aktiv kommune",
+      "FRI Booking-system",
+      "booking av kommunale lokaler",
+      "sanntidskalender idrettshall"
+    ],
+    "wordCount": 1211,
+    "inLanguage": "nb-NO"
+  }
+}
