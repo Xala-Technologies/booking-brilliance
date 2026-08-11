@@ -67,3 +67,83 @@ post are accurate against the current `/overnatting/leilighet` page, and the
 frontmatter is well-formed. The only gap found (related-solutions sidebar
 fallback) is pre-existing, explicitly scoped out in SPEC.md, and not
 something a content-only change should take on.
+
+## Round 2
+
+**Note on step 0:** the resume prompt again claimed `AGENT-SPEC.md` did not
+exist. It does, at `.agent/XAL-1091/SPEC.md`, unchanged since Round 1 —
+nothing to redo.
+
+**Lens: REGRESSION** — what else, beyond the files this diff touches, reads
+blog content, and could anything have depended on the old behaviour (no post
+at this slug, one fewer post in the corpus, etc.)? `git diff
+origin/main...HEAD --stat` confirms this diff is content-only: one new file,
+`src/content/blog/bolig-til-leie-oslo-mellombolig-leilighet.md`, plus the two
+`.agent/XAL-1091/*.md` process files. Zero source/script files touched — so
+by construction the only regression surface is "what happens when the
+existing pipeline ingests one more markdown file with this specific
+frontmatter," not "did a code edit change shared logic."
+
+Grepped every consumer of blog content beyond the ones SPEC.md's "blast
+radius" section already named, to check none of them assume a fixed post
+count, a fixed slug set, or behave differently under this post's specific
+field values:
+
+- **Sitemap generation** (`scripts/prerender.mjs:2628-2632`) — spreads
+  `posts.map(...)` into `sitemapEntries` with `lastmod: p.date`; the new post
+  is picked up automatically with no manual sitemap edit required. Confirmed
+  `p.date` parses cleanly: `blogFrontmatter.ts:71` does
+  `new Date(data.date).toISOString().slice(0, 10)` on the unquoted
+  `date: 2026-08-11` frontmatter value, round-trips to the same string, no
+  timezone-shift risk since it's a bare ISO date.
+- **Search corpus** (`src/lib/search/corpus.ts:95-101`) — blog items keyed by
+  `id: \`b-${p.slug}\``; new slug doesn't collide with any existing id, and
+  `getSearchCorpus()`'s module-level `cached` var is just an in-memory
+  first-call memo, not a pre-seeded list — no stale-count risk.
+- **Sidebar `relatedPosts`** (`src/pages/BlogPost.tsx:109-116`) — filters all
+  posts sharing the same `tag`, dedupes by slug, `.slice(0, 3)`. `tag:
+  "Privatperson"` is already shared by 108 other posts (Round 1 finding); the
+  new post just becomes one more candidate in a pool that already exceeds the
+  slice bound, so this can't overflow or change ordering guarantees for other
+  posts' sidebars.
+- **Frontmatter regex parser** (`blogFrontmatter.ts` `parseFrontmatter`) —
+  checked the one field with an embedded special character,
+  `title: "Bolig til leie i Oslo: mellombolig og korttidsleilighet"` (colon
+  inside the quoted value). The line-level regex `^([A-Za-z0-9_-]+):\s*(.*)$`
+  only treats the *first* colon as the key/value delimiter (colon isn't in
+  the key's character class), so the embedded colon in the title string is
+  captured correctly as part of the value — same pattern already relied on by
+  other posts with colons in their titles, not something this post exercises
+  for the first time.
+- **`BlogPreview.tsx`** (admin draft-preview route) — also imports
+  `parseFrontmatter` from the same module, but operates on Convex draft rows
+  (`draft.body` / `draft.frontmatter_json`), not on files in
+  `src/content/blog/`. Confirmed unrelated: this route can't be affected by a
+  new committed post either way.
+- **Chatbot RAG** (`src/lib/chatbot/rag.ts`) — greps for "keywords" turned
+  this up as a possible consumer, but it retrieves over `FAQ_CATEGORIES`
+  only, never touches blog content. Unrelated.
+- **Admin `IntelligenceVekst.tsx`** (`snap.keywords.recent`) — a different
+  `keywords` entirely (Search Console-style discovered-query rows), unrelated
+  to the blog frontmatter `keywords: string[]` field. Unrelated.
+- **`llms-full.txt`** (`scripts/prerender.mjs:2580-2606`) — appends the FAQ
+  corpus only; blog posts aren't part of that file. Unrelated.
+- **IndexNow submission** (`scripts/indexnow-submit.mjs`) — a manually
+  invoked script with a hardcoded `DEFAULT_PATHS` list; doesn't run
+  automatically off the blog glob, so it neither breaks nor needs updating
+  for this post (submitting the new URL, if desired, is a manual follow-up
+  outside this ticket's scope, same as it is for every other new post).
+
+**Old-behaviour dependency check**: nothing in the corpus (tests or app code)
+asserts an exact post count, an exact slug list, or an exact sitemap-entry
+count — every consumer iterates whatever `getAllPosts()` / the blog glob
+returns. Re-ran the full suite after this review: `pnpm vitest run` — 20
+files, 41 tests, all green, including `post-slugs.test.ts`.
+
+**No regressions found.** This is a pure content-additive change; every
+downstream reader of blog content (sitemap, search index, sidebar related
+posts, frontmatter parser) handles an additional post through the same
+glob-driven, count-agnostic mechanism every prior post already went through,
+and the one field with a syntactic edge case (colon inside a quoted title)
+parses the same way existing posts' colon-bearing titles already do. Nothing
+fixed this round — no code was touched to fix.
