@@ -260,3 +260,57 @@ content file was touched by this branch's commits, and both prior rounds'
 fixes stayed contained to the file they were fixing. `npx vitest run`
 re-confirmed green (21/21 files, 45/45 tests) after this pass; no code
 changed so no fix commit was needed this round.
+
+## Visual proof
+
+New behaviour (a page that did not exist before this ticket) — only an
+"after" state is possible, per the merge gate's own rule. Captured live
+against `pnpm dev:client` (localhost:8080, freshly launched in this
+session), zero console/page errors, at
+`/blogg/eventlokaler-arrangement-underholdning-kulturarrangement-arrangorer`:
+
+- `proof/after-eventlokaler-arrangement-top.png` — above-the-fold render:
+  confirms the exact `<h1>` text ("Eventlokaler til arrangement: guide for
+  arrangører") matches frontmatter `title`, the `<title>` tag matches, the
+  "ARRANGØR" tag chip renders top-right, byline/date/cover render, and the
+  "I denne artikkelen" table-of-contents lists all six `##` sections.
+- `proof/after-eventlokaler-arrangement-arrangor-persona.png` — scrolled to
+  "Hva kjennetegner en arrangør" section, confirming the persona angle
+  renders.
+- `proof/after-eventlokaler-arrangement-krav-section.png` — scrolled to
+  "Hva krever et eventlokale" section, confirming the venue-requirements
+  angle renders.
+- `proof/after-eventlokaler-arrangement-privat-marked.png` — scrolled to
+  "Hvorfor dette først og fremst er et privat marked" section, confirming
+  the private-market angle renders.
+- `proof/after-eventlokaler-arrangement-kundeengasjement.png` — scrolled to
+  "Høyt kundeengasjement" section, confirming the repeat-booking angle
+  renders.
+- `proof/after-eventlokaler-arrangement-sjekkliste.png` — scrolled to
+  "Sjekkliste før du booker" section, confirming the practical checklist
+  renders.
+- `proof/after-eventlokaler-arrangement-cta.png` — scrolled to the closing
+  "Slik gjør Digilist eventlokaler bookbare for arrangører" section,
+  confirming the product/CTA close renders and the "Relaterte artikler"
+  sidebar shows real sibling posts.
+- `proof/after-eventlokaler-arrangement-tag-chip.png` — `/blogg` listing
+  page, confirming the new "ARRANGØR" filter chip renders in the dynamic
+  tag list alongside existing tags (no registration needed, as SPEC
+  claimed).
+
+Driver script used Playwright directly against the local
+`node_modules/.pnpm/playwright@1.61.1` install (no top-level `playwright`
+symlink in this repo's `node_modules`, only `@playwright/test`), same
+approach as XAL-1090/XAL-1099. Page title/H1 read back via
+`page.locator('h1').first().textContent()` matched frontmatter exactly;
+`console`/`pageerror` listeners returned zero entries across the whole
+capture run. Dev server stopped after capture.
+
+## Linear attachment
+
+Re-confirmed this session: no Linear MCP server is reachable (`ToolSearch`
+for Linear-related tools returns nothing), matching
+[[project_no_linear_mcp_tools_available]]. `SPEC.md` and the proof images
+above are committed to the branch at `.agent/XAL-1086/` instead, so the
+evidence travels with the diff even though it can't be attached to the
+XAL-1086 issue directly from this session.
