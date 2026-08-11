@@ -2,7 +2,7 @@
 slug: bryllupslokale-pris-sesong-ukedag-totalbudsjett
 title: "Bryllupslokale pris 2026: sesong, ukedag og antall gjester avgjør totalprisen"
 description: "Se prisspennet for bryllupslokale i 2026: hvordan sesong, ukedag og gjesteantall påvirker totalprisen, og hvordan dere setter opp et realistisk budsjett før dere booker."
-date: 2026-08-10
+date: 2026-08-11
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7
