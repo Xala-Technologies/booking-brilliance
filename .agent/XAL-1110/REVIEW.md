@@ -119,3 +119,86 @@ actually missing these headers.
 `dashboard.dev.digilist.no` serving no security headers live due to the
 `digilist-spa-cache-headers.conf` `add_header`-inheritance bug — pre-existing, already
 has its own memory note and needs its own ticket, per prior rounds/SPEC.
+
+## Round 2
+
+**Lens: REGRESSION** — what ELSE reads this code path, and did anything depend on the
+old behaviour (file-scoped idempotency check, all four `TARGETS`, no-`preload` HSTS)?
+
+### What I checked
+
+Grepped the whole repo (not just the two edited files) for every consumer of
+`infra/apply-security-headers.sh`, `infra/nginx/security-headers.conf`, the string
+`digilist-security-headers.conf`, and the four hostnames themselves, then read each hit:
+
+1. **`infra/sla-watchdog/watchdog.sh`** — probes `docs`/`status`/`app`/`web` every 60s via
+   `curl -s -o /dev/null -w '%{http_code}'` and restarts `nginx.service` on 3 consecutive
+   non-2xx/3xx. It only reads the HTTP status line, never header content, so neither
+   Round 1's header-duplication (now fixed) nor this round's `TARGETS` trim can affect it
+   — confirmed no dependency.
+2. **`infra/certbot/{install.sh,reload-nginx.sh}`** — the renewal deploy-hook only runs
+   `nginx -t && systemctl reload nginx` after a cert renews; it never rewrites
+   `sites-available/*` server-block content (no `--nginx` authenticator/installer flag
+   anywhere in these scripts, so it's webroot-based and can't clobber the `include` line
+   this ticket's rollout inserted into `docs.digilist.no`'s block).
+3. **`.github/workflows/deploy.yml`** — read in full. Only rsyncs the built app into
+   `releases/rel-<ts>` and atomically flips nginx's `current` symlink; it never touches
+   `/etc/nginx/sites-available/*` or `/etc/nginx/snippets/*`, so it can't overwrite or
+   race the live nginx edits this ticket (and Round 1's cleanup) made on the VPS.
+4. **`tools/site-intelligence/src/auditors/security.ts`** (`evaluateHeaders`) — this is
+   the actual scanner that produced the XAL-1110 finding in the first place (rule id
+   `security.header.x-frame-options`, same message text as the ticket title). It reads
+   `res.headers` from the platform `fetch()` in `tools/site-intelligence/src/fetcher.ts:50`,
+   which folds duplicate response headers into one comma-joined string (except
+   `Set-Cookie`) rather than erroring — so even during Round 1's now-fixed duplication
+   window this auditor would not have crashed, only potentially mis-scored HSTS's
+   `max-age` regex against a joined value. Not a live concern: Round 1 already eliminated
+   the duplication before any rescan would run. `evaluateHeaders` only checks
+   presence + a regex on `max-age`, nothing that pins an exact header string, so adding
+   `preload` to the shared HSTS line is safe and won't produce a new finding.
+5. **`convex/audits/targets.ts`** and **`tools/site-intelligence/src/targets.ts`** — both
+   list all four hosts (`dev`, `docs`, `dashboard-dev`, `status`) as scan targets. These
+   read live HTTP responses, not the script or its `TARGETS` array, so trimming the
+   script's `TARGETS` to `docs.digilist.no` only doesn't desync anything here — the
+   scanner will keep finding `status`/`dev`/`dashboard-dev` header-compliant (their
+   pre-existing hand-written blocks are untouched) and `dashboard-dev` still
+   non-compliant (the separate, already-flagged inheritance bug), exactly matching
+   current live reality either way.
+6. **`tools/site-intelligence/REMEDIATION.md`** — describes a *proposed* (`Phase 2`,
+   explicitly "not yet wired into a loop") `infra-config → generate nginx snippet → PR`
+   pipeline that would read this script. Nothing in the repo currently executes that
+   phase, so there is no live automation whose behaviour this round's diff could change.
+7. **`.agent/XAL-1156/`** — a different, already-*merged* ticket (`a0c884a`, ancestor of
+   `HEAD`) that edits a *different* file (`server/nginx.snippet.conf`, for `digilist.no`
+   root only) and only mentions `infra/apply-security-headers.sh` /
+   `infra/nginx/security-headers.conf` in prose as a "these are unrelated, false-positive
+   substring match" aside in its own review. Confirmed via `git merge-base --is-ancestor`
+   — no concurrent-branch collision, no shared code path.
+8. Searched for hardcoded expectations of the old (non-`preload`, 4-host) behaviour in
+   test files, `infra/*/README.md`, and every other `*.md` in the repo — no test
+   references `apply-security-headers.sh`/`security-headers.conf`/`TARGETS`, and no
+   runbook prose treats "all four hosts" as a documented invariant (the only `.md` hits
+   for the three non-docs hostnames are `tools/site-intelligence/PLAN.md`'s target table,
+   already covered by point 5, and an unrelated blog post mentioning `status.digilist.no`
+   in prose).
+9. Re-curled all four live hosts to confirm the current state matches what SPEC/Round 1
+   claim, independent of trusting their prose:
+   `docs`/`status`/`dev` each send every one of the five headers **exactly once**, HSTS
+   now carrying `preload` on all three; `dashboard.dev.digilist.no` still sends **zero**
+   security headers (matches the separately-tracked, out-of-scope inheritance bug — not a
+   new regression from this round).
+
+### What I found
+
+No regression. Every consumer of the touched files/hosts either reads live HTTP state
+(unaffected either way — duplication already fixed by Round 1, `preload` addition is
+additive-only) or reads status codes only (watchdog), and nothing outside
+`infra/apply-security-headers.sh` itself depends on its internal `TARGETS` list or its
+idempotency-check implementation. `.agent/XAL-1156` looked like a possible concurrent
+collision on the same infra files but turned out to be already-merged history on a
+different file, confirmed via `git merge-base --is-ancestor`.
+
+### What I changed
+
+Nothing — this lens found no code to fix. No commit needed for the code; this section
+itself is the round's output.
