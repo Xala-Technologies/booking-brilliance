@@ -88,3 +88,86 @@ Other things checked and found correct, not flagged:
 - `POST_FAQ` object-literal edit is purely additive — grepped `blogFaq.mjs`'s
   two consumers, confirmed no other slug's entry is affected.
 - Full `pnpm vitest run` was green both before and after the fix.
+
+## Round 2 — REGRESSION
+
+Lens: what else reads this code path — not just the files this diff touched —
+and did anything depend on the old behaviour? Grepped every consumer of
+`blogFaq.mjs`/`POST_FAQ`, every reference to the slug across the repo
+(excluding `dist/`), the `SOLUTION_PAGES` keyword matcher, the redirect
+guard, the description-length convention, and whether `POST_FAQ`'s `faq`
+prop is rendered anywhere other than JSON-LD (which would have made Round
+1's manual H3 addition a duplicate-content bug). Ran the full suite again
+and the title-length guard.
+
+### Checked, no regression found
+
+- **`blogFaq.mjs` consumers**: exactly `src/pages/BlogPost.tsx` (client
+  render → `SEO.tsx`'s `faq` prop) and `scripts/prerender.mjs` (SSR JSON-LD),
+  plus four test files (`blogFaq.test.ts`, `blog-xal739-aeo.test.ts`,
+  `blog-xal1155-lokalesok-faq.test.ts`, and this ticket's new
+  `blog-xal1088-aeo.test.ts`). The new `POST_FAQ` key is a pure addition to
+  an object literal — grepped every other key, none reference or depend on
+  key order or count, and all four pre-existing FAQ-map tests still pass
+  unchanged.
+- **`faq` prop is JSON-LD only** (`src/components/SEO.tsx:247-251`, feeds
+  `mainEntity` into a `<script type="application/ld+json">` block) — it is
+  never rendered as visible markup anywhere in `BlogPost.tsx` or `SEO.tsx`.
+  This confirms Round 1's fix (adding the target question as a visible H3 in
+  the markdown body) was necessary — the FAQPage schema was genuinely
+  invisible to readers before that — and that it didn't create a *duplicate*
+  rendering: there's no second component that would also auto-render
+  `POST_FAQ` entries as visible text, so the H3 is the only rendered copy.
+- **Slug is referenced nowhere else in the repo** (`grep -rln
+  "system-for-innbyggere-booke-idrettshall-kommune"`, excluding `dist/`):
+  only the post's own frontmatter, the new `POST_FAQ` key, and the new test
+  file. No hardcoded internal link, no redirect-map entry, no
+  `SOLUTION_PAGES` per-slug matcher — that matcher
+  (`src/pages/BlogPost.tsx:33`) matches generically on
+  `/idrettshall|gymsal|sesong|hall|forening|trening|anlegg/i` against page
+  content, the same way it already did before this diff; nothing in the
+  changed copy removes or adds a keyword that regex depends on.
+- **`guard-blog-redirects.mjs`** resolves slugs by *exact* frontmatter
+  `slug:` match (`resolveSlug`), not fuzzy/substring match — so the two
+  near-identical sibling slugs (`system-for-innbyggere-booke-idrettshall-kommune`
+  vs. the pre-existing, untouched `system-booke-idrettshall-kommune`) can't
+  collide in that guard despite the similar wording.
+- **`check-blog-word-count.mjs` / `check-title-lengths.mjs`**: title is
+  unchanged by this diff; word count guard was already confirmed green
+  against the prerendered HTML in Round 1's `pnpm build` run, and the only
+  content change since (the H3) added words, not removed them.
+- **`src/lib/postContent.ts`** (`getAllPosts`, used by the two
+  description-length tests and by sitemap/RSS-style consumers) globs
+  `src/content/blog/*.md` directly — no allowlist to update, no per-slug
+  branch that could silently exclude or duplicate this post.
+
+### Finding: meta `description` is 222 chars, pushed further over the repo's own ~160-char convention — but this is pre-existing, not introduced by this diff
+
+Two precedent tests in this repo
+(`src/lib/leie-selskapslokale-description.test.ts`,
+`src/lib/digitalt-bookingsystem-description.test.ts`) pin `description.length
+< 160` for other posts, with a comment explaining why: `scripts/prerender.mjs`
+writes `meta.description` verbatim into `<meta name="description">`,
+`og:description` and `twitter:description` with **no truncation logic**
+anywhere in the pipeline — confirmed by reading `prerender.mjs:2310,
+2348-2362` and `SEO.tsx:116,126`. Google and social previews truncate past
+~155-160 chars themselves, so an over-length description is a real (if soft)
+regression risk for how the page renders in search/share previews — exactly
+the kind of technical-citability detail this ticket cares about.
+
+Measured both versions: the pre-diff description was already 205 chars (over
+the convention), and this diff's edit — adding "BookUp", "Aktiv Kommune" and
+"FRI Booking-system" in place of "bookup.no, Aktiv kommune" — pushed it to
+222. So this is not a regression this diff *caused*: the post already
+violated the convention before this ticket touched it, and no test covers
+this specific slug so nothing was silently broken. Not fixing it here since
+it's pre-existing and outside a regression-lens round's scope (Round 1
+already owns correctness fixes; this is a candidate for a future round or a
+follow-up ticket) — flagged as an ENHANCEMENT in the session report instead.
+
+### What I changed
+
+Nothing — this lens found no regression introduced by the diff. Re-ran
+`pnpm vitest run`: still 21 files / 45 tests green, and
+`node scripts/check-title-lengths.mjs` shows this post's title unaffected
+(unchanged by the diff, not in the over-65-char list newly).
