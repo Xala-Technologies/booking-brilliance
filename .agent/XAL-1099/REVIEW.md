@@ -170,3 +170,89 @@ becoming `getAllPosts()[0]` because it's the newest-dated post — was
 already covered by an existing generic test (not slug-specific), and that
 test passes against this post's actual rendered HTML. No fix needed; no
 code or content change made this round.
+
+## Round 3 — SECURITY
+
+Lens: authz, tenant isolation, injection, secrets, and anything
+user-supplied that reaches a query, a path, or a page.
+
+### What I checked
+
+This diff has no code changes (confirmed via `git diff origin/main...HEAD
+--stat`: only `.agent/XAL-1099/{SPEC,REVIEW}.md` and one new content
+Markdown file). There is no authz surface, no tenant boundary, and no
+query of any kind touched by adding one static blog post, so most of this
+lens doesn't apply by construction. What's left to check for a
+content-only diff is narrower: does the new content itself carry anything
+that becomes dangerous once it passes through the rendering/prerender
+pipeline, and does that pipeline handle it safely.
+
+- **Secrets**: grepped the new file's diff for key/token/secret/credential
+  patterns (`sk-`, `api[_-]?key`, `token`, `password`, `secret`, `bearer`,
+  AWS-key shape, PEM headers) — zero matches. Content is prose plus a
+  frontmatter block; nothing resembling a credential.
+- **Injection into the frontmatter parsers**: `scripts/prerender.mjs`
+  parses frontmatter with a hand-rolled regex (`loadBlogPosts`, `kv =
+  line.match(...)`), and `src/lib/blogFrontmatter.ts` does the same for
+  the client build. Both are naive string/regex parsers, not a schema
+  validator, so a frontmatter value containing an unescaped `"` or a
+  literal newline could corrupt parsing or smuggle extra fields. Checked
+  every frontmatter value in the new post character-by-character: `title`,
+  `description`, `author`, `role`, `tag`, `cover`, and every entry in
+  `keywords` — none contain a `"`, backslash, angle bracket, or newline.
+  Clean.
+- **XSS surface at render time**: `BlogPost.tsx` renders the Markdown body
+  through `ReactMarkdown` with only the `remarkGfm` plugin — no
+  `rehype-raw` (confirmed by grepping the repo, same finding Round 1 made
+  for a different reason). That means even if the body *did* contain raw
+  `<script>`/`<img onerror>` HTML, it would render as literal text, not
+  execute. The new post's body contains no raw HTML tags at all, only
+  Markdown syntax (headings, bold, links, list items) — verified by
+  reading the full body.
+- **XSS surface at prerender time (the one adjacent finding)**: unlike the
+  client-side render path, `scripts/prerender.mjs` builds the static
+  `<head>` by string-substituting `meta.title` and `meta.description`
+  directly into `<title>`, `<meta name="title">`, `<meta
+  name="description">`, `og:title`, and `og:description` attribute values
+  (`prerender.mjs:2292-2339`) with **no HTML-escaping** — a value
+  containing `"` would break out of the attribute, and one containing
+  `</title>` or similar would inject markup into the prerendered HTML that
+  ships to every visitor and every crawler. Notably, the adjacent
+  `<meta name="keywords">` substitution *does* escape (`.replace(/"/g,
+  "&quot;")` at line 2323) — so the gap is specific to `title` and
+  `description`, not the whole pipeline, suggesting it was patched for
+  keywords (probably because those are partly fed from
+  `DISCOVERED_KEYWORDS`, an external/live source) but never extended to
+  title/description. This is a real gap, but it is **pre-existing across
+  every one of the ~130+ posts already in the repo**, not introduced by
+  this diff, and the fix belongs in the shared prerender script, not in a
+  content-only PR that doesn't touch code. Checked whether this specific
+  post's `title`/`description` trip it: both are plain prose with no `"`,
+  `<`, or `>` anywhere (verified above) — this post ships safely through
+  the gap without triggering it. Flagging for a future ticket against
+  `prerender.mjs`, not fixing here: fixing it would mean editing a shared
+  script outside this ticket's scope, on a branch whose only sanctioned
+  change is one Markdown file, for a gap this post doesn't exercise.
+- **Authz / tenant isolation**: not applicable — there is no per-tenant or
+  per-role data path anywhere in this diff. The post's own content
+  *discusses* role-based access control (`brukerkontroll` — roles like
+  saksbehandler/driftsleder/lagkoordinator) as its subject matter, but
+  that's prose describing a product capability, not code that implements
+  or checks one.
+- **User-supplied input reaching a query/path/page**: none. The slug,
+  frontmatter, and body are all author-written and committed to Git, not
+  derived from a request, a form, or an external API at request time.
+  Confirmed both discovery mechanisms are filesystem directory scans
+  (`fs.readdir` / `import.meta.glob`), not string-built paths from any
+  untrusted input.
+
+### Findings
+
+No security defects in this diff. One adjacent, pre-existing gap noted
+above (unescaped `title`/`description` interpolation in
+`scripts/prerender.mjs`'s prerender step) — real, but not caused by this
+change, not exercised by this post's actual content, and out of scope to
+fix on a content-only ticket. No fix made this round; re-ran the
+consumer-relevant test set (`post-slugs.test.ts`, `blogFaq.test.ts`,
+`entry-server.main-landmark.test.tsx`, `webp-sources.test.ts` — 9 tests,
+all pass) to confirm the tree is still green going into Round 4.
