@@ -241,3 +241,40 @@ content stays inside the persona/angle SPEC scoped it to with no
 unplanned cross-links or drive-by edits anywhere in the branch.
 
 **Changed:** nothing (no fixes needed this round).
+
+## Round 5 — visual proof
+
+New behaviour (a page that didn't exist before), so there is no "before"
+state to capture — only the after.
+
+- Started `pnpm dev:client` (Vite, `http://localhost:8080`) and used
+  `agent-browser` to open
+  `http://localhost:8080/blogg/dans-og-kunstnerstudier-atelier-for-opplaering`
+  directly (client-side route, no server changes needed to serve it).
+- Confirmed via `agent-browser get title` / `get text h1`: document title
+  and `<h1>` both read
+  *"Dans- og kunstnerstudier: atelier for opplæring og øving"* — the route
+  resolves to the new post, not a 404/fallback.
+- Full-page screenshot saved to
+  [`proof/blog-post-full.png`](proof/blog-post-full.png) (1265×6941px).
+  Visually confirms, top to bottom: title + intro, the `Privatperson` tag,
+  hero illustration, full body (all sections from SPEC's persona angle —
+  "Tre grupper som underviser og øver i samme type rom",
+  "Sammenhengende blokk fram mot en fast dato", "Forutsigbarhet på tvers av
+  flere ukedager"), the four cross-links rendered as real anchors
+  (kunstner-verksteder-studio-dansesaler-kreative-lokaler,
+  leie-ovingsrom-musikk-dans-studio,
+  spesiallokaler-niche-utleie-teaterscene-kjeller,
+  booking-spesialiserte-trening-kunstnerlokaler), the "Vanlige spørsmål om
+  dans- og kunstnerstudier" FAQ section with all four Q&A pairs rendered as
+  visible text (not just JSON-LD), and the sidebar "MER LESESTOFF"/"RELATERTE
+  ARTIKLER" picking the new post up dynamically. No layout breakage, no
+  missing images, no raw markdown leaking into the rendered HTML.
+- Stopped the dev server after capture (`pkill -f vite`); no server left
+  running.
+- Linear attachment: MCP Linear tools remain unreachable this session
+  (confirmed again via `ToolSearch`, matches
+  `project_no_linear_mcp_tools_available.md` / XAL-1151) — `proof/blog-post-full.png`
+  is committed to the branch instead of attached to the issue directly.
+
+**Changed:** nothing (no fixes needed this round; proof-only addition).
