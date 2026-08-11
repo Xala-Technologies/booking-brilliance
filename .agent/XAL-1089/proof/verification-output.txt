@@ -1,0 +1,26 @@
+=== node scripts/check-title-lengths.mjs (this post's line + summary) ===
+ok   52 booking-spesialiserte-trening-kunstnerlokaler.md
+139/328 post(s) exceed 65 chars.
+
+=== node scripts/check-blog-word-count.mjs ===
+✓ All 328 blog posts have at least 200 words in the markdown source.
+✓ All 328 blog posts render at least 200 words in dist/blogg/*/index.html.
+
+=== curl status for the 5 internal link targets ===
+leie-ovingsrom-musikk-dans-studio -> 200
+studio-fotografi-videografi-privatproduksjon-booking -> 200
+kunstner-verksteder-studio-dansesaler-kreative-lokaler -> 200
+treningsrom-gymhaller-personlig-trener-fitnessinstruktor -> 200
+spesiallokaler-niche-utleie-teaterscene-kjeller -> 200
+
+=== npx vitest run ===
+ ✓ src/entry-server.main-landmark.test.tsx (3 tests) 2954ms
+   ✓ SSR <main> landmark > wraps a lazily-loaded blog post in exactly one <main>, even as the first route rendered 2699ms
+ ✓ src/entry-server.h1.test.tsx (6 tests) 845ms
+   ✓ SSR <h1> template invariant > renders the post title as the sole <h1> on a blog post 545ms
+
+ Test Files  20 passed (20)
+      Tests  41 passed (41)
+   Start at  03:31:22
+   Duration  5.91s (transform 4.61s, setup 0ms, collect 16.87s, tests 5.76s, environment 4.02s, prepare 3.26s)
+

@@ -1,0 +1,113 @@
+# XAL-1089 — Adversarial review log
+
+## Round 1 — Correctness
+
+**Lens:** does the change do what the acceptance criteria in `.agent/XAL-1089/SPEC.md` say, including edge cases? Checked the SPEC's "Definition of done" and "Testing requirements" against what's actually on disk, then read the new post itself for factual/content correctness against its four sibling posts.
+
+**Note on the round's premise:** the task brief for this round claimed `AGENT-SPEC.md` doesn't exist and step 0 was never finished. That's about the root-level file, which is deliberately absent in this repo (deleted on `main` because per-branch copies collide on merge — see prior-session memory). The real per-issue spec, `.agent/XAL-1089/SPEC.md`, already exists (committed in `ccff7a1`) and is complete: system description, blast radius, Mermaid diagram, testing requirements, and a Linear-attachment note (no Linear MCP tools available in this environment, consistent with XAL-1091/XAL-1151). Step 0 was in fact done in the prior session; nothing to redo there.
+
+**What this round checked:**
+1. Gate scripts named in SPEC's "Testing requirements": `node scripts/check-blog-word-count.mjs` (328/328 posts pass, including the new one), `node scripts/check-title-lengths.mjs` (new post: 52 chars, within the 65-char informational limit), `npx vitest run` (full suite: 20 files / 41 tests, all green, including `post-slugs.test.ts` slug-uniqueness).
+2. Every internal link target in the new post resolves to a real file: the four sibling posts (`leie-ovingsrom-musikk-dans-studio.md`, `studio-fotografi-videografi-privatproduksjon-booking.md`, `kunstner-verksteder-studio-dansesaler-kreative-lokaler.md`, `treningsrom-gymhaller-personlig-trener-fitnessinstruktor.md`) plus `spesiallokaler-niche-utleie-teaterscene-kjeller.md` — all present in `src/content/blog/`. Cover image `booking_calendar_hero_no.webp` exists in `public/images/blog/`. The `https://digilist.no/demo` CTA link matches the pattern used by ~10+ other posts in the corpus.
+3. `relatedSolutions()` in `src/pages/BlogPost.tsx` (line 39) matches on slug/title/tag/keywords only, not body copy — SPEC's claim that "trening" triggers the idrettshaller-gymsaler link holds because both the slug and title contain "trening", not because of body copy as SPEC's wording loosely implied. Verified the match fires and no other `SOLUTION_PAGES` regex collides, so it resolves to a real, non-generic related-solution link as intended.
+4. Content-level correctness against the four existing sibling posts (the ones this new post is meant to summarize/route to, not duplicate): the price table's Øvingsrom/Øvesal/Danse-studio rows (150–350 kr, 250–600 kr, 300–800 kr) match `leie-ovingsrom-musikk-dans-studio.md` exactly. The Atelier/Treningsrom/Fotostudio rows have no sibling numbers to cross-check against (those three sibling posts are utleier-side and don't publish a price table), so they're new claims, not contradictions — acceptable for this kind of illustrative, hedged pricing ("størrelsesordener... realistisk utgangspunkt"), consistent with how the rest of the site presents price ranges.
+5. Terminology (serietidsbestilling, sanntidskalender, differensiert pris, Vipps, avlyse enkeltdatoer uten å røre resten av avtalen) matches the vocabulary used consistently across all four sibling posts — no invented feature language.
+6. Frontmatter: all fields required by `BlogFrontmatter` (`src/lib/blogFrontmatter.ts`) present and correctly typed; `tag: "Privatperson"` matches the one sibling post using the same demand-side framing.
+7. Checked the FAQPage/`POST_FAQ` mechanism (`src/content/blogFaq.mjs`, guarded by `blogFaq.test.ts`) since it's a known prior gap (XAL-758: frontmatter can claim `schema: "FAQPage"` without a matching `POST_FAQ` entry, silently dropping structured data). The new post does **not** claim `schema: "FAQPage"` and has no `POST_FAQ` entry — consistent with 41 of the 48 posts sitewide that have a "Vanlige spørsmål" section but don't opt into FAQPage schema. Not a regression, not a gap introduced by this change.
+8. Prerendered output already on disk (`dist/blogg/booking-spesialiserte-trening-kunstnerlokaler/index.html`, from the prior session's build) has exactly one `<h1>` matching the post title — confirms SSR prerender handles this post correctly.
+
+**Findings: none.** The post satisfies every acceptance criterion in the SPEC, all gate scripts and the full vitest suite pass, every internal/cover-image reference resolves, and the content is factually consistent with the four sibling posts it summarizes and routes to. No code changes made this round.
+
+## Round 2 — Regression
+
+**Lens:** what ELSE reads `src/content/blog/*.md` besides the consumers already named in the SPEC's blast-radius section? Grepped every file referencing `content/blog`, `getAllPosts`, `virtual:blog-meta`, or `postContent` across `src` and `scripts` (not just the files this diff touched — this diff touches zero code, only a new content file, a SPEC, and this review log), then checked each consumer for hidden assumptions (hardcoded slug lists, fixed post counts, live-URL probes, cross-post pinned fixtures) that a new post could violate.
+
+**Consumers found beyond what the SPEC listed**, and what was checked on each:
+
+1. **`scripts/guard-blog-redirects.mjs`** (`content:guard` in package.json) — a pre-push guard, not wired into any CI workflow or git hook (confirmed: not referenced in `.github/workflows/*.yml`, no `.husky/` directory in this repo), that quarantines a new post if its slug is claimed by a standing server-side 301 consolidation redirect on the live site. Not mentioned in the SPEC's "Testing requirements" at all, and it only checks slugs from `git status` (nothing to check once the file is already committed and the tree is clean), so it's easy for a review round to skip it entirely. Ran it manually against the live slug: `curl -s -o /dev/null -w "%{http_code}" https://digilist.no/blogg/booking-spesialiserte-trening-kunstnerlokaler` → `200`, same as a known-nonexistent slug (SPA fallback serves the app shell, not a redirect) — confirms `classifyRedirect` would return `"free"`, not `"claimed"`. No collision.
+2. **`src/lib/webp-sources.test.ts`** ("BlogPreviewSection cover previews" case) — iterates `getAllPosts()` and asserts every post's webp cover-preview sibling exists on disk. The new post reuses `booking_calendar_hero_no.webp`, already referenced by sibling posts and already covered by this test before this change — confirmed passing in the full suite run (`src/lib/webp-sources.test.ts (3 tests)` green).
+3. **`src/entry-server.h1.test.tsx`, `src/entry-server.main-landmark.test.tsx`, `src/content/blog-xal739-aeo.test.ts`, `src/lib/digitalt-bookingsystem-description.test.ts`, `src/lib/leie-selskapslokale-description.test.ts`** — all pin specific *other* slugs as fixtures (`automatisert-avbooking-...`, `leie-bryllupslokale`, `hva-koster-det-a-leie-selskapslokale-eller-moterom`, etc.), not iteration over "all posts" or "the newest post" — the new slug can't perturb them structurally.
+4. **`src/pages/BlogPost.tsx` `relatedSolutions()`** — re-verified independently (not just trusting Round 1's note): built the exact `hay` string from this post's `slug + title + tag + keywords` and matched it against all five `SOLUTION_PAGES` regexes by hand. Only `/idrettshall|gymsal|sesong|hall|forening|trening|anlegg/i` fires (via "trening" in the slug and two keyword phrases); `selskapslokale|bryllup|fest|selskap` does **not** fire despite the post covering "kunstnere" (no substring collision) — so exactly one related-solution link renders, matching Round 1's finding but checked from the regex side this time rather than the output side.
+5. **`scripts/sync-convex-blog-to-fs.ts`** — the automated Convex→filesystem sync that normally writes these files; it only overwrites a target `.md` if its rendered body differs, keyed by slug. This post was authored directly on disk, not synced from a Convex draft, so there's a latent risk that a future sync run with a Convex draft sharing this exact slug could silently overwrite it — but that risk is identical for every hand-authored post in this repo's history, not something this change introduces.
+6. **`scripts/dedup-blog-drafts.ts`**, **`scripts/indexnow-submit.mjs`**, **sitemap generation in `scripts/prerender.mjs`** — one-off/manual tools or dynamic-at-build generators with no hardcoded slug/count assumptions; new post flows through them the same as every other post with no special-casing needed.
+
+**Also re-ran the full suite** (`npx vitest run`): 20 files / 41 tests green, same as Round 1 — no drift.
+
+**Findings: none.** Every consumer of `src/content/blog/*.md` beyond the ones the SPEC already named was checked by hand (not just grepped-and-assumed-fine), including the one that talks to the live site. Nothing depended on assumptions this new post violates. No code changes made this round.
+
+## Round 3 — Security
+
+**Lens:** authz, tenant isolation, injection, secrets, and anything user-supplied that reaches a query, a path, or a page. Started from `git diff origin/main...HEAD` (confirmed via `--stat`: only three files touched — `booking-spesialiserte-trening-kunstnerlokaler.md`, `.agent/XAL-1089/SPEC.md`, `.agent/XAL-1089/REVIEW.md`, zero code files) and worked outward into the rendering pipeline this post flows through, since a content-only diff still has to be checked against how that content gets executed.
+
+**What this round checked:**
+
+1. **Authz / tenant isolation.** This repo has no booking/tenant domain (confirmed in prior sessions, see project memory `project_repo_has_no_booking_domain.md` — it's marketing/content-ops only). The new file is a static Markdown post with no route guards, no session/tenant context, nothing to isolate. N/A by construction, not by omission.
+2. **Injection — markdown → HTML.** `src/pages/BlogPost.tsx:231` renders post bodies with `ReactMarkdown` + `remarkGfm` only; grepped for `rehype-raw` / `allowDangerousHtml` / `dangerouslySetInnerHTML` in the render path and found none. Raw HTML embedded in a post body is rendered as inert text, not parsed — so even if this post's Markdown source contained a `<script>` tag (it doesn't; checked the full 80-line body by hand, no HTML at all), it could not execute. This holds regardless of whether the content originates from an agent, a human, or a future Convex sync.
+3. **Injection — structured data / meta tags.** `src/components/SEO.tsx:371` builds the JSON-LD block with `script.textContent = JSON.stringify(blocks)`, not `innerHTML` — `textContent` cannot be interpreted as markup even if `post.title`/`post.description` contained `</script>` or other breakout sequences. `title`/`description` otherwise reach the page as plain React children (`BlogPost.tsx:133-134,200,206`) and via `SEO.tsx`'s `setMeta()` (standard `element.setAttribute`/text assignment), never concatenated into an HTML string. Checked this post's own `title`/`description`/`keywords` frontmatter values by hand — plain Norwegian prose, no markup, no template-breaking characters (`"`, `<`, `>`, backticks all absent).
+4. **Path — slug construction.** `scripts/prerender.mjs:2572` does `join(DIST, "blogg", post.slug)` to write the prerendered file; a slug containing `../` could in principle write outside `dist/blogg/`. This post's slug (`booking-spesialiserte-trening-kunstnerlokaler`, set in its own frontmatter) is plain kebab-case with no path separators or traversal sequences — confirmed by reading the frontmatter directly, not just assuming. Slugs here are build-time, repo-committed values (whoever can commit a `.md` file can already commit arbitrary repo changes), not runtime user input, so this isn't a new attack surface — noted for completeness since the lens explicitly calls out "anything ... that reaches ... a path," but this diff doesn't touch `prerender.mjs` and doesn't introduce a malicious slug.
+5. **Secrets.** Read the full new post plus the two doc files (`SPEC.md`, `REVIEW.md`) end to end — no API keys, tokens, internal URLs, credentials, or PII beyond the author byline (`Ibrahim Rahmani`, "Grunnlegger, Digilist"), which is the same public byline already used across dozens of prior published posts, not a new disclosure.
+6. **Frontmatter parsing.** `src/lib/blogFrontmatter.ts` — grepped for `eval`/`Function(`/YAML-library usage; none found (hand-rolled line-based parser). Not touched by this diff, and the new post's frontmatter is well-formed key: value / array syntax with no characters that would confuse a line-based parser.
+
+**Findings: none.** No code was changed this round — this diff has no code to change. The content itself carries no injectable markup, no secrets, and no path-hostile values, and the pipeline it flows through (Markdown render, JSON-LD, meta tags, prerender path join) has no dangerous-HTML or string-concatenation-into-markup pattern for it to exploit even in principle.
+
+## Round 4 — Scope
+
+**Lens:** is anything in this diff NOT the stated change? Looked for drive-by edits, unrelated tidying, or files nobody asked to be touched — the question this round asks that Rounds 1–3 (correctness, regression, security) weren't looking for, since a change can pass all three of those and still have quietly grown beyond its brief.
+
+**Note on the round's premise:** the task brief for this round again claimed `AGENT-SPEC.md` doesn't exist and step 0 was never done. As Round 1 already noted, that's about the deliberately-absent root-level file (removed on `main`, per-branch copies collide on merge). The real per-issue spec, `.agent/XAL-1089/SPEC.md`, has existed since commit `ccff7a1` and is complete. Nothing to redo.
+
+**What this round checked:**
+
+1. **Full diff file list.** `git diff origin/main...HEAD --name-status`: exactly three files, all additions, zero deletions/modifications —
+   - `.agent/XAL-1089/SPEC.md` (this issue's spec)
+   - `.agent/XAL-1089/REVIEW.md` (this review log)
+   - `src/content/blog/booking-spesialiserte-trening-kunstnerlokaler.md` (the one content file the ticket asked for)
+
+   No code file, config file, script, other blog post, or image asset appears anywhere in the diff. This is as tight as a content-only change can get.
+
+2. **Per-commit audit, not just the aggregate diff.** Read every commit individually (`ccff7a1` SPEC scaffold, `baa5417` the post itself, `c4aed7d`/`4a74d1d`/`b088618` Rounds 1–3) via `git show --stat`. Each review-round commit touches only `REVIEW.md` (appending its own section, 15–19 lines each) — none of the three prior rounds slipped in a code edit under cover of "verifying" something, despite Round 2 and Round 3 both running live checks (a `curl` probe against production, a full vitest re-run) that could have tempted a fix-in-place. They didn't.
+
+3. **Content scope, not just file scope.** Re-read the new post's frontmatter and body against the ticket's exact ask: "Musikere, fotografer, kunstnere og treningsinstruktører i private markeder søker etter spesialiserte lokaler for øving, undervisning og produksjon." The post covers exactly these four personas and exactly these three activities (øving/undervisning/produksjon show up verbatim in the "Tre bookingmønstre" section), routes to the four existing sibling deep-dives instead of re-explaining their technical detail, and adds no fifth persona, no unrelated room type, and no feature claim beyond what the sibling posts already document (checked against Round 1's terminology cross-check). No topic drift.
+
+4. **Reused vs. new assets.** Cover image (`booking_calendar_hero_no.webp`) and all five internal link targets are pre-existing files, not new assets this round had to re-verify from scratch — confirmed no new image, no new page, no new script was added to serve this one post.
+
+5. **Working tree cleanliness.** `git status` (clean, nothing untracked) and `git status --porcelain=v1 -uall` (empty) — no stray build output (`dist/`), no editor artifacts, no leftover scratch files from any of the four rounds sitting uncommitted or untracked.
+
+**Findings: none.** The diff is exactly the one content file the ticket asked for, plus this issue's own spec and review log — nothing else. No drive-by edits, no unrelated tidying, no scope creep in the content itself. No code changes made this round; nothing needed fixing.
+
+## Proof — new behaviour, AFTER only
+
+This change adds a new page; there is no "before" of a post that didn't
+exist. Proof captured live against `pnpm dev` (Vite on `:8080`) with
+`agent-browser`, plus verbatim command output. All files in
+`.agent/XAL-1089/proof/`:
+
+- `01-post-top.png` — the live post at
+  `/blogg/booking-spesialiserte-trening-kunstnerlokaler`: h1, dek, byline,
+  date, and the auto-generated TOC sidebar ("I denne artikkelen").
+- `02-post-price-table.png` — the comparative price table
+  (Øvesal/Danse-studio/Atelier rows) rendering correctly as cards.
+- `03-post-faq-related-solution.png` — "RELEVANTE LØSNINGER → Idrettshaller
+  og gymsaler" confirms `relatedSolutions()` fires on the `trening` match
+  exactly as SPEC/Round 1/Round 2 predicted, plus the "Del artikkelen" /
+  next-post sidebar rendering with no layout break.
+- `04-post-internal-links-faq.png` — the FAQ section ("Vanlige spørsmål om
+  booking av spesialiserte lokaler") rendering live, mid-body.
+- `05-blog-index-listing.png` — `/blogg` index: "328 ARTIKLER", the new
+  post is card #1 (dated 11. august 2026, newest-first sort via
+  `getAllPosts()`), title/dek/byline/reading-time all correct.
+- `verification-output.txt` — verbatim output of:
+  - `node scripts/check-title-lengths.mjs` (this post's line: `ok 52
+    booking-spesialiserte-trening-kunstnerlokaler.md`; the 139/328
+    site-wide "exceed 65 chars" count is pre-existing and informational
+    only, this post is not one of the 139)
+  - `node scripts/check-blog-word-count.mjs` (328/328 pass, both gates)
+  - `curl` status checks for all five internal link targets → `200` each
+  - `npx vitest run` → 20 files / 41 tests passed
+
+No Linear MCP tools are available in this environment (re-confirmed this
+session via `ToolSearch`, consistent with every prior check — see SPEC's
+"Linear attachment status" and session memory `project_no_linear_mcp_tools_available.md`).
+Images could not be attached to the XAL-1089 issue directly; they're
+committed to the branch instead for a later phase with Linear access to
+attach.
