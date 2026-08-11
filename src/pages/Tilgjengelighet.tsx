@@ -57,7 +57,7 @@ const Tilgjengelighet = () => {
               </p>
               <ul className="list-disc list-inside text-muted-foreground space-y-1 mb-4 ml-4">
                 <li>automatiserte axe-core-revisjoner kjøres på hvert deploy</li>
-                <li>overskriftshierarki, landemerker (som `main` og `nav`) og alt-tekster kontrolleres for hver side</li>
+                <li>overskriftshierarki, landemerker (som <code>main</code> og <code>nav</code>) og alt-tekster kontrolleres for hver side</li>
                 <li>tastaturnavigasjon og synlig fokusmarkering testes på nye komponenter</li>
               </ul>
               <p className="text-muted-foreground leading-relaxed">
