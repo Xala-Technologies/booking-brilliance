@@ -321,3 +321,48 @@ content itself. No drive-by edits, no unrelated tidying, and no files
 outside this ticket's stated change anywhere in the diff. Re-ran the full
 consumer-relevant test set plus the whole unit suite after the SPEC.md fix
 to confirm nothing else moved.
+
+## Visual proof
+
+New behaviour (a page that did not exist before this ticket) — only an
+"after" state is possible, per the merge gate's own rule. Captured live
+against `pnpm dev:client` (localhost:8080, freshly launched in this
+session), zero console errors, at
+`/blogg/bokingsystem-funksjonalitet-admin-paaminnelser-kalender-brukerkontroll`:
+
+- `proof/after-bokingsystem-admin-post-top.png` — above-the-fold render:
+  confirms the exact `<h1>` text ("Bokingsystem-funksjonalitet og admin:
+  derfor avgjør admin-siden adopsjonen") matches frontmatter `title`,
+  byline/date/cover image render, and the opening paragraph is present —
+  i.e. the frontmatter parsed and the body rendered, not just that the
+  file exists on disk.
+- `proof/after-bokingsystem-admin-post-kalender-section.png` — scrolled to
+  the "Kalender-integrering" `##` heading, confirming that section (the
+  second of the three admin capabilities SPEC.md commits to) actually
+  renders with its body text and its cross-link to the sanntidskalender
+  post.
+- `proof/after-bokingsystem-admin-post-brukerkontroll-section.png` —
+  scrolled to the "Brukerkontroll" `##` heading, confirming the third
+  admin capability renders with its cross-link to the
+  brukerstyring-og-tilgangskontroll post.
+- `proof/after-bokingsystem-admin-post-cta.png` — scrolled to the closing
+  CTA/cross-link band (`/bookingsystem-kommune`, `/bookingsystem-utleie`,
+  "Book demo →"), confirming the post ends the way every sibling post does
+  and both money-page links are live.
+
+Driver script used Playwright directly against the local
+`node_modules/.pnpm/playwright@1.61.1` install (no top-level `playwright`
+symlink in this repo's `node_modules`, only `@playwright/test`) since
+`chromium-cli` is not installed in this environment. Page title/H1 read
+back via `page.locator('h1').first().textContent()` matched frontmatter
+exactly; `console --errors` equivalent (`page.on('console'|'pageerror')`)
+returned zero entries. Dev server stopped after capture.
+
+## Linear attachment
+
+Re-confirmed this session: no Linear MCP server is reachable
+(`ToolSearch` for Linear-related tools returns nothing), matching
+[[project_no_linear_mcp_tools_available]]. The proof images above are
+committed to the branch at `.agent/XAL-1099/proof/` instead, so the
+evidence travels with the diff even though it can't be attached to the
+XAL-1099 issue directly from this session.
