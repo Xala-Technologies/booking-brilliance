@@ -49,3 +49,28 @@
 6. **Frontmatter parsing.** `src/lib/blogFrontmatter.ts` — grepped for `eval`/`Function(`/YAML-library usage; none found (hand-rolled line-based parser). Not touched by this diff, and the new post's frontmatter is well-formed key: value / array syntax with no characters that would confuse a line-based parser.
 
 **Findings: none.** No code was changed this round — this diff has no code to change. The content itself carries no injectable markup, no secrets, and no path-hostile values, and the pipeline it flows through (Markdown render, JSON-LD, meta tags, prerender path join) has no dangerous-HTML or string-concatenation-into-markup pattern for it to exploit even in principle.
+
+## Round 4 — Scope
+
+**Lens:** is anything in this diff NOT the stated change? Looked for drive-by edits, unrelated tidying, or files nobody asked to be touched — the question this round asks that Rounds 1–3 (correctness, regression, security) weren't looking for, since a change can pass all three of those and still have quietly grown beyond its brief.
+
+**Note on the round's premise:** the task brief for this round again claimed `AGENT-SPEC.md` doesn't exist and step 0 was never done. As Round 1 already noted, that's about the deliberately-absent root-level file (removed on `main`, per-branch copies collide on merge). The real per-issue spec, `.agent/XAL-1089/SPEC.md`, has existed since commit `ccff7a1` and is complete. Nothing to redo.
+
+**What this round checked:**
+
+1. **Full diff file list.** `git diff origin/main...HEAD --name-status`: exactly three files, all additions, zero deletions/modifications —
+   - `.agent/XAL-1089/SPEC.md` (this issue's spec)
+   - `.agent/XAL-1089/REVIEW.md` (this review log)
+   - `src/content/blog/booking-spesialiserte-trening-kunstnerlokaler.md` (the one content file the ticket asked for)
+
+   No code file, config file, script, other blog post, or image asset appears anywhere in the diff. This is as tight as a content-only change can get.
+
+2. **Per-commit audit, not just the aggregate diff.** Read every commit individually (`ccff7a1` SPEC scaffold, `baa5417` the post itself, `c4aed7d`/`4a74d1d`/`b088618` Rounds 1–3) via `git show --stat`. Each review-round commit touches only `REVIEW.md` (appending its own section, 15–19 lines each) — none of the three prior rounds slipped in a code edit under cover of "verifying" something, despite Round 2 and Round 3 both running live checks (a `curl` probe against production, a full vitest re-run) that could have tempted a fix-in-place. They didn't.
+
+3. **Content scope, not just file scope.** Re-read the new post's frontmatter and body against the ticket's exact ask: "Musikere, fotografer, kunstnere og treningsinstruktører i private markeder søker etter spesialiserte lokaler for øving, undervisning og produksjon." The post covers exactly these four personas and exactly these three activities (øving/undervisning/produksjon show up verbatim in the "Tre bookingmønstre" section), routes to the four existing sibling deep-dives instead of re-explaining their technical detail, and adds no fifth persona, no unrelated room type, and no feature claim beyond what the sibling posts already document (checked against Round 1's terminology cross-check). No topic drift.
+
+4. **Reused vs. new assets.** Cover image (`booking_calendar_hero_no.webp`) and all five internal link targets are pre-existing files, not new assets this round had to re-verify from scratch — confirmed no new image, no new page, no new script was added to serve this one post.
+
+5. **Working tree cleanliness.** `git status` (clean, nothing untracked) and `git status --porcelain=v1 -uall` (empty) — no stray build output (`dist/`), no editor artifacts, no leftover scratch files from any of the four rounds sitting uncommitted or untracked.
+
+**Findings: none.** The diff is exactly the one content file the ticket asked for, plus this issue's own spec and review log — nothing else. No drive-by edits, no unrelated tidying, no scope creep in the content itself. No code changes made this round; nothing needed fixing.
