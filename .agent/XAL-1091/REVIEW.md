@@ -282,3 +282,48 @@ two process documents this ticket's workflow mandates; nothing else was
 touched, added, or tidied along the way. Nothing to fix this round — re-ran
 `pnpm vitest run` (20 files, 41 tests, all green) to confirm no drift since
 Round 3, but no code or content changes were needed.
+
+## Round 5 — proof
+
+Four rounds of review had confirmed correctness, no regressions, no security
+issues, and no scope creep — but no session had actually rendered the post in
+a browser yet, unlike sibling tickets XAL-1098/XAL-1099 which both shipped
+live-render screenshots. This is a new visual page, not infra/CI/docs, so per
+this session's proof requirement it needs an AFTER capture (there is no
+"before" for content that didn't exist).
+
+Started `pnpm dev:client` (port 8081, port 8080 was in use) and drove it with
+`agent-browser`:
+
+- Opened `/blogg/bolig-til-leie-oslo-mellombolig-leilighet` — confirmed
+  `document.title` and `<h1>` both render the post title, all five `<h2>`
+  section headings render in the order SPEC.md describes, and every
+  `/overnatting/*` and `/blogg/*` link in the article resolves to the URLs
+  Round 1 already verified exist (`/overnatting/leilighet`, plus the two
+  sibling posts named in SPEC.md; the sidebar additionally surfaces 3
+  same-tag "related posts", expected per Round 2's `relatedPosts` finding).
+- `agent-browser console` after full page load + scroll: zero `[error]`
+  entries — only dev-server HMR debug noise, the React DevTools banner, and
+  the two pre-existing React Router v7 future-flag warnings present on every
+  route in this app.
+- Captured three screenshots (`after-bolig-post-top.png`: full-page;
+  `after-bolig-post-mid.png`/`after-bolig-post-faq.png`: viewport, scrolled to
+  the `/overnatting/leilighet`-linking section and the FAQ section
+  respectively) plus a `dom-checks.txt` transcript, all under
+  `.agent/XAL-1091/proof/`. First attempt at the two scrolled shots produced
+  identical images: the cookie-consent banner blocks scroll until dismissed,
+  and `scrollintoview` on the heading text matched the sidebar
+  table-of-contents link (already on-screen) rather than the article's own
+  `<h2>`. Fixed by dismissing the consent banner and targeting the `<h2>`
+  elements directly; re-verified the three PNGs have distinct content and
+  hashes before committing.
+- Re-confirmed Linear MCP is still unreachable this session (`ToolSearch` for
+  attachment tools returns nothing, same as every prior round) — evidence
+  ships as committed images in `.agent/XAL-1091/proof/` instead of a Linear
+  attachment, matching the pattern XAL-1099's proof round used.
+- Stopped the dev server afterward; `git status --porcelain` shows only the
+  new `.agent/XAL-1091/proof/*` files and this REVIEW.md edit, nothing else
+  changed.
+
+**No defects found; proof gap closed.** The post renders correctly, matches
+SPEC.md's description, and produces no console errors.

@@ -1,0 +1,51 @@
+XAL-1091 — live browser evidence, pnpm dev:client @ http://localhost:8081
+Route: /blogg/bolig-til-leie-oslo-mellombolig-leilighet
+Captured via `agent-browser` (Chromium).
+
+document.title:
+"Bolig til leie i Oslo: mellombolig og korttidsleilighet"
+
+h1 text:
+"Bolig til leie i Oslo: mellombolig og korttidsleilighet"
+
+h2 headings (article body, in order):
+- Hva skiller mellombolig fra en vanlig bolig til leie
+- Tre situasjoner der mellombolig er riktig løsning
+- Hva bør du sjekke før du booker en korttidsleilighet som mellombolig
+- Slik finner og booker du en korttidsleilighet på Digilist
+- Vanlige spørsmål om bolig til leie og mellombolig i Oslo
+
+Internal links found in the rendered article/main (href, filtered to
+/overnatting and /blogg):
+- /blogg (breadcrumb/back link)
+- /overnatting/leilighet   <- primary conversion link, resolves to a real route
+- /blogg/booking-paa-90-sekunder-innbygger   <- resolves, real post
+- /blogg/somlos-betaling-vipps-ehf           <- resolves, real post
+- /blogg/utearealer-paviljonger-seating-bryllup-sommerfest  <- sidebar "related posts" (shared tag: Privatperson)
+- /blogg/sal-familiefeiring-bursdag-dap-jubileum-privatperson <- sidebar "related posts"
+- /blogg/sal-billigst-kommune-totalpris-depositum-privatperson <- sidebar "related posts"
+
+`agent-browser console` output for the full page load + scroll pass:
+- [debug] vite HMR connect/connected — dev-server noise, not app code
+- [info] React DevTools suggestion — dev-only React banner
+- [warning] React Router v7 future-flag warnings x2 — pre-existing, present
+  on every route in this app, unrelated to this post
+- Zero [error] entries
+
+Screenshots:
+- after-bolig-post-top.png  — full-page capture: hero/title, intro, all
+  section headings, FAQ, and footer in one shot.
+- after-bolig-post-mid.png  — viewport capture scrolled to the "Slik finner
+  og booker du en korttidsleilighet på Digilist" h2, showing the
+  /overnatting/leilighet inline link ("Digilist korttidsleiligheter ett
+  sted").
+- after-bolig-post-faq.png  — viewport capture scrolled to the "Vanlige
+  spørsmål om bolig til leie og mellombolig i Oslo" h2, showing the two
+  sibling-post links above it and the FAQ answers below.
+
+Capture note: the cookie-consent banner ("Godta alle") intercepts scroll
+until dismissed, and `scrollintoview` on the section heading text initially
+matched the sidebar table-of-contents link (already in the initial viewport,
+so no scroll happened) instead of the article's own <h2> — resolved by
+dismissing the consent banner first and targeting the <h2> element directly
+via `document.querySelectorAll('h2')`.
