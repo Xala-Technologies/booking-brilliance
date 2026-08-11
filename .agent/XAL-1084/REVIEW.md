@@ -68,3 +68,72 @@ content-only change all check out under direct verification.
 
 **Changes made this round:** none — nothing to fix. No commit needed since
 the tree was already clean and no files were modified during this review.
+
+## Round 2 — REGRESSION
+
+**Lens:** what ELSE reads this code path? Grepped every consumer of
+`src/content/blog/*.md` and `blogFaq.mjs` beyond what SPEC.md's "BLAST
+RADIUS" section already listed, and checked nothing depended on the old
+behaviour (fewer posts, no `"Utleier"`-tagged 2026-08-11 entry, etc.).
+
+**Consumers found beyond SPEC.md's list, checked individually:**
+
+- `src/lib/search/corpus.ts` — sitewide search corpus. Only imports
+  `getAllPosts()`/frontmatter; a new post is just one more searchable item,
+  no hardcoded post list or count to update.
+- `src/components/BlogPreviewSection.tsx` (homepage teaser, `.slice(0, 6)`)
+  and `src/pages/Blog.tsx` (blog index + tag filter) — both derive their tag
+  list dynamically (`allPosts.forEach(p => set.add(p.tag))`), so the
+  pre-existing `"Utleier"` tag needs no registration; both already render
+  every other `"Utleier"`-tagged post today.
+- `src/lib/posts.ts` sort (`[...blogMeta].sort((a,b) => a.date < b.date ? 1 : -1)`)
+  — new post's `date: 2026-08-11` sorts it toward the front of
+  `getAllPosts()`. Checked whether anything assumes a stable "first post":
+  `src/entry-server.main-landmark.test.tsx` reads `getAllPosts()[0]`
+  dynamically (not a pinned slug) specifically so it doesn't care which post
+  is newest — confirmed still green.
+- `src/lib/webp-sources.test.ts` ("BlogPreviewSection cover previews") —
+  iterates every post's `previewCover(cover)` and asserts the `-preview.webp`
+  sibling exists on disk. The new post reuses the same shared cover
+  (`booking_calendar_hero_no.webp`) as ~19 other posts; confirmed
+  `booking_calendar_hero_no-preview.webp` already exists in `public/images/blog/`.
+- `src/pages/BlogPost.tsx` `relatedSolutions()` — regex-matches
+  slug+title+tag+keywords against 5 solution pages
+  (kommune/idrettshall/møterom/selskapslokale/kulturhus) to render 1-2
+  contextual "solution" links, falling back to a generic
+  `/booking-av-lokaler-og-moterom` link if nothing matches. The new post's
+  hay (slug/title/tag/keywords only, not body text) doesn't hit any of the 5
+  regexes — e.g. `/kulturhus|kantine|konferanse|kultursal|arrangement/i`
+  needs one of those literal substrings, and the post has "kultur" but never
+  "kulturhus"/"kultursal"/"arrangement" in its frontmatter fields. This is
+  the designed fallback path, not a crash or broken match — confirmed by
+  reading the function, not a regression, but noted as a missed
+  cross-link opportunity (not fixed: fixing it would mean tuning a shared
+  regex used by ~300 other posts, out of scope for a content-only ticket).
+- `scripts/dedup-blog-drafts.ts`, `scripts/sync-convex-blog-to-fs.ts` —
+  operate on the Convex drafts table, not on committed `.md` files; this
+  post was never staged there, so these scripts have nothing to do with it.
+- `scripts/verify-live.mjs` — has a cross-post exact-title duplicate check
+  (`findDuplicateTitles`). Confirmed the new title `"Spesialiserte lokaler
+  for kultur og underholdning"` doesn't exact-match any of the ~330 other
+  post titles (nearest is `"Spesialiserte idrettssteder: tennis, bowling,
+  basketball"`, a different string). This script hits the live site, isn't
+  wired into `pnpm build`, so it's informational only, but the check passes
+  on the source.
+- `scripts/indexnow-submit.mjs` — has a hardcoded `DEFAULT_PATHS` list from
+  the 2026-07 launch; doesn't include this or any other individual blog post
+  by default, it's a manual operator tool, not a build gate. Not a
+  regression: no post has ever needed adding here.
+
+**Full test suite re-run:** `npx vitest run` — 21 files / 45 tests, all pass
+(same result as Round 1, re-confirmed after this round's read-only
+investigation).
+
+**Findings: none.** Every consumer beyond the ones SPEC.md already named
+either ignores the new post safely (dynamic tag/search lists), handles it
+via an existing generic guard (webp-sources test, duplicate-title check), or
+degrades gracefully via a designed fallback (`relatedSolutions`). Nothing
+depended on the pre-change post count, order, or tag set.
+
+**Changes made this round:** none — no code or content touched, nothing to
+fix. No new commit (tree unchanged).
