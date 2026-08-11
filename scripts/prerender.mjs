@@ -1944,6 +1944,16 @@ const ROUTES = [
     ],
   },
   {
+    route: "/tilgjengelighet",
+    title: "Tilgjengelighetserklæring – Digilist",
+    description: "Digilists tilgjengelighetserklæring: standard (WCAG 2.1 AA), hvordan vi tester, og hvordan du gir tilbakemelding eller klager via uustatus.no.",
+    ogType: "website",
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Tilgjengelighet", url: `${BASE_URL}/tilgjengelighet` },
+    ],
+  },
+  {
     route: "/transparens",
     title: "Transparens – live kvalitetsrapport – Digilist",
     description:
@@ -2625,6 +2635,7 @@ async function main() {
     { loc: `${BASE_URL}/personvern`, priority: "0.3", changefreq: "yearly" },
     { loc: `${BASE_URL}/salgsvilkar`, priority: "0.3", changefreq: "yearly" },
     { loc: `${BASE_URL}/cookies`, priority: "0.3", changefreq: "yearly" },
+    { loc: `${BASE_URL}/tilgjengelighet`, priority: "0.3", changefreq: "yearly" },
     { loc: `${BASE_URL}/transparens`, priority: "0.7", changefreq: "daily" },
     { loc: `${BASE_URL}/leie`, priority: "0.9", changefreq: "weekly" },
     { loc: `${BASE_URL}/lokaler-til-leie`, priority: "0.95", changefreq: "weekly" },

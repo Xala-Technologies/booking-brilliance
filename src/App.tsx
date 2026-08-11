@@ -83,6 +83,7 @@ const AgentImporterOppforing = lazy(() => import("./pages/agents/ImporterOppfori
 const Salgsvilkar = lazy(() => import("./pages/Salgsvilkar"));
 const Personvern = lazy(() => import("./pages/Personvern"));
 const Cookies = lazy(() => import("./pages/Cookies"));
+const Tilgjengelighet = lazy(() => import("./pages/Tilgjengelighet"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Transparens = lazy(() => import("./pages/Transparens"));
 const UseCaseSelskapslokaler = lazy(() => import("./pages/UseCaseSelskapslokaler"));
@@ -368,6 +369,7 @@ export function AppShell() {
             <Route path="/salgsvilkar" element={<Salgsvilkar />} />
             <Route path="/personvern" element={<Personvern />} />
             <Route path="/cookies" element={<Cookies />} />
+            <Route path="/tilgjengelighet" element={<Tilgjengelighet />} />
             {/* Public pages read audit/status data through the same-origin
                 /api/audits/public-summary proxy (server-side Convex), so they
                 need no browser Convex client and stay up during a Convex
