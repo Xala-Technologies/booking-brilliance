@@ -228,3 +228,57 @@ gaps noted above (no rehype-sanitize dependency to begin with, no slug-format
 validation in `prerender.mjs`) are shared infrastructure gaps that predate
 this diff and lack any live attacker path through it, not defects this
 change introduces or should silently absorb into a content-only PR.
+
+## Round 4
+
+**Note on step 0:** the resume prompt again claimed `AGENT-SPEC.md` did not
+exist at the repo root. It doesn't, by design — main deleted the old
+root-level `AGENT-SPEC.md` on purpose (per-branch copies collided on every
+merge; see session memory `project_root_agent_spec_deleted_trap`), and the
+correct per-issue path `.agent/XAL-1091/SPEC.md` has existed, complete and
+unchanged, since Round 1. Nothing to redo.
+
+**Lens: SCOPE** — is anything in this diff not the stated change? Checked for
+drive-by edits, unrelated tidying, and files nobody asked to be touched.
+
+What I checked:
+
+- **Full diff file list**: `git diff origin/main...HEAD --name-status` shows
+  exactly three files, all additions, none modifications:
+  `.agent/XAL-1091/SPEC.md`, `.agent/XAL-1091/REVIEW.md`, and
+  `src/content/blog/bolig-til-leie-oslo-mellombolig-leilighet.md`. No source
+  file, config file, script, or test was touched — every prior round's
+  "zero source/script files touched" claim (Rounds 2 and 3) re-verified
+  directly rather than taken on trust.
+- **Working tree cleanliness**: `git status --porcelain` is empty — no
+  untracked scratch files, no stray screenshots/proof artifacts (unlike
+  several sibling tickets in `.agent/*/proof/`, this content-only ticket
+  correctly has none), nothing left uncommitted.
+- **Commit list**: `git log origin/main..HEAD` is five commits, each scoped
+  to exactly what its message says (spec, the post itself, three review
+  rounds) — no commit bundles an unrelated change alongside the stated one.
+- **Content of the post itself**: read the full body again looking
+  specifically for scope creep *within* the file — extra sections, product
+  claims, or links not called for by SPEC.md's "what changes" section. Found
+  none: the post covers exactly the two things SPEC.md commits to (why "bolig
+  til leie i Oslo" searches often mean mellombolig; how to find/book a
+  korttidsleilighet on Digilist), links to exactly the three URLs SPEC.md
+  names (`/overnatting/leilighet` and the two sibling posts), and makes no
+  claims beyond what Round 1 already verified against
+  `OvernattingLeilighet.tsx`. No extra images, no new tag values, no
+  additional internal links slipped in beyond what's documented.
+- **Competing/duplicate work check**: `gh pr list --search "XAL-1091"
+  --state all` returns nothing — no other branch or PR has already shipped
+  this content (per session memory on concurrent fleet agents finishing the
+  same goal). Confirmed `origin/main` has no post matching `bolig` in
+  `src/content/blog/` today, so this branch's work is not now redundant.
+- **Process files in scope**: `.agent/XAL-1091/SPEC.md` and `REVIEW.md`
+  themselves are the two files this exact review contract requires each
+  session to produce/append — not scope creep, they're the deliverable the
+  prompt asks for.
+
+**No scope findings.** The diff is precisely the one new blog post plus the
+two process documents this ticket's workflow mandates; nothing else was
+touched, added, or tidied along the way. Nothing to fix this round — re-ran
+`pnpm vitest run` (20 files, 41 tests, all green) to confirm no drift since
+Round 3, but no code or content changes were needed.
