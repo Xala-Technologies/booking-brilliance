@@ -137,3 +137,81 @@ depended on the pre-change post count, order, or tag set.
 
 **Changes made this round:** none — no code or content touched, nothing to
 fix. No new commit (tree unchanged).
+
+## Round 3 — SECURITY
+
+**Lens:** authz, tenant isolation, injection, secrets, and anything
+user-supplied that reaches a query, a path or a page. Read the full
+`git diff origin/main...HEAD` (only 4 files: this REVIEW.md, SPEC.md, the new
+`.md` post, and the `POST_FAQ` addition to `blogFaq.mjs`) with an attacker's
+eye rather than a correctness eye.
+
+**Checked, with evidence:**
+
+- **Authz / tenant isolation** — not applicable. Confirmed (again) this repo
+  has no booking/product domain, no auth, no multi-tenant data model
+  (`project_repo_has_no_booking_domain.md`). The diff touches only a static
+  markdown file and a static JS object keyed by slug; there is no session,
+  role, or tenant boundary for a content file to cross.
+- **Secrets** — grepped the full diff for key/token/secret/password/bearer/
+  AKIA/`sk-` patterns: none found. No `.env`, credential, or config file
+  touched.
+- **XSS via the new markdown body** — read the rendering pipeline
+  (`src/pages/BlogPost.tsx`): `ReactMarkdown` is used with only `remarkGfm`,
+  no `rehype-raw` / `allowDangerousHtml`, so raw HTML in markdown source is
+  rendered as escaped text, not injected as DOM — confirmed this is the
+  actual pipeline, not assumed. The new post's body also independently
+  contains zero raw HTML tags or script-like content on inspection, so this
+  isn't tested only by the framework default.
+- **Link safety** — every link in the new post's body is either a relative
+  internal `/blogg/<slug>` path to a post confirmed to exist (Round 1), or
+  `https://digilist.no/demo`, the same absolute CTA URL used verbatim by 27
+  other posts (`grep -c` confirmed). No `javascript:`/`data:` URIs, no
+  attacker-controlled redirect target.
+- **Meta-tag injection (the one real latent vector found)** — traced how
+  frontmatter reaches the rendered `<head>`: `scripts/prerender.mjs`
+  interpolates `meta.title` and `meta.description` directly into
+  `<meta content="${...}">` attribute strings **without escaping `"`**
+  (lines ~2302-2362) — unlike the adjacent `keywords` meta tag, which does
+  escape (`.replace(/"/g, "&quot;")`, line 2333). A title or description
+  containing a `"` would break out of the attribute and inject arbitrary
+  markup into that route's `<head>`. This is pre-existing code, untouched by
+  this diff, so it is not a new vulnerability — but it *is* a vector this
+  specific change feeds input into, so I checked whether this post's content
+  triggers it: `title`, `description`, and every string in `keywords` in the
+  new frontmatter were inspected character-by-character — none contain `"`,
+  `<`, or `>`. **Does not trigger the latent bug.** FAQ question/answer text
+  (the other new user-visible strings, from `blogFaq.mjs`) reaches the page
+  exclusively via `JSON.stringify()` (both `src/components/SEO.tsx:371` and
+  `scripts/prerender.mjs:2556`), which escapes correctly regardless of quote
+  characters — confirmed safe by construction, not just by this post's
+  content happening to be clean.
+  Not fixed: the escaping gap in `prerender.mjs`'s title/description
+  handling is a real latent bug (any future post whose title/description
+  contains a `"` breaks `<head>` on the route derived from that vulnerable
+  regex-replace), but it is pre-existing, untouched by this diff, and
+  touching a regex-replace shared by all ~331 posts' meta tags is out of
+  scope for a content-only ticket — same "don't fix shared infrastructure
+  from a content ticket" policy Round 2 applied to `relatedSolutions()`.
+  Worth a follow-up ticket, not a blocker here.
+- **Slug / path safety** — slug `spesialiserte-lokaler-kultur-underholdning`
+  is lowercase-alphanumeric-and-hyphens only (re-confirmed), matches the
+  filename exactly, and is used only as a plain object key
+  (`POST_FAQ[slug]`) and a route segment already validated unique by
+  `post-slugs.test.ts` (Round 1) — no path-traversal or prototype-pollution
+  shaped key (`__proto__`, `constructor`, etc.) possible from this value.
+- **User-supplied input** — none. Every string in this diff (post body,
+  frontmatter, FAQ Q&A) is static content authored this session and
+  committed to the repo; nothing here is runtime user input reaching a
+  query, a file path, or a page. The only "reaches a page" path is the
+  build-time render pipeline audited above.
+
+**Findings: none that require a fix in this diff.** One pre-existing latent
+meta-tag escaping gap in `scripts/prerender.mjs` was found and confirmed
+*not* triggered by this post's actual content; it's flagged above for a
+future ticket rather than fixed here, consistent with this ticket's
+content-only scope.
+
+**Changes made this round:** none — no code or content touched. No new
+commit needed (tree unchanged); full test suite not re-run since nothing was
+modified.
