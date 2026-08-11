@@ -194,4 +194,26 @@ export const POST_FAQ = {
         "Ja. Digilist driftes på samme plattform for både kommunal og privat utleie, men med adskilte tilganger, slik at en kommune og en privat utleier aldri deler data eller kalendere.",
     },
   ],
+  "dans-og-kunstnerstudier-atelier-for-opplaering": [
+    {
+      question: "Kan en danseinstruktør sikre samme dansesal for en hel sesong på forhånd?",
+      answer:
+        "Ja, gjennom serietidsbestilling bookes hele sesongen i én operasjon, med samme ukedag og klokkeslett hver gang, og med mulighet til å avlyse enkeltdatoer uten å påvirke resten av sesongen.",
+    },
+    {
+      question: "Kan en teatergruppe booke flere øvingskvelder i uken fram mot en premiere?",
+      answer:
+        "Ja, en sammenhengende reservasjon kan dekke flere faste ukedager samtidig for hele øvingsperioden, slik at rommet er sikret helt fram til premieredatoen.",
+    },
+    {
+      question: "Skiller booking av en teatergruppes øvingslokale seg fra en danseklasse eller et kunstnerkurs?",
+      answer:
+        "Ja, en danseklasse eller et kurs går ofte over en løpende sesong, mens en teatergruppes øvingsperiode har en fast sluttdato, premieren, og bookes derfor som en avgrenset blokk fram til den datoen.",
+    },
+    {
+      question: "Kan en kunstner som holder kurs dele atelieret med andre brukere uten kollisjon?",
+      answer:
+        "Ja, hvert atelier eller studie er en egen ressurs i kalenderen, og kursrekken vises som opptatt for alle andre i hele perioden den er booket.",
+    },
+  ],
 };
