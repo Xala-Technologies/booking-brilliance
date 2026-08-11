@@ -1,0 +1,22 @@
+XAL-1098 — live DOM checks against `pnpm dev:client` (http://localhost:8080), agent-browser CDP session
+
+1. Footer link exists on the homepage and points at the new route:
+   document.querySelectorAll('a').filter(a => a.href.includes('tilgjengelighet'))
+   => <a class="editorial-mono-caption ..." href="/tilgjengelighet">Tilgjengelighet</a>
+   (found inside the "Juridisk" colophon nav, alongside Personvern/Salgsvilkår/Cookies — see 01-footer-link.png)
+
+2. /tilgjengelighet renders with exactly one <h1>:
+   document.querySelectorAll('h1').length => 1
+   (see 02-tilgjengelighet-page-top.png — "Tilgjengelighetserklæring")
+
+3. Round-1 review's backtick-rendering bug is fixed — no literal backtick characters
+   anywhere in the rendered page text:
+   document.body.innerText.includes('`') => false
+   (see 04-code-tags-fix.png — "landemerker (som main og nav)" renders with <code> styling,
+   not literal backticks)
+
+4. Page title (drives <title> + SEO):
+   document.title => "Tilgjengelighetserklæring · Digilist | WCAG 2.1 AA"
+
+5. uustatus.no + kontakt@digilist.no links render in the "Tilbakemelding og klage" section
+   (see 03-tilgjengelighet-page-mid.png)

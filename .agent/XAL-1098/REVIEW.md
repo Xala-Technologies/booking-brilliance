@@ -67,3 +67,46 @@ What I checked:
 **Found**: nothing. Every changed file, and every hunk within every changed file, maps directly to something SPEC.md or a prior round's stated finding called for. No unrelated tidying, no reformatting, no files touched that weren't asked for.
 
 **No fixes required for this round.**
+
+## Proof
+
+This diff adds new behavior (a page + footer link that didn't exist before) —
+per the "adding new behaviour → the AFTER only" rule there's no "before"
+screenshot to capture. Verified live against `pnpm dev:client`
+(http://localhost:8080) via `agent-browser`, not just by reading source:
+
+- `.agent/XAL-1098/proof/01-footer-link.png` — homepage footer colophon,
+  scrolled to the "Juridisk" nav: `TILGJENGELIGHET` sits alongside
+  `PERSONVERN` / `SALGSVILKÅR` / `COOKIES`, exactly as SPEC.md's "link it in
+  the footer" requirement describes.
+- `.agent/XAL-1098/proof/02-tilgjengelighet-page-top.png` — clicking that
+  link navigates to `/tilgjengelighet` and renders the
+  "Tilgjengelighetserklæring" page (`<title>Tilgjengelighetserklæring ·
+  Digilist | WCAG 2.1 AA</title>`), §1 "Standard og regelverk".
+- `.agent/XAL-1098/proof/03-tilgjengelighet-page-mid.png` — §4
+  "Tilbakemelding og klage": the `kontakt@digilist.no` mailto link and the
+  `uustatus.no` link (the ticket's explicit "(uustatus.no)" ask) both render.
+- `.agent/XAL-1098/proof/04-code-tags-fix.png` — §2 "Hvordan vi tester":
+  live re-check of Round 1's backtick-rendering bug fix — "landemerker (som
+  `main` og `nav`)" now renders with real `<code>` styling in the browser,
+  not literal backtick characters.
+- `.agent/XAL-1098/proof/dom-checks.txt` — `agent-browser eval` output run
+  against the live DOM (not source-reading): exactly one `<h1>` on
+  `/tilgjengelighet`, zero literal backtick characters anywhere in
+  `document.body.innerText`, and the footer anchor's exact `outerHTML`
+  confirming `href="/tilgjengelighet"`.
+
+## Note on step 0 (AGENT-SPEC.md)
+
+This session resumed from an interrupted run whose instructions assumed a
+root-level `AGENT-SPEC.md` didn't exist. It doesn't — and per prior-session
+memory (main's `15c7b14` deleted the root copy on purpose because per-branch
+copies collide on every merge) it's deliberately not recreated there.
+`.agent/XAL-1098/SPEC.md` already exists, was written in an earlier part of
+this same session before the interruption, and already contains the full
+"HOW IT WORKS NOW" / "WHAT CHANGES" / "BLAST RADIUS" writeup and a mermaid
+diagram — i.e. step 0 was in fact completed, just not at the path the resume
+prompt expected. Attaching it to the Linear issue was not possible: no
+Linear MCP tools are reachable from this session (re-confirmed here, same as
+prior-session memory from XAL-1151 — no Linear-related tools surface via
+ToolSearch at all, not just a wrong-workspace issue).
