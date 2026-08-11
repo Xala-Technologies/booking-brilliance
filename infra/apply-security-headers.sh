@@ -18,10 +18,19 @@ SNIPPET_REMOTE="/etc/nginx/snippets/digilist-security-headers.conf"
 INCLUDE_LINE="    include snippets/digilist-security-headers.conf;"
 
 # host  ->  conf file that defines its (443) server block
+#
+# status.digilist.no, dev.digilist.no and dashboard.dev.digilist.no are
+# deliberately NOT listed here even though the original audit flagged them:
+# each already has a complete, hand-maintained header block (predating this
+# script) that is a superset of infra/nginx/security-headers.conf, including
+# CSP/COOP/CORP which this snippet intentionally omits. Adding the include to
+# those hosts only duplicates every header — confirmed live (XAL-1110 review
+# round 1) — including a duplicate Strict-Transport-Security, which per RFC
+# 6797 §8.1 means conforming clients honor whichever STS header arrives
+# first and silently ignore the other's `preload`. Re-add a host here only
+# after confirming it has no equivalent headers already set elsewhere in its
+# server block.
 TARGETS=(
-  "status.digilist.no|/etc/nginx/sites-available/status.digilist.no"
-  "dev.digilist.no|/etc/nginx/sites-available/digilist-dev"
-  "dashboard.dev.digilist.no|/etc/nginx/sites-available/digilist-dev"
   "docs.digilist.no|/etc/nginx/sites-available/docs.digilist.no"
 )
 
