@@ -77,3 +77,96 @@ links, word count vs. reading time, and SEO keyword placement all check
 out. Both findings above are about the diff carrying things the SPEC didn't
 actually authorize (an unrelated infra file) or no longer accurately
 describes (the mermaid claim), not about the article being wrong.
+
+## Round 2 — REGRESSION
+
+Lens: what ELSE reads this code path — every consumer of blog content, not
+just the ones SPEC.md's BLAST RADIUS section already named — and does
+anything depend on behaviour this new file changes?
+
+### What I checked
+
+Grepped every file under `src/`, `scripts/`, `build-plugins/` for
+`getAllPosts`, `virtual:blog-meta`, and `content/blog` to build a complete
+consumer list, independent of what SPEC.md already claimed. Found six
+consumers SPEC.md's BLAST RADIUS section did *not* mention:
+
+- `src/entry-server.main-landmark.test.tsx`
+- `src/lib/webp-sources.test.ts`
+- `src/lib/leie-selskapslokale-description.test.ts`
+- `scripts/guard-blog-redirects.mjs`
+- `scripts/dedup-blog-drafts.ts`
+- `scripts/sync-convex-blog-to-fs.ts`
+
+The first three run in the test suite and touch `getAllPosts()` directly, so
+they're real regression surface. The other three are fleet/Convex-side
+scripts that don't read the committed file at all (they read from Convex,
+or grep git-changed files) — checked their logic to confirm and moved on.
+
+**The one genuine behavioural change**: the new post is dated `2026-08-11`,
+one day newer than every other post in `src/content/blog/` (all `2026-08-10`
+or older — confirmed via `grep -h "^date:" src/content/blog/*.md | sort -r`).
+Since `getAllPosts()` sorts by date descending, this post is now
+`getAllPosts()[0]` — the "first" post. Two consumers key off exactly that:
+
+- `src/entry-server.main-landmark.test.tsx` renders `getAllPosts()[0]` by
+  route as its regression case for a past SSR bug (a still-suspended lazy
+  route being misread as "settled", shipping HTML with no `<main>`). That
+  test now exercises *this* post's route instead of whatever was previously
+  newest — a real change in which content the regression test happens to
+  cover, not a code change, but worth surfacing since it's exactly the kind
+  of implicit coupling a content-only diff can silently break.
+- `src/components/BlogPreviewSection.tsx` (`getAllPosts().slice(0, 6)`,
+  homepage teaser) will now surface this post first on the homepage. No
+  test pins specific slugs there, so nothing to fix, just confirming it's
+  expected.
+
+`src/lib/webp-sources.test.ts` iterates *every* post's cover via
+`previewCover()` and asserts the webp sibling exists on disk — the new
+post's cover (`digital_booking_importance_hero_no.webp`, reused, no new
+asset per SPEC) is already covered by an earlier post using the same file,
+so this was never at risk, but it's in the consumer set so I ran it anyway.
+`src/lib/leie-selskapslokale-description.test.ts` filters `getAllPosts()`
+by a specific unrelated slug — structurally identical to
+`digitalt-bookingsystem-description.test.ts` (already checked in Round 1)
+and unaffected by an unrelated post being added to the array.
+
+`scripts/guard-blog-redirects.mjs` is the sharpest miss risk here: it
+probes each *changed* blog slug against the live site for a standing
+server-side 301 (a slug "claimed" by an earlier content-consolidation
+redirect) and deletes the file if so — exactly the failure class that
+silently reddened every deploy on 2026-07-23 per its own header comment.
+It isn't wired into this repo's CI (`grep -rl content:guard .github` →
+nothing; it's a manual `pnpm content:guard` / fleet-runner step, not a git
+hook here), so it doesn't run automatically in this session, and probing
+production from here isn't something to do speculatively. Ran its
+`--self-test` (offline parser unit-checks) to confirm the parsing logic
+itself isn't broken by anything in this diff — passed. The slug
+`bokingsystem-funksjonalitet-admin-paaminnelser-kalender-brukerkontroll` is
+new and specific enough that a pre-existing consolidation redirect claiming
+it is unlikely, but this is the one thing in the regression surface that
+genuinely can't be fully verified offline — flagging it rather than
+asserting it's fine.
+
+`scripts/dedup-blog-drafts.ts` operates on Convex draft records, not
+committed files — checked its `MANGLED` slug set, the new slug isn't in it
+and the script doesn't touch `src/content/blog/*.md` at all.
+`scripts/sync-convex-blog-to-fs.ts` only *writes* to `src/content/blog/`
+from Convex; it doesn't read the existing files as input, so it has nothing
+to regress against.
+
+Ran the full consumer-relevant test set plus the whole unit suite:
+`entry-server.main-landmark.test.tsx`, `webp-sources.test.ts`,
+`post-slugs.test.ts`, `digitalt-bookingsystem-description.test.ts`,
+`leie-selskapslokale-description.test.ts`, `blogFaq.test.ts`, and then the
+full `vitest run` — 20 files, 40 tests, all passed, including the
+`getAllPosts()[0]`-dependent SSR landmark test now exercising this post's
+route end-to-end.
+
+### Findings
+
+No regressions. The only behavioural change from adding this file — it
+becoming `getAllPosts()[0]` because it's the newest-dated post — was
+already covered by an existing generic test (not slug-specific), and that
+test passes against this post's actual rendered HTML. No fix needed; no
+code or content change made this round.
