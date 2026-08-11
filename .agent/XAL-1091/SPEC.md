@@ -170,7 +170,7 @@ flowchart TD
 - `pnpm vitest run` (full suite) green, including `post-slugs.test.ts`.
 - `node scripts/check-blog-word-count.mjs` (or the build step that runs it)
   passes for the new post.
-- `node scripts/check-title-lengths.mjs` — title is 64 chars as-is (over 50
+- `node scripts/check-title-lengths.mjs` — title is 55 chars as-is (over 50
   so rendered verbatim), within the 65-char informational limit.
 
 ## Definition of done
