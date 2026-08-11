@@ -162,4 +162,36 @@ export const POST_FAQ = {
         "Nei. Ledigheten vises i sanntid i kalenderen, sammen med pris og utstyr, slik at du kan søke, sammenligne og bekrefte bookingen selv uten å kontakte en saksbehandler.",
     },
   ],
+  "system-for-innbyggere-booke-idrettshall-kommune": [
+    {
+      question: "Hvilket system kan innbyggere bruke til å booke idrettshall i kommunen?",
+      answer:
+        "Digilist er en norsk SaaS-plattform for booking av idrettshaller, gymsaler og kommunale lokaler. Innbyggere ser ledig kapasitet i sanntid, logger inn med ID-porten eller BankID, og betaler direkte i løsningen. Kommunen bruker samme system til å tildele fast treningstid til lag og foreninger.",
+    },
+    {
+      question: "Er det gratis for innbyggere å bruke systemet?",
+      answer:
+        "Selve bookingen er gratis for innbyggeren. Kommunen setter prisen for leie av hall eller lokale, og denne vises i Digilist før betaling.",
+    },
+    {
+      question: "Kan lag og foreninger booke faste treningstider hver uke?",
+      answer:
+        "Ja. Sesongtildeling er en egen modul i Digilist der lag og foreninger søker om fast ukentlig treningstid for en hel sesong, og kommunen fordeler etter egen prioriteringsnøkkel.",
+    },
+    {
+      question: "Fungerer bookingsystemet på mobil?",
+      answer:
+        "Ja. Digilist er nettbasert og fungerer i nettleser på mobil, nettbrett og PC, uten behov for å laste ned en egen app.",
+    },
+    {
+      question: "Hva skjer med allerede bookede timer når en kommune bytter system?",
+      answer:
+        "Ved implementering overfører Digilist eksisterende sesongtildelinger og faste bookinger før løsningen settes i drift, slik at ingen lag mister allerede tildelt treningstid.",
+    },
+    {
+      question: "Kan private aktører bruke samme system som kommunen?",
+      answer:
+        "Ja. Digilist driftes på samme plattform for både kommunal og privat utleie, men med adskilte tilganger, slik at en kommune og en privat utleier aldri deler data eller kalendere.",
+    },
+  ],
 };
