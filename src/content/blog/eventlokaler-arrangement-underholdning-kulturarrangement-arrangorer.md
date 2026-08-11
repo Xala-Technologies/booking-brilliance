@@ -1,7 +1,7 @@
 ---
 slug: eventlokaler-arrangement-underholdning-kulturarrangement-arrangorer
 title: "Eventlokaler til arrangement: guide for arrangører"
-description: "Arrangører som booker eventlokaler til konsert og kulturarrangement har andre behov enn en privatperson. Se hva et godt eventlokale krever, og hvorfor rask gjenbestilling teller mest."
+description: "Arrangører som booker eventlokaler til konsert og kulturarrangement har andre behov enn en privatperson. Se hva et godt eventlokale krever."
 date: 2026-08-11
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
