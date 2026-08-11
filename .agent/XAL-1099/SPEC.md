@@ -100,8 +100,13 @@ a real content gap, not a duplicate — ticket is actionable as scoped.
   who can book what, without calling support) — as the actual lever for
   whether staff and citizens keep using the system after rollout instead of
   reverting to phone/email/paper. Cross-links to the sibling posts above
-  rather than repeating their technical detail. Includes one mermaid diagram
-  of the admin-configuration → adoption-outcome relationship.
+  rather than repeating their technical detail. No mermaid diagram in the
+  post body itself — `BlogPost.tsx` renders body markdown through
+  `ReactMarkdown` with only `remarkGfm` (no mermaid plugin anywhere in the
+  repo), so a fenced ```mermaid block there would render as an inert code
+  listing, not a diagram. The admin-configuration → adoption-outcome
+  relationship is instead captured as the second diagram below, as
+  architecture documentation for this SPEC, not as post content.
 - No code changes — this is a content-only addition. No new test file
   required beyond the standing `post-slugs.test.ts` (already covers
   uniqueness) and `digitalt-bookingsystem-description.test.ts` pattern (that
