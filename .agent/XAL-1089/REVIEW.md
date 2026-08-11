@@ -74,3 +74,40 @@
 5. **Working tree cleanliness.** `git status` (clean, nothing untracked) and `git status --porcelain=v1 -uall` (empty) — no stray build output (`dist/`), no editor artifacts, no leftover scratch files from any of the four rounds sitting uncommitted or untracked.
 
 **Findings: none.** The diff is exactly the one content file the ticket asked for, plus this issue's own spec and review log — nothing else. No drive-by edits, no unrelated tidying, no scope creep in the content itself. No code changes made this round; nothing needed fixing.
+
+## Proof — new behaviour, AFTER only
+
+This change adds a new page; there is no "before" of a post that didn't
+exist. Proof captured live against `pnpm dev` (Vite on `:8080`) with
+`agent-browser`, plus verbatim command output. All files in
+`.agent/XAL-1089/proof/`:
+
+- `01-post-top.png` — the live post at
+  `/blogg/booking-spesialiserte-trening-kunstnerlokaler`: h1, dek, byline,
+  date, and the auto-generated TOC sidebar ("I denne artikkelen").
+- `02-post-price-table.png` — the comparative price table
+  (Øvesal/Danse-studio/Atelier rows) rendering correctly as cards.
+- `03-post-faq-related-solution.png` — "RELEVANTE LØSNINGER → Idrettshaller
+  og gymsaler" confirms `relatedSolutions()` fires on the `trening` match
+  exactly as SPEC/Round 1/Round 2 predicted, plus the "Del artikkelen" /
+  next-post sidebar rendering with no layout break.
+- `04-post-internal-links-faq.png` — the FAQ section ("Vanlige spørsmål om
+  booking av spesialiserte lokaler") rendering live, mid-body.
+- `05-blog-index-listing.png` — `/blogg` index: "328 ARTIKLER", the new
+  post is card #1 (dated 11. august 2026, newest-first sort via
+  `getAllPosts()`), title/dek/byline/reading-time all correct.
+- `verification-output.txt` — verbatim output of:
+  - `node scripts/check-title-lengths.mjs` (this post's line: `ok 52
+    booking-spesialiserte-trening-kunstnerlokaler.md`; the 139/328
+    site-wide "exceed 65 chars" count is pre-existing and informational
+    only, this post is not one of the 139)
+  - `node scripts/check-blog-word-count.mjs` (328/328 pass, both gates)
+  - `curl` status checks for all five internal link targets → `200` each
+  - `npx vitest run` → 20 files / 41 tests passed
+
+No Linear MCP tools are available in this environment (re-confirmed this
+session via `ToolSearch`, consistent with every prior check — see SPEC's
+"Linear attachment status" and session memory `project_no_linear_mcp_tools_available.md`).
+Images could not be attached to the XAL-1089 issue directly; they're
+committed to the branch instead for a later phase with Linear access to
+attach.
