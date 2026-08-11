@@ -147,3 +147,84 @@ glob-driven, count-agnostic mechanism every prior post already went through,
 and the one field with a syntactic edge case (colon inside a quoted title)
 parses the same way existing posts' colon-bearing titles already do. Nothing
 fixed this round — no code was touched to fix.
+
+## Round 3
+
+**Note on step 0:** the resume prompt again claimed `AGENT-SPEC.md` did not
+exist. It does, at `.agent/XAL-1091/SPEC.md`, unchanged since Round 1 —
+nothing to redo.
+
+**Lens: SECURITY** — authz, tenant isolation, injection, secrets, and
+anything user-supplied that reaches a query, a path, or a page. Re-confirmed
+via `git diff origin/main...HEAD --stat` that the diff is still exactly the
+three files Round 2 found (one new markdown post, two `.agent/XAL-1091/*.md`
+process files) — zero source or script files touched, so there is no new
+code path to carry a vulnerability. What that leaves to check is whether the
+*content* of the new file, flowing through the *existing* pipeline, opens
+anything up.
+
+What I checked:
+
+- **Authz / tenant isolation**: this repo has no multi-tenant or booking
+  domain at all (confirmed repeatedly in prior sessions — see memory
+  `project_repo_has_no_booking_domain`); it's a static-content marketing
+  site. A new blog post is public content served to every visitor
+  identically; there is no tenant boundary for it to cross and no
+  role/permission check anywhere in the blog-read path (`getAllPosts()`,
+  `postContent.ts`, `BlogPost.tsx`) to bypass. N/A by construction.
+- **Injection into the render path**: `src/pages/BlogPost.tsx:231` renders
+  the markdown body with `<ReactMarkdown remarkPlugins={[remarkGfm]}>`, not
+  `dangerouslySetInnerHTML`, and the diff does not add `rehype-raw` or any
+  other plugin that would let embedded HTML/`<script>` pass through — checked
+  `vite.config.ts` and `package.json` for `rehype-raw`/`rehype-sanitize`:
+  neither is a dependency, so ReactMarkdown's default behavior (raw HTML in
+  the source is escaped as text, not executed) is what actually runs. Grepped
+  the new post itself for `<script`, `javascript:`, `onerror=`, `onload=`,
+  `data:text/html`, `<iframe` — none present. Not that it would matter here
+  (this content is author-committed, not attacker-supplied), but it confirms
+  the pipeline itself doesn't have an open XSS vector that a future post
+  (malicious or careless) could walk through.
+- **Frontmatter parser injection**: re-read `blogFrontmatter.ts`'s
+  `parseFrontmatter` in full (Round 2 only sampled the colon case). The
+  array-field branch (`keywords`) does plain `.split(",")` +
+  `.replace(/^["']|["']$/g, "")` — no `eval`, no `JSON.parse`, no
+  `new Function`; a malformed or adversarial value in that position can at
+  worst produce a wrong string, never executed code. Same for the
+  string/number branches. This post's `keywords` array
+  (`["bolig til leie i oslo", "mellombolig oslo", ...]`) is well-formed and
+  exercises nothing unusual.
+- **Path traversal via slug**: `scripts/prerender.mjs:2572` does
+  `join(DIST, "blogg", post.slug)` — if `slug` ever contained `../`, this
+  build script would write outside `dist/blogg/`. This post's committed
+  `slug: bolig-til-leie-oslo-mellombolig-leilighet` is plain kebab-case, so
+  it does not exercise that path. This is a pre-existing gap shared by every
+  post in the corpus (no slug format validation anywhere in the pipeline),
+  not something introduced by this diff, and — same reasoning as the XSS
+  point above — content here is author-committed through code review, not
+  submitted by an untrusted party, so there's no live attacker who could
+  supply a traversal slug through this pipeline today. Noting it rather than
+  fixing it: fixing a pre-existing, diff-unrelated gap in `prerender.mjs`
+  is out of scope for a content-only post PR, and doing so risks touching
+  shared build logic that 300+ other posts also depend on, which is exactly
+  the kind of blast radius a content ticket shouldn't take on.
+- **Secrets**: grepped the new post and both `.agent/XAL-1091/*.md` files for
+  `key`, `token`, `secret`, `password`, `api[_-]?key`, internal hostnames
+  (`localhost`, `127.0.0.1`), and bare `http://` links — none present. All
+  outbound links in the post are `https://`-implicit relative routes
+  (`/overnatting/leilighet`, `/blogg/booking-paa-90-sekunder-innbygger`,
+  `/blogg/somlos-betaling-vipps-ehf`), already confirmed to resolve to real
+  pages in Round 1.
+- **User-supplied data reaching a query/path/page**: there is none in this
+  diff — the entire change is three files authored and committed by this
+  session, not data submitted through any form, API, or user input surface.
+  The closest thing to "user-supplied" in this repo's blog pipeline is the
+  sitewide search box (`src/lib/search/corpus.ts`), which only *reads* the
+  new post's title/description/keywords as static indexed text, does not
+  execute or interpret them, and is unaffected by what those strings contain.
+
+**No security findings.** Nothing fixed this round — no code or content was
+touched to fix, since nothing exploitable was found and the two pre-existing
+gaps noted above (no rehype-sanitize dependency to begin with, no slug-format
+validation in `prerender.mjs`) are shared infrastructure gaps that predate
+this diff and lack any live attacker path through it, not defects this
+change introduces or should silently absorb into a content-only PR.
