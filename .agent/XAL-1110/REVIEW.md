@@ -298,3 +298,80 @@ finding.
 
 Nothing — this lens found no code to fix. No commit needed for the code; this
 section itself is the round's output.
+
+## Round 4
+
+**Lens: SCOPE** — is anything here NOT the stated change? Drive-by edits,
+unrelated tidying, files nobody asked to touch.
+
+### What I checked
+
+1. `git diff origin/main...HEAD --stat` and `--name-only` for the whole
+   branch: exactly four files touched across all commits —
+   `.agent/XAL-1110/SPEC.md`, `.agent/XAL-1110/REVIEW.md`,
+   `infra/apply-security-headers.sh`, `infra/nginx/security-headers.conf`.
+   No app code, no test files, no config outside `infra/`, no formatting
+   sweeps.
+2. `git clean -ndx` (ignoring `node_modules`) for stray untracked artifacts —
+   e.g. the "mock two-block file" SPEC.md says Round 1's author used to
+   reproduce the idempotency bug before touching the VPS again. Found only
+   `AGENT-GOAL.md`, which is scaffold listed in `.git/info/exclude` (never
+   trackable, matches the convention visible across every other ticket in
+   this repo's history — "remove agent goal file before PR"). No leftover
+   mock/tmp files were committed or left untracked.
+3. Read each commit's diff in isolation (`e6dfdc7`, `02e2083`, plus the two
+   review-only commits) to check whether any single commit smuggled in
+   something beyond what its message claims. Each one's file list matches
+   its message exactly — the idempotency-check commit only touches the
+   script, the dedup/`preload` commit only touches the script + snippet (+
+   its own review section).
+4. Evaluated whether the two substantive changes beyond "deploy the existing
+   snippet to docs.digilist.no" are actually in scope or are scope creep:
+   - **Trimming `TARGETS` from four hosts to one** (Round 1): this reverses
+     a regression that *this ticket's own rollout* introduced (duplicate
+     headers on three hosts that already had a stronger hand-written set).
+     Cleaning up a bug your own change caused is squarely in scope, not a
+     drive-by — leaving it would mean shipping XAL-1110 with a known live
+     regression.
+   - **Adding `preload` to the shared HSTS line** (Round 1): necessary
+     because Round 1 also removed `docs.digilist.no`'s old standalone HSTS
+     `add_header` (which had `preload`) in favor of the shared snippet
+     (which didn't) — without this addition, closing the duplication bug
+     would have silently downgraded `docs.digilist.no`'s HSTS. Not an
+     unrelated enhancement; it's the change required to make the dedup
+     fix not itself be a regression.
+   Both are corrective, not additive — they exist because of bugs this
+   ticket's own rollout surfaced, not because anyone went looking for
+   unrelated improvements.
+5. Checked whether `.agent/XAL-1110/SPEC.md`, the ticket's own record, still
+   matches the code it describes. It does not: SPEC.md's "WHAT CHANGES"
+   step 2 and its mermaid diagram were written in the commit *before*
+   Round 1's `TARGETS` trim and still describe the script touching all four
+   `TARGETS` (`status`/`dev`/`dashboard.dev`/`docs`) and still show the old,
+   now-removed duplication path as if it were the shipped design — Round 1's
+   fix was never folded back into SPEC.md, only appended to REVIEW.md. This
+   isn't scope creep in the code, but it is a scope problem in the record:
+   a future reader trusting SPEC.md's diagram over the actual script would
+   believe three hosts are still being patched by this script, which is no
+   longer true.
+
+### What I found
+
+No scope creep in the code. Every line of the diff traces back to either the
+stated ticket (deploy headers to `docs.digilist.no`) or a bug that this
+ticket's own rollout caused and had to clean up before it could be called
+done. The one real defect this lens surfaced is documentation drift:
+`SPEC.md` — the definitive "what changed and why" record — describes the
+pre-Round-1 script behavior, not the shipped one.
+
+### What I changed
+
+Updated `.agent/XAL-1110/SPEC.md`'s "WHAT CHANGES" section (step 2) and the
+mermaid diagram to reflect the actual, current shipped state: `TARGETS`
+holds only `docs.digilist.no`; `status.digilist.no`/`dev.digilist.no`/
+`dashboard.dev.digilist.no` were removed from the rollout because they
+already carried a complete, stronger, hand-maintained header set that this
+script was duplicating on top of (Round 1 finding); the shared snippet's
+HSTS line now carries `preload`. No code changes — this round's fix is to
+the record, not the script (the script itself was already correct after
+Round 1's commit).
