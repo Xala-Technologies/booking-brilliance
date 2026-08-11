@@ -184,3 +184,60 @@ out of scope for a single-post content ticket — flagging it here rather than
 inventing a same-diff fix.
 
 **Changed:** nothing (no fixes needed this round).
+
+## Round 4 (lens: scope)
+
+**Question:** is anything in this diff NOT the stated change? Drive-by
+edits, unrelated tidying, files nobody asked to be touched — checked every
+commit on the branch individually, not just the final combined diff, since
+scope creep can hide inside an intermediate commit that a squashed diff
+would mask.
+
+**Checked:**
+- `git diff origin/main...HEAD --name-status`: exactly four files —
+  `.agent/XAL-1085/REVIEW.md` (A), `.agent/XAL-1085/SPEC.md` (A),
+  `src/content/blog/dans-og-kunstnerstudier-atelier-for-opplaering.md` (A),
+  `src/content/blogFaq.mjs` (M). No fifth file, no deletions, no renames.
+- `git status` / `git status --porcelain`: clean working tree, no untracked
+  files, no leftover `pnpm-workspace.yaml` diff from local `pnpm
+  approve-builds` (the specific stray-edit pattern SPEC.md flagged as a
+  recurring risk from XAL-1099/1115/1127/1129/1086 — didn't recur here).
+- Read every individual commit's `--stat` (`9ce7321`, `08a67a8`, `c3c8d23`,
+  `bc22e6e`, `0c4e65e`): each one touches only the file(s) its own commit
+  message claims — the content commit adds exactly the new post + the
+  `blogFaq.mjs` entry + `SPEC.md`, each review-round commit adds only its
+  own section to `REVIEW.md`. No commit smuggles an incidental change under
+  a review-round message.
+- `blogFaq.mjs` diff: pure addition, one new top-level key
+  (`"dans-og-kunstnerstudier-atelier-for-opplaering"`) appended after the
+  existing last entry. No existing `POST_FAQ` key touched, reordered, or
+  reformatted.
+- New post body: re-read end to end against SPEC's stated angle
+  (danseinstruktør + kunstner-kursholder + teatergruppe as recurring
+  group-leader bookers, teatergruppe's fixed-premiere-date sub-angle). Every
+  section stays on that persona/booking-mechanics topic — no scope-widening
+  into pricing tables, generic booking-flow explainers, or room-typology
+  detail that the spec explicitly said to cross-link instead of duplicate.
+  Exactly four cross-links, matching the four SPEC named
+  (`kunstner-verksteder-studio-dansesaler-kreative-lokaler`,
+  `leie-ovingsrom-musikk-dans-studio`,
+  `spesiallokaler-niche-utleie-teaterscene-kjeller`,
+  `booking-spesialiserte-trening-kunstnerlokaler`) — no extra, unplanned
+  cross-links added.
+- Confirmed the hub post `booking-spesialiserte-trening-kunstnerlokaler.md`
+  was **not** edited to add a fifth cross-link back to the new post — matches
+  SPEC's explicit one-direction-linking decision (avoid touching an
+  already-shipped file), not an oversight.
+- No `.claude/`, `AGENTS.md`, CI config, `package.json`, lockfile, or any
+  other repo-wide file appears in the diff — nothing outside the blog
+  content surface was touched.
+- Re-ran `pnpm vitest run src/lib/post-slugs.test.ts
+  src/content/blogFaq.test.ts` after the scope check: 3/3 still pass, no
+  drift since round 1/2's full-suite runs.
+
+**Found:** nothing. The diff is exactly the four files SPEC.md declared it
+would be, each commit's content matches its own message, and the post's
+content stays inside the persona/angle SPEC scoped it to with no
+unplanned cross-links or drive-by edits anywhere in the branch.
+
+**Changed:** nothing (no fixes needed this round).
