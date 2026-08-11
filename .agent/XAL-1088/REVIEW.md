@@ -248,3 +248,62 @@ Nothing — this lens found no security defect introduced by the diff. Content
 is 100% static and author-controlled; nothing user-supplied reaches a query,
 a path, or a page anywhere in this change. Re-ran `pnpm vitest run`: still
 21 files / 45 tests green.
+
+## Round 4 — SCOPE
+
+Lens: is anything in this diff NOT the stated change — drive-by edits,
+unrelated tidying, files nobody asked to be touched? Re-read `SPEC.md`'s
+"WHAT CHANGES" section, then `git diff origin/main...HEAD --stat` (both
+including and excluding `.agent/`) and every hunk in the three content/code
+files, line by line, checking each one against the two stated defects
+(dead FAQPage schema, incomplete competitor set) rather than skimming for
+"looks reasonable."
+
+### Checked, no finding
+
+- **File set is minimal and on-ticket**: `git diff origin/main...HEAD --stat`
+  outside `.agent/` touches exactly three files —
+  `src/content/blogFaq.mjs` (new `POST_FAQ` key, purely additive at the end
+  of the object literal — no other key touched),
+  `src/content/blog/system-for-innbyggere-booke-idrettshall-kommune.md`
+  (the one page this ticket is about), and the new
+  `src/content/blog-xal1088-aeo.test.ts` pinning test. No other blog post,
+  component, script, or config file appears in the diff. In particular the
+  sibling post `system-booke-idrettshall-kommune.md` — same topic, same
+  dead nested-`schema:` frontmatter bug, flagged in SPEC.md as tempting to
+  "fix while I'm here" — was confirmed still untouched (`git diff
+  origin/main...HEAD -- src/content/blog/system-booke-idrettshall-kommune.md`
+  is empty). Correctly left out: fixing it wasn't needed to close this
+  ticket's specific AEO gap, and touching a second live page would have
+  been unrequested scope growth.
+- **Every hunk in the `.md` file maps to a stated defect or its direct
+  consequence**: `description`/`keywords` — updated to name BookUp, Aktiv
+  Kommune, FRI Booking-system (defect 2, competitor set). `updated:
+  2026-08-11` — dateModified for the Article schema, explicitly called out
+  in "WHAT CHANGES" item 2. Intro paragraph rewrite — direct-answer block
+  required by the ticket's acceptance criteria, mirrors `POST_FAQ[0]`text
+  (defect 1). New H3 in "Vanlige spørsmål" — Round 1's fix for the same
+  defect 1, not new scope. Comparison table — new FRI Booking-system
+  column, renamed BookUp header (defect 2). "Kilder" section — new source
+  citation for the FRI Booking-system claim, required to keep the page's
+  "sourced facts" claim honest, not decorative tidying. No hunk reformats,
+  renames, or restructures anything the ticket didn't ask for (no table
+  column reordering beyond the one insertion, no rewritten sections outside
+  the ones defect 1/2 touch, no CSS/layout/component changes).
+- **`blogFaq.mjs` diff is append-only**: the new key is added after the
+  last existing entry, closing the object literal at the same brace it
+  already closed at; no existing entry's text, formatting, or order was
+  touched (verified by diffing byte-for-byte — every removed/added line is
+  within the new block).
+- **Test file scope**: `blog-xal1088-aeo.test.ts` only asserts against this
+  one slug and this one `POST_FAQ` key — it doesn't touch, import extra
+  helpers from, or add assertions about any other post, precedent test
+  file, or shared test utility.
+- **`.agent/XAL-1088/SPEC.md` and `REVIEW.md`**: process artifacts required
+  by this ticket's own SDLC pipeline (spec-then-review contract), not
+  product code — in scope by definition, not drive-by.
+
+### What I changed
+
+Nothing — this lens found no out-of-scope edits in the diff. Re-ran `pnpm
+vitest run`: 21 files / 45 tests green, unchanged from Round 3.
