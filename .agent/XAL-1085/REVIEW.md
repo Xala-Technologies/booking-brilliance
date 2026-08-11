@@ -113,3 +113,74 @@ No hardcoded counts, titles, or slug lists anywhere depended on this slug's
 prior non-existence.
 
 **Changed:** nothing (no fixes needed this round).
+
+## Round 3 (lens: security)
+
+**Question:** authz, tenant isolation, injection, secrets, and anything
+user-supplied that reaches a query, a path or a page. This repo has no
+booking/tenant domain (confirmed repeatedly, see
+`project_repo_has_no_booking_domain.md`), so the lens narrows to what a
+content-only diff can actually introduce: markdown→HTML injection (XSS),
+JSON-LD script-injection, unsafe link handling, secrets, and path-traversal
+via the new slug.
+
+**Checked:**
+- **XSS via markdown rendering:** `src/pages/BlogPost.tsx` renders post
+  bodies with `<ReactMarkdown remarkPlugins={[remarkGfm]}>` and no
+  `rehype-raw` plugin anywhere in the tree (grepped the whole repo for
+  `rehype-raw`/`dangerouslySetInnerHTML` in the blog render path — zero
+  hits). react-markdown without `rehype-raw` does not render raw HTML nodes,
+  it escapes them, so even if the new post's body contained literal HTML
+  tags they would print as text, not execute. The new post's body is plain
+  Markdown prose/links/lists only — no raw HTML in it regardless.
+- **Static prerender uses the same renderer:** `scripts/prerender.mjs`
+  doesn't run a second, separate markdown-to-HTML converter — it drives
+  `renderBody(route)` against the real client route (confirmed: no
+  `markdown-it`/`marked` import, no independent HTML-from-markdown step),
+  so the prerendered `dist/blogg/<slug>/index.html` goes through the exact
+  same escaping as the client render. No divergent, less-safe path for the
+  static build.
+- **JSON-LD injection:** `scripts/prerender.mjs:2556` builds the per-post
+  `<script type="application/ld+json">` block via
+  `JSON.stringify(postLDBlocks)`. `JSON.stringify` escapes quotes/backslashes
+  correctly, so the four new Q&A pairs in `blogFaq.mjs` can't break out of
+  the JSON value. Checked the theoretical `</script>`-inside-a-JSON-string
+  script-breakout class separately: neither `JSON.stringify` nor anything
+  else in `prerender.mjs` escapes a literal `</script>` substring inside a
+  JSON-LD value anywhere in this codebase (pre-existing gap across all ~330
+  posts, not introduced by this diff) — moot here regardless, since neither
+  the new post body nor the new FAQ entries contain that substring
+  (`grep -c "</script"` on both new/changed files: 0).
+- **Link safety:** the new post's only external link is
+  `https://digilist.no/demo` (absolute, own domain) — matches the pattern
+  used in 37 other existing posts, not a stray absolute URL to a third
+  party. The custom `a` renderer in `BlogPost.tsx` doesn't set
+  `target="_blank"` for any link (chat-intent hrefs become buttons, everything
+  else is a plain in-tab `<a>`), so there's no reverse-tabnabbing surface
+  (`rel="noopener"` moot without `target="_blank"`) — pre-existing sitewide
+  behavior, unaffected by and unrelated to this diff.
+- **Secrets:** grepped the new post and the `blogFaq.mjs` addition for
+  `secret|api[_-]key|token|password|BEGIN.*PRIVATE` (case-insensitive) —
+  zero hits. Author byline (`Ibrahim Rahmani` / `Grunnlegger, Digilist`)
+  matches the same public byline used on 330 other posts, not a leaked
+  identity or internal detail.
+- **Path traversal via slug:** `slug: dans-og-kunstnerstudier-atelier-for-opplaering`
+  is plain lowercase-ASCII-and-hyphens, used directly by `prerender.mjs` to
+  build `join(DIST, "blogg", post.slug)` (line 2572) and by the router to
+  build `/blogg/<slug>`. No `..`, no `/`, no encoded characters — can't
+  escape the `dist/blogg/` directory or the `/blogg/` route namespace.
+- **Tenant/authz:** confirmed again (per memory, this is not the first time)
+  that this repo has no tenant model, no auth-gated data, and no query layer
+  a post could reach into — a Markdown file in `src/content/blog/` is
+  first-party committed content picked up by a build-time glob, not
+  user-submitted data crossing a trust boundary. Nothing in this diff reads
+  a request parameter, a database row, or another tenant's data.
+
+**Found:** nothing that's a defect in this diff. One latent, sitewide gap
+noted for completeness (no `</script>`-substring escaping in the shared
+JSON-LD serializer), but it predates this ticket by ~330 posts, isn't
+triggered by any content this diff adds, and fixing a shared serializer is
+out of scope for a single-post content ticket — flagging it here rather than
+inventing a same-diff fix.
+
+**Changed:** nothing (no fixes needed this round).
