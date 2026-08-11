@@ -171,3 +171,80 @@ Nothing — this lens found no regression introduced by the diff. Re-ran
 `pnpm vitest run`: still 21 files / 45 tests green, and
 `node scripts/check-title-lengths.mjs` shows this post's title unaffected
 (unchanged by the diff, not in the over-65-char list newly).
+
+## Round 3 — SECURITY
+
+Lens: authz, tenant isolation, injection, secrets, and anything user-supplied
+that reaches a query, a path or a page. Read the full diff again
+(`git diff origin/main...HEAD`) plus every place the new content is
+consumed downstream: `scripts/prerender.mjs` (JSON-LD emission, meta-tag
+interpolation) and `src/components/SEO.tsx` (client-side JSON-LD).
+
+### What this diff actually is, for this lens
+
+All three changed/added files are static, author-authored content with no
+runtime input:
+- `src/content/blog/system-for-innbyggere-booke-idrettshall-kommune.md` —
+  hand-written Norwegian markdown + frontmatter, no template fields, no
+  values sourced from a request, query string, DB row, or any other
+  tenant/user-controlled source.
+- `src/content/blogFaq.mjs` — a plain JS object-literal addition, same
+  author-controlled string content, keyed by a hardcoded slug.
+- `src/content/blog-xal1088-aeo.test.ts` — reads a file via
+  `join(__dirname, "blog", ${slug}.md)` where `slug` is a hardcoded string
+  literal (`"system-for-innbyggere-booke-idrettshall-kommune"`), not derived
+  from any argument, env var, or external input — no path-traversal surface.
+
+There is no tenant/authz dimension to this ticket at all: blog content is
+public, unauthenticated, and rendered identically for every visitor — there
+is no per-tenant or per-user branch anywhere in the blog rendering path
+this diff touches.
+
+### Checked, no finding
+
+- **JSON-LD injection**: traced the new `POST_FAQ` entry all the way to
+  emission. `scripts/prerender.mjs:2528-2534` builds `faqLD` from
+  `postFaq.map(q => ({ name: q.question, acceptedAnswer: { text: q.answer
+  }}))`, matching the `{question, answer}` shape used by every other
+  `POST_FAQ` entry (confirmed `q.question`/`q.answer` field names line up —
+  a nearby, unrelated `patchHTML`/`baseLD` path at `scripts/prerender.mjs:2166-2173`
+  uses a different `{q, a}` shape for non-blog pages' FAQ, but that path is
+  never reached by blog posts, so there's no field-name mismatch here). The
+  whole `postLDBlocks` array is serialized with `JSON.stringify` at
+  `scripts/prerender.mjs:2556` (and again client-side at `SEO.tsx:371`),
+  which correctly escapes quotes/backslashes in the new strings. Checked the
+  new content itself for anything that could matter even if the escaping
+  were weaker (e.g. a literal `</script>` sequence, which `JSON.stringify`
+  does *not* escape — a pre-existing, repo-wide gap in this serialization
+  helper, not something this diff introduces or worsens): none of the new
+  Q&A text, table cells, or prose contains `<script`, `</script>`, `<iframe`,
+  `onerror=`, `javascript:`, or any other markup/attribute-breakout
+  sequence. Grepped for all of these across the three changed files —
+  zero matches.
+- **HTML-attribute injection via `meta.description`**: `scripts/prerender.mjs:2310`
+  interpolates `meta.description` directly into `<meta name="description"
+  content="${meta.description}" />` with no attribute-escaping — a
+  pre-existing, repo-wide pattern shared by every post, not new here. The
+  diff's edited description (now naming BookUp, Aktiv Kommune, FRI
+  Booking-system) contains no `"` characters, so it can't break out of the
+  attribute even under this weak escaping. Not a regression this diff
+  causes; flagging the underlying missing-escaping helper is out of this
+  ticket's blast radius (affects all ~328 posts equally, would be its own
+  ticket).
+- **Secrets**: grepped the diff for API keys, tokens, credentials, internal
+  URLs, or environment-specific config — none. The two new external URLs
+  (`booking.sor-odal.kommune.no`, `idrettshallen.nord-odal.kommune.no`) are
+  public government booking sites cited as a source reference, not
+  endpoints this codebase calls.
+- **`blogFaq.mjs` object-literal addition**: purely additive key in a
+  hardcoded map, no dynamic key construction (`POST_FAQ[post.slug]` looks
+  itself up by the *post's own* frontmatter slug, never by any
+  user-supplied string) — so there's no way for this change to enable a
+  prototype-pollution-style or object-key-injection issue.
+
+### What I changed
+
+Nothing — this lens found no security defect introduced by the diff. Content
+is 100% static and author-controlled; nothing user-supplied reaches a query,
+a path, or a page anywhere in this change. Re-ran `pnpm vitest run`: still
+21 files / 45 tests green.
