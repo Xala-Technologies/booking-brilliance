@@ -202,3 +202,99 @@ different file, confirmed via `git merge-base --is-ancestor`.
 
 Nothing — this lens found no code to fix. No commit needed for the code; this section
 itself is the round's output.
+
+## Round 3
+
+**Lens: SECURITY** — authz, tenant isolation, injection, secrets, and anything
+user-supplied that reaches a query, a path, or a page.
+
+### What I checked
+
+This diff has no application code, no DB access, and no multi-tenant surface —
+it's an nginx header snippet and the deploy script that installs it — so I
+worked the lens as: (a) does the fix genuinely close the clickjacking vector
+without opening a new one, (b) is there any injection risk in how the script
+builds and runs remote commands, (c) are there secrets anywhere in the diff or
+its VPS-side effects, (d) does trimming `TARGETS` or reordering exposure leave
+any host newly or differently exposed.
+
+1. **Injection in the deploy script.** Read `infra/apply-security-headers.sh`
+   end to end. `host`/`file` in `TARGETS` are hardcoded array literals, not
+   derived from any external input (no env var, no CLI arg, no file read) —
+   so the `awk -v host="$host" ...` regex construction and the
+   `apply_one '${host}' '${file}'` call-string built into `calls` have no
+   attacker-controlled path reaching them today. Checked whether the outer
+   `ssh "${VPS}" "bash -s" <<REMOTE_EXEC` heredoc (unquoted delimiter, so
+   subject to expansion) could cause `${remote_script}`'s embedded literal
+   text — e.g. `STAMP=$(date +%Y%m%d-%H%M%S)`, captured via the *quoted*
+   `<<'REMOTE'` heredoc — to be re-evaluated by the *local* shell before
+   being sent over SSH. Confirmed this is safe: parameter/command
+   substitution in bash is a single lexical pass over the heredoc's own
+   text; a `$(...)` that arrives *as the value* of an expanded `${var}` is
+   not re-scanned, it's forwarded as literal characters to the remote
+   `bash -s`, which is exactly the intended design (STAMP is meant to be
+   computed remotely, at apply time). No injection there, current design.
+   Grepped the whole repo for any CI/webhook/cron trigger of this script
+   (`grep -rln "apply-security-headers"` → only the script itself,
+   `security-headers.conf`, `AGENT-GOAL.md`, and this ticket's own `.agent/`
+   docs) — confirms Round 2's finding independently: nothing external ever
+   supplies `TARGETS` or invokes this script with variable input.
+2. **Secrets.** Read the full diff and the script for embedded credentials,
+   tokens, or private key material — none. The VPS address
+   (`root@72.61.23.56`) and SSH key path (`~/.ssh/id_xala_deploy`, referenced
+   only in SPEC.md prose) are operational details already present on `main`
+   before this ticket, not new exposure.
+3. **Does the fix actually close the clickjacking hole, live, right now** —
+   re-curled all four hosts independently rather than trusting SPEC/Round
+   1/Round 2's prose:
+   - `docs.digilist.no` → `x-frame-options: DENY` present exactly once,
+     alongside HSTS (`preload`), X-Content-Type-Options, Referrer-Policy,
+     Permissions-Policy. XAL-1110's actual ask is closed.
+   - `status.digilist.no`, `dev.digilist.no` → each header present exactly
+     once (Round 1's dedup holds), plus their own pre-existing CSP with
+     `frame-ancestors 'self'` / `'none'` respectively — no regression, no
+     duplication reintroduced by this round's untouched code.
+   - `dashboard.dev.digilist.no` → confirmed still **zero** security headers
+     live (no XFO, no CSP, no HSTS) — this is the genuinely worst clickjacking
+     exposure of the four hosts (an admin-facing dashboard, unprotected), but
+     it is not a new or previously-unflagged finding: SPEC.md's "Did not fix"
+     section, Round 1, and the standing memory note
+     (`dashboard_dev_spa_add_header_inheritance_bug.md`) already identify the
+     exact root cause (`digilist-spa-cache-headers.conf`'s
+     `location = /index.html { add_header Cache-Control ...; }` silently
+     drops all inherited server-level `add_header`s per nginx's inheritance
+     rule) and already scope it to a separate ticket. Re-confirming it here
+     under the security lens rather than re-diagnosing it: nothing new to add.
+4. **Cross-host bleed / tenant isolation** — these four hosts are Digilist's
+   own internal subdomains (docs, status, dev, dashboard-dev), not
+   customer-tenant boundaries, so there's no multi-tenant data-isolation
+   surface in this diff to evaluate. Checked whether the awk `server_name`
+   match could accidentally patch the *wrong* host's block if two hosts'
+   names were substrings of each other in the same file — not applicable
+   post-Round-1: `TARGETS` now contains exactly one entry
+   (`docs.digilist.no`), and its own conf file has no other host sharing a
+   substring relationship with it.
+5. **Header value correctness as a security property** — `X-XSS-Protection:
+   0` (deliberately disables the legacy filter, current best practice, not a
+   downgrade), `Permissions-Policy` denies camera/mic/geolocation by default
+   and only allows `payment=(self)`, `Referrer-Policy` is
+   `strict-origin-when-cross-origin` (no referrer leakage cross-origin
+   beyond origin). None of these changed in a way that weakens posture;
+   the only value change this round's *diff* (Round 1, already reviewed) made
+   was adding `preload` to HSTS, which strengthens it.
+
+### What I found
+
+No new security defects. The deploy script has no attacker-reachable input
+path (today), carries no secrets, and the live re-curl confirms the
+clickjacking fix is genuinely in effect on `docs.digilist.no` with no
+duplicate or conflicting headers on any of the four hosts. The one real
+security gap among the four — `dashboard.dev.digilist.no` still sending zero
+headers — is pre-existing, already root-caused, and already correctly scoped
+out of this ticket by SPEC.md and Round 1; re-confirmed live here, not a new
+finding.
+
+### What I changed
+
+Nothing — this lens found no code to fix. No commit needed for the code; this
+section itself is the round's output.
