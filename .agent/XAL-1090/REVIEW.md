@@ -94,3 +94,61 @@ left as-is, and recorded here so round 2–4 don't re-spend time on it.
 
 **Changes made this round: none.** No fixes were needed; nothing was
 committed beyond this REVIEW.md file.
+
+## Round 3 — Security
+
+Lens: authz, tenant isolation, injection, secrets, and anything
+user-supplied that reaches a query, a path, or a page. Read
+`.agent/XAL-1090/SPEC.md`, round 1's findings above, and
+`git diff origin/main...HEAD` (still 3 files: `SPEC.md`, `REVIEW.md`, and
+the new post — no code changes since round 1).
+
+Because the change is content-only (a static Markdown blog post, no route,
+no handler, no query, no auth check touched), the classic authz/tenant-
+isolation/injection surface this lens usually targets doesn't exist in this
+diff. Scoped the checks to what security surface *does* apply to a
+content-only addition:
+
+1. **Secrets** — `git diff origin/main...HEAD` grepped for
+   api[_-]?key/secret/token/password/bearer/aws_/private_key/BEGIN...
+   PRIVATE KEY patterns. Zero matches across all three changed files.
+2. **Raw HTML / script injection in the post body** — grepped the new
+   `.md` for any `<...>` tag. None. Body is plain Markdown prose,
+   headings, bold, and links only — nothing that could smuggle an
+   `<script>`, `<iframe>`, or event handler through `ReactMarkdown`.
+3. **Link schemes / open redirect** — extracted all 9 Markdown links in
+   the body. All are relative, same-origin paths (`/blogg/<slug>`,
+   `/bookingsystem-kommune`, `/bookingsystem-utleie`, `/book-demo`). No
+   `javascript:`, `data:`, or external-domain links — nothing that could
+   be used for a redirect or scheme-based XSS vector.
+4. **Frontmatter reaching an unescaped HTML/JSON-LD sink** — traced how
+   `title`/`description` flow at build time:
+   `scripts/prerender.mjs:2302` (`` `<title>${meta.title}</title>` ``) and
+   `:2310` (`` `<meta name="description" content="${meta.description}" />` ``)
+   both concatenate frontmatter directly into HTML with no escaping, and
+   the JSON-LD blocks (`:2286`, `:2556`) use `JSON.stringify`, which
+   escapes quotes but not `<`/`>` (so a `</script>` substring in
+   frontmatter could break out of the script tag). This is a **pre-
+   existing pattern shared by all ~327 posts in the repo**, not something
+   this diff introduces — flagging it here only to record it was checked,
+   per [[project_root_agent_spec_deleted_trap]]'s spirit of not
+   rediscovering the same non-issue in round 4. Checked this specific
+   post's `title` and `description` for `"`, `<`, `>`, or `</script>`:
+   none present, so this post doesn't trip the pre-existing gap. A
+   repo-wide escaping fix for `prerender.mjs` would be scope creep for a
+   single-post content ticket and was not made.
+5. **Path/slug safety** — `slug: booking-administrasjon-arbeidsflyt-
+   godkjenning-paaminnelser-regler` is lowercase alphanumeric-and-hyphens
+   only, matches the filename, and contains no `..`, `/`, or encoded
+   characters that could affect the `/blogg/<slug>` route or the
+   `dist/blogg/<slug>/index.html` prerender output path.
+6. **Tenant isolation / authz** — not applicable; this is public marketing
+   content with no per-tenant or per-user data, no session, no query
+   parameter, and no admin-only surface touched.
+
+**Findings: none.** The diff has no security-relevant surface beyond what
+was checked above, and none of those checks turned up a real issue in this
+specific post's content.
+
+**Changes made this round: none.** Nothing to fix; this REVIEW.md section
+is the only change.
