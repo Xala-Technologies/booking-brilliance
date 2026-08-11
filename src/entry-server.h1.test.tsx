@@ -49,6 +49,12 @@ describe("SSR <h1> template invariant", () => {
     assertSingleH1(html, route);
   });
 
+  it("renders exactly one <h1> on the tilgjengelighet page (XAL-1098)", async () => {
+    const route = "/tilgjengelighet";
+    const html = await render(route);
+    assertSingleH1(html, route);
+  });
+
   it("renders exactly one <h1> on the homepage", async () => {
     const html = await render("/");
     assertSingleH1(html, "/");

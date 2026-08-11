@@ -41,6 +41,7 @@ const ROUTE_ITEMS: SearchItem[] = [
   { id: "r-personvern", kind: "route", title: "Personvern", subtitle: "GDPR + ISO 27001/27701", href: "/personvern" },
   { id: "r-salgsvilkar", kind: "route", title: "Salgsvilkår", subtitle: "Avtalevilkår", href: "/salgsvilkar" },
   { id: "r-cookies", kind: "route", title: "Cookies", subtitle: "Cookie-policy", href: "/cookies" },
+  { id: "r-tilgjengelighet", kind: "route", title: "Tilgjengelighet", subtitle: "WCAG 2.1 AA-erklæring", href: "/tilgjengelighet" },
 ];
 
 // The B2C marketplace (the "Finn" menu) — hubs + every category guide, so the

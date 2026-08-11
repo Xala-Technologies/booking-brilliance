@@ -68,6 +68,7 @@ const Footer = () => {
     { label: "Personvern", href: "/personvern" },
     { label: "Salgsvilkår", href: "/salgsvilkar" },
     { label: "Cookies", href: "/cookies" },
+    { label: "Tilgjengelighet", href: "/tilgjengelighet" },
   ];
 
   // SEO internal-link cluster — the private-market pages, rendered site-wide in
