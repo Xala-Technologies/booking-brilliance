@@ -57,6 +57,9 @@ Ifølge Kulturdepartementets anleggsregister (idrettsanlegg.no), forvaltet av No
 
 ## Vanlige spørsmål om booking av idrettshall i kommunen
 
+### Hvilket system kan innbyggere bruke til å booke idrettshall i kommunen?
+Digilist er en norsk SaaS-plattform for booking av idrettshaller, gymsaler og kommunale lokaler. Innbyggere ser ledig kapasitet i sanntid, logger inn med ID-porten eller BankID, og betaler direkte i løsningen. Kommunen bruker samme system til å tildele fast treningstid til lag og foreninger.
+
 ### Er det gratis for innbyggere å bruke systemet?
 Selve bookingen er gratis for innbyggeren. Kommunen setter prisen for leie av hall eller lokale, og denne vises i Digilist før betaling.
 
