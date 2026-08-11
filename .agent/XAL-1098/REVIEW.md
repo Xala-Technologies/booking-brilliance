@@ -51,3 +51,19 @@ What I checked:
 **Found**: nothing. This diff has no user-controlled input, no authz boundary change, no secret, and no injection sink — it's a static legal page wired into the same public route table as its three siblings. Recorded as a clean pass, not skipped.
 
 **No fixes required for this round.**
+
+## Round 4 — Scope
+
+**Lens**: is anything in this diff NOT the stated change? Drive-by edits, unrelated tidying, files nobody asked to be touched. Checked `git diff origin/main...HEAD --stat` against `.agent/XAL-1098/SPEC.md`'s "WHAT CHANGES" list and each commit's own stated intent.
+
+What I checked:
+- Full file list (`git diff origin/main...HEAD --name-only`): `.agent/XAL-1098/{SPEC,REVIEW}.md`, `public/sitemap.xml`, `scripts/prerender.mjs`, `src/App.tsx`, `src/components/Footer.tsx`, `src/entry-server.h1.test.tsx`, `src/lib/search/corpus.ts`, `src/pages/Tilgjengelighet.tsx` — exactly the six code files SPEC.md named up front, plus the two process docs and the one file round 2 justified adding (`public/sitemap.xml`). No thirteenth file, nothing in `server/`, no `MobileMenu.tsx`/logo swap (that's XAL-1156's, confirmed still untouched here).
+- Read every hunk in each of the 7 code diffs (not just the stat) looking for anything riding along with the stated addition — every hunk is a pure append (new array entry, new route, new test case, new file); no hunk touches an existing line, reformats, renames, or reorders anything pre-existing. `git status` is clean, so nothing is staged/uncommitted beyond what's in these 5 commits either.
+- `src/lib/search/corpus.ts`'s one-line addition: not explicitly named in the ticket text, but it's the same "wire a new legal page into every place its three siblings already are" pattern SPEC.md documents (§"WHAT CHANGES" item 5) — treating this as in-scope integration, not a drive-by, since leaving it out would make the new page the only legal page missing from site search/chatbot discovery.
+- `Tilgjengelighet.tsx`'s body copy mentions "bookingplattformen" — checked this wasn't an invented/scope-creeping product claim by grepping other site copy (`Salgsvilkar.tsx:14`, two blog posts) for the same term: it's the site's existing standard word for the product, reused consistently, not new terminology introduced by this page.
+- Commit `af00717` (the pre-existing empty ticket-scaffold "chore" commit) and `864f445`/`da4808d`/`de52a2c` (rounds 1-3, already reviewed for their own content in prior rounds): confirmed none of them smuggle in anything beyond what their own commit messages claim — `git show --stat` on each matches its message.
+- The two sustainability findings: SPEC.md documents these as already-shipped by XAL-1156 and deliberately not touched here. Confirmed (again) `server/nginx.snippet.conf` does not appear anywhere in `git diff origin/main...HEAD --name-only` — the decision to not touch it is being honored, not silently reversed by a later round.
+
+**Found**: nothing. Every changed file, and every hunk within every changed file, maps directly to something SPEC.md or a prior round's stated finding called for. No unrelated tidying, no reformatting, no files touched that weren't asked for.
+
+**No fixes required for this round.**
