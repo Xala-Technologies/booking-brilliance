@@ -1,0 +1,15 @@
+HTTP/2 200 
+server: nginx/1.24.0 (Ubuntu)
+date: Tue, 11 Aug 2026 00:28:37 GMT
+content-type: text/html
+content-length: 63718
+last-modified: Thu, 23 Jul 2026 11:18:47 GMT
+etag: "6a61f897-f8e6"
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+x-frame-options: DENY
+x-content-type-options: nosniff
+x-xss-protection: 0
+referrer-policy: strict-origin-when-cross-origin
+permissions-policy: camera=(), microphone=(), geolocation=(), payment=(self), interest-cohort=()
+accept-ranges: bytes
+

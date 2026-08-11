@@ -375,3 +375,33 @@ script was duplicating on top of (Round 1 finding); the shared snippet's
 HSTS line now carries `preload`. No code changes — this round's fix is to
 the record, not the script (the script itself was already correct after
 Round 1's commit).
+
+## Round 5 — proof + PR
+
+This resumed session's preamble claimed step 0 (a root `AGENT-SPEC.md`) was
+never finished and asked for it to be (re)written. Checked
+`git log --all --oneline | grep 15c7b14` first, per
+`root_agent_spec_deleted_trap` in memory: found it — main's `15c7b14`
+("chore: remove agent scaffolding from main") deliberately deleted the
+root-level file because per-branch copies collide as modify/delete conflicts
+on every merge back to main. Declining to recreate it. `.agent/XAL-1110/SPEC.md`
+already exists, already has the investigation + mermaid diagram, and Round 4
+(previous commit) already synced it to the shipped state — nothing left to
+do for "step 0" beyond this note.
+
+Re-verified the fix is still live: `curl -sI https://docs.digilist.no/`
+still returns `x-frame-options: DENY` plus HSTS (with `preload`),
+X-Content-Type-Options, Referrer-Policy, and Permissions-Policy, each sent
+exactly once. Saved as proof:
+[`proof/docs-digilist-no-headers-live-2026-08-11.txt`](proof/docs-digilist-no-headers-live-2026-08-11.txt).
+This is an infra/deploy change with no visual surface, so command-output
+proof (this curl capture, plus the four rounds of curl verification already
+in this file) is the applicable evidence, not a screenshot.
+
+No Linear MCP tools are reachable in this environment (confirmed again),
+consistent with `project_no_linear_mcp_tools_available.md` — proof is
+committed to the branch/PR instead of attached to the Linear issue.
+
+Since `infra/apply-security-headers.sh` and `infra/nginx/security-headers.conf`
+carry real committed changes (not just a deploy run with zero diff), opening
+a PR for review rather than treating this as a no-PR-needed pure ops action.
