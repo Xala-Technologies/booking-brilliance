@@ -216,4 +216,26 @@ export const POST_FAQ = {
         "Ja, hvert atelier eller studie er en egen ressurs i kalenderen, og kursrekken vises som opptatt for alle andre i hele perioden den er booket.",
     },
   ],
+  "spesialiserte-lokaler-kultur-underholdning": [
+    {
+      question: "Hva skiller et spesialisert kultur- og underholdningslokale fra et vanlig selskapslokale?",
+      answer:
+        "Et selskapslokale er nøytralt og møbelbasert, mens et spesialisert lokale er bygget rundt én bruk, som scene og lydanlegg til konsert, lydisolasjon til øving eller veggplass og lys til utstilling.",
+    },
+    {
+      question: "Er det verdt å merke et lokale for kultur og underholdning når søkevolumet er lavere enn for selskapslokale?",
+      answer:
+        "Ja, færre lokaler konkurrerer om disse søkene enn om selskapslokale, og søkerne har som regel allerede bestemt seg for formålet, noe som gir høyere kjøpsintensjon per treff.",
+    },
+    {
+      question: "Kan samme lokale bookes både til en enkelt øvingsøkt og til en fast sesongavtale?",
+      answer:
+        "Ja, samme sanntidskalender håndterer både en enkeltbooking til en øvingskveld og en fast ukentlig eller sesongbasert avtale.",
+    },
+    {
+      question: "Må lokalet ha skjenkebevilling for å passe til konsert eller kulturarrangement?",
+      answer:
+        "Ikke nødvendigvis, det avhenger av arrangementet, men for arrangement med publikumsbetalt inngang og bar er det ofte en forutsetning.",
+    },
+  ],
 };
