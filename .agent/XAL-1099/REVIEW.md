@@ -256,3 +256,68 @@ fix on a content-only ticket. No fix made this round; re-ran the
 consumer-relevant test set (`post-slugs.test.ts`, `blogFaq.test.ts`,
 `entry-server.main-landmark.test.tsx`, `webp-sources.test.ts` — 9 tests,
 all pass) to confirm the tree is still green going into Round 4.
+
+## Round 4 — SCOPE
+
+Lens: is anything here NOT the stated change? Drive-by edits, unrelated
+tidying, files nobody asked to touch.
+
+### What I checked
+
+- `git status --porcelain` (clean) and `git diff origin/main...HEAD
+  --stat` / `--name-only`: exactly three files touched —
+  `.agent/XAL-1099/{SPEC,REVIEW}.md` (process record, expected per this
+  ticket's own workflow) and one new content file,
+  `src/content/blog/bokingsystem-funksjonalitet-admin-paaminnelser-kalender-brukerkontroll.md`.
+  No other file in the tree differs from `origin/main` — Round 1's revert
+  of the `pnpm-workspace.yaml` scope-creep held; nothing new crept back in
+  across Rounds 2–3.
+- Re-confirmed no other `.md`/`.tsx` file was edited to add a back-link
+  from an existing post or page to the new one — SPEC.md's claim that
+  cross-links are one-directional (new post → existing posts, not the
+  reverse) matches the diff; `git diff origin/main...HEAD --name-only`
+  shows no sibling content file touched.
+- Read the new post body end-to-end against SPEC.md's "WHAT CHANGES"
+  description looking specifically for content that goes beyond the three
+  stated admin capabilities (påminnelser, kalender-integrering,
+  bruker-kontroll): the sjekkliste section and closing CTA are the only
+  additions beyond the three core sections, and both are existing
+  repo-wide conventions, not new ones — checked the "Book demo" CTA
+  pattern (`grep -l "Book demo" src/content/blog/*.md` → 43 other posts
+  already end the same way) and the closing links to `/bookingsystem-kommune`
+  / `/bookingsystem-utleie` (already verified as real, pre-existing routes
+  in Round 1). Nothing here is a new pattern being introduced by this
+  ticket.
+- Compared every frontmatter field the post ships against SPEC.md's
+  "WHAT CHANGES" section field-by-field (`title`, `description`, `date`,
+  `author`, `role`, `readingMinutes`, `cover`, `keywords`, `tag`): all
+  match **except `tag`** — SPEC.md's plan of record says `tag: "Plattform"`,
+  but the shipped file has `tag: "IT-leder"`. Round 1 verified `"IT-leder"`
+  is a legitimate, frequently-used value (26 other posts) and checked it
+  against the render pipeline, but never checked it against what SPEC.md
+  itself had planned — the same class of miss as the mermaid finding
+  Round 1 *did* catch, just the one adjacent field it wasn't looking at
+  that round.
+
+  Checked which value is actually right rather than mechanically syncing
+  the record to the code: `tag` isn't cosmetic — it drives the Blog listing
+  filter (`Blog.tsx:52`) and the "related posts" grouping on the article
+  page itself (`BlogPost.tsx:112`, `p.tag && p.tag === post.tag`). The post
+  body explicitly frames its sjekkliste around what "en IT-leder eller
+  kommunal admin" should ask a vendor, i.e. the content itself targets the
+  IT-leder persona by name — `"IT-leder"` is the better-fitting tag of the
+  two, not an accidental drift. This reads as a deliberate editorial choice
+  made while writing that SPEC.md's plan section was never updated to
+  reflect, not a shipped defect. **Fixed**: corrected SPEC.md's "WHAT
+  CHANGES" line to say `tag: "IT-leder"` and note why, so the record
+  matches what's actually on disk.
+
+### Findings
+
+One finding, a SPEC-vs-shipped documentation drift (not a code or content
+defect): SPEC.md's own plan named the wrong `tag` value. Fixed by updating
+SPEC.md to match the shipped (and correct) value — no change to the post
+content itself. No drive-by edits, no unrelated tidying, and no files
+outside this ticket's stated change anywhere in the diff. Re-ran the full
+consumer-relevant test set plus the whole unit suite after the SPEC.md fix
+to confirm nothing else moved.

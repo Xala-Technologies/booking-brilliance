@@ -89,9 +89,12 @@ a real content gap, not a duplicate — ticket is actionable as scoped.
 - Add one new file: `src/content/blog/bokingsystem-funksjonalitet-admin-paaminnelser-kalender-brukerkontroll.md`
   (slug matches filename). Frontmatter: title, description (<160 chars),
   date `2026-08-11`, author "Ibrahim Rahmani", role "Grunnlegger, Digilist",
-  `readingMinutes`, `tag: "Plattform"`, an existing `cover` image (reused,
-  no new asset), `keywords` including `"bokingsystem"` and `"bookingsystem"`
-  variants.
+  `readingMinutes`, `tag: "IT-leder"` (matches the persona the post's own
+  sjekkliste addresses by name, and an existing convention used by 26
+  other posts — `tag` drives both the Blog listing filter and the
+  "related posts" grouping, so it's not a cosmetic choice), an existing
+  `cover` image (reused, no new asset), `keywords` including
+  `"bokingsystem"` and `"bookingsystem"` variants.
 - Body (Norwegian Bokmål): frames three admin capabilities — påminnelser
   (who configures reminder rules and channels, not just that reminders
   exist), kalender-integrering (admin managing multiple rooms/resources and
