@@ -210,3 +210,53 @@ ticket's blast radius, not something this diff introduced or that current
 frontmatter values trigger. Re-ran `npx vitest run` after the review pass
 (still 21/21 files, 45/45 tests) to confirm the working tree is unchanged
 and green.
+
+## Round 4
+
+**Lens: scope — is anything here NOT the stated change? Drive-by edits,
+unrelated tidying, files nobody asked you to touch.**
+
+Re-pulled the full diff (`git diff origin/main...HEAD --name-status`) and
+`git status` fresh this round, rather than trusting round 1's characterization
+of it, since round 1's own finding was exactly a scope-creep file that had
+snuck into an earlier checkpoint commit — the question this round asks is
+whether anything similar happened again in rounds 2 or 3's "fix applied"
+commits, or is still sitting in the working tree.
+
+Checked:
+- **`git diff origin/main...HEAD --name-status`** — exactly three files:
+  `.agent/XAL-1086/SPEC.md` (A), `.agent/XAL-1086/REVIEW.md` (A), and the one
+  new post `src/content/blog/eventlokaler-arrangement-underholdning-
+  kulturarrangement-arrangorer.md` (A). No `.ts`/`.tsx`/`.mjs`/config file
+  anywhere in the diff. This is the same three-file shape SPEC.md's own
+  "No code changes — content-only addition" and BLAST RADIUS section
+  describe — the diff matches what it claims to be.
+- **`pnpm-workspace.yaml`** — explicitly re-diffed against `origin/main`
+  (`git diff origin/main...HEAD -- pnpm-workspace.yaml`): empty. Round 1's
+  revert of the `allowBuilds` scope-creep held; nothing re-added it in
+  rounds 2 or 3's fix commits.
+- **`git status`** — clean working tree, nothing untracked or staged outside
+  the committed diff. No stray temp files, no leftover `dist/` artifacts, no
+  second draft of the post.
+- **Round 2 and round 3's own "fix applied" edits** — round 2's description
+  trim and round 3's (declined) fix were both re-checked to confirm they
+  landed *inside* the one post file they were about, not as a drive-by
+  touch to `scripts/prerender.mjs` or another shared file. Confirmed: round 2's
+  diff is contained to the post's `description:` frontmatter line, and round 3
+  made no code edit at all (correctly deferred the `prerender.mjs` escaping
+  gap to a follow-up ticket rather than fixing it inline, which would itself
+  have been scope creep on this ticket).
+- **New tag value (`"Arrangør"`)** — no new registration, enum, or config
+  file was added or touched to support it (already confirmed in round 2 that
+  `Blog.tsx` derives tags dynamically), so introducing a new tag value did
+  not require, and did not receive, any drive-by edit elsewhere.
+- **Cover image reuse** — no new image asset was added; the post reuses an
+  existing cover already present in `dist`/`public`, so there's no
+  accompanying binary-file scope creep to check for.
+
+**No findings this round.** The diff is exactly the three files the ticket's
+own SPEC describes, nothing outside `.agent/XAL-1086/` and the one new
+content file was touched by this branch's commits, and both prior rounds'
+fixes stayed contained to the file they were fixing. `npx vitest run`
+re-confirmed green (21/21 files, 45/45 tests) after this pass; no code
+changed so no fix commit was needed this round.
