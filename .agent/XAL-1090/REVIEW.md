@@ -152,3 +152,52 @@ specific post's content.
 
 **Changes made this round: none.** Nothing to fix; this REVIEW.md section
 is the only change.
+
+## Visual proof
+
+New behaviour (a page that did not exist before this ticket) — only an
+"after" state is possible, per the merge gate's own rule. Captured live
+against `pnpm dev:client` (localhost:8080, freshly launched in this
+session), zero console/page errors, at
+`/blogg/booking-administrasjon-arbeidsflyt-godkjenning-paaminnelser-regler`:
+
+- `proof/after-booking-administrasjon-top.png` — above-the-fold render:
+  confirms the exact `<h1>` text ("Booking-administrasjon og arbeidsflyt:
+  godkjenning, påminnelser og regler") matches frontmatter `title`,
+  byline/date/cover image/tag render, and the "I denne artikkelen"
+  table-of-contents lists all seven `##` sections.
+- `proof/after-booking-administrasjon-godkjenning-section.png` — scrolled
+  to the "Godkjenning" heading, confirming that section renders with its
+  body text and the three-bullet list (innboks, auto-godkjenning, avslag
+  med begrunnelse).
+- `proof/after-booking-administrasjon-paaminnelser-section.png` — scrolled
+  to the "Påminnelser" heading, confirming the second control renders.
+- `proof/after-booking-administrasjon-regelhandtering-section.png` —
+  scrolled to the "Regelhåndtering" heading, confirming the third control
+  renders.
+- `proof/after-booking-administrasjon-checklist-section.png` — scrolled to
+  the "Sjekkliste" heading, confirming the four-item practical checklist
+  (godkjenning/påminnelser/regler/sammenheng) renders.
+- `proof/after-booking-administrasjon-cta.png` — scrolled to the closing
+  "Digilist" section, confirming both money-page links
+  (`/bookingsystem-kommune`, `/bookingsystem-utleie`) and the "Book demo →"
+  CTA render and the article ends the way every sibling post does.
+
+Driver script used Playwright directly against the local
+`node_modules/.pnpm/playwright@1.61.1` install (no top-level `playwright`
+symlink in this repo's `node_modules`, only `@playwright/test`), same
+approach as XAL-1099. Page title/H1 read back via
+`page.locator('h1').first().textContent()` matched frontmatter exactly;
+`console`/`pageerror` listeners returned zero entries across the whole
+capture run. Cookie-consent banner dismissed ("Godta alle") before the
+section screenshots so later captures aren't obstructed by it. Dev server
+stopped after capture.
+
+## Linear attachment
+
+Re-confirmed this session: no Linear MCP server is reachable (`ToolSearch`
+for Linear-related tools returns nothing), matching
+[[project_no_linear_mcp_tools_available]]. `SPEC.md` and the proof images
+above are committed to the branch at `.agent/XAL-1090/` instead, so the
+evidence travels with the diff even though it can't be attached to the
+XAL-1090 issue directly from this session.
