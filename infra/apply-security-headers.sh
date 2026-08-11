@@ -41,7 +41,15 @@ rollback() {
 apply_one() {
   local host="$1" file="$2"
   [ -f "$file" ] || { echo "  skip (no file): $file"; return; }
-  if grep -q "digilist-security-headers.conf" "$file"; then
+  # Scoped to this host's own server_name line — a plain file-wide grep for
+  # the snippet name false-positives when multiple hosts share one conf file
+  # (e.g. dev.digilist.no and dashboard.dev.digilist.no both live in
+  # digilist-dev) and only one of their blocks has been patched so far.
+  if awk -v host="$host" -v line="$INCLUDE_LINE" '
+    matched { exit ($0 == line) ? 0 : 1 }
+    $0 ~ ("server_name[^;]*[[:space:]]" host "[;[:space:]]") { matched=1 }
+    END { if (!matched) exit 1 }
+  ' "$file"; then
     echo "  already applied: $host"; return
   fi
   local bak="${file}.bak-${STAMP}"
