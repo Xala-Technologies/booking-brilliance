@@ -141,3 +141,72 @@ No other regression risk found this round — every code path that reads
 blog-post data was traced to a real consumer and checked against this
 post's actual frontmatter values, not just against SPEC's description of
 them.
+
+## Round 3
+
+**Lens: security — authz, tenant isolation, injection, secrets, and anything
+user-supplied that reaches a query, a path or a page.**
+
+Re-confirmed the actual diff scope first (`git diff origin/main...HEAD
+--stat`): three files, `.agent/XAL-1086/SPEC.md`, `.agent/XAL-1086/REVIEW.md`,
+and the one new post markdown file — no `.ts`/`.tsx`/`.mjs` touched. That
+already rules out most of this lens's usual targets (no query built, no auth
+check added or removed, no route handler). This repo also has no
+booking/tenant domain at all ([[project_repo_has_no_booking_domain]]), so
+there is no multi-tenant data model for a content change to leak across.
+Checked anyway, specifically for this diff:
+
+- **Injection into the static-HTML pipeline.** Traced how `scripts/
+  prerender.mjs` embeds blog frontmatter into the prerendered page
+  (`patchHTML`, ~line 2295 onward): `meta.title` and `meta.description` are
+  interpolated into `<title>`, `<meta name="title" content="...">`,
+  `og:title`/`og:description`, `twitter:title`/`twitter:description`, and
+  into JSON-LD, with **no HTML-attribute escaping** — unlike the `keywords`
+  meta tag a few lines below it, which explicitly does
+  `.replace(/"/g, "&quot;")` before interpolating. A frontmatter `title` or
+  `description` containing a literal `"` would break out of the attribute
+  and inject arbitrary markup into every prerendered page that value
+  touches. This is a real gap, but it's pre-existing shared infrastructure
+  (`scripts/prerender.mjs`, used by all 329 posts, not code this ticket
+  added or was asked to touch) — fixing it here would be the same kind of
+  scope creep round 1 already reverted once
+  (`pnpm-workspace.yaml`). Checked this post's own frontmatter values
+  specifically: `title`, `description`, `author`, `role`, `tag` — none
+  contain a `"`, `<`, or `>` character (verified with
+  `grep -nE "<script|<iframe|javascript:|onerror=|onload="` — zero matches),
+  so this diff does not trigger the gap. Flagging as a follow-up ticket
+  candidate (add the same `&quot;` escaping used for `keywords` to `title`/
+  `description`), not fixing it in this diff.
+- **Markdown body → rendered page.** `BlogPost.tsx` renders the body via
+  `ReactMarkdown` with only `remarkGfm` (confirmed in SPEC.md, re-checked no
+  `rehype-raw` or similar is registered anywhere in the repo), so raw HTML
+  in a post body renders as inert text, not markup — grepped the new post
+  for `<script`, `<iframe`, `javascript:`, `onerror=`, `onload=`, raw `<a `/
+  `<img` tags: zero matches. Nothing in the body attempts raw HTML.
+- **Links.** All three internal links (`/blogg/billettlosning-pamelding-
+  offentlig-arrangement`, `/blogg/spesiallokaler-niche-utleie-teaterscene-
+  kjeller`, `/blogg/sal-for-kulturarrangementer-og-seminarer`) are relative
+  paths to existing posts, already confirmed to resolve in round 1's build
+  check. No external links (`grep -nE "https?://"` — zero matches), so no
+  unvetted outbound domain, no `rel="noopener"` gap to worry about.
+- **Path/slug.** `slug` is a static frontmatter value matching the filename,
+  consumed by `scripts/prerender.mjs` as `/blogg/${post.slug}` with no
+  sanitization anywhere in that path — but it's author-written at commit
+  time, not runtime user input, and contains only `[a-z0-9-]`. No traversal
+  characters (`../`, `/`, `\`), so no path-escape risk even if it were
+  attacker-influenced.
+- **Secrets.** Grepped the new file for `api[_-]?key|token|password|secret|
+  sk-|AKIA` (case-insensitive) — zero matches. Nothing else in the diff
+  (SPEC.md, REVIEW.md) contains credential-shaped strings either.
+- **Tenant isolation / authz.** N/A — confirmed via
+  [[project_repo_has_no_booking_domain]] there is no tenant model, session,
+  or auth check in this codebase for a content-only diff to bypass or leak
+  across.
+
+**No fix applied this round.** Nothing in this diff itself is exploitable —
+the one real finding (missing attribute-escaping in `prerender.mjs` for
+`title`/`description`) is a pre-existing repo-wide gap outside this
+ticket's blast radius, not something this diff introduced or that current
+frontmatter values trigger. Re-ran `npx vitest run` after the review pass
+(still 21/21 files, 45/45 tests) to confirm the working tree is unchanged
+and green.
