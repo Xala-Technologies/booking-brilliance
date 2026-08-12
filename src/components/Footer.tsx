@@ -1,4 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { getFraunces } from "@/lib/fonts";
 import { EditorialButton } from "@/components/editorial";
@@ -414,6 +415,11 @@ const Footer = () => {
               </span>
             ))}
           </nav>
+          {/* Also in the footer: the navbar copy is hidden on a phone, and the
+              footer is where people look for a language link anyway. */}
+          <div className="mb-4">
+            <LanguageSwitcher />
+          </div>
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <p className="editorial-mono-caption">
               <span className="text-ink">

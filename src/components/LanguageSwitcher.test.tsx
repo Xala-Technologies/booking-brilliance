@@ -1,0 +1,95 @@
+// @vitest-environment jsdom
+import { act } from "react";
+import { createRoot, type Root } from "react-dom/client";
+import { MemoryRouter } from "react-router-dom";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import Footer from "./Footer";
+import { LOCALE_CHOICE_KEY } from "@/lib/i18n";
+
+(globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
+
+/**
+ * These tests exist because of a specific failure, not for coverage.
+ *
+ * The switcher was written, imported into the Navbar, and never actually
+ * rendered. 482 tests passed, `tsc` passed, and lint reported the unused import
+ * only as a warning among forty others — so the site shipped bilingual with no
+ * way for a visitor to switch. It was caught by a person asking "where is the
+ * language toggle?", which is the worst way to find something.
+ *
+ * So the first test here does not check behaviour at all. It checks that the
+ * component reaches the page.
+ */
+
+let container: HTMLDivElement;
+let root: Root;
+
+function render(ui: React.ReactNode, path: string) {
+  act(() => {
+    root.render(<MemoryRouter initialEntries={[path]}>{ui}</MemoryRouter>);
+  });
+}
+
+beforeEach(() => {
+  container = document.createElement("div");
+  document.body.appendChild(container);
+  root = createRoot(container);
+  localStorage.clear();
+});
+
+afterEach(() => {
+  act(() => root.unmount());
+  container.remove();
+});
+
+describe("LanguageSwitcher is actually on the page", () => {
+  it("renders in the Footer on a translated page", () => {
+    // The bug, pinned. If the element is removed from the Footer's JSX again,
+    // this fails — which nothing did last time.
+    render(<Footer />, "/priser");
+    const links = [...container.querySelectorAll("a")].filter(
+      (a) => a.getAttribute("href") === "/en/pricing",
+    );
+    expect(links.length, "no link to the English page in the footer").toBeGreaterThan(0);
+  });
+
+  it("is absent from the Footer on a page with no translation", () => {
+    render(<Footer />, "/om-oss");
+    const hrefs = [...container.querySelectorAll("a")].map((a) => a.getAttribute("href"));
+    expect(hrefs.filter((h) => h?.startsWith("/en"))).toEqual([]);
+  });
+});
+
+describe("LanguageSwitcher behaviour", () => {
+  it("links to the other language and names it in that language", () => {
+    render(<LanguageSwitcher />, "/priser");
+    const link = container.querySelector("a");
+    expect(link?.getAttribute("href")).toBe("/en/pricing");
+    expect(link?.textContent).toContain("English");
+    expect(link?.getAttribute("hreflang")).toBe("en");
+  });
+
+  it("points back to Norwegian from the English page", () => {
+    render(<LanguageSwitcher />, "/en/pricing");
+    const link = container.querySelector("a");
+    expect(link?.getAttribute("href")).toBe("/priser");
+    expect(link?.textContent).toContain("Norsk");
+  });
+
+  it("renders nothing at all when the page has no translation", () => {
+    // Deliberate: a switcher that is always visible must send the visitor
+    // somewhere when the page has no twin — a 404 or the other homepage, both
+    // worse than the button not being there.
+    render(<LanguageSwitcher />, "/om-oss");
+    expect(container.querySelector("a")).toBeNull();
+  });
+
+  it("remembers the choice, so the auto-redirect can never overrule it", () => {
+    render(<LanguageSwitcher />, "/priser");
+    act(() => {
+      container.querySelector("a")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    });
+    expect(localStorage.getItem(LOCALE_CHOICE_KEY)).toBe("en");
+  });
+});

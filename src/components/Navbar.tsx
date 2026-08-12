@@ -291,6 +291,10 @@ const Navbar = () => {
 
         {/* Actions */}
         <div className="flex items-center gap-3 justify-self-end">
+          {/* Renders nothing on a page with no translation, which is most of
+              them — see LanguageSwitcher for why its absence is the honest
+              behaviour rather than a link to the wrong page. */}
+          <LanguageSwitcher className="hidden sm:inline-flex" />
           <ThemeToggle />
           <EditorialButton
             variant="primary"
