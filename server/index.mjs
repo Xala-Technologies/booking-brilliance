@@ -533,14 +533,37 @@ async function handleInquiry(req, res, body, ip) {
   if (rateLimited(ip, 10)) {
     return json(res, 429, { error: "Slow down" });
   }
-  const required = ["name", "email", "organization", "topic"];
+  // Two shapes arrive here now.
+  //
+  // A FORM submission has a name, an organization and an email, because the
+  // form makes them mandatory — those stay required, and a malformed address
+  // is still rejected.
+  //
+  // A CHAT NOTIFICATION has whatever the visitor happened to type. Someone who
+  // opens the chat and asks about pricing has given no name and no company,
+  // and requiring them meant the notification was rejected with a 400 that
+  // nothing surfaced — the conversation reached nobody. The point of these is
+  // to tell a human that a conversation is happening, so the only thing they
+  // genuinely need is something to read.
+  const isChatNotification =
+    typeof body?.source === "string" && body.source.startsWith("chatbot-");
+
+  const required = isChatNotification
+    ? ["topic", "message"]
+    : ["name", "email", "organization", "topic"];
   for (const k of required) {
     if (!body || !body[k] || String(body[k]).trim() === "") {
       return json(res, 400, { error: `Missing required field: ${k}` });
     }
   }
-  if (typeof body.email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.email)) {
-    return json(res, 400, { error: "Ugyldig e-postadresse" });
+  // An address is optional on a chat notification, but a MALFORMED one is
+  // still rejected — a lead nobody can reply to is worse than one openly
+  // marked as having no address.
+  const hasEmail = typeof body.email === "string" && body.email.trim() !== "";
+  if (!isChatNotification || hasEmail) {
+    if (typeof body.email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.email)) {
+      return json(res, 400, { error: "Ugyldig e-postadresse" });
+    }
   }
 
   const summary = body.summary || `${body.topic} — ${body.organization}`;
@@ -564,13 +587,19 @@ async function handleInquiry(req, res, body, ip) {
     : "";
   const html = `
     ${degradedBanner}
-    <h2 style="font-family: Georgia, serif;">Ny forespørsel fra digilist.no</h2>
+    <h2 style="font-family: Georgia, serif;">${
+      body.source === "chatbot-started"
+        ? "Noen har startet en samtale på digilist.no"
+        : body.source === "chatbot-inline"
+          ? "Kontaktinfo oppgitt i chatten på digilist.no"
+          : "Ny forespørsel fra digilist.no"
+    }</h2>
     <table style="font-family: system-ui, sans-serif; font-size: 14px; border-collapse: collapse;">
       <tr><td style="padding:4px 12px 4px 0;color:#666;">Persona</td><td>${escapeHtml(body.persona ?? "—")}</td></tr>
       <tr><td style="padding:4px 12px 4px 0;color:#666;">Tema</td><td>${escapeHtml(body.topic)}</td></tr>
-      <tr><td style="padding:4px 12px 4px 0;color:#666;">Organisasjon</td><td>${escapeHtml(body.organization)}</td></tr>
-      <tr><td style="padding:4px 12px 4px 0;color:#666;">Navn</td><td>${escapeHtml(body.name)}</td></tr>
-      <tr><td style="padding:4px 12px 4px 0;color:#666;">E-post</td><td>${escapeHtml(body.email)}</td></tr>
+      <tr><td style="padding:4px 12px 4px 0;color:#666;">Organisasjon</td><td>${escapeHtml(body.organization || "— (ikke oppgitt i chat)")}</td></tr>
+      <tr><td style="padding:4px 12px 4px 0;color:#666;">Navn</td><td>${escapeHtml(body.name || "— (ikke oppgitt i chat)")}</td></tr>
+      <tr><td style="padding:4px 12px 4px 0;color:#666;">E-post</td><td>${escapeHtml(body.email || "— (ikke oppgitt — svar i chatten eller vent på skjema)")}</td></tr>
       <tr><td style="padding:4px 12px 4px 0;color:#666;">Telefon</td><td>${escapeHtml(body.phone || "—")}</td></tr>
       <tr><td style="padding:4px 12px 4px 0;color:#666;">Kilde</td><td>${escapeHtml(body.source || "chatbot")}</td></tr>
       <tr><td style="padding:4px 12px 4px 0;color:#666;">Side</td><td>${escapeHtml(body.page || "/")}</td></tr>
