@@ -47,6 +47,13 @@ const VALUES: Value[] = [
  * with two clear next actions so a public-sector buyer can leave the homepage
  * for /bookingsystem-kommune without wading through B2C content.
  */
+
+/** Keep a link inside the visitor's language. Every route is mirrored. */
+function localeHref(href: string, locale: "nb" | "en"): string {
+  if (locale !== "en" || !href.startsWith("/") || href.startsWith("/en")) return href;
+  return href === "/" ? "/en" : `/en${href}`;
+}
+
 const B2BLaneSection = () => {
   const locale = localeFromPath(useLocation().pathname);
   return (
@@ -126,7 +133,7 @@ const B2BLaneSection = () => {
             <EditorialButton
               variant="primary"
               size="lg"
-              href="/bookingsystem-kommune"
+              href={localeHref("/bookingsystem-kommune", locale)}
               icon={<ArrowUpRight className="h-4 w-4" aria-hidden="true" />}
             >
               {t(locale, "pilot.cta")}

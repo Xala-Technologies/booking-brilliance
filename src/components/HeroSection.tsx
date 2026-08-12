@@ -54,6 +54,13 @@ const customers = [
   },
 ];
 
+
+/** Keep a link inside the visitor's language. Every route is mirrored. */
+function localeHref(href: string, locale: "nb" | "en"): string {
+  if (locale !== "en" || !href.startsWith("/") || href.startsWith("/en")) return href;
+  return href === "/" ? "/en" : `/en${href}`;
+}
+
 const HeroSection = () => {
   const locale = localeFromPath(useLocation().pathname);
   const heroWords = t(locale, "hero.words").split("|");
@@ -124,7 +131,7 @@ const HeroSection = () => {
             </p>
 
             <div className="mt-8 flex flex-col sm:flex-row gap-3">
-              <EditorialButton variant="primary" size="lg" href="/leie">
+              <EditorialButton variant="primary" size="lg" href={localeHref("/leie", locale)}>
                 {t(locale, "nav.findVenues")}
               </EditorialButton>
               <EditorialButton
@@ -264,7 +271,7 @@ const HeroSection = () => {
                 ))}
               </div>
               <div className="mt-auto pt-6">
-                <EditorialButton variant="primary" size="lg" href="/leie">
+                <EditorialButton variant="primary" size="lg" href={localeHref("/leie", locale)}>
                   Finn ledige lokaler
                 </EditorialButton>
               </div>

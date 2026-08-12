@@ -73,6 +73,13 @@ export const TILES: Tile[] = [
   },
 ];
 
+
+/** Keep a link inside the visitor's language. Every route is mirrored. */
+function localeHref(href: string, locale: "nb" | "en"): string {
+  if (locale !== "en" || !href.startsWith("/") || href.startsWith("/en")) return href;
+  return href === "/" ? "/en" : `/en${href}`;
+}
+
 const MarketplaceSection = () => {
   const locale = localeFromPath(useLocation().pathname);
   return (
@@ -98,7 +105,7 @@ const MarketplaceSection = () => {
             return (
               <Link
                 key={tile.to}
-                to={tile.to}
+                to={localeHref(tile.to, locale)}
                 className="group block rounded-2xl border border-rule bg-paper p-1.5 lg:p-2 shadow-md transition-all duration-300 ease-editorial hover:-translate-y-1 hover:shadow-2xl hover:border-accent-text/40"
               >
                 <div

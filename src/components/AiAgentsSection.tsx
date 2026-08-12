@@ -48,6 +48,13 @@ const agents = [
   },
 ];
 
+
+/** Keep a link inside the visitor's language. Every route is mirrored. */
+function localeHref(href: string, locale: "nb" | "en"): string {
+  if (locale !== "en" || !href.startsWith("/") || href.startsWith("/en")) return href;
+  return href === "/" ? "/en" : `/en${href}`;
+}
+
 const AiAgentsSection = () => {
   const locale = localeFromPath(useLocation().pathname);
   return (
@@ -115,7 +122,7 @@ const AiAgentsSection = () => {
         </motion.div>
 
         <div className="mt-10 lg:mt-12">
-          <EditorialButton href="/ai-agenter" variant="outline">
+          <EditorialButton href={localeHref("/ai-agenter", locale)} variant="outline">
             {t(locale, "agents.cta")}
           </EditorialButton>
         </div>

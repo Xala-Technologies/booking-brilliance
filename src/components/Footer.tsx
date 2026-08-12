@@ -1,12 +1,32 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { localeFromPath } from "@/lib/i18n";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { getFraunces } from "@/lib/fonts";
 import { EditorialButton } from "@/components/editorial";
 import { openChatbot } from "@/lib/chatbot/open";
 
+
+/**
+ * Keep a footer link inside the visitor's language.
+ *
+ * Every route is mirrored under /en, so the English footer can point at
+ * /en/<same-path> and the visitor stays in the English space with English
+ * chrome. Before this, every one of the ~60 footer links on an English page
+ * sent the reader to a Norwegian URL — the largest single leak out of English
+ * on the site, and one no dictionary entry could fix.
+ *
+ * Anchors, external URLs and the already-prefixed are left alone.
+ */
+function localeHref(href: string, locale: "nb" | "en"): string {
+  if (locale !== "en") return href;
+  if (!href.startsWith("/") || href.startsWith("/en/") || href === "/en") return href;
+  return href === "/" ? "/en" : `/en${href}`;
+}
+
 const Footer = () => {
   const location = useLocation();
+  const locale = localeFromPath(location.pathname);
   const navigate = useNavigate();
   // Hide the Footer CTA strip on individual blog posts — those pages already
   // render a full-bleed tinted "NESTE STEG" band right above the footer.
@@ -305,7 +325,7 @@ const Footer = () => {
             <ul className="space-y-3.5">
               {markedsplass.map((link) => (
                 <li key={link.href}>
-                  <Link to={link.href} className={linkClass}>
+                  <Link to={localeHref(link.href, locale)} className={linkClass}>
                     <span className={linkUnderline}>{link.label}</span>
                   </Link>
                 </li>
@@ -318,7 +338,7 @@ const Footer = () => {
             <ul className="space-y-3.5">
               {losninger.map((link) => (
                 <li key={link.href}>
-                  <Link to={link.href} className={linkClass}>
+                  <Link to={localeHref(link.href, locale)} className={linkClass}>
                     <span className={linkUnderline}>{link.label}</span>
                   </Link>
                 </li>
@@ -331,7 +351,7 @@ const Footer = () => {
             <ul className="space-y-3.5">
               {selskap.map((link) => (
                 <li key={link.href}>
-                  <Link to={link.href} className={linkClass}>
+                  <Link to={localeHref(link.href, locale)} className={linkClass}>
                     <span className={linkUnderline}>{link.label}</span>
                   </Link>
                 </li>
@@ -378,7 +398,7 @@ const Footer = () => {
                   {col.items.map((link) => (
                     <li key={link.href}>
                       <Link
-                        to={link.href}
+                        to={localeHref(link.href, locale)}
                         className="font-sans text-[0.95rem] text-ink-soft hover:text-ink border-b border-transparent hover:border-ink transition-colors duration-quick ease-editorial no-underline pb-0.5"
                       >
                         {link.label}
@@ -407,7 +427,7 @@ const Footer = () => {
                   </span>
                 )}
                 <Link
-                  to={link.href}
+                  to={localeHref(link.href, locale)}
                   className="editorial-mono-caption text-ink-soft hover:text-ink border-b border-transparent hover:border-ink transition-colors duration-quick ease-editorial no-underline pb-0.5"
                 >
                   {link.label}

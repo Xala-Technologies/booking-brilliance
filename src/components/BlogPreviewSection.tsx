@@ -6,7 +6,7 @@ import { EditorialButton } from "@/components/editorial";
 import { SectionHeader } from "@/components/SectionHeader";
 import { formatPostDate, getAllPosts, postsForLocale, previewCover } from "@/lib/posts";
 import { useLocation } from "react-router-dom";
-import { localeFromPath } from "@/lib/i18n";
+import { blogPath, localeFromPath } from "@/lib/i18n";
 import { t } from "@/lib/copy";
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/motion";
 import { getFraunces } from "@/lib/fonts";
@@ -66,7 +66,7 @@ const BlogPreviewSection = () => {
           intro={t(locale, "blogPreview.intro")}
           action={
             <div className="flex items-center justify-between border-t border-rule pt-6">
-              <EditorialButton variant="link" size="md" href="/blogg">
+              <EditorialButton variant="link" size="md" href={locale === "en" ? "/en/blogg" : "/blogg"}>
                 Se alle artikler
               </EditorialButton>
               <div className="hidden lg:flex items-center gap-2">
@@ -134,7 +134,7 @@ const BlogPreviewSection = () => {
                 className="snap-start shrink-0 w-[88%] sm:w-[64%] md:w-[48%] lg:w-[48%] xl:w-[48%]"
               >
                 <Link
-                  to={`/blogg/${post.slug}`}
+                  to={blogPath(post.slug, locale)}
                   className="group flex flex-col h-full bg-paper border border-hairline-strong hover:border-ink transition-all duration-normal ease-editorial rounded-sm overflow-hidden hover:-translate-y-1"
                 >
                   <div className="relative aspect-[16/10] overflow-hidden bg-navy">

@@ -17,6 +17,13 @@ const benefitsFor = (locale: Locale) =>
  * calendar + availability in two-way sync automatically — no double work,
  * consistent availability everywhere.
  */
+
+/** Keep a link inside the visitor's language. Every route is mirrored. */
+function localeHref(href: string, locale: "nb" | "en"): string {
+  if (locale !== "en" || !href.startsWith("/") || href.startsWith("/en")) return href;
+  return href === "/" ? "/en" : `/en${href}`;
+}
+
 export function ChannelSyncSection() {
   const locale = localeFromPath(useLocation().pathname);
   return (
@@ -68,7 +75,7 @@ export function ChannelSyncSection() {
               <EditorialButton
                 variant="primary"
                 size="lg"
-                href="/kanaler"
+                href={localeHref("/kanaler", locale)}
               >
                 {t(locale, "sync.cta")}
               </EditorialButton>
