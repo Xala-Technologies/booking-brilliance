@@ -93,17 +93,13 @@ const BrukerhistorierSection = () => {
               body={
                 <>
                   <p>
-                    Kulturkonsulenten håndterer sesongleie til lag og foreninger,
-                    privatbookinger og sambruk mellom kantiner og møterom. Driftsroller
-                    (vaktmestere, renhold, vektere) varsles automatisk ved
-                    bookingbekreftelse. Tilskudd til lag og foreninger fordeles via
-                    sesongleie-modulen.
+                    {t(locale, "stories.b.body")}
                   </p>
                 </>
               }
               quote={{
                 text:
-                  "Vi har samlet tolv anlegg, hundrevis av foreninger og kommunal fakturering i én plattform, og innbyggerne booker via ID-porten.",
+                  t(locale, "stories.b.quote"),
                 byline: "Kulturkonsulent",
                 role: "Nordre Follo kommune",
               }}

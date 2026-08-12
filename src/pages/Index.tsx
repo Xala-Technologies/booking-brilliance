@@ -7,6 +7,8 @@ import MarketplaceSection from "@/components/MarketplaceSection";
 import { GrainOverlay, ProgressRail } from "@/components/editorial";
 import { SideRails } from "@/components/editorial/SideRails";
 import { HOMEPAGE_FAQ } from "@/content/faq";
+import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 
 // Below-the-fold homepage sections — lazy so the initial hydration only
 // has to run the JS for what's visible without scrolling (Hero + the
@@ -26,6 +28,7 @@ const CTASection = lazy(() => import("@/components/CTASection"));
 const Footer = lazy(() => import("@/components/Footer"));
 
 const Index = () => {
+  const locale = localeFromPath(useLocation().pathname);
   const location = useLocation();
 
   useEffect(() => {
@@ -54,6 +57,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <SEO
+        title={t(locale, "home.title")}
+        description={t(locale, "home.description")}
         faq={HOMEPAGE_FAQ.map((e) => ({ question: e.q, answer: e.a }))}
         breadcrumbs={[
           { name: "Hjem", url: "https://digilist.no/" },
