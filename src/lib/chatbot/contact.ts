@@ -113,6 +113,26 @@ const FALSE_ACTION_CLAIMS: readonly RegExp[] = [
  * an offer, a price, an email — is the lie. Passing the inquiry ONWARD to a
  * colleague is the truth, and the lead really is filed by the time it is said.
  */
+/**
+ * Someone OTHER than the assistant does the sending.
+ *
+ * The `jeg|vi` in the sending rule above is optional, because Norwegian puts
+ * the subject after the verb — "Da sender jeg deg et tilbud". The cost of that
+ * is any sentence where the sender is a THING:
+ *
+ *   "Har du prøvd «Glemt passord»-lenken? Den sender deg en e-post."
+ *
+ * That is true, it is the correct answer to a login problem, and grading the
+ * live model caught it being suppressed — the visitor would have got a generic
+ * handoff instead of the one sentence that solves their problem. The second
+ * false positive of this kind; the first was the honest handoff below.
+ *
+ * The assistant is never "lenken" or "systemet", so naming the subject is
+ * enough. Kept to concrete things a page actually contains.
+ */
+const THIRD_PARTY_SENDER =
+  /\b(den|det|lenk[ea]n?|link[ea]n?|systemet|siden|nettsiden|knappen|skjemaet|e-?posten|som)\s+(sender|sendes)\b/iu;
+
 const HONEST_HANDOFF =
   /\b(sender|sendt|videresender|gir)\b[^.!?]{0,40}\b(foresp[øo]rselen|saken|samtalen|beskjed)\b[^.!?]{0,40}\b(videre|til\s+en\s+r[åa]dgiver|til\s+support|til\s+oss)/iu;
 
@@ -121,7 +141,12 @@ export function claimsFalseAction(reply: string): boolean {
   // next to it in the same reply, and a lie must not condemn the handoff.
   return reply
     .split(/(?<=[.!?])\s+/)
-    .some((sentence) => !HONEST_HANDOFF.test(sentence) && FALSE_ACTION_CLAIMS.some((re) => re.test(sentence)));
+    .some(
+      (sentence) =>
+        !HONEST_HANDOFF.test(sentence) &&
+        !THIRD_PARTY_SENDER.test(sentence) &&
+        FALSE_ACTION_CLAIMS.some((re) => re.test(sentence)),
+    );
 }
 
 /**

@@ -262,3 +262,37 @@ describe("claimsFalseAction — the honest handoff is not a lie", () => {
     ).toBe(true);
   });
 });
+
+describe("claimsFalseAction — the two false positives grading found", () => {
+  it("allows the honest handoff, which is TRUE by the time it is said", () => {
+    expect(
+      claimsFalseAction("Da har jeg sendt forespørselen videre til en rådgiver som tar kontakt."),
+    ).toBe(false);
+  });
+
+  it("allows a sentence where the SYSTEM does the sending, not the assistant", () => {
+    // "Har du prøvd «Glemt passord»-lenken? Den sender deg en e-post." is the
+    // correct answer to a login problem, and it was being suppressed — the
+    // visitor would have got a generic handoff instead of the fix.
+    expect(claimsFalseAction("Den sender deg en e-post med en ny lenke.")).toBe(false);
+    expect(claimsFalseAction("Lenken sender deg en e-post.")).toBe(false);
+    expect(claimsFalseAction("Det er en knapp som sender deg en e-post.")).toBe(false);
+    expect(claimsFalseAction("Skjemaet sender oss en e-post med detaljene.")).toBe(false);
+  });
+
+  it("still blocks the assistant claiming it sends things itself", () => {
+    // The whole reason the module exists. If these ever pass, the exemptions
+    // above have been widened too far.
+    expect(claimsFalseAction("Jeg sender deg et tilbud nå.")).toBe(true);
+    expect(claimsFalseAction("Da sender jeg deg en e-post med prisen.")).toBe(true);
+    expect(claimsFalseAction("Vi sender deg tilbudet i løpet av dagen.")).toBe(true);
+    expect(claimsFalseAction("Jeg oppretter en konto for deg.")).toBe(true);
+    expect(claimsFalseAction("Du får det tilsendt på e-post.")).toBe(true);
+  });
+
+  it("does not let an exempt sentence excuse a lie beside it", () => {
+    expect(
+      claimsFalseAction("Lenken sender deg en e-post. Jeg sender deg også et tilbud nå."),
+    ).toBe(true);
+  });
+});
