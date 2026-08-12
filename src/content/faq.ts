@@ -188,8 +188,42 @@ export const FAQ_CATEGORIES: FAQCategory[] = [
     questions: [
       {
         q: "Hva koster Digilist?",
-        a: "Prisen avhenger av antall anlegg, brukermengde og integrasjoner. Vi tilbyr en gratis demo og pristilbud basert på kommunens eller bedriftens spesifikke behov. For kommuner i pilotfase er bruken gratis i prøveperioden.",
-        keywords: ["pris", "kostnad"],
+        a: "Digilist har abonnementsnivåer, og prisen avhenger av antall anlegg, brukermengde og integrasjoner. Vi tar ingen andel av bookinginntektene og har ingen skjulte gebyrer — dere betaler for bruk av Digilist og administrasjonspanelet. Mindre og private aktører får egne, tilpassede priser. De 100 første kundene får 6 måneder gratis.",
+        // Two keywords ("pris", "kostnad") meant every way of asking about money
+        // WITHOUT those words missed: "billigste alternativ" returned nothing at
+        // all, "rimeligste alternativ for sånne som oss" returned implementation
+        // time, and "hva koster det per måned" returned GDPR. The model then
+        // invented "fra omkring 300 kroner månedlig" to fill the gap.
+        keywords: [
+          "pris", "prisen", "priser", "kostnad", "koster", "koste", "billig",
+          "billigste", "rimelig", "rimeligste", "dyrt", "budsjett", "alternativ",
+          "måned", "månedlig", "abonnement", "abonnementsnivå", "gratis",
+          "prøveperiode", "tilbud", "pricing", "cost",
+        ],
+      },
+      {
+        q: "Tar dere en andel av bookinginntektene?",
+        a: "Nei. Digilist tar ingen transaksjonsavgift og ingen andel av det dere tar betalt for utleie. Vi tar betalt for bruk av tjenesten og administrasjonspanelet, og det er ingen skjulte gebyrer.",
+        keywords: [
+          "transaksjon", "transaksjonsavgift", "andel", "provisjon", "kutt",
+          "gebyr", "skjulte", "prosent", "avgift", "inntekt", "omsetning",
+        ],
+      },
+      {
+        q: "Er Digilist for dyrt for en liten forening?",
+        a: "Nei. Mindre lag, foreninger og private utleiere får egne tilpassede priser — prisen skal ikke ligne på det en kommune med mange bygg betaler. Ett lokale er helt greit, og de 100 første kundene får 6 måneder gratis.",
+        keywords: [
+          "liten", "små", "lite", "forening", "lag", "frivillig", "ett lokale",
+          "for dyrt", "har ikke råd", "billig", "rimelig", "budsjett", "grendehus",
+        ],
+      },
+      {
+        q: "Hva er tilbudet til de første kundene?",
+        a: "De 100 første kundene får 6 måneder gratis bruk av Digilist. Etter prøveperioden velger dere abonnementsnivå ut fra antall anlegg og behov. Ingen binding i prøveperioden.",
+        keywords: [
+          "første", "100", "lansering", "tilbud", "gratis", "6 måneder",
+          "prøveperiode", "uforpliktende", "binding", "kampanje", "rabatt",
+        ],
       },
       {
         q: "Er det kostnader knyttet til integrasjoner?",

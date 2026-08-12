@@ -19,6 +19,18 @@ const STOPWORDS = new Set([
   "are", "for", "with", "what", "how", "where", "when", "do", "does",
 ]);
 
+/**
+ * The stopword list, diacritic-stripped the same way tokens are.
+ *
+ * `tokenize` strips diacritics for loose matching, which turns "på" into "pa" —
+ * and "pa" is not in the raw list, so it survived as a search token and matched
+ * every answer containing "på". Same for "når" and "får". Normalising the set
+ * once is the fix; comparing raw strings against normalised tokens never worked.
+ */
+const NORMALISED_STOPWORDS = new Set(
+  [...STOPWORDS].map((w) => w.normalize("NFD").replace(/[\u0300-\u036f]/g, "")),
+);
+
 function tokenize(text: string): string[] {
   return text
     .toLowerCase()
@@ -26,7 +38,7 @@ function tokenize(text: string): string[] {
     .replace(/[̀-ͯ]/g, "") // strip diacritics for loose match
     .replace(/[^\p{L}\p{N}\s]/gu, " ")
     .split(/\s+/)
-    .filter((t) => t.length > 1 && !STOPWORDS.has(t));
+    .filter((t) => t.length > 1 && !NORMALISED_STOPWORDS.has(t));
 }
 
 /**
@@ -37,6 +49,9 @@ function tokenize(text: string): string[] {
  * Good enough for ~30 Q&A. When the user wires a real LLM endpoint we send
  * the top-3 hits as in-context evidence rather than the whole corpus.
  */
+/** Shortest token allowed to match loosely. Three is noise in Norwegian. */
+const MIN_PREFIX_LEN = 4;
+
 export function retrieve(query: string, k = 3): RagHit[] {
   const qTokens = tokenize(query);
   if (qTokens.length === 0) return [];
@@ -53,12 +68,39 @@ export function retrieve(query: string, k = 3): RagHit[] {
       let score = 0;
       for (const t of qTokens) {
         if (hayTokens.includes(t)) score += 2;
-        else if (hayTokens.some((h) => h.startsWith(t) || t.startsWith(h)))
+        // Loose prefix match, but only for tokens long enough to mean
+        // something. At three characters Norwegian prefixes are everywhere —
+        // "per" prefixes "personvern", "kan" prefixes "kantine" — and the
+        // resulting points let unrelated entries outscore a direct hit. The
+        // price question lost to GDPR and page speed this way.
+        else if (t.length >= MIN_PREFIX_LEN && hayTokens.some((h) => h.startsWith(t) || (h.length >= MIN_PREFIX_LEN && t.startsWith(h))))
           score += 1;
       }
-      // Boost direct keyword hits
+      // Boost direct keyword hits.
+      //
+      // This used to ask whether the KEYWORD contains the query token, which is
+      // backwards and matched on substrings anywhere inside a word. "hva koster
+      // det PER måned" scored the GDPR entry +3, because "personvern" contains
+      // "per" — so a visitor asking what it costs per month was handed GDPR,
+      // page speed and payment methods, and the model invented a price to fill
+      // the gap. That is where "Digilist koster fra omkring 300 kroner
+      // månedlig" came from: not a hallucinating model, a retriever that never
+      // gave it the answer.
+      //
+      // Now matched at the START of a word, which is right for Norwegian
+      // ("pris" must reach "prisen"/"prisnivå") and stops "per" from reaching
+      // into the middle of "personvern".
       for (const kw of entry.keywords ?? []) {
-        if (qTokens.some((t) => kw.toLowerCase().includes(t))) score += 3;
+        const kwTokens = tokenize(kw);
+        if (
+          qTokens.some(
+            (t) =>
+              t.length >= MIN_PREFIX_LEN &&
+              kwTokens.some((k) => k.startsWith(t) || (k.length >= MIN_PREFIX_LEN && t.startsWith(k))),
+          )
+        ) {
+          score += 3;
+        }
       }
       if (score > 0) {
         hits.push({ q: entry.q, a: entry.a, category: cat.label, score });
