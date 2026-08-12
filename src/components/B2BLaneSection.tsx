@@ -4,11 +4,15 @@ import { EditorialButton } from "@/components/editorial";
 import { SectionHeader } from "@/components/SectionHeader";
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/motion";
 import { getFraunces } from "@/lib/fonts";
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 
 interface Value {
   Icon: LucideIcon;
-  title: string;
-  description: string;
+  /** Copy keys, not strings — the same four values in both languages. */
+  titleKey: string;
+  bodyKey: string;
 }
 
 // The four platform principles (merged from the old ValueProposition section)
@@ -16,27 +20,23 @@ interface Value {
 const VALUES: Value[] = [
   {
     Icon: LayoutGrid,
-    title: "Alt samlet",
-    description:
-      "Bestilling, kalender, priser, vilkår og administrasjon i én plattform. Slutt med Excel, e-poster og dobbeltbookinger.",
+    titleKey: "b2b.b1.title",
+    bodyKey: "b2b.b1.body",
   },
   {
     Icon: Users2,
-    title: "Enkel å bruke",
-    description:
-      "Innbyggere og leietakere finner ledig tid, sender forespørsel og betaler uten opplæring. Universelt utformet, WCAG 2.0 AA.",
+    titleKey: "b2b.b2.title",
+    bodyKey: "b2b.b2.body",
   },
   {
     Icon: Gauge,
-    title: "Effektiv drift",
-    description:
-      "Automatiserte regler, godkjenninger og oversikt reduserer manuelt arbeid. Driftsroller varsles automatisk ved bookinger.",
+    titleKey: "b2b.b3.title",
+    bodyKey: "b2b.b3.body",
   },
   {
     Icon: Scaling,
-    title: "Skalerbar",
-    description:
-      "Fra ett selskapslokale til en kommune med tolv anlegg: sesongleie, lag og foreninger, tilskudd og fakturering.",
+    titleKey: "b2b.b4.title",
+    bodyKey: "b2b.b4.body",
   },
 ];
 
@@ -48,6 +48,7 @@ const VALUES: Value[] = [
  * for /bookingsystem-kommune without wading through B2C content.
  */
 const B2BLaneSection = () => {
+  const locale = localeFromPath(useLocation().pathname);
   return (
     <section
       id="for-utleiere"
@@ -56,16 +57,16 @@ const B2BLaneSection = () => {
     >
       <div className="container mx-auto md:px-8 lg:px-12">
         <SectionHeader
-          label="FOR UTLEIERE OG KOMMUNER"
+          label={t(locale, "b2b.label")}
           headingId="for-utleiere-heading"
-          intro="Digilist drifter privat utleie og kommunal booking i samme løsning: privatbookinger, sesongleie til lag og foreninger, sambruk mellom avdelinger og innbyggerdialog med ID-porten."
+          intro={t(locale, "b2b.intro")}
         >
-          Fra ett lokale til{" "}
+          {t(locale, "b2b.headline")}{" "}
           <em
             className="italic"
             style={{ fontVariationSettings: getFraunces("display") }}
           >
-            hele kommunen
+            {t(locale, "b2b.headlineEm")}
           </em>
           .
         </SectionHeader>
@@ -82,7 +83,7 @@ const B2BLaneSection = () => {
             const Icon = v.Icon;
             return (
               <motion.article
-                key={v.title}
+                key={t(locale, v.titleKey)}
                 variants={staggerChild}
                 className="group flex flex-col h-full rounded-lg bg-gradient-to-br from-paper to-paper-deep border border-hairline-strong p-6 lg:p-7 shadow-[0_2px_10px_-4px_rgba(10,18,40,0.12)] transition-all duration-normal ease-editorial hover:-translate-y-1 hover:border-accent-text/40 hover:shadow-[0_18px_40px_-18px_rgba(10,18,40,0.4)]"
               >
@@ -97,11 +98,11 @@ const B2BLaneSection = () => {
                       letterSpacing: "-0.01em",
                     }}
                   >
-                    {v.title}
+                    {t(locale, v.titleKey)}
                   </h3>
                 </header>
                 <p className="text-sm lg:text-base text-ink-soft leading-relaxed">
-                  {v.description}
+                  {t(locale, v.bodyKey)}
                 </p>
               </motion.article>
             );

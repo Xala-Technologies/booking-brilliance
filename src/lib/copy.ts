@@ -150,6 +150,24 @@ const nb: Copy = {
   "agents.a6.title": "Lag utkast fra en lenke",
   "agents.a6.body":
     "Har du lokalet på Airbnb, Booking.com, Finn eller Eventum, eller i et Word-dokument? Lim inn lenken eller last opp filen, så analyserer agenten innholdet og lager et ferdig utkast til oppføring du bare finpusser.",
+
+  "b2b.label": "FOR UTLEIERE OG KOMMUNER",
+  "b2b.intro":
+    "Digilist drifter privat utleie og kommunal booking i samme løsning: privatbookinger, sesongleie til lag og foreninger, sambruk mellom avdelinger og innbyggerdialog med ID-porten.",
+  "b2b.headline": "Fra ett lokale til",
+  "b2b.headlineEm": "hele kommunen",
+  "b2b.b1.title": "Alt samlet",
+  "b2b.b1.body":
+    "Bestilling, kalender, priser, vilkår og administrasjon i én plattform. Slutt med Excel, e-poster og dobbeltbookinger.",
+  "b2b.b2.title": "Enkel å bruke",
+  "b2b.b2.body":
+    "Innbyggere og leietakere finner ledig tid, sender forespørsel og betaler uten opplæring. Universelt utformet, WCAG 2.0 AA.",
+  "b2b.b3.title": "Effektiv drift",
+  "b2b.b3.body":
+    "Automatiserte regler, godkjenninger og oversikt reduserer manuelt arbeid. Driftsroller varsles automatisk ved bookinger.",
+  "b2b.b4.title": "Skalerbar",
+  "b2b.b4.body":
+    "Fra ett selskapslokale til en kommune med tolv anlegg: sesongleie, lag og foreninger, tilskudd og fakturering.",
 };
 
 const en: Copy = {
@@ -270,6 +288,24 @@ const en: Copy = {
   "agents.a6.title": "Draft a listing from a link",
   "agents.a6.body":
     "Already listed elsewhere, or have the details in a document? Paste the link or upload the file, and the agent reads it and produces a finished draft listing for you to polish.",
+
+  "b2b.label": "FOR OPERATORS AND PUBLIC BODIES",
+  "b2b.intro":
+    "Digilist runs private rental and public-sector booking in one system: individual bookings, recurring seasonal slots for local clubs, shared use across departments, and resident access through national digital identity.",
+  "b2b.headline": "From one venue to",
+  "b2b.headlineEm": "an entire authority",
+  "b2b.b1.title": "Everything in one place",
+  "b2b.b1.body":
+    "Orders, calendar, prices, terms and administration in one platform. No more spreadsheets, email threads and double bookings.",
+  "b2b.b2.title": "Simple to use",
+  "b2b.b2.body":
+    "Residents and tenants find a free slot, send a request and pay without being trained. Built to WCAG accessibility standards.",
+  "b2b.b3.title": "Efficient to run",
+  "b2b.b3.body":
+    "Automated rules, approvals and oversight cut manual work. Operational roles are notified automatically when a booking lands.",
+  "b2b.b4.title": "Scales with you",
+  "b2b.b4.body":
+    "From a single function room to an authority with twelve facilities: seasonal allocation, clubs and associations, grants and invoicing.",
 };
 
 const DICT: Record<Locale, Copy> = { nb, en };
