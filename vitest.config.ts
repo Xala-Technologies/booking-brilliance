@@ -12,7 +12,10 @@ export default defineConfig({
   },
   test: {
     environment: "node",
-    include: ["src/**/*.test.{ts,tsx}"],
+    // infra/ is in here because nothing else checks it: it is shell and nginx
+    // config, which neither tsc nor eslint reads, so a broken deploy script or
+    // a CSP that blocks the site's own search would ship green (XAL-1010).
+    include: ["src/**/*.test.{ts,tsx}", "infra/**/*.test.ts"],
     // SSR tests (entry-server.*.test.tsx) render the full route tree, which
     // re-globs src/content/blog/*.md on every call. The blog corpus keeps
     // growing (new post = new file), so wall-clock render time drifts up
