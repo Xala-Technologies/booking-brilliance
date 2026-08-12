@@ -17,7 +17,7 @@
  * when they said one destroys trust instantly, while a blank field just means
  * the assistant asks. Everything here is pure and testable.
  */
-import { buyingSignalsIn, detectObjections } from "./stage";
+import { buyingSignalsIn, detectObjections, painSignalsIn } from "./stage";
 
 
 export interface LeadProfile {
@@ -229,6 +229,9 @@ export function enrichProfile(userTurns: readonly string[]): LeadProfile {
   return {
     ...extractProfile(userTurns),
     objections: detectObjections(all).map((o) => o.id),
-    signals: buyingSignalsIn(all),
+    // Pain counts as a buying signal because that is what it is: an implied
+    // need stated as a symptom. Someone who has counted the hours lost to
+    // manual booking is further along than someone asking what it costs.
+    signals: [...buyingSignalsIn(all), ...painSignalsIn(all)],
   };
 }

@@ -30,7 +30,8 @@
     "improvements:run": "xala-agents run improvements",
     "improvements:prepare": "xala-agents run prepare",
     "improvements:implement": "xala-agents run implement",
-    "improvements:install-timer": "bash scripts/install-improvements-timer.sh"
+    "improvements:install-timer": "bash scripts/install-improvements-timer.sh",
+    "chat:grade": "tsx scripts/grade-chat.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

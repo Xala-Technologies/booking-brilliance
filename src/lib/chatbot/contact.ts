@@ -89,8 +89,28 @@ const FALSE_ACTION_CLAIMS: readonly RegExp[] = [
   /\bkommer\s+i\s+innboksen\b/iu,
 ];
 
+/**
+ * The one sending claim that is TRUE: forwarding the inquiry internally.
+ *
+ * Found by grading the live model. It replied "Da har jeg sendt forespørselen
+ * videre til en rådgiver som tar kontakt der" — which is accurate, is exactly
+ * what we want it to say, and was being BLOCKED by the bare `har sendt` rule.
+ * Suppressing a true, useful sentence is its own defect: the visitor then gets
+ * a generic replacement instead of the specific thing that just happened.
+ *
+ * The distinction is direction and object. Sending something TO THE VISITOR —
+ * an offer, a price, an email — is the lie. Passing the inquiry ONWARD to a
+ * colleague is the truth, and the lead really is filed by the time it is said.
+ */
+const HONEST_HANDOFF =
+  /\b(sender|sendt|videresender|gir)\b[^.!?]{0,40}\b(foresp[øo]rselen|saken|samtalen|beskjed)\b[^.!?]{0,40}\b(videre|til\s+en\s+r[åa]dgiver|til\s+support|til\s+oss)/iu;
+
 export function claimsFalseAction(reply: string): boolean {
-  return FALSE_ACTION_CLAIMS.some((re) => re.test(reply));
+  // Sentence by sentence: one honest handoff must not excuse a lie sitting
+  // next to it in the same reply, and a lie must not condemn the handoff.
+  return reply
+    .split(/(?<=[.!?])\s+/)
+    .some((sentence) => !HONEST_HANDOFF.test(sentence) && FALSE_ACTION_CLAIMS.some((re) => re.test(sentence)));
 }
 
 /**

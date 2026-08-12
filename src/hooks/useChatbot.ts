@@ -1,5 +1,6 @@
 import { useRef, useCallback, useEffect, useMemo, useReducer } from "react";
 import { decideTurn } from "@/lib/chatbot/turn";
+import { beaconFromDecision, beaconFromDegradation, reportTurn } from "@/lib/chatbot/activity";
 import { trackConversion } from "@/lib/analytics";
 import {
   retrieve,
@@ -163,6 +164,9 @@ export function useChatbot() {
    * or types anything after giving it, files the same lead on every turn and the
    * sales inbox fills with duplicates of one person.
    */
+  // Stable for the life of the widget. The daily report counts conversations
+  // by this; without it every question looks like its own visitor.
+  const conversationIdRef = useRef(cryptoId());
   const leadFiledRef = useRef(false);
 
   /**
@@ -320,6 +324,7 @@ export function useChatbot() {
             system: ctx.system,
             messages: ctx.messages,
             hits,
+            cid: conversationIdRef.current,
           }),
         });
         // Parse before judging: a non-2xx still carries a body worth reading,
@@ -345,6 +350,12 @@ export function useChatbot() {
           // Unconditional — never re-add an `import.meta.env.DEV` gate here.
           console.warn(degradationWarning(degraded));
           dispatch({ type: "SET_DEGRADED", degraded });
+          // Counted, not just logged. A console warning in a visitor's browser
+          // reaches nobody; the daily report is where an outage becomes visible
+          // without anyone having to go looking.
+          reportTurn(
+            beaconFromDegradation(conversationIdRef.current, userTurns.length, degraded.reason),
+          );
         } else if (payloadText) {
           // Every judgement for this turn — guard the reply, capture contact,
           // decide whether a human should hear about this, append the handoff
@@ -354,12 +365,25 @@ export function useChatbot() {
             userTurns,
             reply: payloadText,
             hitCount: hits.length,
+            // The only paths the model was offered — anything else it cites is
+            // invented, which is how /faq#q-27 reached a live visitor.
+            allowedPages: results.map((r) => r.href),
+            sourcesHadPrice: hits.some((h) => /\d[\d\s.,]*\s*(kr|kroner|nok)/i.test(h.a)),
             leadAlreadyFiled: leadFiledRef.current,
             alreadyNotified: startNotifiedRef.current,
           });
 
+          reportTurn(
+            beaconFromDecision(conversationIdRef.current, userTurns.length, decision),
+          );
+
           if (decision.guardTripped) {
-            console.warn("[chatbot] suppressed a reply claiming an action it cannot perform:", payloadText);
+            console.warn(
+              "[chatbot] reply suppressed by guardrails:",
+              decision.violations.map((v) => `${v.rule} (${v.detail})`).join("; "),
+              "\n  original:",
+              payloadText,
+            );
           }
           if (decision.notify === "lead") {
             leadFiledRef.current = true;

@@ -9,8 +9,9 @@
  * would pass while production diverged, which is the oldest trap in testing:
  * the test asserts a copy. The hook calls exactly this.
  */
-import { contactFromTurns, handoffNotice, claimsFalseAction, honestHandoffReply, needsHuman, shouldNotify, type ChatContact } from "./contact";
+import { contactFromTurns, handoffNotice, honestHandoffReply, needsHuman, shouldNotify, type ChatContact } from "./contact";
 import { enrichProfile, interestScore } from "./sales/lead";
+import { blocking, gradeReply, type Violation } from "./guardrails";
 
 export interface TurnInput {
   /** Everything the visitor has said this conversation, oldest first. */
@@ -19,6 +20,10 @@ export interface TurnInput {
   reply: string;
   /** How many FAQ entries the retrieval matched. */
   hitCount: number;
+  /** Page paths offered to the model this turn — the only ones it may cite. */
+  allowedPages?: readonly string[];
+  /** True when the sources actually contained a price. */
+  sourcesHadPrice?: boolean;
   /** Whether a lead has already been filed this conversation. */
   leadAlreadyFiled: boolean;
   /** Whether a qualified-conversation notice has already been sent. */
@@ -38,6 +43,8 @@ export interface TurnDecision {
   contact: ChatContact;
   /** Whether the reply claimed an action the assistant cannot perform. */
   guardTripped: boolean;
+  /** Everything the guardrails found, blocking or not. */
+  violations: Violation[];
   /** Whether to show "Send forespørsel til oss" under the reply. */
   showInquiryCta: boolean;
   /** The assistant's read of how serious this visitor is, 0-100. */
@@ -68,8 +75,20 @@ export function decideTurn(input: TurnInput): TurnDecision {
     }
   }
 
-  const guardTripped = claimsFalseAction(input.reply);
-  const base = guardTripped ? honestHandoffReply(contact) : input.reply;
+  // Grade the reply against every rule, not just the false-action one. Each
+  // incident on this project was fixed by adding a line to the prompt; each
+  // line is still there and the model still broke the next rule. A prompt is a
+  // request, this is a check.
+  const violations = gradeReply({
+    reply: input.reply,
+    allowedPages: input.allowedPages ?? [],
+    sourcesHadPrice: input.sourcesHadPrice ?? false,
+  });
+  const mustBlock = blocking(violations).length > 0;
+  const guardTripped = mustBlock;
+  // Replaced wholesale rather than patched: the violation is usually the point
+  // of the sentence, and a surgically-edited claim reads as a non-sequitur.
+  const base = mustBlock ? honestHandoffReply(contact) : input.reply;
   const text = notify !== "none" ? `${base}${handoffNotice(Boolean(contact.email))}` : base;
 
   return {
@@ -78,6 +97,7 @@ export function decideTurn(input: TurnInput): TurnDecision {
     reason,
     contact,
     guardTripped,
+    violations,
     // Offer the escalation whenever retrieval came up empty, whenever they
     // asked for something only a human can do, and whenever a false promise
     // was suppressed — a suppressed promise must always leave a way forward

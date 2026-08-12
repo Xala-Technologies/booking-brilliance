@@ -225,3 +225,27 @@ describe("handoffNotice — tell them, and stay in the room", () => {
     expect(handoffNotice(true).startsWith(" ")).toBe(true);
   });
 });
+
+describe("claimsFalseAction — the honest handoff is not a lie", () => {
+  it("ALLOWS forwarding the inquiry onward, which is what actually happens", () => {
+    // Verbatim from the live model, graded 2026-08-12. Accurate, useful, and
+    // the bare `har sendt` rule was suppressing it.
+    expect(
+      claimsFalseAction("Takk for e-postadressen. Da har jeg sendt forespørselen videre til en rådgiver som tar kontakt der."),
+    ).toBe(false);
+    expect(claimsFalseAction("Jeg gir beskjed til en rådgiver som følger opp.")).toBe(false);
+    expect(claimsFalseAction("Jeg sender forespørselen videre til oss.")).toBe(false);
+  });
+
+  it("still catches sending something TO THE VISITOR", () => {
+    expect(claimsFalseAction("Jeg har sendt tilbudet til deg på e-post.")).toBe(true);
+    expect(claimsFalseAction("Det raskeste er at vi sender dere et tilbud i dag.")).toBe(true);
+  });
+
+  it("catches a lie sitting next to an honest handoff in the same reply", () => {
+    // One true sentence must not launder the one beside it.
+    expect(
+      claimsFalseAction("Jeg sender forespørselen videre til en rådgiver. Du får tilbudet på e-post i morgen."),
+    ).toBe(true);
+  });
+});

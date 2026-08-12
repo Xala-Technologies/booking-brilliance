@@ -22,7 +22,7 @@
 //   pm2 save
 
 import { createServer } from "node:http";
-import { readFileSync, writeFileSync, existsSync, unlinkSync, readdirSync, statSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, unlinkSync, readdirSync, statSync, mkdirSync, appendFileSync } from "node:fs";
 import { spawn } from "node:child_process";
 import path from "node:path";
 
@@ -188,6 +188,14 @@ function rateLimited(ip, max = 20, windowMs = 60_000) {
 
 // ---------- /api/chat (Anthropic Claude proxy)
 async function handleChat(req, res, body, ip) {
+  // Logged before the model call so a turn that CRASHES still appears. A log
+  // written only on success reports a healthy day for a broken one.
+  logActivity("chat", {
+    ip,
+    cid: String(body?.cid || "").slice(0, 40),
+    turn: String(body?.messages?.[body.messages.length - 1]?.content ?? "").slice(0, 300),
+    turns: Array.isArray(body?.messages) ? body.messages.length : 0,
+  });
   if (!ANTHROPIC_API_KEY) {
     return json(res, 503, { error: "Chat is not configured" });
   }
@@ -525,6 +533,90 @@ ${contextBlock}`;
   }
 }
 
+// ---------- chatbot activity log ----------------------------------------
+//
+// Every turn through the bot is appended here, so the daily digest can report
+// what happened rather than only what escalated. Nothing was persisted before
+// this: a conversation that did not produce a lead left no trace at all, which
+// made "quiet day" and "the bot is broken" indistinguishable — the failure
+// shape this project keeps hitting.
+//
+// Deliberately a flat JSONL file per day, not a database. It is append-only,
+// survives a restart, is trivially greppable during an incident, and a write
+// failure must never break a reply, so every call is wrapped and swallowed.
+// NOT under /var/www/digilist-api: the unit runs with ProtectSystem=strict and
+// only the paths in its ReadWritePaths are writable. Pointing the log at the
+// code directory would have failed every append — silently, since logging must
+// never break a reply. The unit lists this directory explicitly.
+const ACTIVITY_DIR = process.env.CHAT_ACTIVITY_DIR || "/var/www/digilist-activity";
+
+function activityPathFor(date = new Date()) {
+  return `${ACTIVITY_DIR}/${date.toISOString().slice(0, 10)}.jsonl`;
+}
+
+function logActivity(kind, detail) {
+  try {
+    mkdirSync(ACTIVITY_DIR, { recursive: true });
+    appendFileSync(
+      activityPathFor(),
+      `${JSON.stringify({ at: new Date().toISOString(), kind, ...detail })}\n`,
+    );
+  } catch (e) {
+    // Logging is observability, never correctness.
+    console.error("activity log failed:", e?.message || e);
+  }
+}
+
+function readActivity(date) {
+  try {
+    return readFileSync(activityPathFor(date), "utf8")
+      .split("\n")
+      .filter(Boolean)
+      .map((line) => {
+        try {
+          return JSON.parse(line);
+        } catch {
+          return null;
+        }
+      })
+      .filter(Boolean);
+  } catch {
+    // A missing file means no activity, which is a real and reportable answer.
+    return [];
+  }
+}
+
+/**
+ * The chatbot's own account of a turn it just handled.
+ *
+ * `/api/chat` already records that a question arrived, but the server never
+ * sees what the browser decided afterwards — whether the guardrails suppressed
+ * the reply, how serious the visitor looked, whether anyone was told. Without
+ * this the daily report can only say "14 messages", which is attendance, not
+ * activity.
+ *
+ * Fire-and-forget by design: the browser sends it with `sendBeacon`, so it must
+ * answer 204 and never make the visitor wait. Nothing here is trusted — every
+ * field is clamped, and no free text beyond the visitor's own question (which
+ * `/api/chat` already logs) is accepted.
+ */
+function handleActivity(res, body, ip) {
+  const b = body && typeof body === "object" ? body : {};
+  const rules = Array.isArray(b.rules) ? b.rules.slice(0, 8).map((r) => String(r).slice(0, 40)) : [];
+  logActivity("turn", {
+    ip,
+    cid: String(b.cid || "").slice(0, 40),
+    turns: Number.isFinite(b.turns) ? Math.min(Number(b.turns), 999) : 0,
+    interest: Number.isFinite(b.interest) ? Math.min(Number(b.interest), 100) : 0,
+    notify: ["none", "lead", "qualified"].includes(b.notify) ? b.notify : "none",
+    guard: Boolean(b.guard),
+    rules,
+    degraded: b.degraded ? String(b.degraded).slice(0, 80) : "",
+  });
+  res.writeHead(204, corsHeaders);
+  res.end();
+}
+
 // ---------- /api/inquiry (Resend email delivery)
 async function handleInquiry(req, res, body, ip) {
   if (!RESEND_API_KEY) {
@@ -618,6 +710,14 @@ async function handleInquiry(req, res, body, ip) {
       User-Agent: ${escapeHtml(body.userAgent || "—")}
     </p>
   `;
+
+  logActivity("inquiry", {
+    ip,
+    source: body.source || "form",
+    topic: body.topic || "",
+    email: body.email || "",
+    summary,
+  });
 
   try {
     const upstream = await fetch("https://api.resend.com/emails", {
@@ -853,6 +953,9 @@ const server = createServer(async (req, res) => {
   }
   if (pathname === "/api/inquiry" || pathname === "/inquiry") {
     return handleInquiry(req, res, body, ip);
+  }
+  if (pathname === "/api/activity") {
+    return handleActivity(res, body, ip);
   }
   if (pathname === "/api/docs-ask") {
     return handleDocsAsk(req, res, body, ip);
