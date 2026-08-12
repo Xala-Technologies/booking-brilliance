@@ -9,7 +9,7 @@
  * would pass while production diverged, which is the oldest trap in testing:
  * the test asserts a copy. The hook calls exactly this.
  */
-import { contactFromTurns, handoffNotice, honestHandoffReply, needsHuman, shouldNotify, type ChatContact } from "./contact";
+import { contactFromTurns, handoffNotice, honestHandoffReply, looksLikeInjection, needsHuman, shouldNotify, type ChatContact } from "./contact";
 import { enrichProfile, interestScore } from "./sales/lead";
 import { blocking, gradeReply, type Violation } from "./guardrails";
 
@@ -62,9 +62,16 @@ export function decideTurn(input: TurnInput): TurnDecision {
   // Contact details outrank everything: someone who hands over an address has
   // already decided, and making them wait for a score would be the original
   // bug — a lead reaching nobody.
+  // An address handed over inside a prompt-injection payload is not a lead.
+  // This is the ONLY thing that outranks "they gave us an address", and it is
+  // deliberately narrow — see `looksLikeInjection`.
+  const hostile = input.userTurns.some(looksLikeInjection);
+
   let notify: NotifyKind = "none";
   let reason = "";
-  if (contact.email && !input.leadAlreadyFiled) {
+  if (hostile) {
+    notify = "none";
+  } else if (contact.email && !input.leadAlreadyFiled) {
     notify = "lead";
     reason = "oppga kontaktinfo i chatten";
   } else if (!input.alreadyNotified) {

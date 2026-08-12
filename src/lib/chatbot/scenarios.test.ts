@@ -17,12 +17,15 @@ import {
   SCENARIOS as BATCH_1,
   SCENARIOS_BATCH_2,
   SCENARIOS_BATCH_3,
+  SCENARIOS_BATCH_4,
+  SCENARIOS_BATCH_5,
   type Scenario,
 } from "./scenarios";
 
 /** Every scenario, batches combined. Growing this is how the bar gets tuned. */
-const SCENARIOS: Scenario[] = [...BATCH_1, ...SCENARIOS_BATCH_2, ...SCENARIOS_BATCH_3];
+const SCENARIOS: Scenario[] = [...BATCH_1, ...SCENARIOS_BATCH_2, ...SCENARIOS_BATCH_3, ...SCENARIOS_BATCH_4, ...SCENARIOS_BATCH_5];
 import { decideTurn, type TurnDecision } from "./turn";
+import { enrichProfile } from "./sales/lead";
 
 /**
  * Replay a conversation turn by turn, exactly as the hook does — carrying the
@@ -159,15 +162,26 @@ describe("SERIOUS_LEAD_SCORE calibration", () => {
     }
   });
 
-  it("scores bots and support requests at zero, not merely below the bar", () => {
+  it("records no buying signal and no objection for bots or support requests", () => {
     // A threshold is a weak defence when noise scores just under it: one new
     // cue and it crosses. A scraper sending "test test aaaaaaa" used to score
     // 14 because the bare word "test" matched the trial objection — it should
-    // never have registered as interest at all. The bar is set LOW on purpose,
-    // so the noise floor has to be genuinely zero rather than comfortably
-    // distant.
-    for (const r of scored.filter((r) => r.kind === "bot" || r.kind === "support")) {
-      expect(r.interest, `${r.id} scored ${r.interest}`).toBe(0);
+    // never have registered as interest at all.
+    //
+    // The rule used to be "noise scores exactly zero", which batch 4 showed was
+    // the wrong invariant. "jeg har booket gymsalen på lørdag men må
+    // avbestille" scores 4, entirely from profile completeness: the assistant
+    // correctly noticed a gym was mentioned. Knowing something about a visitor
+    // is not the same as reading them as a buyer, and completeness alone cannot
+    // reach the bar — two of its eight fields ARE signals and objections, so
+    // 15 points of pure completeness is unreachable without one.
+    //
+    // So the invariant moves to the thing that actually matters: noise must
+    // register no PURCHASE evidence at all.
+    for (const s of SCENARIOS.filter((s) => s.kind === "bot" || s.kind === "support")) {
+      const profile = enrichProfile(s.turns);
+      expect(profile.signals, `${s.id} signals`).toEqual([]);
+      expect(profile.objections, `${s.id} objections`).toEqual([]);
     }
   });
 

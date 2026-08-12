@@ -18,8 +18,21 @@ describe("extractContact", () => {
     expect(extractContact("wahidullah_rahmani@hotmail.com").email).toBe("wahidullah_rahmani@hotmail.com");
   });
 
+  it("never captures our own address — a lead that replies to our own inbox", () => {
+    // "jeg prøvde å sende til post@digilist.no men fikk ikke svar" was filed as
+    // a lead. Anyone quoting our address is telling us they could not reach us.
+    expect(extractContact("jeg prøvde å sende til post@digilist.no").email).toBeNull();
+    expect(extractContact("skrev til Kontakt@Digilist.no").email).toBeNull();
+    expect(extractContact("sendte til noen@mail.digilist.no").email).toBeNull();
+    // A domain that merely ENDS in something similar is still a real visitor.
+    expect(extractContact("min adresse er ola@ikkedigilist.no").email).toBe("ola@ikkedigilist.no");
+  });
+
   it("finds an email inside a sentence and lower-cases it", () => {
-    expect(extractContact("Send det til Post@Digilist.NO takk").email).toBe("post@digilist.no");
+    // Was `Post@Digilist.NO` — our OWN address, which is now deliberately never
+    // captured. The behaviour it checks (find it, lower-case it) is unchanged;
+    // the fixture just happened to pick the one address that cannot be a lead.
+    expect(extractContact("Send det til Kari@Lillevik.NO takk").email).toBe("kari@lillevik.no");
   });
 
   it("handles Norwegian letters in the local part", () => {

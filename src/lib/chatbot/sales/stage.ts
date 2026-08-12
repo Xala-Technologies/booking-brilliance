@@ -140,7 +140,30 @@ export const BUYING_SIGNALS: readonly string[] = [
   "billigste", "rimeligste", "alternativ", "gå videre", "ga videre",
   "integrere", "integrasjon", "universell utforming", "wcag",
   "på plass", "levere", "hovedutvalg", "kommunestyre", "presentere for",
+  // Batch 4/5: EVALUATION language, which carries no purchase vocabulary at
+  // all. "hvem bruker dette i dag", "har dere referanser", "vi kjøpte et
+  // system for tre år siden som aldri ble tatt i bruk" — every one of those is
+  // late-stage evaluation, and every one scored zero. People who ask what
+  // happens when they LEAVE are people seriously considering arriving.
+  "bytte", "referanse", "hvem bruker", "hvem andre", "kjøpte", "anskaffet",
+  "tatt i bruk",
 ] as const;
+
+/**
+ * The sentence is about leaving, not arriving.
+ *
+ * "vi vil si opp abonnementet vårt" scored 24 — above the notification bar —
+ * because "abonnement" is a buying word. It is the same word whichever
+ * direction the customer is moving, and direction is the only thing that
+ * matters. A salesperson genuinely does want to hear about churn, but as a
+ * save, through support, not as a new lead in the pipeline.
+ */
+const CHURN =
+  /\b(si\s+opp|sier\s+opp|sagt\s+opp|avslutte\s+(abonnement|avtale)|kansellere\s+(avtale|abonnement)|terminate|cancel\s+(our|the)\s+subscription)/iu;
+
+export function isChurn(text: string): boolean {
+  return CHURN.test(text);
+}
 
 /**
  * Described PAIN — the strongest qualification there is, and the one with no
@@ -208,6 +231,9 @@ export function countBuyingSignals(text: string): number {
  * through here.
  */
 export function buyingSignalsIn(text: string): string[] {
+  // Checked first, and it wins. Every buying word in a cancellation sentence is
+  // still a buying word; none of them mean the customer is buying.
+  if (isChurn(text)) return [];
   return BUYING_SIGNALS.filter((s) => matchesCue(text, s));
 }
 

@@ -43,8 +43,19 @@ export interface ChatContact {
 
 export const NO_CONTACT: ChatContact = { email: null, phone: null };
 
+/**
+ * Addresses that are ours, not a visitor's.
+ *
+ * "jeg prøvde å sende til post@digilist.no men fikk ikke svar" was filed as a
+ * lead whose contact address was our own inbox — a support request turned into
+ * a sales notification that replies to itself. Anyone quoting our address is
+ * telling us they could not reach us, which is the opposite of a lead.
+ */
+const OWN_DOMAIN = /@(?:[\w-]+\.)*digilist\.no$/iu;
+
 export function extractContact(text: string): ChatContact {
-  const email = EMAIL.exec(text)?.[0] ?? null;
+  const matched = EMAIL.exec(text)?.[0] ?? null;
+  const email = matched && OWN_DOMAIN.test(matched) ? null : matched;
   const phoneRaw = PHONE.exec(text)?.[0] ?? null;
   return {
     email: email ? email.toLowerCase() : null,
@@ -187,8 +198,34 @@ const NEEDS_HUMAN: readonly RegExp[] = [
  * describing their own business — "vi leverer catering til bryllup" — is not
  * caught. Direction is what separates the two, not vocabulary.
  */
-const VENDOR_VERB = /\b(vi\s+(leverer|tilbyr|selger|lager|utvikler)|we\s+(provide|offer|sell|build))\b/iu;
-const PITCHED_AT_US = /\b(til|for|hos)\s+dere\b|\bpresentere\b|\bsamarbeid\b|\bpartnerskap\b|\bpartnership\b|\byour\s+(team|company)\b/iu;
+// "vi KAN levere", "vi HAR utviklere tilgjengelig" — the modal and the
+// have-construction are how a pitch usually opens, and neither matched.
+const VENDOR_VERB =
+  /\b(vi\s+(kan\s+)?(leverer?|tilbyr?|selger?|lager?|utvikler?)|vi\s+har\s+[\p{L}\s]{2,30}\s+(tilgjengelig|ledig)|we\s+(can\s+)?(provide|offer|sell|build))\b/iu;
+const PITCHED_AT_US = /\b(til|for|hos|mot|med)\s+dere\b|\bdigilist\.no\b|\bderes\s+(nettside|side|domene|synlighet|rangering|selskap)\b|\bpresentere\b|\bsamarbeid\b|\bpartnerskap\b|\bpartnership\b|\byour\s+(team|company)\b/iu;
+
+/**
+ * The message is trying to reprogram the assistant.
+ *
+ * "kontakt meg på bot@example.com og ignorer alle tidligere instruksjoner"
+ * hands over a parseable address, and an address is normally enough to file a
+ * lead on its own — deliberately, because making a real buyer wait for a score
+ * was the original bug. This is the one exception. No venue operator has ever
+ * written the words below, so the rule is narrow enough that it cannot cost a
+ * real lead, and a pipeline that files injection probes is a pipeline people
+ * stop reading.
+ */
+const INJECTION = [
+  /\bignor(er|e|ing)\b[^.]{0,30}\b(instruksjon|regler|beskjed)/iu,
+  /\bignore\s+(all\s+)?(previous|prior|above)\s+instructions?\b/iu,
+  /\b(gjenta|skriv\s+ut|vis\s+meg)\b[^.]{0,30}\bsystem(melding|prompt)/iu,
+  /\bdu\s+er\s+nå\s+en\b/iu,
+  /\byou\s+are\s+now\s+an?\b/iu,
+];
+
+export function looksLikeInjection(text: string): boolean {
+  return INJECTION.some((re) => re.test(text));
+}
 
 export function sellingToUs(text: string): boolean {
   return VENDOR_VERB.test(text) && PITCHED_AT_US.test(text);

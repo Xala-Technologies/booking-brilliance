@@ -160,11 +160,34 @@ export function renderKnownFacts(p: LeadProfile): string {
   return bits.length ? bits.join("\n") : "(ingenting ennå)";
 }
 
+/**
+ * Objections that are self-qualification, not engagement.
+ *
+ * "er vi for små for dere?", "kan vi prøve først?", "hva koster det?", "styret
+ * må godkjenne" — nobody asks these unless they are considering the purchase.
+ * They are buying signals wearing a worried face, and the flat 10 points for
+ * "raised an objection at all" undersold them badly:
+ *
+ *   A visitor who said "dere ser ut til å være rettet mot store kommuner" and
+ *   "vi er små" scored 14 against a bar of 15. That is not a near miss in the
+ *   abstract — it is the exact conversation that failed on 2026-08-12, where a
+ *   venue operator asked three times whether Digilist suits a single venue,
+ *   was never asked anything back, and left for the contact form.
+ *
+ * `existing-tool` and `integration` stay on the flat rate: they are asked by
+ * people comparing as readily as by people buying.
+ */
+const QUALIFYING_OBJECTIONS = ["too-small", "price", "trial", "decision-maker"];
+
 /** 0-100. Buying signals dominate; knowing who they are is the multiplier. */
 export function interestScore(p: LeadProfile): number {
-  const signal = Math.min(p.signals.length, 3) * 20; // 0-60
+  const qualifying = p.objections.filter((o) => QUALIFYING_OBJECTIONS.includes(o));
+  // Counted alongside buying signals rather than beside them, and capped
+  // together, so a visitor cannot reach the bar on worry alone repeated three
+  // times — the cap is what keeps this from becoming a second scoring system.
+  const signal = Math.min(p.signals.length + qualifying.length, 3) * 20; // 0-60
   const known = Math.round(profileCompleteness(p) * 30); // 0-30
-  const objection = p.objections.length > 0 ? 10 : 0; // engaged enough to object
+  const objection = p.objections.length > qualifying.length ? 10 : 0;
   return Math.min(100, signal + known + objection);
 }
 
