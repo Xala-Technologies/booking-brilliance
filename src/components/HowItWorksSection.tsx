@@ -1,37 +1,23 @@
 import { motion } from "framer-motion";
+import { useLocation } from "react-router-dom";
+import { localeFromPath, type Locale } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 import { SectionHeader } from "@/components/SectionHeader";
 import { InterestSelector } from "@/components/InterestSelector";
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/motion";
 import { getFraunces } from "@/lib/fonts";
 
-const steps = [
-  {
-    step: "01",
-    title: "Søknad",
-    description:
-      "Innbygger, lag, forening eller bedrift sender forespørsel via Digilist. Tilgjengelighet vises i sanntid; forespørsler innenfor regler bookes umiddelbart.",
-  },
-  {
-    step: "02",
-    title: "Godkjenning",
-    description:
-      "Forespørsler utenfor regelverket går til administrator. Godkjenning kan delegeres til driftsroller, og automatregler dekker repeterende mønstre som sesongleie.",
-  },
-  {
-    step: "03",
-    title: "Bekreftelse",
-    description:
-      "Automatisk bekreftelse med detaljer og betaling via Vipps eller kort. Driftsroller (vaktmester, renhold, vekter) varsles automatisk.",
-  },
-  {
-    step: "04",
-    title: "Oppfølging",
-    description:
-      "Faktura og bilag til Visma, Tripletex, Fiken, PowerOffice, DNB Regnskap eller EHF/Peppol. Rapportering, KPI-er og økonomisk avstemming i én plattform.",
-  },
-];
+/** The four steps, built per language from the copy dictionary. */
+const stepsFor = (locale: Locale) =>
+  [1, 2, 3, 4].map((n) => ({
+    step: `0${n}`,
+    title: t(locale, `how.step${n}.title`),
+    description: t(locale, `how.step${n}.body`),
+  }));
 
 const HowItWorksSection = () => {
+  const locale = localeFromPath(useLocation().pathname);
+  const steps = stepsFor(locale);
   return (
     <section
       id="funksjonalitet"
@@ -39,17 +25,17 @@ const HowItWorksSection = () => {
     >
       <div className="container mx-auto md:px-8 lg:px-12">
         <SectionHeader
-          label="FUNKSJONALITET"
-          intro="Fra forespørsel til oppgjør: én sammenhengende prosess."
+          label={t(locale, "how.label")}
+          intro={t(locale, "how.intro")}
         >
-          Booking med{" "}
+          {t(locale, "how.headline")}{" "}
           <em
             className="italic"
             style={{
               fontVariationSettings: '"opsz" 96, "wght" 400',
             }}
           >
-            få steg.
+            {t(locale, "how.headlineEm")}
           </em>
         </SectionHeader>
 

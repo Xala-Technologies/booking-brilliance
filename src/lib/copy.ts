@@ -68,6 +68,24 @@ const nb: Copy = {
   "hero.bullet1": "Ekte priser og ledige datoer i sanntid",
   "hero.bullet2": "Betal trygt med Vipps eller faktura",
   "hero.bullet3": "Bygd for norske krav – BankID, GDPR og universell utforming",
+
+  // How it works
+  "how.label": "FUNKSJONALITET",
+  "how.intro": "Fra forespørsel til oppgjør: én sammenhengende prosess.",
+  "how.headline": "Booking med",
+  "how.headlineEm": "få steg.",
+  "how.step1.title": "Søknad",
+  "how.step1.body":
+    "Innbygger, lag, forening eller bedrift sender forespørsel via Digilist. Tilgjengelighet vises i sanntid; forespørsler innenfor regler bookes umiddelbart.",
+  "how.step2.title": "Godkjenning",
+  "how.step2.body":
+    "Forespørsler utenfor regelverket går til administrator. Godkjenning kan delegeres til driftsroller, og automatregler dekker repeterende mønstre som sesongleie.",
+  "how.step3.title": "Bekreftelse",
+  "how.step3.body":
+    "Automatisk bekreftelse med detaljer og betaling via Vipps eller kort. Driftsroller (vaktmester, renhold, vekter) varsles automatisk.",
+  "how.step4.title": "Oppfølging",
+  "how.step4.body":
+    "Faktura og bilag til Visma, Tripletex, Fiken, PowerOffice, DNB Regnskap eller EHF/Peppol. Rapportering, KPI-er og økonomisk avstemming i én plattform.",
 };
 
 const en: Copy = {
@@ -109,6 +127,23 @@ const en: Copy = {
   "hero.bullet1": "Real prices and live availability",
   "hero.bullet2": "Pay securely by card, mobile payment or invoice",
   "hero.bullet3": "Built for Norwegian requirements — national ID, GDPR and accessibility",
+
+  "how.label": "HOW IT WORKS",
+  "how.intro": "From request to settlement: one continuous process.",
+  "how.headline": "Booking in",
+  "how.headlineEm": "a few steps.",
+  "how.step1.title": "Request",
+  "how.step1.body":
+    "A resident, club, association or business sends a request through Digilist. Availability is shown live, and requests that fit the rules are booked immediately.",
+  "how.step2.title": "Approval",
+  "how.step2.body":
+    "Requests outside the rules go to an administrator. Approval can be delegated to operational roles, and automatic rules cover recurring patterns such as seasonal allocation.",
+  "how.step3.title": "Confirmation",
+  "how.step3.body":
+    "Automatic confirmation with the details, and payment by card or mobile payment. Operational roles — caretaker, cleaning, security — are notified automatically.",
+  "how.step4.title": "Follow-up",
+  "how.step4.body":
+    "Invoices and vouchers to the common accounting systems, or by the European e-invoicing standard. Reporting, KPIs and financial reconciliation in one platform.",
 };
 
 const DICT: Record<Locale, Copy> = { nb, en };
