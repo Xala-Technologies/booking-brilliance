@@ -42,6 +42,7 @@ const Teknologi = lazy(() => import("./pages/Teknologi"));
 const OmOss = lazy(() => import("./pages/OmOss"));
 const Priser = lazy(() => import("./pages/Priser"));
 const Pricing = lazy(() => import("./pages/Pricing"));
+const IndexEn = lazy(() => import("./pages/IndexEn"));
 const FaqEn = lazy(() => import("./pages/FaqEn"));
 const Leie = lazy(() => import("./pages/Leie"));
 const LeieSelskapslokale = lazy(() => import("./pages/LeieSelskapslokale"));
@@ -335,6 +336,7 @@ export function AppShell() {
             {/* English. Only pages that are actually translated get a route —
                 a /en URL rendering Norwegian text is duplicate content that
                 would damage the pages ranking today. See lib/i18n.ts. */}
+            <Route path="/en" element={<IndexEn />} />
             <Route path="/en/pricing" element={<Pricing />} />
             <Route path="/en/faq" element={<FaqEn />} />
             <Route path="/leie" element={<Leie />} />

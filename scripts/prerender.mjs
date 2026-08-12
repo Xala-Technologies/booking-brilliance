@@ -1667,6 +1667,15 @@ const ROUTES = [
     ],
   },
   {
+    route: "/en",
+    title: "Digilist · Booking software for venues that are rented out",
+    description:
+      "One platform for renting out venues: real-time availability, self-service booking, payment and contracts. A subscription with no transaction fee and no share of your booking revenue.",
+    ogType: "website",
+    lang: "en",
+    breadcrumbs: [{ name: "Home", url: `${BASE_URL}/en` }],
+  },
+  {
     route: "/en/pricing",
     title: "Pricing: a subscription, with no transaction fee | Digilist",
     description:
@@ -2441,6 +2450,7 @@ function patchHTML(template, meta) {
  * pins the two together so the copy cannot drift.
  */
 const TRANSLATED_ROUTES = {
+  "/": "/en",
   "/priser": "/en/pricing",
   "/faq": "/en/faq",
 };
@@ -2786,6 +2796,7 @@ async function main() {
     { loc: `${BASE_URL}/billettsystem`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/teknologi`, priority: "0.7", changefreq: "monthly" },
     { loc: `${BASE_URL}/priser`, priority: "0.9", changefreq: "monthly" },
+    { loc: `${BASE_URL}/en`, priority: "1.0", changefreq: "weekly" },
     { loc: `${BASE_URL}/en/pricing`, priority: "0.9", changefreq: "monthly" },
     { loc: `${BASE_URL}/en/faq`, priority: "0.7", changefreq: "monthly" },
     { loc: `${BASE_URL}/om-oss`, priority: "0.6", changefreq: "monthly" },

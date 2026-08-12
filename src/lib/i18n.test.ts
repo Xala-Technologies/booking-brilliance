@@ -118,14 +118,19 @@ describe("preferredLocale", () => {
 });
 
 describe("shouldAutoRedirect — a visitor in the UK gets English", () => {
+  it("sends a non-Norwegian visitor from the homepage to the English one", () => {
+    expect(shouldAutoRedirect({ pathname: "/", preferred: "en", stored: null })).toBe("/en");
+    expect(shouldAutoRedirect({ pathname: "/en", preferred: "nb", stored: null })).toBe("/");
+  });
+
   it("NEVER redirects to a page that does not exist", () => {
     // The bug this caught: a hardcoded "/en" sent every non-Norwegian visitor
-    // from the homepage to a 404 for as long as the English homepage was
-    // unwritten — the worst possible first impression, and invisible in
-    // testing because the redirect itself worked perfectly. It now returns the
-    // ACTUAL translated path, or nothing.
-    expect(shouldAutoRedirect({ pathname: "/", preferred: "en", stored: null })).toBeNull();
-    expect(alternatePath("/")).toBeNull();
+    // to a 404 for as long as the English homepage was unwritten — the worst
+    // possible first impression, and invisible in testing because the redirect
+    // itself worked perfectly. It returns the ACTUAL translated path or
+    // nothing, so an untranslated page can never send anyone anywhere.
+    expect(shouldAutoRedirect({ pathname: "/om-oss", preferred: "en", stored: null })).toBeNull();
+    expect(alternatePath("/om-oss")).toBeNull();
   });
 
   it("does nothing when the visitor is already in the right language", () => {
