@@ -17,6 +17,8 @@
  * when they said one destroys trust instantly, while a blank field just means
  * the assistant asks. Everything here is pure and testable.
  */
+import { buyingSignalsIn, detectObjections } from "./stage";
+
 
 export interface LeadProfile {
   /** Private venue operator, municipality, sports club, unknown. */
@@ -203,4 +205,30 @@ export function recommendedOpening(p: LeadProfile): string {
   }
   if (p.currentTool) return `Spør hvordan ${p.currentTool} fungerer for dem i dag, og hvor det ryker.`;
   return "Spør hvordan de håndterer forespørsler og kalender i dag.";
+}
+
+/**
+ * The profile with its behavioural half filled in.
+ *
+ * `extractProfile` reads FACTS out of the text — segment, venues, capacity,
+ * cadence, tool. It always returns `objections: []` and `signals: []`, because
+ * those come from cue matching rather than extraction, and they were being
+ * added separately inside `buildLLMContext`.
+ *
+ * That split silently broke `interestScore`, which weights signals at up to 60
+ * points and objections at 10. Scoring a bare `extractProfile` result could
+ * never exceed 30 — so the notification threshold of 45 was UNREACHABLE and
+ * every lead was being caught by keyword matching instead. Found by running
+ * realistic conversations and printing the scores, which is the only reason
+ * anyone would notice: the behaviour looked correct throughout.
+ *
+ * Anything that scores or renders a lead must use this, not `extractProfile`.
+ */
+export function enrichProfile(userTurns: readonly string[]): LeadProfile {
+  const all = userTurns.join("\n");
+  return {
+    ...extractProfile(userTurns),
+    objections: detectObjections(all).map((o) => o.id),
+    signals: buyingSignalsIn(all),
+  };
 }

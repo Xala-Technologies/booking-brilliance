@@ -137,7 +137,20 @@ export function detectObjections(text: string): Objection[] {
 
 /** How many distinct buying signals the visitor has given. */
 export function countBuyingSignals(text: string): number {
-  return BUYING_SIGNALS.filter((s) => matchesCue(text, s)).length;
+  return buyingSignalsIn(text).length;
+}
+
+/**
+ * WHICH buying signals appear — the list, not the count.
+ *
+ * Uses `matchesCue`, not `includes`. That distinction is the whole reason
+ * `matchesCue` exists: a plain substring match found the cue "eier" inside
+ * "vi l-eier ut hver helg". `buildLLMContext` was filtering BUYING_SIGNALS
+ * with `includes` and so carried that bug independently; both callers now go
+ * through here.
+ */
+export function buyingSignalsIn(text: string): string[] {
+  return BUYING_SIGNALS.filter((s) => matchesCue(text, s));
 }
 
 export interface StageInput {

@@ -1,7 +1,7 @@
 import { FAQ_CATEGORIES, allFAQEntries } from "@/content/faq";
 import type { SearchItem } from "@/lib/search/corpus";
-import { BUYING_SIGNALS, detectObjections, inferStage } from "@/lib/chatbot/sales/stage";
-import { extractProfile, profileCompleteness } from "@/lib/chatbot/sales/lead";
+import { inferStage } from "@/lib/chatbot/sales/stage";
+import { enrichProfile, profileCompleteness } from "@/lib/chatbot/sales/lead";
 import { buildSalesSystemPrompt } from "@/lib/chatbot/sales/persona";
 
 export interface RagHit {
@@ -160,10 +160,10 @@ export function buildLLMContext(
   // exposed it). The sales prompt keeps the grounding rules and adds the missing
   // half: one objective per turn, driven by where the visitor actually is.
   const userTurns = [...history.filter((m) => m.role === "user").map((m) => m.text), query];
-  const profile = extractProfile(userTurns);
-  const objections = detectObjections(userTurns.join("\n")).map((o) => o.id);
-  const signals = BUYING_SIGNALS.filter((s) => userTurns.join("\n").toLowerCase().includes(s));
-  const enriched = { ...profile, objections, signals };
+  // One enrichment for the whole codebase. This used to be hand-rolled here
+  // with `includes`, which matched the cue "eier" inside "vi l-eier ut" — the
+  // exact bug `matchesCue` was written to fix, reproduced independently.
+  const enriched = enrichProfile(userTurns);
   const stage = inferStage({ userTurns, completeness: profileCompleteness(enriched) });
 
   const system = buildSalesSystemPrompt({

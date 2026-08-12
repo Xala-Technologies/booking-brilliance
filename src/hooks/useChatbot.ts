@@ -1,6 +1,5 @@
 import { useRef, useCallback, useEffect, useMemo, useReducer } from "react";
-import { claimsFalseAction, contactFromTurns, handoffNotice, honestHandoffReply, needsHuman, shouldNotify } from "@/lib/chatbot/contact";
-import { buildBriefing, extractProfile, interestScore } from "@/lib/chatbot/sales/lead";
+import { decideTurn } from "@/lib/chatbot/turn";
 import { trackConversion } from "@/lib/analytics";
 import {
   retrieve,
@@ -18,7 +17,7 @@ import type {
   Persona,
 } from "@/lib/chatbot/types";
 import { summarizeInquiry } from "@/lib/chatbot/inquiry";
-import { extractProfile } from "@/lib/chatbot/sales/lead";
+import { buildBriefing, enrichProfile, extractProfile } from "@/lib/chatbot/sales/lead";
 import {
   degradationFromError,
   degradationFromResponse,
@@ -196,7 +195,7 @@ export function useChatbot() {
    * two emails about one person is how an inbox gets ignored.
    */
   const notifyConversationStarted = useCallback(async (userTurns: string[], reason: string) => {
-    const profile = extractProfile(userTurns);
+    const profile = enrichProfile(userTurns);
     const latest = userTurns[userTurns.length - 1] ?? "";
     try {
       const res = await fetch(INQUIRY_ENDPOINT, {
@@ -308,38 +307,10 @@ export function useChatbot() {
           .filter((m) => m.role !== "system")
           .slice(-8)
           .map((m) => ({ role: m.role, text: m.text }));
-        // A visitor who types their address into the conversation has asked to
-        // be contacted just as plainly as one who fills the form. Before this
-        // that address was DISCARDED — /api/inquiry is only called from the
-        // form flow — so the most qualified leads on the site produced nothing
-        // at all. Filed once per conversation, fire-and-forget: a failure here
-        // must never delay the reply the visitor is waiting for.
-        // Set when this turn triggered a handoff, so the reply can say so.
-        let notifiedThisTurn = false;
-        const contact = contactFromTurns([
+        const userTurns = [
           ...history.filter((m) => m.role === "user").map((m) => m.text),
           trimmed,
-        ]);
-        if (contact.email && !leadFiledRef.current) {
-          leadFiledRef.current = true;
-          // Supersedes the qualified notification — one person, one email.
-          startNotifiedRef.current = true;
-          notifiedThisTurn = true;
-          void fileChatLead(contact, trimmed);
-        } else if (!startNotifiedRef.current) {
-          // Not on the first "hei", and not on message count either — on the
-          // assistant's own read of whether this is a serious prospect.
-          const userTurns = [...history.filter((m) => m.role === "user").map((m) => m.text), trimmed];
-          const verdict = shouldNotify({
-            userTurns,
-            interest: interestScore(extractProfile(userTurns)),
-          });
-          if (verdict.notify) {
-            startNotifiedRef.current = true;
-            notifiedThisTurn = true;
-            void notifyConversationStarted(userTurns, verdict.reason);
-          }
-        }
+        ];
 
         const ctx = buildLLMContext(trimmed, hits, history, results);
         const res = await fetch(CHAT_ENDPOINT, {
@@ -375,29 +346,34 @@ export function useChatbot() {
           console.warn(degradationWarning(degraded));
           dispatch({ type: "SET_DEGRADED", degraded });
         } else if (payloadText) {
-          // Last line of defence against a promise the assistant cannot keep.
-          // The prompt forbids claiming to send an offer, and a prompt is
-          // guidance rather than a guarantee — the same prompt forbade invented
-          // links and still produced /faq#q-27. A false "I've sent it" reaches a
-          // prospect and costs their trust, so it never ships even if the model
-          // ignores the instruction. The lead has already been filed above, so
-          // the replacement below is TRUE at the moment it is shown.
-          const safeText = claimsFalseAction(payloadText)
-            ? honestHandoffReply(contact)
-            : payloadText;
-          if (safeText !== payloadText) {
+          // Every judgement for this turn — guard the reply, capture contact,
+          // decide whether a human should hear about this, append the handoff
+          // notice — lives in `decideTurn`, so the scenario suite exercises the
+          // same code path production does rather than a re-implementation.
+          const decision = decideTurn({
+            userTurns,
+            reply: payloadText,
+            hitCount: hits.length,
+            leadAlreadyFiled: leadFiledRef.current,
+            alreadyNotified: startNotifiedRef.current,
+          });
+
+          if (decision.guardTripped) {
             console.warn("[chatbot] suppressed a reply claiming an action it cannot perform:", payloadText);
           }
-          // Tell the visitor a human is being brought in — and make clear the
-          // assistant is still here. Appended deterministically rather than
-          // asked of the model: this is a statement of fact about something
-          // that just happened, and the one kind of sentence that must never
-          // be hallucinated OR omitted.
-          const withNotice = notifiedThisTurn ? `${safeText}${handoffNotice(Boolean(contact.email))}` : safeText;
+          if (decision.notify === "lead") {
+            leadFiledRef.current = true;
+            startNotifiedRef.current = true; // one person, one email
+            void fileChatLead(decision.contact, trimmed);
+          } else if (decision.notify === "qualified") {
+            startNotifiedRef.current = true;
+            void notifyConversationStarted(userTurns, decision.reason);
+          }
+
           const assistantMsg: ChatMessage = {
             id: cryptoId(),
             role: "assistant",
-            text: withNotice,
+            text: decision.text,
             sourceQ: hits[0]?.q,
             suggestions: followUpSuggestions(hits[0], segment),
             // Show the escalation whenever the visitor wants something only a
@@ -405,7 +381,7 @@ export function useChatbot() {
             // old `hits.length === 0` hid the button on exactly the turns that
             // needed it: "hva koster det for to lokaler" matches the pricing
             // FAQ, so retrieval SUCCEEDS and the way out disappeared.
-            showInquiryCta: hits.length === 0 || needsHuman(trimmed) || safeText !== payloadText,
+            showInquiryCta: decision.showInquiryCta,
             results,
             timestamp: Date.now(),
           };
