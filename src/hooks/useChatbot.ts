@@ -15,6 +15,7 @@ import type {
   Persona,
 } from "@/lib/chatbot/types";
 import { summarizeInquiry } from "@/lib/chatbot/inquiry";
+import { extractProfile } from "@/lib/chatbot/sales/lead";
 import {
   degradationFromError,
   degradationFromResponse,
@@ -169,6 +170,13 @@ export function useChatbot() {
       dispatch({ type: "SET_THINKING", value: true });
       dispatch({ type: "SET_ERROR", error: null });
 
+      // Segment drives the follow-up chips: a private venue operator must not be
+      // offered SSA-L / kommune questions just because the FAQ corpus is
+      // municipality-heavy and that is what their message matched.
+      const segment = extractProfile([
+        ...state.messages.filter((m) => m.role === "user").map((m) => m.text),
+        trimmed,
+      ]).segment;
       const hits = retrieve(trimmed, 3);
       // Whole-site intelligent search — shown as clickable cards under the reply
       // and fed to the LLM so it can cite pages/blog, not just FAQ.
@@ -221,7 +229,7 @@ export function useChatbot() {
             role: "assistant",
             text: payloadText,
             sourceQ: hits[0]?.q,
-            suggestions: followUpSuggestions(hits[0]),
+            suggestions: followUpSuggestions(hits[0], segment),
             showInquiryCta: hits.length === 0,
             results,
             timestamp: Date.now(),
@@ -251,7 +259,7 @@ export function useChatbot() {
           role: "assistant",
           text: `${lead}${answerFrom(top)}`,
           sourceQ: top.q,
-          suggestions: followUpSuggestions(top),
+          suggestions: followUpSuggestions(top, segment),
           results,
           timestamp: Date.now(),
         };

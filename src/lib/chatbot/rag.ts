@@ -80,20 +80,45 @@ export const STARTER_SUGGESTIONS: string[] = [
 ];
 
 /** Follow-up suggestions to keep the conversation moving. */
-export function followUpSuggestions(lastHit?: RagHit): string[] {
-  const generic = [
-    "Hvilke kunder bruker Digilist?",
-    "Datasuverenitet og GDPR",
-    "Snakk med en rådgiver",
-  ];
+/** Wording that only makes sense to a municipality. */
+const MUNICIPAL_RE = /kommune|ssa-l|sesongtildel|anskaffelse|innbygger|saksbehandl|offentlig sektor/i;
+
+/**
+ * Follow-up chips under the assistant's answer.
+ *
+ * `segment` matters more than it looks. The chips are siblings of whichever FAQ
+ * entry matched, and the corpus is municipality-heavy — so a private venue
+ * operator describing a kulturhus matched "Hvilke kommunale anleggstyper
+ * støttes?" and was offered "Oppfyller Digilist SSA-L 2026-kravene?" and "Kan
+ * kommunen importere bookinger fra eksisterende system?".
+ *
+ * That happened on a real lead. The LLM answer beside it had already adapted to
+ * a private customer; the chips had not, because they never went near the model
+ * — they are pure FAQ lookup. Fixing the prompt could never fix them.
+ */
+export function followUpSuggestions(
+  lastHit?: RagHit,
+  segment?: "privat" | "kommune" | "lag-forening" | null,
+): string[] {
+  const generic =
+    segment === "privat"
+      ? ["Hvordan fungerer betaling for gjestene?", "Hva slags kontrakter tilbys?", "Snakk med en rådgiver"]
+      : ["Hvilke kunder bruker Digilist?", "Datasuverenitet og GDPR", "Snakk med en rådgiver"];
   if (!lastHit) return generic;
-  // Suggest a sibling question from the same category
+
   const cat = FAQ_CATEGORIES.find((c) => c.label === lastHit.category);
   if (cat) {
     const siblings = cat.questions
       .filter((q) => q.q !== lastHit.q)
+      // A private customer is never shown municipal follow-ups. Only filter when
+      // we actually know the segment — guessing wrong would hide relevant
+      // questions from a municipality, which is the more costly mistake.
+      .filter((q) => (segment === "privat" ? !MUNICIPAL_RE.test(q.q) : true))
       .slice(0, 2)
       .map((q) => q.q);
+    // Everything in the matched category was municipal — fall back rather than
+    // show a lone "Snakk med en rådgiver" chip.
+    if (siblings.length === 0) return generic;
     return [...siblings, "Snakk med en rådgiver"];
   }
   return generic;
