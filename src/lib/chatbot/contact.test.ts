@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { SALES_PERSONA } from "./sales/persona";
-import { claimsFalseAction, contactFromTurns, extractContact, honestHandoffReply, needsHuman } from "./contact";
+import { claimsFalseAction, contactFromTurns, extractContact, honestHandoffReply, needsHuman, shouldNotify } from "./contact";
 
 describe("extractContact", () => {
   it("pulls an email out of a bare reply, the way visitors actually answer", () => {
@@ -152,5 +152,47 @@ describe("needsHuman — when to put the escalation in front of the visitor", ()
     ]) {
       expect(needsHuman(ask), ask).toBe(false);
     }
+  });
+});
+
+describe("shouldNotify — hold the email until it is worth reading", () => {
+  it("stays quiet on an opening hello", () => {
+    // The first version emailed on this. One notification per "hei" buries the
+    // signal it exists to surface.
+    expect(shouldNotify({ userTurns: ["hei"], completeness: 0 }).notify).toBe(false);
+  });
+
+  it("fires immediately when they ask for something only a human can deliver", () => {
+    const v = shouldNotify({ userTurns: ["hei", "kan vi få et tilbud?"], completeness: 0 });
+    expect(v.notify).toBe(true);
+    expect(v.reason).toContain("bare et menneske");
+  });
+
+  it("fires once the assistant has learned enough about them", () => {
+    const v = shouldNotify({ userTurns: ["vi har to lokaler"], completeness: 0.5 });
+    expect(v.notify).toBe(true);
+    expect(v.reason).toContain("profilen");
+  });
+
+  it("fires on a conversation that simply keeps going", () => {
+    const v = shouldNotify({
+      userTurns: ["hei", "hvordan virker sesongleie?", "og betaling?"],
+      completeness: 0,
+    });
+    expect(v.notify).toBe(true);
+    expect(v.reason).toContain("3 meldinger");
+  });
+
+  it("only looks at the LATEST turn for the human-needed trigger", () => {
+    // Otherwise a conversation that mentioned "tilbud" once would re-qualify on
+    // every subsequent turn; the caller fires once, but the rule should be
+    // honest on its own.
+    expect(
+      shouldNotify({ userTurns: ["kan vi få et tilbud?", "takk"], completeness: 0 }).notify,
+    ).toBe(false);
+  });
+
+  it("handles an empty conversation without throwing", () => {
+    expect(shouldNotify({ userTurns: [], completeness: 0 }).notify).toBe(false);
   });
 });

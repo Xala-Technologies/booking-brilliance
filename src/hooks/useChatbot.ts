@@ -1,5 +1,6 @@
 import { useRef, useCallback, useEffect, useMemo, useReducer } from "react";
-import { claimsFalseAction, contactFromTurns, honestHandoffReply, needsHuman } from "@/lib/chatbot/contact";
+import { claimsFalseAction, contactFromTurns, honestHandoffReply, needsHuman, shouldNotify } from "@/lib/chatbot/contact";
+import { buildBriefing, extractProfile, profileCompleteness } from "@/lib/chatbot/sales/lead";
 import { trackConversion } from "@/lib/analytics";
 import {
   retrieve,
@@ -194,7 +195,9 @@ export function useChatbot() {
    * goes straight to `fileChatLead`, which sends the richer notification, and
    * two emails about one person is how an inbox gets ignored.
    */
-  const notifyConversationStarted = useCallback(async (firstTurn: string) => {
+  const notifyConversationStarted = useCallback(async (userTurns: string[], reason: string) => {
+    const profile = extractProfile(userTurns);
+    const latest = userTurns[userTurns.length - 1] ?? "";
     try {
       const res = await fetch(INQUIRY_ENDPOINT, {
         method: "POST",
@@ -204,10 +207,15 @@ export function useChatbot() {
           phone: "",
           name: "",
           organization: "",
-          persona: "ukjent",
-          topic: "Samtale startet i chatten",
-          message: firstTurn,
-          summary: `Chat startet: «${firstTurn.slice(0, 90)}»`,
+          persona: profile.segment ?? "ukjent",
+          topic: `Pågående samtale — ${reason}`,
+          message: latest,
+          // The briefing is the point. A raw "someone said hei" tells a human
+          // nothing; what the assistant has established about them — segment,
+          // number of venues, objections, buying signals — is what makes the
+          // email worth opening and gives whoever calls an opening line.
+          contextSummary: `${buildBriefing(profile)}\n\nSamtale:\n${userTurns.map((t, i) => `${i + 1}. ${t}`).join("\n")}`,
+          summary: `Chat: ${reason} — «${latest.slice(0, 70)}»`,
           source: "chatbot-started",
           chatStarted: true,
           page: typeof window !== "undefined" ? window.location.pathname : "/",
@@ -316,8 +324,17 @@ export function useChatbot() {
           startNotifiedRef.current = true;
           void fileChatLead(contact, trimmed);
         } else if (!startNotifiedRef.current) {
-          startNotifiedRef.current = true;
-          void notifyConversationStarted(trimmed);
+          // Not on the first "hei". Give the assistant room to do its job, and
+          // report once the conversation is actually worth a human's time.
+          const userTurns = [...history.filter((m) => m.role === "user").map((m) => m.text), trimmed];
+          const verdict = shouldNotify({
+            userTurns,
+            completeness: profileCompleteness(extractProfile(userTurns)),
+          });
+          if (verdict.notify) {
+            startNotifiedRef.current = true;
+            void notifyConversationStarted(userTurns, verdict.reason);
+          }
         }
 
         const ctx = buildLLMContext(trimmed, hits, history, results);

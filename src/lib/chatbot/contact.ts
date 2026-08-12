@@ -140,3 +140,42 @@ const NEEDS_HUMAN: readonly RegExp[] = [
 export function needsHuman(text: string): boolean {
   return NEEDS_HUMAN.some((re) => re.test(text));
 }
+
+/** User turns before a conversation is worth a human's attention on its own. */
+export const QUALIFY_AFTER_TURNS = 3;
+
+export interface QualifyInput {
+  /** Everything the visitor has said, oldest first. */
+  userTurns: readonly string[];
+  /** How much of the lead profile the assistant has managed to establish, 0-1. */
+  completeness: number;
+}
+
+/**
+ * Should this conversation be reported to Digilist yet?
+ *
+ * The first version notified on the visitor's FIRST message. That met the
+ * literal requirement — know who is getting in touch — and would have buried
+ * it: one email per "hei", most of them carrying nothing a human could act on.
+ * The requirement is really that nobody reaches out INVISIBLY, not that every
+ * keystroke is announced.
+ *
+ * So the assistant is given room to do its job first, and the notification
+ * fires when the conversation has become worth reading:
+ *
+ *   - they ask for something only a human can deliver (tilbud, demo, ring meg)
+ *   - they have said enough that the profile is half-built
+ *   - or the conversation simply keeps going
+ *
+ * Contact details are handled separately and always report immediately —
+ * someone who hands over an address has already decided.
+ */
+export function shouldNotify(input: QualifyInput): { notify: boolean; reason: string } {
+  const latest = input.userTurns[input.userTurns.length - 1] ?? "";
+  if (needsHuman(latest)) return { notify: true, reason: "ba om noe bare et menneske kan levere" };
+  if (input.completeness >= 0.5) return { notify: true, reason: "fortalte nok til at profilen er halvveis kjent" };
+  if (input.userTurns.length >= QUALIFY_AFTER_TURNS) {
+    return { notify: true, reason: `samtalen har vart i ${input.userTurns.length} meldinger` };
+  }
+  return { notify: false, reason: "" };
+}
