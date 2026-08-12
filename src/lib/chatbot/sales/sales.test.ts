@@ -15,7 +15,7 @@ import {
   recommendedOpening,
   renderKnownFacts,
 } from "./lead";
-import { buildSalesSystemPrompt, SALES_PERSONA } from "./persona";
+import { buildSalesSystemPrompt, FAQ_ANCHORS, SALES_PERSONA } from "./persona";
 
 /**
  * TRAINING CASE #1 — the conversation that exposed all of this.
@@ -252,6 +252,30 @@ describe("the prompt", () => {
   // The old prompt's closing move. It is now explicitly forbidden.
   it("forbids ending on 'kontakt salg'", () => {
     expect(SALES_PERSONA).toContain("Aldri skriv «kontakt salg»");
+  });
+
+  /**
+   * A live lead on 2026-08-12 was told "Se også /faq#q-27". That anchor has
+   * never existed — the FAQ emits anchors from category ids. A bad fragment does
+   * not 404; it silently drops the visitor at the top of the page, which is the
+   * same silent-failure shape as the FAQ fallback itself.
+   *
+   * Forbidding invented links is only half the fix: a model told "no links" when
+   * it has something worth pointing at will disobey or drop a useful reference.
+   * So it also gets the real list.
+   */
+  it("forbids invented links and supplies the real anchors", () => {
+    expect(SALES_PERSONA).toContain("Aldri finn på en lenke");
+    const p = buildSalesSystemPrompt(base);
+    expect(p).toContain("GYLDIGE FAQ-LENKER");
+    expect(p).toContain("/faq#priser");
+  });
+
+  it("every advertised anchor matches a real FAQ category id", () => {
+    // The ids the FAQ page actually renders (src/content/faq.ts).
+    const real = ["produkt", "funksjonalitet", "kommune", "samsvar", "teknologi", "priser", "support"];
+    expect(FAQ_ANCHORS.map((a) => a.replace("/faq#", ""))).toEqual(real);
+    expect(FAQ_ANCHORS.some((a) => /q-\d+/.test(a))).toBe(false);
   });
 });
 

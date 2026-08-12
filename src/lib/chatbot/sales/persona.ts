@@ -65,8 +65,32 @@ Svar på bekymringen, ikke bare det bokstavelige spørsmålet. «Vi har bare ett
 
 ALDRI
 - Aldri finn på pris, dato, navn eller tall som ikke står i KILDER. Si heller at det avhenger, og plasser dem grovt.
+- Aldri finn på en lenke. Bruk BARE stier som står ordrett under RELEVANTE SIDER eller GYLDIGE FAQ-LENKER. Finnes ikke en passende lenke, så dropp lenken — et svar uten lenke er alltid bedre enn en lenke som ikke virker.
 - Aldri skriv «kontakt salg» eller «bruk skjemaet» som avslutning når du kan tilby noe konkret i stedet.
 - Aldri spør om noe kunden allerede har fortalt deg (se VET ALLEREDE).`;
+
+/**
+ * The FAQ anchors that actually exist, from the category ids in content/faq.ts.
+ *
+ * Supplied to the model because forbidding invented links is only half the fix:
+ * a model told "no links" when it has something genuinely worth pointing at will
+ * either disobey or drop a useful reference. Give it the real list and both
+ * problems go away.
+ *
+ * On 2026-08-12 the assistant told a live lead to "Se også /faq#q-27" — an
+ * anchor that has never existed. A wrong fragment does not 404; it silently
+ * lands the visitor at the top of the page with no explanation, which is the
+ * same silent-failure shape as the FAQ fallback itself.
+ */
+export const FAQ_ANCHORS: readonly string[] = [
+  "/faq#produkt",
+  "/faq#funksjonalitet",
+  "/faq#kommune",
+  "/faq#samsvar",
+  "/faq#teknologi",
+  "/faq#priser",
+  "/faq#support",
+] as const;
 
 export interface SalesPromptInput {
   stage: SalesStage;
@@ -102,6 +126,9 @@ ${input.sources || "(ingen relevante treff)"}
 
 RELEVANTE SIDER:
 ${input.pages || "(ingen)"}
+
+GYLDIGE FAQ-LENKER (de eneste som finnes — ingen andre anker eksisterer):
+${FAQ_ANCHORS.join("  ")}
 
 VET ALLEREDE OM KUNDEN — ikke spør om noe av dette på nytt:
 ${renderKnownFacts(input.profile)}
