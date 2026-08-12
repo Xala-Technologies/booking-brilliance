@@ -86,6 +86,8 @@ const nb: Copy = {
   "how.step4.title": "Oppfølging",
   "how.step4.body":
     "Faktura og bilag til Visma, Tripletex, Fiken, PowerOffice, DNB Regnskap eller EHF/Peppol. Rapportering, KPI-er og økonomisk avstemming i én plattform.",
+
+  "cta.label": "BOOK EN DEMO",
 };
 
 const en: Copy = {
@@ -144,6 +146,8 @@ const en: Copy = {
   "how.step4.title": "Follow-up",
   "how.step4.body":
     "Invoices and vouchers to the common accounting systems, or by the European e-invoicing standard. Reporting, KPIs and financial reconciliation in one platform.",
+
+  "cta.label": "BOOK A DEMO",
 };
 
 const DICT: Record<Locale, Copy> = { nb, en };
