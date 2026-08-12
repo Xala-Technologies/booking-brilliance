@@ -23,7 +23,14 @@
     --paper-tinted: 38 46% 90%;       /* #F0E6D2 — light warm oat (section bands, cozy) */
     --ink: 222 47% 11%;               /* #0f172a — ds neutral-text-default */
     --ink-soft: 215 25% 27%;          /* #334155 — slate-700 */
-    --ink-faint: 215 19% 40%;         /* #525c6c — AA 5.1:1 on paper-deep */
+    /* Was 40%, which read 5.7:1 on --paper but only 4.24:1 on --footer — and
+       the footer uses text-ink-faint ten times. 36% clears AA on every token
+       surface (footer 4.95:1, paper-deep 6.3:1, paper 6.6:1) and is visually
+       indistinguishable at this lightness. Pinned by token-contrast.test.ts;
+       do not raise it back without running that.
+       Still NOT safe on arbitrary hard-coded surfaces: on the hero's #e3e7ed
+       chrome under a 5% black overlay it is under AA. Use --ink-soft there. */
+    --ink-faint: 215 19% 36%;
     --rule: 215 16% 47% / 0.18;       /* slate-500 @ 18% */
     --rule-strong: 215 16% 47% / 0.32;
     --navy: 207 100% 17%;             /* #003057 — ds accent-base-default (button bg) */
@@ -34,7 +41,6 @@
     --on-navy: 0 0% 100%;             /* always white — text on navy buttons */
     --aqua: 190 60% 76%;
     --green: 88 50% 53%;
-    --ochre: 36 50% 38%;
 
     /* Footer surface — deliberately deeper than --paper-deep so the footer
        reads as its own zone rather than a continuation of the page. At 82%
@@ -51,6 +57,15 @@
     --kobber: 24 46% 38%;
     --terrakotta: 14 42% 41%;
     --rav: 30 50% 35%;
+    /* --ochre lives HERE, inside the tuned family, because it sat above this
+       block and was the only member never brought into the tuning pass. It
+       kept its original 38% lightness and failed AA as text: #916b30 on
+       --paper is 4.48:1, just under 4.5, which axe measured as 4.47 on the
+       PILOT status label at /teknologi. At 34% it is 5.38:1 on --paper,
+       4.85:1 on --paper-deep and 4.81:1 on --paper-tinted, so it now passes
+       wherever it lands rather than only on the one surface someone checked.
+       Also serves as --chart-4, where a slightly deeper fill is harmless. */
+    --ochre: 36 50% 34%;
 
     /* ------------------------------------------------------------------ */
     /* shadcn semantic mapping → editorial tokens                          */
