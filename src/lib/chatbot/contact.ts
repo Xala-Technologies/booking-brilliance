@@ -156,7 +156,21 @@ export function claimsFalseAction(reply: string): boolean {
  * point of the sentence, and a surgically-patched sentence tends to read as a
  * non-sequitur. Better one honest sentence than a repaired lie.
  */
-export function honestHandoffReply(contact: ChatContact): string {
+export function honestHandoffReply(contact: ChatContact, cause?: string): string {
+  // An invented price is a different failure from an invented action, and the
+  // generic reply answers neither. Grading the live model caught it twice in
+  // 101 runs: a scout group asked for the cheapest option and was told
+  // "Digilist koster fra omkring 300 kroner månedlig" — a number in no source.
+  // Suppressing that is right; replacing it with "a rådgiver will be in touch"
+  // is a dead end at exactly the moment someone is trying to buy. So the
+  // replacement answers the question that was actually asked: it says WHY
+  // there is no number, and what decides it.
+  if (cause === "invented-price") {
+    const tail = contact.email
+      ? `En rådgiver tar kontakt på ${contact.email} med et konkret tall.`
+      : "Hva er den beste e-postadressen, så får du et konkret tall fra en rådgiver?";
+    return `Jeg vil ikke gjette på pris — den avhenger av hvor mange lokaler dere har og hva dere faktisk trenger, og et tall jeg finner på ville vært verre enn ingen. ${tail}`;
+  }
   if (contact.email) {
     return `Takk — jeg sender forespørselen videre til en rådgiver, som tar kontakt på ${contact.email}. Er det noe du vil de skal vite på forhånd?`;
   }

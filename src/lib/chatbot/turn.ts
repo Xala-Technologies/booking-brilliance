@@ -95,7 +95,9 @@ export function decideTurn(input: TurnInput): TurnDecision {
   const guardTripped = mustBlock;
   // Replaced wholesale rather than patched: the violation is usually the point
   // of the sentence, and a surgically-edited claim reads as a non-sequitur.
-  const base = mustBlock ? honestHandoffReply(contact) : input.reply;
+  // The FIRST blocking rule decides the replacement. Only the price case has
+  // its own wording so far; everything else falls back to the generic handoff.
+  const base = mustBlock ? honestHandoffReply(contact, blocking(violations)[0]?.rule) : input.reply;
   const text = notify !== "none" ? `${base}${handoffNotice(Boolean(contact.email))}` : base;
 
   return {

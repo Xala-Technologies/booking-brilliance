@@ -296,3 +296,26 @@ describe("claimsFalseAction — the two false positives grading found", () => {
     ).toBe(true);
   });
 });
+
+describe("honestHandoffReply — a suppressed price must not become a dead end", () => {
+  it("explains why there is no number instead of changing the subject", () => {
+    const reply = honestHandoffReply({ email: null, phone: null }, "invented-price");
+    expect(reply).toContain("pris");
+    // The honest reason, not a deflection. Someone who asked what it costs and
+    // got "a rådgiver will be in touch" has been dismissed, not answered.
+    expect(reply).toMatch(/avhenger|gjette/);
+    expect(reply).toContain("e-postadressen");
+  });
+
+  it("uses the address it already has rather than asking again", () => {
+    const reply = honestHandoffReply({ email: "kari@lillevik.no", phone: null }, "invented-price");
+    expect(reply).toContain("kari@lillevik.no");
+    expect(reply).not.toContain("Hva er den beste");
+  });
+
+  it("keeps the generic handoff for every other blocked rule", () => {
+    expect(honestHandoffReply({ email: null, phone: null }, "false-action")).toContain("rådgiver");
+    expect(honestHandoffReply({ email: null, phone: null }, "false-action")).not.toContain("gjette");
+    expect(honestHandoffReply({ email: null, phone: null })).toContain("rådgiver");
+  });
+});

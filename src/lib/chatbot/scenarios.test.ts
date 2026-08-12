@@ -121,6 +121,15 @@ describe("false-action guard, end to end", () => {
       expect(last.text).not.toContain("sender tilbudet nå");
       expect(last.text).toContain("rådgiver");
     }
+    if (scenario.id === "modellen-finner-pa-pris") {
+      // The invented number is gone, AND the replacement still answers the
+      // question. `decideTurn` picks the wording from the blocking rule, and
+      // nothing exercised that seam: dropping the rule argument left every
+      // test green while a visitor asking about price got a reply about
+      // nothing. Coverage is not assertion; this is the assertion.
+      expect(last.text).not.toContain("300");
+      expect(last.text).toMatch(/gjette|avhenger/);
+    }
     if (scenario.expectEmail) expect(last.contact.email).toBe(scenario.expectEmail);
   });
 });
