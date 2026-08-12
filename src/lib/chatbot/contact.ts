@@ -123,19 +123,56 @@ export function honestHandoffReply(contact: ChatContact): string {
  * up handing an email to a chat bubble instead of to a form.
  */
 const NEEDS_HUMAN: readonly RegExp[] = [
+  // Price for THEIR setup, across both written standards and the verb forms
+  // people actually use. "hva ville det koste for oss" missed on the original,
+  // which required the present tense — and that was a municipality asking to
+  // buy under the procurement threshold, the exact buyer this site is for.
+  /\b(hva|kva)\s+(vil|ville|kan)?\s*(det\s+)?(koster?|kostar?|koste)\b/iu,
+  /\bpris(tilbud|overslag|eksempel)?\s+(for|på)\s+(oss|v[åa]rt|v[åa]re|dette)/iu,
   /\btilbud\b/iu,
   /\bpristilbud\b/iu,
   /\bdemo\b/iu,
   /\bring(e)?\s+(meg|oss|dere)\b/iu,
   /\bkontakt(e)?\s+(meg|oss)\b/iu,
   /\bta\s+kontakt\b/iu,
-  /\bsnakke?\s+med\s+(en\s+)?(rådgiver|selger|menneske|noen)\b/iu,
-  /\bavtale\s+(et\s+)?møte\b/iu,
-  /\bhva\s+koster\s+det\s+for\s+(oss|v[åa]rt|v[åa]re|to|tre|\d)/iu,
+  /\bsnakke?\s+med\s+(en\s+)?(r[åa]dgiver|selger|menneske|noen)\b/iu,
+  /\bavtale\s+(et\s+)?m[øo]te\b/iu,
   // "kommer VI i gang" — Norwegian puts the subject between verb and phrase.
   /\bkomme(r|t)?\s+(?:vi|dere|man|jeg|de)?\s*i\s+gang\b/iu,
-  /\bsend\s+(meg|oss)\b/iu,
+  // "send meg", "send oss", and "send til <address>" — the last one is how
+  // people hand over contact details without typing a parseable address.
+  /\bsend\s+(meg|oss|til)\b/iu,
+
+  // English. Every cue above is Norwegian, and an English-speaking operator
+  // saying "can we get a quote" scored exactly nothing — the site is Norwegian
+  // but its buyers are not all Norwegian-writing.
+  /\b(a\s+)?quote\b/iu,
+  /\bpricing\b/iu,
+  /\b(cost|price)\s+for\s+(us|our)\b/iu,
+  /\bcall\s+me\b/iu,
+  /\bcontact\s+(me|us)\b/iu,
+  /\btalk\s+to\s+(sales|someone|an?\s+advisor)\b/iu,
+  /\bbook\s+a\s+(meeting|demo|call)\b/iu,
+  /\bget\s+started\b/iu,
 ];
+
+/**
+ * Someone selling TO Digilist rather than buying from it.
+ *
+ * "kan vi avtale et møte med noen hos dere?" trips every meeting cue above, and
+ * it is an SMS vendor pitching in. Filing that as a lead puts a supplier in the
+ * sales pipeline and is the clearest false positive the scenario suite found.
+ *
+ * Requires BOTH a vendor verb and a directed-at-us phrase, so a customer
+ * describing their own business — "vi leverer catering til bryllup" — is not
+ * caught. Direction is what separates the two, not vocabulary.
+ */
+const VENDOR_VERB = /\b(vi\s+(leverer|tilbyr|selger|lager|utvikler)|we\s+(provide|offer|sell|build))\b/iu;
+const PITCHED_AT_US = /\b(til|for|hos)\s+dere\b|\bpresentere\b|\bsamarbeid\b|\bpartnerskap\b|\bpartnership\b|\byour\s+(team|company)\b/iu;
+
+export function sellingToUs(text: string): boolean {
+  return VENDOR_VERB.test(text) && PITCHED_AT_US.test(text);
+}
 
 export function needsHuman(text: string): boolean {
   return NEEDS_HUMAN.some((re) => re.test(text));
@@ -205,6 +242,11 @@ export interface QualifyInput {
  */
 export function shouldNotify(input: QualifyInput): { notify: boolean; reason: string } {
   const latest = input.userTurns[input.userTurns.length - 1] ?? "";
+  // A supplier pitching in trips the meeting cues but is not a lead. Checked
+  // across the whole conversation: the pitch usually arrives before the ask.
+  if (sellingToUs(input.userTurns.join("\n"))) {
+    return { notify: false, reason: "" };
+  }
   if (needsHuman(latest)) {
     return { notify: true, reason: "ba om noe bare et menneske kan levere" };
   }

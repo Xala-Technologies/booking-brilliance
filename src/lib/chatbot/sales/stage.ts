@@ -110,10 +110,32 @@ export const OBJECTIONS: readonly Objection[] = [
  * a buying visitor wants a next step. Treating a buying signal as an FAQ lookup
  * is the single most expensive mistake this assistant can make.
  */
+/**
+ * Cues that someone is buying rather than reading.
+ *
+ * Three vocabularies, because the site is Norwegian and its buyers are not all
+ * Norwegian-writing. The scenario suite caught the gap: an English operator
+ * saying "we want to replace our current system, can we get a quote" and a
+ * Nynorsk one asking "kva kostar det" both scored ZERO. They still notified —
+ * `needsHuman` matched the phrasing — but the score, which is what decides
+ * borderline cases, was blind to them entirely.
+ *
+ * `matchesCue` is prefix-anchored, so a stem covers its inflections: "pris"
+ * catches "prisen"/"priser"/"prisnivå", "kostar" catches "kostar det".
+ */
 export const BUYING_SIGNALS: readonly string[] = [
+  // Bokmål
   "pris", "hva koster", "tilbud", "demo", "komme i gang", "hvor raskt",
-  "kontrakt", "abonnement", "betaling", "bytte løsning", "vurderer",
-  "kan vi bruke", "passer det for oss", "hvordan starter",
+  "kontrakt", "abonnement", "betaling", "bytte løsning", "bytte system",
+  "vurderer", "kan vi bruke", "passer det for oss", "hvordan starter",
+  // Bare "koste" as well as "hva koster": a municipality wrote "hva VILLE DET
+  // koste for oss", where the literal phrase does not match but the verb does.
+  "koste",
+  // Nynorsk
+  "kva kostar", "kostar", "kva kostnad", "byte system", "vurderer å byte",
+  // English
+  "quote", "pricing", "cost", "subscription", "contract", "get started",
+  "replace our", "switch from", "how much", "trial", "onboarding",
 ] as const;
 
 /**

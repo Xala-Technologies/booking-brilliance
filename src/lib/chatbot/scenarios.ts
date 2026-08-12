@@ -181,3 +181,168 @@ export const GUARD_SCENARIOS: Scenario[] = [
     note: "The guard must not gut the sales conversation. Talking about an offer is the job.",
   },
 ];
+
+/**
+ * Batch 2 — what the first ten did not reach.
+ *
+ * The first ten were clean archetypes: an obvious buyer, an obvious bot. These
+ * are the awkward middle, where a lead-scorer actually earns its keep —
+ * conversations that change direction, visitors adjacent to a sale rather than
+ * in one, and the input shapes that break naive matching.
+ */
+export const SCENARIOS_BATCH_2: Scenario[] = [
+  // ── the strategic case: sub-threshold municipal buyer ──────────────────
+  {
+    id: "liten-kommune-under-terskel",
+    kind: "serious",
+    who: "Small municipality buying below the procurement threshold",
+    turns: [
+      "vi er en liten kommune med ett kulturhus",
+      "vi trenger ikke anbud siden dette er under terskelverdien",
+      "hva ville det koste for oss?",
+    ],
+    expectNotify: true,
+    note: "The buyer the paid-search brief was corrected for: no Doffin notice, decides alone, searchable. Must never be dismissed as 'municipal software goes to tender'.",
+  },
+
+  // ── negotiation and objection ──────────────────────────────────────────
+  {
+    id: "prisforhandling",
+    kind: "serious",
+    who: "Operator pushing back on price after a real conversation",
+    turns: [
+      "vi har 3 selskapslokaler og leier ut hver helg",
+      "vi bruker et regneark i dag",
+      "det høres dyrt ut, konkurrenten tar mindre",
+    ],
+    expectNotify: true,
+    note: "A price objection late in a qualified conversation is among the strongest buying signals there is. Nobody negotiates over something they will not buy.",
+  },
+  {
+    id: "blir-kald",
+    kind: "browser",
+    who: "Starts interested, then drifts away",
+    turns: ["hva koster det?", "hmm ok", "takk uansett, skal tenke på det"],
+    expectNotify: true,
+    note: "Asks price on turn one, so it qualifies immediately and correctly — the cooling happens AFTER. Worth knowing precisely because a follow-up is what turns this around.",
+  },
+
+  // ── language ───────────────────────────────────────────────────────────
+  {
+    id: "engelsk-kunde",
+    kind: "serious",
+    who: "English-speaking operator, serious intent",
+    turns: [
+      "hi, do you support booking for multiple venues?",
+      "we run 4 event spaces in oslo and want to replace our current system",
+      "can we get a quote?",
+    ],
+    expectNotify: true,
+    note: "Every cue list is Norwegian. An English buyer saying 'quote' and 'replace our current system' scores nothing — the clearest gap this batch exposes.",
+  },
+  {
+    id: "nynorsk-kunde",
+    kind: "serious",
+    who: "Writes Nynorsk, which the cue lists do not cover",
+    turns: ["vi har eit kulturhus", "kva kostar det for oss?"],
+    expectNotify: true,
+    note: "'kva kostar' is Nynorsk for 'hva koster'. Norwegian is two written standards and the cues know one.",
+  },
+
+  // ── contact-detail edge cases ──────────────────────────────────────────
+  {
+    id: "signatur-lim-inn",
+    kind: "serious",
+    who: "Pastes an email signature containing several addresses",
+    turns: [
+      "vi vurderer å bytte system",
+      "Med vennlig hilsen Kari Nordmann, Daglig leder, Bygdehuset AS — kari@bygdehuset.no | post@bygdehuset.no | tlf 912 34 567",
+    ],
+    expectNotify: true,
+    expectEmail: "kari@bygdehuset.no",
+    note: "Takes the FIRST address. A signature has several and the personal one comes first — filing the generic inbox loses the human.",
+  },
+  {
+    id: "bare-telefon",
+    kind: "serious",
+    who: "Gives a phone number and no email",
+    turns: ["vi har to idrettshaller", "ring meg heller, 91234567"],
+    expectNotify: true,
+    expectEmail: null,
+    note: "Qualifies via 'ring meg' rather than an address. The notification must still go out, with the number in it.",
+  },
+  {
+    id: "epost-med-mellomrom",
+    kind: "serious",
+    who: "Types an address the way people avoid scrapers",
+    turns: ["send til post (at) lokalet.no"],
+    expectNotify: true,
+    expectEmail: null,
+    note: "'(at)' is not an address and must not be parsed as one — but 'send til' should still escalate. Tests that the two paths are independent.",
+  },
+
+  // ── adjacent, not a customer ───────────────────────────────────────────
+  {
+    id: "jobbsoker",
+    kind: "irrelevant",
+    who: "Job seeker",
+    turns: ["hei, har dere ledige stillinger for utviklere?", "jeg har 5 års erfaring med react"],
+    expectNotify: false,
+    note: "Nothing here is a purchase. If this notifies, so does every applicant.",
+  },
+  {
+    id: "leverandor-selger-inn",
+    kind: "irrelevant",
+    who: "Vendor selling TO Digilist",
+    turns: [
+      "hei! vi leverer SMS-tjenester og vil gjerne presentere for dere",
+      "kan vi avtale et møte med noen hos dere?",
+    ],
+    expectNotify: false,
+    note: "'avtale et møte' trips needsHuman — but this is someone selling to us, not buying. The clearest false-positive risk in the keyword list.",
+  },
+  {
+    id: "journalist",
+    kind: "irrelevant",
+    who: "Journalist on deadline",
+    turns: ["jeg er journalist i kommunal rapport", "kan jeg få en kommentar om digitalisering i kommunene?"],
+    expectNotify: false,
+    note: "Should reach comms, not sales. Notifying is not harmful, but it is the wrong queue.",
+  },
+  {
+    id: "student-oppgave",
+    kind: "irrelevant",
+    who: "Student writing an assignment",
+    turns: ["jeg skriver bacheloroppgave om bookingsystemer", "kan dere fortelle om arkitekturen deres?"],
+    expectNotify: false,
+    note: "Deep, engaged questions with zero purchase intent — exactly the shape that fools an activity-based trigger.",
+  },
+
+  // ── existing customer ──────────────────────────────────────────────────
+  {
+    id: "eksisterende-vil-utvide",
+    kind: "serious",
+    who: "Existing customer wanting to add venues",
+    turns: ["vi bruker digilist for ett bygg allerede", "nå vil vi legge til tre til, hva koster det?"],
+    expectNotify: true,
+    note: "Expansion revenue. An existing customer asking to buy more is a lead, and easy to misfile as support.",
+  },
+
+  // ── abuse and edge input ───────────────────────────────────────────────
+  {
+    id: "sint-kunde",
+    kind: "support",
+    who: "Angry existing customer",
+    turns: ["dette systemet er noe dritt", "ingenting fungerer og ingen svarer meg"],
+    expectNotify: false,
+    note: "Needs support urgently and is not a sales lead. A human should see it — but that is a different queue, and this suite should say so rather than pretend the sales trigger covers it.",
+  },
+  {
+    id: "tom-og-emoji",
+    kind: "bot",
+    who: "Empty-ish input",
+    turns: ["?", "👋", "..."],
+    expectNotify: false,
+    note: "Must score zero. Any credit here means the floor is not really zero.",
+  },
+];

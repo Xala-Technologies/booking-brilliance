@@ -12,7 +12,10 @@
  */
 import { describe, expect, it } from "vitest";
 import { SERIOUS_LEAD_SCORE } from "./contact";
-import { GUARD_SCENARIOS, SCENARIOS, type Scenario } from "./scenarios";
+import { GUARD_SCENARIOS, SCENARIOS as BATCH_1, SCENARIOS_BATCH_2, type Scenario } from "./scenarios";
+
+/** Every scenario, batches combined. Growing this is how the bar gets tuned. */
+const SCENARIOS: Scenario[] = [...BATCH_1, ...SCENARIOS_BATCH_2];
 import { decideTurn, type TurnDecision } from "./turn";
 
 /**
