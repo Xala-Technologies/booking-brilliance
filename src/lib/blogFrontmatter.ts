@@ -15,6 +15,24 @@ export interface BlogFrontmatter {
   tag?: string;
   cover?: string;
   keywords?: string[];
+  /**
+   * Which language the post is written in. Absent means Norwegian.
+   *
+   * Absence rather than a required field on purpose: 335 posts predate the
+   * English blog, and a migration that rewrote every one of them to add
+   * `lang: nb` would be 335 diffs of pure noise — and would break the moment
+   * one was missed.
+   */
+  lang?: "nb" | "en";
+  /**
+   * English posts only: the slug of the Norwegian post this translates.
+   *
+   * The pairing lives on the TRANSLATION, so publishing one never edits the
+   * original. That matters when the agent writes both — a run that produced
+   * the English twin and then failed while rewriting the Norwegian frontmatter
+   * would leave the original corrupted for a post that was already live.
+   */
+  translationOf?: string;
 }
 
 export function parseFrontmatter(raw: string): { data: Record<string, unknown>; content: string } {
@@ -78,5 +96,7 @@ export function extractFrontmatter(path: string, raw: string): BlogFrontmatter {
     tag: data.tag as string | undefined,
     cover: data.cover as string | undefined,
     keywords: data.keywords as string[] | undefined,
+    lang: data.lang === "en" ? "en" : undefined,
+    translationOf: (data.translationOf as string | undefined) || undefined,
   };
 }

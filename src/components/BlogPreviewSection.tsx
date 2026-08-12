@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { EditorialButton } from "@/components/editorial";
 import { SectionHeader } from "@/components/SectionHeader";
-import { getAllPosts, formatPostDate, previewCover } from "@/lib/posts";
+import { formatPostDate, getAllPosts, postsForLocale, previewCover } from "@/lib/posts";
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/motion";
 import { getFraunces } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 const FALLBACK_COVER = "/images/blog/_placeholder.svg";
 
 const BlogPreviewSection = () => {
-  const posts = getAllPosts().slice(0, 6);
+  const posts = postsForLocale("nb").slice(0, 6);
   const scrollerRef = useRef<HTMLDivElement | null>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);

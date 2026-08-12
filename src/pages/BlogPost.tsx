@@ -13,7 +13,7 @@ import {
   ProgressRail,
   EditorialButton,
 } from "@/components/editorial";
-import { getAllPosts, formatPostDate } from "@/lib/posts";
+import { postsForLocale, getAllPosts, formatPostDate } from "@/lib/posts";
 import { getPostBySlug } from "@/lib/postContent";
 import { getFraunces } from "@/lib/fonts";
 import { openChatbot } from "@/lib/chatbot/open";
@@ -91,7 +91,9 @@ const BlogPost = () => {
   if (!post) return <Navigate to="/blogg" replace />;
 
   const url = `https://digilist.no/blogg/${post.slug}`;
-  const related = getAllPosts()
+  // Related posts stay in the reader's language — an English article should
+  // not recommend three Norwegian ones.
+  const related = postsForLocale(post?.lang === "en" ? "en" : "nb")
     .filter((p) => p.slug !== post.slug)
     .slice(0, 3);
   const toc = extractHeadings(post.content);
@@ -108,7 +110,7 @@ const BlogPost = () => {
   // reading), backfilled with the newest others. Distinct from the "Fortsett å
   // lese" latest strip at the foot of the page.
   const sidebarRelated = [
-    ...getAllPosts().filter(
+    ...postsForLocale(post?.lang === "en" ? "en" : "nb").filter(
       (p) => p.slug !== post.slug && p.tag && p.tag === post.tag,
     ),
     ...related,

@@ -11,7 +11,7 @@ import {
   EditorialHeading,
   ProgressRail,
 } from "@/components/editorial";
-import { getAllPosts, formatPostDate } from "@/lib/posts";
+import { formatPostDate, getAllPosts, postsForLocale } from "@/lib/posts";
 import { getFraunces } from "@/lib/fonts";
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/motion";
 import { cn } from "@/lib/utils";
@@ -19,7 +19,10 @@ import { cn } from "@/lib/utils";
 const PAGE_SIZE = 6;
 
 const Blog = () => {
-  const allPosts = getAllPosts();
+  // Norwegian only. The two blogs share a directory, so an unfiltered list
+  // would put English articles in the Norwegian index the day the agent
+  // publishes its first twin.
+  const allPosts = postsForLocale("nb");
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [query, setQuery] = useState(searchParams.get("q") ?? "");

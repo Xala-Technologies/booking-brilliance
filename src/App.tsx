@@ -88,10 +88,10 @@ const Salgsvilkar = lazy(() => import("./pages/Salgsvilkar"));
 const Personvern = lazy(() => import("./pages/Personvern"));
 const Cookies = lazy(() => import("./pages/Cookies"));
 const Tilgjengelighet = lazy(() => import("./pages/Tilgjengelighet"));
+import { LocaleRouter } from "./components/LocaleRouter";
+
 const NotFound = lazy(() => import("./pages/NotFound"));
-const LocaleRouter = lazy(() =>
-  import("./components/LocaleRouter").then((m) => ({ default: m.LocaleRouter })),
-);
+
 const Transparens = lazy(() => import("./pages/Transparens"));
 const UseCaseSelskapslokaler = lazy(() => import("./pages/UseCaseSelskapslokaler"));
 const UseCaseMoterom = lazy(() => import("./pages/UseCaseMoterom"));
@@ -501,12 +501,12 @@ export function AppShell() {
           </Suspense>
           </ContentShell>
           <CookieConsent />
-          {/* Sends a visitor to their own language — homepage redirect, deep-page
-              offer. Lazy and inside the Router, so it never blocks first paint
-              and can read the current path. */}
-          <Suspense fallback={null}>
-            <LocaleRouter />
-          </Suspense>
+          {/* Sends a visitor to their own language — homepage redirect,
+              deep-page offer. NOT lazy: a lazy component here left an
+              unresolved Suspense boundary during SSR and the homepage never
+              finished rendering. It is small and renders nothing on the
+              server, so lazy bought nothing and cost the most important page. */}
+          <LocaleRouter />
           <ChatbotMount />
           <AssistantRailMount />
           </ChatbotProvider>

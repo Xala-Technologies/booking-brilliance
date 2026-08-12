@@ -43,3 +43,27 @@ export function formatPostDate(iso: string): string {
     year: "numeric",
   });
 }
+
+
+/**
+ * Posts in one language.
+ *
+ * A post with no `lang` is Norwegian — see `BlogFrontmatter.lang` for why
+ * absence rather than a required field.
+ *
+ * This exists because the two blogs share a directory. Listing all posts on
+ * /blogg would put English articles in a Norwegian index, which is worse for a
+ * reader than having no English blog and worse for search than either.
+ */
+export function postsForLocale(locale: "nb" | "en"): Post[] {
+  return getAllPosts().filter((p) => (p.lang === "en" ? "en" : "nb") === locale);
+}
+
+/** The twin of a post in the other language, or null when it has none. */
+export function translatedPost(post: Post): Post | null {
+  const all = getAllPosts();
+  if (post.lang === "en") {
+    return all.find((p) => p.slug === post.translationOf && p.lang !== "en") ?? null;
+  }
+  return all.find((p) => p.lang === "en" && p.translationOf === post.slug) ?? null;
+}
