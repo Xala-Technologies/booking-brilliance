@@ -4,7 +4,7 @@
  * not the arithmetic on a good day.
  */
 import { describe, expect, it } from "vitest";
-import { reportHtml, reportSubject, summariseActivity } from "./activity-report.mjs";
+import { expiredLogs, reportHtml, reportSubject, summariseActivity } from "./activity-report.mjs";
 
 const chat = (at, over = {}) => ({
   at: `2026-08-12T${at}:00.000Z`,
@@ -206,5 +206,46 @@ describe("rendering", () => {
   it("survives a timestamp it cannot parse rather than printing undefined", () => {
     const report = summariseActivity([chat("09:00", { at: "" })], "2026-08-12");
     expect(reportHtml(report)).toContain("--:--");
+  });
+});
+
+describe("expiredLogs — retention, because visitor questions are personal data", () => {
+  const names = [
+    "2026-07-01.jsonl",
+    "2026-08-10.jsonl",
+    "2026-08-11.jsonl",
+    "2026-08-12.jsonl",
+  ];
+
+  it("keeps exactly keepDays of history, counting today", () => {
+    // keepDays 3 on the 12th keeps the 10th, 11th and 12th.
+    expect(expiredLogs(names, "2026-08-12", 3)).toEqual(["2026-07-01.jsonl"]);
+  });
+
+  it("never deletes today, even at the tightest setting", () => {
+    expect(expiredLogs(names, "2026-08-12", 1)).toEqual([
+      "2026-07-01.jsonl",
+      "2026-08-10.jsonl",
+      "2026-08-11.jsonl",
+    ]);
+  });
+
+  it("crosses a month boundary correctly rather than comparing day numbers", () => {
+    // The naive bug: "2026-07-31" > "2026-08-01" is false as a string but the
+    // arithmetic has to happen on dates, not on the numbers in the name.
+    expect(expiredLogs(["2026-07-31.jsonl", "2026-08-01.jsonl"], "2026-08-02", 3)).toEqual([]);
+    expect(expiredLogs(["2026-07-31.jsonl", "2026-08-01.jsonl"], "2026-08-02", 2)).toEqual([
+      "2026-07-31.jsonl",
+    ]);
+  });
+
+  it("leaves anything it does not recognise alone", () => {
+    // Deleting an unrecognised file is never the safe move — this directory is
+    // reachable by a future feature that puts something else in it.
+    expect(expiredLogs(["README.md", "notes.txt", "2020-01-01.jsonl.bak"], "2026-08-12", 1)).toEqual([]);
+  });
+
+  it("returns nothing for an empty directory", () => {
+    expect(expiredLogs([], "2026-08-12", 28)).toEqual([]);
   });
 });

@@ -10,12 +10,9 @@
  * edge case: silence from a reporter that always speaks is itself a signal.
  *
  * Everything here is pure. The reading of the log and the sending of the mail
- * live in `scripts/daily-report.ts`, so the summarising can be tested against
+ * live in `daily-report.mjs`, so the summarising can be tested against
  * hand-written days without a file, a network, or a mail provider.
  */
-
-/** One line of the server's activity log. */
-
 
 /**
  * One line of the server's activity log.
@@ -244,4 +241,31 @@ export function reportHtml(report) {
       ${row("Høyeste interessescore", report.peakInterest)}
     </table>
     ${concerns}${notified}${blocked}${asked}`;
+}
+
+/**
+ * Which log files to delete, given the filenames present and today's date.
+ *
+ * Visitor questions are personal data. The moment they are written to disk they
+ * need an end date, and "we will clean it up later" is how a marketing site ends
+ * up holding two years of what people typed into a chat box. Kept separate and
+ * pure so the rule can be tested without a filesystem — a deletion routine you
+ * cannot test is one you will be afraid to run.
+ *
+ * Anything that does not look like a dated log is left alone. Deleting a file
+ * you did not recognise is never the safe move.
+ *
+ * @param {string[]} filenames  Directory listing.
+ * @param {string}   today      `YYYY-MM-DD`.
+ * @param {number}   keepDays   How many days back to keep, inclusive of today.
+ * @returns {string[]} Filenames safe to delete, oldest first.
+ */
+export function expiredLogs(filenames, today, keepDays) {
+  const cutoff = new Date(`${today}T00:00:00Z`);
+  cutoff.setUTCDate(cutoff.getUTCDate() - (keepDays - 1));
+  const oldest = cutoff.toISOString().slice(0, 10);
+  return filenames
+    .filter((name) => /^\d{4}-\d{2}-\d{2}\.jsonl$/.test(name))
+    .filter((name) => name.slice(0, 10) < oldest)
+    .sort();
 }
