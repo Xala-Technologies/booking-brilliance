@@ -354,12 +354,21 @@ export function useChatbot() {
             userTurns,
             reply: payloadText,
             hitCount: hits.length,
+            // The only paths the model was offered — anything else it cites is
+            // invented, which is how /faq#q-27 reached a live visitor.
+            allowedPages: results.map((r) => r.href),
+            sourcesHadPrice: hits.some((h) => /\d[\d\s.,]*\s*(kr|kroner|nok)/i.test(h.a)),
             leadAlreadyFiled: leadFiledRef.current,
             alreadyNotified: startNotifiedRef.current,
           });
 
           if (decision.guardTripped) {
-            console.warn("[chatbot] suppressed a reply claiming an action it cannot perform:", payloadText);
+            console.warn(
+              "[chatbot] reply suppressed by guardrails:",
+              decision.violations.map((v) => `${v.rule} (${v.detail})`).join("; "),
+              "\n  original:",
+              payloadText,
+            );
           }
           if (decision.notify === "lead") {
             leadFiledRef.current = true;
