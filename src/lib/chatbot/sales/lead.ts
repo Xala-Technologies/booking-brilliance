@@ -18,6 +18,7 @@
  * the assistant asks. Everything here is pure and testable.
  */
 import { buyingSignalsIn, detectObjections, painSignalsIn } from "./stage";
+import { sellingToUs } from "../contact";
 
 
 export interface LeadProfile {
@@ -249,6 +250,15 @@ export function recommendedOpening(p: LeadProfile): string {
  */
 export function enrichProfile(userTurns: readonly string[]): LeadProfile {
   const all = userTurns.join("\n");
+  // A supplier pitching in uses the whole buying vocabulary — "vi kan levere",
+  // "integrere", "hva koster et samarbeid" — and scored 48 on it. Only
+  // `shouldNotify`'s keyword filter stopped the notification, which means one
+  // pitch shape that filter misses would be waved straight through on score
+  // alone. Direction belongs here too, so the two mechanisms AGREE rather than
+  // one covering for the other.
+  if (sellingToUs(all)) {
+    return { ...extractProfile(userTurns), objections: [], signals: [] };
+  }
   return {
     ...extractProfile(userTurns),
     objections: detectObjections(all).map((o) => o.id),

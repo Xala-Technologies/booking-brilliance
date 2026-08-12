@@ -55,6 +55,7 @@
  * @property {number}  peakInterest  Highest score seen, so a near-miss is visible.
  * @property {Array<{at: string, text: string}>} questionsAsked
  * @property {Array<{at: string, kind: "lead"|"qualified", interest: number, summary: string}>} notified
+ * @property {number}  synthetic     Log lines from `chat:grade`, excluded from every other count.
  * @property {string[]} concerns     Things worth attention, in plain words. Empty on a clean day.
  */
 
@@ -76,8 +77,21 @@ function countBy(items, key) {
 }
 
 /** Summarise one day. `events` may be in any order and may be empty. */
+/**
+ * Conversation ids the grading harness stamps on its own traffic.
+ *
+ * `pnpm chat:grade` replays a hundred scenarios through the live endpoint. That
+ * is real traffic to the server and it must not be real traffic in the report:
+ * a hundred synthetic questions reads as a great day, and a report you have to
+ * mentally subtract from is a report you stop trusting. The count is still
+ * reported, just separately.
+ */
+const SYNTHETIC_CID = /^grade-/;
+
 export function summariseActivity(events, date) {
-  const sorted = [...events].sort((a, b) => a.at.localeCompare(b.at));
+  const all = [...events].sort((a, b) => a.at.localeCompare(b.at));
+  const synthetic = all.filter((e) => SYNTHETIC_CID.test(e.cid ?? ""));
+  const sorted = all.filter((e) => !SYNTHETIC_CID.test(e.cid ?? ""));
   const chats = sorted.filter((e) => e.kind === "chat");
   const turns = sorted.filter((e) => e.kind === "turn");
   const inquiries = sorted.filter((e) => e.kind === "inquiry");
@@ -119,9 +133,16 @@ export function summariseActivity(events, date) {
     );
   }
 
+  if (synthetic.length) {
+    concerns.push(`${synthetic.length} linjer kom fra testkjøring (chat:grade) og er holdt utenfor tallene.`);
+  }
+
   return {
     date,
+    // Empty means no REAL activity. A day whose only traffic was the grader is
+    // a day nobody visited, and saying otherwise would hide exactly that.
     empty: sorted.length === 0,
+    synthetic: synthetic.length,
     conversations: ids.size,
     questions: chats.length,
     leads: turns.filter((e) => e.notify === "lead").length,

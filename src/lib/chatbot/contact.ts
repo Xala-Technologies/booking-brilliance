@@ -202,7 +202,7 @@ const NEEDS_HUMAN: readonly RegExp[] = [
 // have-construction are how a pitch usually opens, and neither matched.
 const VENDOR_VERB =
   /\b(vi\s+(kan\s+)?(leverer?|tilbyr?|selger?|lager?|utvikler?)|vi\s+har\s+[\p{L}\s]{2,30}\s+(tilgjengelig|ledig)|we\s+(can\s+)?(provide|offer|sell|build))\b/iu;
-const PITCHED_AT_US = /\b(til|for|hos|mot|med)\s+dere\b|\bdigilist\.no\b|\bderes\s+(nettside|side|domene|synlighet|rangering|selskap)\b|\bpresentere\b|\bsamarbeid\b|\bpartnerskap\b|\bpartnership\b|\byour\s+(team|company)\b/iu;
+const PITCHED_AT_US = /\b(til|for|hos|mot)\s+dere\b|\bdigilist\.no\b|\bderes\s+(nettside|side|domene|synlighet|rangering|selskap)\b|\bpresentere\b|\bsamarbeid\b|\bpartnerskap\b|\bpartnership\b|\byour\s+(team|company)\b/iu;
 
 /**
  * The message is trying to reprogram the assistant.

@@ -249,3 +249,41 @@ describe("expiredLogs — retention, because visitor questions are personal data
     expect(expiredLogs([], "2026-08-12", 28)).toEqual([]);
   });
 });
+
+describe("synthetic traffic — the grading harness is not a visitor", () => {
+  const graded = (at) => ({
+    at: `2026-08-12T${at}:00.000Z`,
+    kind: "chat",
+    cid: "grade-kommune-anskaffelse",
+    turn: "hva koster det?",
+  });
+
+  it("keeps grading runs out of every count", () => {
+    const report = summariseActivity(
+      [graded("09:00"), graded("09:01"), chat("10:00", { cid: "real-1" })],
+      "2026-08-12",
+    );
+    expect(report.questions).toBe(1);
+    expect(report.conversations).toBe(1);
+    expect(report.synthetic).toBe(2);
+    expect(report.questionsAsked).toHaveLength(1);
+  });
+
+  it("reports a grader-only day as EMPTY, because nobody visited", () => {
+    // The tempting bug is to call this a busy day. A hundred synthetic
+    // questions must never make a day with no visitors look like a good one.
+    const report = summariseActivity([graded("09:00")], "2026-08-12");
+    expect(report.empty).toBe(true);
+  });
+
+  it("says the traffic was excluded rather than silently dropping it", () => {
+    const report = summariseActivity([graded("09:00"), chat("10:00")], "2026-08-12");
+    expect(report.concerns.join(" ")).toContain("testkjøring");
+  });
+
+  it("leaves a real conversation whose id merely contains 'grade' alone", () => {
+    const report = summariseActivity([chat("09:00", { cid: "upgrade-42" })], "2026-08-12");
+    expect(report.questions).toBe(1);
+    expect(report.synthetic).toBe(0);
+  });
+});

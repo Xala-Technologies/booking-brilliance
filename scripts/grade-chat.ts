@@ -26,6 +26,8 @@ import { retrieve } from "../src/lib/chatbot/rag";
 import { describeViolations, blocking, gradeReply, type Violation } from "../src/lib/chatbot/guardrails";
 import { GUARD_SCENARIOS, SCENARIOS, SCENARIOS_BATCH_2, SCENARIOS_BATCH_3, SCENARIOS_BATCH_4, SCENARIOS_BATCH_5, type Scenario } from "../src/lib/chatbot/scenarios";
 
+const SYNTHETIC_CID_PREFIX = "grade-";
+
 const ALL: Scenario[] = [...SCENARIOS, ...SCENARIOS_BATCH_2, ...SCENARIOS_BATCH_3, ...SCENARIOS_BATCH_4, ...SCENARIOS_BATCH_5, ...GUARD_SCENARIOS];
 
 interface Args {
@@ -77,7 +79,10 @@ async function runScenario(scenario: Scenario, args: Args): Promise<Row | null> 
   const res = await fetch(args.endpoint, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ system: ctx.system, messages: ctx.messages, hits }),
+    // Marked as synthetic so the daily activity report can leave it out. A
+    // hundred graded scenarios would otherwise read as a traffic spike, and a
+    // report you have to mentally subtract from is a report you stop trusting.
+    body: JSON.stringify({ system: ctx.system, messages: ctx.messages, hits, cid: `${SYNTHETIC_CID_PREFIX}${scenario.id}` }),
   });
 
   let reply: string | undefined;
