@@ -196,7 +196,7 @@ export function useChatbot() {
    */
   const notifyConversationStarted = useCallback(async (firstTurn: string) => {
     try {
-      await fetch(INQUIRY_ENDPOINT, {
+      const res = await fetch(INQUIRY_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -215,7 +215,18 @@ export function useChatbot() {
           timestamp: new Date().toISOString(),
         }),
       });
+      // `fetch` RESOLVES on a 4xx/5xx — it does not throw. Without this check
+      // a rejected notification would look like a delivered one, which is the
+      // same silent-400 the /api/chat handler above already documents. It is
+      // how the first version of this shipped: every notification rejected,
+      // nothing logged, conversations still reaching nobody.
+      if (!res.ok) throw new Error(`Inquiry endpoint returned ${res.status}`);
     } catch (err) {
+      // Re-arm so the NEXT message in this conversation tries again. The whole
+      // point of this notification is that someone getting in touch is never
+      // invisible; dropping it on one transient failure defeats that, and a
+      // duplicate is far cheaper than a missed lead.
+      startNotifiedRef.current = false;
       // Never surfaced to the visitor: this is our notification, not their
       // action, and it must not delay or break the reply they are waiting for.
       console.error("[chatbot] conversation-start notification failed:", err);
