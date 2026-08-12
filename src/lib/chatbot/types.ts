@@ -1,4 +1,5 @@
 import type { SearchItem } from "@/lib/search/corpus";
+import type { ChatDegradation } from "@/lib/chatbot/degradation";
 
 export type Role = "user" | "assistant" | "system";
 
@@ -49,4 +50,11 @@ export interface ChatState {
   thinking: boolean;
   /** Surfaced error from RAG/inquiry submit */
   error: string | null;
+  /**
+   * Set when a turn fell back to local FAQ retrieval because `/api/chat` was
+   * unreachable. Null means the assistant answered. Carried into the lead email
+   * so a degraded conversation cannot look like a healthy one — see
+   * `lib/chatbot/degradation.ts`.
+   */
+  degraded: ChatDegradation | null;
 }

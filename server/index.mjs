@@ -544,7 +544,26 @@ async function handleInquiry(req, res, body, ip) {
   }
 
   const summary = body.summary || `${body.topic} — ${body.organization}`;
+  // A conversation the assistant never answered produces a lead that looks
+  // exactly like a healthy one — same fields, same fluent Norwegian transcript.
+  // That is how a 20-day outage (ANTHROPIC_API_KEY removed 2026-07-23) reached
+  // a real customer unnoticed. The client now reports it; this makes it the
+  // first thing in the email, above the fold, impossible to skim past.
+  const degradedBanner = body.chatDegraded?.detail
+    ? `<p style="font-family: system-ui, sans-serif; font-size: 14px; line-height: 1.5;
+                background: #FFF4E5; border-left: 4px solid #B45309; color: #7C2D12;
+                padding: 12px 16px; margin: 0 0 20px;">
+         <strong>ADVARSEL: assistenten svarte ikke i denne samtalen.</strong><br />
+         Svarene under kom fra den lokale FAQ-en (nøkkelordsøk), ikke fra assistenten.
+         De er trolig generiske og svarer kanskje ikke på det kunden faktisk spurte om —
+         les samtaleutdraget kritisk før du tar kontakt.<br />
+         <span style="font-family: ui-monospace, monospace; font-size: 12px;">
+           ${escapeHtml(String(body.chatDegraded.reason ?? "unknown"))} · ${escapeHtml(String(body.chatDegraded.detail))}
+         </span>
+       </p>`
+    : "";
   const html = `
+    ${degradedBanner}
     <h2 style="font-family: Georgia, serif;">Ny forespørsel fra digilist.no</h2>
     <table style="font-family: system-ui, sans-serif; font-size: 14px; border-collapse: collapse;">
       <tr><td style="padding:4px 12px 4px 0;color:#666;">Persona</td><td>${escapeHtml(body.persona ?? "—")}</td></tr>
@@ -583,7 +602,9 @@ async function handleInquiry(req, res, body, ip) {
         to: [NOTIFY_TO],
         cc: NOTIFY_CC,
         reply_to: body.email,
-        subject: `[Chat] ${summary}`,
+        // The prefix rides in the inbox list, so a degraded lead is visible
+        // before the mail is even opened.
+        subject: `${body.chatDegraded?.detail ? "[FAQ-FALLBACK] " : ""}[Chat] ${summary}`,
         html,
       }),
     });
@@ -653,8 +674,20 @@ const server = createServer(async (req, res) => {
   }
 
   if (req.method === "GET" && (pathname === "/api/health" || pathname === "/health")) {
+    // `ok` used to be the literal `true`, so this endpoint reported a healthy
+    // service for the entire 20 days /api/chat was switched off — the fields
+    // that said otherwise sat one level down where no monitor looked. A health
+    // check that cannot go red is decoration.
+    //
+    // The HTTP status stays 200 (the process IS alive and serving) so liveness
+    // probes keep working; `ok` now answers the different question of whether
+    // the service can do its job.
+    const degraded = [];
+    if (!ANTHROPIC_API_KEY) degraded.push("chat: no ANTHROPIC_API_KEY — /api/chat answers 503 and the site falls back to FAQ keyword search");
+    if (!RESEND_API_KEY) degraded.push("inquiry: no RESEND_API_KEY — /api/inquiry cannot deliver leads");
     return json(res, 200, {
-      ok: true,
+      ok: degraded.length === 0,
+      degraded,
       uptime: process.uptime(),
       anthropicConfigured: Boolean(ANTHROPIC_API_KEY),
       resendConfigured: Boolean(RESEND_API_KEY),
@@ -1645,6 +1678,20 @@ server.listen(PORT, "127.0.0.1", () => {
     console.warn(
       "[digilist-api] WARNING: ADMIN_BASIC_AUTH is unset — every /api/audits, /api/content and /api/agents request will 401. " +
         "Add `ADMIN_BASIC_AUTH=user:password` to .env.local (gitignored) and restart `pnpm dev:api`.",
+    );
+  }
+  // This state used to be reported as the single word `anthropic=off` in the
+  // line above, while a missing admin password got the full warning treatment.
+  // Nobody reads `anthropic=off` as "the public chatbot is now a keyword
+  // search" — so it ran that way for 20 days (key removed 2026-07-23) and cost
+  // a named inbound lead. State the CONSEQUENCE, not the flag.
+  if (!ANTHROPIC_API_KEY) {
+    console.warn(
+      "[digilist-api] WARNING: ANTHROPIC_API_KEY is unset — /api/chat answers 503 and the public chatbot " +
+        "SILENTLY falls back to local FAQ keyword search. Visitors still get fluent Norwegian answers, so this " +
+        "does NOT look broken from the outside: they are canned FAQ entries that ignore what the visitor asked. " +
+        "Leads from a degraded conversation arrive subject-tagged [FAQ-FALLBACK]. Set the key in " +
+        "/etc/digilist-api.env and `systemctl restart digilist-api`.",
     );
   }
 });

@@ -15,6 +15,13 @@ import type {
   Persona,
 } from "@/lib/chatbot/types";
 import { summarizeInquiry } from "@/lib/chatbot/inquiry";
+import {
+  degradationFromError,
+  degradationFromResponse,
+  degradationWarning,
+  mergeDegradation,
+  type ChatDegradation,
+} from "@/lib/chatbot/degradation";
 
 const STORAGE_KEY = "digilist-chat-v1";
 
@@ -36,6 +43,10 @@ const initialState = (): ChatState => ({
   inquiry: { ...emptyDraft },
   thinking: false,
   error: null,
+  // Null while the assistant is answering. Set on the first turn that falls
+  // back to local FAQ retrieval, and carried into the lead email so a human
+  // sees it. See lib/chatbot/degradation.ts for why this is not optional.
+  degraded: null,
 });
 
 type Action =
@@ -46,6 +57,7 @@ type Action =
   | { type: "SET_DRAFT"; patch: Partial<InquiryDraft> }
   | { type: "RESET" }
   | { type: "SET_ERROR"; error: string | null }
+  | { type: "SET_DEGRADED"; degraded: ChatDegradation | null }
   | { type: "HYDRATE"; state: ChatState };
 
 function reducer(state: ChatState, action: Action): ChatState {
@@ -64,6 +76,10 @@ function reducer(state: ChatState, action: Action): ChatState {
       return initialState();
     case "SET_ERROR":
       return { ...state, error: action.error };
+    case "SET_DEGRADED":
+      // First degradation wins — a later recovery must not erase the fact that
+      // the opening answers came from the FAQ.
+      return { ...state, degraded: mergeDegradation(state.degraded, action.degraded) };
     case "HYDRATE":
       return { ...action.state, open: false, thinking: false };
     default:
@@ -176,31 +192,50 @@ export function useChatbot() {
             hits,
           }),
         });
-        if (res.ok) {
-          const payload = (await res.json()) as { text?: string };
-          if (payload?.text) {
-            const assistantMsg: ChatMessage = {
-              id: cryptoId(),
-              role: "assistant",
-              text: payload.text,
-              sourceQ: hits[0]?.q,
-              suggestions: followUpSuggestions(hits[0]),
-              showInquiryCta: hits.length === 0,
-              results,
-              timestamp: Date.now(),
-            };
-            dispatch({ type: "ADD_MESSAGE", message: assistantMsg });
-            dispatch({ type: "SET_THINKING", value: false });
-            return;
-          }
+        // Parse before judging: a non-2xx still carries a body worth reading,
+        // and a 200 with no `text` is a failure the old `if (res.ok)` treated
+        // as success.
+        let payloadText: string | undefined;
+        try {
+          payloadText = ((await res.json()) as { text?: string })?.text;
+        } catch {
+          payloadText = undefined;
+        }
+
+        // THE FIX. A 503 does not throw — `fetch` resolves, `res.ok` is false,
+        // and the old code fell out of this try WITHOUT entering the catch. The
+        // catch was the only place that logged, and only under DEV. So the one
+        // failure that actually happened in production was silent everywhere.
+        const degraded = degradationFromResponse(
+          res.status,
+          Boolean(payloadText),
+          new Date().toISOString(),
+        );
+        if (degraded) {
+          // Unconditional — never re-add an `import.meta.env.DEV` gate here.
+          console.warn(degradationWarning(degraded));
+          dispatch({ type: "SET_DEGRADED", degraded });
+        } else if (payloadText) {
+          const assistantMsg: ChatMessage = {
+            id: cryptoId(),
+            role: "assistant",
+            text: payloadText,
+            sourceQ: hits[0]?.q,
+            suggestions: followUpSuggestions(hits[0]),
+            showInquiryCta: hits.length === 0,
+            results,
+            timestamp: Date.now(),
+          };
+          dispatch({ type: "ADD_MESSAGE", message: assistantMsg });
+          dispatch({ type: "SET_THINKING", value: false });
+          return;
         }
       } catch (err) {
-        if (import.meta.env.DEV) {
-          console.warn(
-            "[chatbot] /api/chat unavailable, falling back to local FAQ:",
-            err,
-          );
-        }
+        // Only a genuinely thrown request reaches here (offline, DNS, CORS).
+        // HTTP errors are handled above — that split is the whole bug.
+        const degraded = degradationFromError(err, new Date().toISOString());
+        console.warn(degradationWarning(degraded));
+        dispatch({ type: "SET_DEGRADED", degraded });
       }
 
       // Path B — local FAQ retrieval only
@@ -278,6 +313,10 @@ export function useChatbot() {
       userAgent:
         typeof navigator !== "undefined" ? navigator.userAgent : "unknown",
       timestamp: new Date().toISOString(),
+      // The lead email is the one artefact a human reads on every conversation.
+      // Geir's arrived on 2026-08-12 describing a chat whose three answers were
+      // verbatim FAQ entries, and nothing in it said so. Now it does.
+      chatDegraded: state.degraded,
     };
 
     try {
@@ -298,16 +337,23 @@ export function useChatbot() {
           "Vi fikk ikke sendt forespørselen. Prøv igjen, eller send e-post direkte til kontakt@digilist.no.",
       });
     }
-  }, [state.inquiry]);
+  }, [state.inquiry, state.degraded]);
 
   const reset = useCallback(() => {
     dispatch({ type: "RESET" });
   }, []);
 
-  // Both endpoints are Supabase edge functions invoked via the supabase
-  // client. The hook tries them first and falls back gracefully — there's
-  // no longer a build-time toggle.
-  const isConfigured = useMemo(() => ({ llm: true, inquiry: true }), []);
+  // Both endpoints are served by the digilist-api Node service behind nginx at
+  // /api/* (the old comment here said Supabase edge functions — wrong service
+  // entirely, and wrong for long enough that it misdirected an outage triage).
+  //
+  // `llm` reports what we have OBSERVED, not what we hope. It used to be a
+  // hardcoded `true`, which is the same class of lie as the DEV-gated warning:
+  // a status field that cannot ever report bad news is not a status field.
+  const isConfigured = useMemo(
+    () => ({ llm: state.degraded === null, inquiry: true }),
+    [state.degraded],
+  );
 
   return {
     state,
