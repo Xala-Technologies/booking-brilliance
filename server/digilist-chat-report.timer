@@ -1,0 +1,13 @@
+[Unit]
+Description=Send the chatbot activity report every morning
+
+[Timer]
+# 07:00 Norwegian time, after the day it reports has fully ended in UTC.
+OnCalendar=*-*-* 07:00:00 Europe/Oslo
+# A missed run still sends. The report exists so a silent day is visible, and a
+# report that skips itself after a reboot recreates the exact blind spot.
+Persistent=true
+Unit=digilist-chat-report.service
+
+[Install]
+WantedBy=timers.target

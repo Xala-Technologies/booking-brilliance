@@ -1,0 +1,19 @@
+[Unit]
+Description=Daily chatbot activity report (emails yesterday, even when empty)
+After=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/var/www/digilist-api
+ExecStart=/usr/bin/node /var/www/digilist-api/daily-report.mjs
+EnvironmentFile=/etc/digilist-api.env
+User=www-data
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+# The prune deletes expired logs, so this must be writable. It was ReadOnly for
+# one deploy — written when the report only read — and the prune then failed on
+# every run. It failed VISIBLY, which is the only reason it was noticed: a
+# swallowed delete would have left the retention policy silently inert.
+ReadWritePaths=/var/www/digilist-activity

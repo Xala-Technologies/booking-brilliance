@@ -14,7 +14,7 @@ NoNewPrivileges=true
 PrivateTmp=true
 ProtectSystem=strict
 ProtectHome=true
-ReadWritePaths=/var/log
+ReadWritePaths=/var/log /var/www/digilist-audit /var/www/digilist-activity
 
 [Install]
 WantedBy=multi-user.target
