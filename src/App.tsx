@@ -383,6 +383,8 @@ export function AppShell() {
               }
             />
             <Route path="/blogg/:slug" element={<BlogPost />} />
+            <Route path="/en/blog" element={<Blog />} />
+            <Route path="/en/blog/:slug" element={<BlogPost />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/ai-agenter" element={<AiAgenter />} />
             <Route path="/ai-agenter/sesongtildeling" element={<AgentSesongtildeling />} />

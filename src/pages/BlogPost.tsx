@@ -1,4 +1,5 @@
-import { Link, useParams, Navigate } from "react-router-dom";
+import { Link, useLocation, useParams, Navigate } from "react-router-dom";
+import { blogHreflang, blogPath, localeFromPath } from "@/lib/i18n";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import BlogTable from "@/components/blog/BlogTable";
@@ -88,9 +89,12 @@ const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const post = slug ? getPostBySlug(slug) : undefined;
 
-  if (!post) return <Navigate to="/blogg" replace />;
+  // An unknown slug goes back to the index in the language the reader was
+  // trying to browse, not always the Norwegian one.
+  const locale = localeFromPath(useLocation().pathname);
+  if (!post) return <Navigate to={locale === "en" ? "/en/blog" : "/blogg"} replace />;
 
-  const url = `https://digilist.no/blogg/${post.slug}`;
+  const url = `https://digilist.no${blogPath(post.slug, post.lang === "en" ? "en" : "nb")}`;
   // Related posts stay in the reader's language — an English article should
   // not recommend three Norwegian ones.
   const related = postsForLocale(post?.lang === "en" ? "en" : "nb")
@@ -131,7 +135,17 @@ const BlogPost = () => {
 
   return (
     <div className="min-h-screen bg-background overflow-x-clip">
+      {/* hreflang from the frontmatter pair. Emits nothing until the twin
+          exists, so a post awaiting translation never claims one. */}
       <SEO
+        alternates={blogHreflang(
+          { slug: post.slug, lang: post.lang === "en" ? "en" : "nb", translationOf: post.translationOf },
+          getAllPosts().map((p) => ({
+            slug: p.slug,
+            lang: p.lang === "en" ? ("en" as const) : ("nb" as const),
+            translationOf: p.translationOf,
+          })),
+        )}
         title={post.title.length > 50 ? post.title : `${post.title} · Digilist`}
         description={post.description}
         canonical={url}

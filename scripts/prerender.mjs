@@ -207,6 +207,13 @@ async function loadBlogPosts() {
       // every post fell back to the generic /og-image.png, so social/Slack/
       // LinkedIn unfurls all showed the SAME image regardless of topic.
       cover: fm.cover,
+      // Locale, and the pairing for hreflang. Absent `lang` means Norwegian —
+      // 335 posts predate the English blog. Without these two fields the
+      // English posts prerender into /blogg with lang="nb-NO", which is worse
+      // than not prerendering them at all: a crawler files an English article
+      // as Norwegian at a Norwegian URL.
+      lang: fm.lang === "en" ? "en" : undefined,
+      translationOf: fm.translationOf,
     });
   }
   return posts;
@@ -2602,8 +2609,35 @@ async function main() {
   await fs.writeFile(join(blogDir, "index.html"), blogIndexHTML, "utf-8");
   console.log(`  ✓ /blogg/index.html (${blogIndexHTML.length} bytes)`);
 
+  // The English index. Prerendered separately rather than as one of ROUTES,
+  // because it renders the same component against a different corpus and needs
+  // its own static HTML — an index that only exists client-side is invisible to
+  // a crawler, which is most of the point of having it.
+  let enBlogHTML = patchHTML(template, {
+    route: "/en/blog",
+    title: "Blog · Digilist | Notes on venue booking, pricing and daily operations",
+    description:
+      "Articles from the work of making venues bookable: real-time availability, self-service booking, payments, and what a booking system should cost.",
+    lang: "en",
+    breadcrumbs: [
+      { name: "Home", url: `${BASE_URL}/en` },
+      { name: "Blog", url: `${BASE_URL}/en/blog` },
+    ],
+  });
+  enBlogHTML = injectBody(enBlogHTML, await renderBody("/en/blog"));
+  const enBlogDir = join(DIST, "en", "blog");
+  await fs.mkdir(enBlogDir, { recursive: true });
+  await fs.writeFile(join(enBlogDir, "index.html"), enBlogHTML, "utf-8");
+  console.log(`  ✓ /en/blog/index.html (${enBlogHTML.length} bytes)`);
+
   for (const post of posts) {
-    const postRoute = `/blogg/${post.slug}`;
+    // English posts live at /en/blog/<slug>, and their static HTML must say
+    // lang="en" — a prerendered English article filed as Norwegian is exactly
+    // the confusion hreflang exists to prevent, and static HTML is what a
+    // crawler reads first.
+    const postLang = post.lang === "en" ? "en" : "nb";
+    const postBase = postLang === "en" ? "/en/blog" : "/blogg";
+    const postRoute = `${postBase}/${post.slug}`;
     const coverUrl = post.cover
       ? post.cover.startsWith("http")
         ? post.cover
@@ -2670,10 +2704,36 @@ async function main() {
       `<meta property="twitter:image" content="${coverUrl}"`,
     );
     html = injectBody(html, await renderBody(postRoute));
-    const dir = join(DIST, "blogg", post.slug);
+    if (postLang === "en") {
+      html = html
+        .replace(/<html\s+lang="[^"]*"/, '<html lang="en"')
+        .replace(
+          /<meta\s+property="og:locale"\s+content="[^"]*"\s*\/?>/,
+          '<meta property="og:locale" content="en_US" />',
+        );
+    }
+    // hreflang from the frontmatter pair, emitted only when the twin exists.
+    const twinSlug =
+      postLang === "en"
+        ? post.translationOf
+        : posts.find((p) => p.lang === "en" && p.translationOf === post.slug)?.slug;
+    if (twinSlug) {
+      const nbSlug = postLang === "en" ? post.translationOf : post.slug;
+      const enSlug = postLang === "en" ? post.slug : twinSlug;
+      html = html.replace(
+        "</head>",
+        `    <link rel="alternate" hreflang="nb-NO" href="${BASE_URL}/blogg/${nbSlug}" />\n` +
+          `    <link rel="alternate" hreflang="en" href="${BASE_URL}/en/blog/${enSlug}" />\n` +
+          `    <link rel="alternate" hreflang="x-default" href="${BASE_URL}/blogg/${nbSlug}" />\n  </head>`,
+      );
+    }
+    const dir =
+      postLang === "en"
+        ? join(DIST, "en", "blog", post.slug)
+        : join(DIST, "blogg", post.slug);
     await fs.mkdir(dir, { recursive: true });
     await fs.writeFile(join(dir, "index.html"), html, "utf-8");
-    console.log(`  ✓ /blogg/${post.slug}/index.html (${html.length} bytes)`);
+    console.log(`  ✓ ${postRoute}/index.html (${html.length} bytes)`);
   }
 
   const today = new Date().toISOString().slice(0, 10);
@@ -2727,7 +2787,7 @@ async function main() {
     { loc: `${BASE_URL}/faq`, priority: "0.9", changefreq: "monthly" },
     { loc: `${BASE_URL}/blogg`, priority: "0.9", changefreq: "weekly" },
     ...posts.map((p) => ({
-      loc: `${BASE_URL}/blogg/${p.slug}`,
+      loc: `${BASE_URL}${p.lang === "en" ? "/en/blog" : "/blogg"}/${p.slug}`,
       priority: "0.8",
       changefreq: "monthly",
       lastmod: p.date,
@@ -2799,6 +2859,7 @@ async function main() {
     { loc: `${BASE_URL}/en`, priority: "1.0", changefreq: "weekly" },
     { loc: `${BASE_URL}/en/pricing`, priority: "0.9", changefreq: "monthly" },
     { loc: `${BASE_URL}/en/faq`, priority: "0.7", changefreq: "monthly" },
+    { loc: `${BASE_URL}/en/blog`, priority: "0.8", changefreq: "daily" },
     { loc: `${BASE_URL}/om-oss`, priority: "0.6", changefreq: "monthly" },
     { loc: `${BASE_URL}/ai-agenter`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/ai-agenter/sesongtildeling`, priority: "0.7", changefreq: "monthly" },

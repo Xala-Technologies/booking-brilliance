@@ -39,6 +39,11 @@ interface SEOProps {
   aboutPage?: boolean;
   /** Optional Service schema — for service offering pages */
   service?: boolean;
+  /**
+   * hreflang alternates for a page whose pair is not in the static map —
+   * blog posts, which pair by frontmatter and number in the hundreds.
+   */
+  alternates?: Hreflang[];
   /** Robots meta content. Default behaves as "index,follow". Pass "noindex,nofollow" for admin/internal routes. */
   robots?: string;
 }
@@ -93,6 +98,7 @@ const SEO = ({
   article,
   aboutPage,
   service,
+  alternates: explicitAlternates,
   robots,
 }: SEOProps) => {
   useEffect(() => {
@@ -149,7 +155,9 @@ const SEO = ({
     // would leave the old page's alternates behind, telling Google this page
     // has an English version that is actually a different page entirely.
     document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((el) => el.remove());
-    const alternates: Hreflang[] = hreflangFor(path);
+    // An explicit pair wins: blog posts pair by frontmatter, which the static
+    // page map cannot know about.
+    const alternates: Hreflang[] = explicitAlternates ?? hreflangFor(path);
     for (const alt of alternates) {
       const link = document.createElement("link");
       link.setAttribute("rel", "alternate");

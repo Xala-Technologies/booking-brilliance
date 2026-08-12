@@ -1,8 +1,9 @@
 import { useMemo, useState, useEffect } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Search, X, ChevronLeft, ChevronRight } from "lucide-react";
 import SEO from "@/components/SEO";
+import { localeFromPath } from "@/lib/i18n";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
@@ -18,11 +19,78 @@ import { cn } from "@/lib/utils";
 
 const PAGE_SIZE = 6;
 
+
+/**
+ * The index's own strings, per language.
+ *
+ * One component rather than a second 378-line file: the layout, filtering,
+ * pagination and search behaviour are identical, and duplicating them would
+ * mean every future fix landing in one copy and not the other.
+ *
+ * The tag sentinel stays "Alle" in BOTH languages. It is a filter VALUE, not a
+ * label — translating it would break the URL parameter and the reset button
+ * while looking like a translation improvement.
+ */
+const COPY = {
+  nb: {
+    eyebrow: "DIGILIST · BLOGG",
+    h1a: "Innsikt om",
+    h1b: "norsk booking",
+    lede:
+      "Artikler fra arbeidet med norske kommuner og utleiere: fra veiviser og saksbehandling til sesongleie, sikker innlogging, fakturering og samsvar.",
+    searchLabel: "Søk i artikler",
+    searchPlaceholder: "Søk i artikler: SSA-L, sesongleie, GDPR …",
+    allTag: "Alle",
+    countAll: (n: number) => `${n} ARTIKLER`,
+    countSome: (n: number, total: number) => `${n} av ${total} artikler`,
+    page: (a: number, b: number) => `SIDE ${a} av ${b}`,
+    emptyTitle: "Ingen treff.",
+    emptyBody: "Prøv et annet søkeord eller fjern filteret.",
+    reset: "Nullstill filter",
+    prev: "Forrige",
+    next: "Neste",
+    title: "Blogg · Digilist | Innsikt om booking, sesongleie, samsvar og daglig drift",
+    description:
+      "Artikler fra Digilists arbeid med norske kommuner og utleiere: bookingflyt, saksbehandling, sesongleie, sikker innlogging, fakturering, SSA-L 2026, GDPR og ISO 27001.",
+    canonical: "https://digilist.no/blogg",
+    crumbHome: "Hjem",
+    crumbBlog: "Blogg",
+  },
+  en: {
+    eyebrow: "DIGILIST · BLOG",
+    h1a: "Notes on",
+    h1b: "renting out space",
+    lede:
+      "Articles from the work of making venues bookable: how people actually search for a room, what breaks when bookings live in an inbox, and what it costs to fix.",
+    searchLabel: "Search articles",
+    searchPlaceholder: "Search articles: pricing, availability, payments …",
+    allTag: "Alle",
+    countAll: (n: number) => `${n} ARTICLES`,
+    countSome: (n: number, total: number) => `${n} of ${total} articles`,
+    page: (a: number, b: number) => `PAGE ${a} of ${b}`,
+    emptyTitle: "No matches.",
+    emptyBody: "Try another search term, or clear the filter.",
+    reset: "Clear filters",
+    prev: "Previous",
+    next: "Next",
+    title: "Blog · Digilist | Notes on venue booking, pricing and daily operations",
+    description:
+      "Articles from the work of making venues bookable: real-time availability, self-service booking, payments, and what a booking system should cost.",
+    canonical: "https://digilist.no/en/blog",
+    crumbHome: "Home",
+    crumbBlog: "Blog",
+  },
+} as const;
+
 const Blog = () => {
+  // Locale from the URL: /blogg is Norwegian, /en/blog is English. Same
+  // component, different corpus and copy.
+  const locale = localeFromPath(useLocation().pathname);
+  const t = COPY[locale];
   // Norwegian only. The two blogs share a directory, so an unfiltered list
   // would put English articles in the Norwegian index the day the agent
   // publishes its first twin.
-  const allPosts = postsForLocale("nb");
+  const allPosts = postsForLocale(locale);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [query, setQuery] = useState(searchParams.get("q") ?? "");
@@ -82,9 +150,9 @@ const Blog = () => {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <SEO
-        title="Blogg · Digilist | Innsikt om booking, sesongleie, samsvar og daglig drift"
-        description="Artikler fra Digilists arbeid med norske kommuner og utleiere: bookingflyt, saksbehandling, sesongleie, sikker innlogging, fakturering, SSA-L 2026, GDPR og ISO 27001."
-        canonical="https://digilist.no/blogg"
+        title={t.title}
+        description={t.description}
+        canonical={t.canonical}
         breadcrumbs={[
           { name: "Hjem", url: "https://digilist.no/" },
           { name: "Blogg", url: "https://digilist.no/blogg" },
@@ -97,24 +165,22 @@ const Blog = () => {
         <main id="main">
           <section className="pt-28 lg:pt-32 pb-14 lg:pb-20 bg-paper">
             <div className="container mx-auto md:px-8 lg:px-12">
-              <SectionRule label="DIGILIST · BLOGG" />
+              <SectionRule label={t.eyebrow} />
 
               <div className="grid lg:grid-cols-12 gap-8 lg:gap-gutter mb-12">
                 <div className="lg:col-span-8">
                   <EditorialHeading as="h1" size="display">
-                    Innsikt om{" "}
+                    {t.h1a}{" "}
                     <em
                       className="italic"
                       style={{ fontVariationSettings: getFraunces("display") }}
                     >
-                      norsk booking
+                      {t.h1b}
                     </em>
                     .
                   </EditorialHeading>
                   <p className="mt-6 text-xl text-ink-soft measure leading-relaxed">
-                    Artikler fra arbeidet med norske kommuner og utleiere: fra
-                    veiviser og saksbehandling til sesongleie, sikker
-                    innlogging, fakturering og samsvar.
+                    {t.lede}
                   </p>
                 </div>
               </div>
@@ -124,7 +190,7 @@ const Blog = () => {
                 <div className="grid lg:grid-cols-12 gap-5 lg:gap-gutter items-center">
                   <div className="lg:col-span-5">
                     <label htmlFor="blog-search" className="sr-only">
-                      Søk i artikler
+                      {t.searchLabel}
                     </label>
                     <div className="relative">
                       <Search
@@ -134,7 +200,7 @@ const Blog = () => {
                       <input
                         id="blog-search"
                         type="search"
-                        placeholder="Søk i artikler: SSA-L, sesongleie, GDPR …"
+                        placeholder={t.searchPlaceholder}
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                         className="w-full bg-paper border border-hairline-strong rounded-sm pl-9 pr-9 py-2.5 text-base text-ink placeholder:text-ink-faint focus:outline-none focus:border-ink"
@@ -179,12 +245,12 @@ const Blog = () => {
                 <div className="mt-4 editorial-mono-caption text-ink-faint flex items-baseline justify-between">
                   <span>
                     {filtered.length === allPosts.length
-                      ? `${allPosts.length} ARTIKLER`
-                      : `${filtered.length} av ${allPosts.length} artikler`}
+                      ? t.countAll(allPosts.length)
+                      : t.countSome(filtered.length, allPosts.length)}
                   </span>
                   {totalPages > 1 && (
                     <span>
-                      SIDE {currentPage} av {totalPages}
+                      {t.page(currentPage, totalPages)}
                     </span>
                   )}
                 </div>
@@ -291,10 +357,10 @@ const Blog = () => {
               {filtered.length === 0 && (
                 <div className="py-16 text-center">
                   <p className="font-serif text-2xl text-ink mb-3">
-                    Ingen treff.
+                    {t.emptyTitle}
                   </p>
                   <p className="text-base text-ink-soft">
-                    Prøv et annet søkeord eller fjern filteret.
+                    {t.emptyBody}
                   </p>
                   <button
                     type="button"
@@ -304,7 +370,7 @@ const Blog = () => {
                     }}
                     className="mt-6 inline-flex items-center gap-2 border border-hairline-strong bg-paper px-4 py-2 rounded-sm text-sm text-ink hover:bg-paper-deep hover:border-ink transition-colors"
                   >
-                    Nullstill filter
+                    {t.reset}
                   </button>
                 </div>
               )}
@@ -326,7 +392,7 @@ const Blog = () => {
                       className="h-4 w-4 transition-transform duration-quick group-hover:-translate-x-0.5"
                       aria-hidden="true"
                     />
-                    Forrige
+                    {t.prev}
                   </button>
 
                   <div className="flex items-center gap-1.5">
@@ -357,7 +423,7 @@ const Blog = () => {
                     className="group inline-flex items-center gap-2 px-4 py-2.5 border border-hairline-strong bg-paper rounded-sm font-serif text-base text-ink hover:bg-paper-deep hover:border-ink transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
                     style={{ fontVariationSettings: getFraunces("sub") }}
                   >
-                    Neste
+                    {t.next}
                     <ChevronRight
                       className="h-4 w-4 transition-transform duration-quick group-hover:translate-x-0.5"
                       aria-hidden="true"

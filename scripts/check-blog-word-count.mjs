@@ -47,7 +47,14 @@ async function main() {
     const raw = await fs.readFile(join(CONTENT_DIR, file), "utf-8");
     const words = wordCount(bodyOf(raw));
     if (words < MIN_WORDS) thinSource.push({ file, words });
-    posts.push({ file, slug: frontmatterSlug(raw, file.replace(/\.md$/, "")) });
+    // English posts prerender to dist/en/blog. Without this the check reported
+    // every one of them as "no prerendered index.html found" — a real-looking
+    // failure with a false cause, which is the kind that gets a check disabled.
+    posts.push({
+      file,
+      slug: frontmatterSlug(raw, file.replace(/\.md$/, "")),
+      lang: /^lang:\s*["']?en["']?\s*$/m.test(raw) ? "en" : "nb",
+    });
   }
 
   if (thinSource.length > 0) {
@@ -76,8 +83,11 @@ async function main() {
   }
 
   const thinRendered = [];
-  for (const { file, slug } of posts) {
-    const htmlPath = join(DIST_BLOG_DIR, slug, "index.html");
+  for (const { file, slug, lang } of posts) {
+    const htmlPath =
+      lang === "en"
+        ? join(DIST_BLOG_DIR, "..", "en", "blog", slug, "index.html")
+        : join(DIST_BLOG_DIR, slug, "index.html");
     let html;
     try {
       html = await fs.readFile(htmlPath, "utf-8");
@@ -101,8 +111,8 @@ async function main() {
     console.error(
       `\n✗ ${thinRendered.length} blog post(s) render fewer than ${MIN_WORDS} words of body text in dist/blogg/*/index.html (content.thin):`,
     );
-    for (const { file, slug, words, reason } of thinRendered) {
-      console.error(`  - ${file} (/blogg/${slug}): ${words} words${reason ? ` — ${reason}` : ""}`);
+    for (const { file, slug, words, reason, lang } of thinRendered) {
+      console.error(`  - ${file} (${lang === "en" ? "/en/blog" : "/blogg"}/${slug}): ${words} words${reason ? ` — ${reason}` : ""}`);
     }
     console.error("");
     process.exit(1);
