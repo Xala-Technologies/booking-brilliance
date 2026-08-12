@@ -253,6 +253,27 @@ const nb: Copy = {
   "chat.details": "Detaljer om behov, tidslinje eller spørsmål…",
   "chat.org": "Organisasjon eller kommune",
   "chat.orgExample": "F.eks. Rønningen Selskapslokale",
+
+  "pricing.title": "Priser: abonnement uten transaksjonsgebyr | Digilist",
+  "pricing.description":
+    "Digilist tar ingen andel av bookinginntektene dine. Abonnement etter antall anlegg og behov, tilpasset pris for små og private aktører, og 6 måneder gratis for de 100 første kundene.",
+  "pricing.label": "PRISER",
+  "pricing.h1": "Vi tar ingen andel av det",
+  "pricing.h1em": "du leier ut for",
+  "pricing.lede":
+    "Digilist er et abonnement, ikke en provisjon. Du betaler for å bruke plattformen og administrasjonspanelet — ingen transaksjonsavgift, ingen kostnad per booking, og ingen skjulte gebyrer. Leier du ut salen for 6 000 kroner, er de 6 000 kronene dine.",
+  "pricing.cta": "Få pris for ditt oppsett",
+  "pricing.faqCta": "Se hele FAQ-en",
+  "pricing.visual": "ABONNEMENT · INGEN PROVISJON",
+  "pricing.howHeading": "Slik fungerer prisen.",
+  "pricing.whyHeading": "Hvorfor vi ikke har en prisliste",
+  "pricing.whyBody":
+    "Spennet mellom et grendehus med én sal og en fylkeskommune med tjueto skoler er så stort at ett tall enten blir for høyt for den ene eller meningsløst for den andre. Vi har heller valgt å publisere alt som avgjør prisen, og gi et konkret tilbud etter en kort samtale. Fortell oss hvor mange lokaler det gjelder, hva de brukes til, og omtrent hvor mange utleier det blir i året — så har du et tall.",
+  "pricing.faqHeading": "Vanlige spørsmål om pris.",
+  "pricing.offerHeading": "De 100 første kundene får 6 måneder gratis.",
+  "pricing.offerBody":
+    "Ingen binding i prøveperioden. Et bookingsystem er umulig å vurdere ordentlig på en demo — du finner det ut i mai, når tre lag vil ha samme hall.",
+  "pricing.start": "Kom i gang",
 };
 
 const en: Copy = {
@@ -472,6 +493,27 @@ const en: Copy = {
   "chat.details": "Details about your needs, timeline or questions…",
   "chat.org": "Organisation",
   "chat.orgExample": "e.g. Riverside Function Rooms",
+
+  "pricing.title": "Pricing: a subscription, with no transaction fee | Digilist",
+  "pricing.description":
+    "Digilist takes no share of your booking revenue. Subscription tiers set by venues and needs, tailored pricing for small and private operators, and 6 months free for the first 100 customers.",
+  "pricing.label": "PRICING",
+  "pricing.h1": "We take no share of what",
+  "pricing.h1em": "you earn",
+  "pricing.lede":
+    "Digilist is a subscription, not a commission. You pay to use the platform and the administration panel — no transaction fee, no per-booking cost, and no hidden charges. What you charge for a rental is yours.",
+  "pricing.cta": "Get a quote for your setup",
+  "pricing.faqCta": "Read the full FAQ",
+  "pricing.visual": "SUBSCRIPTION · NO COMMISSION",
+  "pricing.howHeading": "How the price works.",
+  "pricing.whyHeading": "Why there is no price list",
+  "pricing.whyBody":
+    "The gap between a community hall with one room and a county authority with twenty-two schools is wide enough that any single figure is either too high for one or meaningless to the other. We publish everything that decides the price instead, and give a concrete quote after a short conversation. Tell us how many venues, what they are used for, and roughly how many rentals a year — and you have a number.",
+  "pricing.faqHeading": "Common questions about price.",
+  "pricing.offerHeading": "The first 100 customers get 6 months free.",
+  "pricing.offerBody":
+    "No lock-in during the trial. A booking system is impossible to judge properly from a demo — you find out in the busy month, when three groups want the same room.",
+  "pricing.start": "Get started",
 };
 
 const DICT: Record<Locale, Copy> = { nb, en };

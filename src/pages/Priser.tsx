@@ -48,8 +48,8 @@ export default function Priser() {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <SEO
-        title="Priser: abonnement uten transaksjonsgebyr | Digilist"
-        description="Digilist tar ingen andel av bookinginntektene dine. Abonnement etter antall anlegg og behov, tilpasset pris for små og private aktører, og 6 måneder gratis for de 100 første kundene."
+        title={t(locale, "pricing.title")}
+        description={t(locale, "pricing.description")}
         keywords="digilist pris, hva koster digilist, bookingsystem pris, bookingsystem uten provisjon, transaksjonsgebyr booking, abonnement bookingsystem"
         canonical="https://digilist.no/priser"
         breadcrumbs={[
@@ -67,40 +67,36 @@ export default function Priser() {
               question people actually arrive with. */}
           <section className="pt-28 lg:pt-32 pb-8 lg:pb-12 bg-paper">
             <div className="container mx-auto md:px-8 lg:px-12">
-              <SectionRule label="PRISER" />
+              <SectionRule label={t(locale, "pricing.label")} />
 
               <div className="grid lg:grid-cols-12 gap-8 lg:gap-gutter items-center">
                 <div className="lg:col-span-7">
                   <EditorialHeading as="h1" size="display">
-                    Vi tar ingen andel av det{" "}
+                    {t(locale, "pricing.h1")}{" "}
                     <em
                       className="italic"
                       style={{ fontVariationSettings: getFraunces("display") }}
                     >
-                      du leier ut for
+                      {t(locale, "pricing.h1em")}
                     </em>
                     .
                   </EditorialHeading>
                   <p className="mt-6 text-xl text-ink-soft measure leading-relaxed">
-                    Digilist er et abonnement, ikke en provisjon. Du betaler for
-                    å bruke plattformen og administrasjonspanelet — ingen
-                    transaksjonsavgift, ingen kostnad per booking, og ingen
-                    skjulte gebyrer. Leier du ut salen for 6 000 kroner, er de
-                    6 000 kronene dine.
+                    {t(locale, "pricing.lede")}
                   </p>
                   <div className="mt-8 flex flex-wrap gap-3">
                     <EditorialButton variant="primary" size="lg" href="/book-demo">
-                      Få pris for ditt oppsett
+                      {t(locale, "pricing.cta")}
                     </EditorialButton>
-                    <EditorialButton variant="outline" size="lg" href="/faq">
-                      Se hele FAQ-en
+                    <EditorialButton variant="outline" size="lg" href={en ? "/en/faq" : "/faq"}>
+                      {t(locale, "pricing.faqCta")}
                     </EditorialButton>
                   </div>
                 </div>
                 <div className="lg:col-span-5">
                   <CategoryVisual
                     icon={Receipt}
-                    label="ABONNEMENT · INGEN PROVISJON"
+                    label={t(locale, "pricing.visual")}
                     aspect="4 / 3"
                     variant="primary"
                     eager
@@ -122,7 +118,7 @@ export default function Priser() {
                   lineHeight: 1.1,
                 }}
               >
-                Slik fungerer prisen.
+                {t(locale, "pricing.howHeading")}
               </h2>
               <div className="grid md:grid-cols-2 gap-6 lg:gap-gutter">
                 {facts.map((fact) => (
@@ -154,16 +150,10 @@ export default function Priser() {
                       letterSpacing: "-0.015em",
                     }}
                   >
-                    Hvorfor vi ikke har en prisliste
+                    {t(locale, "pricing.whyHeading")}
                   </h2>
                   <p className="text-base lg:text-lg text-ink leading-relaxed">
-                    Spennet mellom et grendehus med én sal og en fylkeskommune
-                    med tjueto skoler er så stort at ett tall enten blir for høyt
-                    for den ene eller meningsløst for den andre. Vi har heller
-                    valgt å publisere alt som avgjør prisen, og gi et konkret
-                    tilbud etter en kort samtale. Fortell oss hvor mange lokaler
-                    det gjelder, hva de brukes til, og omtrent hvor mange utleier
-                    det blir i året — så har du et tall.
+                    {t(locale, "pricing.whyBody")}
                   </p>
                 </div>
               </EditorialCard>
@@ -181,7 +171,7 @@ export default function Priser() {
                   lineHeight: 1.1,
                 }}
               >
-                Vanlige spørsmål om pris.
+                {t(locale, "pricing.faqHeading")}
               </h2>
               <div className="grid gap-4">
                 {faq.map((item) => (
@@ -214,17 +204,15 @@ export default function Priser() {
                         lineHeight: 1.1,
                       }}
                     >
-                      De 100 første kundene får 6 måneder gratis.
+                      {t(locale, "pricing.offerHeading")}
                     </h2>
                     <p className="text-base lg:text-lg text-ink leading-relaxed">
-                      Ingen binding i prøveperioden. Et bookingsystem er umulig å
-                      vurdere ordentlig på en demo — du finner det ut i mai, når
-                      tre lag vil ha samme hall.
+                      {t(locale, "pricing.offerBody")}
                     </p>
                   </div>
                   <div className="lg:col-span-4 flex flex-wrap gap-3 lg:justify-end">
                     <EditorialButton variant="primary" size="lg" href="/book-demo">
-                      Kom i gang
+                      {t(locale, "pricing.start")}
                     </EditorialButton>
                   </div>
                 </div>
