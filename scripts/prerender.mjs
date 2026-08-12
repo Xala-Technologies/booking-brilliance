@@ -1683,7 +1683,7 @@ const ROUTES = [
     breadcrumbs: [{ name: "Home", url: `${BASE_URL}/en` }],
   },
   {
-    route: "/en/pricing",
+    route: "/en/priser",
     title: "Pricing: a subscription, with no transaction fee | Digilist",
     description:
       "Digilist takes no share of your booking revenue. Subscription tiers set by venues and needs, tailored pricing for small and private operators, and 6 months free for the first 100 customers.",
@@ -1691,7 +1691,7 @@ const ROUTES = [
     lang: "en",
     breadcrumbs: [
       { name: "Home", url: `${BASE_URL}/en` },
-      { name: "Pricing", url: `${BASE_URL}/en/pricing` },
+      { name: "Pricing", url: `${BASE_URL}/en/priser` },
     ],
     faq: [
       { q: "Do you take a cut of booking revenue?", a: "No. Digilist charges no transaction fee and takes no share of what you charge for rentals. We charge for use of the service and the administration panel, and there are no hidden fees." },
@@ -2456,11 +2456,28 @@ function patchHTML(template, meta) {
  * with no bundler, and the source of truth is TypeScript. `prerender.test.mjs`
  * pins the two together so the copy cannot drift.
  */
+// Mirrors src/lib/i18n.ts TRANSLATED_PATHS — the pages whose ENGLISH COPY is
+// written. Every route exists under /en, but only these are in English; the
+// rest render the Norwegian component and must not be indexed.
 const TRANSLATED_ROUTES = {
   "/": "/en",
-  "/priser": "/en/pricing",
+  "/priser": "/en/priser",
   "/faq": "/en/faq",
+  "/blogg": "/en/blogg",
 };
+
+/**
+ * True when an English route still renders Norwegian copy.
+ *
+ * The mirror means /en/<anything> exists. Serving those `noindex` is the
+ * difference between a staged translation and a site claiming ninety English
+ * pages when it has four.
+ */
+function isStagedEnglish(route) {
+  if (!route.startsWith("/en")) return false;
+  const nb = route === "/en" ? "/" : route.slice(3);
+  return !Object.prototype.hasOwnProperty.call(TRANSLATED_ROUTES, nb);
+}
 
 function hreflangTags(route) {
   const reverse = Object.fromEntries(
@@ -2614,7 +2631,7 @@ async function main() {
   // its own static HTML — an index that only exists client-side is invisible to
   // a crawler, which is most of the point of having it.
   let enBlogHTML = patchHTML(template, {
-    route: "/en/blog",
+    route: "/en/blogg",
     title: "Blog · Digilist | Notes on venue booking, pricing and daily operations",
     description:
       "Articles from the work of making venues bookable: real-time availability, self-service booking, payments, and what a booking system should cost.",
@@ -2857,7 +2874,7 @@ async function main() {
     { loc: `${BASE_URL}/teknologi`, priority: "0.7", changefreq: "monthly" },
     { loc: `${BASE_URL}/priser`, priority: "0.9", changefreq: "monthly" },
     { loc: `${BASE_URL}/en`, priority: "1.0", changefreq: "weekly" },
-    { loc: `${BASE_URL}/en/pricing`, priority: "0.9", changefreq: "monthly" },
+    { loc: `${BASE_URL}/en/priser`, priority: "0.9", changefreq: "monthly" },
     { loc: `${BASE_URL}/en/faq`, priority: "0.7", changefreq: "monthly" },
     { loc: `${BASE_URL}/en/blog`, priority: "0.8", changefreq: "daily" },
     { loc: `${BASE_URL}/om-oss`, priority: "0.6", changefreq: "monthly" },

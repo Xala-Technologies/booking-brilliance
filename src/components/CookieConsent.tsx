@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { X, Cookie, Shield } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 import { Button } from "@/components/ui/button";
 import { applyConsent, initAnalytics, saveConsent } from "@/lib/analytics";
 
@@ -14,6 +16,7 @@ import { applyConsent, initAnalytics, saveConsent } from "@/lib/analytics";
  * a recorded denial is itself the signal Google Consent Mode needs.
  */
 const CookieConsent = () => {
+  const locale = localeFromPath(useLocation().pathname);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -41,7 +44,7 @@ const CookieConsent = () => {
   return (
     <div
       role="region"
-      aria-label="Samtykke til informasjonskapsler"
+      aria-label={t(locale, "consent.regionLabel")}
       className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6 animate-slide-up pointer-events-none"
     >
       <div className="container mx-auto md:px-8 lg:px-12 max-w-6xl">
@@ -54,20 +57,18 @@ const CookieConsent = () => {
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-2">
-                  <h3 className="text-lg font-bold text-foreground">Vi bruker informasjonskapsler</h3>
+                  <h3 className="text-lg font-bold text-foreground">{t(locale, "consent.title")}</h3>
                   <Shield className="w-4 h-4 text-primary" />
                 </div>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-                  Nødvendige cookies gjør at nettsiden fungerer. Med ditt samtykke bruker vi i tillegg
-                  statistikk‑ og markedsføringscookies fra Google og Meta, slik at vi kan måle hvilke
-                  annonser som faktisk fører til en henvendelse. Du kan når som helst ombestemme deg.
-                  Les mer i vår{" "}
+                  {t(locale, "consent.body")}{" "}
+                  {t(locale, "consent.readMoreIn")}{" "}
                   <Link to="/cookies" className="text-primary hover:underline font-medium">
-                    cookie-policy
+                    {t(locale, "consent.cookiePolicy")}
                   </Link>
-                  {" "}og{" "}
+                  {" "}{t(locale, "consent.and")}{" "}
                   <Link to="/personvern" className="text-primary hover:underline font-medium">
-                    personvernerklæring
+                    {t(locale, "consent.privacyPolicy")}
                   </Link>
                   .
                 </p>
@@ -82,7 +83,7 @@ const CookieConsent = () => {
                 onClick={rejectCookies}
                 className="w-full sm:w-auto"
               >
-                Kun nødvendige
+                {t(locale, "consent.necessaryOnly")}
               </Button>
               <Button
                 variant="outline"
@@ -98,7 +99,7 @@ const CookieConsent = () => {
                 onClick={acceptCookies}
                 className="w-full sm:w-auto shadow-lg shadow-primary/30"
               >
-                Godta alle
+                {t(locale, "consent.acceptAll")}
               </Button>
             </div>
 

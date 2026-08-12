@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { HTML_LANG, OG_LOCALE, hreflangFor, localeFromPath, type Hreflang } from "@/lib/i18n";
+import { HTML_LANG, OG_LOCALE, hreflangFor, isIndexableEnglish, localeFromPath, type Hreflang } from "@/lib/i18n";
 
 interface HowToStep {
   name: string;
@@ -117,7 +117,13 @@ const SEO = ({
 
     setMeta("description", description);
     setMeta("keywords", keywords);
-    if (robots) setMeta("robots", robots);
+    // Every route is mirrored under /en, but only some have English copy. The
+    // rest render the Norwegian component, and telling Google that is how a
+    // staged translation turns into ninety duplicate pages.
+    const staged = !isIndexableEnglish(
+      typeof window === "undefined" ? "/" : window.location.pathname,
+    );
+    if (robots || staged) setMeta("robots", robots ?? "noindex,follow");
     setMeta("og:type", ogType, true);
     setMeta("og:title", title, true);
     setMeta("og:description", description, true);

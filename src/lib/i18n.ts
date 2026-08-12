@@ -54,11 +54,44 @@ export const SITE_ORIGIN = "https://digilist.no";
  * translation behind it produces an hreflang pointing at Norwegian text, which
  * is worse than having no English page at all.
  */
-export const TRANSLATED: Readonly<Record<string, string>> = {
-  "/": "/en",
-  "/priser": "/en/pricing",
-  "/faq": "/en/faq",
-};
+/**
+ * Paths whose ENGLISH COPY has actually been written.
+ *
+ * Every route is now mirrored under `/en`, so `/en/anything` renders — but it
+ * renders the Norwegian component until that page's copy is translated. This
+ * set is what separates "the route exists" from "the page is in English", and
+ * three things hang off it: hreflang is emitted only for these, the language
+ * switcher only offers these, and every other `/en/*` page is served
+ * `noindex` so Google never sees a Norwegian page at an English URL and files
+ * the pair as duplicate content.
+ *
+ * Adding a page here is the last step of translating it, not the first.
+ */
+export const TRANSLATED_PATHS: ReadonlySet<string> = new Set([
+  "/",
+  "/priser",
+  "/faq",
+  "/blogg",
+]);
+
+/** `nb path → en path`, derived. The English site mirrors the Norwegian slugs. */
+export const TRANSLATED: Readonly<Record<string, string>> = Object.fromEntries(
+  [...TRANSLATED_PATHS].map((p) => [p, p === "/" ? "/en" : `/en${p}`]),
+);
+
+/**
+ * Whether an English URL should be indexed.
+ *
+ * False for a mirrored route whose copy is still Norwegian. Serving that page
+ * `noindex` is the difference between a staged translation and a site that
+ * tells Google it has ninety English pages when it has four.
+ */
+export function isIndexableEnglish(pathname: string): boolean {
+  const path = normalise(pathname);
+  if (localeFromPath(path) !== "en") return true;
+  const nb = path === "/en" ? "/" : path.slice(3);
+  return TRANSLATED_PATHS.has(nb);
+}
 
 /** The reverse map, built once. */
 const EN_TO_NB: Readonly<Record<string, string>> = Object.fromEntries(

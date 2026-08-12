@@ -4,6 +4,22 @@ import { Menu, X, ArrowUpRight } from "lucide-react";
 import { EditorialButton } from "@/components/editorial";
 import { openChatbot } from "@/lib/chatbot/open";
 import { cn } from "@/lib/utils";
+import { localeFromPath } from "@/lib/i18n";
+
+/**
+ * The English drawer.
+ *
+ * The drawer is always mounted, so on /en it was rendering all eighteen
+ * Norwegian routes off-screen — and opening it on a phone dropped the visitor
+ * out of English on any tap. Only routes that exist in English.
+ */
+const ROUTES_EN: Array<{ label: string; to: string; eyebrow?: string }> = [
+  { label: "Home", to: "/en" },
+  { label: "Pricing", to: "/en/pricing", eyebrow: "No transaction fee" },
+  { label: "Blog", to: "/en/blog" },
+  { label: "FAQ", to: "/en/faq" },
+  { label: "Book demo", to: "/book-demo" },
+];
 
 const ROUTES: Array<{ label: string; to: string; eyebrow?: string }> = [
   { label: "Forsiden", to: "/", eyebrow: "Hjem" },
@@ -50,6 +66,7 @@ const ROUTES: Array<{ label: string; to: string; eyebrow?: string }> = [
 export function MobileMenu() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const isEnglish = localeFromPath(location.pathname) === "en";
 
   // Close on route change
   useEffect(() => {
@@ -152,7 +169,7 @@ export function MobileMenu() {
           <p className="editorial-mono-caption text-ink-faint mb-4">
             NAVIGASJON
           </p>
-          {ROUTES.map((r) => (
+          {(isEnglish ? ROUTES_EN : ROUTES).map((r) => (
             <Link
               key={r.to}
               to={r.to}
@@ -182,13 +199,15 @@ export function MobileMenu() {
         </nav>
 
         <footer className="border-t border-hairline-strong px-5 py-5 space-y-3 bg-accent-tinted">
+          {/* The marketplace is Norwegian-only, so the English drawer offers
+              pricing instead of a link that leaves the language. */}
           <EditorialButton
             variant="primary"
             size="lg"
-            href="/leie"
+            href={isEnglish ? "/en/pricing" : "/leie"}
             className="w-full"
           >
-            Finn ledige lokaler
+            {isEnglish ? "See pricing" : "Finn ledige lokaler"}
           </EditorialButton>
           <EditorialButton
             variant="outline"
@@ -196,7 +215,7 @@ export function MobileMenu() {
             href="/book-demo"
             className="w-full"
           >
-            Book demo
+            {isEnglish ? "Book a demo" : "Book demo"}
           </EditorialButton>
           <EditorialButton
             variant="outline"

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Link, useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
 import { ChevronDown } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 import { GlobalSearch } from "./GlobalSearch";
@@ -94,6 +95,25 @@ const PRIMARY_NAV = [
   { label: "Book demo", to: "/book-demo" },
 ] as const;
 
+/**
+ * The English navigation.
+ *
+ * Only routes that exist in English. On /en the shared navbar was rendering
+ * the Norwegian one — "Finn", "Løsninger", "Blogg", "FAQ", "Transparens" — all
+ * pointing at Norwegian pages, so an English visitor who clicked anything fell
+ * straight out of English. Four working links beat twelve that abandon them.
+ *
+ * The dropdowns are dropped entirely rather than translated: the marketplaces
+ * and solution pages behind them are Norwegian-only, and a menu whose every
+ * item leaves the language is worse than no menu.
+ */
+const PRIMARY_NAV_EN = [
+  { label: "Pricing", to: "/en/pricing" },
+  { label: "Blog", to: "/en/blog" },
+  { label: "FAQ", to: "/en/faq" },
+  { label: "Book demo", to: "/book-demo" },
+] as const;
+
 // Editorial hover/active: an animated hairline that grows from the left on
 // hover and stays lit for the active route or an open dropdown.
 const NAV_LINK =
@@ -103,6 +123,8 @@ const NAV_LINK_ACTIVE = "text-ink after:scale-x-100";
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  // English pages get an English nav. See PRIMARY_NAV_EN.
+  const isEnglish = localeFromPath(location.pathname) === "en";
   const solutionsActive = SOLUTIONS.some((s) =>
     location.pathname.startsWith(s.to),
   );
@@ -197,6 +219,11 @@ const Navbar = () => {
             aria-label="Hovednavigasjon"
             className="hidden xl:flex items-center gap-6 2xl:gap-8"
           >
+            {/* Norwegian-only sections. The pages behind them do not exist in
+                English, and a menu whose every item leaves the language is
+                worse than no menu. */}
+            {!isEnglish && (
+            <>
             <DropdownMenu>
               <DropdownMenuTrigger
                 className={cn(
@@ -272,8 +299,10 @@ const Navbar = () => {
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
+            </>
+            )}
 
-            {PRIMARY_NAV.map((item) => (
+            {(isEnglish ? PRIMARY_NAV_EN : PRIMARY_NAV).map((item) => (
               <NavLink
                 key={item.to}
                 to={item.to}
@@ -304,7 +333,7 @@ const Navbar = () => {
             rel="noopener noreferrer"
             className="hidden lg:inline-flex"
           >
-            Åpne plattformen
+            {isEnglish ? "Open the platform" : "Åpne plattformen"}
           </EditorialButton>
           <MobileMenu />
         </div>

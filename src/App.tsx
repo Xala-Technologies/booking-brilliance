@@ -41,9 +41,6 @@ const Billettsystem = lazy(() => import("./pages/Billettsystem"));
 const Teknologi = lazy(() => import("./pages/Teknologi"));
 const OmOss = lazy(() => import("./pages/OmOss"));
 const Priser = lazy(() => import("./pages/Priser"));
-const Pricing = lazy(() => import("./pages/Pricing"));
-const IndexEn = lazy(() => import("./pages/IndexEn"));
-const FaqEn = lazy(() => import("./pages/FaqEn"));
 const Leie = lazy(() => import("./pages/Leie"));
 const LeieSelskapslokale = lazy(() => import("./pages/LeieSelskapslokale"));
 const LeieMoterom = lazy(() => import("./pages/LeieMoterom"));
@@ -284,128 +281,109 @@ function AnimatedRoutesWrap({ children }: { children: ReactNode }) {
  * already in the `animate` state, so the only change is that *future*
  * animations are allowed to run.
  */
-function MotionFirstPaintShim({ children }: { children: ReactNode }) {
-  const [hydrated, setHydrated] = useState(false);
-  useEffect(() => {
-    // Defer to next frame so the initial paint is fully committed before
-    // we re-enable animations.
-    const id = requestAnimationFrame(() => setHydrated(true));
-    return () => cancelAnimationFrame(id);
-  }, []);
+/**
+ * Every route, once.
+ *
+ * Rendered twice — at "/" and at "/en/*" — so the English site is the same site
+ * with the language changed, not a hand-built subset. Paths are RELATIVE, which
+ * is what lets one tree serve both: a nested <Routes> resolves them against
+ * whichever prefix matched.
+ *
+ * The alternative was a second route table with English slugs, which for ninety
+ * routes is a map that drifts the first time someone adds a page and forgets
+ * the twin. Google does not require translated URLs; hreflang is what tells it
+ * two URLs are the same page in two languages.
+ */
+function SiteRoutes() {
   return (
-    <MotionConfig reducedMotion={hydrated ? "user" : "always"}>
-      {children}
-    </MotionConfig>
-  );
-}
-
-export function AppShell() {
-  return (
-    <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
-        <MotionFirstPaintShim>
-        <TooltipProvider>
-          <ScrollToTop />
-          <RumReporter />
-          <ChatbotProvider>
-          <ContentShell>
-          <Suspense fallback={<RouteFallback />}>
-          <AnimatedRoutesWrap>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/book-demo" element={<BookDemo />} />
-            <Route path="/bookingsystem-kommune" element={<BookingsystemKommune />} />
-            <Route path="/verktoy" element={<Verktoy />} />
-            <Route path="/verktoy/leiepriskalkulator" element={<LeieprisKalkulator />} />
-            <Route path="/rapport/utleiemarkedet-norge-2026" element={<UtleiemarkedetNorge2026 />} />
-            <Route path="/verktoy/kapasitetskalkulator" element={<KapasitetsKalkulator />} />
-            <Route path="/bookingsystem-utleie" element={<BookingsystemUtleie />} />
-            <Route path="/kanaler" element={<Kanaler />} />
-            <Route path="/lokaler-til-leie" element={<LokalerTilLeie />} />
-            <Route path="/lokaler-til-leie/:by" element={<LokalerTilLeieBy />} />
-            <Route path="/leie/konfirmasjonslokale" element={<LeieKonfirmasjonslokale />} />
-            <Route path="/leie/firmafest" element={<LeieFirmafest />} />
-            <Route path="/leie/minnestund" element={<LeieMinnestund />} />
-            <Route path="/leie/daap" element={<LeieDaap />} />
-            <Route path="/leie/jubileum" element={<LeieJubileum />} />
-            <Route path="/sikkerhet" element={<Sikkerhet />} />
-            <Route path="/booking-av-lokaler-og-moterom" element={<BookingLokalerMoterom />} />
-            <Route path="/billettsystem" element={<Billettsystem />} />
-            <Route path="/teknologi" element={<Teknologi />} />
-            <Route path="/om-oss" element={<OmOss />} />
-            <Route path="/priser" element={<Priser />} />
-            {/* English. Only pages that are actually translated get a route —
-                a /en URL rendering Norwegian text is duplicate content that
-                would damage the pages ranking today. See lib/i18n.ts. */}
-            <Route path="/en" element={<IndexEn />} />
-            <Route path="/en/pricing" element={<Pricing />} />
-            <Route path="/en/faq" element={<FaqEn />} />
-            <Route path="/leie" element={<Leie />} />
-            <Route path="/leie/selskapslokale" element={<LeieSelskapslokale />} />
-            <Route path="/leie/gaard" element={<LeieGaard />} />
-            <Route path="/leie/bursdagslokale" element={<LeieBursdagslokale />} />
-            <Route path="/leie/kulturhus" element={<LeieKulturhus />} />
-            <Route path="/leie/moterom" element={<LeieMoterom />} />
-            <Route path="/leie/konferanselokale" element={<LeieKonferanselokale />} />
-            <Route path="/leie/kontorlokaler" element={<LeieKontorlokaler />} />
-            <Route path="/leie/coworking" element={<LeieCoworking />} />
-            <Route path="/leie/idrettshall" element={<LeieIdrettshall />} />
-            <Route path="/leie/hall" element={<LeieHall />} />
-            <Route path="/leie/padelbane" element={<LeiePadelbane />} />
-            <Route path="/leie/svommehall" element={<LeieSvommehall />} />
-            <Route path="/leie/hobbyklubb" element={<LeieHobbyklubb />} />
-            <Route path="/overnatting" element={<Overnatting />} />
-            <Route path="/overnatting/hytte" element={<OvernattingHytte />} />
-            <Route path="/overnatting/leilighet" element={<OvernattingLeilighet />} />
-            <Route path="/overnatting/rom" element={<OvernattingRom />} />
-            <Route path="/overnatting/feriehus" element={<OvernattingFeriehus />} />
-            <Route path="/utstyr" element={<Utstyr />} />
-            <Route path="/utstyr/festutstyr" element={<UtstyrFestutstyr />} />
-            <Route path="/utstyr/verktoy-maskiner" element={<UtstyrVerktoyMaskiner />} />
-            <Route path="/utstyr/lyd-og-lys" element={<UtstyrLydOgLys />} />
-            <Route path="/utstyr/sport-og-friluft" element={<UtstyrSportOgFriluft />} />
-            <Route path="/tjenester" element={<Tjenester />} />
-            <Route path="/tjenester/catering" element={<TjenesteCatering />} />
-            <Route path="/tjenester/dj" element={<TjenesteDj />} />
-            <Route path="/tjenester/musiker" element={<TjenesteMusiker />} />
-            <Route path="/tjenester/dekor" element={<TjenesteDekor />} />
-            <Route path="/arrangementer" element={<Arrangementer />} />
-            <Route path="/arrangementer/konsert" element={<ArrangementKonsert />} />
-            <Route path="/arrangementer/teater-og-scene" element={<ArrangementTeaterOgScene />} />
-            <Route path="/arrangementer/festival" element={<ArrangementFestival />} />
-            <Route path="/arrangementer/sport" element={<ArrangementSport />} />
-            <Route path="/blogg" element={<Blog />} />
+    <Routes>
+            <Route index element={<Index />} />
+            <Route path="book-demo" element={<BookDemo />} />
+            <Route path="bookingsystem-kommune" element={<BookingsystemKommune />} />
+            <Route path="verktoy" element={<Verktoy />} />
+            <Route path="verktoy/leiepriskalkulator" element={<LeieprisKalkulator />} />
+            <Route path="rapport/utleiemarkedet-norge-2026" element={<UtleiemarkedetNorge2026 />} />
+            <Route path="verktoy/kapasitetskalkulator" element={<KapasitetsKalkulator />} />
+            <Route path="bookingsystem-utleie" element={<BookingsystemUtleie />} />
+            <Route path="kanaler" element={<Kanaler />} />
+            <Route path="lokaler-til-leie" element={<LokalerTilLeie />} />
+            <Route path="lokaler-til-leie/:by" element={<LokalerTilLeieBy />} />
+            <Route path="leie/konfirmasjonslokale" element={<LeieKonfirmasjonslokale />} />
+            <Route path="leie/firmafest" element={<LeieFirmafest />} />
+            <Route path="leie/minnestund" element={<LeieMinnestund />} />
+            <Route path="leie/daap" element={<LeieDaap />} />
+            <Route path="leie/jubileum" element={<LeieJubileum />} />
+            <Route path="sikkerhet" element={<Sikkerhet />} />
+            <Route path="booking-av-lokaler-og-moterom" element={<BookingLokalerMoterom />} />
+            <Route path="billettsystem" element={<Billettsystem />} />
+            <Route path="teknologi" element={<Teknologi />} />
+            <Route path="om-oss" element={<OmOss />} />
+            <Route path="priser" element={<Priser />} />
+            <Route path="leie" element={<Leie />} />
+            <Route path="leie/selskapslokale" element={<LeieSelskapslokale />} />
+            <Route path="leie/gaard" element={<LeieGaard />} />
+            <Route path="leie/bursdagslokale" element={<LeieBursdagslokale />} />
+            <Route path="leie/kulturhus" element={<LeieKulturhus />} />
+            <Route path="leie/moterom" element={<LeieMoterom />} />
+            <Route path="leie/konferanselokale" element={<LeieKonferanselokale />} />
+            <Route path="leie/kontorlokaler" element={<LeieKontorlokaler />} />
+            <Route path="leie/coworking" element={<LeieCoworking />} />
+            <Route path="leie/idrettshall" element={<LeieIdrettshall />} />
+            <Route path="leie/hall" element={<LeieHall />} />
+            <Route path="leie/padelbane" element={<LeiePadelbane />} />
+            <Route path="leie/svommehall" element={<LeieSvommehall />} />
+            <Route path="leie/hobbyklubb" element={<LeieHobbyklubb />} />
+            <Route path="overnatting" element={<Overnatting />} />
+            <Route path="overnatting/hytte" element={<OvernattingHytte />} />
+            <Route path="overnatting/leilighet" element={<OvernattingLeilighet />} />
+            <Route path="overnatting/rom" element={<OvernattingRom />} />
+            <Route path="overnatting/feriehus" element={<OvernattingFeriehus />} />
+            <Route path="utstyr" element={<Utstyr />} />
+            <Route path="utstyr/festutstyr" element={<UtstyrFestutstyr />} />
+            <Route path="utstyr/verktoy-maskiner" element={<UtstyrVerktoyMaskiner />} />
+            <Route path="utstyr/lyd-og-lys" element={<UtstyrLydOgLys />} />
+            <Route path="utstyr/sport-og-friluft" element={<UtstyrSportOgFriluft />} />
+            <Route path="tjenester" element={<Tjenester />} />
+            <Route path="tjenester/catering" element={<TjenesteCatering />} />
+            <Route path="tjenester/dj" element={<TjenesteDj />} />
+            <Route path="tjenester/musiker" element={<TjenesteMusiker />} />
+            <Route path="tjenester/dekor" element={<TjenesteDekor />} />
+            <Route path="arrangementer" element={<Arrangementer />} />
+            <Route path="arrangementer/konsert" element={<ArrangementKonsert />} />
+            <Route path="arrangementer/teater-og-scene" element={<ArrangementTeaterOgScene />} />
+            <Route path="arrangementer/festival" element={<ArrangementFestival />} />
+            <Route path="arrangementer/sport" element={<ArrangementSport />} />
+            <Route path="blogg" element={<Blog />} />
             <Route
-              path="/blogg/preview/:draftId"
+              path="blogg/preview/:draftId"
               element={
                 <ConvexScope>
                   <BlogPreview />
                 </ConvexScope>
               }
             />
-            <Route path="/blogg/:slug" element={<BlogPost />} />
-            <Route path="/en/blog" element={<Blog />} />
-            <Route path="/en/blog/:slug" element={<BlogPost />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/ai-agenter" element={<AiAgenter />} />
-            <Route path="/ai-agenter/sesongtildeling" element={<AgentSesongtildeling />} />
-            <Route path="/ai-agenter/compliance-godkjenning" element={<AgentComplianceGodkjenning />} />
-            <Route path="/ai-agenter/importer-oppforing" element={<AgentImporterOppforing />} />
-            <Route path="/salgsvilkar" element={<Salgsvilkar />} />
-            <Route path="/personvern" element={<Personvern />} />
-            <Route path="/cookies" element={<Cookies />} />
-            <Route path="/tilgjengelighet" element={<Tilgjengelighet />} />
+            <Route path="blogg/:slug" element={<BlogPost />} />
+            <Route path="faq" element={<FAQ />} />
+            <Route path="ai-agenter" element={<AiAgenter />} />
+            <Route path="ai-agenter/sesongtildeling" element={<AgentSesongtildeling />} />
+            <Route path="ai-agenter/compliance-godkjenning" element={<AgentComplianceGodkjenning />} />
+            <Route path="ai-agenter/importer-oppforing" element={<AgentImporterOppforing />} />
+            <Route path="salgsvilkar" element={<Salgsvilkar />} />
+            <Route path="personvern" element={<Personvern />} />
+            <Route path="cookies" element={<Cookies />} />
+            <Route path="tilgjengelighet" element={<Tilgjengelighet />} />
             {/* Public pages read audit/status data through the same-origin
                 /api/audits/public-summary proxy (server-side Convex), so they
                 need no browser Convex client and stay up during a Convex
                 outage. */}
-            <Route path="/transparens" element={<Transparens />} />
-            <Route path="/status" element={<Status />} />
-            <Route path="/bruksomrader/selskapslokaler" element={<UseCaseSelskapslokaler />} />
-            <Route path="/bruksomrader/moterom" element={<UseCaseMoterom />} />
-            <Route path="/bruksomrader/idrettshaller-gymsaler" element={<UseCaseIdrettshaller />} />
-            <Route path="/bruksomrader/kulturhus-kantiner" element={<UseCaseKulturhus />} />
+            <Route path="transparens" element={<Transparens />} />
+            <Route path="status" element={<Status />} />
+            <Route path="bruksomrader/selskapslokaler" element={<UseCaseSelskapslokaler />} />
+            <Route path="bruksomrader/moterom" element={<UseCaseMoterom />} />
+            <Route path="bruksomrader/idrettshaller-gymsaler" element={<UseCaseIdrettshaller />} />
+            <Route path="bruksomrader/kulturhus-kantiner" element={<UseCaseKulturhus />} />
             <Route
-              path="/admin/intelligence"
+              path="admin/intelligence"
               element={
                 <ConvexScope>
                   <IntelligenceShell />
@@ -498,6 +476,40 @@ export function AppShell() {
             </Route>
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
+          </Routes>
+  );
+}
+
+function MotionFirstPaintShim({ children }: { children: ReactNode }) {
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => {
+    // Defer to next frame so the initial paint is fully committed before
+    // we re-enable animations.
+    const id = requestAnimationFrame(() => setHydrated(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+  return (
+    <MotionConfig reducedMotion={hydrated ? "user" : "always"}>
+      {children}
+    </MotionConfig>
+  );
+}
+
+export function AppShell() {
+  return (
+    <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+        <MotionFirstPaintShim>
+        <TooltipProvider>
+          <ScrollToTop />
+          <RumReporter />
+          <ChatbotProvider>
+          <ContentShell>
+          <Suspense fallback={<RouteFallback />}>
+          <AnimatedRoutesWrap>
+          <Routes>
+            {/* One tree, two prefixes. See SiteRoutes. */}
+            <Route path="/en/*" element={<SiteRoutes />} />
+            <Route path="/*" element={<SiteRoutes />} />
           </Routes>
           </AnimatedRoutesWrap>
           </Suspense>
