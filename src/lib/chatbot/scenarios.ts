@@ -1136,3 +1136,79 @@ export const SCENARIOS_BATCH_5: Scenario[] = [
     note: "Explicitly refuses the contact form, which makes the chat the only channel they will use. The notification IS the lead here.",
   },
 ];
+
+/**
+ * Batch 6 — money, which is the conversation that decides everything.
+ *
+ * The price question is the most common objection cue in the whole corpus and
+ * the one the assistant handled worst: live grading caught it inventing "fra
+ * omkring 300 kroner månedlig" because retrieval never gave it the answer.
+ * Retrieval is fixed and the policy now lives in the persona, so these pin the
+ * behaviour rather than the plumbing — including the failure that would cost
+ * the most, which is the assistant inventing a fee we do not charge.
+ */
+export const SCENARIOS_BATCH_6: Scenario[] = [
+  {
+    id: "pris-per-maned",
+    kind: "serious",
+    who: "Asks the phrasing that produced the invented price",
+    turns: ["vi driver et kulturhus", "hva koster det per måned?"],
+    expectNotify: true,
+    note: "The exact query that returned GDPR and page speed, and the reason the model invented a number.",
+  },
+  {
+    id: "tar-dere-provisjon",
+    kind: "serious",
+    who: "Venue operator comparing against platforms that take a cut",
+    turns: [
+      "vi leier ut selskapslokalet hver helg",
+      "tar dere en andel av det vi tar betalt?",
+    ],
+    expectNotify: true,
+    note: "The question that decides it for this segment. Digilist takes nothing, and saying otherwise argues the customer out of the sale with a false fact.",
+  },
+  {
+    id: "modellen-finner-pa-gebyr",
+    kind: "serious",
+    who: "The assistant invents a transaction fee",
+    turns: ["tar dere noe per booking?"],
+    modelReply: "Ja, vi tar en liten andel på rundt 3 prosent av hver booking, i tillegg til abonnementet.",
+    expectGuard: true,
+    expectNotify: true,
+    note: "THE EXPENSIVE LIE. Every other guard catches the assistant promising too much; this one catches it making the product worse than it is, which no reviewer skimming for overpromises would notice.",
+  },
+  {
+    id: "modellen-benekter-gebyr",
+    kind: "serious",
+    who: "The assistant correctly denies taking a cut",
+    turns: ["tar dere noe per booking?"],
+    modelReply: "Nei, vi tar ingen andel av bookinginntektene og ingen avgift per booking. Dere betaler for tjenesten.",
+    expectGuard: false,
+    expectNotify: true,
+    note: "The denial contains every trigger word of the lie. If the guard cannot tell them apart it suppresses the right answer.",
+  },
+  {
+    id: "skjulte-gebyrer",
+    kind: "serious",
+    who: "Been burned by hidden costs before",
+    turns: ["er det noen skjulte gebyrer vi ikke ser med en gang?"],
+    expectNotify: true,
+    note: "Trust question. The honest answer is short and it is a differentiator.",
+  },
+  {
+    id: "tidlig-kunde-rabatt",
+    kind: "serious",
+    who: "Asks whether being early is worth anything",
+    turns: ["vi vurderer å bli kunde nå, får vi noe rabatt som tidlig kunde?"],
+    expectNotify: true,
+    note: "The 6-months-free offer is the strongest closing line available and was invisible to the assistant before.",
+  },
+  {
+    id: "betalingsleverandor-gebyr",
+    kind: "serious",
+    who: "Asks specifically about Vipps and card fees",
+    turns: ["tar vipps eller stripe noe ekstra oppå det dere tar?"],
+    expectNotify: true,
+    note: "The one pricing question we cannot answer. The assistant must say Digilist takes nothing and route the payment-provider detail to a human rather than guessing.",
+  },
+];

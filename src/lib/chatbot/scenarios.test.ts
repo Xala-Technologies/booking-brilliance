@@ -19,11 +19,12 @@ import {
   SCENARIOS_BATCH_3,
   SCENARIOS_BATCH_4,
   SCENARIOS_BATCH_5,
+  SCENARIOS_BATCH_6,
   type Scenario,
 } from "./scenarios";
 
 /** Every scenario, batches combined. Growing this is how the bar gets tuned. */
-const SCENARIOS: Scenario[] = [...BATCH_1, ...SCENARIOS_BATCH_2, ...SCENARIOS_BATCH_3, ...SCENARIOS_BATCH_4, ...SCENARIOS_BATCH_5];
+const SCENARIOS: Scenario[] = [...BATCH_1, ...SCENARIOS_BATCH_2, ...SCENARIOS_BATCH_3, ...SCENARIOS_BATCH_4, ...SCENARIOS_BATCH_5, ...SCENARIOS_BATCH_6];
 import { decideTurn, type TurnDecision } from "./turn";
 import { enrichProfile } from "./sales/lead";
 

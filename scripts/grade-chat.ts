@@ -24,11 +24,11 @@
 import { buildLLMContext } from "../src/lib/chatbot/rag";
 import { retrieve } from "../src/lib/chatbot/rag";
 import { describeViolations, blocking, gradeReply, type Violation } from "../src/lib/chatbot/guardrails";
-import { GUARD_SCENARIOS, SCENARIOS, SCENARIOS_BATCH_2, SCENARIOS_BATCH_3, SCENARIOS_BATCH_4, SCENARIOS_BATCH_5, type Scenario } from "../src/lib/chatbot/scenarios";
+import { GUARD_SCENARIOS, SCENARIOS, SCENARIOS_BATCH_2, SCENARIOS_BATCH_3, SCENARIOS_BATCH_4, SCENARIOS_BATCH_5, SCENARIOS_BATCH_6, type Scenario } from "../src/lib/chatbot/scenarios";
 
 const SYNTHETIC_CID_PREFIX = "grade-";
 
-const ALL: Scenario[] = [...SCENARIOS, ...SCENARIOS_BATCH_2, ...SCENARIOS_BATCH_3, ...SCENARIOS_BATCH_4, ...SCENARIOS_BATCH_5, ...GUARD_SCENARIOS];
+const ALL: Scenario[] = [...SCENARIOS, ...SCENARIOS_BATCH_2, ...SCENARIOS_BATCH_3, ...SCENARIOS_BATCH_4, ...SCENARIOS_BATCH_5, ...SCENARIOS_BATCH_6, ...GUARD_SCENARIOS];
 
 interface Args {
   endpoint: string;

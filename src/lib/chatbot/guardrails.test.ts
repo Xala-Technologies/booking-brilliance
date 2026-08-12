@@ -85,3 +85,48 @@ describe("wordCount", () => {
     expect(wordCount("  to   ord  ")).toBe(2);
   });
 });
+
+describe("false-fee — the lie that costs us the sale", () => {
+  it("blocks the assistant inventing a cut of the customer's revenue", () => {
+    for (const reply of [
+      "Vi tar en liten andel av bookinginntektene, rundt 3 prosent.",
+      "Digitalist... beklager, Digilist tar en provisjon på hver booking.",
+      "Vi tar 2 % av omsetningen deres.",
+      "Vi krever en transaksjonsavgift på betalinger.",
+      "Det påløper et gebyr per booking i tillegg til abonnementet.",
+    ]) {
+      expect(blocking(gradeReply({ reply })).map((v) => v.rule), reply).toContain("false-fee");
+    }
+  });
+
+  it("allows the DENIAL, which contains every trigger word", () => {
+    // The whole reason this needs a negation check: the correct answer and the
+    // lie are the same sentence with one word changed.
+    for (const reply of [
+      "Nei, vi tar ingen andel av bookinginntektene deres.",
+      "Digilist tar ikke provisjon på utleien.",
+      "Det er ingen transaksjonsavgift og ingen gebyr per booking.",
+      "Dere betaler for tjenesten, uten noen andel av omsetningen.",
+    ]) {
+      expect(blocking(gradeReply({ reply })).map((v) => v.rule), reply).not.toContain("false-fee");
+    }
+  });
+
+  it("does not fire on a customer's own fees, only on ours", () => {
+    // "dere kan ta et gebyr per booking" is the CUSTOMER charging their
+    // renters, which is a real feature and must not be suppressed.
+    expect(
+      blocking(gradeReply({ reply: "Dere kan selv legge på et depositum eller en avgift ved utleie." })),
+    ).toEqual([]);
+  });
+
+  it("does not let a denial in one sentence excuse a claim in the next", () => {
+    expect(
+      blocking(
+        gradeReply({
+          reply: "Vi tar ingen provisjon. Vi tar en andel på 3 prosent av hver booking.",
+        }),
+      ).map((v) => v.rule),
+    ).toContain("false-fee");
+  });
+});

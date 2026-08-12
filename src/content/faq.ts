@@ -202,6 +202,22 @@ export const FAQ_CATEGORIES: FAQCategory[] = [
         ],
       },
       {
+        q: "Hvordan fungerer abonnementet?",
+        a: "Digilist er en abonnementstjeneste med flere nivåer. Nivået velges ut fra antall anlegg, hvor mange som skal bruke systemet og hvilke integrasjoner dere trenger. Dere betaler for bruk av Digilist og administrasjonspanelet — ingenting per booking.",
+        keywords: [
+          "abonnement", "abonnementsnivå", "nivå", "pakke", "plan", "lisens",
+          "hvordan fungerer", "modell", "prismodell", "subscription", "tier",
+        ],
+      },
+      {
+        q: "Hva er inkludert i prisen?",
+        a: "Bruk av Digilist og administrasjonspanelet, med kalender, booking, betaling, kontrakter og rapportering. Standardintegrasjoner som Vipps, BankID, ID-porten, EHF og regnskapssystemer er inkludert. Ingen skjulte gebyrer og ingen kostnad per booking.",
+        keywords: [
+          "inkludert", "inngår", "hva får vi", "hva dekker", "tillegg",
+          "ekstra", "skjulte", "gebyr", "inkluderer",
+        ],
+      },
+      {
         q: "Tar dere en andel av bookinginntektene?",
         a: "Nei. Digilist tar ingen transaksjonsavgift og ingen andel av det dere tar betalt for utleie. Vi tar betalt for bruk av tjenesten og administrasjonspanelet, og det er ingen skjulte gebyrer.",
         keywords: [

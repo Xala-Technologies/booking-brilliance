@@ -56,6 +56,35 @@ const PROMPT_LEAK = [
   /\bsystem prompt\b/iu, /\bsystemprompt\b/iu,
 ];
 
+/**
+ * The assistant claiming Digilist takes a cut of the customer's revenue.
+ *
+ * Every other rule here catches the assistant promising too much. This one
+ * catches the opposite, and it is more expensive: a venue operator comparing
+ * platforms is choosing between one that takes a percentage and one that does
+ * not, and Digilist does not. An assistant that invents a transaction fee
+ * argues the customer out of the sale using a fact that is false.
+ *
+ * Nothing caught this before, because a false claim that makes the product look
+ * WORSE does not look like a hallucination to a reviewer skimming for
+ * overpromises. It is still a lie.
+ *
+ * Negations are excluded deliberately — "vi tar INGEN andel av
+ * bookinginntektene" is the correct answer and contains every trigger word.
+ */
+const FEE_CLAIM =
+  /\b(?:vi|digilist)\s+(?:tar|krever|beregner|trekker)\b[^.!?]{0,40}(?:\b(?:andel|prosent|provisjon|transaksjonsavgift|kutt)|%)/iu;
+const FEE_PER_BOOKING =
+  /\b(?:avgift|gebyr|provisjon|kostnad)\s+(?:per|pr\.?|for\s+hver)\s+(?:booking|bestilling|reservasjon|transaksjon|utleie)/iu;
+/** "ingen/uten/ikke noe" anywhere in the sentence means it is the denial. */
+const FEE_NEGATED = /\b(ingen|uten|ikke|aldri|null)\b/iu;
+
+export function claimsTransactionFee(reply: string): boolean {
+  return reply
+    .split(/(?<=[.!?])\s+/)
+    .some((sentence) => !FEE_NEGATED.test(sentence) && (FEE_CLAIM.test(sentence) || FEE_PER_BOOKING.test(sentence)));
+}
+
 export interface GradeInput {
   reply: string;
   /** Page paths the prompt offered this turn, which the reply may cite. */
@@ -103,6 +132,14 @@ export function gradeReply(input: GradeInput): Violation[] {
       rule: "false-action",
       severity: "block",
       detail: "claims to send, create or book something the assistant cannot do",
+    });
+  }
+
+  if (claimsTransactionFee(reply)) {
+    violations.push({
+      rule: "false-fee",
+      severity: "block",
+      detail: "claims Digilist takes a cut, a percentage or a per-booking fee — it takes none",
     });
   }
 

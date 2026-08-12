@@ -147,6 +147,14 @@ export const BUYING_SIGNALS: readonly string[] = [
   // happens when they LEAVE are people seriously considering arriving.
   "bytte", "referanse", "hvem bruker", "hvem andre", "kjøpte", "anskaffet",
   "tatt i bruk",
+  // Batch 6: COMMERCIAL-MODEL questions. "tar dere en andel av det vi tar
+  // betalt", "er det noen skjulte gebyrer", "tar dere noe per booking" — these
+  // are the last questions asked before signing, and none of them contain a
+  // purchase word. Kept specific rather than a bare "gebyr", which a billing
+  // support request would trip.
+  "provisjon", "transaksjonsavgift", "skjulte gebyr", "andel av", "per booking",
+  "prosent av", "inkludert i prisen", "tar dere noe", "hva er inkludert",
+  "noe ekstra", "kommer i tillegg",
 ] as const;
 
 /**

@@ -109,13 +109,23 @@ describe("the pricing model is answerable, not just the price", () => {
   // "Do you take a cut?" is the question that decides it for a venue operator,
   // and the answer is a differentiator: Digilist takes none. It had no entry at
   // all, so every phrasing landed on the generic price answer or on nothing.
+  // Two entries answer this family — "Tar dere en andel…" and "Hva er
+  // inkludert i prisen?", which also says there are no hidden fees. Either is
+  // correct; landing on something outside the family is not.
+  const FEE_FAMILY = [
+    "Tar dere en andel av bookinginntektene?",
+    "Hva er inkludert i prisen?",
+    "Hvordan fungerer abonnementet?",
+  ];
+
   it.each([
     "tar dere en andel av det vi tar betalt?",
     "er det noen skjulte gebyrer?",
     "tar dere provisjon?",
     "hvor mye prosent tar dere av omsetningen?",
+    "tar dere noe per booking?",
   ])("%s", (query) => {
-    expect(top(query)).toBe("Tar dere en andel av bookinginntektene?");
+    expect(FEE_FAMILY, query).toContain(top(query));
   });
 
   it("answers the too-small fear with pricing, not reassurance", () => {
