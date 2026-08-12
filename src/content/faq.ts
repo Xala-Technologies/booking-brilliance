@@ -202,6 +202,14 @@ export const FAQ_CATEGORIES: FAQCategory[] = [
         ],
       },
       {
+        q: "Hvorfor har dere ingen prisliste?",
+        a: "Fordi ett tall ville vært feil for nesten alle som leste det. Spennet mellom et grendehus med én sal og en fylkeskommune med tjueto skoler er for stort. Vi publiserer i stedet alt som avgjør prisen, og gir et konkret tilbud etter en kort samtale.",
+        keywords: [
+          "prisliste", "priser", "hvorfor ingen", "tall", "oversikt over priser",
+          "hva koster det egentlig", "konkret pris", "estimat",
+        ],
+      },
+      {
         q: "Hvordan fungerer abonnementet?",
         a: "Digilist er en abonnementstjeneste med flere nivåer. Nivået velges ut fra antall anlegg, hvor mange som skal bruke systemet og hvilke integrasjoner dere trenger. Dere betaler for bruk av Digilist og administrasjonspanelet — ingenting per booking.",
         keywords: [

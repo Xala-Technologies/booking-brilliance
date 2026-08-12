@@ -57,6 +57,7 @@ const Footer = () => {
   // to ten entries and was neither scannable nor accurate — Om oss and Blogg
   // are not solutions.
   const selskap = [
+    { label: "Priser", href: "/priser" },
     { label: "Om oss", href: "/om-oss" },
     { label: "Blogg", href: "/blogg" },
     { label: "FAQ", href: "/faq" },

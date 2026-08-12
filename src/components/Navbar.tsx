@@ -54,6 +54,11 @@ const SOLUTIONS = [
     eyebrow: "Rapport · datastudie",
   },
   {
+    label: "Priser",
+    to: "/priser",
+    eyebrow: "Ingen provisjon",
+  },
+  {
     label: "Om oss",
     to: "/om-oss",
     eyebrow: "Xala Technologies",

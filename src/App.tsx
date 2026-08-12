@@ -40,6 +40,7 @@ const BookingLokalerMoterom = lazy(() => import("./pages/BookingLokalerMoterom")
 const Billettsystem = lazy(() => import("./pages/Billettsystem"));
 const Teknologi = lazy(() => import("./pages/Teknologi"));
 const OmOss = lazy(() => import("./pages/OmOss"));
+const Priser = lazy(() => import("./pages/Priser"));
 const Leie = lazy(() => import("./pages/Leie"));
 const LeieSelskapslokale = lazy(() => import("./pages/LeieSelskapslokale"));
 const LeieMoterom = lazy(() => import("./pages/LeieMoterom"));
@@ -325,6 +326,7 @@ export function AppShell() {
             <Route path="/billettsystem" element={<Billettsystem />} />
             <Route path="/teknologi" element={<Teknologi />} />
             <Route path="/om-oss" element={<OmOss />} />
+            <Route path="/priser" element={<Priser />} />
             <Route path="/leie" element={<Leie />} />
             <Route path="/leie/selskapslokale" element={<LeieSelskapslokale />} />
             <Route path="/leie/gaard" element={<LeieGaard />} />
