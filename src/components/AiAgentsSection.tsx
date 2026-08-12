@@ -116,7 +116,7 @@ const AiAgentsSection = () => {
 
         <div className="mt-10 lg:mt-12">
           <EditorialButton href="/ai-agenter" variant="outline">
-            Se hvordan agentene jobber →
+            {t(locale, "agents.cta")}
           </EditorialButton>
         </div>
       </div>

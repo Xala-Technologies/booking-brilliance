@@ -7,6 +7,7 @@ import { SectionHeader } from "@/components/SectionHeader";
 import { formatPostDate, getAllPosts, postsForLocale, previewCover } from "@/lib/posts";
 import { useLocation } from "react-router-dom";
 import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/motion";
 import { getFraunces } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
@@ -62,7 +63,7 @@ const BlogPreviewSection = () => {
         <SectionHeader
           label="INNSIKT"
           headingId="blogg-preview-heading"
-          intro="Tre artikler om kommunal booking, sesongleie og samsvar, skrevet for saksbehandlere, kulturkonsulenter og digitaliseringsledere."
+          intro={t(locale, "blogPreview.intro")}
           action={
             <div className="flex items-center justify-between border-t border-rule pt-6">
               <EditorialButton variant="link" size="md" href="/blogg">

@@ -208,6 +208,35 @@ const nb: Copy = {
   "demo.need1": "Type virksomhet og typisk bookingvolum",
   "demo.need2": "Eventuelle krav fra anskaffelser eller intern compliance",
   "demo.need3": "Hvilke roller som skal se demoen (administrasjon, drift, økonomi)",
+
+  "hero.trust1": "Book på 90 sekunder",
+  "hero.trust1.sub": "Enkelt og raskt",
+  "hero.trust2": "Universelt utformet",
+  "hero.trust2.sub": "WCAG 2.1 AA",
+  "hero.trust3": "BankID & Vipps",
+  "hero.trust3.sub": "Trygg betaling",
+  "hero.trust4": "Ledige datoer i sanntid",
+  "hero.trust4.sub": "Ekte priser",
+
+  "lane.renter.eyebrow": "For deg som skal leie",
+  "lane.renter.heading": "Finn og book lokale, der du bor",
+  "lane.renter.body":
+    "Grendehus, kulturhus og selskapslokaler samlet, med ekte pris, ledig dato og betaling med Vipps. Book direkte, uten ringerunder eller ventetid på svar, med alt samlet på ett sted.",
+  "lane.owner.eyebrow": "For utleier & kommune",
+  "lane.owner.heading": "Plattformen som drifter utleien",
+  "lane.owner.body":
+    "Booking, sesongtildeling og innbyggerdialog i én plattform, med innebygd etterlevelse (GDPR, universell utforming, NSM). Ett system som erstatter regneark, e-post og løse betalingsløsninger, slik at dere beholder full oversikt og kontroll. Innbyggere, lag og foreninger booker selv, hele døgnet, uten telefonkø og uten dobbeltbookinger.",
+  "lane.chooser": "Velg det som passer deg – så viser vi veien.",
+  "agents.cta": "Se hvordan agentene jobber →",
+  "pilot.label": "GRATIS PILOT FOR NORSKE KOMMUNER",
+  "pilot.cta": "Se løsning for kommuner",
+  "stories.intro":
+    "Hverdagshistorier fra norske utleiere. Bookinger, automatisering og regnskap, sammenhengende.",
+  "stories.footnote":
+    "Flere referanser tilgjengelig på forespørsel. Kontakt salg for kunde- og nøkkeltallreferanser.",
+  "stories.caption": "To av flere: referanser på forespørsel",
+  "blogPreview.intro":
+    "Tre artikler om kommunal booking, sesongleie og samsvar, skrevet for saksbehandlere, kulturkonsulenter og digitaliseringsansvarlige.",
 };
 
 const en: Copy = {
@@ -385,6 +414,35 @@ const en: Copy = {
   "demo.need1": "What kind of organisation, and roughly how many bookings",
   "demo.need2": "Any procurement or internal compliance requirements",
   "demo.need3": "Which roles should see the demo (administration, operations, finance)",
+
+  "hero.trust1": "Book in 90 seconds",
+  "hero.trust1.sub": "Simple and fast",
+  "hero.trust2": "Accessible by design",
+  "hero.trust2.sub": "WCAG 2.1 AA",
+  "hero.trust3": "Secure sign-in and payment",
+  "hero.trust3.sub": "National ID supported",
+  "hero.trust4": "Live availability",
+  "hero.trust4.sub": "Real prices",
+
+  "lane.renter.eyebrow": "If you are looking to rent",
+  "lane.renter.heading": "Find and book a venue near you",
+  "lane.renter.body":
+    "Community halls, cultural venues and function rooms in one place, with real prices, real availability and secure payment. Book directly — no ringing round, no waiting for a reply.",
+  "lane.owner.eyebrow": "If you rent space out",
+  "lane.owner.heading": "The platform that runs the letting",
+  "lane.owner.body":
+    "Booking, seasonal allocation and resident enquiries in one platform, with compliance built in. One system replacing spreadsheets, email threads and ad-hoc payment links, so you keep the whole picture. Residents and clubs book themselves, around the clock, with no phone queue and no double bookings.",
+  "lane.chooser": "Pick the one that fits — we will show you the way.",
+  "agents.cta": "See how the agents work →",
+  "pilot.label": "FREE PILOT FOR NORWEGIAN PUBLIC BODIES",
+  "pilot.cta": "See the solution for public bodies",
+  "stories.intro":
+    "Everyday stories from Norwegian operators. Bookings, automation and accounting, joined up.",
+  "stories.footnote":
+    "More references available on request. Contact sales for customer and performance references.",
+  "stories.caption": "Two of several — references on request",
+  "blogPreview.intro":
+    "Three articles on public-sector booking, seasonal allocation and compliance, written for the people who administer them.",
 };
 
 const DICT: Record<Locale, Copy> = { nb, en };

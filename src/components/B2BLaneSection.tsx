@@ -113,7 +113,7 @@ const B2BLaneSection = () => {
         <div className="mt-8 lg:mt-10 rounded-lg border border-rule bg-paper p-6 lg:p-8 grid lg:grid-cols-12 gap-6 lg:gap-gutter items-center">
           <div className="lg:col-span-8">
             <span className="editorial-mono-caption text-accent-text mb-2 block">
-              GRATIS PILOT FOR NORSKE KOMMUNER
+              {t(locale, "pilot.label")}
             </span>
             <p className="text-base lg:text-lg text-ink leading-relaxed">
               Vi hjelper kommunen med oppsett og publisering uten kostnad i
@@ -129,7 +129,7 @@ const B2BLaneSection = () => {
               href="/bookingsystem-kommune"
               icon={<ArrowUpRight className="h-4 w-4" aria-hidden="true" />}
             >
-              Se løsning for kommuner
+              {t(locale, "pilot.cta")}
             </EditorialButton>
             <EditorialButton
               variant="outline"

@@ -203,11 +203,14 @@ const HeroSection = () => {
               {/* Feature cards — the value + norske-krav story, under the demo. */}
               <ul className="mt-7 lg:mt-9 grid grid-cols-2 gap-2.5 sm:gap-3">
                 {[
-                  { icon: Zap, label: "Book på 90 sekunder", sub: "Enkelt og raskt" },
-                  { icon: Accessibility, label: "Universelt utformet", sub: "WCAG 2.1 AA" },
-                  { icon: ShieldCheck, label: "BankID & Vipps", sub: "Trygg betaling" },
-                  { icon: CalendarCheck, label: "Ledige datoer i sanntid", sub: "Ekte priser" },
-                ].map(({ icon: Icon, label, sub }) => (
+                  { icon: Zap, key: "hero.trust1" },
+                  { icon: Accessibility, key: "hero.trust2" },
+                  { icon: ShieldCheck, key: "hero.trust3" },
+                  { icon: CalendarCheck, key: "hero.trust4" },
+                ].map(({ icon: Icon, key }) => {
+                  const label = t(locale, key);
+                  const sub = t(locale, `${key}.sub`);
+                  return (
                   <li
                     key={label}
                     className="group flex items-center gap-3 rounded-lg border border-rule bg-gradient-to-br from-paper to-paper-deep/60 px-3.5 py-3 shadow-[0_1px_2px_rgba(10,18,40,0.05),0_10px_24px_-18px_rgba(10,18,40,0.3)] transition-all duration-quick ease-editorial hover:-translate-y-0.5 hover:border-accent-text/30 hover:shadow-[0_16px_30px_-16px_rgba(10,18,40,0.4)]"
@@ -220,7 +223,8 @@ const HeroSection = () => {
                       <p className="editorial-mono-caption text-ink-faint mt-0.5 truncate">{sub}</p>
                     </div>
                   </li>
-                ))}
+                  );
+                })}
               </ul>
             </div>
           </motion.div>
@@ -234,7 +238,7 @@ const HeroSection = () => {
             <div className="group flex flex-col border border-rule rounded-sm p-6 lg:p-7 bg-gradient-to-br from-paper to-paper-deep/60 shadow-[0_1px_2px_rgba(10,18,40,0.05),0_10px_28px_-20px_rgba(10,18,40,0.28)] transition-all duration-normal ease-editorial hover:-translate-y-1 hover:border-accent-text/30 hover:shadow-[0_24px_48px_-24px_rgba(10,18,40,0.5)]">
               <p className="editorial-mono-caption text-accent-text mb-3 inline-flex items-center gap-1.5">
                 <Home className="h-3.5 w-3.5" strokeWidth={2} aria-hidden="true" />
-                For deg som skal leie
+                {t(locale, "lane.renter.eyebrow")}
               </p>
               <h2
                 className="font-serif text-2xl lg:text-3xl text-ink"
@@ -244,12 +248,10 @@ const HeroSection = () => {
                   lineHeight: 1.1,
                 }}
               >
-                Finn og book lokale, der du bor
+                {t(locale, "lane.renter.heading")}
               </h2>
               <p className="mt-2 text-base text-ink-soft leading-relaxed">
-                Grendehus, kulturhus og selskapslokaler samlet, med ekte pris,
-                ledig dato og betaling med Vipps. Book direkte, uten ringerunder
-                eller ventetid på svar, med alt samlet på ett sted.
+                {t(locale, "lane.renter.body")}
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
                 {["Selskapslokale", "Møterom", "Kulturhus", "Idrettshall"].map((c) => (
@@ -282,15 +284,10 @@ const HeroSection = () => {
                   lineHeight: 1.1,
                 }}
               >
-                Plattformen som drifter utleien
+                {t(locale, "lane.owner.heading")}
               </h2>
               <p className="mt-2 text-base text-ink-soft leading-relaxed">
-                Booking, sesongtildeling og innbyggerdialog i én plattform, med
-                innebygd etterlevelse (GDPR, universell utforming, NSM). Ett
-                system som erstatter regneark, e-post og løse betalingsløsninger,
-                slik at dere beholder full oversikt og kontroll. Innbyggere, lag
-                og foreninger booker selv, hele døgnet, uten telefonkø og uten
-                dobbeltbookinger.
+                {t(locale, "lane.owner.body")}
               </p>
               <div className="mt-auto pt-6 flex flex-col sm:flex-row gap-3">
                 <EditorialButton

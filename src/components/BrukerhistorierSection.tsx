@@ -3,8 +3,12 @@ import { StoryCard, EditorialButton } from "@/components/editorial";
 import { SectionHeader } from "@/components/SectionHeader";
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/motion";
 import { getFraunces } from "@/lib/fonts";
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 
 const BrukerhistorierSection = () => {
+  const locale = localeFromPath(useLocation().pathname);
   return (
     <section
       id="brukerhistorier"
@@ -13,7 +17,7 @@ const BrukerhistorierSection = () => {
       <div className="container mx-auto md:px-8 lg:px-12">
         <SectionHeader
           label="BRUKERHISTORIER"
-          intro="Hverdagshistorier fra norske utleiere. Bookinger, automatisering og regnskap, sammenhengende."
+          intro={t(locale, "stories.intro")}
         >
           Hvem bruker{" "}
           <em
@@ -128,7 +132,7 @@ const BrukerhistorierSection = () => {
         </motion.div>
 
         <p className="mt-12 editorial-mono-caption text-center">
-          Flere referanser tilgjengelig på forespørsel. Kontakt salg for kunde- og
+          {t(locale, "stories.footnote")}
           nøkkeltallreferanser.
         </p>
       </div>

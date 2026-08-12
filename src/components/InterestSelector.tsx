@@ -12,6 +12,9 @@ import {
 } from "lucide-react";
 import { EditorialButton } from "@/components/editorial";
 import { revealUp, viewportOnce } from "@/lib/motion";
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 
 type Interest = {
   id: string;
@@ -36,6 +39,7 @@ const INTERESTS: Interest[] = [
  * is picked).
  */
 export function InterestSelector() {
+  const locale = localeFromPath(useLocation().pathname);
   const [selected, setSelected] = useState<string[]>([]);
   const navigate = useNavigate();
 
@@ -62,7 +66,7 @@ export function InterestSelector() {
         Hva er du mest interessert i?
       </h3>
       <p className="mt-2 text-center text-ink-soft">
-        Velg det som passer deg – så viser vi veien.
+        {t(locale, "lane.chooser")}
       </p>
 
       <div className="mt-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
