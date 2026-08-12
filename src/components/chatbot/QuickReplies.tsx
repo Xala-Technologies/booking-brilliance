@@ -1,4 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 
 interface Props {
   suggestions: string[];
@@ -7,11 +10,12 @@ interface Props {
 }
 
 export function QuickReplies({ suggestions, onPick, disabled }: Props) {
+  const locale = localeFromPath(useLocation().pathname);
   if (suggestions.length === 0) return null;
   return (
     <div
       role="group"
-      aria-label="Forslag til neste spørsmål"
+      aria-label={t(locale, "chat.suggestions")}
       className="flex flex-wrap gap-2 px-1"
     >
       {suggestions.map((s) => (

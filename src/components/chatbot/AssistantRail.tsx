@@ -2,6 +2,9 @@ import { useEffect } from "react";
 import { MessageSquare } from "lucide-react";
 import { useChatbotContext } from "./ChatbotProvider";
 import { ChatConversation } from "./ChatConversation";
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 
 /**
  * The persistent right rail (desktop, `lg+` only). Always mounted; expand /
@@ -13,6 +16,7 @@ import { ChatConversation } from "./ChatConversation";
  * resets to 0 so those layouts reclaim full width.
  */
 export function AssistantRail() {
+  const locale = localeFromPath(useLocation().pathname);
   const { controller, railExpanded, setRailExpanded } = useChatbotContext();
 
   useEffect(() => {
@@ -24,7 +28,7 @@ export function AssistantRail() {
   return (
     <>
       <aside
-        aria-label="Digilist-assistenten"
+        aria-label={t(locale, "chat.assistant")}
         className={`hidden lg:flex flex-col fixed top-0 right-0 bottom-0 w-[22rem] z-30 border-l border-rule bg-paper transition-transform duration-300 ease-out ${
           railExpanded ? "translate-x-0" : "translate-x-full"
         }`}
@@ -40,7 +44,7 @@ export function AssistantRail() {
       <button
         type="button"
         onClick={() => setRailExpanded(true)}
-        aria-label="Vis Digilist-assistenten"
+        aria-label={t(locale, "chat.show")}
         className={`hidden lg:inline-flex fixed bottom-6 right-6 z-30 items-center gap-2 bg-navy text-on-navy rounded-full pl-4 pr-5 py-3 shadow-2xl border border-navy/30 hover:bg-navy/95 transition-all duration-quick ease-editorial ${
           railExpanded ? "opacity-0 pointer-events-none translate-y-2" : "opacity-100"
         }`}

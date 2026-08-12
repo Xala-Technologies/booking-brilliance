@@ -3,6 +3,9 @@ import { MessageSquare, X } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChatPanel } from "./ChatPanel";
 import { useChatbotContext } from "./ChatbotProvider";
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 
 // Use localStorage with a versioned key. Only the explicit × dismisses
 // the teaser long-term; reloading the page brings it back so users who
@@ -18,6 +21,7 @@ const TEASER_SUGGESTIONS = [
 ];
 
 export function Chatbot() {
+  const locale = localeFromPath(useLocation().pathname);
   const reduced = useReducedMotion();
   const { controller } = useChatbotContext();
   const { state, toggle, setMode, send } = controller;
@@ -71,7 +75,7 @@ export function Chatbot() {
           <motion.div
             key="chat-teaser"
             role="dialog"
-            aria-label="Digilist-assistenten, forslag"
+            aria-label={t(locale, "chat.suggestionsLabel")}
             initial={reduced ? { opacity: 0 } : { opacity: 0, y: 12, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={reduced ? { opacity: 0 } : { opacity: 0, y: 12, scale: 0.96 }}
@@ -97,7 +101,7 @@ export function Chatbot() {
               <button
                 type="button"
                 onClick={() => dismissTeaser(true)}
-                aria-label="Lukk forslag"
+                aria-label={t(locale, "chat.closeSuggestions")}
                 className="inline-flex items-center justify-center w-7 h-7 rounded-sm text-ink-faint hover:text-ink hover:bg-paper-deep transition-colors shrink-0"
               >
                 <X className="h-4 w-4" aria-hidden="true" />

@@ -237,6 +237,22 @@ const nb: Copy = {
   "stories.caption": "To av flere: referanser på forespørsel",
   "blogPreview.intro":
     "Tre artikler om kommunal booking, sesongleie og samsvar, skrevet for saksbehandlere, kulturkonsulenter og digitaliseringsansvarlige.",
+
+  // Chatbot interface. The ANSWERS already follow the visitor's language
+  // (lib/chatbot/language.ts); this is the furniture around them, which was
+  // still Norwegian for an English visitor.
+  "chat.assistant": "Digilist-assistenten",
+  "chat.show": "Vis Digilist-assistenten",
+  "chat.close": "Lukk Digilist-assistenten",
+  "chat.closeConversation": "Lukk samtale",
+  "chat.suggestions": "Forslag til neste spørsmål",
+  "chat.suggestionsLabel": "Digilist-assistenten, forslag",
+  "chat.closeSuggestions": "Lukk forslag",
+  "chat.yourMessage": "Din melding",
+  "chat.needHelp": "Hva trenger du hjelp med?",
+  "chat.details": "Detaljer om behov, tidslinje eller spørsmål…",
+  "chat.org": "Organisasjon eller kommune",
+  "chat.orgExample": "F.eks. Rønningen Selskapslokale",
 };
 
 const en: Copy = {
@@ -443,6 +459,19 @@ const en: Copy = {
   "stories.caption": "Two of several — references on request",
   "blogPreview.intro":
     "Three articles on public-sector booking, seasonal allocation and compliance, written for the people who administer them.",
+
+  "chat.assistant": "The Digilist assistant",
+  "chat.show": "Show the Digilist assistant",
+  "chat.close": "Close the Digilist assistant",
+  "chat.closeConversation": "Close conversation",
+  "chat.suggestions": "Suggested next questions",
+  "chat.suggestionsLabel": "Digilist assistant, suggestions",
+  "chat.closeSuggestions": "Close suggestions",
+  "chat.yourMessage": "Your message",
+  "chat.needHelp": "What do you need help with?",
+  "chat.details": "Details about your needs, timeline or questions…",
+  "chat.org": "Organisation",
+  "chat.orgExample": "e.g. Riverside Function Rooms",
 };
 
 const DICT: Record<Locale, Copy> = { nb, en };

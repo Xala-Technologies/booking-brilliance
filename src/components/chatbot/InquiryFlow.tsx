@@ -3,6 +3,9 @@ import { ArrowLeft, ArrowRight, CheckCircle2, Send } from "lucide-react";
 import { PERSONA_OPTIONS, topicSuggestionsFor } from "@/lib/chatbot/inquiry";
 import type { InquiryDraft, Mode, Persona } from "@/lib/chatbot/types";
 import { getFraunces } from "@/lib/fonts";
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 
 interface Props {
   mode: Mode;
@@ -29,6 +32,7 @@ export function InquiryFlow({
   onSubmit,
   onClose,
 }: Props) {
+  const locale = localeFromPath(useLocation().pathname);
   const topics = useMemo(
     () => topicSuggestionsFor(draft.persona),
     [draft.persona],
@@ -196,7 +200,7 @@ export function InquiryFlow({
                 type="text"
                 value={customTopic}
                 onChange={(e) => setCustomTopic(e.target.value)}
-                placeholder="Hva trenger du hjelp med?"
+                placeholder={t(locale, "chat.needHelp")}
                 className="flex-1 border border-hairline-strong bg-paper px-3 py-2 rounded-sm text-sm text-ink focus:outline-none focus:border-ink"
               />
               <button
@@ -299,7 +303,7 @@ export function InquiryFlow({
               rows={3}
               value={draft.message}
               onChange={(e) => onUpdate({ message: e.target.value })}
-              placeholder="Detaljer om behov, tidslinje eller spørsmål…"
+              placeholder={t(locale, "chat.details")}
               className="w-full border border-hairline-strong bg-paper px-3 py-2 rounded-sm text-sm text-ink focus:outline-none focus:border-ink resize-y"
             />
           </div>

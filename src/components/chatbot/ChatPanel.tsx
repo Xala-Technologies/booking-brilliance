@@ -1,6 +1,9 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useChatbot } from "@/hooks/useChatbot";
 import { ChatConversation } from "./ChatConversation";
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 
 interface Props {
   controller: ReturnType<typeof useChatbot>;
@@ -13,6 +16,7 @@ interface Props {
  * is shared.
  */
 export function ChatPanel({ controller }: Props) {
+  const locale = localeFromPath(useLocation().pathname);
   const reduced = useReducedMotion();
   const { state, toggle } = controller;
 
@@ -37,7 +41,7 @@ export function ChatPanel({ controller }: Props) {
             id="digilist-chatbot-panel"
             role="dialog"
             aria-modal="true"
-            aria-label="Digilist-assistenten"
+            aria-label={t(locale, "chat.assistant")}
             initial={reduced ? { opacity: 0 } : { opacity: 0, y: 24, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={reduced ? { opacity: 0 } : { opacity: 0, y: 24, scale: 0.98 }}
