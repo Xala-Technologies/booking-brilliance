@@ -4,6 +4,9 @@ import { EditorialButton } from "@/components/editorial";
 import { SectionHeader } from "@/components/SectionHeader";
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/motion";
 import { getFraunces } from "@/lib/fonts";
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 
 // NOTE (for review): these are the real customer-facing "domain agents" from the
 // Digilist agent fleet — see xala-agent-fleet/core/fleet-registry.ts (category:"domain").
@@ -15,56 +18,51 @@ const frameworks = ["GDPR", "NSM", "SOC 2", "WCAG 2.1 AA", "Markedsføringsloven
 const agents = [
   {
     icon: ShieldCheck,
-    title: "Godkjenning & compliance",
-    description:
-      "Hver oppføring gjennomgås mot GDPR, NSM, SOC 2 og universell utforming, i både tekst og bilder, før den publiseres. Rent innhold godkjennes, resten stoppes med konkret veiledning.",
+    titleKey: "agents.a1.title",
+    bodyKey: "agents.a1.body",
   },
   {
     icon: MessagesSquare,
-    title: "Svar på henvendelser",
-    description:
-      "Kundeforespørsler får et varmt, korrekt førstesvar med én gang, og leser formål, dato og antall. Klager, pris og juss løftes alltid til en saksbehandler.",
+    titleKey: "agents.a2.title",
+    bodyKey: "agents.a2.body",
   },
   {
     icon: CalendarClock,
-    title: "Sesongtildeling",
-    description:
-      "Gjennomgår og forklarer sesongtildeling av halltid. Fanger klubber som faller utenfor, vurderer om resultatet er forsvarlig, og gir hver klubb en begrunnelse. Aldri «systemet bestemte».",
+    titleKey: "agents.a3.title",
+    bodyKey: "agents.a3.body",
   },
   {
     icon: Sunrise,
-    title: "Dagens oversikt",
-    description:
-      "Vaktmester, renhold, vakthold og brannvern får en rolig, personlig oversikt over dagen, med tidene i riktig rekkefølge og det som må følges opp. Aldri en tom melding.",
+    titleKey: "agents.a4.title",
+    bodyKey: "agents.a4.body",
   },
   {
     icon: Compass,
-    title: "Markedsinnsikt",
-    description:
-      "Leser tilbud og etterspørsel på tvers av markedsplassen og finner hullene, der det mangler lokaler folk faktisk leter etter, som en kort, rangert mulighetsoversikt.",
+    titleKey: "agents.a5.title",
+    bodyKey: "agents.a5.body",
   },
   {
     icon: Wand2,
-    title: "Lag utkast fra en lenke",
-    description:
-      "Har du lokalet på Airbnb, Booking.com, Finn eller Eventum, eller i et Word-dokument? Lim inn lenken eller last opp filen, så analyserer agenten innholdet og lager et ferdig utkast til oppføring du bare finpusser.",
+    titleKey: "agents.a6.title",
+    bodyKey: "agents.a6.body",
   },
 ];
 
 const AiAgentsSection = () => {
+  const locale = localeFromPath(useLocation().pathname);
   return (
     <section id="agenter" className="theme-cozy-dark py-10 lg:py-14 bg-paper-tinted border-y border-rule">
       <div className="container mx-auto md:px-8 lg:px-12">
         <SectionHeader
-          label="INNEBYGD INTELLIGENS"
-          intro="Under overflaten jobber en flåte av AI-agenter som godkjenner, svarer, forklarer og varsler, så administrasjonen slipper."
+          label={t(locale, "agents.label")}
+          intro={t(locale, "agents.intro")}
         >
-          Agenter og{" "}
+          {t(locale, "agents.headline")}{" "}
           <em
             className="italic"
             style={{ fontVariationSettings: getFraunces("display") }}
           >
-            automatisering
+            {t(locale, "agents.headlineEm")}
           </em>
           .
         </SectionHeader>
@@ -95,7 +93,7 @@ const AiAgentsSection = () => {
             const Icon = a.icon;
             return (
               <motion.div
-                key={a.title}
+                key={a.titleKey}
                 variants={staggerChild}
                 className="group bg-gradient-to-br from-paper to-paper-deep rounded-lg border border-rule p-7 flex flex-col shadow-[0_2px_10px_-4px_rgba(10,18,40,0.12)] transition-all duration-normal ease-editorial hover:-translate-y-0.5 hover:border-accent-text/30 hover:shadow-[0_16px_34px_-18px_rgba(10,18,40,0.4)]"
               >
@@ -107,10 +105,10 @@ const AiAgentsSection = () => {
                     className="font-serif text-xl lg:text-2xl text-ink"
                     style={{ fontVariationSettings: getFraunces("sub"), lineHeight: 1.15 }}
                   >
-                    {a.title}
+                    {t(locale, a.titleKey)}
                   </h3>
                 </div>
-                <p className="text-base text-ink-soft leading-relaxed">{a.description}</p>
+                <p className="text-base text-ink-soft leading-relaxed">{t(locale, a.bodyKey)}</p>
               </motion.div>
             );
           })}

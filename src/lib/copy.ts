@@ -126,6 +126,30 @@ const nb: Copy = {
   "sync.benefit3": "Alltid oppdatert – aldri dobbeltbookinger",
   "sync.benefit4": "Én admin for alle kanaler",
   "sync.cta": "Se hvordan synk fungerer",
+
+  "agents.label": "INNEBYGD INTELLIGENS",
+  "agents.intro":
+    "Under overflaten jobber en flåte av AI-agenter som godkjenner, svarer, forklarer og varsler, så administrasjonen slipper.",
+  "agents.headline": "Agenter og",
+  "agents.headlineEm": "automatisering",
+  "agents.a1.title": "Godkjenning & compliance",
+  "agents.a1.body":
+    "Hver oppføring gjennomgås mot GDPR, NSM, SOC 2 og universell utforming, i både tekst og bilder, før den publiseres. Rent innhold godkjennes, resten stoppes med konkret veiledning.",
+  "agents.a2.title": "Svar på henvendelser",
+  "agents.a2.body":
+    "Kundeforespørsler får et varmt, korrekt førstesvar med én gang, og leser formål, dato og antall. Klager, pris og juss løftes alltid til en saksbehandler.",
+  "agents.a3.title": "Sesongtildeling",
+  "agents.a3.body":
+    "Gjennomgår og forklarer sesongtildeling av halltid. Fanger klubber som faller utenfor, vurderer om resultatet er forsvarlig, og gir hver klubb en begrunnelse. Aldri «systemet bestemte».",
+  "agents.a4.title": "Dagens oversikt",
+  "agents.a4.body":
+    "Vaktmester, renhold, vakthold og brannvern får en rolig, personlig oversikt over dagen, med tidene i riktig rekkefølge og det som må følges opp. Aldri en tom melding.",
+  "agents.a5.title": "Markedsinnsikt",
+  "agents.a5.body":
+    "Leser tilbud og etterspørsel på tvers av markedsplassen og finner hullene, der det mangler lokaler folk faktisk leter etter, som en kort, rangert mulighetsoversikt.",
+  "agents.a6.title": "Lag utkast fra en lenke",
+  "agents.a6.body":
+    "Har du lokalet på Airbnb, Booking.com, Finn eller Eventum, eller i et Word-dokument? Lim inn lenken eller last opp filen, så analyserer agenten innholdet og lager et ferdig utkast til oppføring du bare finpusser.",
 };
 
 const en: Copy = {
@@ -222,6 +246,30 @@ const en: Copy = {
   "sync.benefit3": "Always current — never a double booking",
   "sync.benefit4": "One admin for every channel",
   "sync.cta": "See how sync works",
+
+  "agents.label": "BUILT-IN INTELLIGENCE",
+  "agents.intro":
+    "Underneath, a fleet of AI agents approves, answers, explains and notifies — so the administration does not have to.",
+  "agents.headline": "Agents and",
+  "agents.headlineEm": "automation",
+  "agents.a1.title": "Approval and compliance",
+  "agents.a1.body":
+    "Every listing is checked against GDPR, security and accessibility standards — text and images both — before it is published. Clean content is approved; the rest is stopped with specific guidance.",
+  "agents.a2.title": "Answering enquiries",
+  "agents.a2.body":
+    "Enquiries get a warm, accurate first reply straight away, reading the purpose, the date and the numbers. Complaints, pricing and legal questions always go to a person.",
+  "agents.a3.title": "Seasonal allocation",
+  "agents.a3.body":
+    "Reviews and explains how recurring slots are allocated to local clubs. It catches the clubs that miss out, judges whether the outcome is defensible, and gives each one a reason. Never “the system decided”.",
+  "agents.a4.title": "The day ahead",
+  "agents.a4.body":
+    "Caretakers, cleaning, security and fire safety get a calm, personal view of the day, with the times in order and what needs following up. Never an empty message.",
+  "agents.a5.title": "Market insight",
+  "agents.a5.body":
+    "Reads supply and demand across the marketplace and finds the gaps — where the venues people are actually searching for do not exist — as a short, ranked list of opportunities.",
+  "agents.a6.title": "Draft a listing from a link",
+  "agents.a6.body":
+    "Already listed elsewhere, or have the details in a document? Paste the link or upload the file, and the agent reads it and produces a finished draft listing for you to polish.",
 };
 
 const DICT: Record<Locale, Copy> = { nb, en };
