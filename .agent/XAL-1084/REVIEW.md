@@ -215,3 +215,61 @@ content-only scope.
 **Changes made this round:** none — no code or content touched. No new
 commit needed (tree unchanged); full test suite not re-run since nothing was
 modified.
+
+## Round 4 — SCOPE
+
+**Lens:** is anything in this diff NOT the stated change? Drive-by edits,
+unrelated tidying, files nobody asked to touch. Also re-checked the resume
+prompt's premise ("AGENT-SPEC.md does NOT exist — step 0 was never
+finished") against the actual state of the worktree, since Round 1 already
+flagged that premise as stale once.
+
+**Checked, with evidence:**
+
+- **Step 0 premise, re-verified:** `.agent/XAL-1084/SPEC.md` exists (179
+  lines, committed in `b7baec4`), with the required "how it works now" read
+  and mermaid diagram already in it. Linear MCP tools are still unreachable
+  this session (confirmed again via `ToolSearch` — no Linear tool surfaced),
+  matching the standing `project_no_linear_mcp_tools_available.md` finding,
+  so the SPEC stays committed under `.agent/XAL-1084/` instead of attached
+  to the issue, per that memory's guidance and per Round 1's identical
+  conclusion. Nothing to redo.
+- **`git diff origin/main...HEAD --stat`** (merge-base confirmed to be
+  `e54e3b5`, exactly `origin/main`'s tip): only 4 files touched —
+  `.agent/XAL-1084/REVIEW.md`, `.agent/XAL-1084/SPEC.md`,
+  `src/content/blog/spesialiserte-lokaler-kultur-underholdning.md`, and
+  `src/content/blogFaq.mjs`. No file outside `.agent/XAL-1084/` +
+  `src/content/blog/` + `blogFaq.mjs` is touched anywhere in the branch's
+  history relative to `origin/main`.
+- **`src/content/blogFaq.mjs` diff read in full:** the change is a pure
+  append — one new `POST_FAQ["spesialiserte-lokaler-kultur-underholdning"]`
+  key added after the last existing entry. No existing key is edited,
+  reordered, or reformatted. No incidental whitespace/lint reflow of the
+  surrounding file.
+- **New post file:** entirely new content, nothing to have scope-crept
+  within it — no edits to any other file were needed to add it (confirmed by
+  SPEC's blast-radius read in Round 1/2: `postContent.ts`/`posts.ts` auto-glob
+  every `.md` file, no registry to touch).
+- **The three cross-linked sibling posts** (`eventlokaler-...`,
+  `spesiallokaler-niche-utleie-...`, `spesialiserte-idrettssteder-...`) are
+  linked *from* the new post but are not themselves present in the diff —
+  confirmed no reverse-link edits or any other touch landed in those files,
+  matching SPEC's stated outward-only-links policy.
+- **`git status --porcelain`** — empty, no untracked or modified files left
+  in the working tree beyond what's already committed.
+- **Branch history sanity check:** `e23f908` ("chore(XAL-1084): Content gap:
+  Spesialiserte lokaler for kultur og underholdning...") is unique to this
+  branch (not present in `origin/main` nor any other branch), so it's
+  in-scope prior work on this same ticket, not foreign history merged in by
+  accident. The `d32ff6a` merge commit itself introduces no diff of its own
+  (three-dot diff against `origin/main` already accounts for it cleanly —
+  stat above shows only the 4 expected files).
+
+**Findings: none.** The diff is exactly what SPEC.md's "WHAT CHANGES" and
+"BLAST RADIUS" sections describe: one new blog post, one new FAQ entry keyed
+to its slug, and this ticket's own `.agent/XAL-1084/` process record. No
+drive-by edits, no unrelated tidying, no files touched outside that stated
+scope.
+
+**Changes made this round:** none — no code or content touched beyond this
+REVIEW.md entry itself.
