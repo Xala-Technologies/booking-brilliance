@@ -106,3 +106,37 @@ export function honestHandoffReply(contact: ChatContact): string {
   }
   return "Takk — jeg sender forespørselen videre til en rådgiver som tar kontakt. Hva er den beste e-postadressen å nå dere på?";
 }
+
+/**
+ * Is the visitor asking for something only a human at Digilist can deliver?
+ *
+ * The assistant can explain, qualify and answer from KILDER. It cannot produce
+ * an offer, price a specific setup, book a demo or call anyone back. When one
+ * of those is asked for, the honest move is to put the escalation in front of
+ * the visitor — not to keep talking.
+ *
+ * This drives the "Send forespørsel til oss" button. Before, that button
+ * appeared only when the FAQ search returned NOTHING (`hits.length === 0`),
+ * which is precisely backwards: "hva koster det for to lokaler" matches the
+ * pricing FAQ, so the retrieval succeeds and the button stays hidden — at the
+ * exact moment the visitor is trying to buy. That is how a live prospect ended
+ * up handing an email to a chat bubble instead of to a form.
+ */
+const NEEDS_HUMAN: readonly RegExp[] = [
+  /\btilbud\b/iu,
+  /\bpristilbud\b/iu,
+  /\bdemo\b/iu,
+  /\bring(e)?\s+(meg|oss|dere)\b/iu,
+  /\bkontakt(e)?\s+(meg|oss)\b/iu,
+  /\bta\s+kontakt\b/iu,
+  /\bsnakke?\s+med\s+(en\s+)?(rådgiver|selger|menneske|noen)\b/iu,
+  /\bavtale\s+(et\s+)?møte\b/iu,
+  /\bhva\s+koster\s+det\s+for\s+(oss|v[åa]rt|v[åa]re|to|tre|\d)/iu,
+  // "kommer VI i gang" — Norwegian puts the subject between verb and phrase.
+  /\bkomme(r|t)?\s+(?:vi|dere|man|jeg|de)?\s*i\s+gang\b/iu,
+  /\bsend\s+(meg|oss)\b/iu,
+];
+
+export function needsHuman(text: string): boolean {
+  return NEEDS_HUMAN.some((re) => re.test(text));
+}

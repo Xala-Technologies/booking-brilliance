@@ -1,5 +1,5 @@
 import { useRef, useCallback, useEffect, useMemo, useReducer } from "react";
-import { claimsFalseAction, contactFromTurns, honestHandoffReply } from "@/lib/chatbot/contact";
+import { claimsFalseAction, contactFromTurns, honestHandoffReply, needsHuman } from "@/lib/chatbot/contact";
 import { trackConversion } from "@/lib/analytics";
 import {
   retrieve,
@@ -166,6 +166,14 @@ export function useChatbot() {
   const leadFiledRef = useRef(false);
 
   /**
+   * One "a conversation started" notification per conversation. Fired on the
+   * visitor's FIRST message, not when the widget opens — opening it is a
+   * gesture, typing is intent, and a notification per widget-open would be
+   * noise nobody reads within a week.
+   */
+  const startNotifiedRef = useRef(false);
+
+  /**
    * File a lead captured from the conversation itself.
    *
    * Marked `chatCaptured` so whoever reads the inbox knows this came from
@@ -174,6 +182,46 @@ export function useChatbot() {
    * it. Fire-and-forget on purpose: the visitor is waiting for a reply, and a
    * failed lead POST must not delay or break it. It is logged, not swallowed.
    */
+  /**
+   * Tell Digilist a conversation has begun, as soon as it begins.
+   *
+   * Asked for directly: every real conversation should reach the inbox, not
+   * only the ones that finish the form. Before this, a visitor could ask about
+   * pricing, get answers, and leave — and nobody at Digilist would know the
+   * conversation had happened at all.
+   *
+   * Skipped when the first message already carries contact details: that case
+   * goes straight to `fileChatLead`, which sends the richer notification, and
+   * two emails about one person is how an inbox gets ignored.
+   */
+  const notifyConversationStarted = useCallback(async (firstTurn: string) => {
+    try {
+      await fetch(INQUIRY_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: "",
+          phone: "",
+          name: "",
+          organization: "",
+          persona: "ukjent",
+          topic: "Samtale startet i chatten",
+          message: firstTurn,
+          summary: `Chat startet: «${firstTurn.slice(0, 90)}»`,
+          source: "chatbot-started",
+          chatStarted: true,
+          page: typeof window !== "undefined" ? window.location.pathname : "/",
+          userAgent: typeof navigator !== "undefined" ? navigator.userAgent : "unknown",
+          timestamp: new Date().toISOString(),
+        }),
+      });
+    } catch (err) {
+      // Never surfaced to the visitor: this is our notification, not their
+      // action, and it must not delay or break the reply they are waiting for.
+      console.error("[chatbot] conversation-start notification failed:", err);
+    }
+  }, []);
+
   const fileChatLead = useCallback(
     async (contact: { email: string | null; phone: string | null }, latestTurn: string) => {
       try {
@@ -253,7 +301,12 @@ export function useChatbot() {
         ]);
         if (contact.email && !leadFiledRef.current) {
           leadFiledRef.current = true;
+          // Supersedes the start notification — one person, one email.
+          startNotifiedRef.current = true;
           void fileChatLead(contact, trimmed);
+        } else if (!startNotifiedRef.current) {
+          startNotifiedRef.current = true;
+          void notifyConversationStarted(trimmed);
         }
 
         const ctx = buildLLMContext(trimmed, hits, history, results);
@@ -309,7 +362,12 @@ export function useChatbot() {
             text: safeText,
             sourceQ: hits[0]?.q,
             suggestions: followUpSuggestions(hits[0], segment),
-            showInquiryCta: hits.length === 0,
+            // Show the escalation whenever the visitor wants something only a
+            // human can deliver — not only when retrieval came up empty. The
+            // old `hits.length === 0` hid the button on exactly the turns that
+            // needed it: "hva koster det for to lokaler" matches the pricing
+            // FAQ, so retrieval SUCCEEDS and the way out disappeared.
+            showInquiryCta: hits.length === 0 || needsHuman(trimmed) || safeText !== payloadText,
             results,
             timestamp: Date.now(),
           };
@@ -364,7 +422,7 @@ export function useChatbot() {
         dispatch({ type: "SET_THINKING", value: false });
       }, 250);
     },
-    [state.messages, fileChatLead],
+    [state.messages, fileChatLead, notifyConversationStarted],
   );
 
   const startInquiry = useCallback(() => {

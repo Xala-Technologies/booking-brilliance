@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { SALES_PERSONA } from "./sales/persona";
-import { claimsFalseAction, contactFromTurns, extractContact, honestHandoffReply } from "./contact";
+import { claimsFalseAction, contactFromTurns, extractContact, honestHandoffReply, needsHuman } from "./contact";
 
 describe("extractContact", () => {
   it("pulls an email out of a bare reply, the way visitors actually answer", () => {
@@ -114,5 +114,43 @@ describe("the sales prompt states what the assistant cannot do", () => {
     expect(SALES_PERSONA).toContain("kan ikke sende e-post");
     expect(SALES_PERSONA).toMatch(/ALDRI si at du sender/);
     expect(SALES_PERSONA).toContain("en rådgiver tar kontakt");
+  });
+});
+
+describe("needsHuman — when to put the escalation in front of the visitor", () => {
+  it("fires on the things the assistant genuinely cannot do", () => {
+    for (const ask of [
+      "Kan vi få et tilbud?",
+      "Jeg vil ha et pristilbud",
+      "Kan vi få en demo?",
+      "Ring meg i morgen",
+      "Kan dere kontakte meg?",
+      "Jeg vil snakke med en rådgiver",
+      "Kan vi avtale et møte?",
+      "Hva koster det for to lokaler?",
+      "Hvordan kommer vi i gang?",
+      "Send meg detaljene",
+    ]) {
+      expect(needsHuman(ask), ask).toBe(true);
+    }
+  });
+
+  it("catches the exact turn that hid the button on a live conversation", () => {
+    // "hva koster det for to lokaler" matches the pricing FAQ, so retrieval
+    // succeeded, so `hits.length === 0` was false, so the escalation button was
+    // hidden — on the turn where the visitor was trying to buy.
+    expect(needsHuman("hva koster det for to lokaler med egen nettside")).toBe(true);
+  });
+
+  it("does NOT fire on ordinary questions the assistant can answer itself", () => {
+    for (const ask of [
+      "Støtter dere ID-porten?",
+      "Hvordan fungerer sesongleie?",
+      "Er dere GDPR-kompatible?",
+      "Hvilke kunder bruker Digilist?",
+      "Kan man betale med Vipps?",
+    ]) {
+      expect(needsHuman(ask), ask).toBe(false);
+    }
   });
 });
