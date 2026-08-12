@@ -30,10 +30,11 @@ NSMs grunnprinsipper for IKT-sikkerhet (versjon 2.2, sist revidert 2024) er Norg
 
 | ID | Tiltak |
 |---|---|
-| 3.1 | Sentry for app-feil, custom audit-log for admin-handlinger |
+| 3.1 | Sentry for app-feil, custom audit-log for admin-handlinger og sikkerhetshendelser |
 | 3.2 | site-intelligence kjører daglig — uptime, security headers, vulns |
-| 3.3 | Brute-force-detection på login, automatic IP-bann via fail2ban |
+| 3.3 | Brute-force-detection på login (5 mislykkede forsøk/15 min), audit-logg + admin-varsel; IP-bann via fail2ban |
 | 3.4 | content-agent monitorer trusler i sanntid (planlagt V2) |
+| 3.5 | Avviksdeteksjon på betalingsbeløp ved checkout-initiering og signerte betalings-webhooks (Vipps/Adyen), med admin-varsel |
 
 ## 4.x Håndtere hendelser
 
