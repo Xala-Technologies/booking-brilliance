@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Link, useLocation } from "react-router-dom";
 import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 import { ChevronDown } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 import { GlobalSearch } from "./GlobalSearch";
@@ -124,7 +125,8 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   // English pages get an English nav. See PRIMARY_NAV_EN.
-  const isEnglish = localeFromPath(location.pathname) === "en";
+  const locale = localeFromPath(location.pathname);
+  const isEnglish = locale === "en";
   const solutionsActive = SOLUTIONS.some((s) =>
     location.pathname.startsWith(s.to),
   );
@@ -145,7 +147,7 @@ const Navbar = () => {
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-navy focus:text-on-navy focus:px-4 focus:py-2 focus:rounded-sm focus:outline-none focus:ring-2 focus:ring-navy focus:ring-offset-2"
       >
-        Hopp til hovedinnhold
+        {t(locale, "nav.skipToContent")}
       </a>
     <nav
       className={cn(
@@ -199,7 +201,7 @@ const Navbar = () => {
                   letterSpacing: "0.005em",
                 }}
               >
-                Enkel booking
+                {t(locale, "nav.tagline")}
               </span>
               <span
                 aria-hidden="true"
@@ -216,7 +218,7 @@ const Navbar = () => {
             <GlobalSearch />
           </div>
           <nav
-            aria-label="Hovednavigasjon"
+            aria-label={t(locale, "nav.main")}
             className="hidden xl:flex items-center gap-6 2xl:gap-8"
           >
             {/* Norwegian-only sections. The pages behind them do not exist in
@@ -333,7 +335,7 @@ const Navbar = () => {
             rel="noopener noreferrer"
             className="hidden lg:inline-flex"
           >
-            {isEnglish ? "Open the platform" : "Åpne plattformen"}
+            {t(locale, "nav.openPlatform")}
           </EditorialButton>
           <MobileMenu />
         </div>

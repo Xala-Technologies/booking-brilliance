@@ -51,6 +51,23 @@ const nb: Copy = {
   "nav.findVenues": "Finn ledige lokaler",
   "nav.talkToUs": "Snakk med oss",
   "nav.main": "Hovednavigasjon",
+  "nav.skipToContent": "Hopp til hovedinnhold",
+  "nav.tagline": "Enkel booking",
+  "nav.toggleTheme": "Bytt tema",
+  "nav.talkToUsMeanwhile": "Snakk med oss imens",
+
+  // Homepage hero. The rotating word is a list, so it is joined with "|" and
+  // split on read — a dictionary of strings stays a dictionary of strings.
+  "hero.eyebrow": "Bookingplattform · 2026 · Norge",
+  "hero.words":
+    "Lokaler|Selskapslokaler|Møterom|Idrettshaller|Kulturhus|Bryllupslokaler|Julebordlokaler|Grendehus",
+  "hero.headlineTail": "du trenger,",
+  "hero.headlineEm": "og plattformen bak dem",
+  "hero.lede":
+    "Finn og book lokaler med ekte priser og ledige datoer, og betal trygt med Vipps. Er du utleier eller kommune, drifter du alt fra kalender til oppgjør i samme plattform.",
+  "hero.bullet1": "Ekte priser og ledige datoer i sanntid",
+  "hero.bullet2": "Betal trygt med Vipps eller faktura",
+  "hero.bullet3": "Bygd for norske krav – BankID, GDPR og universell utforming",
 };
 
 const en: Copy = {
@@ -77,6 +94,21 @@ const en: Copy = {
   "nav.findVenues": "Find available venues",
   "nav.talkToUs": "Talk to us",
   "nav.main": "Main navigation",
+  "nav.skipToContent": "Skip to main content",
+  "nav.tagline": "Booking made simple",
+  "nav.toggleTheme": "Switch theme",
+  "nav.talkToUsMeanwhile": "Talk to us meanwhile",
+
+  "hero.eyebrow": "Booking platform · 2026 · Norway",
+  "hero.words":
+    "Venues|Function rooms|Meeting rooms|Sports halls|Cultural centres|Wedding venues|Party venues|Community halls",
+  "hero.headlineTail": "you need,",
+  "hero.headlineEm": "and the platform behind them",
+  "hero.lede":
+    "Find and book venues with real prices and real availability, and pay securely. If you rent space out, you run everything from the calendar to settlement in one platform.",
+  "hero.bullet1": "Real prices and live availability",
+  "hero.bullet2": "Pay securely by card, mobile payment or invoice",
+  "hero.bullet3": "Built for Norwegian requirements — national ID, GDPR and accessibility",
 };
 
 const DICT: Record<Locale, Copy> = { nb, en };

@@ -1,4 +1,7 @@
 import { motion } from "framer-motion";
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 import {
   EditorialButton,
   EditorialHeading,
@@ -52,6 +55,8 @@ const customers = [
 ];
 
 const HeroSection = () => {
+  const locale = localeFromPath(useLocation().pathname);
+  const heroWords = t(locale, "hero.words").split("|");
   return (
     <section
       id="hjem"
@@ -70,7 +75,7 @@ const HeroSection = () => {
           {/* Unified H1 spanning both audiences */}
           <motion.div variants={staggerChild} className="col-span-12 lg:col-span-7">
             <span className="editorial-mono-caption mb-6 inline-block">
-              Bookingplattform · 2026 · Norge
+              {t(locale, "hero.eyebrow")}
             </span>
 
             {/* XAL-316: this H1 is the confirmed LCP element (verified via
@@ -96,10 +101,10 @@ const HeroSection = () => {
               // The first word rotates, so the visible text changes over time.
               // aria-label pins one stable accessible name for the page's main
               // heading; the rolling word itself is aria-hidden.
-              aria-label={`${HERO_WORDS[0]} du trenger, og plattformen bak dem.`}
+              aria-label={`${heroWords[0]} ${t(locale, "hero.headlineTail")} ${t(locale, "hero.headlineEm")}.`}
               className="relative text-4xl md:text-[3rem] lg:text-[3rem] xl:text-[3.4rem] 2xl:text-5xl"
             >
-              <RotatingWord words={HERO_WORDS} /> du trenger,{" "}
+              <RotatingWord words={heroWords} /> {t(locale, "hero.headlineTail")}{" "}
               <em
                 className="italic"
                 style={{
@@ -109,20 +114,18 @@ const HeroSection = () => {
                   fontVariationSettings: '"opsz" 72, "wght" 400',
                 }}
               >
-                og plattformen bak dem
+                {t(locale, "hero.headlineEm")}
               </em>
               .
             </EditorialHeading>
 
             <p className="mt-8 text-lg lg:text-xl text-ink-soft measure leading-relaxed">
-              Finn og book lokaler med ekte priser og ledige datoer, og betal
-              trygt med Vipps. Er du utleier eller kommune, drifter du alt fra
-              kalender til oppgjør i samme plattform.
+              {t(locale, "hero.lede")}
             </p>
 
             <div className="mt-8 flex flex-col sm:flex-row gap-3">
               <EditorialButton variant="primary" size="lg" href="/leie">
-                Finn ledige lokaler
+                {t(locale, "nav.findVenues")}
               </EditorialButton>
               <EditorialButton
                 variant="outline"
@@ -134,15 +137,15 @@ const HeroSection = () => {
                   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
                 }}
               >
-                Book demo
+                {t(locale, "nav.bookDemo")}
               </EditorialButton>
             </div>
 
             <ul className="mt-9 space-y-3">
               {[
-                "Ekte priser og ledige datoer i sanntid",
-                "Betal trygt med Vipps eller faktura",
-                "Bygd for norske krav – BankID, GDPR og universell utforming",
+                t(locale, "hero.bullet1"),
+                t(locale, "hero.bullet2"),
+                t(locale, "hero.bullet3"),
               ].map((b) => (
                 <li key={b} className="flex items-start gap-3 text-ink-soft">
                   <Check
