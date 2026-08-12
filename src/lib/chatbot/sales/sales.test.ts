@@ -280,10 +280,27 @@ describe("the prompt", () => {
    * rule is back in the body with the specific words that drifted.
    */
   it("demands Bokmål explicitly, naming the forms that drifted", () => {
-    expect(SALES_PERSONA).toContain("SKRIV NORSK BOKMÅL");
+    // The rule MOVED into the per-language instruction when English was added —
+    // two conflicting language rules in one prompt is how a reply comes back
+    // half-translated. It is asserted on the built prompt rather than on the
+    // persona constant, which is where it now has to be true.
+    const p = buildSalesSystemPrompt(base);
+    expect(p).toContain("SKRIV NORSK BOKMÅL");
     for (const nynorsk of ["dykkar", "eit/ein", "dei", "månedleg/årleg", "prøva/testa", "utan"]) {
-      expect(SALES_PERSONA, `missing guard for ${nynorsk}`).toContain(nynorsk);
+      expect(p, `missing guard for ${nynorsk}`).toContain(nynorsk);
     }
+  });
+
+  it("switches the whole language rule for an English visitor, not just adds one", () => {
+    // An English-speaking operator asking "how much would this cost us?" used
+    // to get a fluent Norwegian reply. The scenario passed — lead filed, price
+    // answered — and the visitor could not read a word of it.
+    const en = buildSalesSystemPrompt({ ...base, language: "en" });
+    expect(en).toContain("SKRIV ENGELSK");
+    expect(en).not.toContain("SKRIV NORSK BOKMÅL");
+    // The pricing policy has to survive the language switch unsoftened.
+    expect(en).toMatch(/NO transaction fee/);
+    expect(en).toMatch(/Never "low fees"/);
   });
 
   /**

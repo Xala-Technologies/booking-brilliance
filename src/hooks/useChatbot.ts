@@ -1,6 +1,8 @@
 import { useRef, useCallback, useEffect, useMemo, useReducer } from "react";
 import { decideTurn } from "@/lib/chatbot/turn";
 import { beaconFromDecision, beaconFromDegradation, reportTurn } from "@/lib/chatbot/activity";
+import { conversationLanguage, type ChatLanguage } from "@/lib/chatbot/language";
+import { localeFromPath } from "@/lib/i18n";
 import { trackConversion } from "@/lib/analytics";
 import {
   retrieve,
@@ -167,6 +169,10 @@ export function useChatbot() {
   // Stable for the life of the widget. The daily report counts conversations
   // by this; without it every question looks like its own visitor.
   const conversationIdRef = useRef(cryptoId());
+  // Decided once and held. A visitor who writes three English turns and then
+  // types "vi er i Trondheim" must not get a Norwegian reply mid-conversation —
+  // flapping reads as broken far more than a wrong initial guess.
+  const languageRef = useRef<ChatLanguage | null>(null);
   const leadFiledRef = useRef(false);
 
   /**
@@ -298,7 +304,26 @@ export function useChatbot() {
         ...state.messages.filter((m) => m.role === "user").map((m) => m.text),
         trimmed,
       ]).segment;
-      const hits = retrieve(trimmed, 3);
+      // Language is decided BEFORE retrieval, because it chooses the corpus.
+      // Retrieval is lexical token overlap, so an English question scored
+      // against Norwegian answers matches almost nothing — the model gets no
+      // sources and fills the gap itself, which is exactly how the invented
+      // price happened.
+      //
+      // The page is the starting point; what the visitor actually types wins.
+      // Someone on the Norwegian site writing English is telling us something
+      // the URL cannot: that Norwegian is not working for them.
+      const pageLocale: ChatLanguage =
+        typeof window === "undefined" ? "nb" : localeFromPath(window.location.pathname);
+      const priorTurns = state.messages.filter((m) => m.role === "user").map((m) => m.text);
+      const lang = conversationLanguage({
+        userTurns: [...priorTurns, trimmed],
+        pageLocale,
+        current: languageRef.current,
+      });
+      languageRef.current = lang;
+
+      const hits = retrieve(trimmed, 3, lang);
       // Whole-site intelligent search — shown as clickable cards under the reply
       // and fed to the LLM so it can cite pages/blog, not just FAQ.
       const results = searchCorpus(trimmed, getSearchCorpus()).slice(0, 6);
@@ -316,7 +341,7 @@ export function useChatbot() {
           trimmed,
         ];
 
-        const ctx = buildLLMContext(trimmed, hits, history, results);
+        const ctx = buildLLMContext(trimmed, hits, history, results, lang);
         const res = await fetch(CHAT_ENDPOINT, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -369,6 +394,7 @@ export function useChatbot() {
             // invented, which is how /faq#q-27 reached a live visitor.
             allowedPages: results.map((r) => r.href),
             sourcesHadPrice: hits.some((h) => /\d[\d\s.,]*\s*(kr|kroner|nok)/i.test(h.a)),
+            language: lang,
             leadAlreadyFiled: leadFiledRef.current,
             alreadyNotified: startNotifiedRef.current,
           });

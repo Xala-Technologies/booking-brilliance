@@ -91,6 +91,16 @@ export interface GradeInput {
   allowedPages?: readonly string[];
   /** True when the sources given to the model actually contained a price. */
   sourcesHadPrice?: boolean;
+  /**
+   * The language the reply is meant to be in.
+   *
+   * The Nynorsk rule exists to catch a bokmål reply drifting, and its markers
+   * are ordinary English words: "ein" is not, but "utan" sits inside nothing
+   * while `\bein\b` would never fire — the real collision is that an English
+   * reply is not bokmål at all, so judging it against bokmål rules suppresses
+   * correct answers. Checked only for Norwegian.
+   */
+  language?: "nb" | "en";
 }
 
 export function wordCount(text: string): number {
@@ -165,7 +175,7 @@ export function gradeReply(input: GradeInput): Violation[] {
     violations.push({ rule: "prompt-leak", severity: "block", detail: `reply echoes prompt scaffolding: ${leak}` });
   }
 
-  const nynorsk = NYNORSK.filter((re) => re.test(reply));
+  const nynorsk = (input.language ?? "nb") === "nb" ? NYNORSK.filter((re) => re.test(reply)) : [];
   if (nynorsk.length) {
     violations.push({
       rule: "nynorsk-drift",

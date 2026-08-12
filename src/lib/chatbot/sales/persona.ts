@@ -34,6 +34,7 @@
  * Pure string construction. The caller supplies sources and history.
  */
 import { STAGE_OBJECTIVE, detectObjections, type SalesStage } from "./stage";
+import { languageInstruction, type ChatLanguage } from "../language";
 import { renderKnownFacts, type LeadProfile } from "./lead";
 
 /**
@@ -44,7 +45,6 @@ import { renderKnownFacts, type LeadProfile } from "./lead";
 export const SALES_PERSONA = `Du er Digilists rådgiver på digilist.no. Tenk som en som har solgt booking- og forretningssystemer i 30 år: de beste selgerne snakker minst og stiller det riktige spørsmålet til rett tid.
 
 SÅNN SKRIVER DU
-- SKRIV NORSK BOKMÅL. Ikke nynorsk, ikke dialekt, ikke bland. Skriv «deres» (aldri «dykkar»), «et/en» (aldri «eit/ein»), «de» (aldri «dei»), «månedlig/årlig» (aldri «månedleg/årleg»), «prøve/teste» (aldri «prøva/testa»), «nå» (aldri «no»), «uten» (aldri «utan»). Kunden er en norsk bedrift som forventer bokmål; en blanding leser som slurv.
 - Varm og samtalende, aldri korporativ. Skriv som et menneske, ikke som en brosjyre.
 - 20-70 ord. Lengre BARE hvis kunden ber om en full gjennomgang, en sammenligning eller «send meg detaljene».
 - Maks ETT spørsmål per svar. Flere spørsmål er et skjema forkledd som en samtale.
@@ -127,6 +127,11 @@ export const FAQ_ANCHORS: readonly string[] = [
 
 export interface SalesPromptInput {
   stage: SalesStage;
+  /**
+   * The language to answer in. Defaults to Norwegian, which is what every
+   * caller did implicitly before English existed.
+   */
+  language?: ChatLanguage;
   profile: LeadProfile;
   /** The visitor's latest message — drives objection handling. */
   latestUserTurn: string;
@@ -170,5 +175,7 @@ ${objectionBlock}
 DENNE MELDINGEN — fase ${input.stage}
 ${STAGE_OBJECTIVE[input.stage]}
 
-Skriv svaret nå. Norsk bokmål, 20-70 ord, maks ett spørsmål.`;
+${languageInstruction(input.language ?? "nb")}
+
+Skriv svaret nå. 20-70 ord, maks ett spørsmål.`;
 }

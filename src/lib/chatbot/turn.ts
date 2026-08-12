@@ -24,6 +24,8 @@ export interface TurnInput {
   allowedPages?: readonly string[];
   /** True when the sources actually contained a price. */
   sourcesHadPrice?: boolean;
+  /** The language this reply is meant to be in. Norwegian when unset. */
+  language?: "nb" | "en";
   /** Whether a lead has already been filed this conversation. */
   leadAlreadyFiled: boolean;
   /** Whether a qualified-conversation notice has already been sent. */
@@ -90,6 +92,7 @@ export function decideTurn(input: TurnInput): TurnDecision {
     reply: input.reply,
     allowedPages: input.allowedPages ?? [],
     sourcesHadPrice: input.sourcesHadPrice ?? false,
+    language: input.language ?? "nb",
   });
   const mustBlock = blocking(violations).length > 0;
   const guardTripped = mustBlock;

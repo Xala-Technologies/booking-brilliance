@@ -1,4 +1,6 @@
 import { FAQ_CATEGORIES, allFAQEntries } from "@/content/faq";
+import { FAQ_CATEGORIES_EN } from "@/content/faq.en";
+import { conversationLanguage, type ChatLanguage } from "./language";
 import type { SearchItem } from "@/lib/search/corpus";
 import { inferStage } from "@/lib/chatbot/sales/stage";
 import { enrichProfile, profileCompleteness } from "@/lib/chatbot/sales/lead";
@@ -52,11 +54,17 @@ function tokenize(text: string): string[] {
 /** Shortest token allowed to match loosely. Three is noise in Norwegian. */
 const MIN_PREFIX_LEN = 4;
 
-export function retrieve(query: string, k = 3): RagHit[] {
+export function retrieve(query: string, k = 3, lang: ChatLanguage = "nb"): RagHit[] {
   const qTokens = tokenize(query);
   if (qTokens.length === 0) return [];
   const hits: RagHit[] = [];
-  for (const cat of FAQ_CATEGORIES) {
+  // An English question must be scored against the English corpus. Retrieval
+  // is lexical token overlap, so an English query against Norwegian answers
+  // matches almost nothing — the model would be handed no sources at all and
+  // would fill the gap itself, which is exactly how the invented price
+  // happened.
+  const corpus = lang === "en" ? FAQ_CATEGORIES_EN : FAQ_CATEGORIES;
+  for (const cat of corpus) {
     for (const entry of cat.questions) {
       const haystack = [
         entry.q,
@@ -184,6 +192,8 @@ export function buildLLMContext(
   hits: RagHit[],
   history: Array<{ role: string; text: string }>,
   pages: SearchItem[] = [],
+  /** The page the chat is open on. The VISITOR still overrules it. */
+  pageLocale: ChatLanguage = "nb",
 ): { system: string; messages: Array<{ role: string; content: string }> } {
   const corpus = hits
     .map(
@@ -209,6 +219,7 @@ export function buildLLMContext(
   const stage = inferStage({ userTurns, completeness: profileCompleteness(enriched) });
 
   const system = buildSalesSystemPrompt({
+    language: conversationLanguage({ userTurns, pageLocale }),
     stage,
     profile: enriched,
     latestUserTurn: query,
