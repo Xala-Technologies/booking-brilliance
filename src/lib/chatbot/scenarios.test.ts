@@ -76,10 +76,16 @@ describe("scenario suite — does the assistant read visitors correctly?", () =>
     expect(noisy.map((s) => s.id)).toEqual([]);
   });
 
-  it("sends at most one notification per conversation", () => {
+  it("sends at most one of each notification kind — a lead may upgrade a qualified one", () => {
+    // Not "at most one email". `gir-epost-tidlig` asks about payment (a buying
+    // signal, so: qualified) and hands over an address on the next turn. The
+    // second notification carries something the first could not — who they are
+    // and how to reach them — so suppressing it to keep the count at one would
+    // lose exactly the information worth having.
     for (const scenario of SCENARIOS) {
-      const notifications = play(scenario).decisions.filter((d) => d.notify !== "none");
-      expect(notifications.length, scenario.id).toBeLessThanOrEqual(1);
+      const kinds = play(scenario).decisions.map((d) => d.notify);
+      expect(kinds.filter((k) => k === "qualified").length, `${scenario.id} qualified`).toBeLessThanOrEqual(1);
+      expect(kinds.filter((k) => k === "lead").length, `${scenario.id} lead`).toBeLessThanOrEqual(1);
     }
   });
 
@@ -144,14 +150,22 @@ describe("SERIOUS_LEAD_SCORE calibration", () => {
     }
   });
 
-  it("leaves headroom — the bar is not sitting on top of a real conversation", () => {
-    // A threshold one point above the highest bot is technically passing and
-    // practically fragile. Anything under 10 points of margin is a warning that
-    // the inputs, not the constant, need work.
-    const highestNoise = Math.max(
-      0,
-      ...scored.filter((r) => r.kind === "bot" || r.kind === "support").map((r) => r.interest),
-    );
-    expect(SERIOUS_LEAD_SCORE - highestNoise, `highest noise scored ${highestNoise}`).toBeGreaterThanOrEqual(10);
+  it("scores bots and support requests at zero, not merely below the bar", () => {
+    // A threshold is a weak defence when noise scores just under it: one new
+    // cue and it crosses. A scraper sending "test test aaaaaaa" used to score
+    // 14 because the bare word "test" matched the trial objection — it should
+    // never have registered as interest at all. The bar is set LOW on purpose,
+    // so the noise floor has to be genuinely zero rather than comfortably
+    // distant.
+    for (const r of scored.filter((r) => r.kind === "bot" || r.kind === "support")) {
+      expect(r.interest, `${r.id} scored ${r.interest}`).toBe(0);
+    }
+  });
+
+  it("keeps every serious visitor above the bar on score alone", () => {
+    // Not relying on `needsHuman` to rescue them: if a lead only ever qualifies
+    // by keyword, the score is decoration.
+    const bySignal = scored.filter((r) => r.kind === "serious" && r.interest >= SERIOUS_LEAD_SCORE);
+    expect(bySignal.length, "serious visitors clearing the score bar").toBeGreaterThanOrEqual(3);
   });
 });

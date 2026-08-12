@@ -176,7 +176,9 @@ describe("shouldNotify — only a serious prospect is worth a human", () => {
     expect(
       shouldNotify({
         userTurns: ["hei", "er dere GDPR-kompatible?", "hvor lagres dataene?", "og backup?"],
-        interest: 20,
+        // Below the bar. This fixture said 20 when the threshold was 45; the
+        // number has to mean "no buying interest", not a fixed constant.
+        interest: 10,
       }).notify,
     ).toBe(false);
   });

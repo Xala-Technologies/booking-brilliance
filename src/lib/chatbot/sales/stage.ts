@@ -71,7 +71,12 @@ export const OBJECTIONS: readonly Objection[] = [
   },
   {
     id: "trial",
-    cues: ["prøve", "teste", "test", "pilot", "prøveperiode", "uforpliktende"],
+    // "test" alone is dropped. `matchesCue` is prefix-anchored, so it matched
+    // a scraper sending "test test aaaaaaa" and scored it as a visitor asking
+    // for a trial — 10 points of objection credit for pure noise. The verb
+    // forms carry the intent; the bare noun is the one people never use to
+    // mean "let us try it", and the one bots send constantly.
+    cues: ["prøve", "teste", "prøver", "testet", "pilot", "prøveperiode", "uforpliktende"],
     concern: "Jeg er interessert, men stoler ikke på kjøpet ennå.",
     answer:
       "Senk risikoen: pilot/demo er gratis og uforpliktende. Ikke selg hardere — de har allerede sagt at de vurderer.",

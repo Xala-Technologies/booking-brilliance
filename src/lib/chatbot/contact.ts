@@ -147,30 +147,37 @@ export function needsHuman(text: string): boolean {
  * `interestScore` is 0-100: up to 60 for buying signals, 30 for how much of the
  * profile has been established, 10 for having raised an objection at all.
  *
- * MEASURED, not guessed. It was 45 — a number picked by feel, and provably
- * dead: `interestScore` was being handed a profile whose signals and objections
- * were always empty, so nothing could score above 30 and the threshold never
- * fired once. Every lead was actually being caught by `needsHuman` keyword
- * matching, which looked like the system working.
+ * MEASURED, not guessed. It started at 45 — a number picked by feel, and
+ * provably dead: `interestScore` was being handed a profile whose signals and
+ * objections were always empty, so nothing could exceed 30 and it never fired
+ * once. Every lead was actually caught by `needsHuman` keyword matching, which
+ * looked exactly like the system working.
  *
- * With the scoring fixed, `scenarios.test.ts` prints the real distribution:
+ * With scoring fixed, `scenarios.test.ts` prints the real distribution:
  *
  *     73  serious   kommune, 14 buildings, replacing RCO, asks price
  *     35  serious   private operator, one venue, "too small?" objection
  *     29  serious   sports club, spreadsheet today, wants to start
  *     24  serious   venue owner who hands over an address
- *     -------------------------------------------------- 25
- *     14  browser   reading through features
- *     14  bot       "test test aaaaaaa"
- *      0  browser   comparing vendors
- *      0  support   GDPR question
+ *     14  browser   asking about ID-porten, Vipps, real-time calendar
+ *     -------------------------------------------------------- 15
+ *      0  bot       "test test aaaaaaa"
+ *      0  bot       prompt injection
+ *      0  support   GDPR question, login problem
+ *      0  browser   comparing vendors, nothing concrete
  *
- * 25 sits in the gap: 11 clear of the noisiest non-lead, and low enough that
- * every serious visitor clears it on the score alone rather than relying on a
- * keyword. Calibrated on 10 scenarios — revisit as that set grows, and let the
- * margin assertion in the suite, not taste, decide.
+ * Set deliberately LOW. Missing a real buyer costs a deal; a surplus
+ * notification costs someone ten seconds. The bar sits just above the
+ * technically-engaged browser at 14 and far above every bot and support
+ * request, all of which now score zero.
+ *
+ * That browser sitting one point below is the live trade-off: three questions
+ * about ID-porten and Vipps on a booking-system site is plausibly a kommune
+ * evaluating, and dropping this to 10 would notify on it. That is a judgement
+ * about how much noise the inbox tolerates, not a technical question — change
+ * the constant and flip that scenario's `expectNotify`.
  */
-export const SERIOUS_LEAD_SCORE = 25;
+export const SERIOUS_LEAD_SCORE = 15;
 
 export interface QualifyInput {
   /** Everything the visitor has said, oldest first. */
