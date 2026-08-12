@@ -227,7 +227,15 @@ function ContentShell({ children }: { children: ReactNode }) {
     location.pathname.startsWith("/admin") ||
     location.pathname.startsWith("/blogg/preview");
   return (
-    <div className={`transition-[padding] duration-300 ease-out ${skip ? "" : "lg:pr-[var(--rail-w,22rem)]"}`}>
+    // Fallback is 0rem, NOT 22rem. The rail defaults to COLLAPSED
+    // (`initialRailExpanded` returns false unless the visitor previously opened
+    // it), so 22rem described the wrong state for every first-time visitor:
+    // the page painted 352px too narrow, the lazy rail then published
+    // `--rail-w: 0px`, and `transition-[padding]` animated the entire body
+    // wider over 300ms — reflowing every text block below the fold. Measured
+    // 0.25 CLS on the city landing pages, which is exactly Google's "poor"
+    // threshold and the pages paid traffic lands on.
+    <div className={`transition-[padding] duration-300 ease-out ${skip ? "" : "lg:pr-[var(--rail-w,0rem)]"}`}>
       {children}
     </div>
   );

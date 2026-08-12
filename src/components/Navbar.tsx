@@ -124,7 +124,9 @@ const Navbar = () => {
         // Height is constant on scroll (py-3 both states) so the navbar's
         // bottom border stays aligned with the assistant rail's 76px header;
         // only the border weight + shadow change as the scroll cue.
-        "fixed top-0 left-0 right-0 lg:right-[var(--rail-w,22rem)] z-40 bg-paper border-b py-3 transition-all duration-normal ease-editorial",
+        // Fallback 0rem for the same reason as ContentShell: the rail starts
+        // collapsed, so 22rem shifted the navbar on every first paint.
+        "fixed top-0 left-0 right-0 lg:right-[var(--rail-w,0rem)] z-40 bg-paper border-b py-3 transition-all duration-normal ease-editorial",
         isScrolled
           ? "border-rule-strong shadow-[0_1px_0_0_hsl(var(--rule))]"
           : "border-rule"

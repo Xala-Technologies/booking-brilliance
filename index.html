@@ -128,6 +128,23 @@
     <script defer data-domain="digilist.no" src="https://plausible.io/js/script.outbound-links.js"></script>
     <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
 
+    <!-- Publish the assistant rail's reserved width BEFORE first paint.
+         The rail is lazy-loaded, so without this the CSS fallback decides the
+         first paint and the rail corrects it milliseconds later — through a
+         300ms `transition-[padding]` that reflows the whole page. The fallback
+         is now 0rem, which is right for the common case (rail collapsed), and
+         this script makes the returning-visitor case right too by reading the
+         same key the provider uses. Inline and synchronous on purpose: it has
+         to win the race against first paint. -->
+    <script>
+      try {
+        document.documentElement.style.setProperty(
+          '--rail-w',
+          localStorage.getItem('digilist-rail-expanded-v1') === '1' ? '22rem' : '0px'
+        );
+      } catch (e) { /* private mode — the 0rem CSS fallback already covers it */ }
+    </script>
+
     <!-- Google Consent Mode v2 — MUST run before any Google tag loads.
          Everything is denied by default. Norway is in the EEA, so ad_storage,
          ad_user_data and ad_personalization may only be granted after the
