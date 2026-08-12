@@ -195,6 +195,19 @@ const nb: Copy = {
   "demo.replyTime": "svarer innen 24 timer på hverdager, som regel raskere.",
   "demo.error":
     "Vi fikk ikke sendt forespørselen. Prøv igjen, eller send e-post direkte til kontakt@digilist.no.",
+  "demo.role.kommune": "Kommune",
+  "demo.role.selskapslokale": "Selskapslokale / utleier",
+  "demo.role.idrett": "Idrettsanlegg",
+  "demo.role.kulturhus": "Kulturhus / scene",
+  "demo.role.kontor": "Kontor / coworking",
+  "demo.role.annet": "Annet",
+  "demo.get1": "30–45 minutters demo, tilpasset ditt bruksområde",
+  "demo.get2": "Gjennomgang av booking, betaling, sesongleie og fakturering",
+  "demo.get3": "Spørsmål og svar: vi pakker ikke inn standarddemoen vår",
+  "demo.get4": "Et notat med konkrete neste steg dersom dere vurderer pilot",
+  "demo.need1": "Type virksomhet og typisk bookingvolum",
+  "demo.need2": "Eventuelle krav fra anskaffelser eller intern compliance",
+  "demo.need3": "Hvilke roller som skal se demoen (administrasjon, drift, økonomi)",
 };
 
 const en: Copy = {
@@ -359,6 +372,19 @@ const en: Copy = {
   "demo.replyTime": "replies within 24 hours on weekdays, usually sooner.",
   "demo.error":
     "We could not send the request. Try again, or email us directly at kontakt@digilist.no.",
+  "demo.role.kommune": "Public body",
+  "demo.role.selskapslokale": "Function room / operator",
+  "demo.role.idrett": "Sports facility",
+  "demo.role.kulturhus": "Cultural venue / stage",
+  "demo.role.kontor": "Office / coworking",
+  "demo.role.annet": "Something else",
+  "demo.get1": "A 30–45 minute demo, shaped around what you run",
+  "demo.get2": "A walk through booking, payment, seasonal allocation and invoicing",
+  "demo.get3": "Questions and answers — we do not run a canned demo",
+  "demo.get4": "A note with concrete next steps if you are considering a pilot",
+  "demo.need1": "What kind of organisation, and roughly how many bookings",
+  "demo.need2": "Any procurement or internal compliance requirements",
+  "demo.need3": "Which roles should see the demo (administration, operations, finance)",
 };
 
 const DICT: Record<Locale, Copy> = { nb, en };

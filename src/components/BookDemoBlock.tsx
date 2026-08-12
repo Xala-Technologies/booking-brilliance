@@ -14,7 +14,7 @@ import { getFraunces } from "@/lib/fonts";
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/motion";
 import { openChatbot } from "@/lib/chatbot/open";
 import { useLocation } from "react-router-dom";
-import { localeFromPath } from "@/lib/i18n";
+import { localeFromPath, type Locale } from "@/lib/i18n";
 import { t } from "@/lib/copy";
 
 type FormState = {
@@ -35,27 +35,18 @@ const EMPTY: FormState = {
   message: "",
 };
 
-const ROLE_OPTIONS = [
-  { value: "kommune", label: "Kommune" },
-  { value: "selskapslokale", label: "Selskapslokale / utleier" },
-  { value: "idrett", label: "Idrettsanlegg" },
-  { value: "kulturhus", label: "Kulturhus / scene" },
-  { value: "kontor", label: "Kontor / coworking" },
-  { value: "annet", label: "Annet" },
-];
+// The submitted VALUE stays Norwegian in both languages — it is what the
+// inquiry email and the lead pipeline key on, and translating it would split
+// one segment into two that no report joins back up.
+const ROLE_VALUES = [
+  "kommune", "selskapslokale", "idrett", "kulturhus", "kontor", "annet",
+] as const;
 
-const HVA_FAAR_DU = [
-  "30–45 minutters demo, tilpasset ditt bruksområde",
-  "Gjennomgang av booking, betaling, sesongleie og fakturering",
-  "Spørsmål og svar: vi pakker ikke inn standarddemoen vår",
-  "Et notat med konkrete neste steg dersom dere vurderer pilot",
-];
+const roleOptionsFor = (locale: Locale) =>
+  ROLE_VALUES.map((value) => ({ value, label: t(locale, `demo.role.${value}`) }));
 
-const HVA_VI_TRENGER = [
-  "Type virksomhet og typisk bookingvolum",
-  "Eventuelle krav fra anskaffelser eller intern compliance",
-  "Hvilke roller som skal se demoen (administrasjon, drift, økonomi)",
-];
+const whatYouGetFor = (locale: Locale) => [1, 2, 3, 4].map((n) => t(locale, `demo.get${n}`));
+const whatWeNeedFor = (locale: Locale) => [1, 2, 3].map((n) => t(locale, `demo.need${n}`));
 
 type Props = {
   /** Source label sent with the inquiry — e.g. "book-demo" or "homepage-kontakt" */
@@ -99,8 +90,11 @@ export function BookDemoBlock({
     setError(null);
 
     try {
-      const roleLabel =
-        ROLE_OPTIONS.find((r) => r.value === form.role)?.label ?? form.role;
+      // Always the NORWEGIAN label, whatever language the visitor used. This
+      // string lands in the sales inbox and in any reporting built on it;
+      // sending 'Public body' for one visitor and 'Kommune' for another splits
+      // one segment into two that nothing joins back up.
+      const roleLabel = t("nb", `demo.role.${form.role}`);
       const payload = {
         name: form.name,
         email: form.email,
@@ -187,7 +181,7 @@ export function BookDemoBlock({
               HVA DU FÅR
             </SubHeading>
             <ul className="space-y-3">
-              {HVA_FAAR_DU.map((item) => (
+              {whatYouGetFor(locale).map((item) => (
                 <li
                   key={item}
                   className="flex items-start gap-3 text-base text-ink leading-relaxed"
@@ -208,7 +202,7 @@ export function BookDemoBlock({
               HVA VI TRENGER FRA DEG
             </SubHeading>
             <ul className="space-y-3">
-              {HVA_VI_TRENGER.map((item) => (
+              {whatWeNeedFor(locale).map((item) => (
                 <li
                   key={item}
                   className="flex items-start gap-3 text-base text-ink leading-relaxed"
@@ -389,7 +383,7 @@ export function BookDemoBlock({
                   <option value="" disabled>
                     Velg …
                   </option>
-                  {ROLE_OPTIONS.map((r) => (
+                  {roleOptionsFor(locale).map((r) => (
                     <option key={r.value} value={r.value}>
                       {r.label}
                     </option>
