@@ -1,4 +1,5 @@
 import { useState, FormEvent } from "react";
+import { trackConversion } from "@/lib/analytics";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowUpRight, CheckCircle2, Loader2 } from "lucide-react";
@@ -117,6 +118,11 @@ export function BookDemoBlock({
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error(`Inquiry endpoint returned ${res.status}`);
+
+      // Fired only after the endpoint confirms. Reporting on submit instead
+      // would count failed sends as conversions and teach the ad platforms to
+      // bid toward an outcome that never happened.
+      trackConversion("demo_request", { source });
 
       setSubmitted(true);
     } catch (err) {

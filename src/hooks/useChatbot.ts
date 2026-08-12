@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useReducer } from "react";
+import { trackConversion } from "@/lib/analytics";
 import {
   retrieve,
   answerFrom,
@@ -334,6 +335,8 @@ export function useChatbot() {
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error(`Inquiry endpoint returned ${res.status}`);
+      // Only after the endpoint confirms — a failed send is not a conversion.
+      trackConversion("inquiry_sent", { source: "chatbot" });
       dispatch({ type: "SET_THINKING", value: false });
       dispatch({ type: "SET_MODE", mode: "inquiry-success" });
     } catch (err) {

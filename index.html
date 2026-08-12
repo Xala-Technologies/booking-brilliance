@@ -121,9 +121,37 @@
     <link rel="alternate" type="application/rss+xml" title="Digilist Blogg" href="https://digilist.no/blogg" />
     <link rel="sitemap" type="application/xml" title="Sitemap" href="https://digilist.no/sitemap.xml" />
 
-    <!-- Plausible Analytics — privacy-first, no cookies, GDPR-compliant -->
+    <!-- Plausible Analytics — privacy-first, no cookies, GDPR-compliant.
+         Needs no consent and is therefore loaded unconditionally. It counts
+         traffic; it cannot report conversions to an ad platform, which is why
+         the tags below exist. -->
     <script defer data-domain="digilist.no" src="https://plausible.io/js/script.outbound-links.js"></script>
     <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+
+    <!-- Google Consent Mode v2 — MUST run before any Google tag loads.
+         Everything is denied by default. Norway is in the EEA, so ad_storage,
+         ad_user_data and ad_personalization may only be granted after the
+         visitor says yes; and since March 2024 Google requires Consent Mode v2
+         signals for EEA traffic at all — without them, remarketing audiences
+         and conversion modelling simply stop working.
+         `wait_for_update` holds tags briefly so a returning visitor's stored
+         grant is applied before the first hit, instead of it being sent denied
+         and then corrected. -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { window.dataLayer.push(arguments); }
+      window.gtag = gtag;
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        functionality_storage: 'granted',
+        security_storage: 'granted',
+        wait_for_update: 500
+      });
+      gtag('js', new Date());
+    </script>
 
     <!-- Structured Data (JSON-LD) will be injected by SEO component -->
   </head>

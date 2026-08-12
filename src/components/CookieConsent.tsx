@@ -2,28 +2,39 @@ import { useState, useEffect } from "react";
 import { X, Cookie, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { applyConsent, initAnalytics, saveConsent } from "@/lib/analytics";
 
+/**
+ * The consent banner, and the only thing that may grant marketing storage.
+ *
+ * It used to write `localStorage["cookie-consent"]` and stop there — nothing
+ * anywhere read the value back. Harmless while the site ran only Plausible,
+ * which needs no consent; not harmless the moment a Google or Meta tag exists.
+ * Every path now ends in `applyConsent`, including the decline paths, because
+ * a recorded denial is itself the signal Google Consent Mode needs.
+ */
 const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Check if user has already accepted cookies
-    const consent = localStorage.getItem("cookie-consent");
-    if (!consent) {
-      // Show banner after a short delay
-      setTimeout(() => setIsVisible(true), 1000);
+    // Re-applies a stored decision to the ad platforms on every load, and
+    // returns true only when there is no decision to apply.
+    if (initAnalytics()) {
+      const timer = setTimeout(() => setIsVisible(true), 1000);
+      return () => clearTimeout(timer);
     }
   }, []);
 
-  const acceptCookies = () => {
-    localStorage.setItem("cookie-consent", "accepted");
+  const decide = (analytics: "granted" | "denied", marketing: "granted" | "denied") => {
+    applyConsent(saveConsent(analytics, marketing));
     setIsVisible(false);
   };
 
-  const rejectCookies = () => {
-    localStorage.setItem("cookie-consent", "rejected");
-    setIsVisible(false);
-  };
+  const acceptCookies = () => decide("granted", "granted");
+  // "Only necessary" declines measurement AND marketing. Closing the banner
+  // without choosing is the same as declining — silence is never consent.
+  const rejectCookies = () => decide("denied", "denied");
+  const acceptAnalyticsOnly = () => decide("granted", "denied");
 
   if (!isVisible) return null;
 
@@ -47,8 +58,10 @@ const CookieConsent = () => {
                   <Shield className="w-4 h-4 text-primary" />
                 </div>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-                  Vi bruker nødvendige cookies for å sikre grunnleggende funksjonalitet og forbedre din opplevelse på vår nettside. 
-                  Ved å klikke "Godta alle" samtykker du til bruk av cookies i henhold til vår{" "}
+                  Nødvendige cookies gjør at nettsiden fungerer. Med ditt samtykke bruker vi i tillegg
+                  statistikk‑ og markedsføringscookies fra Google og Meta, slik at vi kan måle hvilke
+                  annonser som faktisk fører til en henvendelse. Du kan når som helst ombestemme deg.
+                  Les mer i vår{" "}
                   <Link to="/cookies" className="text-primary hover:underline font-medium">
                     cookie-policy
                   </Link>
@@ -70,6 +83,14 @@ const CookieConsent = () => {
                 className="w-full sm:w-auto"
               >
                 Kun nødvendige
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={acceptAnalyticsOnly}
+                className="w-full sm:w-auto"
+              >
+                Kun statistikk
               </Button>
               <Button
                 variant="hero"
