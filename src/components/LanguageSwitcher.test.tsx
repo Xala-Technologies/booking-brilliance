@@ -48,9 +48,9 @@ describe("LanguageSwitcher is actually on the page", () => {
   it("renders in the Footer on a translated page", () => {
     // The bug, pinned. If the element is removed from the Footer's JSX again,
     // this fails — which nothing did last time.
-    render(<Footer />, "/priser");
+    render(<Footer />, "/blogg");
     const links = [...container.querySelectorAll("a")].filter(
-      (a) => a.getAttribute("href") === "/en/priser",
+      (a) => a.getAttribute("href") === "/en/blogg",
     );
     expect(links.length, "no link to the English page in the footer").toBeGreaterThan(0);
   });
@@ -64,17 +64,17 @@ describe("LanguageSwitcher is actually on the page", () => {
 
 describe("LanguageSwitcher behaviour", () => {
   it("links to the other language and names it in that language", () => {
-    render(<LanguageSwitcher />, "/priser");
+    render(<LanguageSwitcher />, "/blogg");
     const link = container.querySelector("a");
-    expect(link?.getAttribute("href")).toBe("/en/priser");
+    expect(link?.getAttribute("href")).toBe("/en/blogg");
     expect(link?.textContent).toContain("English");
     expect(link?.getAttribute("hreflang")).toBe("en");
   });
 
   it("points back to Norwegian from the English page", () => {
-    render(<LanguageSwitcher />, "/en/priser");
+    render(<LanguageSwitcher />, "/en/blogg");
     const link = container.querySelector("a");
-    expect(link?.getAttribute("href")).toBe("/priser");
+    expect(link?.getAttribute("href")).toBe("/blogg");
     expect(link?.textContent).toContain("Norsk");
   });
 
@@ -87,7 +87,7 @@ describe("LanguageSwitcher behaviour", () => {
   });
 
   it("remembers the choice, so the auto-redirect can never overrule it", () => {
-    render(<LanguageSwitcher />, "/priser");
+    render(<LanguageSwitcher />, "/blogg");
     act(() => {
       container.querySelector("a")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     });
@@ -111,7 +111,7 @@ describe("the English nav does not drop the visitor back into Norwegian", () => 
   });
 
   it("keeps the full Norwegian nav on Norwegian pages", () => {
-    render(<Navbar />, "/priser");
+    render(<Navbar />, "/blogg");
     const hrefs = [...container.querySelectorAll("a")].map((a) => a.getAttribute("href"));
     expect(hrefs).toContain("/blogg");
     expect(hrefs).toContain("/faq");

@@ -69,9 +69,13 @@ export const SITE_ORIGIN = "https://digilist.no";
  */
 export const TRANSLATED_PATHS: ReadonlySet<string> = new Set([
   "/",
-  "/priser",
-  "/faq",
   "/blogg",
+  // "/priser" and "/faq" were listed here, and it was not true. The bespoke
+  // English pages were deleted in favour of the mirror, which renders the
+  // NORWEGIAN components at those URLs — so the site was declaring two
+  // indexable English pages that served Norwegian prose, which is the exact
+  // duplicate-content risk this whitelist exists to prevent. Their data now
+  // switches by locale; they go back on the list when the prose does too.
 ]);
 
 /** `nb path → en path`, derived. The English site mirrors the Norwegian slugs. */

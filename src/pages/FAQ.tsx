@@ -11,21 +11,31 @@ import {
   ProgressRail,
 } from "@/components/editorial";
 import { FAQ_CATEGORIES, allFAQEntries } from "@/content/faq";
+import { FAQ_CATEGORIES_EN, allFAQEntriesEn } from "@/content/faq.en";
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 import { getFraunces } from "@/lib/fonts";
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/motion";
 import { openChatbot } from "@/lib/chatbot/open";
 
 const FAQ = () => {
+  // The mirror renders THIS component at /en/faq, so the corpus and the chrome
+  // both have to follow the URL. Without it the English FAQ was the Norwegian
+  // one at an English address — indexable, and duplicate.
+  const locale = localeFromPath(useLocation().pathname);
+  const categories = locale === "en" ? FAQ_CATEGORIES_EN : FAQ_CATEGORIES;
+  const entries = locale === "en" ? allFAQEntriesEn() : allFAQEntries();
   const faqForSEO = useMemo(
-    () => allFAQEntries().map((e) => ({ question: e.q, answer: e.a })),
-    [],
+    () => entries.map((e) => ({ question: e.q, answer: e.a })),
+    [entries],
   );
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <SEO
-        title="FAQ · Digilist | Vanlige spørsmål om kommunal booking, sesongleie og samsvar"
-        description="Svar på de vanligste spørsmålene om Digilist, bookingsystem for kommuner og utleiere. SSA-L 2026, GDPR, ISO 27001, Vipps, BankID, sesongleie og mer."
+        title={t(locale, "faqPage.title")}
+        description={t(locale, "faqPage.description")}
         canonical="https://digilist.no/faq"
         breadcrumbs={[
           { name: "Hjem", url: "https://digilist.no/" },
@@ -72,7 +82,7 @@ const FAQ = () => {
                 variants={staggerParent}
                 className="flex flex-wrap gap-x-2 gap-y-3"
               >
-                {FAQ_CATEGORIES.map((cat) => (
+                {categories.map((cat) => (
                   <motion.li key={cat.id} variants={staggerChild}>
                     <a
                       href={`#${cat.id}`}
@@ -90,7 +100,7 @@ const FAQ = () => {
             </nav>
 
             <div className="space-y-16 lg:space-y-24">
-              {FAQ_CATEGORIES.map((cat) => (
+              {categories.map((cat) => (
                 <section
                   key={cat.id}
                   id={cat.id}

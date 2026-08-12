@@ -21,10 +21,10 @@ import {
 describe("localeFromPath", () => {
   it.each([
     ["/", "nb"],
-    ["/priser", "nb"],
+    ["/blogg", "nb"],
     ["/en", "en"],
     ["/en/", "en"],
-    ["/en/priser", "en"],
+    ["/en/blogg", "en"],
     ["/blogg/noe", "nb"],
   ])("%s is %s", (path, expected) => {
     expect(localeFromPath(path)).toBe(expected);
@@ -41,12 +41,12 @@ describe("localeFromPath", () => {
 
 describe("hreflang", () => {
   it("pairs a translated page in both directions", () => {
-    const fromNb = hreflangFor("/priser");
-    const fromEn = hreflangFor("/en/priser");
+    const fromNb = hreflangFor("/blogg");
+    const fromEn = hreflangFor("/en/blogg");
     expect(fromNb).toEqual(fromEn);
     expect(fromNb.map((h) => h.hrefLang)).toEqual(["nb-NO", "en", "x-default"]);
-    expect(fromNb[0]?.href).toBe("https://digilist.no/priser");
-    expect(fromNb[1]?.href).toBe("https://digilist.no/en/priser");
+    expect(fromNb[0]?.href).toBe("https://digilist.no/blogg");
+    expect(fromNb[1]?.href).toBe("https://digilist.no/en/blogg");
   });
 
   it("emits NOTHING for an untranslated page", () => {
@@ -61,20 +61,20 @@ describe("hreflang", () => {
     // A visitor with no language preference should land on the market we
     // actually serve. Checked on a page that IS translated — the homepage is
     // deliberately not, until an English one exists.
-    const tags = hreflangFor("/priser");
-    expect(tags.find((h) => h.hrefLang === "x-default")?.href).toBe("https://digilist.no/priser");
+    const tags = hreflangFor("/blogg");
+    expect(tags.find((h) => h.hrefLang === "x-default")?.href).toBe("https://digilist.no/blogg");
   });
 
   it("treats a trailing slash as the same page", () => {
-    expect(hreflangFor("/en/priser/")).toEqual(hreflangFor("/en/priser"));
+    expect(hreflangFor("/en/blogg/")).toEqual(hreflangFor("/en/blogg"));
   });
 });
 
 describe("alternatePath", () => {
   it("is null when there is no translation, so callers cannot link to a 404", () => {
     expect(alternatePath("/om-oss")).toBeNull();
-    expect(alternatePath("/priser")).toBe("/en/priser");
-    expect(alternatePath("/en/priser")).toBe("/priser");
+    expect(alternatePath("/blogg")).toBe("/en/blogg");
+    expect(alternatePath("/en/blogg")).toBe("/blogg");
   });
 });
 
@@ -144,7 +144,7 @@ describe("shouldAutoRedirect — a visitor in the UK gets English", () => {
     // Norwegian posts toward English versions that mostly do not exist —
     // deindexing the site that earns every visitor we have, for a market we
     // have not entered yet.
-    for (const path of ["/priser", "/faq", "/blogg/noe", "/en/priser", "/om-oss"]) {
+    for (const path of ["/blogg", "/faq", "/blogg/noe", "/en/blogg", "/om-oss"]) {
       expect(shouldAutoRedirect({ pathname: path, preferred: "en", stored: null }), path).toBeNull();
     }
   });
@@ -164,8 +164,8 @@ describe("shouldAutoRedirect — a visitor in the UK gets English", () => {
 
 describe("shouldOfferSwitch — deep pages get a banner, not a redirect", () => {
   it("offers the translation on a translated deep page in the wrong language", () => {
-    expect(shouldOfferSwitch({ pathname: "/priser", preferred: "en", stored: null })).toBe(
-      "/en/priser",
+    expect(shouldOfferSwitch({ pathname: "/blogg", preferred: "en", stored: null })).toBe(
+      "/en/blogg",
     );
   });
 
@@ -174,7 +174,7 @@ describe("shouldOfferSwitch — deep pages get a banner, not a redirect", () => 
   });
 
   it("offers nothing once the visitor has chosen", () => {
-    expect(shouldOfferSwitch({ pathname: "/priser", preferred: "en", stored: "nb" })).toBeNull();
+    expect(shouldOfferSwitch({ pathname: "/blogg", preferred: "en", stored: "nb" })).toBeNull();
   });
 
   it("never doubles up with the homepage redirect", () => {

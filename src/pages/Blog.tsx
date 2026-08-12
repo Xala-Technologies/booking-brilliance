@@ -3,7 +3,7 @@ import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Search, X, ChevronLeft, ChevronRight } from "lucide-react";
 import SEO from "@/components/SEO";
-import { localeFromPath } from "@/lib/i18n";
+import { BLOG_BASE, localeFromPath } from "@/lib/i18n";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
@@ -76,7 +76,8 @@ const COPY = {
     title: "Blog · Digilist | Notes on venue booking, pricing and daily operations",
     description:
       "Articles from the work of making venues bookable: real-time availability, self-service booking, payments, and what a booking system should cost.",
-    canonical: "https://digilist.no/en/blog",
+    // Derived from BLOG_BASE so it cannot drift from the route again.
+    canonical: `https://digilist.no${BLOG_BASE.en}`,
     crumbHome: "Home",
     crumbBlog: "Blog",
   },

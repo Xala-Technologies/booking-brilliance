@@ -2473,8 +2473,6 @@ function patchHTML(template, meta) {
 // rest render the Norwegian component and must not be indexed.
 const TRANSLATED_ROUTES = {
   "/": "/en",
-  "/priser": "/en/priser",
-  "/faq": "/en/faq",
   "/blogg": "/en/blogg",
 };
 

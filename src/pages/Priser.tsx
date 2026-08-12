@@ -13,6 +13,10 @@ import {
 import { getFraunces } from "@/lib/fonts";
 import { CategoryVisual } from "@/components/CategoryVisual";
 import { PRICING_FACTS, PRICING_FAQ } from "@/content/pricing";
+import { PRICING_FACTS_EN, pricingFaqEn } from "@/content/faq.en";
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 
 /**
  * The pricing page.
@@ -33,6 +37,14 @@ import { PRICING_FACTS, PRICING_FAQ } from "@/content/pricing";
  * claim behind on a surface someone forgot about.
  */
 export default function Priser() {
+  // The mirror renders this component at /en/priser too, so the content and
+  // the metadata both follow the URL. Before this it was the Norwegian page at
+  // an English address — and TRANSLATED_PATHS claimed otherwise, which made it
+  // indexable.
+  const locale = localeFromPath(useLocation().pathname);
+  const en = locale === "en";
+  const facts = en ? PRICING_FACTS_EN : PRICING_FACTS;
+  const faq = en ? pricingFaqEn() : PRICING_FAQ;
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <SEO
@@ -44,7 +56,7 @@ export default function Priser() {
           { name: "Hjem", url: "https://digilist.no/" },
           { name: "Priser", url: "https://digilist.no/priser" },
         ]}
-        faq={PRICING_FAQ.map((f) => ({ question: f.q, answer: f.a }))}
+        faq={faq.map((f) => ({ question: f.q, answer: f.a }))}
       />
       <ProgressRail />
       <Navbar />
@@ -113,7 +125,7 @@ export default function Priser() {
                 Slik fungerer prisen.
               </h2>
               <div className="grid md:grid-cols-2 gap-6 lg:gap-gutter">
-                {PRICING_FACTS.map((fact) => (
+                {facts.map((fact) => (
                   <EditorialCard key={fact.title} className="h-full">
                     <div className="p-2 lg:p-6">
                       <h3 className="font-serif text-xl lg:text-2xl text-ink mb-3">
@@ -172,7 +184,7 @@ export default function Priser() {
                 Vanlige spørsmål om pris.
               </h2>
               <div className="grid gap-4">
-                {PRICING_FAQ.map((item) => (
+                {faq.map((item) => (
                   <EditorialCard key={item.q}>
                     <div className="p-2 lg:p-6">
                       <h3 className="font-serif text-lg lg:text-xl text-ink mb-2">

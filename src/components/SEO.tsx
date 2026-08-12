@@ -153,7 +153,23 @@ const SEO = ({
       linkEl.setAttribute("rel", "canonical");
       document.head.appendChild(linkEl);
     }
-    linkEl.setAttribute("href", canonical);
+    // The canonical must be THIS page, not its Norwegian twin.
+    //
+    // Every route is mirrored under /en and renders the same component, so a
+    // page that hardcodes `canonical="https://digilist.no/priser"` declares
+    // that same canonical at /en/priser — telling Google the English page IS
+    // the Norwegian one. The English site could never be indexed, however well
+    // it was translated. Found by a sweep, on every mirrored page at once.
+    //
+    // Callers pass the Norwegian canonical, which is correct for the Norwegian
+    // URL; on an English URL it is corrected here rather than in ninety
+    // components.
+    const selfCanonical =
+      locale === "en" && !canonical.includes("/en")
+        ? canonical.replace(/^https:\/\/digilist\.no/, "https://digilist.no/en").replace(/\/en\/$/, "/en")
+        : canonical;
+    linkEl.setAttribute("href", selfCanonical);
+    setMeta("og:url", selfCanonical, true);
 
     // hreflang. `hreflangFor` returns an empty list for a page with no
     // translation, and the existing tags are cleared first — otherwise a

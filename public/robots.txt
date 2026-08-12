@@ -21,8 +21,6 @@ Disallow: /api/
 # TRANSLATED_PATHS in src/lib/i18n.ts.
 Disallow: /en/
 Allow: /en$
-Allow: /en/priser$
-Allow: /en/faq$
 Allow: /en/blogg
 
 
