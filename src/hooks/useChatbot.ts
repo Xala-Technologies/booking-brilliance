@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useMemo, useReducer } from "react";
+import { useRef, useCallback, useEffect, useMemo, useReducer } from "react";
+import { claimsFalseAction, contactFromTurns, honestHandoffReply } from "@/lib/chatbot/contact";
 import { trackConversion } from "@/lib/analytics";
 import {
   retrieve,
@@ -157,6 +158,55 @@ export function useChatbot() {
     dispatch({ type: "SET_MODE", mode });
   }, []);
 
+  /**
+   * One lead per conversation. Without this a visitor who repeats their address,
+   * or types anything after giving it, files the same lead on every turn and the
+   * sales inbox fills with duplicates of one person.
+   */
+  const leadFiledRef = useRef(false);
+
+  /**
+   * File a lead captured from the conversation itself.
+   *
+   * Marked `chatCaptured` so whoever reads the inbox knows this came from
+   * someone typing their address mid-chat rather than completing the form —
+   * the conversation is the context, and there is no persona/topic to go with
+   * it. Fire-and-forget on purpose: the visitor is waiting for a reply, and a
+   * failed lead POST must not delay or break it. It is logged, not swallowed.
+   */
+  const fileChatLead = useCallback(
+    async (contact: { email: string | null; phone: string | null }, latestTurn: string) => {
+      try {
+        const res = await fetch(INQUIRY_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: contact.email,
+            phone: contact.phone ?? "",
+            name: "",
+            organization: "",
+            persona: "ukjent",
+            topic: "Oppga kontaktinfo i chatten",
+            message: latestTurn,
+            summary: `Chat-lead: ga e-post i samtalen (${contact.email})`,
+            source: "chatbot-inline",
+            chatCaptured: true,
+            page: typeof window !== "undefined" ? window.location.pathname : "/",
+            userAgent: typeof navigator !== "undefined" ? navigator.userAgent : "unknown",
+            timestamp: new Date().toISOString(),
+          }),
+        });
+        if (!res.ok) throw new Error(`Inquiry endpoint returned ${res.status}`);
+        trackConversion("inquiry_sent", { source: "chatbot-inline" });
+      } catch (err) {
+        // Re-arm so a later turn can try again rather than losing the lead.
+        leadFiledRef.current = false;
+        console.error("[chatbot] inline lead capture failed:", err);
+      }
+    },
+    [],
+  );
+
   const send = useCallback(
     async (text: string) => {
       const trimmed = text.trim();
@@ -191,6 +241,21 @@ export function useChatbot() {
           .filter((m) => m.role !== "system")
           .slice(-8)
           .map((m) => ({ role: m.role, text: m.text }));
+        // A visitor who types their address into the conversation has asked to
+        // be contacted just as plainly as one who fills the form. Before this
+        // that address was DISCARDED — /api/inquiry is only called from the
+        // form flow — so the most qualified leads on the site produced nothing
+        // at all. Filed once per conversation, fire-and-forget: a failure here
+        // must never delay the reply the visitor is waiting for.
+        const contact = contactFromTurns([
+          ...history.filter((m) => m.role === "user").map((m) => m.text),
+          trimmed,
+        ]);
+        if (contact.email && !leadFiledRef.current) {
+          leadFiledRef.current = true;
+          void fileChatLead(contact, trimmed);
+        }
+
         const ctx = buildLLMContext(trimmed, hits, history, results);
         const res = await fetch(CHAT_ENDPOINT, {
           method: "POST",
@@ -225,10 +290,23 @@ export function useChatbot() {
           console.warn(degradationWarning(degraded));
           dispatch({ type: "SET_DEGRADED", degraded });
         } else if (payloadText) {
+          // Last line of defence against a promise the assistant cannot keep.
+          // The prompt forbids claiming to send an offer, and a prompt is
+          // guidance rather than a guarantee — the same prompt forbade invented
+          // links and still produced /faq#q-27. A false "I've sent it" reaches a
+          // prospect and costs their trust, so it never ships even if the model
+          // ignores the instruction. The lead has already been filed above, so
+          // the replacement below is TRUE at the moment it is shown.
+          const safeText = claimsFalseAction(payloadText)
+            ? honestHandoffReply(contact)
+            : payloadText;
+          if (safeText !== payloadText) {
+            console.warn("[chatbot] suppressed a reply claiming an action it cannot perform:", payloadText);
+          }
           const assistantMsg: ChatMessage = {
             id: cryptoId(),
             role: "assistant",
-            text: payloadText,
+            text: safeText,
             sourceQ: hits[0]?.q,
             suggestions: followUpSuggestions(hits[0], segment),
             showInquiryCta: hits.length === 0,
