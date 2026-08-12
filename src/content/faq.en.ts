@@ -172,3 +172,30 @@ export const PRICING_FACTS_EN: readonly PricingFactEn[] = [
     body: "What is in the quote is what you pay. No per-booking cost, no share of revenue, and no fees that appear after signature.",
   },
 ];
+
+
+/**
+ * The homepage FAQ, English.
+ *
+ * Mirrors `HOMEPAGE_FAQ` in `faq.ts`: the same handful of questions, rendered
+ * through the same accordion and the same JSON-LD. The visible copy has to
+ * match the schema or the page stops being an answer-engine surface and
+ * becomes decoration with a structured-data block attached.
+ */
+export const HOMEPAGE_FAQ_EN: Array<{ q: string; a: string }> = [
+  "What is Digilist?",
+  "Who is Digilist for?",
+  "What does Digilist cost?",
+  "Do you take a cut of booking revenue?",
+  "Where is data stored?",
+  "Is Digilist available outside Norway?",
+].map((q) => {
+  const entry = allFAQEntriesEn().find((e) => e.q === q);
+  if (!entry) {
+    throw new Error(
+      `HOMEPAGE_FAQ_EN expects the entry "${q}". Update the list rather than ` +
+        `letting the homepage silently show fewer questions than the Norwegian one.`,
+    );
+  }
+  return { q, a: entry.a };
+});

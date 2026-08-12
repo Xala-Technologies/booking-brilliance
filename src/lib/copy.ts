@@ -108,6 +108,13 @@ const nb: Copy = {
   "market.tile.equipment.tag": "Fest · verktøy · friluft",
   "market.tile.services": "Tjenester",
   "market.tile.services.tag": "Catering · DJ · dekor",
+
+  "faq.label": "OFTE STILTE SPØRSMÅL",
+  "faq.intro":
+    "Det folk lurer mest på om Digilist: booking, betaling, sesongleie og samsvar. Finner du ikke svaret?",
+  "faq.headline": "Ofte stilte",
+  "faq.headlineEm": "spørsmål",
+  "faq.seeAll": "Se alle spørsmål",
 };
 
 const en: Copy = {
@@ -186,6 +193,13 @@ const en: Copy = {
   "market.tile.equipment.tag": "Party · tools · outdoor",
   "market.tile.services": "Services",
   "market.tile.services.tag": "Catering · DJ · decor",
+
+  "faq.label": "FREQUENTLY ASKED",
+  "faq.intro":
+    "What people most often ask about Digilist: booking, payment, pricing and compliance. Cannot find your answer?",
+  "faq.headline": "Frequently asked",
+  "faq.headlineEm": "questions",
+  "faq.seeAll": "See all questions",
 };
 
 const DICT: Record<Locale, Copy> = { nb, en };
