@@ -271,6 +271,31 @@ describe("the prompt", () => {
     expect(p).toContain("/faq#priser");
   });
 
+  /**
+   * REGRESSION. The old support prompt carried "Bruk norsk bokmål" as an explicit
+   * rule. The first sales rewrite left it only in the closing line, and the live
+   * model drifted into Nynorsk mid-answer — "for eit kulturhus på størrelse med
+   * dykkar… ein moderat prisklasse", "månedleg eller årleg", "prøva utan risiko".
+   * A Bokmål/Nynorsk blend reads as sloppy to a Norwegian business reader, so the
+   * rule is back in the body with the specific words that drifted.
+   */
+  it("demands Bokmål explicitly, naming the forms that drifted", () => {
+    expect(SALES_PERSONA).toContain("SKRIV NORSK BOKMÅL");
+    for (const nynorsk of ["dykkar", "eit/ein", "dei", "månedleg/årleg", "prøva/testa", "utan"]) {
+      expect(SALES_PERSONA, `missing guard for ${nynorsk}`).toContain(nynorsk);
+    }
+  });
+
+  /**
+   * The live answer claimed the price was "langt mindre enn det dere spart på å
+   * slippe manuell bookingbehandling" — a claim about the CUSTOMER's numbers,
+   * which the assistant does not have. Grounding covers Digilist's facts; this
+   * covers assertions about the customer's savings.
+   */
+  it("forbids unevidenced savings claims", () => {
+    expect(SALES_PERSONA).toContain("Aldri lov en besparelse du ikke kan belegge");
+  });
+
   it("every advertised anchor matches a real FAQ category id", () => {
     // The ids the FAQ page actually renders (src/content/faq.ts).
     const real = ["produkt", "funksjonalitet", "kommune", "samsvar", "teknologi", "priser", "support"];
