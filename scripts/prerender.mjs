@@ -2474,6 +2474,7 @@ function patchHTML(template, meta) {
 const TRANSLATED_ROUTES = {
   "/": "/en",
   "/priser": "/en/priser",
+  "/faq": "/en/faq",
   "/blogg": "/en/blogg",
 };
 

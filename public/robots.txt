@@ -22,6 +22,7 @@ Disallow: /api/
 Disallow: /en/
 Allow: /en$
 Allow: /en/priser$
+Allow: /en/faq$
 Allow: /en/blogg
 
 

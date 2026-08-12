@@ -36,7 +36,7 @@ const FAQ = () => {
       <SEO
         title={t(locale, "faqPage.title")}
         description={t(locale, "faqPage.description")}
-        canonical="https://digilist.no/faq"
+        canonical={locale === "en" ? "https://digilist.no/en/faq" : "https://digilist.no/faq"}
         breadcrumbs={[
           { name: "Hjem", url: "https://digilist.no/" },
           { name: "FAQ", url: "https://digilist.no/faq" },
@@ -55,24 +55,23 @@ const FAQ = () => {
             <div className="grid lg:grid-cols-12 gap-8 lg:gap-gutter mb-12">
               <div className="lg:col-span-8">
                 <EditorialHeading as="h1" size="display">
-                  Vanlige{" "}
+                  {t(locale, "faqPage.h1")}{" "}
                   <em
                     className="italic"
                     style={{ fontVariationSettings: getFraunces("display") }}
                   >
-                    spørsmål
+                    {t(locale, "faqPage.h1em")}
                   </em>
                   .
                 </EditorialHeading>
                 <p className="mt-6 text-xl text-ink-soft measure leading-relaxed">
-                  Alt du trenger å vite om Digilist: fra SSA-L 2026 og GDPR
-                  til sesongleie, betaling og integrasjoner.
+                  {t(locale, "faqPage.lede")}
                 </p>
               </div>
             </div>
 
             <nav
-              aria-label="Kategorier"
+              aria-label={t(locale, "faqPage.categories")}
               className="border-t border-rule pt-6 pb-10"
             >
               <motion.ul
@@ -167,7 +166,7 @@ const FAQ = () => {
               <div className="grid lg:grid-cols-12 gap-6 lg:gap-gutter items-end">
                 <div className="lg:col-span-8">
                   <span className="editorial-mono-caption text-accent-text">
-                    FORTSATT SPØRSMÅL?
+                    {t(locale, "faqPage.stillQuestions")}
                   </span>
                   <h2
                     className="font-serif text-3xl lg:text-5xl text-ink mt-3"
@@ -177,23 +176,22 @@ const FAQ = () => {
                       lineHeight: 1.05,
                     }}
                   >
-                    Snakk med oss direkte.
+                    {t(locale, "faqPage.talkHeading")}
                   </h2>
                   <p className="mt-4 text-lg text-ink-soft measure leading-relaxed">
-                    Vi svarer raskt på e-post, eller booker en gratis 30
-                    minutters demo der vi viser plattformen i ditt bruksområde.
+                    {t(locale, "faqPage.talkBody")}
                   </p>
                 </div>
                 <div className="lg:col-span-4 flex flex-wrap gap-3 lg:justify-end">
                   <EditorialButton variant="primary" size="md" href="/book-demo">
-                    Book demo
+                    {t(locale, "nav.bookDemo")}
                   </EditorialButton>
                   <EditorialButton
                     variant="outline"
                     size="md"
                     onClick={() => openChatbot({ mode: "chat" })}
                   >
-                    Snakk med oss
+                    {t(locale, "faqPage.talkCta")}
                   </EditorialButton>
                 </div>
               </div>
