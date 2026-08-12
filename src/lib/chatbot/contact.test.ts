@@ -1,6 +1,15 @@
 import { describe, expect, it } from "vitest";
 import { SALES_PERSONA } from "./sales/persona";
-import { claimsFalseAction, contactFromTurns, extractContact, honestHandoffReply, needsHuman, shouldNotify } from "./contact";
+import {
+  SERIOUS_LEAD_SCORE,
+  claimsFalseAction,
+  contactFromTurns,
+  extractContact,
+  handoffNotice,
+  honestHandoffReply,
+  needsHuman,
+  shouldNotify,
+} from "./contact";
 
 describe("extractContact", () => {
   it("pulls an email out of a bare reply, the way visitors actually answer", () => {
@@ -155,44 +164,62 @@ describe("needsHuman — when to put the escalation in front of the visitor", ()
   });
 });
 
-describe("shouldNotify — hold the email until it is worth reading", () => {
+describe("shouldNotify — only a serious prospect is worth a human", () => {
   it("stays quiet on an opening hello", () => {
-    // The first version emailed on this. One notification per "hei" buries the
-    // signal it exists to surface.
-    expect(shouldNotify({ userTurns: ["hei"], completeness: 0 }).notify).toBe(false);
+    expect(shouldNotify({ userTurns: ["hei"], interest: 0 }).notify).toBe(false);
+  });
+
+  it("stays quiet on a long conversation with no buying interest", () => {
+    // Two earlier versions notified here — one on the first message, one after
+    // three. Both measured ACTIVITY. Three GDPR questions from a student is not
+    // a lead, and burying a real one under those is how an inbox stops working.
+    expect(
+      shouldNotify({
+        userTurns: ["hei", "er dere GDPR-kompatible?", "hvor lagres dataene?", "og backup?"],
+        interest: 20,
+      }).notify,
+    ).toBe(false);
   });
 
   it("fires immediately when they ask for something only a human can deliver", () => {
-    const v = shouldNotify({ userTurns: ["hei", "kan vi få et tilbud?"], completeness: 0 });
+    const v = shouldNotify({ userTurns: ["hei", "kan vi få et tilbud?"], interest: 0 });
     expect(v.notify).toBe(true);
     expect(v.reason).toContain("bare et menneske");
   });
 
-  it("fires once the assistant has learned enough about them", () => {
-    const v = shouldNotify({ userTurns: ["vi har to lokaler"], completeness: 0.5 });
+  it("fires once the assistant reads them as a serious prospect", () => {
+    const v = shouldNotify({ userTurns: ["vi har to lokaler og vurderer å bytte"], interest: 60 });
     expect(v.notify).toBe(true);
-    expect(v.reason).toContain("profilen");
+    expect(v.reason).toContain("60/100");
   });
 
-  it("fires on a conversation that simply keeps going", () => {
-    const v = shouldNotify({
-      userTurns: ["hei", "hvordan virker sesongleie?", "og betaling?"],
-      completeness: 0,
-    });
-    expect(v.notify).toBe(true);
-    expect(v.reason).toContain("3 meldinger");
+  it("holds just below the bar", () => {
+    expect(shouldNotify({ userTurns: ["hm"], interest: SERIOUS_LEAD_SCORE - 1 }).notify).toBe(false);
+    expect(shouldNotify({ userTurns: ["hm"], interest: SERIOUS_LEAD_SCORE }).notify).toBe(true);
   });
 
   it("only looks at the LATEST turn for the human-needed trigger", () => {
-    // Otherwise a conversation that mentioned "tilbud" once would re-qualify on
-    // every subsequent turn; the caller fires once, but the rule should be
-    // honest on its own.
-    expect(
-      shouldNotify({ userTurns: ["kan vi få et tilbud?", "takk"], completeness: 0 }).notify,
-    ).toBe(false);
+    expect(shouldNotify({ userTurns: ["kan vi få et tilbud?", "takk"], interest: 0 }).notify).toBe(false);
   });
 
   it("handles an empty conversation without throwing", () => {
-    expect(shouldNotify({ userTurns: [], completeness: 0 }).notify).toBe(false);
+    expect(shouldNotify({ userTurns: [], interest: 0 }).notify).toBe(false);
+  });
+});
+
+describe("handoffNotice — tell them, and stay in the room", () => {
+  it("says a rådgiver is being told AND that the assistant is still here", () => {
+    for (const notice of [handoffNotice(true), handoffNotice(false)]) {
+      expect(notice).toContain("rådgiver");
+      // The second half matters as much as the first: "we will contact you"
+      // followed by silence is a dismissal, not a handoff.
+      expect(notice).toMatch(/jeg er her|spør gjerne/i);
+      // It must never become the thing it replaced.
+      expect(claimsFalseAction(notice)).toBe(false);
+    }
+  });
+
+  it("reads as an addition to a reply, not a new paragraph", () => {
+    expect(handoffNotice(true).startsWith(" ")).toBe(true);
   });
 });

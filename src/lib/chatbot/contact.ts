@@ -141,41 +141,66 @@ export function needsHuman(text: string): boolean {
   return NEEDS_HUMAN.some((re) => re.test(text));
 }
 
-/** User turns before a conversation is worth a human's attention on its own. */
-export const QUALIFY_AFTER_TURNS = 3;
+/**
+ * Interest score at which a conversation is worth a human's attention.
+ *
+ * `interestScore` is 0-100: up to 60 for buying signals, 30 for how much of
+ * the profile the assistant has established, 10 for having raised an
+ * objection at all. 45 is roughly "two real buying signals, or one plus a
+ * half-known profile" — someone weighing a purchase rather than reading.
+ */
+export const SERIOUS_LEAD_SCORE = 45;
 
 export interface QualifyInput {
   /** Everything the visitor has said, oldest first. */
   userTurns: readonly string[];
-  /** How much of the lead profile the assistant has managed to establish, 0-1. */
-  completeness: number;
+  /** `interestScore(profile)` — 0-100. */
+  interest: number;
 }
 
 /**
- * Should this conversation be reported to Digilist yet?
+ * Is this a serious prospect, worth telling a human about?
  *
- * The first version notified on the visitor's FIRST message. That met the
- * literal requirement — know who is getting in touch — and would have buried
- * it: one email per "hei", most of them carrying nothing a human could act on.
- * The requirement is really that nobody reaches out INVISIBLY, not that every
- * keystroke is announced.
+ * Two earlier versions of this were both wrong in the same direction. The
+ * first notified on the visitor's FIRST message; the second added a bare
+ * three-message threshold. Both measured ACTIVITY, and activity is not
+ * interest — three questions about GDPR from a student is not a lead, and
+ * burying a real one under those is how the inbox stops being read.
  *
- * So the assistant is given room to do its job first, and the notification
- * fires when the conversation has become worth reading:
+ * This measures the conversation instead:
  *
- *   - they ask for something only a human can deliver (tilbud, demo, ring meg)
- *   - they have said enough that the profile is half-built
- *   - or the conversation simply keeps going
+ *   - asking for something only a human can deliver is decisive on its own
+ *   - otherwise the assistant's own read of them has to clear a bar
  *
- * Contact details are handled separately and always report immediately —
- * someone who hands over an address has already decided.
+ * A long conversation with no buying signal deliberately does NOT notify. It
+ * is the assistant doing its job, and it needs no supervision.
  */
 export function shouldNotify(input: QualifyInput): { notify: boolean; reason: string } {
   const latest = input.userTurns[input.userTurns.length - 1] ?? "";
-  if (needsHuman(latest)) return { notify: true, reason: "ba om noe bare et menneske kan levere" };
-  if (input.completeness >= 0.5) return { notify: true, reason: "fortalte nok til at profilen er halvveis kjent" };
-  if (input.userTurns.length >= QUALIFY_AFTER_TURNS) {
-    return { notify: true, reason: `samtalen har vart i ${input.userTurns.length} meldinger` };
+  if (needsHuman(latest)) {
+    return { notify: true, reason: "ba om noe bare et menneske kan levere" };
+  }
+  if (input.interest >= SERIOUS_LEAD_SCORE) {
+    return { notify: true, reason: `seriøs interesse (${input.interest}/100)` };
   }
   return { notify: false, reason: "" };
+}
+
+/**
+ * What the assistant adds to its reply when it reports a lead.
+ *
+ * The visitor is told, because telling someone quietly is not the same as
+ * telling them — and it is the honest counterpart to the false "jeg sender
+ * tilbudet" this whole module exists to prevent. It is also a genuine sales
+ * moment: someone hearing "a rådgiver will look at this" is being taken
+ * seriously.
+ *
+ * The second sentence matters as much as the first. The assistant does NOT
+ * hand off and go quiet — it stays in the conversation. A visitor told "we
+ * will contact you" and then met with silence has been dismissed, not helped.
+ */
+export function handoffNotice(hasContact: boolean): string {
+  return hasContact
+    ? " Jeg gir beskjed til en rådgiver som følger opp — og jeg er her videre hvis du lurer på noe mer."
+    : " Jeg gir beskjed til en rådgiver om samtalen vår. Spør gjerne videre imens — jeg svarer så godt jeg kan.";
 }

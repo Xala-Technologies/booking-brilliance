@@ -1,6 +1,6 @@
 import { useRef, useCallback, useEffect, useMemo, useReducer } from "react";
-import { claimsFalseAction, contactFromTurns, honestHandoffReply, needsHuman, shouldNotify } from "@/lib/chatbot/contact";
-import { buildBriefing, extractProfile, profileCompleteness } from "@/lib/chatbot/sales/lead";
+import { claimsFalseAction, contactFromTurns, handoffNotice, honestHandoffReply, needsHuman, shouldNotify } from "@/lib/chatbot/contact";
+import { buildBriefing, extractProfile, interestScore } from "@/lib/chatbot/sales/lead";
 import { trackConversion } from "@/lib/analytics";
 import {
   retrieve,
@@ -314,25 +314,29 @@ export function useChatbot() {
         // form flow — so the most qualified leads on the site produced nothing
         // at all. Filed once per conversation, fire-and-forget: a failure here
         // must never delay the reply the visitor is waiting for.
+        // Set when this turn triggered a handoff, so the reply can say so.
+        let notifiedThisTurn = false;
         const contact = contactFromTurns([
           ...history.filter((m) => m.role === "user").map((m) => m.text),
           trimmed,
         ]);
         if (contact.email && !leadFiledRef.current) {
           leadFiledRef.current = true;
-          // Supersedes the start notification — one person, one email.
+          // Supersedes the qualified notification — one person, one email.
           startNotifiedRef.current = true;
+          notifiedThisTurn = true;
           void fileChatLead(contact, trimmed);
         } else if (!startNotifiedRef.current) {
-          // Not on the first "hei". Give the assistant room to do its job, and
-          // report once the conversation is actually worth a human's time.
+          // Not on the first "hei", and not on message count either — on the
+          // assistant's own read of whether this is a serious prospect.
           const userTurns = [...history.filter((m) => m.role === "user").map((m) => m.text), trimmed];
           const verdict = shouldNotify({
             userTurns,
-            completeness: profileCompleteness(extractProfile(userTurns)),
+            interest: interestScore(extractProfile(userTurns)),
           });
           if (verdict.notify) {
             startNotifiedRef.current = true;
+            notifiedThisTurn = true;
             void notifyConversationStarted(userTurns, verdict.reason);
           }
         }
@@ -384,10 +388,16 @@ export function useChatbot() {
           if (safeText !== payloadText) {
             console.warn("[chatbot] suppressed a reply claiming an action it cannot perform:", payloadText);
           }
+          // Tell the visitor a human is being brought in — and make clear the
+          // assistant is still here. Appended deterministically rather than
+          // asked of the model: this is a statement of fact about something
+          // that just happened, and the one kind of sentence that must never
+          // be hallucinated OR omitted.
+          const withNotice = notifiedThisTurn ? `${safeText}${handoffNotice(Boolean(contact.email))}` : safeText;
           const assistantMsg: ChatMessage = {
             id: cryptoId(),
             role: "assistant",
-            text: safeText,
+            text: withNotice,
             sourceQ: hits[0]?.q,
             suggestions: followUpSuggestions(hits[0], segment),
             // Show the escalation whenever the visitor wants something only a
