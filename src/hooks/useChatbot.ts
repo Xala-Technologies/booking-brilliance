@@ -364,7 +364,7 @@ export function useChatbot() {
         dispatch({ type: "SET_THINKING", value: false });
       }, 250);
     },
-    [state.messages],
+    [state.messages, fileChatLead],
   );
 
   const startInquiry = useCallback(() => {

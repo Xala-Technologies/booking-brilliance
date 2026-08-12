@@ -149,8 +149,11 @@ function loadGoogleTag(): void {
  */
 function loadMetaPixel(): void {
   if (!IDS.metaPixel || window.fbq) return;
+  // Meta's own snippet writes this as a bare ternary expression, which is a
+  // no-unused-expressions lint error. Same behaviour, written as a statement.
   const fbq = function (...args: unknown[]) {
-    fbq.callMethod ? fbq.callMethod(...args) : fbq.queue!.push(args);
+    if (fbq.callMethod) fbq.callMethod(...args);
+    else fbq.queue?.push(args);
   } as NonNullable<Window["fbq"]>;
   fbq.queue = [];
   window.fbq = fbq;
