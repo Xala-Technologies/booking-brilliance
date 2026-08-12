@@ -234,9 +234,9 @@ export function BookDemoBlock({
                 onClick={() => openChatbot({ mode: "chat" })}
                 className="underline underline-offset-4 decoration-[0.5px] text-accent-text hover:text-ink transition-colors"
               >
-                Snakk med oss
+                {t(locale, "nav.talkToUs")}
               </button>{" "}
-              og få svar i chat på under et minutt i kontortid.
+              {t(locale, "demo.chatLine")}
             </p>
           </motion.div>
 
@@ -285,7 +285,7 @@ export function BookDemoBlock({
                   size="md"
                   onClick={() => openChatbot({ mode: "chat" })}
                 >
-                  Snakk med oss imens
+                  {t(locale, "nav.talkToUsMeanwhile")}
                 </EditorialButton>
               </div>
             </div>

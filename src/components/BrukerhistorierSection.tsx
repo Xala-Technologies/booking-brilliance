@@ -42,8 +42,8 @@ const BrukerhistorierSection = () => {
               meta={["Kunde", "Selskapslokale", "Live 2025"]}
               customer="Rønningen Selskapslokale"
               logoSrc="/clients/ronning.png"
-              headline="Fra excelark til kalenderautomatikk."
-              dek="Privat selskapslokale i Asker som leier ut til selskaper, bryllup og jubileer."
+              headline={t(locale, "stories.a.headline")}
+              dek={t(locale, "stories.a.dek")}
               body={
                 <>
                   <p>
@@ -56,8 +56,8 @@ const BrukerhistorierSection = () => {
               }
               quote={{
                 text:
-                  "Vi har eliminert dobbeltbookinger og fått automatisk faktura. Hver booking går fra forespørsel til betalt på under fem minutter.",
-                byline: "Eier",
+                  t(locale, "stories.a.quote"),
+                byline: t(locale, "stories.a.byline"),
                 role: "Rønningen Selskapslokale",
               }}
               stats={[
@@ -88,8 +88,8 @@ const BrukerhistorierSection = () => {
               meta={["Kunde", "Kommune", "Live 2024"]}
               customer="Nordre Follo kommune"
               logoSrc="/clients/nordre-follo.svg"
-              headline="Én plattform for haller, møterom og kantiner."
-              dek="Kommunal kulturetat med tolv anlegg, ca. 340 lag og foreninger og 1 200 bookinger i måneden."
+              headline={t(locale, "stories.b.headline")}
+              dek={t(locale, "stories.b.dek")}
               body={
                 <>
                   <p>

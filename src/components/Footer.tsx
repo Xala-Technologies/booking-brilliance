@@ -218,7 +218,7 @@ const Footer = () => {
               className="text-2xl lg:text-3xl text-ink-soft italic measure leading-snug"
               style={{ fontVariationSettings: getFraunces("sub") }}
             >
-              Én plattform for norske lokaler. Finn og book som privatperson,
+              {t(locale, "footer.tagline")}
               drift og forvalt som kommune eller utleier.
             </p>
           </div>
@@ -460,7 +460,7 @@ const Footer = () => {
               <span className="text-ink-faint">Org.nr. 920 972 454</span>
             </p>
             <p className="editorial-mono-caption text-ink-faint md:text-right">
-              TRYKKET DIGITALT · OSLO · SATT MED NEWSREADER OG INTER
+              {t(locale, "footer.colophon")}
             </p>
           </div>
         </div>
