@@ -1,0 +1,211 @@
+/**
+ * The rules here are the ones that decide whether going bilingual helps or
+ * hurts. The site earns every visitor it has from Norwegian search, so the
+ * tests that matter are the ones proving the English build cannot cost us that.
+ */
+import { describe, expect, it } from "vitest";
+import {
+  alternatePath,
+  blogHreflang,
+  blogPath,
+  hreflangFor,
+  localeFromPath,
+  browserLanguages,
+  preferredLocale,
+  shouldAutoRedirect,
+  shouldOfferSwitch,
+  untranslatedPosts,
+  type PostLocale,
+} from "./i18n";
+
+describe("localeFromPath", () => {
+  it.each([
+    ["/", "nb"],
+    ["/priser", "nb"],
+    ["/en", "en"],
+    ["/en/", "en"],
+    ["/en/pricing", "en"],
+    ["/blogg/noe", "nb"],
+  ])("%s is %s", (path, expected) => {
+    expect(localeFromPath(path)).toBe(expected);
+  });
+
+  it("does not mistake a Norwegian word starting with 'en' for English", () => {
+    // The bug this guards: a prefix check on the STRING rather than the path
+    // segment would put /enkeltlokale and /energi on the English site.
+    expect(localeFromPath("/enkeltlokale")).toBe("nb");
+    expect(localeFromPath("/energi-i-bygg")).toBe("nb");
+    expect(localeFromPath("/enhet")).toBe("nb");
+  });
+});
+
+describe("hreflang", () => {
+  it("pairs a translated page in both directions", () => {
+    const fromNb = hreflangFor("/priser");
+    const fromEn = hreflangFor("/en/pricing");
+    expect(fromNb).toEqual(fromEn);
+    expect(fromNb.map((h) => h.hrefLang)).toEqual(["nb-NO", "en", "x-default"]);
+    expect(fromNb[0]?.href).toBe("https://digilist.no/priser");
+    expect(fromNb[1]?.href).toBe("https://digilist.no/en/pricing");
+  });
+
+  it("emits NOTHING for an untranslated page", () => {
+    // The expensive mistake: an hreflang pointing at a page that is still in
+    // Norwegian tells Google we have an English version when we do not, and it
+    // is judged as duplicate content on the very pages that rank today.
+    expect(hreflangFor("/om-oss")).toEqual([]);
+    expect(hreflangFor("/blogg/noe-som-helst")).toEqual([]);
+  });
+
+  it("points x-default at Norwegian", () => {
+    // A visitor with no language preference should land on the market we
+    // actually serve.
+    const tags = hreflangFor("/");
+    expect(tags.find((h) => h.hrefLang === "x-default")?.href).toBe("https://digilist.no/");
+  });
+
+  it("treats a trailing slash as the same page", () => {
+    expect(hreflangFor("/en/pricing/")).toEqual(hreflangFor("/en/pricing"));
+  });
+});
+
+describe("alternatePath", () => {
+  it("is null when there is no translation, so callers cannot link to a 404", () => {
+    expect(alternatePath("/om-oss")).toBeNull();
+    expect(alternatePath("/priser")).toBe("/en/pricing");
+    expect(alternatePath("/en/pricing")).toBe("/priser");
+  });
+});
+
+describe("preferredLocale", () => {
+  it.each([
+    [["nb-NO", "en"], "nb"],
+    [["nn-NO"], "nb"],
+    [["no"], "nb"],
+    [["en-GB"], "en"],
+    [["en-CA", "fr-CA"], "en"],
+    [["de-DE"], "en"],
+    [["fr"], "en"],
+  ])("%j → %s", (langs, expected) => {
+    expect(preferredLocale(langs)).toBe(expected);
+  });
+
+  it("prefers a Norwegian tag further down the list over an English one first", () => {
+    // Not a real preference: `navigator.languages` is ordered, so the FIRST
+    // recognised tag wins. A Norwegian who has English first genuinely prefers
+    // English, and overruling that would be us deciding we know better.
+    expect(preferredLocale(["en-GB", "nb-NO"])).toBe("en");
+  });
+
+  it("returns null when the caller has no languages — SSR must not guess", () => {
+    // If this returned "en" during the prerender, every static page would be
+    // built as though the visitor were English.
+    expect(preferredLocale(null)).toBeNull();
+    expect(preferredLocale([])).toBeNull();
+  });
+
+  it("browserLanguages is null under SSR, where Node still has a navigator", () => {
+    // Node 22 ships a global navigator whose language is "en-US". A guard on
+    // `navigator` alone would pass during the prerender and bake English into
+    // every static page. This is that bug, caught.
+    expect(typeof window === "undefined" ? browserLanguages() : null).toBeNull();
+  });
+
+  it("ignores junk rather than treating it as a language", () => {
+    expect(preferredLocale(["", "x", "!!"])).toBeNull();
+  });
+});
+
+describe("shouldAutoRedirect — a visitor in the UK gets English", () => {
+  it("sends a non-Norwegian visitor from the homepage to /en", () => {
+    expect(shouldAutoRedirect({ pathname: "/", preferred: "en", stored: null })).toBe("/en");
+  });
+
+  it("sends a Norwegian visitor from /en back to the Norwegian homepage", () => {
+    expect(shouldAutoRedirect({ pathname: "/en", preferred: "nb", stored: null })).toBe("/");
+  });
+
+  it("does nothing when the visitor is already in the right language", () => {
+    expect(shouldAutoRedirect({ pathname: "/", preferred: "nb", stored: null })).toBeNull();
+    expect(shouldAutoRedirect({ pathname: "/en", preferred: "en", stored: null })).toBeNull();
+  });
+
+  it("NEVER redirects a deep page — this is the rule that protects the rankings", () => {
+    // Googlebot crawls with an English Accept-Language and runs JavaScript. A
+    // redirect on every page would bounce it off /priser, /faq and 335
+    // Norwegian posts toward English versions that mostly do not exist —
+    // deindexing the site that earns every visitor we have, for a market we
+    // have not entered yet.
+    for (const path of ["/priser", "/faq", "/blogg/noe", "/en/pricing", "/om-oss"]) {
+      expect(shouldAutoRedirect({ pathname: path, preferred: "en", stored: null }), path).toBeNull();
+    }
+  });
+
+  it("lets a remembered choice overrule the browser, in both directions", () => {
+    // Someone who deliberately clicked "Norsk" must not be dragged back to
+    // English next visit. An auto-redirect that overrules an explicit choice is
+    // a bug that feels like a broken site.
+    expect(shouldAutoRedirect({ pathname: "/", preferred: "en", stored: "nb" })).toBeNull();
+    expect(shouldAutoRedirect({ pathname: "/en", preferred: "nb", stored: "en" })).toBeNull();
+    expect(shouldAutoRedirect({ pathname: "/", preferred: "nb", stored: "en" })).toBe("/en");
+  });
+
+  it("does nothing when the browser tells us nothing", () => {
+    expect(shouldAutoRedirect({ pathname: "/", preferred: null, stored: null })).toBeNull();
+  });
+});
+
+describe("shouldOfferSwitch — deep pages get a banner, not a redirect", () => {
+  it("offers the translation on a translated deep page in the wrong language", () => {
+    expect(shouldOfferSwitch({ pathname: "/priser", preferred: "en", stored: null })).toBe(
+      "/en/pricing",
+    );
+  });
+
+  it("offers nothing on a page with no translation", () => {
+    expect(shouldOfferSwitch({ pathname: "/om-oss", preferred: "en", stored: null })).toBeNull();
+  });
+
+  it("offers nothing once the visitor has chosen", () => {
+    expect(shouldOfferSwitch({ pathname: "/priser", preferred: "en", stored: "nb" })).toBeNull();
+  });
+
+  it("never doubles up with the homepage redirect", () => {
+    expect(shouldOfferSwitch({ pathname: "/", preferred: "en", stored: null })).toBeNull();
+    expect(shouldOfferSwitch({ pathname: "/en", preferred: "nb", stored: null })).toBeNull();
+  });
+});
+
+describe("blog pairing — from frontmatter, because the map would go stale", () => {
+  const posts: PostLocale[] = [
+    { slug: "hva-koster-digilist", lang: "nb" },
+    { slug: "what-digilist-costs", lang: "en", translationOf: "hva-koster-digilist" },
+    { slug: "privatmarkedet", lang: "nb" },
+  ];
+
+  it("builds a pair from either side", () => {
+    const fromNb = blogHreflang(posts[0] as PostLocale, posts);
+    const fromEn = blogHreflang(posts[1] as PostLocale, posts);
+    expect(fromNb).toEqual(fromEn);
+    expect(fromNb[1]?.href).toBe("https://digilist.no/en/blog/what-digilist-costs");
+    expect(fromNb[0]?.href).toBe("https://digilist.no/blogg/hva-koster-digilist");
+  });
+
+  it("emits nothing for a post whose translation has not been written", () => {
+    expect(blogHreflang(posts[2] as PostLocale, posts)).toEqual([]);
+  });
+
+  it("emits nothing for an English post whose original was deleted", () => {
+    const orphan: PostLocale = { slug: "orphan", lang: "en", translationOf: "gone" };
+    expect(blogHreflang(orphan, [orphan])).toEqual([]);
+  });
+
+  it("lists the translation backlog", () => {
+    expect(untranslatedPosts(posts)).toEqual(["privatmarkedet"]);
+  });
+
+  it("puts each locale's blog on its own base path", () => {
+    expect(blogPath("noe", "nb")).toBe("/blogg/noe");
+    expect(blogPath("something", "en")).toBe("/en/blog/something");
+  });
+});
