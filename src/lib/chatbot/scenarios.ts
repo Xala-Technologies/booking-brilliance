@@ -346,3 +346,183 @@ export const SCENARIOS_BATCH_2: Scenario[] = [
     note: "Must score zero. Any credit here means the floor is not really zero.",
   },
 ];
+
+/**
+ * Batch 3 — the ways real people actually type.
+ *
+ * Batch 2 showed the misses cluster around LANGUAGE and PHRASING rather than
+ * intent: the assistant understood who was buying, as long as they said it the
+ * expected way. This batch pushes on that seam — neighbouring languages,
+ * dictated speech, pain described without a single price word, and details
+ * handed over across several turns instead of one.
+ */
+export const SCENARIOS_BATCH_3: Scenario[] = [
+  // ── neighbouring languages ─────────────────────────────────────────────
+  {
+    id: "svensk-kunde",
+    kind: "serious",
+    who: "Swedish operator — common in Norwegian B2B",
+    turns: ["hej, vi har tre festlokaler i göteborg", "vad kostar det för oss?"],
+    expectNotify: true,
+    note: "Scandinavians read each other's languages and buy across the border. 'vad kostar' is one letter from 'hva koster' and matches neither.",
+  },
+  {
+    id: "dansk-kunde",
+    kind: "serious",
+    who: "Danish operator",
+    turns: ["hej, vi driver et forsamlingshus", "hvad koster jeres system?"],
+    expectNotify: true,
+    note: "'hvad koster' vs 'hva koster' — a single letter, and the whole cue misses.",
+  },
+
+  // ── dictated and unpunctuated ──────────────────────────────────────────
+  {
+    id: "diktert-lopende",
+    kind: "serious",
+    who: "Dictated into the phone: one long run-on, no punctuation",
+    turns: [
+      "hei vi har et kulturhus i bergen og vi leier ut til bryllup og konfirmasjoner og vi lurer på om dere kan hjelpe oss med booking for vi bruker mye tid på det i dag",
+    ],
+    expectNotify: true,
+    note: "Voice-to-text produces exactly this. No price word anywhere — the intent is in the described pain.",
+  },
+  {
+    id: "smaskriv-og-skrivefeil",
+    kind: "serious",
+    who: "Fast, typo-heavy typing",
+    turns: ["vi har 2 lokaler og vil gjenre ha et tilbdu", "hva koster det"],
+    expectNotify: true,
+    note: "'tilbdu' is a typo for 'tilbud'. The second turn rescues it — worth knowing whether anything else would have.",
+  },
+
+  // ── pain described, never priced ───────────────────────────────────────
+  {
+    id: "beskriver-smerte",
+    kind: "serious",
+    who: "Describes the problem without ever mentioning price",
+    turns: [
+      "vi bruker rundt 10 timer i uka på å svare på e-poster om ledige datoer",
+      "og vi har dobbeltbooket to ganger i år",
+    ],
+    expectNotify: true,
+    note: "The strongest qualification there is — quantified pain — with no buying vocabulary at all. If this scores zero, the scorer only understands words, not situations.",
+  },
+  {
+    id: "frist",
+    kind: "serious",
+    who: "Has a deadline",
+    turns: ["vi må ha noe på plass før nyttår", "kan dere levere så raskt?"],
+    expectNotify: true,
+    note: "A stated deadline is a buying signal even without price or scale.",
+  },
+
+  // ── contact handed over across turns ───────────────────────────────────
+  {
+    id: "epost-etter-ja",
+    kind: "serious",
+    who: "Says yes, then gives the address two turns later",
+    turns: ["kan dere sende meg mer info?", "ja gjerne", "ola.nordmann@bygdehuset.no"],
+    expectNotify: true,
+    expectEmail: "ola.nordmann@bygdehuset.no",
+    note: "The natural rhythm: intent, confirmation, then details. The address must still be captured on the third turn.",
+  },
+  {
+    id: "epost-med-skrivefeil",
+    kind: "serious",
+    who: "Mistypes the address",
+    turns: ["send til ola@@bygdehuset.no"],
+    expectNotify: true,
+    expectEmail: null,
+    note: "Double @ is not a valid address and must not be filed as one — a lead nobody can reply to is worse than one marked as having none.",
+  },
+  {
+    id: "orgnummer",
+    kind: "serious",
+    who: "Identifies the organisation by number",
+    turns: ["vi er Bygdehuset AS, orgnr 923 456 789", "hva koster det for ett lokale?"],
+    expectNotify: true,
+    expectEmail: null,
+    note: "A 9-digit org number must not be captured as a phone number. Identifying yourself by orgnr is a serious-buyer gesture.",
+  },
+
+  // ── public sector specifics ────────────────────────────────────────────
+  {
+    id: "universell-utforming",
+    kind: "serious",
+    who: "Municipality checking a legal requirement",
+    turns: [
+      "oppfyller løsningen kravene til universell utforming?",
+      "vi er en kommune og må dokumentere WCAG 2.2 AA",
+    ],
+    expectNotify: true,
+    note: "Nobody asks about WCAG documentation unless they are evaluating a purchase — it is a procurement checklist item, not curiosity.",
+  },
+  {
+    id: "presentasjon-for-utvalget",
+    kind: "serious",
+    who: "Needs to present to a municipal committee",
+    turns: ["kan noen presentere dette for hovedutvalget vårt i september?"],
+    expectNotify: true,
+    note: "'presentere' also appears in the vendor-pitch detector. This is a CUSTOMER asking us to present — the direction check must not swallow it.",
+  },
+  {
+    id: "integrasjon-visma",
+    kind: "serious",
+    who: "Asks about integrating with their finance system",
+    turns: ["kan dere integrere mot visma?", "vi fakturerer alt gjennom visma enterprise i dag"],
+    expectNotify: true,
+    note: "Naming the incumbent finance system is a real evaluation. It is also indistinguishable, in vocabulary, from idle technical curiosity.",
+  },
+
+  // ── not leads ──────────────────────────────────────────────────────────
+  {
+    id: "ikke-interessert",
+    kind: "browser",
+    who: "Explicitly declines",
+    turns: ["hva koster det?", "nei det er for dyrt for oss, ikke aktuelt"],
+    expectNotify: true,
+    note: "Qualifies on turn one and correctly — the refusal comes after. A salesperson can still act on 'too expensive', and pretending we never saw it is worse.",
+  },
+  {
+    id: "konkurrent-rekognoserer",
+    kind: "irrelevant",
+    who: "Competitor doing reconnaissance",
+    turns: ["hvor mange kunder har dere?", "hvilke kommuner bruker dere?", "hva er omsetningen deres?"],
+    expectNotify: false,
+    note: "Company-intel questions with no mention of their own venues. Hard: it looks engaged, and nothing in the wording says competitor.",
+  },
+  {
+    id: "ropende-kunde",
+    kind: "support",
+    who: "Shouting in caps about a fault",
+    turns: ["INGENTING FUNGERER", "JEG HAR PRØVD I EN TIME"],
+    expectNotify: false,
+    note: "'PRØVD' in caps is the trial-objection cue. Case-insensitive matching must not turn an angry customer into a sales lead.",
+  },
+  {
+    id: "veggen-av-tekst",
+    kind: "browser",
+    who: "Pastes a long unfocused message",
+    turns: [
+      "hei jeg lurer bare på hva slags system dette er og hvordan det fungerer og om det er noe for oss eller ikke jeg har sett på flere systemer i det siste og de virker ganske like alle sammen så jeg vet ikke helt hva jeg skal se etter egentlig men jeg tenkte jeg skulle spørre",
+    ],
+    expectNotify: false,
+    note: "Long is not serious. Nothing concrete: no venue, no scale, no price question, no timeline.",
+  },
+  {
+    id: "gjentar-besok",
+    kind: "serious",
+    who: "Returning after an earlier conversation",
+    turns: ["vi snakket sammen forrige uke om kulturhuset vårt", "vi vil gå videre"],
+    expectNotify: true,
+    note: "'vi vil gå videre' is as close to a yes as chat gets, and carries no standard buying vocabulary.",
+  },
+  {
+    id: "billigste-alternativ",
+    kind: "serious",
+    who: "Shopping purely on price",
+    turns: ["hva er det billigste alternativet deres?"],
+    expectNotify: true,
+    note: "Price-led and low-value, but a buyer. Worth a notification precisely so a human decides whether to spend time on it.",
+  },
+];

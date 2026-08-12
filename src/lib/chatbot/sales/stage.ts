@@ -136,7 +136,38 @@ export const BUYING_SIGNALS: readonly string[] = [
   // English
   "quote", "pricing", "cost", "subscription", "contract", "get started",
   "replace our", "switch from", "how much", "trial", "onboarding",
+  // Phrasings batch 3 found missing: intent without the word "pris".
+  "billigste", "rimeligste", "alternativ", "gå videre", "ga videre",
+  "integrere", "integrasjon", "universell utforming", "wcag",
+  "på plass", "levere", "hovedutvalg", "kommunestyre", "presentere for",
 ] as const;
+
+/**
+ * Described PAIN — the strongest qualification there is, and the one with no
+ * buying vocabulary in it at all.
+ *
+ * The scenario suite made the gap unmissable. "vi bruker rundt 10 timer i uka
+ * på å svare på e-poster om ledige datoer, og vi har dobbeltbooket to ganger i
+ * år" scored ZERO: no price, no offer, no demo, no timeline — nothing a cue
+ * list built from purchase words could see. It is also the single most
+ * qualified sentence in the whole suite. Someone who has counted the hours has
+ * already decided the problem is worth money.
+ *
+ * These count as buying signals because that is exactly what they are: an
+ * implied need, stated as a symptom instead of a request.
+ */
+export const PAIN_SIGNALS: readonly string[] = [
+  "dobbeltbook", "dobbelt book", "regneark", "excel", "manuelt", "manuell",
+  "ringe rundt", "svare på e-post", "svarer på e-post", "timer i uka",
+  "timer i uken", "tar mye tid", "bruker mye tid", "glipper", "rot",
+  "holder styr", "oversikt", "papir", "post-it", "kalender på veggen",
+  // English equivalents
+  "double book", "spreadsheet", "manually", "takes hours", "waste time",
+] as const;
+
+export function painSignalsIn(text: string): string[] {
+  return PAIN_SIGNALS.filter((s) => matchesCue(text, s));
+}
 
 /**
  * Does `cue` appear as a word (or the start of one) in `text`?
