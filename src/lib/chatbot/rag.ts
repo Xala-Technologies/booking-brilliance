@@ -1,5 +1,8 @@
 import { FAQ_CATEGORIES, allFAQEntries } from "@/content/faq";
 import type { SearchItem } from "@/lib/search/corpus";
+import { BUYING_SIGNALS, detectObjections, inferStage } from "@/lib/chatbot/sales/stage";
+import { extractProfile, profileCompleteness } from "@/lib/chatbot/sales/lead";
+import { buildSalesSystemPrompt } from "@/lib/chatbot/sales/persona";
 
 export interface RagHit {
   q: string;
@@ -125,20 +128,26 @@ export function buildLLMContext(
     .slice(0, 6)
     .map((p) => `- ${p.title}${p.subtitle ? `: ${p.subtitle}` : ""} (${p.href})`)
     .join("\n");
-  const system = `Du er Digilist-assistenten, en norsk AI-rådgiver for Digilist, en bookingplattform for norske utleiere og kommuner. Svar kort, presist og på norsk bokmål. Hold deg til informasjonen i KILDER nedenfor og henvis til /faq for utfyllende svar. Hvis du ikke vet svaret, foreslå at brukeren snakker med en rådgiver via skjemaet.
+  // The prompt used to be a SUPPORT prompt: answer from KILDER, three sentences,
+  // otherwise point at the contact form. It contained no instruction to listen,
+  // ask anything back, or notice someone trying to buy — which is exactly the
+  // behaviour it produced (see sales/persona.ts for the conversation that
+  // exposed it). The sales prompt keeps the grounding rules and adds the missing
+  // half: one objective per turn, driven by where the visitor actually is.
+  const userTurns = [...history.filter((m) => m.role === "user").map((m) => m.text), query];
+  const profile = extractProfile(userTurns);
+  const objections = detectObjections(userTurns.join("\n")).map((o) => o.id);
+  const signals = BUYING_SIGNALS.filter((s) => userTurns.join("\n").toLowerCase().includes(s));
+  const enriched = { ...profile, objections, signals };
+  const stage = inferStage({ userTurns, completeness: profileCompleteness(enriched) });
 
-KILDER:
-${corpus || "(ingen relevante treff i kunnskapsbasen)"}
-
-RELEVANTE SIDER (fra søk på hele nettstedet):
-${sider || "(ingen)"}
-
-REGLER:
-- Svar maks 3 setninger.
-- Bruk norsk bokmål.
-- Der en side under RELEVANTE SIDER passer svaret, nevn den kort.
-- Hvis spørsmålet ikke kan besvares fra KILDER, si det ærlig og foreslå skjemaet.
-- Ikke fabriker pris, dato, navn eller tall som ikke står i KILDER.`;
+  const system = buildSalesSystemPrompt({
+    stage,
+    profile: enriched,
+    latestUserTurn: query,
+    sources: corpus,
+    pages: sider,
+  });
 
   return {
     system,
