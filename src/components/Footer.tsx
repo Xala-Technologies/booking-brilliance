@@ -1,6 +1,7 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { getFraunces } from "@/lib/fonts";
 import { EditorialButton } from "@/components/editorial";
@@ -51,98 +52,98 @@ const Footer = () => {
   };
 
   const navigasjon = [
-    { label: "Funksjonalitet", hash: "#funksjonalitet" },
-    { label: "Brukerhistorier", hash: "#brukerhistorier" },
-    { label: "Kontakt", hash: "#kontakt" },
+    { labelKey: "footer.funksjonalitet", hash: "#funksjonalitet" },
+    { labelKey: "footer.brukerhistorier", hash: "#brukerhistorier" },
+    { labelKey: "footer.kontakt", hash: "#kontakt" },
   ];
 
   const markedsplass = [
-    { label: "Lokaler", href: "/leie" },
-    { label: "Lokaler til leie", href: "/lokaler-til-leie" },
-    { label: "Overnatting", href: "/overnatting" },
-    { label: "Arrangementer", href: "/arrangementer" },
-    { label: "Utstyr", href: "/utstyr" },
-    { label: "Tjenester", href: "/tjenester" },
-    { label: "Booking av lokaler og møterom", href: "/booking-av-lokaler-og-moterom" },
+    { labelKey: "footer.lokaler", href: "/leie" },
+    { labelKey: "footer.lokaler_til_leie", href: "/lokaler-til-leie" },
+    { labelKey: "footer.overnatting", href: "/overnatting" },
+    { labelKey: "footer.arrangementer", href: "/arrangementer" },
+    { labelKey: "footer.utstyr", href: "/utstyr" },
+    { labelKey: "footer.tjenester", href: "/tjenester" },
+    { labelKey: "footer.booking_av_lokaler_og_m_terom", href: "/booking-av-lokaler-og-moterom" },
   ];
 
   const losninger = [
-    { label: "Bookingsystem for utleie", href: "/bookingsystem-utleie" },
-    { label: "Bookingsystem for kommuner", href: "/bookingsystem-kommune" },
-    { label: "Billettsystem", href: "/billettsystem" },
-    { label: "Teknologi", href: "/teknologi" },
-    { label: "Sikkerhet", href: "/sikkerhet" },
+    { labelKey: "footer.bookingsystem_for_utleie", href: "/bookingsystem-utleie" },
+    { labelKey: "footer.bookingsystem_for_kommuner", href: "/bookingsystem-kommune" },
+    { labelKey: "footer.billettsystem", href: "/billettsystem" },
+    { labelKey: "footer.teknologi", href: "/teknologi" },
+    { labelKey: "footer.sikkerhet", href: "/sikkerhet" },
   ];
 
   // Company + resources. These were sitting under "Løsninger", which had grown
   // to ten entries and was neither scannable nor accurate — Om oss and Blogg
   // are not solutions.
   const selskap = [
-    { label: "Priser", href: "/priser" },
-    { label: "Om oss", href: "/om-oss" },
-    { label: "Blogg", href: "/blogg" },
-    { label: "FAQ", href: "/faq" },
-    { label: "Transparens", href: "/transparens" },
-    { label: "Utleiemarkedet 2026", href: "/rapport/utleiemarkedet-norge-2026" },
+    { labelKey: "footer.priser", href: "/priser" },
+    { labelKey: "footer.om_oss", href: "/om-oss" },
+    { labelKey: "footer.blogg", href: "/blogg" },
+    { labelKey: "footer.faq", href: "/faq" },
+    { labelKey: "footer.transparens", href: "/transparens" },
+    { labelKey: "footer.utleiemarkedet_2026", href: "/rapport/utleiemarkedet-norge-2026" },
   ];
 
   const juridisk = [
-    { label: "Personvern", href: "/personvern" },
-    { label: "Salgsvilkår", href: "/salgsvilkar" },
-    { label: "Cookies", href: "/cookies" },
-    { label: "Tilgjengelighet", href: "/tilgjengelighet" },
+    { labelKey: "footer.personvern", href: "/personvern" },
+    { labelKey: "footer.salgsvilk_r", href: "/salgsvilkar" },
+    { labelKey: "footer.cookies", href: "/cookies" },
+    { labelKey: "footer.tilgjengelighet", href: "/tilgjengelighet" },
   ];
 
   // SEO internal-link cluster — the private-market pages, rendered site-wide in
   // a dense block below the main columns so every prerendered page passes
   // authority into them (they were previously only reachable via sitemap).
   const byer = [
-    { label: "Oslo", href: "/lokaler-til-leie/oslo" },
-    { label: "Bergen", href: "/lokaler-til-leie/bergen" },
-    { label: "Trondheim", href: "/lokaler-til-leie/trondheim" },
-    { label: "Stavanger", href: "/lokaler-til-leie/stavanger" },
-    { label: "Kristiansand", href: "/lokaler-til-leie/kristiansand" },
-    { label: "Tromsø", href: "/lokaler-til-leie/tromso" },
-    { label: "Drammen", href: "/lokaler-til-leie/drammen" },
-    { label: "Bærum", href: "/lokaler-til-leie/baerum" },
-    { label: "Fredrikstad", href: "/lokaler-til-leie/fredrikstad" },
-    { label: "Sandnes", href: "/lokaler-til-leie/sandnes" },
-    { label: "Ålesund", href: "/lokaler-til-leie/alesund" },
-    { label: "Bodø", href: "/lokaler-til-leie/bodo" },
-    { label: "Sandefjord", href: "/lokaler-til-leie/sandefjord" },
-    { label: "Tønsberg", href: "/lokaler-til-leie/tonsberg" },
-    { label: "Sarpsborg", href: "/lokaler-til-leie/sarpsborg" },
-    { label: "Haugesund", href: "/lokaler-til-leie/haugesund" },
+    { labelKey: "footer.oslo", href: "/lokaler-til-leie/oslo" },
+    { labelKey: "footer.bergen", href: "/lokaler-til-leie/bergen" },
+    { labelKey: "footer.trondheim", href: "/lokaler-til-leie/trondheim" },
+    { labelKey: "footer.stavanger", href: "/lokaler-til-leie/stavanger" },
+    { labelKey: "footer.kristiansand", href: "/lokaler-til-leie/kristiansand" },
+    { labelKey: "footer.troms", href: "/lokaler-til-leie/tromso" },
+    { labelKey: "footer.drammen", href: "/lokaler-til-leie/drammen" },
+    { labelKey: "footer.b_rum", href: "/lokaler-til-leie/baerum" },
+    { labelKey: "footer.fredrikstad", href: "/lokaler-til-leie/fredrikstad" },
+    { labelKey: "footer.sandnes", href: "/lokaler-til-leie/sandnes" },
+    { labelKey: "footer.lesund", href: "/lokaler-til-leie/alesund" },
+    { labelKey: "footer.bod", href: "/lokaler-til-leie/bodo" },
+    { labelKey: "footer.sandefjord", href: "/lokaler-til-leie/sandefjord" },
+    { labelKey: "footer.t_nsberg", href: "/lokaler-til-leie/tonsberg" },
+    { labelKey: "footer.sarpsborg", href: "/lokaler-til-leie/sarpsborg" },
+    { labelKey: "footer.haugesund", href: "/lokaler-til-leie/haugesund" },
   ];
 
   const lokaltyper = [
-    { label: "Selskapslokale", href: "/leie/selskapslokale" },
-    { label: "Møterom", href: "/leie/moterom" },
-    { label: "Konferanselokale", href: "/leie/konferanselokale" },
-    { label: "Kulturhus", href: "/leie/kulturhus" },
-    { label: "Idrettshall", href: "/leie/idrettshall" },
-    { label: "Hall", href: "/leie/hall" },
-    { label: "Gård", href: "/leie/gaard" },
-    { label: "Kontorlokaler", href: "/leie/kontorlokaler" },
-    { label: "Bursdagslokale", href: "/leie/bursdagslokale" },
-    { label: "Coworking", href: "/leie/coworking" },
-    { label: "Padelbane", href: "/leie/padelbane" },
-    { label: "Svømmehall", href: "/leie/svommehall" },
-    { label: "Hobbyklubb", href: "/leie/hobbyklubb" },
+    { labelKey: "footer.selskapslokale", href: "/leie/selskapslokale" },
+    { labelKey: "footer.m_terom", href: "/leie/moterom" },
+    { labelKey: "footer.konferanselokale", href: "/leie/konferanselokale" },
+    { labelKey: "footer.kulturhus", href: "/leie/kulturhus" },
+    { labelKey: "footer.idrettshall", href: "/leie/idrettshall" },
+    { labelKey: "footer.hall", href: "/leie/hall" },
+    { labelKey: "footer.g_rd", href: "/leie/gaard" },
+    { labelKey: "footer.kontorlokaler", href: "/leie/kontorlokaler" },
+    { labelKey: "footer.bursdagslokale", href: "/leie/bursdagslokale" },
+    { labelKey: "footer.coworking", href: "/leie/coworking" },
+    { labelKey: "footer.padelbane", href: "/leie/padelbane" },
+    { labelKey: "footer.sv_mmehall", href: "/leie/svommehall" },
+    { labelKey: "footer.hobbyklubb", href: "/leie/hobbyklubb" },
   ];
 
   const anledninger = [
-    { label: "Konfirmasjon", href: "/leie/konfirmasjonslokale" },
-    { label: "Firmafest og julebord", href: "/leie/firmafest" },
-    { label: "Minnestund", href: "/leie/minnestund" },
-    { label: "Dåp og navnefest", href: "/leie/daap" },
-    { label: "Jubileum", href: "/leie/jubileum" },
+    { labelKey: "footer.konfirmasjon", href: "/leie/konfirmasjonslokale" },
+    { labelKey: "footer.firmafest_og_julebord", href: "/leie/firmafest" },
+    { labelKey: "footer.minnestund", href: "/leie/minnestund" },
+    { labelKey: "footer.d_p_og_navnefest", href: "/leie/daap" },
+    { labelKey: "footer.jubileum", href: "/leie/jubileum" },
   ];
 
   const verktoy = [
-    { label: "Leiepriskalkulator", href: "/verktoy/leiepriskalkulator" },
-    { label: "Kapasitetskalkulator", href: "/verktoy/kapasitetskalkulator" },
-    { label: "Alle verktøy", href: "/verktoy" },
+    { labelKey: "footer.leiepriskalkulator", href: "/verktoy/leiepriskalkulator" },
+    { labelKey: "footer.kapasitetskalkulator", href: "/verktoy/kapasitetskalkulator" },
+    { labelKey: "footer.alle_verkt_y", href: "/verktoy" },
   ];
 
   const linkClass =
@@ -304,7 +305,7 @@ const Footer = () => {
         {/* Four columns of links */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
           <nav aria-label="Navigasjon">
-            <ColumnHeading>I · NAVIGASJON</ColumnHeading>
+            <ColumnHeading>{t(locale, "footer.i_navigasjon")}</ColumnHeading>
             <ul className="space-y-3.5">
               {navigasjon.map((link) => (
                 <li key={link.hash}>
@@ -313,7 +314,7 @@ const Footer = () => {
                     onClick={(e) => handleNavClick(link.hash, e)}
                     className={linkClass}
                   >
-                    <span className={linkUnderline}>{link.label}</span>
+                    <span className={linkUnderline}>{t(locale, link.labelKey)}</span>
                   </a>
                 </li>
               ))}
@@ -321,12 +322,12 @@ const Footer = () => {
           </nav>
 
           <nav aria-label="Markedsplass">
-            <ColumnHeading>II · MARKEDSPLASS</ColumnHeading>
+            <ColumnHeading>{t(locale, "footer.ii_markedsplass")}</ColumnHeading>
             <ul className="space-y-3.5">
               {markedsplass.map((link) => (
                 <li key={link.href}>
                   <Link to={localeHref(link.href, locale)} className={linkClass}>
-                    <span className={linkUnderline}>{link.label}</span>
+                    <span className={linkUnderline}>{t(locale, link.labelKey)}</span>
                   </Link>
                 </li>
               ))}
@@ -334,12 +335,12 @@ const Footer = () => {
           </nav>
 
           <nav aria-label="Løsninger">
-            <ColumnHeading>III · LØSNINGER</ColumnHeading>
+            <ColumnHeading>{t(locale, "footer.iii_l_sninger")}</ColumnHeading>
             <ul className="space-y-3.5">
               {losninger.map((link) => (
                 <li key={link.href}>
                   <Link to={localeHref(link.href, locale)} className={linkClass}>
-                    <span className={linkUnderline}>{link.label}</span>
+                    <span className={linkUnderline}>{t(locale, link.labelKey)}</span>
                   </Link>
                 </li>
               ))}
@@ -347,12 +348,12 @@ const Footer = () => {
           </nav>
 
           <nav aria-label="Selskap">
-            <ColumnHeading>IV · SELSKAP</ColumnHeading>
+            <ColumnHeading>{t(locale, "footer.iv_selskap")}</ColumnHeading>
             <ul className="space-y-3.5">
               {selskap.map((link) => (
                 <li key={link.href}>
                   <Link to={localeHref(link.href, locale)} className={linkClass}>
-                    <span className={linkUnderline}>{link.label}</span>
+                    <span className={linkUnderline}>{t(locale, link.labelKey)}</span>
                   </Link>
                 </li>
               ))}
@@ -373,7 +374,7 @@ const Footer = () => {
           <summary className="flex cursor-pointer list-none items-center gap-3 text-accent-text [&::-webkit-details-marker]:hidden">
             <span aria-hidden="true" className="w-6 h-px bg-accent-text" />
             <h2 className="editorial-mono-caption text-accent-text">
-              V · LOKALER TIL LEIE
+              {t(locale, "footer.v_lokaler_til_leie")}
             </h2>
             <span className="editorial-mono-caption text-ink-faint">
               37 sider
@@ -401,7 +402,7 @@ const Footer = () => {
                         to={localeHref(link.href, locale)}
                         className="font-sans text-[0.95rem] text-ink-soft hover:text-ink border-b border-transparent hover:border-ink transition-colors duration-quick ease-editorial no-underline pb-0.5"
                       >
-                        {link.label}
+                        {t(locale, link.labelKey)}
                       </Link>
                     </li>
                   ))}
@@ -430,7 +431,7 @@ const Footer = () => {
                   to={localeHref(link.href, locale)}
                   className="editorial-mono-caption text-ink-soft hover:text-ink border-b border-transparent hover:border-ink transition-colors duration-quick ease-editorial no-underline pb-0.5"
                 >
-                  {link.label}
+                  {t(locale, link.labelKey)}
                 </Link>
               </span>
             ))}
