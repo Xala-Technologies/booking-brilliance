@@ -11,11 +11,14 @@ import {
 } from "lucide-react";
 import { getFraunces } from "@/lib/fonts";
 import { SectionHeader } from "@/components/SectionHeader";
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 import { bundledSrcSet, bundledWebpSrcSet } from "@/components/CategoryVisual";
 
 interface Tile {
-  title: string;
-  tag: string;
+  titleKey: string;
+  tagKey: string;
   to: string;
   image: string;
   Icon: LucideIcon;
@@ -27,43 +30,43 @@ interface Tile {
 // committed (see src/lib/webp-sources.test.ts).
 export const TILES: Tile[] = [
   {
-    title: "Lokaler",
-    tag: "Selskap · møte · kultur",
+    titleKey: "market.tile.venues",
+    tagKey: "market.tile.venues.tag",
     to: "/leie",
     image: "/images/cat/selskapslokale.jpg",
     Icon: GlassWater,
   },
   {
-    title: "Overnatting",
-    tag: "Hytte · leilighet · feriehus",
+    titleKey: "market.tile.stays",
+    tagKey: "market.tile.stays.tag",
     to: "/overnatting",
     image: "/images/cat/hytte.jpg",
     Icon: TreePine,
   },
   {
-    title: "Sport og aktivitet",
-    tag: "Idrettshall · padel · svømming",
+    titleKey: "market.tile.sport",
+    tagKey: "market.tile.sport.tag",
     to: "/leie/idrettshall",
     image: "/images/cat/idrettshall.jpg",
     Icon: Dumbbell,
   },
   {
-    title: "Arrangementer",
-    tag: "Konsert · teater · sport",
+    titleKey: "market.tile.events",
+    tagKey: "market.tile.events.tag",
     to: "/arrangementer",
     image: "/images/cat/konsert.jpg",
     Icon: Music,
   },
   {
-    title: "Utstyr",
-    tag: "Fest · verktøy · friluft",
+    titleKey: "market.tile.equipment",
+    tagKey: "market.tile.equipment.tag",
     to: "/utstyr",
     image: "/images/cat/festutstyr.jpg",
     Icon: PartyPopper,
   },
   {
-    title: "Tjenester",
-    tag: "Catering · DJ · dekor",
+    titleKey: "market.tile.services",
+    tagKey: "market.tile.services.tag",
     to: "/tjenester",
     image: "/images/cat/dekor.jpg",
     Icon: Sparkles,
@@ -71,30 +74,31 @@ export const TILES: Tile[] = [
 ];
 
 const MarketplaceSection = () => {
+  const locale = localeFromPath(useLocation().pathname);
   return (
     <section id="marketplace" className="py-10 lg:py-14 bg-paper">
       <div className="container mx-auto md:px-8 lg:px-12">
         <SectionHeader
-          label="FINN OG BOOK"
-          intro="Lokaler, overnatting, arrangementer, utstyr og tjenester, samlet på ett sted. Ekte priser, ledige tider og betaling med Vipps."
+          label={t(locale, "market.label")}
+          intro={t(locale, "market.intro")}
         >
-          Alt du kan finne og{" "}
+          {t(locale, "market.headline")}{" "}
           <em
             className="italic"
             style={{ fontVariationSettings: getFraunces("display") }}
           >
-            booke
+            {t(locale, "market.headlineEm")}
           </em>
           .
         </SectionHeader>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
-          {TILES.map((t) => {
-            const Icon = t.Icon;
+          {TILES.map((tile) => {
+            const Icon = tile.Icon;
             return (
               <Link
-                key={t.to}
-                to={t.to}
+                key={tile.to}
+                to={tile.to}
                 className="group block rounded-2xl border border-rule bg-paper p-1.5 lg:p-2 shadow-md transition-all duration-300 ease-editorial hover:-translate-y-1 hover:shadow-2xl hover:border-accent-text/40"
               >
                 <div
@@ -104,12 +108,12 @@ const MarketplaceSection = () => {
                 <picture>
                   <source
                     type="image/webp"
-                    srcSet={bundledWebpSrcSet(t.image)}
+                    srcSet={bundledWebpSrcSet(tile.image)}
                     sizes="(min-width: 640px) 45vw, 90vw"
                   />
                   <img
-                    src={t.image}
-                    srcSet={bundledSrcSet(t.image)}
+                    src={tile.image}
+                    srcSet={bundledSrcSet(tile.image)}
                     sizes="(min-width: 640px) 45vw, 90vw"
                     alt=""
                     aria-hidden="true"
@@ -134,10 +138,10 @@ const MarketplaceSection = () => {
                         letterSpacing: "-0.015em",
                       }}
                     >
-                      {t.title}
+                      {t(locale, tile.titleKey)}
                     </h3>
                     <p className="mt-1 font-mono text-[0.6rem] uppercase tracking-widest text-white/70">
-                      {t.tag}
+                      {t(locale, tile.tagKey)}
                     </p>
                     <span className="mt-3 inline-flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-widest text-white">
                       Finn

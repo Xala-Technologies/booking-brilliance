@@ -88,6 +88,26 @@ const nb: Copy = {
     "Faktura og bilag til Visma, Tripletex, Fiken, PowerOffice, DNB Regnskap eller EHF/Peppol. Rapportering, KPI-er og økonomisk avstemming i én plattform.",
 
   "cta.label": "BOOK EN DEMO",
+
+  // Marketplace tiles. The images and links are identical in both languages —
+  // only the words change, which is the whole point of the mirror.
+  "market.label": "FINN OG BOOK",
+  "market.intro":
+    "Lokaler, overnatting, arrangementer, utstyr og tjenester, samlet på ett sted. Ekte priser, ledige tider og betaling med Vipps.",
+  "market.headline": "Alt du kan finne og",
+  "market.headlineEm": "booke",
+  "market.tile.venues": "Lokaler",
+  "market.tile.venues.tag": "Selskap · møte · kultur",
+  "market.tile.stays": "Overnatting",
+  "market.tile.stays.tag": "Hytte · leilighet · feriehus",
+  "market.tile.sport": "Sport og aktivitet",
+  "market.tile.sport.tag": "Idrettshall · padel · svømming",
+  "market.tile.events": "Arrangementer",
+  "market.tile.events.tag": "Konsert · teater · sport",
+  "market.tile.equipment": "Utstyr",
+  "market.tile.equipment.tag": "Fest · verktøy · friluft",
+  "market.tile.services": "Tjenester",
+  "market.tile.services.tag": "Catering · DJ · dekor",
 };
 
 const en: Copy = {
@@ -148,6 +168,24 @@ const en: Copy = {
     "Invoices and vouchers to the common accounting systems, or by the European e-invoicing standard. Reporting, KPIs and financial reconciliation in one platform.",
 
   "cta.label": "BOOK A DEMO",
+
+  "market.label": "FIND AND BOOK",
+  "market.intro":
+    "Venues, accommodation, events, equipment and services in one place. Real prices, real availability, and secure payment.",
+  "market.headline": "Everything you can find and",
+  "market.headlineEm": "book",
+  "market.tile.venues": "Venues",
+  "market.tile.venues.tag": "Function · meeting · culture",
+  "market.tile.stays": "Accommodation",
+  "market.tile.stays.tag": "Cabin · apartment · holiday home",
+  "market.tile.sport": "Sport and activity",
+  "market.tile.sport.tag": "Sports hall · padel · swimming",
+  "market.tile.events": "Events",
+  "market.tile.events.tag": "Concert · theatre · sport",
+  "market.tile.equipment": "Equipment",
+  "market.tile.equipment.tag": "Party · tools · outdoor",
+  "market.tile.services": "Services",
+  "market.tile.services.tag": "Catering · DJ · decor",
 };
 
 const DICT: Record<Locale, Copy> = { nb, en };
