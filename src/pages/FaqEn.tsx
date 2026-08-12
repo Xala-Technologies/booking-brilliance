@@ -1,0 +1,201 @@
+import { useMemo } from "react";
+import { motion } from "framer-motion";
+import SEO from "@/components/SEO";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import PageTransition from "@/components/PageTransition";
+import {
+  SectionRule,
+  EditorialHeading,
+  EditorialButton,
+  ProgressRail,
+} from "@/components/editorial";
+import { FAQ_CATEGORIES_EN, allFAQEntriesEn } from "@/content/faq.en";
+import { getFraunces } from "@/lib/fonts";
+import { staggerParent, staggerChild, viewportOnce } from "@/lib/motion";
+import { openChatbot } from "@/lib/chatbot/open";
+
+const FaqEn = () => {
+  const faqForSEO = useMemo(
+    () => allFAQEntriesEn().map((e) => ({ question: e.q, answer: e.a })),
+    [],
+  );
+
+  return (
+    <div className="min-h-screen bg-background overflow-x-hidden">
+      <SEO
+        title="FAQ · Digilist | Common questions about venue booking, pricing and compliance"
+        description="Answers to the most common questions about Digilist: what it costs, what we never charge for, where data is stored, and who the platform is for."
+        canonical="https://digilist.no/en/faq"
+        breadcrumbs={[
+          { name: "Home", url: "https://digilist.no/en" },
+          { name: "FAQ", url: "https://digilist.no/en/faq" },
+        ]}
+        faq={faqForSEO}
+      />
+      <ProgressRail />
+      <Navbar />
+
+      <PageTransition>
+        <main id="main">
+        <section className="pt-28 lg:pt-32 pb-14 lg:pb-20 bg-paper">
+          <div className="container mx-auto md:px-8 lg:px-12">
+            <SectionRule label="DIGILIST · FAQ" />
+
+            <div className="grid lg:grid-cols-12 gap-8 lg:gap-gutter mb-12">
+              <div className="lg:col-span-8">
+                <EditorialHeading as="h1" size="display">
+                  Common{" "}
+                  <em
+                    className="italic"
+                    style={{ fontVariationSettings: getFraunces("display") }}
+                  >
+                    questions
+                  </em>
+                  .
+                </EditorialHeading>
+                <p className="mt-6 text-xl text-ink-soft measure leading-relaxed">
+                  What Digilist costs, what we never charge for, where your
+                  data lives, and who the platform is built for.
+                </p>
+              </div>
+            </div>
+
+            <nav
+              aria-label="Kategorier"
+              className="border-t border-rule pt-6 pb-10"
+            >
+              <motion.ul
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportOnce}
+                variants={staggerParent}
+                className="flex flex-wrap gap-x-2 gap-y-3"
+              >
+                {FAQ_CATEGORIES_EN.map((cat) => (
+                  <motion.li key={cat.id} variants={staggerChild}>
+                    <a
+                      href={`#${cat.id}`}
+                      className="group inline-flex items-center gap-2 px-3 py-1.5 border border-hairline-strong rounded-sm editorial-mono-caption text-accent-text hover:bg-paper-deep hover:border-ink transition-colors"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="inline-block w-1.5 h-1.5 rounded-full bg-accent-text opacity-50 group-hover:opacity-100 transition-opacity"
+                      />
+                      {cat.label}
+                    </a>
+                  </motion.li>
+                ))}
+              </motion.ul>
+            </nav>
+
+            <div className="space-y-16 lg:space-y-24">
+              {FAQ_CATEGORIES_EN.map((cat) => (
+                <section
+                  key={cat.id}
+                  id={cat.id}
+                  aria-labelledby={`${cat.id}-heading`}
+                  className="scroll-mt-32"
+                >
+                  <div className="border-t border-rule pt-8">
+                    <span className="editorial-mono-caption text-accent-text">
+                      {cat.label}
+                    </span>
+                    <h2
+                      id={`${cat.id}-heading`}
+                      className="font-serif text-3xl lg:text-5xl text-ink mt-3 mb-4"
+                      style={{
+                        fontVariationSettings: getFraunces("section"),
+                        letterSpacing: "-0.015em",
+                        lineHeight: 1.05,
+                      }}
+                    >
+                      {cat.label}
+                    </h2>
+                    <p className="text-lg text-ink-soft measure leading-relaxed mb-10">
+                      {cat.description}
+                    </p>
+
+                    <motion.dl
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={viewportOnce}
+                      variants={staggerParent}
+                      className="border-t border-rule"
+                    >
+                      {cat.questions.map((entry, idx) => (
+                        <motion.div
+                          key={`${cat.id}-${idx}`}
+                          variants={staggerChild}
+                          className="group border-b border-rule py-8 lg:py-10 grid lg:grid-cols-12 gap-4 lg:gap-gutter hover:bg-paper-deep/30 transition-colors duration-quick ease-editorial"
+                        >
+                          <dt className="lg:col-span-5">
+                            <h3
+                              className="font-serif text-2xl lg:text-3xl text-ink transition-transform duration-normal ease-editorial group-hover:translate-x-1"
+                              style={{
+                                fontVariationSettings: getFraunces("sub"),
+                                lineHeight: 1.15,
+                              }}
+                            >
+                              {entry.q}
+                            </h3>
+                          </dt>
+                          <dd className="lg:col-span-7">
+                            <p className="text-base lg:text-lg text-ink-soft measure leading-relaxed">
+                              {entry.a}
+                            </p>
+                          </dd>
+                        </motion.div>
+                      ))}
+                    </motion.dl>
+                  </div>
+                </section>
+              ))}
+            </div>
+
+            <div className="mt-20 lg:mt-28 border-t border-rule pt-12">
+              <div className="grid lg:grid-cols-12 gap-6 lg:gap-gutter items-end">
+                <div className="lg:col-span-8">
+                  <span className="editorial-mono-caption text-accent-text">
+                    STILL HAVE QUESTIONS?
+                  </span>
+                  <h2
+                    className="font-serif text-3xl lg:text-5xl text-ink mt-3"
+                    style={{
+                      fontVariationSettings: getFraunces("section"),
+                      letterSpacing: "-0.015em",
+                      lineHeight: 1.05,
+                    }}
+                  >
+                    Talk to us directly.
+                  </h2>
+                  <p className="mt-4 text-lg text-ink-soft measure leading-relaxed">
+                    We answer email quickly, or book a free 30-minute demo
+                    where we show the platform for your situation.
+                  </p>
+                </div>
+                <div className="lg:col-span-4 flex flex-wrap gap-3 lg:justify-end">
+                  <EditorialButton variant="primary" size="md" href="/book-demo">
+                    Book a demo
+                  </EditorialButton>
+                  <EditorialButton
+                    variant="outline"
+                    size="md"
+                    onClick={() => openChatbot({ mode: "chat" })}
+                  >
+                    Chat with us
+                  </EditorialButton>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      </PageTransition>
+
+      <Footer />
+    </div>
+  );
+};
+
+export default FaqEn;

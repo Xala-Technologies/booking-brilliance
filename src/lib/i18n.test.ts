@@ -59,9 +59,10 @@ describe("hreflang", () => {
 
   it("points x-default at Norwegian", () => {
     // A visitor with no language preference should land on the market we
-    // actually serve.
-    const tags = hreflangFor("/");
-    expect(tags.find((h) => h.hrefLang === "x-default")?.href).toBe("https://digilist.no/");
+    // actually serve. Checked on a page that IS translated — the homepage is
+    // deliberately not, until an English one exists.
+    const tags = hreflangFor("/priser");
+    expect(tags.find((h) => h.hrefLang === "x-default")?.href).toBe("https://digilist.no/priser");
   });
 
   it("treats a trailing slash as the same page", () => {
@@ -117,12 +118,14 @@ describe("preferredLocale", () => {
 });
 
 describe("shouldAutoRedirect — a visitor in the UK gets English", () => {
-  it("sends a non-Norwegian visitor from the homepage to /en", () => {
-    expect(shouldAutoRedirect({ pathname: "/", preferred: "en", stored: null })).toBe("/en");
-  });
-
-  it("sends a Norwegian visitor from /en back to the Norwegian homepage", () => {
-    expect(shouldAutoRedirect({ pathname: "/en", preferred: "nb", stored: null })).toBe("/");
+  it("NEVER redirects to a page that does not exist", () => {
+    // The bug this caught: a hardcoded "/en" sent every non-Norwegian visitor
+    // from the homepage to a 404 for as long as the English homepage was
+    // unwritten — the worst possible first impression, and invisible in
+    // testing because the redirect itself worked perfectly. It now returns the
+    // ACTUAL translated path, or nothing.
+    expect(shouldAutoRedirect({ pathname: "/", preferred: "en", stored: null })).toBeNull();
+    expect(alternatePath("/")).toBeNull();
   });
 
   it("does nothing when the visitor is already in the right language", () => {
@@ -147,7 +150,6 @@ describe("shouldAutoRedirect — a visitor in the UK gets English", () => {
     // a bug that feels like a broken site.
     expect(shouldAutoRedirect({ pathname: "/", preferred: "en", stored: "nb" })).toBeNull();
     expect(shouldAutoRedirect({ pathname: "/en", preferred: "nb", stored: "en" })).toBeNull();
-    expect(shouldAutoRedirect({ pathname: "/", preferred: "nb", stored: "en" })).toBe("/en");
   });
 
   it("does nothing when the browser tells us nothing", () => {

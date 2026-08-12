@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { HTML_LANG, OG_LOCALE, hreflangFor, localeFromPath, type Hreflang } from "@/lib/i18n";
 
 interface HowToStep {
   name: string;
@@ -119,7 +120,13 @@ const SEO = ({
     setMeta("og:image:height", "630", true);
     setMeta("og:image:alt", title, true);
     setMeta("og:url", canonical, true);
-    setMeta("og:locale", "nb_NO", true);
+    // Locale comes from the URL, never from the visitor. `/en/pricing` is
+    // English for everyone; a page whose language depended on who asked could
+    // not be linked, cached or crawled.
+    const path = typeof window === "undefined" ? "/" : window.location.pathname;
+    const locale = localeFromPath(path);
+    setMeta("og:locale", OG_LOCALE[locale], true);
+    document.documentElement.setAttribute("lang", HTML_LANG[locale]);
     setMeta("og:site_name", "Digilist", true);
     setMeta("twitter:card", "summary_large_image", true);
     setMeta("twitter:title", title, true);
@@ -135,6 +142,21 @@ const SEO = ({
       document.head.appendChild(linkEl);
     }
     linkEl.setAttribute("href", canonical);
+
+    // hreflang. `hreflangFor` returns an empty list for a page with no
+    // translation, and the existing tags are cleared first — otherwise a
+    // client-side navigation from a translated page to an untranslated one
+    // would leave the old page's alternates behind, telling Google this page
+    // has an English version that is actually a different page entirely.
+    document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((el) => el.remove());
+    const alternates: Hreflang[] = hreflangFor(path);
+    for (const alt of alternates) {
+      const link = document.createElement("link");
+      link.setAttribute("rel", "alternate");
+      link.setAttribute("hreflang", alt.hrefLang);
+      link.setAttribute("href", alt.href);
+      document.head.appendChild(link);
+    }
 
     // Build all JSON-LD blocks
     const blocks: object[] = [];

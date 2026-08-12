@@ -41,6 +41,8 @@ const Billettsystem = lazy(() => import("./pages/Billettsystem"));
 const Teknologi = lazy(() => import("./pages/Teknologi"));
 const OmOss = lazy(() => import("./pages/OmOss"));
 const Priser = lazy(() => import("./pages/Priser"));
+const Pricing = lazy(() => import("./pages/Pricing"));
+const FaqEn = lazy(() => import("./pages/FaqEn"));
 const Leie = lazy(() => import("./pages/Leie"));
 const LeieSelskapslokale = lazy(() => import("./pages/LeieSelskapslokale"));
 const LeieMoterom = lazy(() => import("./pages/LeieMoterom"));
@@ -86,6 +88,9 @@ const Personvern = lazy(() => import("./pages/Personvern"));
 const Cookies = lazy(() => import("./pages/Cookies"));
 const Tilgjengelighet = lazy(() => import("./pages/Tilgjengelighet"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const LocaleRouter = lazy(() =>
+  import("./components/LocaleRouter").then((m) => ({ default: m.LocaleRouter })),
+);
 const Transparens = lazy(() => import("./pages/Transparens"));
 const UseCaseSelskapslokaler = lazy(() => import("./pages/UseCaseSelskapslokaler"));
 const UseCaseMoterom = lazy(() => import("./pages/UseCaseMoterom"));
@@ -327,6 +332,11 @@ export function AppShell() {
             <Route path="/teknologi" element={<Teknologi />} />
             <Route path="/om-oss" element={<OmOss />} />
             <Route path="/priser" element={<Priser />} />
+            {/* English. Only pages that are actually translated get a route —
+                a /en URL rendering Norwegian text is duplicate content that
+                would damage the pages ranking today. See lib/i18n.ts. */}
+            <Route path="/en/pricing" element={<Pricing />} />
+            <Route path="/en/faq" element={<FaqEn />} />
             <Route path="/leie" element={<Leie />} />
             <Route path="/leie/selskapslokale" element={<LeieSelskapslokale />} />
             <Route path="/leie/gaard" element={<LeieGaard />} />
@@ -489,6 +499,12 @@ export function AppShell() {
           </Suspense>
           </ContentShell>
           <CookieConsent />
+          {/* Sends a visitor to their own language — homepage redirect, deep-page
+              offer. Lazy and inside the Router, so it never blocks first paint
+              and can read the current path. */}
+          <Suspense fallback={null}>
+            <LocaleRouter />
+          </Suspense>
           <ChatbotMount />
           <AssistantRailMount />
           </ChatbotProvider>

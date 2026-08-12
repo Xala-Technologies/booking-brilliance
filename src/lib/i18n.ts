@@ -55,7 +55,10 @@ export const SITE_ORIGIN = "https://digilist.no";
  * is worse than having no English page at all.
  */
 export const TRANSLATED: Readonly<Record<string, string>> = {
-  "/": "/en",
+  // "/" is NOT here yet: there is no English homepage. Adding it before the
+  // page exists would point hreflang at a 404 and — worse — send every
+  // non-Norwegian visitor from the homepage to a missing page, which is the
+  // first thing they would ever see of us.
   "/priser": "/en/pricing",
   "/faq": "/en/faq",
 };
@@ -267,7 +270,11 @@ export function shouldAutoRedirect(input: AutoRedirectInput): string | null {
   const current = localeFromPath(path);
   if (wanted === current) return null;
 
-  return wanted === "en" ? "/en" : "/";
+  // Only ever to a page that EXISTS. Returning a hardcoded "/en" sent every
+  // non-Norwegian visitor to a 404 for as long as the English homepage was
+  // unwritten — the worst possible first impression, and invisible in testing
+  // because the redirect itself worked perfectly.
+  return alternatePath(path);
 }
 
 /**

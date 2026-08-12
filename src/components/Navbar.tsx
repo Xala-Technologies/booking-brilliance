@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Link, useLocation } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";

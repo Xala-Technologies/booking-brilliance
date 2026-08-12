@@ -1667,6 +1667,36 @@ const ROUTES = [
     ],
   },
   {
+    route: "/en/pricing",
+    title: "Pricing: a subscription, with no transaction fee | Digilist",
+    description:
+      "Digilist takes no share of your booking revenue. Subscription tiers set by venues and needs, tailored pricing for small and private operators, and 6 months free for the first 100 customers.",
+    ogType: "website",
+    lang: "en",
+    breadcrumbs: [
+      { name: "Home", url: `${BASE_URL}/en` },
+      { name: "Pricing", url: `${BASE_URL}/en/pricing` },
+    ],
+    faq: [
+      { q: "Do you take a cut of booking revenue?", a: "No. Digilist charges no transaction fee and takes no share of what you charge for rentals. We charge for use of the service and the administration panel, and there are no hidden fees." },
+      { q: "What does Digilist cost?", a: "Digilist has subscription tiers, and the price depends on how many venues you have, how many people use the system, and which integrations you need. We take no share of your booking revenue and there are no hidden charges. Smaller and private operators get their own tailored pricing. The first 100 customers get 6 months free." },
+      { q: "Is Digilist too expensive for a small organisation?", a: "No. Smaller clubs, associations and private operators get their own tailored pricing — it should not resemble what a large public body with many buildings pays. A single venue is perfectly fine, and the first 100 customers get 6 months free." },
+      { q: "What is the offer for early customers?", a: "The first 100 customers get 6 months of Digilist free. After the trial you choose a subscription tier based on your venues and needs. No lock-in during the trial." },
+    ],
+  },
+  {
+    route: "/en/faq",
+    title: "FAQ · Digilist | Common questions about venue booking, pricing and compliance",
+    description:
+      "Answers to the most common questions about Digilist: what it costs, what we never charge for, where data is stored, and who the platform is for.",
+    ogType: "website",
+    lang: "en",
+    breadcrumbs: [
+      { name: "Home", url: `${BASE_URL}/en` },
+      { name: "FAQ", url: `${BASE_URL}/en/faq` },
+    ],
+  },
+  {
     route: "/om-oss",
     title: "Om Digilist: norsk bookingplattform fra Xala Technologies | Digilist",
     description:
@@ -2383,8 +2413,52 @@ function patchHTML(template, meta) {
       /<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>/,
       `<link rel="canonical" href="${canonical}" />`,
     )
+    // Locale. The static HTML is what a crawler reads first, so a prerendered
+    // English page that still says lang="nb-NO" is an English page Google files
+    // as Norwegian — the exact confusion hreflang exists to prevent.
+    .replace(
+      /<html\s+lang="[^"]*"/,
+      `<html lang="${meta.lang === "en" ? "en" : "nb-NO"}"`,
+    )
+    .replace(
+      /<meta\s+property="og:locale"\s+content="[^"]*"\s*\/?>/,
+      `<meta property="og:locale" content="${meta.lang === "en" ? "en_US" : "nb_NO"}" />`,
+    )
+    // hreflang. Emitted only for pages that genuinely exist in both languages
+    // — a tag pointing at an untranslated page tells Google we have a
+    // translation we do not, and it is judged as duplicate content on pages
+    // that rank today.
+    .replace("</head>", `${hreflangTags(meta.route)}  </head>`)
     // Inject JSON-LD before </head>
     .replace("</head>", `    ${ldHTML}\n  </head>`);
+}
+
+/**
+ * The nb/en pair for a route, mirroring `src/lib/i18n.ts` TRANSLATED.
+ *
+ * Duplicated rather than imported because this script is plain ESM run by node
+ * with no bundler, and the source of truth is TypeScript. `prerender.test.mjs`
+ * pins the two together so the copy cannot drift.
+ */
+const TRANSLATED_ROUTES = {
+  "/priser": "/en/pricing",
+  "/faq": "/en/faq",
+};
+
+function hreflangTags(route) {
+  const reverse = Object.fromEntries(
+    Object.entries(TRANSLATED_ROUTES).map(([nb, en]) => [en, nb]),
+  );
+  const other = TRANSLATED_ROUTES[route] ?? reverse[route];
+  if (!other) return "";
+  const isEn = route.startsWith("/en");
+  const nb = isEn ? other : route;
+  const en = isEn ? route : other;
+  return (
+    `    <link rel="alternate" hreflang="nb-NO" href="${BASE_URL}${nb}" />\n` +
+    `    <link rel="alternate" hreflang="en" href="${BASE_URL}${en}" />\n` +
+    `    <link rel="alternate" hreflang="x-default" href="${BASE_URL}${nb}" />\n`
+  );
 }
 
 const HOMEPAGE = {
@@ -2712,6 +2786,8 @@ async function main() {
     { loc: `${BASE_URL}/billettsystem`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/teknologi`, priority: "0.7", changefreq: "monthly" },
     { loc: `${BASE_URL}/priser`, priority: "0.9", changefreq: "monthly" },
+    { loc: `${BASE_URL}/en/pricing`, priority: "0.9", changefreq: "monthly" },
+    { loc: `${BASE_URL}/en/faq`, priority: "0.7", changefreq: "monthly" },
     { loc: `${BASE_URL}/om-oss`, priority: "0.6", changefreq: "monthly" },
     { loc: `${BASE_URL}/ai-agenter`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/ai-agenter/sesongtildeling`, priority: "0.7", changefreq: "monthly" },
