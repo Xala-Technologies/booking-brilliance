@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import { EditorialButton } from "@/components/editorial";
 import { SectionHeader } from "@/components/SectionHeader";
 import { formatPostDate, getAllPosts, postsForLocale, previewCover } from "@/lib/posts";
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/motion";
 import { getFraunces } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
@@ -12,7 +14,11 @@ import { cn } from "@/lib/utils";
 const FALLBACK_COVER = "/images/blog/_placeholder.svg";
 
 const BlogPreviewSection = () => {
-  const posts = postsForLocale("nb").slice(0, 6);
+  // Locale-aware: on /en this listed NORWEGIAN posts, which is the single
+  // biggest block of Norwegian left on the English homepage — and it is
+  // content, not UI copy, so no dictionary entry could ever fix it.
+  const locale = localeFromPath(useLocation().pathname);
+  const posts = postsForLocale(locale).slice(0, 6);
   const scrollerRef = useRef<HTMLDivElement | null>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);

@@ -2,15 +2,14 @@ import { motion } from "framer-motion";
 import { EditorialHeading, SectionRule, EditorialButton } from "@/components/editorial";
 import { Check, RefreshCw } from "lucide-react";
 import { revealUp, viewportOnce } from "@/lib/motion";
+import { useLocation } from "react-router-dom";
+import { localeFromPath, type Locale } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 
 const CHANNELS = ["Airbnb", "Booking.com", "Bookup", "Eventum", "Finn"];
 
-const BENEFITS = [
-  "Synk kalender, priser og tilgjengelighet automatisk",
-  "Legg til nye oppføringer uten dobbeltarbeid",
-  "Alltid oppdatert – aldri dobbeltbookinger",
-  "Én admin for alle kanaler",
-];
+const benefitsFor = (locale: Locale) =>
+  [1, 2, 3, 4].map((n) => t(locale, `sync.benefit${n}`));
 
 /**
  * Channel-sync ("channel manager") value prop: connect the systems the host
@@ -19,13 +18,14 @@ const BENEFITS = [
  * consistent availability everywhere.
  */
 export function ChannelSyncSection() {
+  const locale = localeFromPath(useLocation().pathname);
   return (
     <section
       id="kanaler"
       className="py-14 lg:py-20 bg-paper-tinted border-y border-rule"
     >
       <div className="container mx-auto md:px-8 lg:px-12">
-        <SectionRule label="KANALER · TOVEIS SYNK" />
+        <SectionRule label={t(locale, "sync.label")} />
 
         <motion.div
           initial="hidden"
@@ -37,25 +37,22 @@ export function ChannelSyncSection() {
           {/* Copy */}
           <div className="lg:col-span-6">
             <EditorialHeading as="h2" size="section">
-              Én kalender.{" "}
+              {t(locale, "sync.headline")}{" "}
               <em
                 className="italic"
                 style={{ fontVariationSettings: '"opsz" 96, "wght" 400' }}
               >
-                alle kanaler
+                {t(locale, "sync.headlineEm")}
               </em>
               .
             </EditorialHeading>
 
             <p className="mt-5 text-lg text-ink-soft measure leading-relaxed">
-              Har du lokaler på Airbnb, Booking.com, Bookup eller Eventum? Koble
-              dem til Digilist én gang – så holdes kalender og tilgjengelighet i
-              sync automatisk. Ingen dobbeltarbeid, ingen dobbeltbookinger,
-              alltid oppdatert overalt.
+              {t(locale, "sync.lede")}
             </p>
 
             <ul className="mt-8 space-y-3">
-              {BENEFITS.map((b) => (
+              {benefitsFor(locale).map((b) => (
                 <li key={b} className="flex items-start gap-3 text-ink-soft">
                   <Check
                     className="mt-0.5 h-5 w-5 shrink-0 text-accent-text"
@@ -73,10 +70,10 @@ export function ChannelSyncSection() {
                 size="lg"
                 href="/kanaler"
               >
-                Se hvordan synk fungerer
+                {t(locale, "sync.cta")}
               </EditorialButton>
               <EditorialButton variant="outline" size="lg" href="/book-demo">
-                Book en demo
+                {t(locale, "nav.bookDemo")}
               </EditorialButton>
             </div>
           </div>

@@ -115,6 +115,17 @@ const nb: Copy = {
   "faq.headline": "Ofte stilte",
   "faq.headlineEm": "spørsmål",
   "faq.seeAll": "Se alle spørsmål",
+
+  "sync.label": "KANALER · TOVEIS SYNK",
+  "sync.headline": "Én kalender.",
+  "sync.headlineEm": "alle kanaler",
+  "sync.lede":
+    "Har du lokaler på Airbnb, Booking.com, Bookup eller Eventum? Koble dem til Digilist én gang – så holdes kalender og tilgjengelighet i sync automatisk. Ingen dobbeltarbeid, ingen dobbeltbookinger, alltid oppdatert overalt.",
+  "sync.benefit1": "Synk kalender, priser og tilgjengelighet automatisk",
+  "sync.benefit2": "Legg til nye oppføringer uten dobbeltarbeid",
+  "sync.benefit3": "Alltid oppdatert – aldri dobbeltbookinger",
+  "sync.benefit4": "Én admin for alle kanaler",
+  "sync.cta": "Se hvordan synk fungerer",
 };
 
 const en: Copy = {
@@ -200,6 +211,17 @@ const en: Copy = {
   "faq.headline": "Frequently asked",
   "faq.headlineEm": "questions",
   "faq.seeAll": "See all questions",
+
+  "sync.label": "CHANNELS · TWO-WAY SYNC",
+  "sync.headline": "One calendar.",
+  "sync.headlineEm": "every channel",
+  "sync.lede":
+    "Listed on Airbnb, Booking.com or another channel? Connect them to Digilist once, and your calendar and availability stay in sync automatically. No duplicate work, no double bookings, always current everywhere.",
+  "sync.benefit1": "Sync calendar, prices and availability automatically",
+  "sync.benefit2": "Add new listings without doing the work twice",
+  "sync.benefit3": "Always current — never a double booking",
+  "sync.benefit4": "One admin for every channel",
+  "sync.cta": "See how sync works",
 };
 
 const DICT: Record<Locale, Copy> = { nb, en };
