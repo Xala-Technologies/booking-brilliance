@@ -12,7 +12,10 @@ export default defineConfig({
   },
   test: {
     environment: "node",
-    include: ["src/**/*.test.{ts,tsx}"],
+    // `server/` is plain ESM with no dependencies, because it is deployed to
+    // the VPS as loose files run by bare `node` — no build, no node_modules, no
+    // tsx. It still gets tested here rather than nowhere.
+    include: ["src/**/*.test.{ts,tsx}", "server/**/*.test.mjs"],
     // SSR tests (entry-server.*.test.tsx) render the full route tree, which
     // re-globs src/content/blog/*.md on every call. The blog corpus keeps
     // growing (new post = new file), so wall-clock render time drifts up
