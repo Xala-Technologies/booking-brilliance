@@ -168,6 +168,33 @@ const nb: Copy = {
   "b2b.b4.title": "Skalerbar",
   "b2b.b4.body":
     "Fra ett selskapslokale til en kommune med tolv anlegg: sesongleie, lag og foreninger, tilskudd og fakturering.",
+
+  // Demo form. The largest single block of copy on the homepage.
+  "demo.heading": "Book en demo",
+  "demo.lede":
+    "Vi pakker ikke inn en standarddemo. Fortell oss kort hva dere driver med, så viser vi delene som faktisk angår dere.",
+  "demo.badge1": "Ingen forpliktelser",
+  "demo.badge2": "Rask respons",
+  "demo.badge3": "Personlig gjennomgang",
+  "demo.formHeading": "Send oss noen detaljer.",
+  "demo.name": "Navn",
+  "demo.namePlaceholder": "Ola Nordmann",
+  "demo.email": "E-post",
+  "demo.emailPlaceholder": "ola@kommune.no",
+  "demo.org": "Organisasjon",
+  "demo.orgPlaceholder": "Skien kommune",
+  "demo.phone": "Telefon (valgfritt)",
+  "demo.role": "Hvilken type virksomhet?",
+  "demo.message": "Hva er viktig for dere? (valgfritt)",
+  "demo.messagePlaceholder":
+    "Sesongleie, ID-porten, EHF, antall anlegg, krav fra anskaffelse …",
+  "demo.submit": "Send forespørsel",
+  "demo.submitting": "Sender …",
+  "demo.thanks": "Takk, vi tar kontakt.",
+  "demo.sentTo": "Forespørselen er sendt til",
+  "demo.replyTime": "svarer innen 24 timer på hverdager, som regel raskere.",
+  "demo.error":
+    "Vi fikk ikke sendt forespørselen. Prøv igjen, eller send e-post direkte til kontakt@digilist.no.",
 };
 
 const en: Copy = {
@@ -306,6 +333,32 @@ const en: Copy = {
   "b2b.b4.title": "Scales with you",
   "b2b.b4.body":
     "From a single function room to an authority with twelve facilities: seasonal allocation, clubs and associations, grants and invoicing.",
+
+  "demo.heading": "Book a demo",
+  "demo.lede":
+    "We do not run a canned demo. Tell us briefly what you run, and we will show the parts that actually apply to you.",
+  "demo.badge1": "No commitment",
+  "demo.badge2": "Quick reply",
+  "demo.badge3": "Walked through with you",
+  "demo.formHeading": "Send us a few details.",
+  "demo.name": "Name",
+  "demo.namePlaceholder": "Jane Doe",
+  "demo.email": "Email",
+  "demo.emailPlaceholder": "jane@example.com",
+  "demo.org": "Organisation",
+  "demo.orgPlaceholder": "Your organisation",
+  "demo.phone": "Phone (optional)",
+  "demo.role": "What kind of organisation?",
+  "demo.message": "What matters most to you? (optional)",
+  "demo.messagePlaceholder":
+    "Seasonal allocation, sign-in, invoicing, number of venues, procurement requirements …",
+  "demo.submit": "Send request",
+  "demo.submitting": "Sending …",
+  "demo.thanks": "Thank you — we will be in touch.",
+  "demo.sentTo": "The request has been sent to",
+  "demo.replyTime": "replies within 24 hours on weekdays, usually sooner.",
+  "demo.error":
+    "We could not send the request. Try again, or email us directly at kontakt@digilist.no.",
 };
 
 const DICT: Record<Locale, Copy> = { nb, en };

@@ -13,6 +13,9 @@ import {
 import { getFraunces } from "@/lib/fonts";
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/motion";
 import { openChatbot } from "@/lib/chatbot/open";
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 
 type FormState = {
   name: string;
@@ -74,6 +77,7 @@ export function BookDemoBlock({
   headingAs = "h2",
   heading = true,
 }: Props) {
+  const locale = localeFromPath(useLocation().pathname);
   // Section sub-headings sit exactly one level below the main heading so the
   // outline never skips: H1→H2 on /book-demo (headingAs="h1"), H2→H3 on the
   // homepage (headingAs="h2"). Previously hardcoded <h3> → H1→H3 skip.
@@ -128,7 +132,7 @@ export function BookDemoBlock({
     } catch (err) {
       console.error("[book-demo-block] /api/inquiry failed:", err);
       setError(
-        "Vi fikk ikke sendt forespørselen. Prøv igjen, eller send e-post direkte til kontakt@digilist.no.",
+        t(locale, "demo.error"),
       );
     } finally {
       setSubmitting(false);
@@ -162,14 +166,13 @@ export function BookDemoBlock({
             .
           </EditorialHeading>
         ) : (
-          <h2 className="sr-only">Book en demo</h2>
+          <h2 className="sr-only">{t(locale, "demo.heading")}</h2>
         )}
         <p
           className="text-xl text-ink-soft italic measure leading-relaxed mb-10"
           style={{ fontVariationSettings: getFraunces("sub") }}
         >
-          Vi pakker ikke inn en standarddemo. Fortell oss kort hva dere driver
-          med, så viser vi delene som faktisk angår dere.
+          {t(locale, "demo.lede")}
         </p>
 
         <motion.div
@@ -224,9 +227,9 @@ export function BookDemoBlock({
             variants={staggerChild}
             className="pt-2 flex flex-wrap items-center gap-3"
           >
-            <TrustBadge>Ingen forpliktelser</TrustBadge>
-            <TrustBadge>Rask respons</TrustBadge>
-            <TrustBadge>Personlig gjennomgang</TrustBadge>
+            <TrustBadge>{t(locale, "demo.badge1")}</TrustBadge>
+            <TrustBadge>{t(locale, "demo.badge2")}</TrustBadge>
+            <TrustBadge>{t(locale, "demo.badge3")}</TrustBadge>
           </motion.div>
 
           <motion.div variants={staggerChild} className="pt-2">
@@ -272,12 +275,12 @@ export function BookDemoBlock({
                   letterSpacing: "-0.015em",
                 }}
               >
-                Takk, vi tar kontakt.
+                {t(locale, "demo.thanks")}
               </SubHeading>
               <p className="text-lg text-ink-soft measure mx-auto leading-relaxed mb-8">
-                Forespørselen er sendt til{" "}
+                {t(locale, "demo.sentTo")}{" "}
                 <span className="font-mono text-sm">admin@digilist.no</span>. En av oss
-                svarer innen 24 timer på hverdager, som regel raskere.
+                {t(locale, "demo.replyTime")}
               </p>
               <div className="flex flex-wrap justify-center gap-3">
                 <EditorialButton variant="primary" size="md" href="/">
@@ -306,14 +309,14 @@ export function BookDemoBlock({
                     lineHeight: 1.15,
                   }}
                 >
-                  Send oss noen detaljer.
+                  {t(locale, "demo.formHeading")}
                 </SubHeading>
               </header>
 
               <div className="grid sm:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor={`${source}-name`} className={labelClass}>
-                    Navn *
+                    {t(locale, "demo.name")} *
                   </label>
                   <input
                     id={`${source}-name`}
@@ -322,13 +325,13 @@ export function BookDemoBlock({
                     autoComplete="name"
                     value={form.name}
                     onChange={handleChange("name")}
-                    placeholder="Ola Nordmann"
+                    placeholder={t(locale, "demo.namePlaceholder")}
                     className={inputClass}
                   />
                 </div>
                 <div>
                   <label htmlFor={`${source}-email`} className={labelClass}>
-                    E-post *
+                    {t(locale, "demo.email")} *
                   </label>
                   <input
                     id={`${source}-email`}
@@ -337,13 +340,13 @@ export function BookDemoBlock({
                     autoComplete="email"
                     value={form.email}
                     onChange={handleChange("email")}
-                    placeholder="ola@kommune.no"
+                    placeholder={t(locale, "demo.emailPlaceholder")}
                     className={inputClass}
                   />
                 </div>
                 <div>
                   <label htmlFor={`${source}-org`} className={labelClass}>
-                    Organisasjon *
+                    {t(locale, "demo.org")} *
                   </label>
                   <input
                     id={`${source}-org`}
@@ -352,13 +355,13 @@ export function BookDemoBlock({
                     autoComplete="organization"
                     value={form.organization}
                     onChange={handleChange("organization")}
-                    placeholder="Skien kommune"
+                    placeholder={t(locale, "demo.orgPlaceholder")}
                     className={inputClass}
                   />
                 </div>
                 <div>
                   <label htmlFor={`${source}-phone`} className={labelClass}>
-                    Telefon (valgfritt)
+                    {t(locale, "demo.phone")}
                   </label>
                   <input
                     id={`${source}-phone`}
@@ -374,7 +377,7 @@ export function BookDemoBlock({
 
               <div>
                 <label htmlFor={`${source}-role`} className={labelClass}>
-                  Hvilken type virksomhet? *
+                  {t(locale, "demo.role")} *
                 </label>
                 <select
                   id={`${source}-role`}
@@ -396,14 +399,14 @@ export function BookDemoBlock({
 
               <div>
                 <label htmlFor={`${source}-message`} className={labelClass}>
-                  Hva er viktig for dere? (valgfritt)
+                  {t(locale, "demo.message")}
                 </label>
                 <textarea
                   id={`${source}-message`}
                   rows={4}
                   value={form.message}
                   onChange={handleChange("message")}
-                  placeholder="Sesongleie, ID-porten, EHF, antall anlegg, krav fra anskaffelse …"
+                  placeholder={t(locale, "demo.messagePlaceholder")}
                   className={`${inputClass} resize-none`}
                 />
               </div>
@@ -431,7 +434,7 @@ export function BookDemoBlock({
                     )
                   }
                 >
-                  {submitting ? "Sender …" : "Send forespørsel"}
+                  {submitting ? t(locale, "demo.submitting") : t(locale, "demo.submit")}
                 </EditorialButton>
                 <p className="text-xs text-ink-faint leading-relaxed">
                   Vi følger{" "}
