@@ -111,6 +111,13 @@ async function loadPosts() {
       title: fm.title || "",
       cover: fm.cover || "",
       date: fm.date || "",
+      // English posts live at /en/blogg/<slug>. Without this the verifier
+      // requested them at /blogg/<slug>, got the SPA shell, and failed the
+      // deploy on a "title mismatch" — so the whole release stopped shipping
+      // because two posts were checked at the wrong URL. Third gate in this
+      // codebase to need teaching about locale; each one failed loudly with a
+      // cause that pointed somewhere else entirely.
+      base: fm.lang === "en" ? "/en/blogg" : "/blogg",
     });
   }
   // newest first — so a small sample still covers the posts we just published
@@ -164,7 +171,7 @@ async function main() {
   // 2) each sampled post: pre-rendered text + topical cover, and cover resolves
   const seenCovers = new Set();
   for (const post of posts) {
-    const url = `${BASE}/blogg/${post.slug}`;
+    const url = `${BASE}${post.base}/${post.slug}`;
     let verdict, coverStatus = "—";
     try {
       const { status, body } = await fetchText(url);
@@ -181,8 +188,8 @@ async function main() {
     } catch (err) {
       verdict = { ok: false, problems: [`fetch failed: ${err?.message ?? err}`] };
     }
-    console.log(`  ${verdict.ok ? "✓" : "✗"} /blogg/${post.slug}${verdict.ok ? "" : "  — " + verdict.problems.join("; ")}`);
-    if (!verdict.ok) failures.push(`/blogg/${post.slug}: ${verdict.problems.join("; ")}`);
+    console.log(`  ${verdict.ok ? "✓" : "✗"} ${post.base}/${post.slug}${verdict.ok ? "" : "  — " + verdict.problems.join("; ")}`);
+    if (!verdict.ok) failures.push(`${post.base}/${post.slug}: ${verdict.problems.join("; ")}`);
   }
 
   // 3) image diversity — a shared cover across many posts is the "same image" smell
