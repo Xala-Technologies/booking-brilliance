@@ -273,3 +273,47 @@ scope.
 
 **Changes made this round:** none — no code or content touched beyond this
 REVIEW.md entry itself.
+
+## Round 5 — PROOF (visual evidence)
+
+**Lens:** this is a content-only change with a real visual surface (a
+rendered blog post) — Rounds 1-4 verified correctness/regression/security/
+scope via build gates and code reading, but never captured what the page
+actually looks like live. Captured that evidence this round.
+
+**Steps taken, with evidence:**
+
+- Re-ran `pnpm build` from a clean state: prerender succeeded for all 417
+  pages, both word-count gates passed
+  ("All 332 blog posts have at least 200 words..." — the corpus grew by one
+  sibling post published same-day since Round 1's count of 331, this post
+  itself unaffected).
+- Served the build with `pnpm preview` (port 4174; 4173 was already bound)
+  and used `agent-browser` to open
+  `http://localhost:4174/blogg/spesialiserte-lokaler-kultur-underholdning/`
+  against the real prerendered HTML.
+- Confirmed via `curl` against the served route: exactly one `<h1>`
+  (matching the frontmatter title), and the `FAQPage` JSON-LD block present
+  in the HTML `<head>`/body with the first question
+  ("Hva skiller et spesialisert kultur- og underholdningslokale fra et
+  vanlig selskapslokale?") verbatim-matching both the markdown's
+  `## Vanlige spørsmål` section and `POST_FAQ[...]` in `blogFaq.mjs`.
+- Screenshots saved to `.agent/XAL-1084/proof/`:
+  - `blog-post-hero.png` — hero/header: title, dek, tag ("UTLEIER"),
+    author/date, table of contents (cookie banner dismissed for a clean
+    capture).
+  - `blog-post-faq.png` — scrolled to the `## Vanlige spørsmål` section,
+    showing the rendered Q&A pairs (niche-market/høy-intent argument
+    visible in the answers) and the "Relaterte artikler" sidebar.
+  - `blog-post-full.png` — full-page capture of the entire rendered post.
+- Linear MCP tools: re-checked via `ToolSearch` this round, still
+  unreachable (matches `project_no_linear_mcp_tools_available.md`, confirmed
+  repeatedly across sessions incl. XAL-1151). Screenshots could not be
+  attached to the XAL-1084 issue directly; they are committed under
+  `.agent/XAL-1084/proof/` instead as the evidence record, same fallback
+  policy Rounds 1/4 already applied to the SPEC itself.
+- Cleaned up: closed the `agent-browser` session and killed the `vite
+  preview` process after capturing the screenshots; no server left running.
+
+**Findings: none.** This round added visual proof only; no code or content
+was changed.
