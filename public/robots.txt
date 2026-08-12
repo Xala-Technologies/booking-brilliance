@@ -4,6 +4,28 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
+# ── Staged English pages ────────────────────────────────────────────────
+#
+# Every route is mirrored under /en, but only some have English copy yet; the
+# rest render the Norwegian components. Those must not be indexed — an English
+# URL serving Norwegian text is judged as duplicate content against the
+# Norwegian original, which is the page that actually ranks.
+#
+# Declared here rather than left to the meta tag, because a staged page is not
+# prerendered: it falls through to the SPA shell, whose robots meta says
+# "index, follow" and is only corrected after JavaScript runs. A crawler that
+# does not execute JS, or executes it late, would index the Norwegian copy in
+# the meantime.
+#
+# ALLOW an entry as its English copy ships, and keep this list in step with
+# TRANSLATED_PATHS in src/lib/i18n.ts.
+Disallow: /en/
+Allow: /en$
+Allow: /en/priser$
+Allow: /en/faq$
+Allow: /en/blogg
+
+
 # Standard search engines (explicit)
 User-agent: Googlebot
 Allow: /

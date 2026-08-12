@@ -2440,6 +2440,18 @@ function patchHTML(template, meta) {
       /<meta\s+property="og:locale"\s+content="[^"]*"\s*\/?>/,
       `<meta property="og:locale" content="${meta.lang === "en" ? "en_US" : "nb_NO"}" />`,
     )
+    // robots. A mirrored English route whose copy is still Norwegian must not
+    // be indexed. The template ships "index, follow", so without this every one
+    // of the ~85 staged pages tells Google it is an English page — and gets the
+    // pair judged as duplicate content against the Norwegian original that
+    // ranks today. The helper existed and was never called; the live page said
+    // "index, follow" until this line.
+    .replace(
+      /<meta\s+name="robots"\s+content="[^"]*"\s*\/?>/,
+      isStagedEnglish(meta.route)
+        ? '<meta name="robots" content="noindex, follow" />'
+        : '<meta name="robots" content="index, follow" />',
+    )
     // hreflang. Emitted only for pages that genuinely exist in both languages
     // — a tag pointing at an untranslated page tells Google we have a
     // translation we do not, and it is judged as duplicate content on pages
