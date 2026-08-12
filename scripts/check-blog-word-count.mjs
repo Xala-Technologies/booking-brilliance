@@ -86,7 +86,7 @@ async function main() {
   for (const { file, slug, lang } of posts) {
     const htmlPath =
       lang === "en"
-        ? join(DIST_BLOG_DIR, "..", "en", "blog", slug, "index.html")
+        ? join(DIST_BLOG_DIR, "..", "en", "blogg", slug, "index.html")
         : join(DIST_BLOG_DIR, slug, "index.html");
     let html;
     try {
@@ -112,7 +112,7 @@ async function main() {
       `\n✗ ${thinRendered.length} blog post(s) render fewer than ${MIN_WORDS} words of body text in dist/blogg/*/index.html (content.thin):`,
     );
     for (const { file, slug, words, reason, lang } of thinRendered) {
-      console.error(`  - ${file} (${lang === "en" ? "/en/blog" : "/blogg"}/${slug}): ${words} words${reason ? ` — ${reason}` : ""}`);
+      console.error(`  - ${file} (${lang === "en" ? "/en/blogg" : "/blogg"}/${slug}): ${words} words${reason ? ` — ${reason}` : ""}`);
     }
     console.error("");
     process.exit(1);

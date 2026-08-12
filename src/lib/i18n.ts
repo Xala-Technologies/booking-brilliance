@@ -165,7 +165,7 @@ export function translatedPaths(): string[] {
 // ── Blog posts pair by frontmatter, not by this map ────────────────────────
 
 /** Where each locale's blog lives. */
-export const BLOG_BASE: Record<Locale, string> = { nb: "/blogg", en: "/en/blog" };
+export const BLOG_BASE: Record<Locale, string> = { nb: "/blogg", en: "/en/blogg" };
 
 /**
  * The blog is paired from post frontmatter, never from `TRANSLATED`.

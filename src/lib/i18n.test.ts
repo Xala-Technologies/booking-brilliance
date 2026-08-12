@@ -194,7 +194,7 @@ describe("blog pairing — from frontmatter, because the map would go stale", ()
     const fromNb = blogHreflang(posts[0] as PostLocale, posts);
     const fromEn = blogHreflang(posts[1] as PostLocale, posts);
     expect(fromNb).toEqual(fromEn);
-    expect(fromNb[1]?.href).toBe("https://digilist.no/en/blog/what-digilist-costs");
+    expect(fromNb[1]?.href).toBe("https://digilist.no/en/blogg/what-digilist-costs");
     expect(fromNb[0]?.href).toBe("https://digilist.no/blogg/hva-koster-digilist");
   });
 
@@ -213,6 +213,6 @@ describe("blog pairing — from frontmatter, because the map would go stale", ()
 
   it("puts each locale's blog on its own base path", () => {
     expect(blogPath("noe", "nb")).toBe("/blogg/noe");
-    expect(blogPath("something", "en")).toBe("/en/blog/something");
+    expect(blogPath("something", "en")).toBe("/en/blogg/something");
   });
 });

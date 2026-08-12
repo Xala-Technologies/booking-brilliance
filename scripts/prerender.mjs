@@ -2641,8 +2641,8 @@ async function main() {
       { name: "Blog", url: `${BASE_URL}/en/blog` },
     ],
   });
-  enBlogHTML = injectBody(enBlogHTML, await renderBody("/en/blog"));
-  const enBlogDir = join(DIST, "en", "blog");
+  enBlogHTML = injectBody(enBlogHTML, await renderBody("/en/blogg"));
+  const enBlogDir = join(DIST, "en", "blogg");
   await fs.mkdir(enBlogDir, { recursive: true });
   await fs.writeFile(join(enBlogDir, "index.html"), enBlogHTML, "utf-8");
   console.log(`  ✓ /en/blog/index.html (${enBlogHTML.length} bytes)`);
@@ -2653,7 +2653,7 @@ async function main() {
     // the confusion hreflang exists to prevent, and static HTML is what a
     // crawler reads first.
     const postLang = post.lang === "en" ? "en" : "nb";
-    const postBase = postLang === "en" ? "/en/blog" : "/blogg";
+    const postBase = postLang === "en" ? "/en/blogg" : "/blogg";
     const postRoute = `${postBase}/${post.slug}`;
     const coverUrl = post.cover
       ? post.cover.startsWith("http")
@@ -2740,13 +2740,13 @@ async function main() {
       html = html.replace(
         "</head>",
         `    <link rel="alternate" hreflang="nb-NO" href="${BASE_URL}/blogg/${nbSlug}" />\n` +
-          `    <link rel="alternate" hreflang="en" href="${BASE_URL}/en/blog/${enSlug}" />\n` +
+          `    <link rel="alternate" hreflang="en" href="${BASE_URL}/en/blogg/${enSlug}" />\n` +
           `    <link rel="alternate" hreflang="x-default" href="${BASE_URL}/blogg/${nbSlug}" />\n  </head>`,
       );
     }
     const dir =
       postLang === "en"
-        ? join(DIST, "en", "blog", post.slug)
+        ? join(DIST, "en", "blogg", post.slug)
         : join(DIST, "blogg", post.slug);
     await fs.mkdir(dir, { recursive: true });
     await fs.writeFile(join(dir, "index.html"), html, "utf-8");
@@ -2804,7 +2804,7 @@ async function main() {
     { loc: `${BASE_URL}/faq`, priority: "0.9", changefreq: "monthly" },
     { loc: `${BASE_URL}/blogg`, priority: "0.9", changefreq: "weekly" },
     ...posts.map((p) => ({
-      loc: `${BASE_URL}${p.lang === "en" ? "/en/blog" : "/blogg"}/${p.slug}`,
+      loc: `${BASE_URL}${p.lang === "en" ? "/en/blogg" : "/blogg"}/${p.slug}`,
       priority: "0.8",
       changefreq: "monthly",
       lastmod: p.date,
