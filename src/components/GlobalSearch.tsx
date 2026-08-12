@@ -9,6 +9,8 @@ import {
 } from "@/lib/search/corpus";
 import { openChatbot } from "@/lib/chatbot/open";
 import { cn } from "@/lib/utils";
+import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 
 /**
  * Editorial global search — mirrors @digilist/ds SmartSearchBox interaction:
@@ -18,20 +20,25 @@ import { cn } from "@/lib/utils";
 
 type Tip = { id: string; label: string; href?: string; action?: () => void };
 
-const TIP_GROUPS: Array<{ id: string; label: string; tips: Tip[] }> = [
+/**
+ * Built per language rather than at module scope, because a module-level
+ * constant is evaluated once at import — before any locale exists — so the
+ * labels would be frozen in whichever language happened to be compiled in.
+ */
+const tipGroupsFor = (locale: "nb" | "en"): Array<{ id: string; label: string; tips: Tip[] }> => [
   {
     id: "snarveier",
-    label: "Snarveier",
+    label: t(locale, "search.shortcuts"),
     tips: [
-      { id: "t-demo", label: "Book demo", href: "/book-demo" },
-      { id: "t-chat", label: "Snakk med oss", action: () => openChatbot({ mode: "chat" }) },
-      { id: "t-blogg", label: "Blogg", href: "/blogg" },
+      { id: "t-demo", label: t(locale, "nav.bookDemo"), href: "/book-demo" },
+      { id: "t-chat", label: t(locale, "nav.talkToUs"), action: () => openChatbot({ mode: "chat" }) },
+      { id: "t-blogg", label: t(locale, "search.blog"), href: "/blogg" },
       { id: "t-faq", label: "FAQ", href: "/faq" },
     ],
   },
   {
     id: "populare-sok",
-    label: "Populære søk",
+    label: t(locale, "search.popular"),
     tips: [
       { id: "p-sesongleie", label: "Sesongleie" },
       { id: "p-vipps", label: "Vipps" },
@@ -44,6 +51,7 @@ const TIP_GROUPS: Array<{ id: string; label: string; tips: Tip[] }> = [
 ];
 
 export function GlobalSearch() {
+  const locale = localeFromPath(useLocation().pathname);
   const navigate = useNavigate();
   const location = useLocation();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -181,8 +189,8 @@ export function GlobalSearch() {
           }}
           onFocus={() => setOpen(true)}
           onKeyDown={onKeyDown}
-          placeholder="Søk i Digilist…"
-          aria-label="Søk i Digilist"
+          placeholder={t(locale, "search.placeholder")}
+          aria-label={t(locale, "search.label")}
           className="flex-1 bg-transparent text-base text-ink placeholder:text-ink-faint focus:outline-none min-w-0"
         />
         {query ? (
@@ -215,7 +223,7 @@ export function GlobalSearch() {
         >
           {showTips ? (
             <div className="p-4 space-y-5">
-              {TIP_GROUPS.map((group) => (
+              {tipGroupsFor(locale).map((group) => (
                 <div key={group.id}>
                   <p className="editorial-mono-caption text-ink-faint mb-2">
                     {group.label}
