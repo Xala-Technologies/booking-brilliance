@@ -3,7 +3,7 @@ import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Search, X, ChevronLeft, ChevronRight } from "lucide-react";
 import SEO from "@/components/SEO";
-import { BLOG_BASE, localeFromPath } from "@/lib/i18n";
+import { BLOG_BASE, blogPath, localeFromPath } from "@/lib/i18n";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
@@ -271,7 +271,7 @@ const Blog = () => {
                     className="border-b border-rule"
                   >
                     <Link
-                      to={`/blogg/${post.slug}`}
+                      to={blogPath(post.slug, locale)}
                       className="group block relative py-8 lg:py-12 transition-colors duration-quick ease-editorial hover:bg-paper-deep/40"
                     >
                       <span
