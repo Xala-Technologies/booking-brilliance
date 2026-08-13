@@ -127,7 +127,7 @@ export default function Transparens() {
         const type = r.headers.get("content-type") || "";
         if (!type.includes("application/json")) {
           throw new Error(
-            "API svarte med " + (type || "ukjent type") + ". Prøv å laste siden på nytt",
+            `${t(locale, "tr.apiError")} ${type || t(locale, "tr.unknownType")}${t(locale, "tr.apiErrorTail")}`,
           );
         }
         return (await r.json()) as PublicSummary;
@@ -168,7 +168,7 @@ export default function Transparens() {
               <div className="flex items-baseline justify-between gap-4 mb-10 pb-4 border-b border-rule">
                 <nav
                   className="editorial-mono-caption"
-                  aria-label="Brødsmuler"
+                  aria-label={t(locale, "nav.breadcrumbs")}
                 >
                   <Link
                     to={en ? "/en" : "/"}
@@ -236,7 +236,7 @@ export default function Transparens() {
                   <section className="mb-10 lg:mb-14">
                     <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 bg-paper border border-rule px-6 py-5">
                       <span className="editorial-mono-caption text-ink-faint">
-                        MÅLT OPPETID (30 DAGER)
+                        {t(locale, "tr.measuredUptime")}
                       </span>
                       <span className="font-serif text-4xl leading-none tabular-nums text-green-700">
                         {fmtUptime(measuredUptime ?? SLA_UPTIME)}
@@ -257,7 +257,7 @@ export default function Transparens() {
                       </p>
                       <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-rule border border-rule">
                         <Cell
-                          label="Snittscore"
+                          label={t(locale, "tr.avgScore")}
                           value={Math.round(data.ecosystem.avgScore)}
                           tone={scoreClass(data.ecosystem.avgScore)}
                           sub={t(locale, scoreLabelKey(data.ecosystem.avgScore))}
@@ -282,7 +282,7 @@ export default function Transparens() {
                           }
                         />
                         <Cell
-                          label="Advarsler"
+                          label={t(locale, "tr.warnings")}
                           value={data.ecosystem.warnCount}
                           tone={
                             data.ecosystem.warnCount > 0
@@ -333,11 +333,11 @@ export default function Transparens() {
                             </div>
                             <p className="mt-3 text-sm text-ink-soft leading-relaxed">
                               {p.framework === "iso27001" &&
-                                "Annex A: Organisatoriske, personell-, fysiske og teknologiske kontroller."}
+                                t(locale, "tr.fw.iso27001")}
                               {p.framework === "soc2" &&
-                                "Common Criteria: kontrollmiljø, risiko, tilgang og systemoperasjoner."}
+                                t(locale, "tr.fw.soc2")}
                               {p.framework === "gdpr" &&
-                                "Kjerneartikler: personvern, lovlig grunnlag, sletting og brudd-håndtering."}
+                                t(locale, "tr.fw.gdpr")}
                             </p>
                           </div>
                         ))}
@@ -368,7 +368,7 @@ export default function Transparens() {
 
                   {/* Methodology */}
                   <section className="mb-14 lg:mb-20">
-                    <SectionRule label="METODE" />
+                    <SectionRule label={t(locale, "tr.methodRule")} />
                     <div className="mt-8 grid lg:grid-cols-2 gap-8">
                       <div>
                         <h2 className="font-serif text-2xl text-ink mb-3">
@@ -465,25 +465,25 @@ export default function Transparens() {
                         {
                           name: "SSL Labs",
                           provider: "Qualys",
-                          desc: "Sertifikat, cipher suites, protokoll-styrke. Mål A eller A+.",
+                          desc: t(locale, "tr.val.ssl"),
                           href: "https://www.ssllabs.com/ssltest/analyze.html?d=digilist.no",
                         },
                         {
                           name: "Security Headers",
                           provider: "Scott Helme",
-                          desc: "HSTS, CSP, X-Frame-Options, Referrer-Policy. Bokstavkarakter.",
+                          desc: t(locale, "tr.val.headers"),
                           href: "https://securityheaders.com/?q=https%3A%2F%2Fdigilist.no&hide=on&followRedirects=on",
                         },
                         {
                           name: "Mozilla Observatory",
                           provider: "Mozilla",
-                          desc: "Helhetlig sikkerhetsposture mot moderne nettstandarder.",
+                          desc: t(locale, "tr.val.observatory"),
                           href: "https://developer.mozilla.org/en-US/observatory/analyze?host=digilist.no",
                         },
                         {
                           name: "PageSpeed Insights",
                           provider: "Google",
-                          desc: "Core Web Vitals: LCP, CLS, INP. Mobile + desktop.",
+                          desc: t(locale, "tr.val.pagespeed"),
                           href: "https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fdigilist.no",
                         },
                       ].map((tool) => (
@@ -520,9 +520,9 @@ export default function Transparens() {
                     <SectionRule label={t(locale, "tr.complianceRule")} />
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-rule border border-rule mt-8">
                       {[
-                        ["ISO 27001", "Informasjonssikkerhetsstyring"],
-                        ["ISO 27701", "Personverninformasjonsstyring"],
-                        ["GDPR", "EU/EØS-datalokasjon"],
+                        ["ISO 27001", t(locale, "tr.comp.iso27001")],
+                        ["ISO 27701", t(locale, "tr.comp.iso27701")],
+                        ["GDPR", t(locale, "tr.comp.gdpr")],
                         ["WCAG 2.1 AA", "Universell utforming"],
                       ].map(([k, v]) => (
                         <div key={k} className="bg-paper p-6">
