@@ -30,6 +30,7 @@ Allow: /en/tilgjengelighet$
 Allow: /en/personvern$
 Allow: /en/salgsvilkar$
 Allow: /en/sikkerhet$
+Allow: /en/verktoy/kapasitetskalkulator$
 Allow: /en/blogg
 
 

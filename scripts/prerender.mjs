@@ -292,6 +292,25 @@ const ROUTES = [
     ],
   },
   {
+    route: "/en/verktoy/kapasitetskalkulator",
+    title: "Venue size calculator: how big a room? | Digilist",
+    description:
+      "A free capacity calculator: work out how large a venue (m²) you need from your guest count and layout — seated dinner, standing reception, classroom or theatre style.",
+    ogType: "website",
+    lang: "en",
+    breadcrumbs: [
+      { name: "Home", url: `${BASE_URL}/en` },
+      { name: "Tools", url: `${BASE_URL}/en/verktoy` },
+      { name: "Capacity calculator", url: `${BASE_URL}/en/verktoy/kapasitetskalkulator` },
+    ],
+    faq: [
+      { question: "How much space do I need per guest?", answer: "It depends on the layout. A seated dinner with round tables usually needs 1.5–2.0 m² per guest; a standing reception 0.8–1.0 m²; a classroom or training setup 2.0–2.5 m²; and theatre style with rows of chairs 0.8–1.2 m². The calculator multiplies your guest count by these standard figures and gives a recommended area." },
+      { question: "Are the area figures exact?", answer: "No — they are standard planning figures meant to give you a sense of scale. The real requirement varies with table and chair types, a dance floor, a stage, a buffet, a cloakroom, escape routes and circulation space. Allow yourself some margin, and always check the venue's stated capacity before you book." },
+      { question: "Which venue types suit my guest count?", answer: "The calculator suggests venue types whose stated capacity fits your number — meeting rooms for small groups, function rooms for 30–150 guests, and cultural venues or large halls for bigger events. Each type links on to available venues on Digilist." },
+      { question: "Should I allow space for a dance floor and buffet?", answer: "Yes. A dance floor, stage, buffet tables or a bar all need more room than table space alone. A rule of thumb is to add 15–25% for those zones. If your programme is varied, choose a venue towards the upper end of the recommended range." },
+    ],
+  },
+  {
     route: "/verktoy/kapasitetskalkulator",
     title: "Kapasitetskalkulator: hvor stort lokale trenger du? | Digilist",
     description:
@@ -2578,6 +2597,7 @@ const TRANSLATED_ROUTES = {
   "/personvern": "/en/personvern",
   "/salgsvilkar": "/en/salgsvilkar",
   "/sikkerhet": "/en/sikkerhet",
+  "/verktoy/kapasitetskalkulator": "/en/verktoy/kapasitetskalkulator",
   "/blogg": "/en/blogg",
 };
 

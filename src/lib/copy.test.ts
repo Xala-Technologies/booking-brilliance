@@ -27,13 +27,31 @@ describe("copy dictionaries", () => {
   });
 
   it("actually differs between languages — a copied key is an untranslated one", () => {
-    // Product names and a handful of shared words legitimately match; a large
-    // overlap would mean someone pasted the Norwegian in.
-    const identical = copyKeys("nb").filter((k) => t("nb", k) === t("en", k));
-    // A handful legitimately match — 'FAQ', 'Cookies', and a standard name
-    // like 'WCAG 2.1 AA' are the same word in both languages. The check is for
-    // a LARGE overlap, which is what a paste-without-translating looks like.
-    expect(identical.length, `identical strings: ${identical}`).toBeLessThan(6);
+    // Keys whose two languages are the same string BY DESIGN, each with its
+    // reason. This was a count threshold ("fewer than 6 identical"), which
+    // meant every legitimately-identical key spent budget that a genuinely
+    // untranslated one would then slip in under. An allowlist keeps the signal
+    // exact: a new identical key fails until someone says why it is allowed.
+    const SHARED_BY_DESIGN: Record<string, string> = {
+      "hero.trust2.sub": "a standard name, identical in both",
+      "footer.faq": "'FAQ' is the same word in both",
+      "footer.cookies": "'Cookies' is the same word in both",
+      "cap.perPerson": "'m² per person' — a unit, identical in both",
+      "cap.perPersonShort": "'per person.' — a unit, identical in both",
+      "cap.for": "'for' is the same word in both",
+      "pilot.role": "a registered company name",
+      "pilot.date": "a place name and a year",
+    };
+
+    const identical = copyKeys("nb")
+      .filter((k) => t("nb", k) === t("en", k))
+      .filter((k) => !(k in SHARED_BY_DESIGN));
+
+    expect(
+      identical,
+      `identical in both languages and not allowlisted — translate them, or ` +
+        `add them to SHARED_BY_DESIGN with a reason: ${identical.join(", ")}`,
+    ).toEqual([]);
   });
 
   it("falls back rather than throwing on an unknown key", () => {
