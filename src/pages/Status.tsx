@@ -36,6 +36,9 @@ import {
   SectionRule,
 } from "@/components/editorial";
 import { cn } from "@/lib/utils";
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 
 type SurfaceStatus = "operational" | "degraded" | "down";
 type EcosystemStatus = "operational" | "degraded" | "outage";
@@ -83,28 +86,27 @@ const pct = (v: number, digits: number) =>
 // Committed SLA targets per surface type. Edit these when the SLAs
 // change in the master service agreement; the page recomputes "met"
 // vs "breach" against measured uptime automatically.
-const SLA_TARGETS: Record<string, { uptime: number; description: string }> = {
-  marketing: {
-    uptime: 99.9,
-    description: "Offentlige sider: markedsføring, blogg, dokumentasjon",
-  },
-  docs: { uptime: 99.9, description: "Dokumentasjon" },
-  status: { uptime: 99.95, description: "Status-side (denne)" },
-  app: {
-    uptime: 99.5,
-    description: "Innloggede applikasjons-overflater",
-  },
-  dashboard: { uptime: 99.5, description: "Tenant-administrasjon" },
-  api: { uptime: 99.5, description: "Offentlige API-endepunkter" },
+/**
+ * SLA uptime targets. The FIGURES are commitments and are identical in both
+ * languages — only the description is translated. A number that changed with
+ * the locale would mean promising two different things to two audiences.
+ */
+const SLA_TARGETS: Record<string, { uptime: number; descriptionKey: string }> = {
+  marketing: { uptime: 99.9, descriptionKey: "status.sla.marketing" },
+  docs: { uptime: 99.9, descriptionKey: "status.sla.docs" },
+  status: { uptime: 99.95, descriptionKey: "status.sla.status" },
+  app: { uptime: 99.5, descriptionKey: "status.sla.app" },
+  dashboard: { uptime: 99.5, descriptionKey: "status.sla.dashboard" },
+  api: { uptime: 99.5, descriptionKey: "status.sla.api" },
 };
 
-const SURFACE_TYPE_LABEL: Record<string, string> = {
-  marketing: "Markedsføring",
-  app: "App",
-  dashboard: "Dashbord",
-  docs: "Dokumentasjon",
-  api: "API",
-  status: "Status",
+const SURFACE_TYPE_KEY: Record<string, string> = {
+  marketing: "status.type.marketing",
+  app: "status.type.app",
+  dashboard: "status.type.dashboard",
+  docs: "status.type.docs",
+  api: "status.type.api",
+  status: "status.type.status",
 };
 
 const STATUS_DOT: Record<SurfaceStatus, string> = {
@@ -113,10 +115,10 @@ const STATUS_DOT: Record<SurfaceStatus, string> = {
   down: "bg-red-600",
 };
 
-const STATUS_LABEL: Record<SurfaceStatus, string> = {
-  operational: "Operativ",
-  degraded: "Redusert",
-  down: "Nede",
+const STATUS_LABEL_KEY: Record<SurfaceStatus, string> = {
+  operational: "status.dot.operational",
+  degraded: "status.dot.degraded",
+  down: "status.dot.down",
 };
 
 const STATUS_PILL: Record<SurfaceStatus, string> = {
@@ -125,10 +127,10 @@ const STATUS_PILL: Record<SurfaceStatus, string> = {
   down: "bg-red-700 text-on-navy",
 };
 
-const ECO_HEADLINE: Record<EcosystemStatus, string> = {
-  operational: "Alle systemer operative",
-  degraded: "Redusert ytelse på enkelte overflater",
-  outage: "Pågående hendelse på minst én overflate",
+const ECO_HEADLINE_KEY: Record<EcosystemStatus, string> = {
+  operational: "status.eco.operational",
+  degraded: "status.eco.degraded",
+  outage: "status.eco.outage",
 };
 
 const ECO_TONE: Record<EcosystemStatus, string> = {
@@ -144,6 +146,7 @@ const ECO_BG: Record<EcosystemStatus, string> = {
 };
 
 export default function Status() {
+  const locale = localeFromPath(useLocation().pathname);
   const [data, setData] = useState<Summary | null>(null);
   const [loading, setLoading] = useState(true);
   const [failed, setFailed] = useState(false);
@@ -178,8 +181,8 @@ export default function Status() {
   return (
     <div className="min-h-screen bg-paper overflow-x-hidden">
       <SEO
-        title="Driftsstatus · Digilist"
-        description="Sanntidsstatus for Digilist-økosystemet: oppetid, SLA, sikkerhet og tilgjengelighet på tvers av digilist.no, app.digilist.no, dashboard.digilist.no og dokumentasjon."
+        title={t(locale, "status.metaTitle")}
+        description={t(locale, "status.metaDescription")}
         canonical="https://status.digilist.no/"
       />
       <ProgressRail />
@@ -192,13 +195,13 @@ export default function Status() {
               <div className="flex items-baseline justify-between gap-4 mb-10 pb-4 border-b border-rule">
                 <nav
                   className="editorial-mono-caption"
-                  aria-label="Brødsmuler"
+                  aria-label={t(locale, "nav.breadcrumbs")}
                 >
                   <Link
-                    to="/"
+                    to={locale === "en" ? "/en" : "/"}
                     className="group inline-flex items-center gap-2 text-accent-text"
                   >
-                    ← Tilbake til forsiden
+                    ← {t(locale, "bookDemo.back")}
                   </Link>
                 </nav>
                 <p className="editorial-mono-caption text-ink-faint">
@@ -214,16 +217,14 @@ export default function Status() {
                       '"opsz" 144, "wght" 360',
                   }}
                 >
-                  Status.
+                  {t(locale, "status.h1")}
                 </h1>
                 <p className="mt-6 text-xl text-ink-soft measure leading-relaxed">
-                  Sanntid for Digilist-økosystemet. Hver overflate skannes
-                  automatisk. Vi måler det <em>du</em> opplever, ikke bare
-                  serverpuls. Når noe ryker, ser du det her først.
+                  {t(locale, "status.lede1")} <em>{t(locale, "status.ledeEm")}</em>{" "}
+                  {t(locale, "status.lede2")}
                 </p>
                 <p className="mt-3 text-base text-ink-soft measure">
-                  SLA-tall under er forpliktende. Avvik fra mål utløser
-                  hendelsesrapport publisert i loggen nederst.
+                  {t(locale, "status.slaNote")}
                 </p>
               </header>
 
@@ -239,10 +240,9 @@ export default function Status() {
                   <ComplianceStrip />
                   <CTASection />
                   <p className="text-xs text-ink-faint mt-12 font-mono uppercase tracking-widest">
-                    Sist oppdatert{" "}
-                    {new Date(data.generatedAt).toLocaleString("nb-NO")} ·
-                    skanninger kjøres automatisk · siden viser siste
-                    tilgjengelige skanning
+                    {t(locale, "status.lastUpdated")}{" "}
+                    {new Date(data.generatedAt).toLocaleString(locale === "en" ? "en-GB" : "nb-NO")} ·
+                    {t(locale, "status.scanNote")}
                   </p>
                 </>
               ) : (
@@ -259,16 +259,18 @@ export default function Status() {
 }
 
 function LoadingState() {
+  const locale = localeFromPath(useLocation().pathname);
   return (
     <div className="border border-rule rounded-sm p-12">
       <p className="font-mono text-xs uppercase tracking-widest text-ink-faint">
-        Henter live data…
+        {t(locale, "status.loading")}
       </p>
     </div>
   );
 }
 
 function UnavailableState() {
+  const locale = localeFromPath(useLocation().pathname);
   return (
     <div className="border-l-2 border-amber-700 bg-paper-deep/60 px-5 py-4">
       <p className="editorial-mono-caption text-amber-700 mb-1">
@@ -283,6 +285,7 @@ function UnavailableState() {
 }
 
 function EcosystemBanner({ data }: { data: Summary }) {
+  const locale = localeFromPath(useLocation().pathname);
   const e = data.ecosystem;
   return (
     <section
@@ -306,7 +309,7 @@ function EcosystemBanner({ data }: { data: Summary }) {
           )}
           style={{ fontVariationSettings: '"opsz" 48, "wght" 540' }}
         >
-          {ECO_HEADLINE[e.status]}
+          {t(locale, ECO_HEADLINE_KEY[e.status])}
         </p>
         <p className="text-sm text-ink-soft mt-3">
           {e.surfacesHealthy} av {e.surfacesTotal} overflater operative
@@ -319,10 +322,11 @@ function EcosystemBanner({ data }: { data: Summary }) {
 }
 
 function SLASection({ surfaces }: { surfaces: SurfaceRow[] }) {
+  const locale = localeFromPath(useLocation().pathname);
   // Group surfaces by type and roll up actual uptime against committed SLA.
   const typeGroups = new Map<
     string,
-    { committed: number; actuals30: number[]; actuals90: number[]; description: string; surfaces: SurfaceRow[] }
+    { committed: number; actuals30: number[]; actuals90: number[]; descriptionKey: string; surfaces: SurfaceRow[] }
   >();
   for (const s of surfaces) {
     const key = s.type ?? "other";
@@ -330,7 +334,7 @@ function SLASection({ surfaces }: { surfaces: SurfaceRow[] }) {
     if (!sla) continue;
     const g = typeGroups.get(key) ?? {
       committed: sla.uptime,
-      description: sla.description,
+      descriptionKey: sla.descriptionKey,
       actuals30: [],
       actuals90: [],
       surfaces: [],
@@ -351,21 +355,21 @@ function SLASection({ surfaces }: { surfaces: SurfaceRow[] }) {
         ? null
         : g.actuals90.reduce((s, x) => s + x, 0) / g.actuals90.length;
     const met = actual90 === null ? null : actual90 >= g.committed;
-    return { type, committed: g.committed, description: g.description, actual30, actual90, met, count: g.surfaces.length };
+    return { type, committed: g.committed, descriptionKey: g.descriptionKey, actual30, actual90, met, count: g.surfaces.length };
   });
 
   return (
     <section className="mb-14 lg:mb-20">
-      <SectionRule label="SLA-FORPLIKTELSER" />
+      <SectionRule label={t(locale, "status.slaRule")} />
       <header className="mt-8 mb-8 max-w-prose">
         <h2
           className="font-serif text-3xl lg:text-4xl text-ink leading-tight mb-3"
           style={{ fontVariationSettings: '"opsz" 60, "wght" 540' }}
         >
-          Forpliktet oppetid vs. faktisk.
+          {t(locale, "status.slaH2")}
         </h2>
         <p className="text-base text-ink-soft leading-relaxed">
-          Vi forplikter oss til konkrete oppetidstall per overflate-type. Tallet
+          {t(locale, "status.slaLede")}
           til høyre er målt over de siste 90 dagene, direkte fra skanninger,
           ikke selvrapportert.
         </p>
@@ -391,10 +395,10 @@ function SLASection({ surfaces }: { surfaces: SurfaceRow[] }) {
                     fontVariationSettings: '"opsz" 30, "wght" 540',
                   }}
                 >
-                  {SURFACE_TYPE_LABEL[r.type] ?? r.type}
+                  {SURFACE_TYPE_KEY[r.type] ? t(locale, SURFACE_TYPE_KEY[r.type]) : r.type}
                 </p>
                 <p className="text-xs text-ink-soft mt-0.5">
-                  {r.description} ·{" "}
+                  {t(locale, r.descriptionKey)} ·{" "}
                   <span className="text-ink-faint">
                     {r.count} overflate{r.count === 1 ? "" : "r"}
                   </span>
@@ -437,7 +441,7 @@ function SLASection({ surfaces }: { surfaces: SurfaceRow[] }) {
                       : "bg-amber-700 text-on-navy",
                 )}
               >
-                {r.met === null ? "Ingen data" : r.met ? "SLA møtt" : "Under SLA"}
+                {r.met === null ? t(locale, "status.slaNoData") : r.met ? t(locale, "status.slaMet") : t(locale, "status.slaBreach")}
               </span>
             </article>
           ))}
@@ -448,11 +452,12 @@ function SLASection({ surfaces }: { surfaces: SurfaceRow[] }) {
 }
 
 function SurfaceList({ surfaces }: { surfaces: SurfaceRow[] }) {
+  const locale = localeFromPath(useLocation().pathname);
   return (
     <section className="mb-14 lg:mb-20">
-      <SectionRule label="OVERFLATER" />
+      <SectionRule label={t(locale, "status.surfacesRule")} />
       <p className="text-base text-ink-soft mt-6 mb-6 max-w-prose">
-        Per-overflate status (operativ, redusert eller nede) basert på siste
+        {t(locale, "status.surfacesLede")}
         skanning. Klikk en overflate for å åpne den i ny fane.
       </p>
       <div className="divide-y divide-rule border-y border-rule">
@@ -486,8 +491,8 @@ function SurfaceList({ surfaces }: { surfaces: SurfaceRow[] }) {
                   )}
                 </div>
                 <p className="font-mono text-[0.6rem] uppercase tracking-widest text-ink-faint mt-1">
-                  {s.type && SURFACE_TYPE_LABEL[s.type]
-                    ? SURFACE_TYPE_LABEL[s.type]
+                  {s.type && SURFACE_TYPE_KEY[s.type]
+                    ? t(locale, SURFACE_TYPE_KEY[s.type])
                     : s.type ?? "-"}
                   {" · "}
                   <a
@@ -516,7 +521,7 @@ function SurfaceList({ surfaces }: { surfaces: SurfaceRow[] }) {
                 STATUS_PILL[s.status],
               )}
             >
-              {STATUS_LABEL[s.status]}
+              {t(locale, STATUS_LABEL_KEY[s.status])}
             </span>
           </article>
         ))}
@@ -526,13 +531,14 @@ function SurfaceList({ surfaces }: { surfaces: SurfaceRow[] }) {
 }
 
 function IncidentLog({ incidents }: { incidents: IncidentRow[] }) {
+  const locale = localeFromPath(useLocation().pathname);
   return (
     <section className="mb-14 lg:mb-20">
-      <SectionRule label="HENDELSESLOGG" />
+      <SectionRule label={t(locale, "status.incidentRule")} />
       {incidents.length === 0 ? (
         <div className="mt-6 border border-rule rounded-sm p-8 text-center">
           <p className="text-sm text-ink-soft">
-            Ingen hendelser registrert de siste 90 dagene.
+            {t(locale, "status.noIncidents")}
           </p>
         </div>
       ) : (
@@ -570,15 +576,16 @@ function IncidentLog({ incidents }: { incidents: IncidentRow[] }) {
 }
 
 function ExternalValidators() {
+  const locale = localeFromPath(useLocation().pathname);
   return (
     <section className="mb-14 lg:mb-20">
-      <SectionRule label="UAVHENGIG VURDERING" />
+      <SectionRule label={t(locale, "status.validatorRule")} />
       <div className="mt-8 mb-6 max-w-prose">
         <h2 className="font-serif text-2xl text-ink mb-2">
-          Verifiser oss hos uavhengige tredjeparter
+          {t(locale, "status.validatorH2")}
         </h2>
         <p className="text-base text-ink-soft">
-          Tallene over kommer fra våre egne skanninger. Sjekk digilist.no
+          {t(locale, "status.validatorLede")}
           parallelt hos uavhengige sikkerhets- og kvalitetsmålere. De gir
           sanntidsdom du selv kan kjøre.
         </p>
@@ -627,7 +634,7 @@ function ExternalValidators() {
               {tool.desc}
             </p>
             <span className="inline-flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-widest text-accent-text mt-auto">
-              Se live rapport
+              {t(locale, "status.liveReport")}
               <ArrowUpRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </span>
           </a>
@@ -638,6 +645,7 @@ function ExternalValidators() {
 }
 
 function ComplianceStrip() {
+  const locale = localeFromPath(useLocation().pathname);
   return (
     <section className="mb-14 lg:mb-20">
       <SectionRule label="SAMSVAR" />
@@ -660,9 +668,10 @@ function ComplianceStrip() {
 }
 
 function CTASection() {
+  const locale = localeFromPath(useLocation().pathname);
   return (
     <section>
-      <SectionRule label="VEIEN VIDERE" />
+      <SectionRule label={t(locale, "status.nextRule")} />
       <header className="mt-8 mb-10 max-w-prose">
         <h2
           className="font-serif text-4xl lg:text-5xl text-ink leading-tight mb-4"
@@ -670,10 +679,10 @@ function CTASection() {
             fontVariationSettings: '"opsz" 96, "wght" 400',
           }}
         >
-          Trenger du mer detalj?
+          {t(locale, "status.nextH2")}
         </h2>
         <p className="text-base lg:text-lg text-ink-soft leading-relaxed">
-          Full transparensrapport, sikkerhetsmøte under NDA og ansvarlig
+          {t(locale, "status.nextLede")}
           sårbarhetsrapportering. Alt under.
         </p>
       </header>

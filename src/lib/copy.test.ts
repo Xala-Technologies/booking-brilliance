@@ -54,6 +54,10 @@ describe("copy dictionaries", () => {
       "calc.city.tromso": "a Norwegian place name",
       "calc.city.drammen": "a Norwegian place name",
       "calc.city.baerum": "a Norwegian place name",
+      "status.h1": "'Status.' is the same word in both",
+      "status.type.app": "'App' is the same word in both",
+      "status.type.api": "an initialism, identical in both",
+      "status.type.status": "'Status' is the same word in both",
     };
 
     const identical = copyKeys("nb")

@@ -2344,6 +2344,18 @@ const ROUTES = [
     ],
   },
   {
+    route: "/en/status",
+    title: "Service status · Digilist",
+    description:
+      "Live status for the Digilist platform: uptime, SLA, security and availability across digilist.no, app.digilist.no, dashboard.digilist.no and the documentation.",
+    ogType: "website",
+    lang: "en",
+    breadcrumbs: [
+      { name: "Home", url: `${BASE_URL}/en` },
+      { name: "Status", url: `${BASE_URL}/en/status` },
+    ],
+  },
+  {
     route: "/status",
     title: "Driftsstatus – Digilist",
     description:
@@ -2809,6 +2821,7 @@ const TRANSLATED_ROUTES = {
   "/lokaler-til-leie": "/en/lokaler-til-leie",
   "/booking-av-lokaler-og-moterom": "/en/booking-av-lokaler-og-moterom",
   "/leie": "/en/leie",
+  "/status": "/en/status",
   "/blogg": "/en/blogg",
 };
 
