@@ -2490,6 +2490,7 @@ const TRANSLATED_ROUTES = {
   "/": "/en",
   "/priser": "/en/priser",
   "/faq": "/en/faq",
+  "/om-oss": "/en/om-oss",
   "/blogg": "/en/blogg",
 };
 

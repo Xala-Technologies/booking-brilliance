@@ -7,6 +7,7 @@ import { LanguageSwitcher } from "./LanguageSwitcher";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import { LOCALE_CHOICE_KEY } from "@/lib/i18n";
+import { UNTRANSLATED_PATH } from "@/lib/untranslated-fixture";
 
 (globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -56,7 +57,7 @@ describe("LanguageSwitcher is actually on the page", () => {
   });
 
   it("is absent from the Footer on a page with no translation", () => {
-    render(<Footer />, "/om-oss");
+    render(<Footer />, UNTRANSLATED_PATH);
     const hrefs = [...container.querySelectorAll("a")].map((a) => a.getAttribute("href"));
     expect(hrefs.filter((h) => h?.startsWith("/en"))).toEqual([]);
   });
@@ -82,7 +83,7 @@ describe("LanguageSwitcher behaviour", () => {
     // Deliberate: a switcher that is always visible must send the visitor
     // somewhere when the page has no twin — a 404 or the other homepage, both
     // worse than the button not being there.
-    render(<LanguageSwitcher />, "/om-oss");
+    render(<LanguageSwitcher />, UNTRANSLATED_PATH);
     expect(container.querySelector("a")).toBeNull();
   });
 

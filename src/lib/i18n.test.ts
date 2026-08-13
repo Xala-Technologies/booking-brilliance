@@ -17,6 +17,7 @@ import {
   untranslatedPosts,
   type PostLocale,
 } from "./i18n";
+import { UNTRANSLATED_PATH } from "@/lib/untranslated-fixture";
 
 describe("localeFromPath", () => {
   it.each([
@@ -53,7 +54,7 @@ describe("hreflang", () => {
     // The expensive mistake: an hreflang pointing at a page that is still in
     // Norwegian tells Google we have an English version when we do not, and it
     // is judged as duplicate content on the very pages that rank today.
-    expect(hreflangFor("/om-oss")).toEqual([]);
+    expect(hreflangFor(UNTRANSLATED_PATH)).toEqual([]);
     expect(hreflangFor("/blogg/noe-som-helst")).toEqual([]);
   });
 
@@ -72,7 +73,7 @@ describe("hreflang", () => {
 
 describe("alternatePath", () => {
   it("is null when there is no translation, so callers cannot link to a 404", () => {
-    expect(alternatePath("/om-oss")).toBeNull();
+    expect(alternatePath(UNTRANSLATED_PATH)).toBeNull();
     expect(alternatePath("/blogg")).toBe("/en/blogg");
     expect(alternatePath("/en/blogg")).toBe("/blogg");
   });
@@ -129,8 +130,8 @@ describe("shouldAutoRedirect — a visitor in the UK gets English", () => {
     // possible first impression, and invisible in testing because the redirect
     // itself worked perfectly. It returns the ACTUAL translated path or
     // nothing, so an untranslated page can never send anyone anywhere.
-    expect(shouldAutoRedirect({ pathname: "/om-oss", preferred: "en", stored: null })).toBeNull();
-    expect(alternatePath("/om-oss")).toBeNull();
+    expect(shouldAutoRedirect({ pathname: UNTRANSLATED_PATH, preferred: "en", stored: null })).toBeNull();
+    expect(alternatePath(UNTRANSLATED_PATH)).toBeNull();
   });
 
   it("does nothing when the visitor is already in the right language", () => {
@@ -144,7 +145,7 @@ describe("shouldAutoRedirect — a visitor in the UK gets English", () => {
     // Norwegian posts toward English versions that mostly do not exist —
     // deindexing the site that earns every visitor we have, for a market we
     // have not entered yet.
-    for (const path of ["/blogg", "/faq", "/blogg/noe", "/en/blogg", "/om-oss"]) {
+    for (const path of ["/blogg", "/faq", "/blogg/noe", "/en/blogg", UNTRANSLATED_PATH]) {
       expect(shouldAutoRedirect({ pathname: path, preferred: "en", stored: null }), path).toBeNull();
     }
   });
@@ -170,7 +171,7 @@ describe("shouldOfferSwitch — deep pages get a banner, not a redirect", () => 
   });
 
   it("offers nothing on a page with no translation", () => {
-    expect(shouldOfferSwitch({ pathname: "/om-oss", preferred: "en", stored: null })).toBeNull();
+    expect(shouldOfferSwitch({ pathname: UNTRANSLATED_PATH, preferred: "en", stored: null })).toBeNull();
   });
 
   it("offers nothing once the visitor has chosen", () => {
