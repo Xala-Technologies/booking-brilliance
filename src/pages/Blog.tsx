@@ -49,7 +49,7 @@ const COPY = {
     reset: "Nullstill filter",
     prev: "Forrige",
     next: "Neste",
-    title: "Blogg · Digilist | Innsikt om booking, sesongleie, samsvar og daglig drift",
+    title: "Blogg · Digilist | Innsikt om booking, sesongleie og samsvar",
     description:
       "Artikler fra Digilists arbeid med norske kommuner og utleiere: bookingflyt, saksbehandling, sesongleie, sikker innlogging, fakturering, SSA-L 2026, GDPR og ISO 27001.",
     canonical: "https://digilist.no/blogg",
@@ -73,7 +73,7 @@ const COPY = {
     reset: "Clear filters",
     prev: "Previous",
     next: "Next",
-    title: "Blog · Digilist | Notes on venue booking, pricing and daily operations",
+    title: "Blog · Digilist | Notes on venue booking and daily operations",
     description:
       "Articles from the work of making venues bookable: real-time availability, self-service booking, payments, and what a booking system should cost.",
     // Derived from BLOG_BASE so it cannot drift from the route again.

@@ -208,7 +208,7 @@ const Leie = () => {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <SEO
-        title="Leie lokaler – finn og book selskapslokale, møterom og hall | Digilist"
+        title="Leie lokaler – finn og book selskapslokale | Digilist"
         description="Leie lokaler på nett: både private selskapslokaler og kommunale lokaler samlet ett sted. Se ekte priser og ledige datoer, og book direkte med Vipps – til bryllup, selskap, møte eller arrangement."
         keywords="leie lokale, finn lokale, leie selskapslokale, leie møterom, leie festlokale, leie lokale til bursdag, hva koster selskapslokale, book lokale online, leie kulturhus, leie grendehus"
         canonical="https://digilist.no/leie"

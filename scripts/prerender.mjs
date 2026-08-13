@@ -223,7 +223,7 @@ async function loadBlogPosts() {
 const ROUTES = [
   {
     route: "/rapport/utleiemarkedet-norge-2026",
-    title: "Utleiemarkedet i Norge 2026 – data, priser og etterspørsel | Digilist",
+    title: "Utleiemarkedet i Norge 2026 – data og priser | Digilist",
     description:
       "Datastudie om det norske utleiemarkedet for lokaler i 2026: søkeetterspørsel (DataForSEO), veiledende priser, sesong og bookingatferd, og det digitale gapet mellom e-post og sanntidsbooking. Frie tall og grafer for journalister og bransjen.",
     ogType: "article",
@@ -449,7 +449,7 @@ const ROUTES = [
   },
   {
     route: "/leie",
-    title: "Leie lokaler – finn og book selskapslokale, møterom og hall | Digilist",
+    title: "Leie lokaler – finn og book selskapslokale | Digilist",
     description:
       "Leie lokaler på nett: både private selskapslokaler og kommunale lokaler samlet ett sted. Se ekte priser og ledige datoer, og book direkte med Vipps – til bryllup, selskap, møte eller arrangement.",
     ogType: "website",
@@ -541,7 +541,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/bergen",
-    title: "Lokaler til leie i Bergen – finn og book ledige lokaler | Digilist",
+    title: "Lokaler til leie i Bergen – finn og book | Digilist",
     description:
       "Lokaler til leie i Bergen: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Sammenlign private og kommunale lokaler, se pris og kapasitet, og book direkte.",
     ogType: "article",
@@ -559,7 +559,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/trondheim",
-    title: "Lokaler til leie i Trondheim – finn og book ledige lokaler | Digilist",
+    title: "Lokaler til leie i Trondheim – finn og book | Digilist",
     description:
       "Lokaler til leie i Trondheim: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Sammenlign private og kommunale lokaler, se pris og kapasitet, og book direkte.",
     ogType: "article",
@@ -577,7 +577,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/stavanger",
-    title: "Lokaler til leie i Stavanger – finn og book ledige lokaler | Digilist",
+    title: "Lokaler til leie i Stavanger – finn og book | Digilist",
     description:
       "Lokaler til leie i Stavanger: finn ledige selskapslokaler, møterom, konferanselokaler, kulturhus og haller i sanntid. Sammenlign private og kommunale lokaler, se pris og kapasitet, og book direkte.",
     ogType: "article",
@@ -595,7 +595,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/kristiansand",
-    title: "Lokaler til leie i Kristiansand – finn og book ledige lokaler | Digilist",
+    title: "Lokaler til leie i Kristiansand – finn og book | Digilist",
     description:
       "Lokaler til leie i Kristiansand: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Sammenlign private og kommunale lokaler, se pris og kapasitet, og book direkte.",
     ogType: "article",
@@ -613,7 +613,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/tromso",
-    title: "Lokaler til leie i Tromsø – finn og book ledige lokaler | Digilist",
+    title: "Lokaler til leie i Tromsø – finn og book | Digilist",
     description:
       "Lokaler til leie i Tromsø: finn ledige selskapslokaler, møterom, konferanselokaler, kulturhus og haller i sanntid. Sammenlign private og kommunale lokaler, se pris og kapasitet, og book direkte.",
     ogType: "article",
@@ -631,7 +631,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/drammen",
-    title: "Lokaler til leie i Drammen – finn og book ledige lokaler | Digilist",
+    title: "Lokaler til leie i Drammen – finn og book | Digilist",
     description:
       "Lokaler til leie i Drammen: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Rimeligere alternativ til Oslo – sammenlign private og kommunale lokaler og book direkte.",
     ogType: "article",
@@ -685,7 +685,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/sandnes",
-    title: "Lokaler til leie i Sandnes – finn og book ledige lokaler | Digilist",
+    title: "Lokaler til leie i Sandnes – finn og book | Digilist",
     description:
       "Lokaler til leie i Sandnes: finn ledige selskaps- og konferanselokaler, møterom, grendehus og haller i sanntid. Sammenlign private og kommunale lokaler på Nord-Jæren, og book direkte.",
     ogType: "article",
@@ -703,7 +703,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/alesund",
-    title: "Lokaler til leie i Ålesund – finn og book ledige lokaler | Digilist",
+    title: "Lokaler til leie i Ålesund – finn og book | Digilist",
     description:
       "Lokaler til leie i Ålesund: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Sammenlign private og kommunale lokaler, se pris og kapasitet, og book direkte.",
     ogType: "article",
@@ -739,7 +739,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/sandefjord",
-    title: "Lokaler til leie i Sandefjord – finn og book ledige lokaler | Digilist",
+    title: "Lokaler til leie i Sandefjord – finn og book | Digilist",
     description:
       "Lokaler til leie i Sandefjord: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Nær Torp lufthavn – sammenlign private og kommunale lokaler og book direkte.",
     ogType: "article",
@@ -757,7 +757,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/tonsberg",
-    title: "Lokaler til leie i Tønsberg – finn og book ledige lokaler | Digilist",
+    title: "Lokaler til leie i Tønsberg – finn og book | Digilist",
     description:
       "Lokaler til leie i Tønsberg: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Populære lokaler ved Tønsberg brygge – sammenlign og book direkte.",
     ogType: "article",
@@ -775,7 +775,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/sarpsborg",
-    title: "Lokaler til leie i Sarpsborg – finn og book ledige lokaler | Digilist",
+    title: "Lokaler til leie i Sarpsborg – finn og book | Digilist",
     description:
       "Lokaler til leie i Sarpsborg: finn ledige selskapslokaler, møterom, grendehus og haller i sanntid. Del av Nedre Glomma – sammenlign private og kommunale lokaler og book direkte.",
     ogType: "article",
@@ -793,7 +793,7 @@ const ROUTES = [
   },
   {
     route: "/lokaler-til-leie/haugesund",
-    title: "Lokaler til leie i Haugesund – finn og book ledige lokaler | Digilist",
+    title: "Lokaler til leie i Haugesund – finn og book | Digilist",
     description:
       "Lokaler til leie i Haugesund: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Regionsenter på Haugalandet – sammenlign private og kommunale lokaler og book direkte.",
     ogType: "article",
@@ -1491,7 +1491,7 @@ const ROUTES = [
   },
   {
     route: "/arrangementer",
-    title: "Arrangementer: kjøp billetter til konsert, teater og festival | Digilist",
+    title: "Arrangementer: kjøp billetter til konsert og teater | Digilist",
     description:
       "Finn arrangementer nær deg og kjøp billetter til konsert, teater og festival. Betal med Vipps, få QR-billett på mobilen, bruk rabattkode og gavekort. Samlet ett sted.",
     ogType: "website",
@@ -1614,7 +1614,7 @@ const ROUTES = [
   },
   {
     route: "/billettsystem",
-    title: "Billettsystem: selg billetter med rabatt, kupong og gavekort | Digilist",
+    title: "Billettsystem: selg billetter med rabatt | Digilist",
     description:
       "Digilist billettsystem: selg billetter til arrangementet med rabattkoder, kuponger og gavekort. Vipps og kort, QR-billett, skanning ved inngang og oppgjør. Sanntid.",
     ogType: "website",
@@ -1702,7 +1702,7 @@ const ROUTES = [
   },
   {
     route: "/en/faq",
-    title: "FAQ · Digilist | Common questions about venue booking, pricing and compliance",
+    title: "FAQ · Digilist | Common questions about booking and compliance",
     description:
       "Answers to the most common questions about Digilist: what it costs, what we never charge for, where data is stored, and who the platform is for.",
     ogType: "website",
@@ -1714,7 +1714,7 @@ const ROUTES = [
   },
   {
     route: "/om-oss",
-    title: "Om Digilist: norsk bookingplattform fra Xala Technologies | Digilist",
+    title: "Om Digilist: norsk bookingplattform | Digilist",
     description:
       "Digilist er utviklet av Xala Technologies AS, et norsk teknologiselskap på Nesbru. Vi bygger én plattform for utleie og kommunal booking, med samsvar og norsk datalagring.",
     ogType: "website",
@@ -1726,7 +1726,7 @@ const ROUTES = [
   },
   {
     route: "/ai-agenter",
-    title: "AI-agenter for booking og utleie – GDPR-sikker automatisering | Digilist",
+    title: "AI-agenter for booking og utleie | Digilist",
     description:
       "Digilist bruker AI-agenter som godkjenner oppføringer mot GDPR, NSM, SOC 2 og universell utforming, svarer på henvendelser, forklarer sesongtildeling og gir daglig driftsoversikt. Bygget for norske kommuner.",
     ogType: "website",
@@ -1798,7 +1798,7 @@ const ROUTES = [
   },
   {
     route: "/ai-agenter/importer-oppforing",
-    title: "Importér oppføring: fra Airbnb, Finn eller Word til utkast | Digilist",
+    title: "Importér oppføring: fra Airbnb eller Finn | Digilist",
     description:
       "Lim inn lenken til annonsen din på Airbnb, Finn.no eller Booking.com, eller last opp et dokument. Digilist lager et utkast du finpusser og publiserer selv.",
     ogType: "website",
@@ -1821,7 +1821,7 @@ const ROUTES = [
   },
   {
     route: "/booking-av-lokaler-og-moterom",
-    title: "Booking av lokaler og møterom – Digilist | Bookingsystem for lokaler",
+    title: "Booking av lokaler og møterom – Digilist",
     description:
       "Bookingsystem for lokaler og møterom – sanntidskalender, Vipps, BankID, EHF og sesongleie. Bygget for kommuner og utleiere. SSA-L 2026-klar.",
     ogType: "website",
@@ -1949,7 +1949,7 @@ const ROUTES = [
   },
   {
     route: "/sikkerhet",
-    title: "Sikkerhet og personvern · Digilist | ISO 27001, GDPR og datasikkerhet",
+    title: "Sikkerhet og personvern · Digilist | ISO 27001, GDPR",
     description:
       "Slik ivaretar Digilist sikkerhet og personvern: data i Norge og EU, ISO 27001- og 27701-sertifisert, GDPR-kompatibelt, BankID/ID-porten og audit-logg.",
     ogType: "website",
@@ -2066,7 +2066,7 @@ const ROUTES = [
   },
   {
     route: "/bruksomrader/idrettshaller-gymsaler",
-    title: "Idrettshall booking: bookingsystem for kommuner og foreninger – Digilist",
+    title: "Idrettshall booking: for kommuner og foreninger | Digilist",
     description:
       "Bookingsystem for idrettshaller og gymsaler. Sesongleie til lag og foreninger, halvhalls-bookinger, sambruk, kommunal innbyggerinnlogging via ID-porten.",
     ogType: "website",
@@ -2079,7 +2079,7 @@ const ROUTES = [
   },
   {
     route: "/bruksomrader/kulturhus-kantiner",
-    title: "Kulturhus og kantiner: bookingsystem for kommunale arenaer – Digilist",
+    title: "Kulturhus og kantiner: for kommunale arenaer | Digilist",
     description:
       "Bookingsystem for kulturhus, kantiner og kommunale arenaer. Forestillinger, konserter, åpne dager. Adgangskontroll, driftsrolle-varsling, EHF-fakturering.",
     ogType: "website",
@@ -2644,7 +2644,7 @@ async function main() {
   // a crawler, which is most of the point of having it.
   let enBlogHTML = patchHTML(template, {
     route: "/en/blogg",
-    title: "Blog · Digilist | Notes on venue booking, pricing and daily operations",
+    title: "Blog · Digilist | Notes on venue booking and daily operations",
     description:
       "Articles from the work of making venues bookable: real-time availability, self-service booking, payments, and what a booking system should cost.",
     lang: "en",

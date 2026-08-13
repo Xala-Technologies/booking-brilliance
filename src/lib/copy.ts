@@ -275,7 +275,7 @@ const nb: Copy = {
     "Ingen binding i prøveperioden. Et bookingsystem er umulig å vurdere ordentlig på en demo — du finner det ut i mai, når tre lag vil ha samme hall.",
   "pricing.start": "Kom i gang",
 
-  "faqPage.title": "FAQ · Digilist | Vanlige spørsmål om kommunal booking, sesongleie og samsvar",
+  "faqPage.title": "FAQ · Digilist | Vanlige spørsmål om booking og samsvar",
   "faqPage.description":
     "Svar på de vanligste spørsmålene om Digilist, bookingsystem for kommuner og utleiere. SSA-L 2026, GDPR, ISO 27001, Vipps, BankID, sesongleie og mer.",
   "faqPage.h1": "Vanlige",
@@ -588,7 +588,7 @@ const en: Copy = {
     "No lock-in during the trial. A booking system is impossible to judge properly from a demo — you find out in the busy month, when three groups want the same room.",
   "pricing.start": "Get started",
 
-  "faqPage.title": "FAQ · Digilist | Common questions about venue booking, pricing and compliance",
+  "faqPage.title": "FAQ · Digilist | Common questions about booking and compliance",
   "faqPage.description":
     "Answers to the most common questions about Digilist: what it costs, what we never charge for, where data is stored, and who the platform is for.",
   "faqPage.h1": "Frequently asked",
