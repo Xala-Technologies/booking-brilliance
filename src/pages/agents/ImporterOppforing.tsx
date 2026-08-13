@@ -5,7 +5,7 @@ const content: AgentSpokeContent = {
   eyebrow: "IMPORTÉR OPPFØRING",
   h1: "Importér oppføring: fra det du har, til et utkast på Digilist",
   lead: "Har du allerede en annonse på Airbnb, Booking.com, Finn.no eller Eventum – eller et dokument i skuffen – bruker Listing Importer det som utgangspunkt. Agenten leser innholdet, kartlegger det mot Digilists oppføringsstruktur og bygger et utkast du finpusser og publiserer selv.",
-  metaTitle: "Importér oppføring: fra Airbnb, Finn eller Word til utkast | Digilist",
+  metaTitle: "Importér oppføring: fra Airbnb eller Finn | Digilist",
   metaDescription:
     "Lim inn lenken til annonsen din på Airbnb, Finn.no eller Booking.com, eller last opp et dokument. Digilist lager et utkast du finpusser og publiserer selv.",
   keywords: [

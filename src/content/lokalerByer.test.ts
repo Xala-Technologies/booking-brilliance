@@ -23,3 +23,19 @@ describe("lokaler-til-leie/fredrikstad SEO title and description", () => {
     expect(fredrikstad.description).toContain("Fredrikstad");
   });
 });
+
+// XAL-1008: same rule, applied to every city. LokalerTilLeieBy.tsx renders
+// `data.title ?? \`Lokaler til leie i ${data.name} – finn og book ledige
+// lokaler | Digilist\`` — so a city with no override is only safe if that
+// templated default happens to stay ≤65 chars for its name.
+describe("every BYER entry's effective SEO title is ≤65 chars", () => {
+  const defaultTitle = (name: string) =>
+    `Lokaler til leie i ${name} – finn og book ledige lokaler | Digilist`;
+
+  for (const [slug, data] of Object.entries(BYER)) {
+    it(`${slug}: "${data.title ?? defaultTitle(data.name)}"`, () => {
+      const effectiveTitle = data.title ?? defaultTitle(data.name);
+      expect(effectiveTitle.length).toBeLessThanOrEqual(65);
+    });
+  }
+});

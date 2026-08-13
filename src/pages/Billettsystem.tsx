@@ -141,7 +141,7 @@ export default function Billettsystem() {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <SEO
-        title="Billettsystem: selg billetter med rabatt, kupong og gavekort | Digilist"
+        title="Billettsystem: selg billetter med rabatt | Digilist"
         description="Digilist billettsystem: selg billetter til arrangementet med rabattkoder, kuponger og gavekort. Vipps og kort, QR-billett, skanning ved inngang og oppgjør. Sanntid."
         keywords="billettsystem, selge billetter, billettsystem arrangement, rabattkoder billetter, kuponger, gavekort, billettsalg vipps, qr-billett, billettsystem norge"
         canonical="https://digilist.no/billettsystem"

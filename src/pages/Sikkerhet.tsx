@@ -93,7 +93,7 @@ const Sikkerhet = () => {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <SEO
-        title="Sikkerhet og personvern · Digilist | ISO 27001, GDPR og datasikkerhet"
+        title="Sikkerhet og personvern · Digilist | ISO 27001, GDPR"
         description="Slik ivaretar Digilist sikkerhet og personvern: data i Norge og EU, ISO 27001- og 27701-sertifisert, GDPR-kompatibelt, BankID/ID-porten og audit-logg. Trygt bookingsystem for kommuner og utleiere."
         keywords="iso 27001, gdpr, personvern bookingsystem, datasikkerhet, sikker booking, gdpr bookingsystem, iso 27701, databehandleravtale, datalagring norge"
         canonical="https://digilist.no/sikkerhet"

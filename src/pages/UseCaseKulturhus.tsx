@@ -14,7 +14,7 @@ export default function UseCaseKulturhus() {
       title="Kulturhus og kantiner"
       dek="Forestillinger, konserter, åpne dager. Adgangskontroll via Salto KS, automatisk varsling av driftsroller og bilag direkte til regnskap."
       lead="Kulturhus og kantiner er offentlige arenaer. De skal være tilgjengelige, drives sikkert, og levere alt fra en intim teater-forestilling til en åpen lørdagskafé på samme uke. Digilist gir kulturhus-administrasjonen sanntidskalender, billettsalgs-integrasjon, vakts-varsling, og automatiske bilag til regnskapssystemet, uten å fjerne det menneskelige preget."
-      seoTitle="Kulturhus og kantiner: bookingsystem for kommunale arenaer · Digilist"
+      seoTitle="Kulturhus og kantiner: for kommunale arenaer | Digilist"
       seoDescription="Bookingsystem for kulturhus, kantiner og kommunale arenaer. Forestillinger, konserter, åpne dager. Adgangskontroll, driftsrolle-varsling, EHF-fakturering."
       keywords="kulturhus booking, kantine booking, kommunal kantine, kulturhus arrangement, Salto KS, kulturhus utleie, kommunal kultur, åpne dager"
       audience={[

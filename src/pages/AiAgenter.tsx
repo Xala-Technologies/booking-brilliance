@@ -144,7 +144,7 @@ const AiAgenter = () => {
   return (
     <>
       <SEO
-        title="AI-agenter for booking og utleie – GDPR-sikker automatisering | Digilist"
+        title="AI-agenter for booking og utleie | Digilist"
         description="Digilist bruker AI-agenter som godkjenner oppføringer mot GDPR, NSM, SOC 2 og universell utforming, svarer på henvendelser, forklarer sesongtildeling og gir daglig driftsoversikt. Bygget for norske kommuner."
         keywords={[
           "AI bookingsystem",

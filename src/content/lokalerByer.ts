@@ -103,6 +103,7 @@ export const BYER: Record<string, ByData> = {
     name: "Bergen",
     inName: "i Bergen",
     region: "Vestland",
+    title: "Lokaler til leie i Bergen – finn og book | Digilist",
     intro:
       "Bergen kombinerer historiske og moderne lokaler til leie – fra selskapslokaler og kulturhus til møterom og konferanselokaler for byens nærings- og universitetsmiljø. På Digilist ser du hva som er ledig i sanntid og booker direkte, uten en runde med e-post og telefon.",
     landscape:
@@ -153,6 +154,7 @@ export const BYER: Record<string, ByData> = {
     name: "Trondheim",
     inName: "i Trondheim",
     region: "Trøndelag",
+    title: "Lokaler til leie i Trondheim – finn og book | Digilist",
     intro:
       "Trondheim har et aktivt marked for lokaler til leie, preget av studentbyen og teknologimiljøet rundt NTNU og SINTEF – fra selskapslokaler og kulturhus til møterom og konferanselokaler. På Digilist ser du ledige tider i sanntid og booker direkte.",
     landscape:
@@ -203,6 +205,7 @@ export const BYER: Record<string, ByData> = {
     name: "Stavanger",
     inName: "i Stavanger",
     region: "Rogaland",
+    title: "Lokaler til leie i Stavanger – finn og book | Digilist",
     intro:
       "Stavanger og Nord-Jæren har et variert marked for lokaler til leie – fra selskapslokaler og konferanselokaler til møterom, kulturhus og idrettshaller. Energinæringen gjør konferanse- og møtemarkedet stort, samtidig som det finnes mange grendehus og bydelslokaler til private arrangementer. På Digilist ser du ledige tider i sanntid og booker direkte.",
     landscape:
@@ -237,6 +240,7 @@ export const BYER: Record<string, ByData> = {
     name: "Kristiansand",
     inName: "i Kristiansand",
     region: "Agder",
+    title: "Lokaler til leie i Kristiansand – finn og book | Digilist",
     intro:
       "Kristiansand er Sørlandets største by og har et bredt tilbud av lokaler til leie – selskapslokaler, møterom, konferanselokaler, kulturhus og idrettshaller. Som sommerby får byen ekstra press på lokaler i høysesongen. På Digilist ser du ledige tider i sanntid og booker direkte, i stedet for å ringe rundt.",
     landscape:
@@ -271,6 +275,7 @@ export const BYER: Record<string, ByData> = {
     name: "Tromsø",
     inName: "i Tromsø",
     region: "Troms",
+    title: "Lokaler til leie i Tromsø – finn og book | Digilist",
     intro:
       "Tromsø er Nord-Norges største by og har et voksende marked for lokaler til leie – selskapslokaler, møterom, konferanselokaler, kulturhus og idrettshaller. Nordlys- og midnattssolsesongene gir byen egne topper i etterspørselen etter arrangementslokaler. På Digilist ser du ledige tider i sanntid og booker direkte.",
     landscape:
@@ -305,6 +310,7 @@ export const BYER: Record<string, ByData> = {
     name: "Drammen",
     inName: "i Drammen",
     region: "Buskerud",
+    title: "Lokaler til leie i Drammen – finn og book | Digilist",
     intro:
       "Drammen er en elveby med et variert tilbud av lokaler til leie – selskapslokaler, møterom, konferanselokaler, kulturhus og idrettshaller. Nær beliggenhet til Oslo gjør byen til et rimeligere alternativ for arrangementer i Oslo-regionen. På Digilist ser du ledige tider i sanntid og booker direkte.",
     landscape:
@@ -410,6 +416,7 @@ export const BYER: Record<string, ByData> = {
     name: "Sandnes",
     inName: "i Sandnes",
     region: "Rogaland",
+    title: "Lokaler til leie i Sandnes – finn og book | Digilist",
     intro:
       "Sandnes har et voksende marked for lokaler til leie, fra selskaps- og konferanselokaler til grendehus og idrettshaller. På Digilist ser du ledige tider i sanntid og booker direkte, uten en runde med e-poster og telefoner.",
     landscape:
@@ -444,6 +451,7 @@ export const BYER: Record<string, ByData> = {
     name: "Ålesund",
     inName: "i Ålesund",
     region: "Møre og Romsdal",
+    title: "Lokaler til leie i Ålesund – finn og book | Digilist",
     intro:
       "Ålesund har et variert marked for lokaler til leie, fra selskaps- og festlokaler til møterom, kulturhus og idrettshaller. På Digilist ser du ledige tider i sanntid og booker direkte, i stedet for å ringe rundt.",
     landscape:
@@ -512,6 +520,7 @@ export const BYER: Record<string, ByData> = {
     name: "Sandefjord",
     inName: "i Sandefjord",
     region: "Vestfold",
+    title: "Lokaler til leie i Sandefjord – finn og book | Digilist",
     intro:
       "Sandefjord har et variert marked for lokaler til leie, fra selskaps- og festlokaler til møterom, kulturhus og idrettshaller. På Digilist ser du ledige tider i sanntid og booker direkte, i stedet for å ringe rundt.",
     landscape:
@@ -546,6 +555,7 @@ export const BYER: Record<string, ByData> = {
     name: "Tønsberg",
     inName: "i Tønsberg",
     region: "Vestfold",
+    title: "Lokaler til leie i Tønsberg – finn og book | Digilist",
     intro:
       "Tønsberg har et variert marked for lokaler til leie, fra selskaps- og festlokaler til møterom, kulturhus og idrettshaller. På Digilist ser du ledige tider i sanntid og booker direkte, i stedet for å ringe rundt.",
     landscape:
@@ -580,6 +590,7 @@ export const BYER: Record<string, ByData> = {
     name: "Sarpsborg",
     inName: "i Sarpsborg",
     region: "Østfold",
+    title: "Lokaler til leie i Sarpsborg – finn og book | Digilist",
     intro:
       "Sarpsborg har et variert marked for lokaler til leie, fra selskaps- og festlokaler til grendehus, kulturhus og idrettshaller. På Digilist ser du ledige tider i sanntid og booker direkte, uten en runde med e-poster og telefoner.",
     landscape:
@@ -614,6 +625,7 @@ export const BYER: Record<string, ByData> = {
     name: "Haugesund",
     inName: "i Haugesund",
     region: "Rogaland",
+    title: "Lokaler til leie i Haugesund – finn og book | Digilist",
     intro:
       "Haugesund har et variert marked for lokaler til leie, fra selskaps- og festlokaler til møterom, kulturhus og idrettshaller. På Digilist ser du ledige tider i sanntid og booker direkte, i stedet for å ringe rundt.",
     landscape:
