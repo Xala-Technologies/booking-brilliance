@@ -18,6 +18,16 @@ const DIST = "dist";
 const NB =
   /(^|[^\p{L}])(og|ikke|dere|våre|hvordan|utleie|lokaler|å|som|med|til|på|av|vi|du|den|det|er|har|kan|alle|finn|snakk|les|hva|når|hvor)([^\p{L}]|$)/iu;
 
+/**
+ * Uppercase acronyms that collide with a Norwegian function word.
+ *
+ * The NB pattern is case-insensitive, so "AV equipment" matched "av" and
+ * flagged a fully English sentence. Stripped before the test rather than
+ * removed from NB, because lowercase "av" is a real and common Norwegian
+ * word — dropping it would blind the check to actual Norwegian prose.
+ */
+const ACRONYMS = /\bAV\b/g;
+
 const ALLOW = [
   /^[A-ZÆØÅ][a-zæøå]+(\s[A-ZÆØÅ][a-zæøå]+)*$/u, // proper nouns
   /^(Vipps|BankID|ID-porten|EHF|Peppol|Digilist|Newsreader|Inter|Oslo|Norge)/i,
@@ -53,7 +63,11 @@ let total = 0;
 const report = [];
 for (const f of files) {
   const html = await fs.readFile(f, "utf-8");
-  const bad = [...new Set(textRuns(html).filter((t) => NB.test(t) && !ALLOW.some((re) => re.test(t))))];
+  const bad = [...new Set(
+    textRuns(html).filter(
+      (t) => NB.test(t.replace(ACRONYMS, " ")) && !ALLOW.some((re) => re.test(t)),
+    ),
+  )];
   if (bad.length) {
     total += bad.length;
     report.push({ page: f.replace(`${DIST}`, "").replace("/index.html", "") || "/", count: bad.length, samples: bad.slice(0, 4) });

@@ -256,6 +256,22 @@ const ROUTES = [
     },
   },
   {
+    route: "/en/verktoy",
+    title: "Free tools for renting a venue: price and size | Digilist",
+    description:
+      "Free tools for anyone renting a venue: a rental price calculator and a capacity calculator. Estimate price and floor area for a wedding, party, meeting or conference — no sign-in.",
+    ogType: "website",
+    lang: "en",
+    breadcrumbs: [
+      { name: "Home", url: `${BASE_URL}/en` },
+      { name: "Tools", url: `${BASE_URL}/en/verktoy` },
+    ],
+    faq: [
+      { question: "Are the tools free?", answer: "Yes. Every tool on Digilist is free to use, with no sign-in. They give indicative estimates to help you plan and budget an event." },
+      { question: "Do the tools give binding prices?", answer: "No. The tools give indicative guides based on typical figures in the Norwegian rental market. The actual price and capacity are shown on each individual venue on Digilist." },
+    ],
+  },
+  {
     route: "/verktoy",
     title: "Gratis verktøy for å leie lokale – pris og kapasitet | Digilist",
     description:
@@ -268,6 +284,25 @@ const ROUTES = [
     faq: [
       { q: "Er verktøyene gratis?", a: "Ja. Alle verktøyene på Digilist er gratis å bruke, uten innlogging. De gir veiledende estimater for å hjelpe deg å planlegge og budsjettere et arrangement." },
       { q: "Gir verktøyene bindende priser?", a: "Nei. Verktøyene gir veiledende pekepinner basert på typiske tall i det norske utleiemarkedet. Faktisk pris og kapasitet ser du på det enkelte lokalet på Digilist." },
+    ],
+  },
+  {
+    route: "/en/verktoy/leiepriskalkulator",
+    title: "Venue price calculator: what does renting cost? | Digilist",
+    description:
+      "A free rental price calculator: an honest, indicative price range for a function room, meeting room, conference venue or sports hall — adjusted for city, season and day of the week.",
+    ogType: "website",
+    lang: "en",
+    breadcrumbs: [
+      { name: "Home", url: `${BASE_URL}/en` },
+      { name: "Tools", url: `${BASE_URL}/en/verktoy` },
+      { name: "Price calculator", url: `${BASE_URL}/en/verktoy/leiepriskalkulator` },
+    ],
+    faq: [
+      { question: "What does it cost to rent a venue?", answer: "The price varies a great deal with venue type, location, capacity, day of the week and season. As rough guides, community halls are often NOK 1,000–5,000 per day, function and party venues NOK 5,000–30,000, meeting rooms from a few hundred kroner, and cultural venues and large halls higher. This calculator gives an estimated range based on those guides — the actual price is shown on each individual venue." },
+      { question: "Is the estimate a binding quote?", answer: "No. The calculator gives an indicative price range to help you budget. The actual price is set by each operator and depends on the venue, the timing and any additional services. On Digilist you see the total price for your date, including any deposit, before you book." },
+      { question: "What affects the price most?", answer: "Venue type and size matter most, then location (central areas of the largest cities are the most expensive), day of the week (Saturdays in high season cost the most) and season (May to September is high season for parties and weddings). Additional services such as cleaning, staffing, AV equipment and catering usually come on top of the base rent." },
+      { question: "Can I rent both private and municipal venues?", answer: "Yes. Many community halls, cultural venues and municipal premises are rented out for private events, often more cheaply than dedicated function rooms. On Digilist, private and municipal venues sit in the same calendar, so you can compare price and availability in one place." },
     ],
   },
   {
@@ -2598,6 +2633,8 @@ const TRANSLATED_ROUTES = {
   "/salgsvilkar": "/en/salgsvilkar",
   "/sikkerhet": "/en/sikkerhet",
   "/verktoy/kapasitetskalkulator": "/en/verktoy/kapasitetskalkulator",
+  "/verktoy/leiepriskalkulator": "/en/verktoy/leiepriskalkulator",
+  "/verktoy": "/en/verktoy",
   "/blogg": "/en/blogg",
 };
 

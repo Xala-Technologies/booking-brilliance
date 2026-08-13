@@ -8,33 +8,38 @@ import { SectionRule, EditorialHeading, EditorialButton, EditorialCard, Byline }
 import { getFraunces } from "@/lib/fonts";
 import PilotInvitationSection from "@/components/PilotInvitationSection";
 import { LOKALTYPER, BYER, estimatePrice, kr } from "@/lib/kalkulator";
+import { LinkOrText } from "@/components/LinkOrText";
+import { priceFaq } from "@/content/kalkulator-copy";
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 
 const UPDATED = "24. juli 2026";
 
-const FAQ = [
-  {
-    question: "Hva koster det å leie et lokale?",
-    answer:
-      "Prisen varierer mye med lokaltype, sted, kapasitet, ukedag og sesong. Som grove pekepinner ligger grendehus og foreningslokaler ofte på 1 000–5 000 kr per dag, selskaps- og festlokaler på 5 000–30 000 kr, møterom fra noen hundre kroner, og kulturhus og storsaler høyere. Denne kalkulatoren gir et estimert intervall basert på disse pekepinnene – den faktiske prisen ser du på det enkelte lokalet.",
-  },
-  {
-    question: "Er estimatet et bindende tilbud?",
-    answer:
-      "Nei. Kalkulatoren gir kun et veiledende prisintervall for å hjelpe deg å budsjettere. Faktisk pris settes av den enkelte utleier og avhenger av lokalet, tidspunktet og eventuelle tilleggstjenester. På Digilist ser du totalprisen for din dato, inkludert depositum, før du booker.",
-  },
-  {
-    question: "Hva påvirker prisen mest?",
-    answer:
-      "Lokaltype og størrelse betyr mest, deretter sted (sentrale strøk i de største byene er dyrest), ukedag (lørdager i høysesong koster mest) og sesong (mai–september er høysesong for fester og bryllup). Tilleggstjenester som rengjøring, bemanning, AV-utstyr og catering kommer ofte i tillegg til grunnleien.",
-  },
-  {
-    question: "Kan jeg leie både private og kommunale lokaler?",
-    answer:
-      "Ja. Mange grendehus, kulturhus og kommunale lokaler leies ut til private arrangementer, ofte rimeligere enn rene selskapslokaler. På Digilist ligger private og kommunale lokaler i samme kalender, så du kan sammenligne pris og tilgjengelighet på ett sted.",
-  },
-];
+/**
+ * Renders the price adjustments as a sentence fragment.
+ *
+ * estimatePrice returns them as descriptors rather than strings, so the
+ * wording lives here and the percentages stay in the pricing model where they
+ * belong.
+ */
+function factorText(
+  factors: ReturnType<typeof estimatePrice> extends null ? never : NonNullable<ReturnType<typeof estimatePrice>>["factors"],
+  locale: "nb" | "en",
+): string {
+  return factors
+    .map((f) => {
+      if (f.kind === "guests") return `${f.guests} ${t(locale, "price.guestsWord")}`;
+      if (f.kind === "city") return `${t(locale, `calc.city.${f.key}`)} (${f.pct})`;
+      return `${t(locale, `calc.factor.${f.kind}`)} (${f.pct})`;
+    })
+    .join(" · ");
+}
 
 export default function LeieprisKalkulator() {
+  const locale = localeFromPath(useLocation().pathname);
+  const en = locale === "en";
+  const FAQ = priceFaq(locale);
   const [lokaltype, setLokaltype] = useState("selskapslokale");
   const [gjester, setGjester] = useState(60);
   const [by, setBy] = useState("oslo");
@@ -49,10 +54,10 @@ export default function LeieprisKalkulator() {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <SEO
-        title="Leiepriskalkulator: hva koster det å leie lokale? | Digilist"
-        description="Gratis leiepriskalkulator: få et ærlig, veiledende prisintervall for å leie selskapslokale, møterom, konferanselokale, kulturhus eller idrettshall – justert for by, sesong og ukedag. Ikke et tilbud, men en god pekepinn for budsjettet."
-        keywords="hva koster det å leie lokale, leiepris lokale, pris selskapslokale, priskalkulator lokale, leie lokale pris, leiepriskalkulator"
-        canonical="https://digilist.no/verktoy/leiepriskalkulator"
+        title={t(locale, "price.title")}
+        description={t(locale, "price.description")}
+        keywords={t(locale, "price.keywords")}
+        canonical={en ? "https://digilist.no/en/verktoy/leiepriskalkulator" : "https://digilist.no/verktoy/leiepriskalkulator"}
         faq={FAQ}
         breadcrumbs={[
           { name: "Hjem", url: "https://digilist.no/" },
@@ -68,15 +73,15 @@ export default function LeieprisKalkulator() {
           <div className="mx-auto max-w-3xl px-6">
             <div className="inline-flex items-center gap-2 text-sm text-ink-soft mb-4">
               <Calculator className="h-4 w-4" aria-hidden />
-              <span>Gratis verktøy</span>
+              <span>{t(locale, "cap.badge")}</span>
             </div>
             <EditorialHeading as="h1" size="display">
-              Hva koster det å leie et lokale?
+              {t(locale, "price.h1")}
             </EditorialHeading>
             <p className="text-xl text-ink-soft measure leading-relaxed mt-5">
-              Få et ærlig, veiledende prisintervall for å leie lokale i Norge – justert for lokaltype, antall
-              gjester, by, ukedag og sesong. Dette er <strong className="text-ink">et estimat, ikke et tilbud</strong>:
-              faktisk pris settes av utleier og ser du på det enkelte lokalet.
+              {t(locale, "price.ledeA")}
+              <strong className="text-ink">{t(locale, "price.ledeStrong")}</strong>
+              {t(locale, "price.ledeB")}
             </p>
           </div>
         </section>
@@ -87,15 +92,15 @@ export default function LeieprisKalkulator() {
             <EditorialCard className="p-6 lg:p-8">
               <div className="grid gap-6 sm:grid-cols-2">
                 <label className="block">
-                  <span className="text-sm font-medium text-ink">Lokaltype</span>
+                  <span className="text-sm font-medium text-ink">{t(locale, "price.venueType")}</span>
                   <select
                     className="mt-1.5 w-full rounded-md border border-rule bg-background px-3 py-2 text-ink"
                     value={lokaltype}
                     onChange={(e) => setLokaltype(e.target.value)}
                   >
-                    {LOKALTYPER.map((t) => (
-                      <option key={t.key} value={t.key}>
-                        {t.label}
+                    {LOKALTYPER.map((type) => (
+                      <option key={type.key} value={type.key}>
+                        {t(locale, `calc.type.${type.key}`)}
                       </option>
                     ))}
                   </select>
@@ -114,7 +119,7 @@ export default function LeieprisKalkulator() {
                 </label>
 
                 <label className="block">
-                  <span className="text-sm font-medium text-ink">By / sted</span>
+                  <span className="text-sm font-medium text-ink">{t(locale, "price.city")}</span>
                   <select
                     className="mt-1.5 w-full rounded-md border border-rule bg-background px-3 py-2 text-ink"
                     value={by}
@@ -122,7 +127,7 @@ export default function LeieprisKalkulator() {
                   >
                     {BYER.map((b) => (
                       <option key={b.key} value={b.key}>
-                        {b.label}
+                        {t(locale, `calc.city.${b.key}`)}
                       </option>
                     ))}
                   </select>
@@ -133,7 +138,7 @@ export default function LeieprisKalkulator() {
                   <div className="mt-1.5 flex flex-col gap-2">
                     <label className="inline-flex items-center gap-2 text-ink-soft">
                       <input type="checkbox" checked={helg} onChange={(e) => setHelg(e.target.checked)} />
-                      <span>Helg (lør/søn)</span>
+                      <span>{t(locale, "price.weekend")}</span>
                     </label>
                     <label className="inline-flex items-center gap-2 text-ink-soft">
                       <input
@@ -141,7 +146,7 @@ export default function LeieprisKalkulator() {
                         checked={hoysesong}
                         onChange={(e) => setHoysesong(e.target.checked)}
                       />
-                      <span>Høysesong (mai–september)</span>
+                      <span>{t(locale, "price.highSeason")}</span>
                     </label>
                   </div>
                 </div>
@@ -151,7 +156,7 @@ export default function LeieprisKalkulator() {
               <div className="mt-8 rounded-lg bg-paper-tinted border border-rule p-6 text-center">
                 {result ? (
                   <>
-                    <p className="text-sm text-ink-soft">Estimert leiepris</p>
+                    <p className="text-sm text-ink-soft">{t(locale, "price.estimated")}</p>
                     <p
                       className="font-serif text-4xl lg:text-5xl text-ink mt-1"
                       style={{ fontVariationSettings: getFraunces("hero") }}
@@ -159,27 +164,27 @@ export default function LeieprisKalkulator() {
                       {kr(result.low)}–{kr(result.high)} kr
                     </p>
                     <p className="text-sm text-ink-soft mt-1">
-                      per {result.unit} · {result.typeLabel}
+                      {t(locale, "price.per")} {t(locale, `calc.unit.${result.unit}`)} · {t(locale, `calc.type.${result.typeKey}`)}
                     </p>
                     <p className="text-xs text-ink-soft mt-4 measure mx-auto">
-                      Justert for: {result.factors.join(" · ")}. Et veiledende intervall – ikke et tilbud. Faktisk
-                      pris varierer med lokalet og tilleggstjenester.
+                      {t(locale, "price.adjustedFor")} {factorText(result.factors, locale)}.{" "}
+                      {t(locale, "price.disclaimer")}
                     </p>
                     <div className="mt-5">
                       <EditorialButton href={`https://app.digilist.no`} variant="primary">
-                        Finn ledige {result.typeLabel.toLowerCase()} <ArrowRight className="h-4 w-4" />
+                        {t(locale, "price.findAvailable")} {t(locale, `calc.type.${result.typeKey}`).toLowerCase()} <ArrowRight className="h-4 w-4" />
                       </EditorialButton>
                     </div>
                     <p className="text-xs text-ink-soft mt-3">
-                      Se ekte priser og ledige datoer på{" "}
-                      <Link to={result.link} className="underline">
-                        {result.typeLabel}
-                      </Link>
+                      {t(locale, "price.realPrices")}{" "}
+                      <LinkOrText en={en} to={result.link} className="underline">
+                        {t(locale, `calc.type.${result.typeKey}`)}
+                      </LinkOrText>
                       .
                     </p>
                   </>
                 ) : (
-                  <p className="text-ink-soft">Velg lokaltype for et estimat.</p>
+                  <p className="text-ink-soft">{t(locale, "price.empty")}</p>
                 )}
               </div>
             </EditorialCard>
@@ -192,41 +197,41 @@ export default function LeieprisKalkulator() {
         <section className="py-14 lg:py-20 bg-paper">
           <div className="mx-auto max-w-3xl px-6">
             <EditorialHeading as="h2" size="section">
-              Slik beregner vi estimatet
+              {t(locale, "price.howH2")}
             </EditorialHeading>
             <div className="mt-6 space-y-4 text-lg text-ink-soft leading-relaxed measure">
               <p>
-                Estimatet tar utgangspunkt i typiske prisintervaller for hver lokaltype i det norske
-                utleiemarkedet, og justerer dem med noen få, tydelige faktorer. Vi oppgir alltid et{" "}
-                <strong className="text-ink">intervall</strong>, ikke en eksakt pris, fordi den reelle prisen
-                avhenger av det konkrete lokalet.
+                {t(locale, "price.howP1a")}
+                <strong className="text-ink">{t(locale, "price.howP1strong")}</strong>
+                {t(locale, "price.howP1b")}
               </p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
-                  <strong className="text-ink">Lokaltype og størrelse</strong> betyr mest. Et grendehus koster en
-                  brøkdel av et sentralt selskapslokale.
+                  <strong className="text-ink">{t(locale, "price.b1strong")}</strong>
+                  {t(locale, "price.b1")}
                 </li>
                 <li>
-                  <strong className="text-ink">By og sted:</strong> sentrale strøk i Oslo og de større byene ligger
-                  høyere; mindre steder rimeligere.
+                  <strong className="text-ink">{t(locale, "price.b2strong")}</strong>
+                  {t(locale, "price.b2")}
                 </li>
                 <li>
-                  <strong className="text-ink">Ukedag:</strong> lørdager er mest ettertraktet og dyrest; hverdager
-                  er billigere og har bedre tilgjengelighet.
+                  <strong className="text-ink">{t(locale, "price.b3strong")}</strong>
+                  {t(locale, "price.b3")}
                 </li>
                 <li>
-                  <strong className="text-ink">Sesong:</strong> mai–september er høysesong for bryllup og fester.
+                  <strong className="text-ink">{t(locale, "price.b4strong")}</strong>
+                  {t(locale, "price.b4")}
                 </li>
               </ul>
               <p>
-                Husk at <strong className="text-ink">tilleggstjenester</strong> – rengjøring, bemanning, AV-utstyr,
-                catering og depositum – ofte kommer i tillegg til grunnleien. På Digilist vises tilleggene som egne
-                linjer, så du ser sluttsummen før du bekrefter.
+                {t(locale, "price.howP2a")}
+                <strong className="text-ink">{t(locale, "price.howP2strong")}</strong>
+                {t(locale, "price.howP2b")}
               </p>
             </div>
 
             <div className="mt-8">
-              <Byline author="Digilist-redaksjonen" role="Bookingsystem for utleie" date={UPDATED} />
+              <Byline author={t(locale, "cap.byline")} role={t(locale, "cap.bylineRole")} date={UPDATED} />
             </div>
           </div>
         </section>
@@ -237,13 +242,26 @@ export default function LeieprisKalkulator() {
         <section className="py-14 lg:py-20 bg-paper-tinted border-y border-rule">
           <div className="mx-auto max-w-3xl px-6">
             <EditorialHeading as="h2" size="section">
-              Utforsk videre
+              {t(locale, "cap.explore")}
             </EditorialHeading>
             <ul className="mt-5 grid gap-2 sm:grid-cols-2 text-ink">
-              <li><Link className="underline" to="/lokaler-til-leie">Lokaler til leie</Link></li>
-              <li><Link className="underline" to="/bookingsystem-utleie">Bookingsystem for utleie</Link></li>
-              <li><Link className="underline" to="/verktoy/kapasitetskalkulator">Kapasitetskalkulator</Link></li>
-              <li><Link className="underline" to="/leie/selskapslokale">Leie selskapslokale</Link></li>
+              {/* Only the capacity calculator has an English twin. The other
+                  three targets stay Norwegian, so in English this list is one
+                  item rather than four exits out of the language. */}
+              {!en && (
+                <>
+                  <li><Link className="underline" to="/lokaler-til-leie">Lokaler til leie</Link></li>
+                  <li><Link className="underline" to="/bookingsystem-utleie">Bookingsystem for utleie</Link></li>
+                </>
+              )}
+              <li>
+                <Link className="underline" to={`${en ? "/en" : ""}/verktoy/kapasitetskalkulator`}>
+                  {t(locale, "tools.capTitle")}
+                </Link>
+              </li>
+              {!en && (
+                <li><Link className="underline" to="/leie/selskapslokale">Leie selskapslokale</Link></li>
+              )}
             </ul>
           </div>
         </section>

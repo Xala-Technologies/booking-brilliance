@@ -41,6 +41,19 @@ describe("copy dictionaries", () => {
       "cap.for": "'for' is the same word in both",
       "pilot.role": "a registered company name",
       "pilot.date": "a place name and a year",
+      "price.per": "'per' is the same word in both",
+      // Norwegian place names. Listed one by one rather than exempting the
+      // whole calc.city.* family, because calc.city.annet is NOT a place name
+      // — it is "Annet / mindre sted" / "Elsewhere / a smaller place", and a
+      // prefix rule would have let that one go untranslated unnoticed.
+      "calc.city.oslo": "a Norwegian place name",
+      "calc.city.bergen": "a Norwegian place name",
+      "calc.city.trondheim": "a Norwegian place name",
+      "calc.city.stavanger": "a Norwegian place name",
+      "calc.city.kristiansand": "a Norwegian place name",
+      "calc.city.tromso": "a Norwegian place name",
+      "calc.city.drammen": "a Norwegian place name",
+      "calc.city.baerum": "a Norwegian place name",
     };
 
     const identical = copyKeys("nb")

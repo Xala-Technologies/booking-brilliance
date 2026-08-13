@@ -8,7 +8,7 @@
 
 export interface Lokaltype {
   key: string;
-  label: string;
+  /** No label here: the visible name is a copy key, resolved per locale. */
   priceLow: number; // kr, base range (matches GUIDANCE)
   priceHigh: number;
   unit: string; // "dag" | "arrangement" | "time"
@@ -19,25 +19,25 @@ export interface Lokaltype {
 
 // Same pointers as GUIDANCE in src/content/lokalerByer.ts — kept honest + in sync.
 export const LOKALTYPER: Lokaltype[] = [
-  { key: "selskapslokale", label: "Selskapslokale / festlokale", priceLow: 5000, priceHigh: 30000, unit: "dag", capMin: 30, capMax: 150, link: "/leie/selskapslokale" },
-  { key: "grendehus", label: "Grendehus / foreningslokale", priceLow: 1000, priceHigh: 5000, unit: "dag", capMin: 40, capMax: 120, link: "/leie/kulturhus" },
-  { key: "moterom", label: "Møterom", priceLow: 300, priceHigh: 2500, unit: "dag", capMin: 4, capMax: 20, link: "/leie/moterom" },
-  { key: "konferanselokale", label: "Konferanselokale", priceLow: 2000, priceHigh: 15000, unit: "dag", capMin: 20, capMax: 200, link: "/leie/konferanselokale" },
-  { key: "kulturhus", label: "Kulturhus / storsal", priceLow: 3000, priceHigh: 20000, unit: "arrangement", capMin: 50, capMax: 400, link: "/leie/kulturhus" },
-  { key: "idrettshall", label: "Idrettshall", priceLow: 200, priceHigh: 1500, unit: "time", capMin: 0, capMax: 0, link: "/leie/idrettshall" },
+  { key: "selskapslokale", priceLow: 5000, priceHigh: 30000, unit: "dag", capMin: 30, capMax: 150, link: "/leie/selskapslokale" },
+  { key: "grendehus", priceLow: 1000, priceHigh: 5000, unit: "dag", capMin: 40, capMax: 120, link: "/leie/kulturhus" },
+  { key: "moterom", priceLow: 300, priceHigh: 2500, unit: "dag", capMin: 4, capMax: 20, link: "/leie/moterom" },
+  { key: "konferanselokale", priceLow: 2000, priceHigh: 15000, unit: "dag", capMin: 20, capMax: 200, link: "/leie/konferanselokale" },
+  { key: "kulturhus", priceLow: 3000, priceHigh: 20000, unit: "arrangement", capMin: 50, capMax: 400, link: "/leie/kulturhus" },
+  { key: "idrettshall", priceLow: 200, priceHigh: 1500, unit: "time", capMin: 0, capMax: 0, link: "/leie/idrettshall" },
 ];
 
 // City price factors — a rough, honest pointer (bigger/pressured markets cost more).
 export const BYER = [
-  { key: "oslo", label: "Oslo", factor: 1.15 },
-  { key: "bergen", label: "Bergen", factor: 1.05 },
-  { key: "trondheim", label: "Trondheim", factor: 1.0 },
-  { key: "stavanger", label: "Stavanger", factor: 1.05 },
-  { key: "kristiansand", label: "Kristiansand", factor: 0.95 },
-  { key: "tromso", label: "Tromsø", factor: 1.0 },
-  { key: "drammen", label: "Drammen", factor: 0.9 },
-  { key: "baerum", label: "Bærum", factor: 1.05 },
-  { key: "annet", label: "Annet / mindre sted", factor: 0.85 },
+  { key: "oslo", factor: 1.15 },
+  { key: "bergen", factor: 1.05 },
+  { key: "trondheim", factor: 1.0 },
+  { key: "stavanger", factor: 1.05 },
+  { key: "kristiansand", factor: 0.95 },
+  { key: "tromso", factor: 1.0 },
+  { key: "drammen", factor: 0.9 },
+  { key: "baerum", factor: 1.05 },
+  { key: "annet", factor: 0.85 },
 ];
 
 export interface PriceInput {
@@ -52,9 +52,10 @@ export interface PriceEstimate {
   low: number;
   high: number;
   unit: string;
-  typeLabel: string;
+  /** The venue-type KEY. Callers resolve the visible label per locale. */
+  typeKey: string;
   link: string;
-  factors: string[];
+  factors: PriceFactor[];
 }
 
 function roundKr(v: number): number {
@@ -67,24 +68,40 @@ export function pct(factor: number): string {
   return `${p >= 0 ? "+" : ""}${p}%`;
 }
 
+/**
+ * One adjustment applied to the base price, as data rather than a sentence.
+ *
+ * These used to be pre-formatted Norwegian strings built in here ("Helg
+ * (+15%)"), which put display copy inside the pricing logic and made the
+ * English calculator impossible without duplicating the maths. The percentage
+ * is still computed here — it is a fact about the model, not a translation —
+ * and only the wording moves out.
+ */
+export type PriceFactor =
+  | { kind: "city"; key: string; pct: string }
+  | { kind: "weekend" | "weekday" | "highSeason" | "lowSeason"; pct: string }
+  | { kind: "guests"; guests: number };
+
 export function estimatePrice(inp: PriceInput): PriceEstimate | null {
   const t = LOKALTYPER.find((x) => x.key === inp.lokaltype);
   if (!t) return null;
   const by = BYER.find((x) => x.key === inp.by) ?? BYER[BYER.length - 1];
-  const factors: string[] = [`${by.label} (${pct(by.factor)})`];
+  const factors: PriceFactor[] = [
+    { kind: "city", key: by.key, pct: pct(by.factor) },
+  ];
   let f = by.factor;
   if (inp.helg) {
     f *= 1.15;
-    factors.push("Helg (+15%)");
+    factors.push({ kind: "weekend", pct: "+15%" });
   } else {
     f *= 0.95;
-    factors.push("Hverdag (−5%)");
+    factors.push({ kind: "weekday", pct: "−5%" });
   }
   if (inp.hoysesong) {
     f *= 1.1;
-    factors.push("Høysesong mai–sep (+10%)");
+    factors.push({ kind: "highSeason", pct: "+10%" });
   } else {
-    factors.push("Lavsesong (0%)");
+    factors.push({ kind: "lowSeason", pct: "0%" });
   }
   let low = t.priceLow * f;
   const high = t.priceHigh * f;
@@ -92,9 +109,9 @@ export function estimatePrice(inp: PriceInput): PriceEstimate | null {
   if (t.capMax > 0 && inp.gjester > 0) {
     const pos = Math.min(1, Math.max(0, (inp.gjester - t.capMin) / Math.max(1, t.capMax - t.capMin)));
     low = low + (high - low) * pos * 0.4;
-    factors.push(`${inp.gjester} gjester`);
+    factors.push({ kind: "guests", guests: inp.gjester });
   }
-  return { low: roundKr(low), high: roundKr(high), unit: t.unit, typeLabel: t.label, link: t.link, factors };
+  return { low: roundKr(low), high: roundKr(high), unit: t.unit, typeKey: t.key, link: t.link, factors };
 }
 
 /** Lokaltyper whose capacity fits the guest count (open-capacity types always qualify). */

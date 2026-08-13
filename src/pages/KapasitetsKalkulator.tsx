@@ -143,7 +143,7 @@ export default function KapasitetsKalkulator() {
                                 to={venue.link}
                                 className="inline-block rounded-full border border-rule bg-background px-3 py-1 text-sm text-ink hover:bg-paper-tinted"
                               >
-                                {venue.label}
+                                {t(locale, `calc.type.${venue.key}`)}
                               </LinkOrText>
                             </li>
                           ))}

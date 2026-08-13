@@ -31,6 +31,8 @@ Allow: /en/personvern$
 Allow: /en/salgsvilkar$
 Allow: /en/sikkerhet$
 Allow: /en/verktoy/kapasitetskalkulator$
+Allow: /en/verktoy/leiepriskalkulator$
+Allow: /en/verktoy$
 Allow: /en/blogg
 
 
