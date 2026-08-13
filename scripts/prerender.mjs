@@ -545,6 +545,26 @@ const ROUTES = [
     },
   },
   {
+    route: "/en/lokaler-til-leie",
+    title: "Venues to rent — find and book available spaces | Digilist",
+    description:
+      "Venues to rent: find available function rooms, meeting rooms, cultural venues and halls in real time. Compare private and municipal venues, see price and capacity.",
+    ogType: "article",
+    lang: "en",
+    breadcrumbs: [
+      { name: "Home", url: `${BASE_URL}/en` },
+      { name: "Venues to rent", url: `${BASE_URL}/en/lokaler-til-leie` },
+    ],
+    faq: [
+      { question: "Where do I find venues to rent?", answer: "You find venues to rent on booking platforms that show free times in real time. On Digilist you search by venue type, location and facilities, see what is free on your date, and book directly — without sending emails and waiting for replies. The platform brings private rental venues and public ones together in one place." },
+      { question: "What kinds of venues can I rent?", answer: "You can rent function rooms and party venues, meeting rooms and conference venues, offices and coworking space, cultural venues and community halls, sports halls, swimming pools and farms. On Digilist private and municipal venues sit together, so you can compare in one place instead of searching across many websites." },
+      { question: "What does it cost to rent a venue?", answer: "The price varies a great deal with venue type, capacity, day of the week and season. As a rough guide, community halls are often NOK 1,000–5,000 per day, while function rooms for larger parties can be NOK 5,000–30,000 or more, and meeting rooms start from a few hundred kroner. Saturdays in high season cost more than weekdays. Always check the price on the individual venue before you confirm." },
+      { question: "How far ahead should I book a venue?", answer: "It depends on the event. Popular function and party venues for weddings and large celebrations are often booked 6–12 months ahead, particularly for Saturdays between May and September. Meeting rooms and smaller venues can usually be booked a few days or weeks ahead. With a real-time calendar you see immediately whether your date is free." },
+      { question: "How do I book a venue online?", answer: "You find the venue, choose a free date in the real-time calendar, add any extras, and confirm. Payment is by card or Vipps, and you get confirmation and a receipt automatically. Because the calendar is live, you know at once whether the venue is genuinely available." },
+      { question: "Can I rent both private and municipal venues?", answer: "Yes. Digilist brings private rental venues and public ones into the same calendar. Many community halls, cultural venues and municipal premises are rented out for private events, and you can compare them side by side with private party venues in one place." },
+    ],
+  },
+  {
     route: "/lokaler-til-leie",
     title: "Lokaler til leie – finn og book ledige lokaler på nett | Digilist",
     description:
@@ -2742,6 +2762,7 @@ const TRANSLATED_ROUTES = {
   "/bookingsystem-kommune": "/en/bookingsystem-kommune",
   "/bookingsystem-utleie": "/en/bookingsystem-utleie",
   "/billettsystem": "/en/billettsystem",
+  "/lokaler-til-leie": "/en/lokaler-til-leie",
   "/blogg": "/en/blogg",
 };
 

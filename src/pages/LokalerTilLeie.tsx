@@ -15,110 +15,33 @@ import {
 } from "@/components/editorial";
 import { getFraunces } from "@/lib/fonts";
 import PilotInvitationSection from "@/components/PilotInvitationSection";
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { venuesCopy } from "@/content/lokaler-til-leie";
+import { LinkOrText } from "@/components/LinkOrText";
 
 const UPDATED = "23. juli 2026";
 
-const HOWTO_STEPS = [
-  {
-    name: "Bestem arrangementstype og antall gjester",
-    text: "Kapasiteten avgjør mye. Et intimt selskap på 20 personer og et bryllup på 120 krever helt ulike lokaler. Tell gjester før du leter, så slipper du å vurdere lokaler som er for små eller unødvendig dyre.",
-  },
-  {
-    name: "Sett dato – og vær tidlig ute i høysesong",
-    text: "Lørdager i mai, juni, august og september er de mest ettertraktede. Har du fleksible datoer, får du flere valg og ofte lavere pris på hverdager og utenfor høysesong.",
-  },
-  {
-    name: "Søk på lokaltype, geografi og fasiliteter",
-    text: "Filtrer på det som faktisk betyr noe for deg: kapasitet, kjøkken, parkering, universell utforming, uteområde eller AV-utstyr. Da står du igjen med lokaler som passer, ikke bare lokaler som er ledige.",
-  },
-  {
-    name: "Sammenlign pris, kapasitet og tilleggstjenester",
-    text: "Se på totalprisen, ikke bare grunnleien: rengjøring, utstyr, bemanning og catering kan komme i tillegg. På Digilist vises tilleggstjenester som egne linjer, så du ser hva sluttsummen faktisk blir.",
-  },
-  {
-    name: "Sjekk sanntidskalenderen for ledige datoer",
-    text: "En sanntidskalender viser med én gang om datoen din er ledig, opptatt eller blokkert – i stedet for at du sender e-post og venter på svar som kanskje kommer for sent.",
-  },
-  {
-    name: "Book og betal direkte",
-    text: "Bekreft bookingen, betal med Vipps eller kort, og få bekreftelse og kvittering automatisk. Da er datoen sikret, og du unngår at lokalet blir booket av noen andre mens du venter.",
-  },
-];
-
-const GUIDANCE = [
-  { type: "Selskapslokale / festlokale", cap: "30–150 gjester", price: "5 000–30 000 kr / dag" },
-  { type: "Grendehus / foreningslokale", cap: "40–120 gjester", price: "1 000–5 000 kr / dag" },
-  { type: "Møterom", cap: "4–20 personer", price: "300–2 500 kr / dag" },
-  { type: "Konferanselokale", cap: "20–200 personer", price: "2 000–15 000 kr / dag" },
-  { type: "Kulturhus / storsal", cap: "50–400 personer", price: "3 000–20 000 kr / arr." },
-  { type: "Idrettshall", cap: "Lag / grupper", price: "200–1 500 kr / time" },
-];
-
-const FAQ = [
-  {
-    question: "Hvor finner jeg lokaler til leie?",
-    answer:
-      "Du finner lokaler til leie på bookingplattformer som viser ledige tider i sanntid. På Digilist søker du på lokaltype, geografi og fasiliteter, ser hva som er ledig på datoen din, og booker direkte – uten å sende e-poster og vente på svar. Plattformen samler både private utleielokaler og offentlige/kommunale lokaler ett sted.",
-  },
-  {
-    question: "Hva slags lokaler kan jeg leie?",
-    answer:
-      "Du kan leie selskapslokaler og festlokaler, møterom og konferanselokaler, kontorlokaler og coworking, kulturhus og grendehus, idrettshaller, svømmehaller og gårder. På Digilist er både private og kommunale lokaler samlet, slik at du kan sammenligne på ett sted i stedet for å lete på mange nettsider.",
-  },
-  {
-    question: "Hva koster det å leie et lokale?",
-    answer:
-      "Prisen varierer mye med lokaltype, kapasitet, ukedag og sesong. Som en grov pekepinn ligger grendehus og foreningslokaler ofte på 1 000–5 000 kr per dag, mens selskapslokaler til større fester kan koste 5 000–30 000 kr eller mer, og møterom fra noen hundre kroner. Lørdager i høysesong koster mer enn hverdager. Se alltid prisen på det enkelte lokalet før du bekrefter bookingen.",
-  },
-  {
-    question: "Hvor tidlig bør jeg booke et lokale?",
-    answer:
-      "Det kommer an på arrangementet. Populære selskaps- og festlokaler til bryllup og store fester bookes ofte 6–12 måneder i forveien, særlig for lørdager i mai–september. Møterom og mindre lokaler kan gjerne bookes med noen dagers eller ukers varsel. Med sanntidskalender ser du umiddelbart om datoen din er ledig.",
-  },
-  {
-    question: "Hvordan booker jeg et lokale på nett?",
-    answer:
-      "Du finner lokalet, velger en ledig dato i sanntidskalenderen, legger til eventuelle tilleggstjenester, og bekrefter. Betaling skjer med Vipps eller kort, og du får bekreftelse og kvittering automatisk. Fordi kalenderen er i sanntid, vet du med én gang om lokalet faktisk er ledig.",
-  },
-  {
-    question: "Kan jeg leie både private og kommunale lokaler?",
-    answer:
-      "Ja. Digilist samler private utleielokaler og offentlige/kommunale lokaler i samme kalender. Mange grendehus, kulturhus og kommunale lokaler leies ut til private arrangementer, og du kan sammenligne dem side om side med private festlokaler på ett sted.",
-  },
-];
-
-const LOKALTYPER = [
-  { label: "Selskapslokale", desc: "Bryllup, fest og feiring", to: "/leie/selskapslokale" },
-  { label: "Møterom", desc: "Møter og workshops", to: "/leie/moterom" },
-  { label: "Konferanselokale", desc: "Seminarer og konferanser", to: "/leie/konferanselokale" },
-  { label: "Kontorlokaler", desc: "Fast eller fleksibelt kontor", to: "/leie/kontorlokaler" },
-  { label: "Coworking", desc: "Delt arbeidsplass", to: "/leie/coworking" },
-  { label: "Kulturhus", desc: "Kultur og arrangement", to: "/leie/kulturhus" },
-  { label: "Idrettshall", desc: "Trening og aktivitet", to: "/leie/idrettshall" },
-  { label: "Hall", desc: "Idretts- og aktivitetshall", to: "/leie/hall" },
-  { label: "Gård", desc: "Landlig ramme for fest", to: "/leie/gaard" },
-  { label: "Bursdagslokale", desc: "Barnebursdag og feiring", to: "/leie/bursdagslokale" },
-  { label: "Svømmehall", desc: "Svømming og vannaktivitet", to: "/leie/svommehall" },
-  { label: "Alle lokaltyper", desc: "Se hele oversikten", to: "/leie" },
-];
-
-const BYER = [
-  { label: "Lokaler til leie i Oslo", to: "/lokaler-til-leie/oslo" },
-  { label: "Lokaler til leie i Bergen", to: "/lokaler-til-leie/bergen" },
-  { label: "Lokaler til leie i Trondheim", to: "/lokaler-til-leie/trondheim" },
-];
-
 const LokalerTilLeie = () => {
+  const locale = localeFromPath(useLocation().pathname);
+  const en = locale === "en";
+  const c = venuesCopy(locale);
+  const HOWTO_STEPS = c.steps;
+  const GUIDANCE = c.guidance;
+  const FAQ = c.faq;
+  const LOKALTYPER = c.types;
+  const BYER = c.cities;
+
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <SEO
-        title="Lokaler til leie – finn og book ledige lokaler på nett | Digilist"
-        description="Lokaler til leie: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Sammenlign private og kommunale lokaler, se pris, kapasitet og book direkte på Digilist."
-        keywords="lokaler til leie, lokale til leie, leie lokaler, leie lokale, finn lokale til leie, lokale til leie på nett, leie lokale pris"
-        canonical="https://digilist.no/lokaler-til-leie"
+        title={c.metaTitle}
+        description={c.metaDescription}
+        keywords={c.keywords}
+        canonical={en ? "https://digilist.no/en/lokaler-til-leie" : "https://digilist.no/lokaler-til-leie"}
         ogImage="https://digilist.no/og-image.png"
         ogType="article"
-        faq={FAQ}
+        faq={c.faq}
         breadcrumbs={[
           { name: "Hjem", url: "https://digilist.no/" },
           { name: "Lokaler til leie", url: "https://digilist.no/lokaler-til-leie" },
@@ -130,14 +53,14 @@ const LokalerTilLeie = () => {
           steps: HOWTO_STEPS.map((s) => ({ name: s.name, text: s.text })),
         }}
         article={{
-          headline: "Lokaler til leie: slik finner, sammenligner og booker du",
+          headline: c.articleHeadline,
           description:
             "En praktisk guide til å finne lokaler til leie i Norge: lokaltyper, kapasitet, prisintervaller, når du bør booke, og hvordan du booker på nett.",
           datePublished: "2026-07-23",
           dateModified: "2026-07-23",
           author: "Ibrahim Rahmani",
-          authorRole: "Grunnlegger, Digilist",
-          articleSection: "Lokaler til leie",
+          authorRole: c.authorRole,
+          articleSection: c.articleSection,
           keywords: ["lokaler til leie", "leie lokale", "booke lokale"],
         }}
       />
@@ -147,25 +70,23 @@ const LokalerTilLeie = () => {
       <main id="main">
         <section className="pt-28 lg:pt-32 pb-16 lg:pb-24 bg-paper">
           <div className="container mx-auto md:px-8 lg:px-12">
-            <SectionRule label="LOKALER TIL LEIE · 2026" />
+            <SectionRule label={c.rule} />
             <div className="grid lg:grid-cols-12 gap-8 lg:gap-gutter items-start">
               <div className="lg:col-span-8">
                 <EditorialHeading as="h1" size="hero" className="mb-6">
-                  Lokaler{" "}
+                  {c.h1}{" "}
                   <em
                     className="italic"
                     style={{ fontVariationSettings: getFraunces("hero") }}
                   >
-                    til leie
+                    {c.h1em}
                   </em>
                   .
                 </EditorialHeading>
                 <p className="text-xl text-ink-soft measure leading-relaxed mb-6">
-                  Du finner lokaler til leie ved å søke i sanntid på Digilist – en
-                  norsk bookingplattform der{" "}
-                  <strong className="text-ink">både private og kommunale lokaler</strong>{" "}
-                  ligger samlet. Se hva som er ledig på datoen din, sammenlign pris og
-                  kapasitet, og book direkte, uten en runde med e-post og telefon.
+                  {c.ledeA}
+                  <strong className="text-ink">{c.ledeStrong}</strong>
+                  {c.ledeB}
                 </p>
                 <Byline author="Ibrahim Rahmani" role="Grunnlegger, Digilist" date={`Sist oppdatert ${UPDATED}`} className="mb-10" />
                 <div className="flex flex-col sm:flex-row gap-4">
@@ -176,10 +97,10 @@ const LokalerTilLeie = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Finn ledige lokaler
+                    {c.ctaFind}
                   </EditorialButton>
                   <EditorialButton variant="outline" size="lg" icon={false} href="/leie">
-                    Se lokaltyper
+                    {c.ctaTypes}
                   </EditorialButton>
                 </div>
               </div>
@@ -189,11 +110,11 @@ const LokalerTilLeie = () => {
                     className="font-serif text-2xl text-ink mb-4"
                     style={{ fontVariationSettings: getFraunces("section") }}
                   >
-                    For leietakere
+                    {c.forRenters}
                   </h2>
-                  <SpecRow label="Marked" value="Privat · offentlig" />
-                  <SpecRow label="Lokaltyper" value="11+" />
-                  <SpecRow label="Tilgjengelighet" value="Sanntid" />
+                  {c.renterSpecs.map((spec) => (
+                    <SpecRow key={spec.label} label={spec.label} value={spec.value} />
+                  ))}
                   <SpecRow label="Betaling" value="Vipps · kort" />
                 </EditorialCard>
               </div>
@@ -203,12 +124,12 @@ const LokalerTilLeie = () => {
 
         <section className="py-14 lg:py-20 bg-paper-tinted border-y border-rule">
           <div className="container mx-auto md:px-8 lg:px-12">
-            <SectionRule label="I. SLIK FINNER OG VELGER DU LOKALE" />
+            <SectionRule label={c.stepsRule} />
             <div className="grid lg:grid-cols-12 gap-8 mb-10">
               <div className="lg:col-span-7">
                 <EditorialHeading as="h2" size="section">
-                  Seks steg til riktig{" "}
-                  <em className="italic">lokale</em>.
+                  {c.stepsH2}{" "}
+                  <em className="italic">{c.stepsH2em}</em>.
                 </EditorialHeading>
               </div>
               <div className="lg:col-span-5 flex items-end">
@@ -216,7 +137,7 @@ const LokalerTilLeie = () => {
                   className="text-xl text-ink-soft italic"
                   style={{ fontVariationSettings: getFraunces("sub") }}
                 >
-                  Fra antall gjester til bekreftet booking – uten e-postjakt.
+                  {c.stepsLede}
                 </p>
               </div>
             </div>
@@ -241,12 +162,12 @@ const LokalerTilLeie = () => {
 
         <section className="py-14 lg:py-20 bg-paper">
           <div className="container mx-auto md:px-8 lg:px-12">
-            <SectionRule label="II. KAPASITET OG PRIS" />
+            <SectionRule label={c.priceRule} />
             <div className="grid lg:grid-cols-12 gap-8 mb-10">
               <div className="lg:col-span-7">
                 <EditorialHeading as="h2" size="section">
-                  Hva slags lokale –{" "}
-                  <em className="italic">og hva koster det</em>?
+                  {c.priceH2}{" "}
+                  <em className="italic">{c.priceH2em}</em>?
                 </EditorialHeading>
               </div>
               <div className="lg:col-span-5 flex items-end">
@@ -254,7 +175,7 @@ const LokalerTilLeie = () => {
                   className="text-xl text-ink-soft italic"
                   style={{ fontVariationSettings: getFraunces("sub") }}
                 >
-                  Grove intervaller som pekepinn – se alltid prisen på det enkelte lokalet.
+                  {c.priceLede}
                 </p>
               </div>
             </div>
@@ -279,11 +200,7 @@ const LokalerTilLeie = () => {
               </table>
             </div>
             <p className="mt-6 text-sm text-ink-soft measure">
-              Prisene varierer mye med kapasitet, ukedag, sesong og geografi, og er ment
-              som en grov pekepinn – ikke et tilbud. Grendehus og foreningslokaler ligger
-              typisk lavere enn hotell- og restaurantlokaler, og lørdager i høysesong
-              koster mer enn hverdager. Prisen på det enkelte lokalet vises alltid før du
-              bekrefter bookingen på Digilist.
+              {c.priceNote}
             </p>
           </div>
         </section>
@@ -291,21 +208,19 @@ const LokalerTilLeie = () => {
         <section className="py-14 lg:py-20 bg-paper-tinted border-y border-rule">
           <div className="container mx-auto md:px-8 lg:px-12">
             <PullQuote>
-              Rundt 20 000 par gifter seg i Norge hvert år (SSB), og populære festlokaler
-              bookes ofte 6–12 måneder i forveien. Er du ute i god tid, har du langt flere
-              lokaler å velge mellom – og bedre priser på hverdager og utenfor høysesong.
+              {c.pullQuote}
             </PullQuote>
           </div>
         </section>
 
         <section className="py-14 lg:py-20 bg-paper">
           <div className="container mx-auto md:px-8 lg:px-12">
-            <SectionRule label="III. LOKALTYPER DU KAN LEIE" />
+            <SectionRule label={c.typesRule} />
             <div className="grid lg:grid-cols-12 gap-8 mb-10">
               <div className="lg:col-span-7">
                 <EditorialHeading as="h2" size="section">
-                  Hva vil du{" "}
-                  <em className="italic">leie</em>?
+                  {c.typesH2}{" "}
+                  <em className="italic">{c.typesH2em}</em>?
                 </EditorialHeading>
               </div>
               <div className="lg:col-span-5 flex items-end">
@@ -313,13 +228,16 @@ const LokalerTilLeie = () => {
                   className="text-xl text-ink-soft italic"
                   style={{ fontVariationSettings: getFraunces("sub") }}
                 >
-                  Fra selskapslokaler og møterom til kulturhus, haller og gårder.
+                  {c.typesLede}
                 </p>
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-rule border border-rule">
+              {/* Every target is a Norwegian-query landing page that stays
+                  Norwegian by design, so these render as labels in English. */}
               {LOKALTYPER.map((t) => (
-                <Link
+                <LinkOrText
+                  en={en}
                   key={t.to}
                   to={t.to}
                   className="group bg-paper p-6 flex items-start justify-between gap-3 hover:bg-accent-tinted transition-colors"
@@ -335,7 +253,7 @@ const LokalerTilLeie = () => {
                     strokeWidth={1.5}
                     aria-hidden="true"
                   />
-                </Link>
+                </LinkOrText>
               ))}
             </div>
           </div>
@@ -343,12 +261,12 @@ const LokalerTilLeie = () => {
 
         <section className="py-14 lg:py-20 bg-paper-tinted border-y border-rule">
           <div className="container mx-auto md:px-8 lg:px-12">
-            <SectionRule label="IV. LOKALER TIL LEIE ETTER BY" />
+            <SectionRule label={c.cityRule} />
             <div className="grid lg:grid-cols-12 gap-8 mb-10">
               <div className="lg:col-span-7">
                 <EditorialHeading as="h2" size="section">
-                  Finn lokaler i{" "}
-                  <em className="italic">din by</em>.
+                  {c.cityH2}{" "}
+                  <em className="italic">{c.cityH2em}</em>.
                 </EditorialHeading>
               </div>
               <div className="lg:col-span-5 flex items-end">
@@ -356,13 +274,15 @@ const LokalerTilLeie = () => {
                   className="text-xl text-ink-soft italic"
                   style={{ fontVariationSettings: getFraunces("sub") }}
                 >
-                  Lokale oversikter over hva du kan leie i de største byene.
+                  {c.cityLede}
                 </p>
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-rule border border-rule">
+              {/* The city pages are Norwegian only for the same reason. */}
               {BYER.map((b) => (
-                <Link
+                <LinkOrText
+                  en={en}
                   key={b.to}
                   to={b.to}
                   className="group bg-paper p-6 flex items-center justify-between gap-3 hover:bg-accent-tinted transition-colors"
@@ -375,7 +295,7 @@ const LokalerTilLeie = () => {
                     strokeWidth={1.5}
                     aria-hidden="true"
                   />
-                </Link>
+                </LinkOrText>
               ))}
             </div>
           </div>
@@ -385,9 +305,9 @@ const LokalerTilLeie = () => {
 
         <section className="py-14 lg:py-20 bg-paper">
           <div className="container mx-auto md:px-8 lg:px-12">
-            <SectionRule label="V. SPØRSMÅL OG SVAR" />
+            <SectionRule label={c.faqRule} />
             <EditorialHeading as="h2" size="section" className="mb-10">
-              Vanlige spørsmål om lokaler til leie.
+              {c.faqH2}
             </EditorialHeading>
             <dl className="space-y-8 max-w-4xl">
               {FAQ.map((q) => (
@@ -408,20 +328,21 @@ const LokalerTilLeie = () => {
               ))}
             </dl>
             <p className="mt-10 editorial-mono-caption">
-              Er du utleier? Se{" "}
+              {c.operatorPrompt}{" "}
               <Link
-                to="/bookingsystem-utleie"
+                to={en ? "/en/bookingsystem-utleie" : "/bookingsystem-utleie"}
                 className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
               >
-                bookingsystem for utleie
+                {c.operatorLink}
               </Link>{" "}
-              eller gå til{" "}
-              <Link
+              {c.orGoTo}{" "}
+              <LinkOrText
+                en={en}
                 to="/leie"
                 className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
               >
-                oversikten over lokaltyper
-              </Link>
+                {c.overviewLink}
+              </LinkOrText>
               .
             </p>
           </div>
