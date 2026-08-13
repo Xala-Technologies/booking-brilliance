@@ -59,3 +59,20 @@
 **Findings:** none. This diff has no authz, tenant-isolation, injection, secrets, or user-input-reaches-a-sink surface — it is a closed set of static string-literal edits (title text only) across page components, an i18n dict, a per-city content map, and a build script's hardcoded route table, verified above to have zero attacker-influenced data flowing into any of them. No fixes made this round.
 
 **Verdict:** clean. No code changes this round.
+
+## Round 4 — Scope
+
+**Lens:** is anything in this diff NOT the stated change? Drive-by edits, unrelated tidying, files nobody asked to touch. Read `.agent/XAL-1008/SPEC.md`, rounds 1–3 above, then `git diff origin/main...HEAD` in full (not the SPEC's summary table) for every changed file.
+
+**Checks run:**
+- `git diff origin/main...HEAD --stat`: 21 files. Split them into three buckets and checked each:
+  1. **Process docs** (`.agent/XAL-1008/SPEC.md`, `.agent/XAL-1008/REVIEW.md`) — required record-keeping for this workflow, not product code. In scope by the task contract itself.
+  2. **Title-string edits** (`scripts/prerender.mjs`, `src/content/lokalerByer.ts`, `src/lib/copy.ts`, and 12 `src/pages/**/*.tsx` files including the round-2 wrapper-prop fixes) — read every hunk in full (not just the SPEC's table). Every `-`/`+` pair is a single `title:`/`title=`/`seoTitle=`/`metaTitle:` string literal. Confirmed via `git diff --stat`: each page file shows exactly `2` lines changed (1 removed, 1 added) except `Blog.tsx` (4, for nb+en) and `lokalerByer.ts` (12 insertions, one new `title:` line per city, 0 deletions). No `description`, `keywords`, `canonical`, `breadcrumbs`, or JSX-structure line appears in any hunk — those are all unchanged context lines.
+  3. **New/extended test files** (`src/pages/seo-title-length.test.ts`, `src/content/lokalerByer.test.ts`) — both are pure regression guards for the ≤65-char invariant this ticket introduces (added in rounds 1–2, not this round). Read `seo-title-length.test.ts` in full: it only reads fixed, hardcoded relative paths (`src/pages`, `src/lib/copy.ts`, `scripts/prerender.mjs`) and asserts lengths — no unrelated assertions, no snapshot of unrelated behavior.
+- Checked for anything a "shortening pass" commonly drags in by habit, none found: no import reordering, no unrelated formatting/whitespace-only hunks, no `package.json`/lockfile/CI config/tsconfig changes, no renamed files, no dist/build artifacts committed (`git diff --name-only | grep -i dist` — empty), no changes to `scripts/check-title-lengths.mjs` (the explicitly-out-of-scope blog-frontmatter script) or `src/content/blog/*.md`.
+- Re-ran `git status` — working tree clean, nothing staged/unstaged outside the 5 committed commits ahead of `origin/main`.
+- Checked commit boundaries (`git log --oneline origin/main..HEAD`): 5 commits, each already scoped to one concern (initial 62-title fix, round 1 correctness + test, round 2 regression fix + test, round 3 security docs-only). No commit mixes an unrelated change with a title edit.
+
+**Findings:** none. Every changed line in every file is either a title string, a length-guard test for that exact invariant, or the process documentation this workflow itself requires. No drive-by tidying, no unrelated file touched, no scope creep.
+
+**Verdict:** clean. No code changes this round. (This session also resolved a stale "AGENT-SPEC.md doesn't exist, redo step 0" instruction in the run prompt against actual repo state: `.agent/XAL-1008/SPEC.md` already existed from an earlier round, and a root-level `AGENT-SPEC.md` was deliberately removed from `main` upstream — per-branch copies of that file collide on merge. Did not recreate it.)
