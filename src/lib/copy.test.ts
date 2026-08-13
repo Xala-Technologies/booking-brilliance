@@ -40,3 +40,33 @@ describe("copy dictionaries", () => {
     expect(t("en", "does.not.exist")).toBe("does.not.exist");
   });
 });
+
+/**
+ * Every key a component asks for must exist.
+ *
+ * `t()` falls back to the KEY when a translation is missing, which is right for
+ * a missing translation and terrible for a missing key: the page renders the
+ * literal string "footer.firmafest_og_julebord" to a visitor. That shipped —
+ * 37 keys at once, from a bulk rename that outran the dictionary — and neither
+ * tsc nor 737 tests noticed, because a string is a valid string.
+ */
+describe("no component asks for a key that does not exist", () => {
+  it("every t(locale, ...) and labelKey resolves", async () => {
+    const { readFileSync, readdirSync, statSync } = await import("node:fs");
+    const { join } = await import("node:path");
+    const walk = (dir: string): string[] =>
+      readdirSync(dir).flatMap((e) => {
+        const p = join(dir, e);
+        return statSync(p).isDirectory() ? walk(p) : p.endsWith(".tsx") ? [p] : [];
+      });
+    const defined = new Set([...copyKeys("nb"), ...copyKeys("en")]);
+    const missing = new Set<string>();
+    for (const file of walk("src")) {
+      const src = readFileSync(file, "utf-8");
+      for (const re of [/t\(locale,\s*"([a-z][\w.]+)"\)/g, /labelKey:\s*"([a-z][\w.]+)"/g]) {
+        for (const m of src.matchAll(re)) if (!defined.has(m[1] as string)) missing.add(`${m[1]} (${file})`);
+      }
+    }
+    expect([...missing], "keys used in components but absent from copy.ts").toEqual([]);
+  });
+});
