@@ -25,158 +25,41 @@ import {
   ProgressRail,
 } from "@/components/editorial";
 import { getFraunces } from "@/lib/fonts";
-
-const FAQ = [
-  {
-    question: "Hva er et bookingsystem for lokaler?",
-    answer:
-      "Et bookingsystem for lokaler er en digital plattform der utleiere og kommuner viser ledige lokaler i sanntid, og innbyggere, lag, foreninger og bedrifter booker og betaler direkte. Digilist er et slikt bookingsystem for lokaler og møterom – for både offentlige og private lokaler, med kalender, pris, kontrakt og betaling i én sammenhengende flyt.",
-  },
-  {
-    question: "Hva er booking av lokaler og møterom?",
-    answer:
-      "Booking av lokaler og møterom er den digitale prosessen der innbyggere, bedrifter, lag eller foreninger reserverer fysiske rom (selskapslokaler, møterom, idrettshaller, kantiner, kulturhus) for et bestemt tidsrom. En moderne plattform håndterer sanntidstilgjengelighet, betaling, kontrakt, varsling av driftsroller og fakturering i én sammenhengende flyt.",
-  },
-  {
-    question: "Hvordan booker man et lokale eller møterom på Digilist?",
-    answer:
-      "Søk etter sted og dato i sanntidskalenderen. Velg ledig tid, fyll inn formål og antall deltakere, signer leieavtalen digitalt og betal med Vipps, kort eller faktura. Bekreftelse, kalenderinvitasjon og digital nøkkel sendes automatisk. Hele flyten tar typisk under 90 sekunder.",
-  },
-  {
-    question: "Hvilke typer lokaler og møterom kan jeg booke?",
-    answer:
-      "Digilist støtter selskapslokaler, møterom, kantiner, idrettshaller, gymsaler, kulturhus, samfunnshus, undervisningsrom og spesialressurser som AV-utstyr eller kjøretøy. Hvert anlegg kan ha egne regler for kapasitet, brukergrupper, prising og rabatter.",
-  },
-  {
-    question: "Hvor mye koster det å booke et lokale via Digilist?",
-    answer:
-      "Prisen avhenger av lokalet, varigheten, brukergruppen og kommunens regler. Lag og foreninger får ofte 30–100 % rabatt avhengig av kommunens prioriteringsregler. Selve plattformen er gratis å bruke for innbyggere. Du betaler kun leieprisen til utleier.",
-  },
-  {
-    question: "Kan kommuner og bedrifter bruke Digilist for å sette opp egne booking-tjenester?",
-    answer:
-      "Ja. Digilist er bygget for norske kommuner og private utleiere. Kommunen får eget administratorpanel der saksbehandlere håndterer søknader, sesongleie og kalenderbooking. Bedrifter får sin egen profil for selskapslokaler, kulturhus eller møterom. Plattformen er SSA-L 2026-klar.",
-  },
-  {
-    question: "Er Digilist trygt og GDPR-kompatibelt?",
-    answer:
-      "Ja. All data lagres i Norge og EU på PostgreSQL hostet av Convex. Plattformen er sertifisert mot ISO 27001 og ISO 27701, oppfyller GDPR-krav, og bruker ID-porten/BankID for autentisering. Audit-spor registrerer hver mutasjon med tidsstempel.",
-  },
-  {
-    question: "Hvilke betalingsmetoder støttes for booking av lokaler?",
-    answer:
-      "Vipps, kortbetaling via Stripe Connect, depositum med automatisk frigjøring, og EHF/Peppol-fakturering for organisasjoner. Refusjonsregler kan tilpasses per anlegg.",
-  },
-  {
-    question: "Hvordan håndterer Digilist sesongleie for idrettslag og foreninger?",
-    answer:
-      "Digilist har en dedikert sesongleie-modul: lag og foreninger søker via egen portal, organisasjonen verifiseres mot Brønnøysundregistrene, og saksbehandler får regelstyrt fordelingsforslag basert på kommunens prioriteringer. Tilskudd, fordeling og kapasitetsutnyttelse rapporteres automatisk.",
-  },
-];
-
-const BENEFITS = [
-  {
-    Icon: CalendarCheck,
-    title: "Sanntids tilgjengelighet",
-    body: "Innbyggere ser ledige og opptatte tider umiddelbart. Ingen polling, ingen daglig synkronisering. Endringer oppdateres samme sekund hos alle brukere.",
-  },
-  {
-    Icon: CreditCard,
-    title: "Betaling i én flyt",
-    body: "Vipps, kort eller faktura, uten å forlate booking-skjemaet. EHF/Peppol til organisasjoner. Automatisk avstemming mot regnskapssystemet.",
-  },
-  {
-    Icon: Users,
-    title: "Sesongleie og brukergrupper",
-    body: "Lag og foreninger med BRREG-verifisering, regelstyrt fordeling, og dokumentert prioritering. Saksbehandler får forslag, beholder skjønnet.",
-  },
-  {
-    Icon: ShieldCheck,
-    title: "Trygt og etterprøvbart",
-    body: "ID-porten, ISO 27001 og 27701, GDPR, WCAG 2.1 AA, data i Norge og EU. Hver mutasjon revisjonsspores.",
-  },
-  {
-    Icon: Building2,
-    title: "Bygget for norske krav",
-    body: "Vipps, BankID, ID-porten, EHF, BRREG og Digdir Designsystemet, innebygd. SSA-L 2026-klar for kommunale anskaffelser.",
-  },
-  {
-    Icon: Sparkles,
-    title: "Én plattform, ingen siloer",
-    body: "Booking, betaling, sesongleie, fakturering, regnskap og driftsvarsling: én datakilde. Ingen dobbelinntastinger, ingen synkroniseringsfeil.",
-  },
-];
-
-const USE_CASES = [
-  {
-    title: "Selskapslokaler",
-    Icon: GlassWater,
-    body: "Bryllup, jubileer, firmafester. Med depositum, leieavtale-signering og digital nøkkel.",
-    href: "/bruksomrader/selskapslokaler",
-    cta: "Les om selskapslokaler",
-  },
-  {
-    title: "Møterom",
-    Icon: Users2,
-    body: "Kommunale møterom, næringsbygg, foreningslokaler, med sambruk og pris per brukergruppe.",
-    href: "/bruksomrader/moterom",
-    cta: "Les om møterom",
-  },
-  {
-    title: "Idrettshaller og gymsaler",
-    Icon: Trophy,
-    body: "Halvhalls-, hel-halls- og blandingsbookinger med sesongleie til lag og foreninger.",
-    href: "/bruksomrader/idrettshaller-gymsaler",
-    cta: "Les om idrettshaller",
-  },
-  {
-    title: "Kulturhus og kantiner",
-    Icon: Theater,
-    body: "Forestillinger, konserter, åpne dager. Adgangskontroll via Salto KS og automatisk varsling av driftsroller.",
-    href: "/bruksomrader/kulturhus-kantiner",
-    cta: "Les om kulturhus",
-  },
-];
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { bookingCopy } from "@/content/booking-lokaler";
+import { LinkOrText } from "@/components/LinkOrText";
 
 const BookingLokalerMoterom = () => {
+  const locale = localeFromPath(useLocation().pathname);
+  const en = locale === "en";
+  const c = bookingCopy(locale);
+  const FAQ = c.faq;
+  const BENEFITS = c.benefits;
+  const USE_CASES = c.useCases;
+  const BENEFIT_ICONS = [CalendarCheck, CreditCard, Users, ShieldCheck, Building2, Sparkles];
+  const USE_CASE_ICONS = [GlassWater, Users2, Trophy, Theater];
+
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <SEO
-        title="Booking av lokaler og møterom · Digilist"
+        title={c.metaTitle}
         description="Bookingsystem for lokaler og møterom i Norge: sanntidskalender, Vipps, BankID, EHF og sesongleie. Bygget for kommuner, selskapslokaler, idrettshaller og kulturhus. SSA-L 2026-klar, ISO 27001-sertifisert."
         keywords="lokaler bookingsystem, bookingsystem for lokaler, bookingsystem lokaler, booking av lokaler og møterom, booking lokale, booking møterom, leie lokale, leie møterom, bookingplattform Norge, kommunal booking, selskapslokale booking, idrettshall booking, kulturhus booking, Vipps booking, BankID booking, EHF, sesongleie"
-        canonical="https://digilist.no/booking-av-lokaler-og-moterom"
+        canonical={en ? "https://digilist.no/en/booking-av-lokaler-og-moterom" : "https://digilist.no/booking-av-lokaler-og-moterom"}
         breadcrumbs={[
           { name: "Hjem", url: "https://digilist.no/" },
           {
-            name: "Booking av lokaler og møterom",
+            name: c.crumb,
             url: "https://digilist.no/booking-av-lokaler-og-moterom",
           },
         ]}
-        faq={FAQ}
+        faq={c.faq}
         service
         howTo={{
-          name: "Slik booker du lokale eller møterom",
-          description:
-            "Fra søk til bekreftet booking på fire steg via Digilist.",
-          steps: [
-            {
-              name: "Søk og velg ledig tid",
-              text: "Søk etter lokale eller møterom i kalenderen. Filtrer på dato, kapasitet og fasiliteter. Ledige tider vises i sanntid.",
-            },
-            {
-              name: "Fyll inn formål og deltakere",
-              text: "Angi hvilken anledning, antall deltakere og eventuelle tilleggstjenester (AV-utstyr, servering, ekstra rengjøring).",
-            },
-            {
-              name: "Logg inn og signer leieavtalen",
-              text: "Logg inn med BankID eller ID-porten. Leieavtalen signeres digitalt med juridisk bindende eID-signatur.",
-            },
-            {
-              name: "Betal og motta bekreftelse",
-              text: "Betal med Vipps, kort eller faktura (EHF for organisasjoner). Bekreftelse, kalenderinvitasjon og digital nøkkel sendes automatisk.",
-            },
-          ],
+          name: c.howToName,
+          description: c.howToDescription,
+          steps: c.howToSteps.map((s) => ({ name: s.name, text: s.text })),
         }}
       />
       <ProgressRail />
@@ -186,28 +69,24 @@ const BookingLokalerMoterom = () => {
         <main id="main">
           <section className="pt-28 lg:pt-32 pb-14 lg:pb-20 bg-paper">
             <div className="container mx-auto md:px-8 lg:px-12">
-              <SectionRule label="BOOKING AV LOKALER OG MØTEROM" />
+              <SectionRule label={c.rule} />
 
               <div className="grid lg:grid-cols-12 gap-8 lg:gap-gutter mb-14 lg:mb-20">
                 <div className="lg:col-span-8">
                   <EditorialHeading as="h1" size="display">
-                    Booking av{" "}
+                    {c.h1}{" "}
                     <em
                       className="italic"
                       style={{
                         fontVariationSettings: getFraunces("display"),
                       }}
                     >
-                      lokaler og møterom
+                      {c.h1em}
                     </em>{" "}
                     · én norsk plattform.
                   </EditorialHeading>
                   <p className="mt-6 text-xl text-ink-soft measure leading-relaxed">
-                    Digilist er et norsk bookingsystem for lokaler og møterom – for
-                    kommuner, selskapslokaler, idrettshaller, kulturhus og
-                    bedrifter. Søk,
-                    book og betal i én flyt, med Vipps, BankID, EHF og
-                    sesongleie innebygd.
+                    {c.lede}
                   </p>
                   <div className="mt-8 flex flex-wrap gap-3">
                     <EditorialButton
@@ -217,12 +96,12 @@ const BookingLokalerMoterom = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Åpne plattformen
+                      {c.ctaOpen}
                     </EditorialButton>
                     <EditorialButton
                       variant="outline"
                       size="lg"
-                      href="/book-demo"
+                      href={en ? "/en/book-demo" : "/book-demo"}
                     >
                       Book demo
                     </EditorialButton>
@@ -242,14 +121,16 @@ const BookingLokalerMoterom = () => {
                       <h3>s below don't skip straight from the hero <h1>
                       (H1→H3) and trip a11y.heading.skip. */}
                   <h2 className="editorial-mono-caption text-accent-text">
-                    HVORFOR DIGILIST
+                    {c.whyRule}
                   </h2>
                   <span className="editorial-mono-caption text-ink-faint">
-                    SEKS PRINSIPPER
+                    {c.whyKinds}
                   </span>
                 </div>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-rule border border-rule">
-                  {BENEFITS.map(({ Icon, title, body }) => (
+                  {BENEFITS.map(({ title, body }, bi) => {
+                    const Icon = BENEFIT_ICONS[bi];
+                    return (
                     <article
                       key={title}
                       className="bg-paper p-7 lg:p-9 flex flex-col"
@@ -276,7 +157,8 @@ const BookingLokalerMoterom = () => {
                         {body}
                       </p>
                     </article>
-                  ))}
+                  );
+                  })}
                 </div>
               </div>
 
@@ -289,15 +171,15 @@ const BookingLokalerMoterom = () => {
               <div>
                 <div className="flex items-baseline justify-between mb-6 border-b border-rule pb-3">
                   <span className="editorial-mono-caption text-accent-text">
-                    BRUKSOMRÅDER
+                    {c.useRule}
                   </span>
                   <span className="editorial-mono-caption text-ink-faint">
-                    LOKALER · MØTEROM · IDRETT · KULTUR
+                    {c.useKinds}
                   </span>
                 </div>
                 <div className="grid sm:grid-cols-2 gap-px bg-rule border border-rule">
-                  {USE_CASES.map((u) => {
-                    const Icon = u.Icon;
+                  {USE_CASES.map((u, i) => {
+                    const Icon = USE_CASE_ICONS[i];
                     return (
                       <Link
                         key={u.title}
@@ -344,35 +226,14 @@ const BookingLokalerMoterom = () => {
               <div>
                 <div className="flex items-baseline justify-between mb-6 border-b border-rule pb-3">
                   <span className="editorial-mono-caption text-accent-text">
-                    SLIK BOOKER DU
+                    {c.howRule}
                   </span>
                   <span className="editorial-mono-caption text-ink-faint">
-                    FIRE STEG · UNDER 90 SEKUNDER
+                    {c.howKinds}
                   </span>
                 </div>
                 <ol className="relative border-l border-rule pl-8 lg:pl-12">
-                  {[
-                    {
-                      step: "01",
-                      title: "Søk og velg ledig tid",
-                      body: "Søk på lokale eller møterom, filtrer på dato og kapasitet. Sanntidskalenderen viser ledige og opptatte tider umiddelbart.",
-                    },
-                    {
-                      step: "02",
-                      title: "Fyll inn formål og deltakere",
-                      body: "Angi anledning, antall personer og eventuelle tilleggstjenester (AV-utstyr, servering, ekstra rengjøring).",
-                    },
-                    {
-                      step: "03",
-                      title: "Logg inn og signer",
-                      body: "Logg inn med BankID eller ID-porten. Leieavtalen signeres digitalt med juridisk bindende eID-signatur.",
-                    },
-                    {
-                      step: "04",
-                      title: "Betal og motta bekreftelse",
-                      body: "Betal med Vipps, kort eller faktura (EHF for organisasjoner). Bekreftelse og digital nøkkel sendes automatisk.",
-                    },
-                  ].map((s, i) => (
+                  {c.steps.map((s, i) => (
                     <li
                       key={s.step}
                       className={`relative grid grid-cols-12 gap-6 lg:gap-gutter py-8 lg:py-10 ${i > 0 ? "border-t border-rule" : ""}`}
@@ -414,10 +275,10 @@ const BookingLokalerMoterom = () => {
               <div>
                 <div className="flex items-baseline justify-between mb-6 border-b border-rule pb-3">
                   <span className="editorial-mono-caption text-accent-text">
-                    OFTE STILTE SPØRSMÅL
+                    {c.faqRule}
                   </span>
                   <span className="editorial-mono-caption text-ink-faint">
-                    BOOKING AV LOKALER OG MØTEROM
+                    {c.faqKinds}
                   </span>
                 </div>
                 <dl className="border-t border-rule">
@@ -446,12 +307,12 @@ const BookingLokalerMoterom = () => {
                   ))}
                 </dl>
                 <p className="mt-10 editorial-mono-caption">
-                  Se også{" "}
-                  <Link to="/bookingsystem-utleie" className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]">bookingsystem for utleie</Link>
+                  {c.seeAlso}{" "}
+                  <Link to={en ? "/en/bookingsystem-utleie" : "/bookingsystem-utleie"} className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]">{c.operatorLink}</Link>
                   ,{" "}
-                  <Link to="/bookingsystem-kommune" className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]">bookingsystem for kommuner</Link>{" "}
-                  eller{" "}
-                  <Link to="/leie" className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]">alle lokaler til leie</Link>.
+                  <Link to={en ? "/en/bookingsystem-kommune" : "/bookingsystem-kommune"} className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]">{c.municipalLink}</Link>{" "}
+                  {c.orWord}{" "}
+                  <LinkOrText en={en} to="/leie" className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]">{c.allVenuesLink}</LinkOrText>.
                 </p>
               </div>
 
@@ -472,16 +333,14 @@ const BookingLokalerMoterom = () => {
                         lineHeight: 1.1,
                       }}
                     >
-                      Klar til å digitalisere booking av lokaler og møterom?
+                      {c.ctaHeading}
                     </h2>
                     <p className="text-base lg:text-lg text-ink leading-relaxed">
-                      Få en gratis 30-minutters demo for kommunen eller utleier.
-                      Vi viser plattformen i ditt bruksområde. Ingen
-                      forpliktelser.
+                      {c.ctaBody}
                     </p>
                   </div>
                   <div className="lg:col-span-4 flex flex-wrap gap-3 lg:justify-end">
-                    <EditorialButton variant="primary" size="lg" href="/book-demo">
+                    <EditorialButton variant="primary" size="lg" href={en ? "/en/book-demo" : "/book-demo"}>
                       Book demo
                     </EditorialButton>
                   </div>

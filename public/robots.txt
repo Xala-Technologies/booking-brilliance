@@ -39,6 +39,7 @@ Allow: /en/bookingsystem-kommune$
 Allow: /en/bookingsystem-utleie$
 Allow: /en/billettsystem$
 Allow: /en/lokaler-til-leie$
+Allow: /en/booking-av-lokaler-og-moterom$
 Allow: /en/blogg
 
 

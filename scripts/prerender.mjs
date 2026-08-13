@@ -1949,6 +1949,27 @@ const ROUTES = [
     ],
   },
   {
+    route: "/en/booking-av-lokaler-og-moterom",
+    title: "Booking venues and meeting rooms · Digilist",
+    description:
+      "A booking system for venues and meeting rooms in Norway: a real-time calendar, card payment, national identity sign-in, e-invoicing and seasonal allocation.",
+    ogType: "website",
+    lang: "en",
+    service: true,
+    breadcrumbs: [
+      { name: "Home", url: `${BASE_URL}/en` },
+      { name: "Booking venues and meeting rooms", url: `${BASE_URL}/en/booking-av-lokaler-og-moterom` },
+    ],
+    faq: [
+      { question: "What is a booking system for venues?", answer: "A booking system for venues is a platform where operators and public bodies show available rooms in real time, and residents, clubs, associations and businesses book and pay directly. Digilist is such a system, for public and private venues alike, with the calendar, price, contract and payment in one continuous flow." },
+      { question: "What is booking a venue or meeting room?", answer: "Booking a venue or meeting room is the digital process where residents, businesses, clubs or associations reserve a physical room — a function room, meeting room, sports hall, canteen or cultural venue — for a set period. A modern platform handles real-time availability, payment, the contract, alerts to operations staff and invoicing in one continuous flow." },
+      { question: "How do you book a venue or meeting room on Digilist?", answer: "Search for a place and date in the real-time calendar. Choose a free time, enter the purpose and the number of people, sign the rental agreement digitally and pay by card, Vipps or invoice. Confirmation, a calendar invitation and a digital key are sent automatically. The whole flow typically takes under 90 seconds." },
+      { question: "What kinds of venues and meeting rooms can I book?", answer: "Digilist supports function rooms, meeting rooms, canteens, sports halls, gyms, cultural venues, community halls, teaching rooms and specialist resources such as AV equipment or vehicles. Each facility can have its own rules for capacity, user groups, pricing and discounts." },
+      { question: "How much does it cost to book a venue through Digilist?", answer: "The price depends on the venue, the duration, the user group and the municipality's own rules. Clubs and associations often get a 30–100% discount, depending on those priority rules. The platform itself is free for residents to use — you pay only the rental price to the operator." },
+      { question: "Can municipalities and businesses use Digilist to set up their own booking services?", answer: "Yes. Digilist is built for Norwegian municipalities and private operators. A municipality gets its own administrator panel, where case officers handle applications, seasonal allocation and calendar bookings. Businesses get their own profile for function rooms, cultural venues or meeting rooms. The platform is ready for procurement under SSA-L 2026." },
+    ],
+  },
+  {
     route: "/booking-av-lokaler-og-moterom",
     title: "Booking av lokaler og møterom – Digilist",
     description:
@@ -2763,6 +2784,7 @@ const TRANSLATED_ROUTES = {
   "/bookingsystem-utleie": "/en/bookingsystem-utleie",
   "/billettsystem": "/en/billettsystem",
   "/lokaler-til-leie": "/en/lokaler-til-leie",
+  "/booking-av-lokaler-og-moterom": "/en/booking-av-lokaler-og-moterom",
   "/blogg": "/en/blogg",
 };
 

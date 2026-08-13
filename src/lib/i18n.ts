@@ -87,6 +87,7 @@ export const TRANSLATED_PATHS: ReadonlySet<string> = new Set([
   "/bookingsystem-utleie",
   "/billettsystem",
   "/lokaler-til-leie",
+  "/booking-av-lokaler-og-moterom",
   "/blogg",
   // "/priser" and "/faq" were listed here, and it was not true. The bespoke
   // English pages were deleted in favour of the mirror, which renders the
