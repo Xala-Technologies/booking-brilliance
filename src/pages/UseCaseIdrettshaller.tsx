@@ -14,7 +14,7 @@ export default function UseCaseIdrettshaller() {
       title="Idrettshaller og gymsaler"
       dek="Halvhalls-, hel-halls- og blandingsbookinger med sesongleie til lag og foreninger. Privat trening, treningsturneringer og åpen hall, i samme kalender."
       lead="Idrettshaller er det mest komplekse å booke i en kommune. Du har lag som trenger fast tid hele sesongen, foreninger som vil leie inn fra utsiden, innbyggere som vil booke gymsal en lørdag, og halvhalls-bookinger som må kunne kombineres uten å låse motsatte halvdel. Digilist løser dette med sesongleie-modul, sambruk og automatisk fordeling."
-      seoTitle="Idrettshall booking: bookingsystem for kommuner og foreninger · Digilist"
+      seoTitle="Idrettshall booking: for kommuner og foreninger | Digilist"
       seoDescription="Bookingsystem for idrettshaller og gymsaler. Sesongleie til lag og foreninger, halvhalls-bookinger, sambruk, kommunal innbyggerinnlogging via ID-porten."
       keywords="idrettshall booking, gymsal booking, sesongleie idrettslag, halvhalls booking, foreningstilskudd, kommunal idrett, idrettsanlegg, fritidsdrift"
       audience={[

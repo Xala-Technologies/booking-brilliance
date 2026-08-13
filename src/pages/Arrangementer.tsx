@@ -89,7 +89,7 @@ export default function Arrangementer() {
   return (
     <MarketplaceHub
       sectionLabel="ARRANGEMENTER"
-      seoTitle="Arrangementer: kjøp billetter til konsert, teater og festival | Digilist"
+      seoTitle="Arrangementer: kjøp billetter til konsert og teater | Digilist"
       seoDescription="Finn arrangementer nær deg og kjøp billetter til konsert, teater og festival. Betal med Vipps, få QR-billett på mobilen, bruk rabattkode og gavekort. Samlet ett sted."
       keywords="arrangementer, kjøp billetter, konsertbilletter, teaterbilletter, festivalbilletter, billetter nær meg, billett vipps, arrangement billetter"
       canonical="https://digilist.no/arrangementer"
