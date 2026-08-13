@@ -67,7 +67,7 @@ const BlogPreviewSection = () => {
           action={
             <div className="flex items-center justify-between border-t border-rule pt-6">
               <EditorialButton variant="link" size="md" href={locale === "en" ? "/en/blogg" : "/blogg"}>
-                Se alle artikler
+                {t(locale, "blogPreview.seeAll")}
               </EditorialButton>
               <div className="hidden lg:flex items-center gap-2">
                 <button

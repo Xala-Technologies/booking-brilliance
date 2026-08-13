@@ -5,14 +5,12 @@ import { MessageBubble } from "./MessageBubble";
 import { QuickReplies } from "./QuickReplies";
 import { InquiryFlow } from "./InquiryFlow";
 import { getFraunces } from "@/lib/fonts";
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 
-const STARTER_SUGGESTIONS = [
-  "Finn selskapslokale",
-  "Hva koster det å leie et lokale?",
-  "Bookingsystem for kommuner",
-  "Sesongtildeling",
-  "Book demo",
-];
+const starterSuggestionsFor = (locale: "nb" | "en") =>
+  [1, 2, 3, 4, 5].map((n) => t(locale, `chat.s${n}`));
 
 interface Props {
   controller: ReturnType<typeof useChatbot>;
@@ -29,6 +27,7 @@ interface Props {
  * (flex column, h-full).
  */
 export function ChatConversation({ controller, onClose, closeVariant = "close" }: Props) {
+  const locale = localeFromPath(useLocation().pathname);
   const {
     state,
     send,
@@ -153,7 +152,7 @@ export function ChatConversation({ controller, onClose, closeVariant = "close" }
                 <p className="text-base text-ink-soft leading-relaxed mb-4">
                   Søk etter et lokale, eller spør om Digilist.
                 </p>
-                <QuickReplies suggestions={STARTER_SUGGESTIONS} onPick={(s) => void send(s)} />
+                <QuickReplies suggestions={starterSuggestionsFor(locale)} onPick={(s) => void send(s)} />
               </div>
             )}
             {state.messages.map((m) => (

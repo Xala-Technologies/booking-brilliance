@@ -24,12 +24,12 @@ type Interest = {
 };
 
 const INTERESTS: Interest[] = [
-  { id: "finn", label: "Finn og book lokale", icon: Search, to: "/leie" },
-  { id: "kalender", label: "Booking & kalender", icon: CalendarDays, to: "/booking-av-lokaler-og-moterom" },
-  { id: "betaling", label: "Betaling & oppgjør", icon: Wallet, to: "/booking-av-lokaler-og-moterom" },
-  { id: "kanaler", label: "Kanaler & synk", icon: RefreshCw, to: "/kanaler" },
-  { id: "ai", label: "AI-agenter", icon: Sparkles, to: "/ai-agenter" },
-  { id: "kommune", label: "Bookingsystem for kommune", icon: Building2, to: "/bookingsystem-kommune" },
+  { id: "finn", labelKey: "interest.finn", icon: Search, to: "/leie" },
+  { id: "kalender", labelKey: "interest.kalender", icon: CalendarDays, to: "/booking-av-lokaler-og-moterom" },
+  { id: "betaling", labelKey: "interest.betaling", icon: Wallet, to: "/booking-av-lokaler-og-moterom" },
+  { id: "kanaler", labelKey: "interest.kanaler", icon: RefreshCw, to: "/kanaler" },
+  { id: "ai", labelKey: "interest.ai", icon: Sparkles, to: "/ai-agenter" },
+  { id: "kommune", labelKey: "interest.kommune", icon: Building2, to: "/bookingsystem-kommune" },
 ];
 
 /**
@@ -63,7 +63,7 @@ export function InterestSelector() {
         className="font-serif text-2xl lg:text-3xl text-ink text-center"
         style={{ letterSpacing: "-0.015em", lineHeight: 1.1 }}
       >
-        Hva er du mest interessert i?
+        {t(locale, "interest.heading")}
       </h3>
       <p className="mt-2 text-center text-ink-soft">
         {t(locale, "lane.chooser")}

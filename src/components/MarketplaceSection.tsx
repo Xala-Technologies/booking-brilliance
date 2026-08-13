@@ -151,7 +151,7 @@ const MarketplaceSection = () => {
                       {t(locale, tile.tagKey)}
                     </p>
                     <span className="mt-3 inline-flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-widest text-white">
-                      Finn
+                      {t(locale, "market.find")}
                       <ArrowUpRight
                         className="h-3.5 w-3.5 transition-transform duration-quick ease-editorial group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                         aria-hidden="true"
