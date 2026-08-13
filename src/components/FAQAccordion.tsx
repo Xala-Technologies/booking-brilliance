@@ -19,7 +19,8 @@ export function FAQAccordion({
   items,
   openFirst = true,
 }: {
-  items: FAQItem[];
+  // readonly: the bilingual copy banks are `as const`, and this only reads.
+  items: readonly FAQItem[];
   /** Render the first item expanded (nice default for a short list). */
   openFirst?: boolean;
 }) {

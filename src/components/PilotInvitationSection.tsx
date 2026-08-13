@@ -69,7 +69,7 @@ const PilotInvitationSection = () => {
                 href="mailto:kontakt@digilist.no?subject=Pilot%20for%20kommune"
                 icon={<ArrowUpRight className="h-4 w-4" aria-hidden="true" />}
               >
-                {t(locale, "pilot.cta")}
+                {t(locale, "pilot.requestCta")}
               </EditorialButton>
               <EditorialButton
                 variant="outline"

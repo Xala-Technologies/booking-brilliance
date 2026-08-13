@@ -33,7 +33,8 @@
     "improvements:prepare": "xala-agents run prepare",
     "improvements:implement": "xala-agents run implement",
     "improvements:install-timer": "bash scripts/install-improvements-timer.sh",
-    "chat:grade": "tsx scripts/grade-chat.ts"
+    "chat:grade": "tsx scripts/grade-chat.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.app.json"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

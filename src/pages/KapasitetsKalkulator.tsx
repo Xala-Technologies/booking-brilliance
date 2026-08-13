@@ -8,6 +8,9 @@ import { SectionRule, EditorialHeading, EditorialButton, EditorialCard, Byline }
 import { getFraunces } from "@/lib/fonts";
 import PilotInvitationSection from "@/components/PilotInvitationSection";
 import { OPPSETT, ARRANGEMENT, estimateCapacity, kr } from "@/lib/kalkulator";
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 
 const UPDATED = "24. juli 2026";
 
@@ -35,6 +38,7 @@ const FAQ = [
 ];
 
 export default function KapasitetsKalkulator() {
+  const locale = localeFromPath(useLocation().pathname);
   const [gjester, setGjester] = useState(60);
   const [arrangement, setArrangement] = useState("bryllup");
   const [oppsett, setOppsett] = useState("middag");
@@ -106,7 +110,7 @@ export default function KapasitetsKalkulator() {
                   >
                     {ARRANGEMENT.map((a) => (
                       <option key={a.key} value={a.key}>
-                        {a.label}
+                        {t(locale, `calc.arr.${a.key}`)}
                       </option>
                     ))}
                   </select>
@@ -121,7 +125,7 @@ export default function KapasitetsKalkulator() {
                   >
                     {OPPSETT.map((o) => (
                       <option key={o.key} value={o.key}>
-                        {o.label} ({o.low}–{o.high} m² per person)
+                        {t(locale, `calc.oppsett.${o.key}`)} ({o.low}–{o.high} m² per person)
                       </option>
                     ))}
                   </select>
@@ -139,7 +143,7 @@ export default function KapasitetsKalkulator() {
                       {kr(result.areaLow)}–{kr(result.areaHigh)} m²
                     </p>
                     <p className="text-sm text-ink-soft mt-1">
-                      for {gjester} gjester · {result.oppsettLabel}
+                      for {gjester} gjester · {t(locale, `calc.oppsett.${result.oppsettKey}`)}
                     </p>
                     <p className="text-xs text-ink-soft mt-4 measure mx-auto">
                       Basert på {result.ratioLow}–{result.ratioHigh} m² per person. Legg til 15–25 % for dansegulv,

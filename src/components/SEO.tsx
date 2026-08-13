@@ -28,7 +28,7 @@ interface SEOProps {
   /** Use "article" for blog posts/case studies, "website" otherwise */
   ogType?: "website" | "article";
   /** Optional FAQ Q/A array — rendered as FAQPage JSON-LD */
-  faq?: Array<{ question: string; answer: string }>;
+  faq?: readonly { question: string; answer: string }[];
   /** Optional breadcrumb trail */
   breadcrumbs?: Array<{ name: string; url: string }>;
   /** Optional HowTo schema — for step-by-step content */

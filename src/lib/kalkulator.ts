@@ -103,22 +103,32 @@ export function suitableTypes(gjester: number): Lokaltype[] {
   return LOKALTYPER.filter((t) => t.capMax === 0 || (gjester >= Math.floor(t.capMin * 0.5) && gjester <= t.capMax));
 }
 
-// Standard, stated planning ratios (m² per person) by seating layout.
+/**
+ * Standard, stated planning ratios (m² per person) by seating layout.
+ *
+ * The `key` is the identity — it is what the UI stores, what `estimateCapacity`
+ * looks up, and what six other pages pass in. It stays Norwegian and stable in
+ * both languages on purpose: a key that changed with the locale would make the
+ * English calculator compute against layouts it could not find.
+ *
+ * The visible label is a copy key instead, resolved per locale by
+ * `oppsettLabel()`.
+ */
 export const OPPSETT = [
-  { key: "middag", label: "Sittende middag (runde bord)", low: 1.5, high: 2.0 },
-  { key: "mingling", label: "Mingling / stående mottakelse", low: 0.8, high: 1.0 },
-  { key: "klasserom", label: "Klasserom / kurs (bord + stoler)", low: 2.0, high: 2.5 },
-  { key: "kino", label: "Kino / teater (stolrader)", low: 0.8, high: 1.2 },
+  { key: "middag", low: 1.5, high: 2.0 },
+  { key: "mingling", low: 0.8, high: 1.0 },
+  { key: "klasserom", low: 2.0, high: 2.5 },
+  { key: "kino", low: 0.8, high: 1.2 },
 ];
 
 // Occasion → the layout most people use for it (a suggestion the user can change).
 export const ARRANGEMENT = [
-  { key: "bryllup", label: "Bryllup", oppsett: "middag" },
-  { key: "konfirmasjon", label: "Konfirmasjon", oppsett: "middag" },
-  { key: "firmafest", label: "Firmafest / julebord", oppsett: "middag" },
-  { key: "mote", label: "Møte", oppsett: "klasserom" },
-  { key: "konferanse", label: "Konferanse", oppsett: "kino" },
-  { key: "mingling", label: "Mingling / mottakelse", oppsett: "mingling" },
+  { key: "bryllup", oppsett: "middag" },
+  { key: "konfirmasjon", oppsett: "middag" },
+  { key: "firmafest", oppsett: "middag" },
+  { key: "mote", oppsett: "klasserom" },
+  { key: "konferanse", oppsett: "kino" },
+  { key: "mingling", oppsett: "mingling" },
 ];
 
 export interface CapInput {
@@ -131,7 +141,8 @@ export interface CapEstimate {
   areaHigh: number;
   ratioLow: number;
   ratioHigh: number;
-  oppsettLabel: string;
+  /** The layout KEY. Callers resolve the visible label per locale. */
+  oppsettKey: string;
   types: Lokaltype[];
 }
 
@@ -143,7 +154,7 @@ export function estimateCapacity(inp: CapInput): CapEstimate | null {
     areaHigh: Math.round(inp.gjester * o.high),
     ratioLow: o.low,
     ratioHigh: o.high,
-    oppsettLabel: o.label,
+    oppsettKey: o.key,
     types: suitableTypes(inp.gjester),
   };
 }
