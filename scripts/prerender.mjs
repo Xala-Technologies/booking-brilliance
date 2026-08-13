@@ -1667,6 +1667,27 @@ const ROUTES = [
     ],
   },
   {
+    route: "/en/billettsystem",
+    title: "Ticketing system: sell tickets with discounts | Digilist",
+    description:
+      "The Digilist ticketing system: sell tickets with discount codes, coupons and gift cards. Card and Vipps payment, QR tickets, scanning at the door and settlement.",
+    ogType: "website",
+    lang: "en",
+    service: true,
+    breadcrumbs: [
+      { name: "Home", url: `${BASE_URL}/en` },
+      { name: "Ticketing", url: `${BASE_URL}/en/billettsystem` },
+    ],
+    faq: [
+      { question: "What kinds of events does the ticketing system suit?", answer: "Concerts, performances, conferences, courses, festivals, sporting events and private functions. You can sell to open events with many ticket types, or to a closed event with a fixed number of places. Ticketing is joined up with booking the venue, so the event and the room are handled in the same platform." },
+      { question: "How do discount codes and coupons work?", answer: "You create discount codes for either a fixed amount or a percentage, and set a validity period and a maximum number of uses. Coupons can be tied to particular ticket types or to the whole event, and you can run time-limited campaigns. The buyer enters the code at checkout and the discount comes off immediately." },
+      { question: "Can I sell and redeem gift cards?", answer: "Yes. Gift cards are sold digitally and can be used to pay for tickets and bookings. The balance is handled in the system, and if the purchase is less than the value of the card, the remainder carries over to next time. Validity and balance are visible to both the buyer and the organiser." },
+      { question: "How does the buyer pay, and when do I get settled?", answer: "The buyer pays by card or Vipps in the same flow as the ticket purchase, and gets the ticket and receipt immediately. Settlement is paid out to the organiser on agreed terms, with vouchers and EHF invoicing data for the accounts. You have a full view of transactions and revenue as you go." },
+      { question: "How do I check guests in at the door?", answer: "Every ticket has a unique QR code. At the door you scan the code from the buyer's phone, and the ticket is marked as used immediately, so the same ticket cannot be used twice. You see check-ins and how full the room is live while the event runs." },
+      { question: "Can I refund tickets if something is cancelled?", answer: "Yes. You set the rules for refunds, rebooking and name changes yourself, and handle it all digitally. If an event is cancelled you can refund everyone at once, and buyers are notified automatically. The settlement is adjusted for the refunds made." },
+    ],
+  },
+  {
     route: "/billettsystem",
     title: "Billettsystem: selg billetter med rabatt | Digilist",
     description:
@@ -2720,6 +2741,7 @@ const TRANSLATED_ROUTES = {
   "/ai-agenter": "/en/ai-agenter",
   "/bookingsystem-kommune": "/en/bookingsystem-kommune",
   "/bookingsystem-utleie": "/en/bookingsystem-utleie",
+  "/billettsystem": "/en/billettsystem",
   "/blogg": "/en/blogg",
 };
 

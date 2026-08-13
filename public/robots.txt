@@ -37,6 +37,7 @@ Allow: /en/kanaler$
 Allow: /en/ai-agenter$
 Allow: /en/bookingsystem-kommune$
 Allow: /en/bookingsystem-utleie$
+Allow: /en/billettsystem$
 Allow: /en/blogg
 
 
