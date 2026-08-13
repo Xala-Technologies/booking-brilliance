@@ -376,30 +376,25 @@ export default function Transparens() {
                         </h2>
                         <ul className="space-y-3 text-base text-ink-soft">
                           <li>
-                            <strong className="text-ink">Oppetid & SSL.</strong>{" "}
-                            HTTP-status, responstid og sertifikat-utløp via{" "}
+                            <strong className="text-ink">{t(locale, "tr.m.uptime")}</strong>{" "}
+                            {t(locale, "tr.m.uptimeBody")}{" "}
                             <code className="font-mono text-xs">tls.connect</code>.
                           </li>
                           <li>
-                            <strong className="text-ink">SEO.</strong> Titler,
-                            descriptions, canonical, OG/Twitter, JSON-LD, alt-text,
-                            duplikat-metadata, ødelagte interne lenker.
+                            <strong className="text-ink">{t(locale, "tr.m.seo")}</strong>{" "}
+                            {t(locale, "tr.m.seoBody")}
                           </li>
                           <li>
-                            <strong className="text-ink">Tilgjengelighet.</strong>{" "}
-                            Lang-attributt, alt-tekst, label-for, heading-hierarki,
-                            ARIA-landmark, knapp- og lenkenavn (cheerio-baseline;
-                            axe-core kommer).
+                            <strong className="text-ink">{t(locale, "tr.m.a11y")}</strong>{" "}
+                            {t(locale, "tr.m.a11yBody")}
                           </li>
                           <li>
-                            <strong className="text-ink">Sikkerhet.</strong> HSTS,
-                            CSP, X-Frame-Options, X-Content-Type-Options,
-                            Referrer-Policy, Permissions-Policy, sensitive-fil-prober,
-                            mixed content, source maps.
+                            <strong className="text-ink">{t(locale, "tr.m.sec")}</strong>{" "}
+                            {t(locale, "tr.m.secBody")}
                           </li>
                           <li>
-                            <strong className="text-ink">Lenker.</strong> Eksterne
-                            lenker HEAD-sjekket, 405→GET fallback, dedup-ert per URL.
+                            <strong className="text-ink">{t(locale, "tr.m.links")}</strong>{" "}
+                            {t(locale, "tr.m.linksBody")}
                           </li>
                         </ul>
                       </div>
@@ -718,12 +713,12 @@ function ResourceCard({
 
 // Fixed display order so columns line up across surfaces, even when an
 // audit didn't run on a particular surface (those slots show "—").
-const SCORE_COLUMNS: Array<{ key: string; label: string }> = [
-  { key: "uptime", label: "Oppetid" },
-  { key: "security", label: "Sikkerhet" },
-  { key: "a11y", label: "Tilgjengelighet" },
-  { key: "seo", label: "SEO" },
-  { key: "links", label: "Lenker" },
+const SCORE_COLUMNS: Array<{ key: string; labelKey: string }> = [
+  { key: "uptime", labelKey: "tr.col.uptime" },
+  { key: "security", labelKey: "tr.col.security" },
+  { key: "a11y", labelKey: "tr.col.a11y" },
+  { key: "seo", labelKey: "tr.col.seo" },
+  { key: "links", labelKey: "tr.col.links" },
 ];
 
 function originPretty(origin: string): string {
@@ -789,7 +784,7 @@ function SurfaceRow({ s }: { s: PublicSurface }) {
           <ScoreChip
             key={col.key}
             value={s.scores[col.key] ?? null}
-            label={col.label}
+            label={t(locale, col.labelKey)}
           />
         ))}
       </div>
