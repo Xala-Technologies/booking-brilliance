@@ -216,3 +216,33 @@ describe("blog pairing — from frontmatter, because the map would go stale", ()
     expect(blogPath("something", "en")).toBe("/en/blogg/something");
   });
 });
+
+/**
+ * No component may link to an English URL that has no route.
+ *
+ * /en/blog shipped in the English navigation while the actual route is
+ * /en/blogg. The nginx 301 could not save it: an in-app <Link> is handled by
+ * React Router, which finds no match and renders NotFound without ever asking
+ * the server. Every English page carried that link, on every deploy, and the
+ * server-side redirect tested green the whole time.
+ */
+describe("English navigation links to routes that exist", () => {
+  it("uses the mirrored slug, never the old pretty one", async () => {
+    const { readFileSync, readdirSync, statSync } = await import("node:fs");
+    const { join } = await import("node:path");
+    const walk = (dir: string): string[] =>
+      readdirSync(dir).flatMap((e) => {
+        const p = join(dir, e);
+        return statSync(p).isDirectory() ? walk(p) : /\.tsx?$/.test(p) ? [p] : [];
+      });
+    // The routes that were renamed when the site moved to mirrored slugs.
+    const DEAD = [/"\/en\/blog"/, /"\/en\/pricing"/, /"\/en\/blog\//];
+    const offenders: string[] = [];
+    for (const file of walk("src")) {
+      if (file.includes("i18n.test")) continue;
+      const src = readFileSync(file, "utf-8");
+      for (const re of DEAD) if (re.test(src)) offenders.push(`${file} → ${re}`);
+    }
+    expect(offenders, "components linking to a renamed English route").toEqual([]);
+  });
+});

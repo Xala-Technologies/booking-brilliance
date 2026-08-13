@@ -16,8 +16,8 @@ import { t } from "@/lib/copy";
  */
 const ROUTES_EN: Array<{ label: string; to: string; eyebrow?: string }> = [
   { label: "Home", to: "/en" },
-  { label: "Pricing", to: "/en/pricing", eyebrow: "No transaction fee" },
-  { label: "Blog", to: "/en/blog" },
+  { label: "Pricing", to: "/en/priser", eyebrow: "No transaction fee" },
+  { label: "Blog", to: "/en/blogg" },
   { label: "FAQ", to: "/en/faq" },
   { label: "Book demo", to: "/book-demo" },
 ];
@@ -206,7 +206,7 @@ export function MobileMenu() {
           <EditorialButton
             variant="primary"
             size="lg"
-            href={isEnglish ? "/en/pricing" : "/leie"}
+            href={isEnglish ? "/en/priser" : "/leie"}
             className="w-full"
           >
             {isEnglish ? "See pricing" : "Finn ledige lokaler"}

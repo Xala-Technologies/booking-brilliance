@@ -93,7 +93,7 @@ const BlogPost = () => {
   // An unknown slug goes back to the index in the language the reader was
   // trying to browse, not always the Norwegian one.
   const locale = localeFromPath(useLocation().pathname);
-  if (!post) return <Navigate to={locale === "en" ? "/en/blog" : "/blogg"} replace />;
+  if (!post) return <Navigate to={locale === "en" ? "/en/blogg" : "/blogg"} replace />;
 
   const url = `https://digilist.no${blogPath(post.slug, post.lang === "en" ? "en" : "nb")}`;
   // Related posts stay in the reader's language — an English article should

@@ -109,8 +109,8 @@ const PRIMARY_NAV = [
  * item leaves the language is worse than no menu.
  */
 const PRIMARY_NAV_EN = [
-  { label: "Pricing", to: "/en/pricing" },
-  { label: "Blog", to: "/en/blog" },
+  { label: "Pricing", to: "/en/priser" },
+  { label: "Blog", to: "/en/blogg" },
   { label: "FAQ", to: "/en/faq" },
   { label: "Book demo", to: "/book-demo" },
 ] as const;
