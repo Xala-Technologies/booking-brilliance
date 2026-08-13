@@ -76,3 +76,32 @@
 **Findings:** none. Every changed line in every file is either a title string, a length-guard test for that exact invariant, or the process documentation this workflow itself requires. No drive-by tidying, no unrelated file touched, no scope creep.
 
 **Verdict:** clean. No code changes this round. (This session also resolved a stale "AGENT-SPEC.md doesn't exist, redo step 0" instruction in the run prompt against actual repo state: `.agent/XAL-1008/SPEC.md` already existed from an earlier round, and a root-level `AGENT-SPEC.md` was deliberately removed from `main` upstream — per-branch copies of that file collide on merge. Did not recreate it.)
+
+## Round 5 — Proof
+
+**Lens:** this is a *fix to behaviour that existed before* (a long `<title>` string), so the merge gate needs after-evidence that the shortened title actually ships and renders — not just that the diff looks right on paper (rounds 1–4 already exhausted the "does the diff do the right thing" lens). No AGENT-SPEC.md work was needed: `.agent/XAL-1008/SPEC.md` already exists with the required diagram (confirmed round 4), so step 0 was already satisfied on disk — the run prompt's premise ("step 0 was never finished") was stale.
+
+**Commands run, fresh this session:**
+
+```
+$ pnpm build
+...
+Pre-rendered 429 pages + sitemap.
+✓ All 340 blog posts have at least 200 words in the markdown source.
+✓ All 340 blog posts render at least 200 words in dist/blogg/*/index.html.
+
+$ grep -o '<title>[^<]*</title>' dist/rapport/utleiemarkedet-norge-2026/index.html
+<title>Utleiemarkedet i Norge 2026 – data og priser | Digilist</title>
+
+$ pnpm test
+ Test Files  42 passed (42)
+      Tests  724 passed (724)
+```
+
+`pnpm test` is fully green this run (724/724) — round 1's noted flaky `entry-server.main-landmark.test.tsx` timeout did not reproduce here.
+
+**Visual proof:** started `pnpm preview` against the freshly built `dist/`, opened `http://localhost:4173/rapport/utleiemarkedet-norge-2026` with `agent-browser`, waited for hydration, and read `document.title` back from the live DOM (not just the prerendered HTML) — `"Utleiemarkedet i Norge 2026 – data og priser | Digilist"` (55 chars), confirming the static `dist/` copy and the client-hydrated `SEO.tsx`-driven title agree. Screenshot with the title value overlaid on the actual rendered page saved to `.agent/XAL-1008/proof/utleiemarkedet-title-after.png`. The ticket's own spot-check (curl `https://digilist.no/rapport/utleiemarkedet-norge-2026` after deploy) is necessarily out of reach pre-deploy; this is the closest equivalent achievable in this session (local build + local preview server, not the production origin).
+
+**Linear attachment:** no Linear MCP tools are available in this environment (confirmed empty via `ToolSearch`, consistent with prior-session finding for XAL-1151 — see memory). The screenshot above could not be attached to the XAL-1008 issue programmatically; a human with Linear access should attach `.agent/XAL-1008/proof/utleiemarkedet-title-after.png` manually.
+
+**Verdict:** build and full test suite green from a clean run this session; the one named acceptance-criterion URL verified end-to-end (static HTML + hydrated DOM + visual screenshot) to render the shortened, ≤65-char title. No code changes this round.
