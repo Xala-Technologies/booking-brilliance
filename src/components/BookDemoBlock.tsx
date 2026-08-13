@@ -178,7 +178,7 @@ export function BookDemoBlock({
         >
           <motion.div variants={staggerChild}>
             <SubHeading className="editorial-mono-caption text-ink-soft mb-4">
-              HVA DU FÅR
+              {t(locale, "demo.whatYouGet")}
             </SubHeading>
             <ul className="space-y-3">
               {whatYouGetFor(locale).map((item) => (
@@ -199,7 +199,7 @@ export function BookDemoBlock({
 
           <motion.div variants={staggerChild}>
             <SubHeading className="editorial-mono-caption text-ink-soft mb-4">
-              HVA VI TRENGER FRA DEG
+              {t(locale, "demo.whatWeNeed")}
             </SubHeading>
             <ul className="space-y-3">
               {whatWeNeedFor(locale).map((item) => (
@@ -228,7 +228,7 @@ export function BookDemoBlock({
 
           <motion.div variants={staggerChild} className="pt-2">
             <p className="text-base text-ink-soft leading-relaxed measure">
-              Foretrekker du en uformell prat først?{" "}
+              {t(locale, "demo.informalChat")}{" "}
               <button
                 type="button"
                 onClick={() => openChatbot({ mode: "chat" })}
@@ -431,12 +431,12 @@ export function BookDemoBlock({
                   {submitting ? t(locale, "demo.submitting") : t(locale, "demo.submit")}
                 </EditorialButton>
                 <p className="text-xs text-ink-faint leading-relaxed">
-                  Vi følger{" "}
+                  {t(locale, "demo.weFollow")}{" "}
                   <Link
                     to="/personvern"
                     className="underline underline-offset-2 decoration-[0.5px] hover:text-ink"
                   >
-                    personvernerklæringen
+                    {t(locale, "demo.privacyPolicy")}
                   </Link>
                   .
                 </p>

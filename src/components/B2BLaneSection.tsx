@@ -123,10 +123,7 @@ const B2BLaneSection = () => {
               {t(locale, "pilot.label")}
             </span>
             <p className="text-base lg:text-lg text-ink leading-relaxed">
-              Vi hjelper kommunen med oppsett og publisering uten kostnad i
-              pilotfasen, og dere får egen administrativ tilgang for videre
-              drift. Målet er å supplere eksisterende prosesser, ikke erstatte
-              dem.
+              {t(locale, "pilot.body")}
             </p>
           </div>
           <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 lg:items-stretch">

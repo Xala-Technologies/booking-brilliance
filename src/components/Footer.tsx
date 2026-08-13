@@ -219,7 +219,6 @@ const Footer = () => {
               style={{ fontVariationSettings: getFraunces("sub") }}
             >
               {t(locale, "footer.tagline")}
-              drift og forvalt som kommune eller utleier.
             </p>
           </div>
           <div className="lg:col-span-5 lg:border-l lg:border-rule lg:pl-8 flex flex-col justify-end gap-3">
@@ -446,7 +445,7 @@ const Footer = () => {
                 © {new Date().getFullYear()} Digilist
               </span>
               <span className="mx-3 text-ink-faint">·</span>
-              <span className="text-ink-faint">Et produkt av</span>{" "}
+              <span className="text-ink-faint">{t(locale, "footer.productOf")}</span>{" "}
               <a
                 href="https://xala.no"
                 target="_blank"

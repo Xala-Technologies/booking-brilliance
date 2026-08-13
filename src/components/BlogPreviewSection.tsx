@@ -196,7 +196,7 @@ const BlogPreviewSection = () => {
                     <div className="mt-6 pt-5 border-t border-rule editorial-mono-caption text-ink-faint flex items-center justify-between">
                       <span className="truncate">{post.author}</span>
                       <span className="text-accent-text whitespace-nowrap">
-                        Les artikkel →
+                        {t(locale, "blog.readArticle")} →
                       </span>
                     </div>
                   </div>

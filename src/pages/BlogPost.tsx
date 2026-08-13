@@ -1,5 +1,6 @@
 import { Link, useLocation, useParams, Navigate } from "react-router-dom";
 import { blogHreflang, blogPath, localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import BlogTable from "@/components/blog/BlogTable";
@@ -29,12 +30,12 @@ const CHAT_HREFS = new Set([
 // Internal-link the commercial landing ("money") pages from every blog post,
 // mapped by the post's keywords/slug/tag. Blog posts rank on page 1; the money
 // pages don't yet rank for their head terms — this passes them link equity.
-const SOLUTION_PAGES: Array<{ href: string; label: string; match: RegExp }> = [
-  { href: "/bookingsystem-kommune", label: "Bookingsystem for kommuner", match: /kommun|bookingsystem|it-leder|anbud|ssa-l|innkjøp|leverand/i },
-  { href: "/bruksomrader/idrettshaller-gymsaler", label: "Idrettshaller og gymsaler", match: /idrettshall|gymsal|sesong|hall|forening|trening|anlegg/i },
-  { href: "/bruksomrader/moterom", label: "Møterom", match: /m(ø|o)terom|mote-?rom/i },
-  { href: "/bruksomrader/selskapslokaler", label: "Selskapslokaler", match: /selskapslokale|bryllup|fest|selskap/i },
-  { href: "/bruksomrader/kulturhus-kantiner", label: "Kulturhus og kantiner", match: /kulturhus|kantine|konferanse|kultursal|arrangement/i },
+const SOLUTION_PAGES: Array<{ href: string; labelKey: string; match: RegExp }> = [
+  { href: "/bookingsystem-kommune", labelKey: "blog.crumbMunicipal", match: /kommun|bookingsystem|it-leder|anbud|ssa-l|innkjøp|leverand/i },
+  { href: "/bruksomrader/idrettshaller-gymsaler", labelKey: "blog.crumbHalls", match: /idrettshall|gymsal|sesong|hall|forening|trening|anlegg/i },
+  { href: "/bruksomrader/moterom", labelKey: "blog.crumbMeeting", match: /m(ø|o)terom|mote-?rom/i },
+  { href: "/bruksomrader/selskapslokaler", labelKey: "blog.crumbFunction", match: /selskapslokale|bryllup|fest|selskap/i },
+  { href: "/bruksomrader/kulturhus-kantiner", labelKey: "blog.crumbCulture", match: /kulturhus|kantine|konferanse|kultursal|arrangement/i },
 ];
 
 function relatedSolutions(post: {
@@ -42,16 +43,16 @@ function relatedSolutions(post: {
   title: string;
   tag?: string;
   keywords?: string[];
-}): Array<{ href: string; label: string }> {
+}): Array<{ href: string; labelKey: string }> {
   const hay = [post.slug, post.title, post.tag ?? "", ...(post.keywords ?? [])]
     .join(" ")
     .toLowerCase();
   const hits = SOLUTION_PAGES.filter((s) => s.match.test(hay)).map(
-    ({ href, label }) => ({ href, label }),
+    ({ href, labelKey }) => ({ href, labelKey }),
   );
   return hits.length
     ? hits.slice(0, 2)
-    : [{ href: "/booking-av-lokaler-og-moterom", label: "Booking av lokaler og møterom" }];
+    : [{ href: "/booking-av-lokaler-og-moterom", labelKey: "blog.crumbVenues" }];
 }
 
 /** URL-safe anchor slug from a heading's text (matches the TOC to the H2 ids). */
@@ -195,7 +196,7 @@ const BlogPost = () => {
                     aria-hidden="true"
                   />
                   <span className="group-hover:underline underline-offset-4 decoration-[0.5px]">
-                    Tilbake til blogg
+                    {t(locale, "blog.back")}
                   </span>
                 </Link>
               </nav>
@@ -305,7 +306,7 @@ const BlogPost = () => {
                             →
                           </span>
                           <span className="font-serif text-lg border-b border-rule group-hover:border-accent-text pb-0.5">
-                            {s.label}
+                            {t(locale, s.labelKey)}
                           </span>
                         </Link>
                       </li>
@@ -416,23 +417,22 @@ const BlogPost = () => {
                     letterSpacing: "-0.015em",
                   }}
                 >
-                  Klar for å se Digilist i praksis?
+                  {t(locale, "footer.ctaHeading")}
                 </h2>
                 <p className="mt-3 text-lg text-ink-soft measure leading-relaxed">
-                  Book en personlig demo, eller still spørsmål direkte i chat.
-                  Vi svarer på under et minutt i kontortid.
+                  {t(locale, "footer.ctaBody")}
                 </p>
               </div>
               <div className="lg:col-span-4 flex flex-wrap gap-3 lg:justify-end">
                 <EditorialButton variant="primary" size="md" href="/book-demo">
-                  Book demo
+                  {t(locale, "nav.bookDemo")}
                 </EditorialButton>
                 <EditorialButton
                   variant="outline"
                   size="md"
                   onClick={() => openChatbot({ mode: "chat" })}
                 >
-                  Snakk med oss
+                  {t(locale, "nav.talkToUs")}
                 </EditorialButton>
               </div>
             </div>

@@ -133,7 +133,7 @@ export function Chatbot() {
                 className="mt-2 w-full inline-flex items-center justify-center gap-2 bg-navy text-on-navy rounded-sm py-2.5 text-sm font-medium hover:bg-navy/90 transition-colors"
               >
                 <MessageSquare className="h-4 w-4" aria-hidden="true" />
-                Snakk med oss
+                {t(locale, "nav.talkToUs")}
               </button>
             </div>
           </motion.div>
@@ -159,7 +159,7 @@ export function Chatbot() {
           <MessageSquare className="h-4 w-4" aria-hidden="true" />
         )}
         <span className="font-serif text-base leading-none">
-          {state.open ? "Lukk" : "Snakk med oss"}
+          {state.open ? t(locale, "chat.closeShort") : t(locale, "nav.talkToUs")}
         </span>
       </motion.button>
 

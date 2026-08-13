@@ -24,6 +24,9 @@ import {
 } from "@/components/CategoryVisual";
 import { VideoPlaceholder } from "@/components/VideoPlaceholder";
 import { getFraunces } from "@/lib/fonts";
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 
 export interface UseCaseAudience {
   persona: string;
@@ -131,6 +134,7 @@ export default function UseCasePage({
   video,
   videoPoster,
 }: UseCasePageProps) {
+  const locale = localeFromPath(useLocation().pathname);
   return (
     <div className="min-h-screen bg-paper overflow-x-hidden">
       <SEO
@@ -490,7 +494,7 @@ export default function UseCasePage({
                           {p.title}
                         </h3>
                         <span className="inline-flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-widest text-accent-text">
-                          Les artikkel
+                          {t(locale, "blog.readArticle")}
                           <ArrowUpRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                         </span>
                       </Link>

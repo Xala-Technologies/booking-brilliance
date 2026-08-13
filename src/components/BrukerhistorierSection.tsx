@@ -47,10 +47,7 @@ const BrukerhistorierSection = () => {
               body={
                 <>
                   <p>
-                    Som eier av et selskapslokale ønsket Rønningen å slutte å holde
-                    styr på bookinger i regneark. Med Digilist får gjestene en lenke
-                    der de selv ser ledige helger, betaler depositum og signerer
-                    leieavtalen digitalt.
+                    {t(locale, "stories.a.body2")}
                   </p>
                 </>
               }
