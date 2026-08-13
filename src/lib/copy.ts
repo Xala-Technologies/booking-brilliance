@@ -55,6 +55,10 @@ const nb: Copy = {
   "nav.tagline": "Enkel booking",
   "nav.toggleTheme": "Bytt tema",
   "nav.talkToUsMeanwhile": "Snakk med oss imens",
+  "nav.home": "Hjem",
+  "ui.close": "Lukk",
+  "ui.back": "Tilbake",
+  "nav.breadcrumbs": "Brødsmuler",
 
   // Homepage hero. The rotating word is a list, so it is joined with "|" and
   // split on read — a dictionary of strings stays a dictionary of strings.
@@ -366,6 +370,12 @@ const nb: Copy = {
   "useCase.whoUses": "Hvem bruker dette",
   "about.title": "Om Digilist: norsk bookingplattform | Digilist",
   "about.description": "Digilist er utviklet av Xala Technologies AS, et norsk teknologiselskap på Nesbru. Vi bygger én plattform for utleie og kommunal booking, med samsvar og norsk datalagring.",
+  "demo.choose": "Velg …",
+  "bookDemo.title": "Book demo av Digilist · Norsk bookingplattform for kommuner",
+  "bookDemo.description": "Be om en gratis 30–45 minutters demo av Digilist. Vi viser hvordan plattformen håndterer ditt bruksområde: kommune, selskapslokale, idrettsanlegg eller kulturhus.",
+  "bookDemo.back": "Tilbake til forsiden",
+  "bookDemo.rule": "IX. KONTAKT",
+  "bookDemo.crumb": "Book demo",
   "about.label": "OM DIGILIST",
   "about.h1": "Én plattform for alt",
   "about.h1em": "som leies ut",
@@ -424,6 +434,10 @@ const en: Copy = {
   "nav.tagline": "Booking made simple",
   "nav.toggleTheme": "Switch theme",
   "nav.talkToUsMeanwhile": "Talk to us meanwhile",
+  "nav.home": "Home",
+  "ui.close": "Close",
+  "ui.back": "Back",
+  "nav.breadcrumbs": "Breadcrumbs",
 
   "hero.eyebrow": "Booking platform · 2026 · Norway",
   "hero.words":
@@ -725,6 +739,12 @@ const en: Copy = {
   "useCase.whoUses": "Who uses this",
   "about.title": "About Digilist: a Norwegian booking platform | Digilist",
   "about.description": "Digilist is built by Xala Technologies AS, a Norwegian technology company. We build one platform for private rental and public-sector booking, with compliance and data stored in Norway and the EU.",
+  "demo.choose": "Select …",
+  "bookDemo.title": "Book a Digilist demo · Booking for venues and councils",
+  "bookDemo.description": "Request a free 30–45 minute demo of Digilist. We will show how the platform handles your case: a public body, a function room, a sports facility or a cultural venue.",
+  "bookDemo.back": "Back to the home page",
+  "bookDemo.rule": "IX. CONTACT",
+  "bookDemo.crumb": "Book a demo",
   "about.label": "ABOUT DIGILIST",
   "about.h1": "One platform for everything",
   "about.h1em": "that is rented out",

@@ -381,7 +381,7 @@ export function BookDemoBlock({
                   className={inputClass}
                 >
                   <option value="" disabled>
-                    Velg …
+                    {t(locale, "demo.choose")}
                   </option>
                   {roleOptionsFor(locale).map((r) => (
                     <option key={r.value} value={r.value}>

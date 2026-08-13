@@ -24,6 +24,7 @@ Allow: /en$
 Allow: /en/priser$
 Allow: /en/faq$
 Allow: /en/om-oss$
+Allow: /en/book-demo$
 Allow: /en/blogg
 
 

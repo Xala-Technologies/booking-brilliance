@@ -6,17 +6,25 @@ import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
 import { SectionRule, ProgressRail } from "@/components/editorial";
 import { BookDemoBlock } from "@/components/BookDemoBlock";
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 
 const BookDemo = () => {
+  // Every English page's primary CTA points here, so an untranslated wrapper
+  // dropped the visitor back into Norwegian at the exact moment they were
+  // trying to convert. BookDemoBlock itself was already bilingual.
+  const locale = localeFromPath(useLocation().pathname);
+  const en = locale === "en";
   return (
     <div className="min-h-screen bg-paper overflow-x-hidden">
       <SEO
-        title="Book demo av Digilist · Norsk bookingplattform for kommuner"
-        description="Be om en gratis 30–45 minutters demo av Digilist. Vi viser hvordan plattformen håndterer ditt bruksområde: kommune, selskapslokale, idrettsanlegg eller kulturhus."
-        canonical="https://digilist.no/book-demo"
+        title={t(locale, "bookDemo.title")}
+        description={t(locale, "bookDemo.description")}
+        canonical={en ? "https://digilist.no/en/book-demo" : "https://digilist.no/book-demo"}
         breadcrumbs={[
-          { name: "Hjem", url: "https://digilist.no/" },
-          { name: "Book demo", url: "https://digilist.no/book-demo" },
+          { name: t(locale, "nav.home"), url: en ? "https://digilist.no/en" : "https://digilist.no/" },
+          { name: t(locale, "bookDemo.crumb"), url: en ? "https://digilist.no/en/book-demo" : "https://digilist.no/book-demo" },
         ]}
       />
       <ProgressRail />
@@ -28,10 +36,10 @@ const BookDemo = () => {
             <div className="container mx-auto md:px-8 lg:px-12">
               <nav
                 className="editorial-mono-caption mb-10"
-                aria-label="Brødsmuler"
+                aria-label={t(locale, "nav.breadcrumbs")}
               >
                 <Link
-                  to="/"
+                  to={en ? "/en" : "/"}
                   className="group inline-flex items-center gap-2 text-accent-text"
                 >
                   <ArrowLeft
@@ -39,12 +47,12 @@ const BookDemo = () => {
                     aria-hidden="true"
                   />
                   <span className="group-hover:underline underline-offset-4 decoration-[0.5px]">
-                    Tilbake til forsiden
+                    {t(locale, "bookDemo.back")}
                   </span>
                 </Link>
               </nav>
 
-              <SectionRule label="IX. KONTAKT" />
+              <SectionRule label={t(locale, "bookDemo.rule")} />
               <BookDemoBlock source="book-demo" showByline headingAs="h1" />
             </div>
           </article>

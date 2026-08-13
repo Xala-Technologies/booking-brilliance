@@ -170,8 +170,8 @@ export default function UseCasePage({
                   className="editorial-mono-caption text-accent-text flex flex-wrap items-baseline gap-2"
                   aria-label={t(locale, "useCase.breadcrumbs")}
                 >
-                  <Link to="/" className="hover:underline">
-                    Hjem
+                  <Link to={locale === "en" ? "/en" : "/"} className="hover:underline">
+                    {t(locale, "nav.home")}
                   </Link>
                   <span aria-hidden className="text-ink-faint">·</span>
                   <Link

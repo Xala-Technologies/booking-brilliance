@@ -1980,6 +1980,18 @@ const ROUTES = [
     ],
   },
   {
+    route: "/en/book-demo",
+    title: "Book a Digilist demo · Booking for venues and councils",
+    description:
+      "Request a free 30–45 minute demo of Digilist. We will show how the platform handles your case: a public body, a function room, a sports facility or a cultural venue.",
+    ogType: "website",
+    lang: "en",
+    breadcrumbs: [
+      { name: "Home", url: `${BASE_URL}/en` },
+      { name: "Book a demo", url: `${BASE_URL}/en/book-demo` },
+    ],
+  },
+  {
     route: "/book-demo",
     title: "Book demo av Digilist – Norsk bookingplattform",
     description:
@@ -2491,6 +2503,7 @@ const TRANSLATED_ROUTES = {
   "/priser": "/en/priser",
   "/faq": "/en/faq",
   "/om-oss": "/en/om-oss",
+  "/book-demo": "/en/book-demo",
   "/blogg": "/en/blogg",
 };
 

@@ -71,7 +71,7 @@ export function InquiryFlow({
           onClick={onClose}
           className="mt-2 inline-flex items-center gap-2 border border-hairline-strong bg-paper px-4 py-2 rounded-sm text-sm text-ink hover:bg-paper-deep hover:border-ink transition-colors"
         >
-          Lukk
+          {t(locale, "ui.close")}
         </button>
       </div>
     );
@@ -87,7 +87,7 @@ export function InquiryFlow({
           className="inline-flex items-center gap-1.5 editorial-mono-caption text-ink-faint hover:text-ink transition-colors"
         >
           <ArrowLeft className="h-3 w-3" aria-hidden="true" />
-          Tilbake
+          {t(locale, "ui.back")}
         </button>
         <span className="editorial-mono-caption text-accent-text">
           {mode === "inquiry-persona"
