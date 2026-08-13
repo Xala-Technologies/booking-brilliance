@@ -3,7 +3,7 @@ import { EditorialHeading, SectionRule, EditorialButton } from "@/components/edi
 import { Check, RefreshCw } from "lucide-react";
 import { revealUp, viewportOnce } from "@/lib/motion";
 import { useLocation } from "react-router-dom";
-import { localeFromPath, type Locale } from "@/lib/i18n";
+import { TRANSLATED, localeFromPath, type Locale } from "@/lib/i18n";
 import { t } from "@/lib/copy";
 
 const CHANNELS = ["Airbnb", "Booking.com", "Bookup", "Eventum", "Finn"];
@@ -20,8 +20,14 @@ const benefitsFor = (locale: Locale) =>
 
 /** Keep a link inside the visitor's language. Every route is mirrored. */
 function localeHref(href: string, locale: "nb" | "en"): string {
-  if (locale !== "en" || !href.startsWith("/") || href.startsWith("/en")) return href;
-  return href === "/" ? "/en" : `/en${href}`;
+  if (locale !== "en") return href;
+  if (!href.startsWith("/") || href.startsWith("/en")) return href;
+  // Prefix ONLY translated pages. Every route is mirrored, so /en/<anything>
+  // routes client-side — but only the translated ones are prerendered, so the
+  // rest served an empty shell to anything that does not run JavaScript, and
+  // showed Norwegian copy at an English URL to everything that does. The
+  // Norwegian URL is the better destination for an untranslated page.
+  return TRANSLATED[href] ?? href;
 }
 
 export function ChannelSyncSection() {

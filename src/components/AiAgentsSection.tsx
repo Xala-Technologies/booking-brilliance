@@ -5,7 +5,7 @@ import { SectionHeader } from "@/components/SectionHeader";
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/motion";
 import { getFraunces } from "@/lib/fonts";
 import { useLocation } from "react-router-dom";
-import { localeFromPath } from "@/lib/i18n";
+import { TRANSLATED, localeFromPath } from "@/lib/i18n";
 import { t } from "@/lib/copy";
 
 // NOTE (for review): these are the real customer-facing "domain agents" from the
@@ -51,8 +51,14 @@ const agents = [
 
 /** Keep a link inside the visitor's language. Every route is mirrored. */
 function localeHref(href: string, locale: "nb" | "en"): string {
-  if (locale !== "en" || !href.startsWith("/") || href.startsWith("/en")) return href;
-  return href === "/" ? "/en" : `/en${href}`;
+  if (locale !== "en") return href;
+  if (!href.startsWith("/") || href.startsWith("/en")) return href;
+  // Prefix ONLY translated pages. Every route is mirrored, so /en/<anything>
+  // routes client-side — but only the translated ones are prerendered, so the
+  // rest served an empty shell to anything that does not run JavaScript, and
+  // showed Norwegian copy at an English URL to everything that does. The
+  // Norwegian URL is the better destination for an untranslated page.
+  return TRANSLATED[href] ?? href;
 }
 
 const AiAgentsSection = () => {

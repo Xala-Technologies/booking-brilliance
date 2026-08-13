@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
-import { localeFromPath } from "@/lib/i18n";
+import { TRANSLATED, localeFromPath } from "@/lib/i18n";
 import { t } from "@/lib/copy";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { getFraunces } from "@/lib/fonts";
@@ -21,8 +21,13 @@ import { openChatbot } from "@/lib/chatbot/open";
  */
 function localeHref(href: string, locale: "nb" | "en"): string {
   if (locale !== "en") return href;
-  if (!href.startsWith("/") || href.startsWith("/en/") || href === "/en") return href;
-  return href === "/" ? "/en" : `/en${href}`;
+  if (!href.startsWith("/") || href.startsWith("/en")) return href;
+  // Prefix ONLY translated pages. Every route is mirrored, so /en/<anything>
+  // routes client-side — but only the translated ones are prerendered, so the
+  // rest served an empty shell to anything that does not run JavaScript, and
+  // showed Norwegian copy at an English URL to everything that does. The
+  // Norwegian URL is the better destination for an untranslated page.
+  return TRANSLATED[href] ?? href;
 }
 
 const Footer = () => {
@@ -400,7 +405,7 @@ const Footer = () => {
                         to={localeHref(link.href, locale)}
                         className="font-sans text-[0.95rem] text-ink-soft hover:text-ink border-b border-transparent hover:border-ink transition-colors duration-quick ease-editorial no-underline pb-0.5"
                       >
-                        {t(locale, link.labelKey)}
+                        {link.label}
                       </Link>
                     </li>
                   ))}
