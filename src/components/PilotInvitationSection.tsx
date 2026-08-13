@@ -12,29 +12,10 @@ import { useLocation } from "react-router-dom";
 import { localeFromPath } from "@/lib/i18n";
 import { t } from "@/lib/copy";
 
-const DELIVERS = [
-  "Sanntids tilgjengelighetskalender",
-  "Enkel booking og forespørsler",
-  "Håndtering av sesongleie for lag og foreninger",
-  "Oversikt over lokaler og idrettsanlegg",
-  "Digital saksbehandlingsflyt",
-  "Administrativ godkjenning av forespørsler",
-  "Fakturagrunnlag og betalingsoversikt",
-  "Mobilvennlig og universelt utformet løsning",
-  "Enkel administrasjon og oppdatering av innhold",
-  "Bedre synlighet av kommunale tilbud og aktiviteter",
-];
-
-const NEEDS = [
-  "Lokaler eller anlegg kommunen administrerer",
-  "Korte beskrivelser",
-  "Bilder eller lenker, dersom tilgjengelig",
-  "Kontaktinformasjon",
-  "Eventuell informasjon om booking eller sesongleie",
-];
-
 const PilotInvitationSection = () => {
   const locale = localeFromPath(useLocation().pathname);
+  const DELIVERS = Array.from({ length: 10 }, (_, i) => t(locale, `pilot.delivers.${i}`));
+  const NEEDS = Array.from({ length: 5 }, (_, i) => t(locale, `pilot.needs.${i}`));
   return (
     <section
       id="pilot"
@@ -42,7 +23,7 @@ const PilotInvitationSection = () => {
       aria-labelledby="pilot-heading"
     >
       <div className="container mx-auto md:px-8 lg:px-12">
-        <SectionRule label="PILOT FOR NORSKE KOMMUNER" />
+        <SectionRule label={t(locale, "pilot.rule")} />
 
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-gutter">
           {/* Left — invitation copy */}
@@ -53,39 +34,31 @@ const PilotInvitationSection = () => {
               className="mb-8"
               {...({ id: "pilot-heading" } as object)}
             >
-              En invitasjon til{" "}
+              {t(locale, "pilot.h2")}{" "}
               <em
                 className="italic"
                 style={{ fontVariationSettings: getFraunces("display") }}
               >
-                norske kommuner
+                {t(locale, "pilot.h2em")}
               </em>
               .
             </EditorialHeading>
 
             <div className="space-y-5 text-lg text-ink-soft leading-relaxed measure">
               <p>
-                Digilist er en moderne og universelt utformet plattform for
-                håndtering og synliggjøring av kommunale lokaler, idrettsanlegg,
-                møterom og arrangementer.
+                {t(locale, "pilot.p1")}
               </p>
               <p>
-                Vi inviterer kommunen til å delta i et pilotinitiativ der vi
-                hjelper med å gjøre kommunale utleieobjekter og aktiviteter mer
-                tilgjengelige, enklere å administrere og lettere å finne for
-                innbyggere, lag, organisasjoner og arrangører.
+                {t(locale, "pilot.p2")}
               </p>
               <p>
                 <strong className="text-ink">
-                  Målet er ikke å erstatte eksisterende løsninger
+                  {t(locale, "pilot.p3em")}
                 </strong>{" "}
-                eller arbeidsprosesser, men å utforske hvordan Digilist kan
-                fungere som et moderne supplement for innbyggere og
-                administrasjon.
+                {t(locale, "pilot.p3tail")}
               </p>
               <p className="text-ink font-medium">
-                Vi hjelper med oppsett og publisering uten kostnad i pilotfasen.
-                Kommunen får egen administrativ tilgang for videre drift.
+                {t(locale, "pilot.p4")}
               </p>
             </div>
 
@@ -96,7 +69,7 @@ const PilotInvitationSection = () => {
                 href="mailto:kontakt@digilist.no?subject=Pilot%20for%20kommune"
                 icon={<ArrowUpRight className="h-4 w-4" aria-hidden="true" />}
               >
-                Be om pilot
+                {t(locale, "pilot.cta")}
               </EditorialButton>
               <EditorialButton
                 variant="outline"
@@ -113,8 +86,8 @@ const PilotInvitationSection = () => {
 
             <Byline
               author="Ibrahim Rahmani"
-              role="Xala Technologies AS"
-              date="Oslo · 2026"
+              role={t(locale, "pilot.role")}
+              date={t(locale, "pilot.date")}
               className="mt-10"
             />
           </div>
@@ -124,7 +97,7 @@ const PilotInvitationSection = () => {
             <EditorialCard className="bg-paper">
               <header className="mb-6 pb-5 border-b border-rule">
                 <span className="editorial-mono-caption text-accent-text mb-3 block">
-                  TILBUDSPAKKE
+                  {t(locale, "pilot.offerLabel")}
                 </span>
                 <div className="flex items-center gap-3">
                   <span className="inline-flex items-center justify-center w-11 h-11 border border-hairline-strong rounded-sm text-accent-text shrink-0">
@@ -141,7 +114,7 @@ const PilotInvitationSection = () => {
                       letterSpacing: "-0.015em",
                     }}
                   >
-                    Digilist{" "}
+                    {"Digilist"}{" "}
                     <em
                       className="italic"
                       style={{
@@ -149,7 +122,7 @@ const PilotInvitationSection = () => {
                           '"opsz" 36, "wght" 420',
                       }}
                     >
-                      leverer
+                      {t(locale, "pilot.deliverEm")}
                     </em>
                   </h3>
                 </div>
@@ -178,7 +151,7 @@ const PilotInvitationSection = () => {
             <EditorialCard className="bg-paper">
               <header className="mb-6 pb-5 border-b border-rule">
                 <span className="editorial-mono-caption text-accent-text mb-3 block">
-                  INPUT FRA KOMMUNEN
+                  {t(locale, "pilot.inputLabel")}
                 </span>
                 <div className="flex items-center gap-3">
                   <span className="inline-flex items-center justify-center w-11 h-11 border border-hairline-strong rounded-sm text-accent-text shrink-0">
@@ -195,7 +168,7 @@ const PilotInvitationSection = () => {
                       letterSpacing: "-0.015em",
                     }}
                   >
-                    Vi trenger{" "}
+                    {t(locale, "pilot.needH3")}{" "}
                     <em
                       className="italic"
                       style={{
@@ -203,7 +176,7 @@ const PilotInvitationSection = () => {
                           '"opsz" 36, "wght" 420',
                       }}
                     >
-                      fra kommunen
+                      {t(locale, "pilot.needH3em")}
                     </em>
                   </h3>
                 </div>
@@ -236,8 +209,7 @@ const PilotInvitationSection = () => {
                     '"opsz" 24, "wght" 380',
                 }}
               >
-                Pilotfasen er gratis. Kommunen forplikter seg ikke til
-                videre bruk eller anskaffelse.
+                {t(locale, "pilot.footnote")}
               </p>
             </EditorialCard>
           </div>

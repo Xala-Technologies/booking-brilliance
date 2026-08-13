@@ -1963,6 +1963,27 @@ const ROUTES = [
     ],
   },
   {
+    route: "/en/sikkerhet",
+    title: "Security and privacy · Digilist | ISO 27001, GDPR",
+    description:
+      "How Digilist handles security and privacy: data in Norway and the EU, ISO 27001 and 27701 certified, GDPR compliant, national identity sign-in, and an audit log on every change.",
+    ogType: "website",
+    lang: "en",
+    service: true,
+    breadcrumbs: [
+      { name: "Home", url: `${BASE_URL}/en` },
+      { name: "Security", url: `${BASE_URL}/en/sikkerhet` },
+    ],
+    faq: [
+      { q: "Is Digilist GDPR compliant?", a: "Yes. Digilist meets the requirements of GDPR and the Norwegian Personal Data Act. We enter into a data processing agreement with every customer, process only the personal data the booking requires, and give data subjects access, rectification and erasure. All data is stored in Norway and the EU." },
+      { q: "Where is data stored?", a: "All data is stored in Norway and the EU, never outside the EEA. The database runs on infrastructure within the EU/EEA, so public and private customers alike meet the data-location requirements in Norwegian procurement and under the data protection rules." },
+      { q: "Is Digilist ISO 27001 certified?", a: "Yes. Digilist is certified against ISO 27001 (information security) and ISO 27701 (privacy information). That means security and privacy are managed under an established, audited framework rather than ad hoc." },
+      { q: "How do users sign in securely?", a: "Sign-in uses BankID and ID-porten, the Norwegian national identity services, for strong authentication at the level public services require. Access is role-based, so case officers, operators and residents each see only what they should." },
+      { q: "How are traceability and access control handled?", a: "Access is role-based, and every change is recorded in an audit log with a timestamp and the user. That gives full traceability of who did what and when — necessary both for public administration and for resolving a dispute about a rental." },
+      { q: "What happens in the event of a security breach?", a: "Digilist has procedures for incident handling and notification. In the event of a personal data breach we notify the customer without undue delay, so that it can be reported to the Norwegian Data Protection Authority within 72 hours as GDPR requires." },
+    ],
+  },
+  {
     route: "/sikkerhet",
     title: "Sikkerhet og personvern · Digilist | ISO 27001, GDPR",
     description:
@@ -2556,6 +2577,7 @@ const TRANSLATED_ROUTES = {
   "/tilgjengelighet": "/en/tilgjengelighet",
   "/personvern": "/en/personvern",
   "/salgsvilkar": "/en/salgsvilkar",
+  "/sikkerhet": "/en/sikkerhet",
   "/blogg": "/en/blogg",
 };
 

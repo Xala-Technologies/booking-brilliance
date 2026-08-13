@@ -30,7 +30,9 @@ function faqBlockFor(route: string): string {
 // the three sections behind that page (1,082 lines of prose in components)
 // are still Norwegian. The EN bank exists and is translated; it gets a
 // prerender entry and a row here the moment the page is actually English.
-describe.each([["nb", "/teknologi"]] as const)("%s FAQ is identical in the prerender", (locale, route) => {
+describe.each([
+  ["nb", "/teknologi"],
+] as const)("%s FAQ is identical in the prerender", (locale, route) => {
   const block = faqBlockFor(route);
   const entries = teknologiFaq(locale);
 
