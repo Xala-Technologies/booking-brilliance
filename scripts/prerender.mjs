@@ -1713,6 +1713,21 @@ const ROUTES = [
     ],
   },
   {
+    // Prerendered but NOT in TRANSLATED_PATHS: AboutUsSection still carries
+    // Norwegian prose, so the page is noindexed until that is done.
+    route: "/en/om-oss",
+    title: "About Digilist: a Norwegian booking platform | Digilist",
+    description:
+      "Digilist is built by Xala Technologies AS, a Norwegian technology company. We build one platform for private rental and public-sector booking, with compliance and data stored in Norway and the EU.",
+    ogType: "website",
+    lang: "en",
+    aboutPage: true,
+    breadcrumbs: [
+      { name: "Home", url: `${BASE_URL}/en` },
+      { name: "About", url: `${BASE_URL}/en/om-oss` },
+    ],
+  },
+  {
     route: "/om-oss",
     title: "Om Digilist: norsk bookingplattform | Digilist",
     description:

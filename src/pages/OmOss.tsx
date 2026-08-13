@@ -13,15 +13,19 @@ import {
 import { getFraunces } from "@/lib/fonts";
 import { CategoryVisual } from "@/components/CategoryVisual";
 import AboutUsSection from "@/components/AboutUsSection";
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 
 export default function OmOss() {
+  const locale = localeFromPath(useLocation().pathname);
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <SEO
-        title="Om Digilist: norsk bookingplattform | Digilist"
-        description="Digilist er utviklet av Xala Technologies AS, et norsk teknologiselskap på Nesbru. Vi bygger én plattform for utleie og kommunal booking, med samsvar og norsk datalagring."
+        title={t(locale, "about.title")}
+        description={t(locale, "about.description")}
         keywords="om digilist, xala technologies, norsk bookingplattform, leverandør bookingsystem, digilist selskap, nesbru"
-        canonical="https://digilist.no/om-oss"
+        canonical={locale === "en" ? "https://digilist.no/en/om-oss" : "https://digilist.no/om-oss"}
         breadcrumbs={[
           { name: "Hjem", url: "https://digilist.no/" },
           { name: "Om oss", url: "https://digilist.no/om-oss" },
@@ -36,32 +40,29 @@ export default function OmOss() {
           {/* Hero */}
           <section className="pt-28 lg:pt-32 pb-8 lg:pb-12 bg-paper">
             <div className="container mx-auto md:px-8 lg:px-12">
-              <SectionRule label="OM DIGILIST" />
+              <SectionRule label={t(locale, "about.label")} />
 
               <div className="grid lg:grid-cols-12 gap-8 lg:gap-gutter items-center">
                 <div className="lg:col-span-7">
                   <EditorialHeading as="h1" size="display">
-                    Én plattform for alt{" "}
+                    {t(locale, "about.h1")}{" "}
                     <em
                       className="italic"
                       style={{ fontVariationSettings: getFraunces("display") }}
                     >
-                      som leies ut
+                      {t(locale, "about.h1em")}
                     </em>
                     .
                   </EditorialHeading>
                   <p className="mt-6 text-xl text-ink-soft measure leading-relaxed">
-                    Digilist er utviklet av Xala Technologies AS, et norsk
-                    teknologiselskap på Nesbru. Vi bygger digitale løsninger for
-                    offentlig sektor og næringsliv, med samsvar, universell
-                    utforming og norsk datalagring som utgangspunkt.
+                    {t(locale, "about.lede")}
                   </p>
                   <div className="mt-8 flex flex-wrap gap-3">
                     <EditorialButton variant="primary" size="lg" href="/book-demo">
-                      Book demo
+                      {t(locale, "nav.bookDemo")}
                     </EditorialButton>
                     <EditorialButton variant="outline" size="lg" href="/teknologi">
-                      Teknologi &amp; sikkerhet
+                      {t(locale, "about.techCta")}
                     </EditorialButton>
                   </div>
                 </div>
@@ -96,11 +97,10 @@ export default function OmOss() {
                         lineHeight: 1.1,
                       }}
                     >
-                      Snakk med folkene bak plattformen.
+                      {t(locale, "about.ctaHeading")}
                     </h2>
                     <p className="text-base lg:text-lg text-ink leading-relaxed">
-                      Book en demo eller ta kontakt, så viser vi hvordan Digilist
-                      passer for din kommune eller virksomhet.
+                      {t(locale, "about.ctaBody")}
                     </p>
                   </div>
                   <div className="lg:col-span-4 flex flex-wrap gap-3 lg:justify-end">
