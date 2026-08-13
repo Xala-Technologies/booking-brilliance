@@ -335,6 +335,399 @@ const A11Y_EN: LegalDoc = {
 
 export const ACCESSIBILITY_STATEMENT = { nb: A11Y_NB, en: A11Y_EN } as const;
 
+const PRIVACY_NB: LegalDoc = {
+    title: "Personvernerklæring",
+    metaTitle: "Personvernerklæring – Digilist",
+    metaDescription: "Slik behandler Digilist personopplysninger. GDPR-kompatibel, ISO 27701-sertifisert, data lagret i Norge og EU.",
+    intro: "Denne personvernerklæringen beskriver hvordan Digilist behandler personopplysninger i forbindelse med bruk av tjenesten. Erklæringen gir informasjon du har krav på når Digilist samler inn personopplysninger, samt generell informasjon om hvordan opplysningene behandles.",
+    updated: "Sist oppdatert: 07.01.2026",
+    sections: [
+      {
+        h2: "1. Behandlingsansvarlig",
+        blocks: [
+          {
+            body: "Behandlingsansvarlig er den virksomheten eller organisasjonen som tilbyr utleie av lokaler eller ressurser gjennom Digilist, og som bestemmer formålet med behandlingen av personopplysninger og hvilke hjelpemidler som benyttes.",
+          },
+          {
+            body: "Hvem som er behandlingsansvarlig for en konkret booking fremgår av informasjonen knyttet til det aktuelle utleieobjektet.",
+          },
+        ],
+      },
+      {
+        h2: "2. Databehandler",
+        blocks: [
+          {
+            body: "Digilist fungerer som teknisk plattform og er databehandler på vegne av utleier (behandlingsansvarlig).",
+          },
+          {
+            body: "Databehandler:",
+          },
+          {
+            body: "Xala Technologies AS",
+          },
+          {
+            body: "Organisasjonsnummer: 920 972 454",
+          },
+          {
+            body: "Digilist behandler personopplysninger kun i henhold til inngåtte databehandleravtaler og gjeldende regelverk.",
+          },
+        ],
+      },
+      {
+        h2: "3. Underleverandører og drift",
+        blocks: [
+          {
+            body: "Digilist benytter underleverandører for drift, lagring og teknisk infrastruktur. Personopplysninger lagres på servere lokalisert innen EU/EØS og behandles i samsvar med gjeldende personvernregler.",
+          },
+          {
+            body: "Underleverandører kan blant annet benyttes til:",
+            bullets: [
+              "drift og hosting",
+              "betalingsformidling",
+              "utsendelse av varsler",
+            ],
+          },
+          {
+            body: "Alle underleverandører er underlagt databehandleravtaler som sikrer tilfredsstillende informasjonssikkerhet.",
+          },
+        ],
+      },
+      {
+        h2: "4. Hvordan og hvorfor samles personopplysninger inn",
+        blocks: [
+          {
+            body: "Når du oppretter en bruker i Digilist eller benytter tjenesten for å booke lokaler, blir du bedt om å oppgi personopplysninger som lagres i løsningen. Ved bruk av tilgjengelige innloggingsmetoder samtykker du til at Digilist kan motta nødvendige identitets- og kontaktopplysninger.",
+          },
+          {
+            body: "Enkelte utleiere kan kreve ytterligere autentisering for å:",
+            bullets: [
+              "bekrefte identitet",
+              "verifisere alder",
+              "sikre korrekt fakturering",
+            ],
+          },
+          {
+            body: "Personopplysninger benyttes blant annet for å:",
+            bullets: [
+              "muliggjøre kontakt mellom leietaker og utleier",
+              "gjennomføre og administrere bookinger",
+              "håndtere betaling og fakturering",
+              "sende varsler knyttet til booking og tilgang",
+              "sikre sporbarhet og etterlevelse av lovpålagte krav",
+            ],
+          },
+          {
+            body: "Digilist vil aldri selge eller leie ut personopplysninger til tredjepart for markedsføringsformål.",
+          },
+        ],
+      },
+      {
+        h2: "5. Deling av personopplysninger",
+        blocks: [
+          {
+            body: "Kontaktopplysninger deles med aktuell utleier i forbindelse med booking.",
+          },
+          {
+            body: "Betalingsopplysninger behandles av godkjente betalingsleverandører og deles ikke med utleier utover det som er nødvendig for fakturering og oppfølging.",
+          },
+        ],
+      },
+      {
+        h2: "6. Hvilke personopplysninger behandles",
+        blocks: [
+          {
+            body: "For å kunne bruke Digilist kan følgende opplysninger behandles:",
+            bullets: [
+              "navn",
+              "mobilnummer",
+              "e-postadresse",
+              "alder eller alderskategori",
+              "adresse (der dette kreves av utleier)",
+              "organisasjonsnummer (for organisasjoner)",
+              "booking- og transaksjonshistorikk",
+            ],
+          },
+          {
+            body: "Betalingsopplysninger behandles av eksterne betalingsleverandører i henhold til deres egne vilkår og sikkerhetsrutiner.",
+          },
+        ],
+      },
+      {
+        h2: "7. Informasjonskapsler (cookies)",
+        blocks: [
+          {
+            body: "Digilist benytter informasjonskapsler og lignende teknologier for å sikre funksjonalitet og forbedre brukeropplevelsen. Dette kan blant annet omfatte:",
+            bullets: [
+              "tekniske sesjonskapsler",
+              "midlertidige identifikatorer knyttet til pågående bestillinger",
+              "analyse av bruksmønstre",
+            ],
+          },
+          {
+            body: "Informasjonskapsler benyttes ikke til markedsføring uten særskilt samtykke.",
+          },
+        ],
+      },
+      {
+        h2: "8. Lagringstid",
+        blocks: [
+          {
+            body: "Opplysninger knyttet til bookinger lagres så lenge det er nødvendig for å:",
+            bullets: [
+              "oppfylle avtaleforpliktelser",
+              "oppfylle lovpålagte krav, herunder regnskaps- og arkivplikt",
+            ],
+          },
+          {
+            body: "Brukeropplysninger lagres frem til brukeren selv sletter sin konto, med mindre lengre lagring er påkrevd etter lov.",
+          },
+        ],
+      },
+      {
+        h2: "9. Rett til innsyn",
+        blocks: [
+          {
+            body: "Som innlogget bruker har du rett til innsyn i hvilke personopplysninger som er lagret om deg. Dette kan gjøres via din brukerkonto.",
+          },
+        ],
+      },
+      {
+        h2: "10. Dataportabilitet",
+        blocks: [
+          {
+            body: "Du har rett til å få utlevert personopplysninger du har gitt Digilist i et strukturert og maskinlesbart format, der dette er teknisk mulig og rettslig grunnlag foreligger.",
+          },
+        ],
+      },
+      {
+        h2: "11. Retting, sletting og begrensning",
+        blocks: [
+          {
+            body: "Du kan selv rette uriktige eller ufullstendige opplysninger via din brukerkonto.",
+          },
+          {
+            body: "Du kan også be om sletting av konto og personopplysninger. Enkelte opplysninger kan ikke slettes umiddelbart dersom lagring er påkrevd etter lov.",
+          },
+        ],
+      },
+      {
+        h2: "12. Samtykke",
+        blocks: [
+          {
+            body: "Ved å ta i bruk Digilist samtykker du til behandling av personopplysninger som beskrevet i denne erklæringen. Dersom du ikke samtykker, kan du benytte tjenesten til å søke og se tilgjengelighet, men ikke gjennomføre booking.",
+          },
+          {
+            body: "Samtykke kan trekkes tilbake når som helst ved å slette brukerkontoen.",
+          },
+        ],
+      },
+      {
+        h2: "13. Endringer i personvernerklæringen",
+        blocks: [
+          {
+            body: "Digilist kan oppdatere denne personvernerklæringen ved endringer i tjenesten eller regelverket. Oppdatert versjon publiseres på nettsiden.",
+          },
+        ],
+      },
+    ],
+  };
+
+const PRIVACY_EN: LegalDoc = {
+  title: "Privacy policy",
+  metaTitle: "Privacy policy – Digilist",
+  metaDescription:
+    "How Digilist processes personal data. GDPR compliant, ISO 27701 certified, data stored in Norway and the EU.",
+  intro:
+    "This privacy policy describes how Digilist processes personal data in connection with use of the service. It gives you the information you are entitled to when Digilist collects personal data, together with general information about how that data is handled.",
+  updated: "Last updated: 7 January 2026",
+  sections: [
+    {
+      h2: "1. Data controller",
+      blocks: [
+        {
+          body: "The data controller is the business or organisation that offers venues or resources for rent through Digilist, and that decides the purpose of processing personal data and the means used to do it.",
+        },
+        {
+          body: "Who the controller is for a particular booking is stated in the information attached to that venue.",
+        },
+      ],
+    },
+    {
+      h2: "2. Data processor",
+      blocks: [
+        {
+          body: "Digilist acts as the technical platform and is a data processor on behalf of the operator, who is the controller.",
+        },
+        { body: "Data processor:" },
+        { body: "Xala Technologies AS" },
+        { body: "Company registration number: 920 972 454" },
+        {
+          body: "Digilist processes personal data only under the data processing agreements in place and the applicable regulations.",
+        },
+      ],
+    },
+    {
+      h2: "3. Sub-processors and operations",
+      blocks: [
+        {
+          body: "Digilist uses sub-processors for operations, storage and technical infrastructure. Personal data is stored on servers located within the EU/EEA and processed in line with the applicable data protection rules.",
+        },
+        {
+          body: "Sub-processors may be used for, among other things:",
+          bullets: [
+            "operations and hosting",
+            "payment processing",
+            "sending notifications",
+          ],
+        },
+        {
+          body: "All sub-processors are bound by data processing agreements that require adequate information security.",
+        },
+      ],
+    },
+    {
+      h2: "4. How and why personal data is collected",
+      blocks: [
+        {
+          body: "When you create a user in Digilist, or use the service to book a venue, you are asked for personal data that is stored in the system. By using one of the available sign-in methods you consent to Digilist receiving the identity and contact details it needs.",
+        },
+        {
+          body: "Some operators may require further authentication in order to:",
+          bullets: [
+            "confirm identity",
+            "verify age",
+            "ensure correct invoicing",
+          ],
+        },
+        {
+          body: "Personal data is used, among other things, to:",
+          bullets: [
+            "make contact possible between the person renting and the operator",
+            "carry out and administer bookings",
+            "handle payment and invoicing",
+            "send notifications about a booking and about access",
+            "provide traceability and meet statutory requirements",
+          ],
+        },
+        {
+          body: "Digilist will never sell or rent personal data to third parties for marketing purposes.",
+        },
+      ],
+    },
+    {
+      h2: "5. Sharing personal data",
+      blocks: [
+        {
+          body: "Contact details are shared with the relevant operator in connection with a booking.",
+        },
+        {
+          body: "Payment details are handled by approved payment providers and are not shared with the operator beyond what is necessary for invoicing and follow-up.",
+        },
+      ],
+    },
+    {
+      h2: "6. Which personal data is processed",
+      blocks: [
+        {
+          body: "To use Digilist, the following data may be processed:",
+          bullets: [
+            "name",
+            "mobile number",
+            "email address",
+            "age or age bracket",
+            "address, where the operator requires it",
+            "company registration number, for organisations",
+            "booking and transaction history",
+          ],
+        },
+        {
+          body: "Payment details are handled by external payment providers under their own terms and security procedures.",
+        },
+      ],
+    },
+    {
+      h2: "7. Cookies",
+      blocks: [
+        {
+          body: "Digilist uses cookies and similar technologies to provide functionality and improve the experience of using the service. This may include:",
+          bullets: [
+            "technical session cookies",
+            "temporary identifiers tied to a booking in progress",
+            "analysis of usage patterns",
+          ],
+        },
+        {
+          body: "Cookies are not used for marketing without separate consent.",
+        },
+      ],
+    },
+    {
+      h2: "8. How long data is kept",
+      blocks: [
+        {
+          body: "Data connected to bookings is kept for as long as it is needed in order to:",
+          bullets: [
+            "meet contractual obligations",
+            "meet statutory requirements, including accounting and archiving duties",
+          ],
+        },
+        {
+          body: "User data is kept until the user deletes their own account, unless longer storage is required by law.",
+        },
+      ],
+    },
+    {
+      h2: "9. Right of access",
+      blocks: [
+        {
+          body: "As a signed-in user you have the right to see which personal data is stored about you. You can do this through your user account.",
+        },
+      ],
+    },
+    {
+      h2: "10. Data portability",
+      blocks: [
+        {
+          body: "You have the right to receive the personal data you have given Digilist in a structured, machine-readable format, where that is technically possible and there is a legal basis for it.",
+        },
+      ],
+    },
+    {
+      h2: "11. Rectification, erasure and restriction",
+      blocks: [
+        {
+          body: "You can correct inaccurate or incomplete data yourself through your user account.",
+        },
+        {
+          body: "You can also ask for your account and personal data to be deleted. Some data cannot be deleted immediately where storage is required by law.",
+        },
+      ],
+    },
+    {
+      h2: "12. Consent",
+      blocks: [
+        {
+          body: "By using Digilist you consent to the processing of personal data described in this policy. If you do not consent, you can still use the service to search and see availability, but not to complete a booking.",
+        },
+        {
+          body: "Consent can be withdrawn at any time by deleting your user account.",
+        },
+      ],
+    },
+    {
+      h2: "13. Changes to this privacy policy",
+      blocks: [
+        {
+          body: "Digilist may update this privacy policy when the service or the regulations change. The updated version is published on the website.",
+        },
+      ],
+    },
+  ],
+};
+
+export const PRIVACY_POLICY = { nb: PRIVACY_NB, en: PRIVACY_EN } as const;
+
+
 
 export function legalDoc(
   doc: { nb: LegalDoc; en: LegalDoc },

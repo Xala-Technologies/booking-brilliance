@@ -2003,6 +2003,18 @@ const ROUTES = [
     ],
   },
   {
+    route: "/en/personvern",
+    title: "Privacy policy – Digilist",
+    description:
+      "How Digilist processes personal data. GDPR compliant, ISO 27701 certified, data stored in Norway and the EU.",
+    ogType: "website",
+    lang: "en",
+    breadcrumbs: [
+      { name: "Home", url: `${BASE_URL}/en` },
+      { name: "Privacy policy", url: `${BASE_URL}/en/personvern` },
+    ],
+  },
+  {
     route: "/personvern",
     title: "Personvernerklæring – Digilist",
     description:
@@ -2530,6 +2542,7 @@ const TRANSLATED_ROUTES = {
   "/book-demo": "/en/book-demo",
   "/cookies": "/en/cookies",
   "/tilgjengelighet": "/en/tilgjengelighet",
+  "/personvern": "/en/personvern",
   "/blogg": "/en/blogg",
 };
 

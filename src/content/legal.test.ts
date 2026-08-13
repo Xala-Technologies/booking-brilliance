@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { ACCESSIBILITY_STATEMENT, COOKIE_POLICY, type LegalDoc } from "./legal";
+import {
+  ACCESSIBILITY_STATEMENT,
+  COOKIE_POLICY,
+  PRIVACY_POLICY,
+  type LegalDoc,
+} from "./legal";
 
 /**
  * The two languages must describe the SAME policy.
@@ -16,6 +21,7 @@ import { ACCESSIBILITY_STATEMENT, COOKIE_POLICY, type LegalDoc } from "./legal";
 const DOCS: Array<[string, { nb: LegalDoc; en: LegalDoc }]> = [
   ["cookie policy", COOKIE_POLICY],
   ["accessibility statement", ACCESSIBILITY_STATEMENT],
+  ["privacy policy", PRIVACY_POLICY],
 ];
 
 describe.each(DOCS)("%s says the same thing in both languages", (_name, doc) => {
@@ -57,11 +63,20 @@ describe.each(DOCS)("%s says the same thing in both languages", (_name, doc) => 
       ]),
     ].filter((v): v is string => Boolean(v));
 
+    // Proper nouns that are the same string in both languages BY DESIGN. Kept
+    // as an explicit list rather than a looser rule (say, "skip anything
+    // capitalised"), because the whole value of this check is that it fails on
+    // a paragraph someone forgot to translate — and a broad exemption is how
+    // that paragraph would slip through. A registered company name is a legal
+    // identifier, not prose; translating it would be the actual error.
+    const SHARED_BY_DESIGN = new Set(["Xala Technologies AS"]);
+
     // Punctuation is language-neutral — a lone "." after an inline link is
     // identical in both documents on purpose and is not a missed translation.
     const meaningful = (v: string) => /\p{L}{2,}/u.test(v);
     const shared = strings(doc.en)
       .filter(meaningful)
+      .filter((s) => !SHARED_BY_DESIGN.has(s))
       .filter((s) => strings(doc.nb).includes(s));
     expect(shared, `identical in both languages: ${shared.join(" | ")}`).toEqual([]);
   });
