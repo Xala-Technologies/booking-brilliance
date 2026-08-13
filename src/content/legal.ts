@@ -20,10 +20,28 @@
  */
 import type { Locale } from "@/lib/i18n";
 
+/**
+ * An inline link inside a paragraph.
+ *
+ * Modelled rather than written as markup because these are load-bearing on a
+ * legal page: the accessibility statement has to name the supervisory body and
+ * link to the national register, and a translation that drops the anchor drops
+ * the reader's route to complain.
+ */
+export interface LegalLink {
+  before: string;
+  href: string;
+  text: string;
+  after: string;
+  external?: boolean;
+}
+
 export interface LegalBlock {
   h3?: string;
   body?: string;
+  /** Bullets may use `backticks` for inline code, as the ARIA landmarks do. */
   bullets?: readonly string[];
+  link?: LegalLink;
 }
 
 export interface LegalSection {
@@ -37,6 +55,8 @@ export interface LegalDoc {
   metaDescription: string;
   intro: string;
   sections: readonly LegalSection[];
+  /** Rendered as "Last updated"; kept as data so it cannot differ per language. */
+  updated?: string;
 }
 
 const COOKIES_NB: LegalDoc = {
@@ -180,6 +200,141 @@ const COOKIES_EN: LegalDoc = {
 };
 
 export const COOKIE_POLICY = { nb: COOKIES_NB, en: COOKIES_EN } as const;
+
+const A11Y_NB: LegalDoc = {
+  title: "Tilgjengelighetserklæring",
+  metaTitle: "Tilgjengelighetserklæring · Digilist | WCAG 2.1 AA",
+  metaDescription:
+    "Digilists tilgjengelighetserklæring: standard, status, hvordan vi tester, og hvordan du gir tilbakemelding eller klager til Digitaliseringsdirektoratet (uustatus.no).",
+  intro:
+    "Denne erklæringen beskriver hvordan Digilist arbeider med universell utforming av digilist.no og bookingplattformen, hvilken standard vi følger, og hvordan du gir tilbakemelding eller klager dersom du støter på et tilgjengelighetsproblem.",
+  updated: "Sist oppdatert: 11.08.2026",
+  sections: [
+    {
+      h2: "1. Standard og regelverk",
+      blocks: [
+        {
+          body: "Digilist utvikles etter WCAG 2.1 nivå AA, som er kravet i forskrift om universell utforming av IKT, hjemlet i likestillings- og diskrimineringsloven § 17a. Standarden gjelder både digilist.no og bookingplattformen som tilbys kommuner og utleiere.",
+        },
+      ],
+    },
+    {
+      h2: "2. Hvordan vi tester",
+      blocks: [
+        {
+          body: "Tilgjengelighet inngår i den vanlige utviklingsprosessen, ikke som en engangskontroll:",
+          bullets: [
+            "automatiserte axe-core-revisjoner kjøres på hvert deploy",
+            "overskriftshierarki, landemerker (som `main` og `nav`) og alt-tekster kontrolleres for hver side",
+            "tastaturnavigasjon og synlig fokusmarkering testes på nye komponenter",
+          ],
+        },
+        {
+          body: "Automatisert testing fanger ikke alt. Vi retter feil fortløpende etter hvert som de oppdages, enten av oss selv eller gjennom tilbakemeldinger fra brukere.",
+        },
+      ],
+    },
+    {
+      h2: "3. Kjente avvik",
+      blocks: [
+        {
+          body: "Vi kjenner ikke til vesentlige, uløste avvik fra WCAG 2.1 AA på digilist.no per publiseringsdato under. Enkeltstående feil kan likevel forekomme, særlig i innhold levert av tredjepart (for eksempel bilder eller tekst fra utleiere i markedsplassen). Oppdager du et problem, hører vi gjerne fra deg – se kontaktpunkt under.",
+        },
+      ],
+    },
+    {
+      h2: "4. Tilbakemelding og klage",
+      blocks: [
+        {
+          link: {
+            before: "Har du støtt på et tilgjengelighetsproblem på digilist.no, kan du gi tilbakemelding til ",
+            href: "mailto:kontakt@digilist.no",
+            text: "kontakt@digilist.no",
+            after: ". Beskriv gjerne hvilken side, hva som skjedde, og hvilket hjelpemiddel du eventuelt brukte.",
+          },
+        },
+        {
+          link: {
+            before: "Er du ikke fornøyd med svaret du får, kan du klage til Digitaliseringsdirektoratet, som fører tilsyn med regelverket om universell utforming av IKT. Tilsynet forvalter det nasjonale registeret for tilgjengelighetserklæringer på ",
+            href: "https://uustatus.no",
+            text: "uustatus.no",
+            after: ".",
+            external: true,
+          },
+        },
+      ],
+    },
+  ],
+};
+
+const A11Y_EN: LegalDoc = {
+  title: "Accessibility statement",
+  metaTitle: "Accessibility statement · Digilist | WCAG 2.1 AA",
+  metaDescription:
+    "Digilist's accessibility statement: the standard we follow, current status, how we test, and how to give feedback or complain to the Norwegian Digitalisation Agency (uustatus.no).",
+  intro:
+    "This statement describes how Digilist works on accessibility for digilist.no and the booking platform, which standard we follow, and how to give feedback or complain if you run into an accessibility problem.",
+  updated: "Last updated: 11 August 2026",
+  sections: [
+    {
+      h2: "1. Standard and regulation",
+      blocks: [
+        {
+          body: "Digilist is built to WCAG 2.1 level AA, the level required by the Norwegian regulation on universal design of ICT, which rests on section 17a of the Equality and Anti-Discrimination Act. The standard applies to digilist.no and to the booking platform offered to public bodies and operators alike.",
+        },
+      ],
+    },
+    {
+      h2: "2. How we test",
+      blocks: [
+        {
+          body: "Accessibility is part of ordinary development, not a one-off check:",
+          bullets: [
+            "automated axe-core audits run on every deploy",
+            "heading order, landmarks (such as `main` and `nav`) and alt text are checked on every page",
+            "keyboard navigation and a visible focus indicator are tested on new components",
+          ],
+        },
+        {
+          body: "Automated testing does not catch everything. We fix problems as they are found, whether we find them ourselves or a user reports them.",
+        },
+      ],
+    },
+    {
+      h2: "3. Known deviations",
+      blocks: [
+        {
+          body: "We know of no significant unresolved deviations from WCAG 2.1 AA on digilist.no as of the date below. Individual faults may still occur, particularly in content supplied by third parties — images or text from operators in the marketplace, for example. If you find a problem we would like to hear about it; the contact point is below.",
+        },
+      ],
+    },
+    {
+      h2: "4. Feedback and complaints",
+      blocks: [
+        {
+          link: {
+            before: "If you have run into an accessibility problem on digilist.no, you can send feedback to ",
+            href: "mailto:kontakt@digilist.no",
+            text: "kontakt@digilist.no",
+            after: ". Please say which page it was, what happened, and which assistive technology you were using, if any.",
+          },
+        },
+        {
+          link: {
+            before: "If you are not satisfied with the response, you can complain to the Norwegian Digitalisation Agency, which supervises the rules on universal design of ICT. The agency maintains the national register of accessibility statements at ",
+            href: "https://uustatus.no",
+            text: "uustatus.no",
+            after: ".",
+            external: true,
+          },
+        },
+      ],
+    },
+  ],
+};
+
+export const ACCESSIBILITY_STATEMENT = { nb: A11Y_NB, en: A11Y_EN } as const;
+
 
 export function legalDoc(
   doc: { nb: LegalDoc; en: LegalDoc },

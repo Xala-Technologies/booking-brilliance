@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { COOKIE_POLICY, type LegalDoc } from "./legal";
+import { ACCESSIBILITY_STATEMENT, COOKIE_POLICY, type LegalDoc } from "./legal";
 
 /**
  * The two languages must describe the SAME policy.
@@ -15,6 +15,7 @@ import { COOKIE_POLICY, type LegalDoc } from "./legal";
  */
 const DOCS: Array<[string, { nb: LegalDoc; en: LegalDoc }]> = [
   ["cookie policy", COOKIE_POLICY],
+  ["accessibility statement", ACCESSIBILITY_STATEMENT],
 ];
 
 describe.each(DOCS)("%s says the same thing in both languages", (_name, doc) => {
@@ -28,6 +29,9 @@ describe.each(DOCS)("%s says the same thing in both languages", (_name, doc) => 
         blocks: s.blocks.length,
         h3s: s.blocks.filter((b) => b.h3).length,
         bullets: s.blocks.map((b) => b.bullets?.length ?? 0),
+        // A link that exists in one language and not the other means one
+        // audience has a route to complain and the other does not.
+        links: s.blocks.map((b) => b.link?.href ?? null),
       }));
     expect(shape(doc.en)).toEqual(shape(doc.nb));
   });
@@ -40,11 +44,25 @@ describe.each(DOCS)("%s says the same thing in both languages", (_name, doc) => 
       d.intro,
       ...d.sections.flatMap((s) => [
         s.h2,
-        ...s.blocks.flatMap((b) => [b.h3, b.body, ...(b.bullets ?? [])]),
+        ...s.blocks.flatMap((b) => [
+          b.h3,
+          b.body,
+          ...(b.bullets ?? []),
+          // The prose either side of an inline link is still prose. Leaving it
+          // out let a paragraph stay Norwegian in the English document while
+          // this test reported parity.
+          b.link?.before,
+          b.link?.after,
+        ]),
       ]),
     ].filter((v): v is string => Boolean(v));
 
-    const shared = strings(doc.en).filter((s) => strings(doc.nb).includes(s));
+    // Punctuation is language-neutral — a lone "." after an inline link is
+    // identical in both documents on purpose and is not a missed translation.
+    const meaningful = (v: string) => /\p{L}{2,}/u.test(v);
+    const shared = strings(doc.en)
+      .filter(meaningful)
+      .filter((s) => strings(doc.nb).includes(s));
     expect(shared, `identical in both languages: ${shared.join(" | ")}`).toEqual([]);
   });
 });

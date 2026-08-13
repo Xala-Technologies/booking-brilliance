@@ -26,6 +26,7 @@ Allow: /en/faq$
 Allow: /en/om-oss$
 Allow: /en/book-demo$
 Allow: /en/cookies$
+Allow: /en/tilgjengelighet$
 Allow: /en/blogg
 
 

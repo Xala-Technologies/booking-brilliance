@@ -2046,6 +2046,18 @@ const ROUTES = [
     ],
   },
   {
+    route: "/en/tilgjengelighet",
+    title: "Accessibility statement · Digilist | WCAG 2.1 AA",
+    description:
+      "Digilist's accessibility statement: the standard we follow, current status, how we test, and how to give feedback or complain to the Norwegian Digitalisation Agency (uustatus.no).",
+    ogType: "website",
+    lang: "en",
+    breadcrumbs: [
+      { name: "Home", url: `${BASE_URL}/en` },
+      { name: "Accessibility statement", url: `${BASE_URL}/en/tilgjengelighet` },
+    ],
+  },
+  {
     route: "/tilgjengelighet",
     title: "Tilgjengelighetserklæring – Digilist",
     description: "Digilists tilgjengelighetserklæring: standard (WCAG 2.1 AA), hvordan vi tester, og hvordan du gir tilbakemelding eller klager via uustatus.no.",
@@ -2517,6 +2529,7 @@ const TRANSLATED_ROUTES = {
   "/om-oss": "/en/om-oss",
   "/book-demo": "/en/book-demo",
   "/cookies": "/en/cookies",
+  "/tilgjengelighet": "/en/tilgjengelighet",
   "/blogg": "/en/blogg",
 };
 
