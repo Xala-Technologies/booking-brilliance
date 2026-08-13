@@ -2024,6 +2024,18 @@ const ROUTES = [
     ],
   },
   {
+    route: "/en/cookies",
+    title: "Cookie policy · Digilist",
+    description:
+      "How Digilist uses cookies. Privacy-first analytics with no cookies: no tracking, no third parties, full GDPR sovereignty.",
+    ogType: "website",
+    lang: "en",
+    breadcrumbs: [
+      { name: "Home", url: `${BASE_URL}/en` },
+      { name: "Cookies", url: `${BASE_URL}/en/cookies` },
+    ],
+  },
+  {
     route: "/cookies",
     title: "Cookies og informasjonskapsler – Digilist",
     description: "Slik bruker Digilist informasjonskapsler. Privacy-first analytics uten cookies.",
@@ -2504,6 +2516,7 @@ const TRANSLATED_ROUTES = {
   "/faq": "/en/faq",
   "/om-oss": "/en/om-oss",
   "/book-demo": "/en/book-demo",
+  "/cookies": "/en/cookies",
   "/blogg": "/en/blogg",
 };
 

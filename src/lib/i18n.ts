@@ -73,6 +73,7 @@ export const TRANSLATED_PATHS: ReadonlySet<string> = new Set([
   "/faq",
   "/om-oss",
   "/book-demo",
+  "/cookies",
   "/blogg",
   // "/priser" and "/faq" were listed here, and it was not true. The bespoke
   // English pages were deleted in favour of the mirror, which renders the
