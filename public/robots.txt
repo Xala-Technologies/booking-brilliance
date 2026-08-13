@@ -34,6 +34,7 @@ Allow: /en/verktoy/kapasitetskalkulator$
 Allow: /en/verktoy/leiepriskalkulator$
 Allow: /en/verktoy$
 Allow: /en/kanaler$
+Allow: /en/ai-agenter$
 Allow: /en/blogg
 
 

@@ -1794,6 +1794,25 @@ const ROUTES = [
     ],
   },
   {
+    route: "/en/ai-agenter",
+    title: "AI agents for booking and venue rental | Digilist",
+    description:
+      "Digilist uses AI agents that approve listings against GDPR, national security principles, SOC 2 and accessibility rules, reply to enquiries, and explain seasonal allocation.",
+    ogType: "website",
+    lang: "en",
+    service: true,
+    breadcrumbs: [
+      { name: "Home", url: `${BASE_URL}/en` },
+      { name: "AI agents", url: `${BASE_URL}/en/ai-agenter` },
+    ],
+    faq: [
+      { question: "Are the Digilist agents safe under GDPR?", answer: "Yes. Every listing is checked against GDPR before publication — the agent catches personal data in public text and in images. The agents also follow the NSM basic principles for ICT security set by the Norwegian National Security Authority, SOC 2, and the accessibility requirements of WCAG 2.1 AA." },
+      { question: "Do the agents make decisions on their own?", answer: "Not for anything customer-facing. Replies to enquiries are written as drafts, with automatic sending optional; seasonal allocation is explained but never decided by the agent; and every word addressed to a club is approved by a person. Listing approval runs against clear, law-based criteria, and anything in doubt is raised to a person." },
+      { question: "Which standards is a listing checked against?", answer: "GDPR for privacy; the NSM basic principles for ICT security; SOC 2 Trust Services Criteria; accessibility under WCAG 2.1 AA; and the Norwegian Marketing Control Act for misleading or unlawful commercial claims." },
+      { question: "Which AI agents are included?", answer: "Five customer-facing agents: listing approval and compliance, replies to enquiries, review and explanation of seasonal allocation, a daily operations overview for the people who run the buildings, and market insight that finds gaps between supply and demand. The fleet grows over time." },
+    ],
+  },
+  {
     route: "/ai-agenter",
     title: "AI-agenter for booking og utleie | Digilist",
     description:
@@ -2656,6 +2675,7 @@ const TRANSLATED_ROUTES = {
   "/verktoy/leiepriskalkulator": "/en/verktoy/leiepriskalkulator",
   "/verktoy": "/en/verktoy",
   "/kanaler": "/en/kanaler",
+  "/ai-agenter": "/en/ai-agenter",
   "/blogg": "/en/blogg",
 };
 

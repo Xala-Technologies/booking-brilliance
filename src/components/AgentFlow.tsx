@@ -7,7 +7,8 @@ import { ArrowRight } from "lucide-react";
  * and styled to match the editorial system. The last step is highlighted as the
  * outcome.
  */
-export function AgentFlow({ steps }: { steps: string[] }) {
+// readonly: the bilingual copy banks are `as const` and this only reads.
+export function AgentFlow({ steps }: { steps: readonly string[] }) {
   return (
     <div
       className="flex flex-col lg:flex-row lg:items-stretch gap-1.5 lg:gap-0"
