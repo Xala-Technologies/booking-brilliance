@@ -32,6 +32,17 @@ const NB =
  */
 const ACRONYMS = /\b(AV|Finn)\b/g;
 
+/**
+ * Roman numerals used as section markers: "I. SECURITY", "VI. QUESTIONS".
+ *
+ * "VI" matches the Norwegian "vi" (we) and "I" matches the Norwegian "i"
+ * (in), both case-insensitively, so an English section label was reported as
+ * untranslated. Anchored on the trailing period, which is what makes it a
+ * numeral rather than a word — a bare uppercase I or VI in prose is still
+ * checked.
+ */
+const NUMERALS = /\b[IVX]+\.\s/g;
+
 const ALLOW = [
   /^[A-ZÆØÅ][a-zæøå]+(\s[A-ZÆØÅ][a-zæøå]+)*$/u, // proper nouns
   /^(Vipps|BankID|ID-porten|EHF|Peppol|Digilist|Newsreader|Inter|Oslo|Norge)/i,
@@ -69,7 +80,7 @@ for (const f of files) {
   const html = await fs.readFile(f, "utf-8");
   const bad = [...new Set(
     textRuns(html).filter(
-      (t) => NB.test(t.replace(ACRONYMS, " ")) && !ALLOW.some((re) => re.test(t)),
+      (t) => NB.test(t.replace(ACRONYMS, " ").replace(NUMERALS, " ")) && !ALLOW.some((re) => re.test(t)),
     ),
   )];
   if (bad.length) {

@@ -196,35 +196,36 @@ const Sikkerhet = () => {
                 </div>
               ))}
             </dl>
-            {/* Omitted in English: all three targets are Norwegian-only, so
-                on /en/sikkerhet this paragraph would be three ways out of
-                English. It comes back per link as those pages are translated. */}
-            {!en && (
-              <p className="mt-10 editorial-mono-caption">
-                Se også{" "}
-                <Link
-                  to="/bookingsystem-kommune"
-                  className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
-                >
-                  bookingsystem for kommuner
-                </Link>
-                ,{" "}
-                <Link
-                  to="/bookingsystem-utleie"
-                  className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
-                >
-                  bookingsystem for utleie
-                </Link>{" "}
-                eller{" "}
-                <Link
-                  to="/teknologi"
-                  className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
-                >
-                  teknologien bak
-                </Link>
-                .
-              </p>
-            )}
+            {/* Two of the three targets now exist in English; /teknologi does
+                not, so it is the only one still dropped here. */}
+            <p className="mt-10 editorial-mono-caption">
+              {en ? "See also" : "Se også"}{" "}
+              <Link
+                to={en ? "/en/bookingsystem-kommune" : "/bookingsystem-kommune"}
+                className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
+              >
+                {en ? "the booking system for municipalities" : "bookingsystem for kommuner"}
+              </Link>{" "}
+              {en ? "or" : "eller"}{" "}
+              <Link
+                to={en ? "/en/bookingsystem-utleie" : "/bookingsystem-utleie"}
+                className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
+              >
+                {en ? "the booking system for venue rental" : "bookingsystem for utleie"}
+              </Link>
+              {!en && (
+                <>
+                  {" "}eller{" "}
+                  <Link
+                    to="/teknologi"
+                    className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
+                  >
+                    teknologien bak
+                  </Link>
+                </>
+              )}
+              .
+            </p>
           </div>
         </section>
       </main>

@@ -2014,6 +2014,27 @@ const ROUTES = [
     ],
   },
   {
+    route: "/en/bookingsystem-utleie",
+    title: "Booking system for venue rental | Digilist",
+    description:
+      "A booking system for renting out venues: a real-time calendar, booking and payment online, varied pricing and calendar sync. For private operators and public bodies.",
+    ogType: "website",
+    lang: "en",
+    service: true,
+    breadcrumbs: [
+      { name: "Home", url: `${BASE_URL}/en` },
+      { name: "For operators", url: `${BASE_URL}/en/bookingsystem-utleie` },
+    ],
+    faq: [
+      { question: "What is a booking system for venue rental?", answer: "A booking system for venue rental is a platform where you, as the operator, publish the times your venue is free, and people see availability in real time and book directly. It handles the calendar, price, extras, payment and confirmations, so you avoid rounds of email and phone calls. Digilist is such a system, built for private operators and for public venues alike." },
+      { question: "How do I rent out venues with a real-time calendar?", answer: "You add the venue with its free times, price and any extras. People see immediately what is free, booked and blocked, and book the date they need. The calendar updates without a refresh, and double booking is prevented automatically because everyone sees the same live status." },
+      { question: "Can I take payment online?", answer: "Yes. The person renting can pay at the point of booking by card or with Vipps, the Norwegian payment app. You can set prices that vary by day of the week, season and capacity, and add extras such as cleaning, equipment or staffing as separate lines in the price." },
+      { question: "What does a booking system for venue rental cost?", answer: "The price depends on the number of venues, booking volume and integrations. Digilist offers a free demo and a quote suited to your needs. For the person renting it is free to search, compare and book — they pay only the rental price to the operator." },
+      { question: "Does Digilist suit both private operators and public bodies?", answer: "Yes. Digilist is built for both markets in the same system. Private operators of function rooms, farms, meeting rooms and sports facilities use the same real-time calendar that municipalities use for public venues. That means people find private and public venues together, in one place." },
+      { question: "How does my venue get more visibility?", answer: "Your venue becomes searchable by venue type, location and facilities, so people looking for exactly that kind of space find you. A real-time calendar and direct booking lower the barrier to an interested visitor actually completing the booking." },
+    ],
+  },
+  {
     route: "/bookingsystem-utleie",
     title: "Bookingsystem utleie – Digilist | Leie ut lokaler på nett",
     description:
@@ -2698,6 +2719,7 @@ const TRANSLATED_ROUTES = {
   "/kanaler": "/en/kanaler",
   "/ai-agenter": "/en/ai-agenter",
   "/bookingsystem-kommune": "/en/bookingsystem-kommune",
+  "/bookingsystem-utleie": "/en/bookingsystem-utleie",
   "/blogg": "/en/blogg",
 };
 
