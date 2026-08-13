@@ -49,6 +49,24 @@ describe("SEO <title> length ≤ 65 chars (i18n-sourced titles)", () => {
       expect(title.length).toBeLessThanOrEqual(LIMIT);
     }
   });
+
+  it("home.title (nb + en, src/lib/copy.ts) is ≤65 chars", () => {
+    const raw = readFileSync(join(PAGES_DIR, "..", "lib", "copy.ts"), "utf-8");
+    const matches = [...raw.matchAll(/"home\.title":\s*"([^"]*)"/g)];
+    expect(matches.length).toBe(2); // nb + en
+    for (const [, title] of matches) {
+      expect(title.length).toBeLessThanOrEqual(LIMIT);
+    }
+  });
+
+  it("pricing.title (nb + en, src/lib/copy.ts) is ≤65 chars", () => {
+    const raw = readFileSync(join(PAGES_DIR, "..", "lib", "copy.ts"), "utf-8");
+    const matches = [...raw.matchAll(/"pricing\.title":\s*"([^"]*)"/g)];
+    expect(matches.length).toBe(2); // nb + en
+    for (const [, title] of matches) {
+      expect(title.length).toBeLessThanOrEqual(LIMIT);
+    }
+  });
 });
 
 describe("SEO <title> length ≤ 65 chars (scripts/prerender.mjs static route metadata)", () => {
