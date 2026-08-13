@@ -16,54 +16,30 @@ import { FAQAccordion, type FAQItem } from "@/components/FAQAccordion";
 import TechnologyStackSection from "@/components/TechnologyStackSection";
 import ArchitectureSection from "@/components/ArchitectureSection";
 import IntegrationsSection from "@/components/IntegrationsSection";
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
+import { teknologiFaq } from "@/content/teknologi";
 
 const APP = "https://app.digilist.no";
 
-// The /teknologi FAQ. Single source of truth for this page's visible accordion
-// AND its FAQPage JSON-LD (passed to <SEO faq>). Keep byte-for-byte in sync
-// with the /teknologi route `faq` array in scripts/prerender.mjs — that copy is
-// what crawlers index, and Google requires the visible text to match the markup.
-const TEKNOLOGI_FAQ: FAQItem[] = [
-  {
-    q: "Hvilken teknologi er Digilist bygget på?",
-    a: "Frontend: React 19, React Router 7, TypeScript strict, Tailwind CSS og Digdir Designsystemet. Backend: Convex (self-hosted) reaktiv runtime, Node.js 20 LTS, Zod. Database: PostgreSQL 16. Mobil: bare React Native (iOS, iPadOS, Android). Sikkerhet: TLS 1.3, AES-256-GCM, RBAC, ID-porten.",
-  },
-  {
-    q: "Hvilke integrasjoner støttes?",
-    a: "Betaling: Vipps, Stripe Connect, EHF/Peppol. Autentisering: BankID (via Signicat), ID-porten, BRREG. Regnskap: Visma eAccounting, Tripletex, Fiken, PowerOffice, DNB Regnskap. Kalender: Microsoft 365, Outlook. Adgang: Salto KS. Migrasjon: RCO booking.",
-  },
-  {
-    q: "Hvor lagres dataene?",
-    a: "All kundedata lagres i Norge og EU på PostgreSQL hostet av Convex i EU-regioner. Backup og redundans følger samme regel. Ingen data lagres utenfor EØS uten eksplisitte garantier.",
-  },
-  {
-    q: "Er Digilist ISO 27001 og 27701-sertifisert?",
-    a: "Ja. Digilist er sertifisert mot både ISO 27001 (informasjonssikkerhetsstyringssystem) og ISO 27701 (personvernsutvidelse). Sertifikater er tilgjengelige på forespørsel.",
-  },
-  {
-    q: "Oppfyller Digilist WCAG 2.0 AA?",
-    a: "Ja. Digilist tester mot WCAG 2.1 AA og kjører automatiserte axe-core-revisjoner på hvert deploy. Tilgjengelighetserklæring publiseres i samsvar med Digdirs mal.",
-  },
-  {
-    q: "Hvor høy oppetid garanterer Digilist?",
-    a: "Digilist har 99,9 % oppetid som SLA. Plattformen er bygget med transaksjonelle hendelseslogger (outbox-pattern) som garanterer konsistens selv ved feil. Statusside og insident-rapportering er tilgjengelig.",
-  },
-];
-
 export default function Teknologi() {
+  const locale = localeFromPath(useLocation().pathname);
+  const en = locale === "en";
+  const faq = teknologiFaq(locale);
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <SEO
-        title="Teknologi og sikkerhet: stack, arkitektur og samsvar | Digilist"
-        description="Teknologien bak Digilist: React 19, Convex reaktiv runtime, PostgreSQL 16 i Norge og EU, ISO 27001/27701, GDPR, WCAG 2.1 AA, ID-porten, EHF/Peppol og norske integrasjoner."
+        title={t(locale, "tech.title")}
+        description={t(locale, "tech.description")}
         keywords="digilist teknologi, bookingsystem arkitektur, convex, postgresql, iso 27001, gdpr, wcag, id-porten, ehf peppol, datalagring norge, sikkerhet bookingsystem"
-        canonical="https://digilist.no/teknologi"
+        canonical={en ? "https://digilist.no/en/teknologi" : "https://digilist.no/teknologi"}
         breadcrumbs={[
           { name: "Hjem", url: "https://digilist.no/" },
           { name: "Teknologi", url: "https://digilist.no/teknologi" },
         ]}
         service
-        faq={TEKNOLOGI_FAQ.map((e) => ({ question: e.q, answer: e.a }))}
+        faq={faq.map((e) => ({ question: e.q, answer: e.a }))}
       />
       <ProgressRail />
       <Navbar />
@@ -73,29 +49,26 @@ export default function Teknologi() {
           {/* Hero */}
           <section className="pt-28 lg:pt-32 pb-8 lg:pb-12 bg-paper">
             <div className="container mx-auto md:px-8 lg:px-12">
-              <SectionRule label="PLATTFORM · SIKKERHET · SAMSVAR" />
+              <SectionRule label={t(locale, "tech.rule")} />
 
               <div className="grid lg:grid-cols-12 gap-8 lg:gap-gutter items-center">
                 <div className="lg:col-span-7">
                   <EditorialHeading as="h1" size="display">
-                    Teknologien{" "}
+                    {t(locale, "tech.h1")}{" "}
                     <em
                       className="italic"
                       style={{ fontVariationSettings: getFraunces("display") }}
                     >
-                      under Digilist
+                      {t(locale, "tech.h1em")}
                     </em>
                     .
                   </EditorialHeading>
                   <p className="mt-6 text-xl text-ink-soft measure leading-relaxed">
-                    En reaktiv runtime, norsk og europeisk datalagring, og
-                    samsvar bygget inn fra grunnen: ISO 27001/27701, GDPR og
-                    universell utforming. Her er stacken, arkitekturen og
-                    integrasjonene som driver plattformen.
+                    {t(locale, "tech.lede")}
                   </p>
                   <div className="mt-8 flex flex-wrap gap-3">
-                    <EditorialButton variant="primary" size="lg" href="/book-demo">
-                      Book demo
+                    <EditorialButton variant="primary" size="lg" href={en ? "/en/book-demo" : "/book-demo"}>
+                      {t(locale, "nav.bookDemo")}
                     </EditorialButton>
                     <EditorialButton
                       variant="outline"
@@ -104,7 +77,7 @@ export default function Teknologi() {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Åpne plattformen
+                      {t(locale, "nav.openPlatform")}
                     </EditorialButton>
                   </div>
                 </div>
@@ -134,7 +107,7 @@ export default function Teknologi() {
             className="py-16 lg:py-24 bg-paper border-t border-rule"
           >
             <div className="container mx-auto md:px-8 lg:px-12">
-              <SectionRule label="OFTE STILTE SPØRSMÅL" />
+              <SectionRule label={t(locale, "tech.faqRule")} />
               <div className="grid lg:grid-cols-12 gap-8 lg:gap-gutter mb-10 lg:mb-14 items-end">
                 <div className="lg:col-span-7">
                   <EditorialHeading
@@ -142,27 +115,26 @@ export default function Teknologi() {
                     size="section"
                     id="teknologi-faq-heading"
                   >
-                    Teknologi og{" "}
+                    {t(locale, "tech.faqH2")}{" "}
                     <em
                       className="italic"
                       style={{ fontVariationSettings: getFraunces("display") }}
                     >
-                      samsvar
+                      {t(locale, "tech.faqH2em")}
                     </em>
                     .
                   </EditorialHeading>
                 </div>
                 <div className="lg:col-span-5 flex flex-col gap-6 lg:items-end">
                   <p className="text-lg text-ink-soft leading-relaxed lg:text-right">
-                    Stack, datalagring, sertifiseringer og oppetid: svar på det
-                    tekniske kjøpere og saksbehandlere spør om.
+                    {t(locale, "tech.faqLede")}
                   </p>
-                  <EditorialButton variant="link" size="md" href="/faq">
-                    Se alle spørsmål
+                  <EditorialButton variant="link" size="md" href={en ? "/en/faq" : "/faq"}>
+                    {t(locale, "tech.seeAll")}
                   </EditorialButton>
                 </div>
               </div>
-              <FAQAccordion items={TEKNOLOGI_FAQ} />
+              <FAQAccordion items={faq} />
             </div>
           </section>
 
@@ -180,16 +152,14 @@ export default function Teknologi() {
                         lineHeight: 1.1,
                       }}
                     >
-                      Vil du se det under panseret?
+                      {t(locale, "tech.ctaHeading")}
                     </h2>
                     <p className="text-base lg:text-lg text-ink leading-relaxed">
-                      Book en demo, så går vi gjennom arkitektur, datalagring,
-                      samsvarsdokumentasjon og integrasjonene som er relevante
-                      for ditt oppsett.
+                      {t(locale, "tech.ctaBody")}
                     </p>
                   </div>
                   <div className="lg:col-span-4 flex flex-wrap gap-3 lg:justify-end">
-                    <EditorialButton variant="primary" size="lg" href="/book-demo">
+                    <EditorialButton variant="primary" size="lg" href={en ? "/en/book-demo" : "/book-demo"}>
                       Book demo
                     </EditorialButton>
                   </div>

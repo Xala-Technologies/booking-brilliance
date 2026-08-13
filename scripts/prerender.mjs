@@ -1645,8 +1645,8 @@ const ROUTES = [
       { name: "Hjem", url: `${BASE_URL}/` },
       { name: "Teknologi", url: `${BASE_URL}/teknologi` },
     ],
-    // Mirror of TEKNOLOGI_FAQ in src/pages/Teknologi.tsx – keep byte-for-byte
-    // identical (this copy is what crawlers index; visible text must match).
+    // Mirror of the NB bank in src/content/teknologi.ts — pinned by
+    // teknologi-faq-sync.test.ts, not by the honour system.
     faq: [
       { q: "Hvilken teknologi er Digilist bygget på?", a: "Frontend: React 19, React Router 7, TypeScript strict, Tailwind CSS og Digdir Designsystemet. Backend: Convex (self-hosted) reaktiv runtime, Node.js 20 LTS, Zod. Database: PostgreSQL 16. Mobil: bare React Native (iOS, iPadOS, Android). Sikkerhet: TLS 1.3, AES-256-GCM, RBAC, ID-porten." },
       { q: "Hvilke integrasjoner støttes?", a: "Betaling: Vipps, Stripe Connect, EHF/Peppol. Autentisering: BankID (via Signicat), ID-porten, BRREG. Regnskap: Visma eAccounting, Tripletex, Fiken, PowerOffice, DNB Regnskap. Kalender: Microsoft 365, Outlook. Adgang: Salto KS. Migrasjon: RCO booking." },

@@ -10,8 +10,14 @@ import { TRANSLATED_PATHS } from "./i18n";
  *
  * So the fixture asserts its own premise. When this page gets translated the
  * error names the problem and the fix, instead of six assertion diffs.
+ *
+ * It now points at one of the 38 Norwegian-query landing pages, which stay
+ * Norwegian deliberately: nobody searches in English to rent a Norwegian
+ * function room, and 38 thin English duplicates would land on a site Google
+ * already declines to index 147 URLs of. That makes this a stable fixture
+ * rather than one that rots on the next translation.
  */
-export const UNTRANSLATED_PATH = "/teknologi";
+export const UNTRANSLATED_PATH = "/leie/selskapslokale";
 
 if (TRANSLATED_PATHS.has(UNTRANSLATED_PATH)) {
   throw new Error(
