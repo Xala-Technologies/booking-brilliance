@@ -168,7 +168,7 @@ export default function UseCasePage({
               <div className="flex items-baseline justify-between gap-4 mb-10 pb-4 border-b border-rule">
                 <nav
                   className="editorial-mono-caption text-accent-text flex flex-wrap items-baseline gap-2"
-                  aria-label="Brødsmuler"
+                  aria-label={t(locale, "useCase.breadcrumbs")}
                 >
                   <Link to="/" className="hover:underline">
                     Hjem
@@ -259,7 +259,7 @@ export default function UseCasePage({
               {/* Audience */}
               <section className="mb-14 lg:mb-20">
                 <SectionRule label="HVEM BRUKER DETTE" />
-                <h2 className="sr-only">Hvem bruker dette</h2>
+                <h2 className="sr-only">{t(locale, "useCase.whoUses")}</h2>
                 <div className="mt-8 grid sm:grid-cols-2 gap-px bg-rule border border-rule">
                   {audience.map((a, i) => (
                     <div key={a.persona} className="bg-paper p-7 lg:p-8">
