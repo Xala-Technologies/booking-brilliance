@@ -35,192 +35,59 @@ import {
   imageForSlug,
   bundledSrcSet,
 } from "@/components/CategoryVisual";
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { rentCopy } from "@/content/leie";
+import { LinkOrText } from "@/components/LinkOrText";
 
 const APP = "https://app.digilist.no";
 
 // The hub links to a deep guide per category (/leie/<slug>). Each guide is an
 // SEO landing page that funnels to the live platform via its own "finn ledig"
 // CTA. Grouping mirrors the three ways people search: feiring, arbeid, aktivitet.
-const CATEGORY_GROUPS = [
-  {
-    label: "FEST & FEIRING",
-    meta: "SELSKAP · BRYLLUP · BURSDAG",
-    items: [
-      {
-        title: "Selskapslokale",
-        Icon: GlassWater,
-        to: "/leie/selskapslokale",
-        body: "Bryllup, jubileum, konfirmasjon og fest. Ekte pris for din dato, depositum og vilkår synlig før du booker.",
-      },
-      {
-        title: "Gård og låve",
-        Icon: Warehouse,
-        to: "/leie/gaard",
-        body: "Gårdsbryllup, sommerfest på tunet eller firmatur på landet. Låver og gårdstun med pris og ledig helg synlig.",
-      },
-      {
-        title: "Bursdagslokale",
-        Icon: Cake,
-        to: "/leie/bursdagslokale",
-        body: "Barnebursdag eller runde år. Festrom, grendehus og aktivitetslokaler med kjøkken, bookbart med Vipps.",
-      },
-      {
-        title: "Kulturhus og grendehus",
-        Icon: Theater,
-        to: "/leie/kulturhus",
-        body: "Konsert, forestilling eller storselskap. Kulturhus, samfunnshus og grendehus med scene og kapasitet oppgitt.",
-      },
-    ],
-  },
-  {
-    label: "MØTE & ARBEID",
-    meta: "MØTE · KONFERANSE · KONTOR",
-    items: [
-      {
-        title: "Møterom",
-        Icon: Users2,
-        to: "/leie/moterom",
-        body: "Møte, workshop eller kurs, per time. Kommunale rom, næringsbygg og private, med pris per time synlig.",
-      },
-      {
-        title: "Konferanselokale",
-        Icon: Presentation,
-        to: "/leie/konferanselokale",
-        body: "Seminar, kurs eller fagdag. Plenumssal og grupperom med kapasitet, AV og servering oppgitt.",
-      },
-      {
-        title: "Kontorlokaler",
-        Icon: Building2,
-        to: "/leie/kontorlokaler",
-        body: "Privat kontor på fleksibel leie. Cellekontor og teamkontor med pris, felleskostnader og ledig fra-dato.",
-      },
-      {
-        title: "Coworking",
-        Icon: Laptop,
-        to: "/leie/coworking",
-        body: "Dagplass eller hot desk uten medlemskap. Kontorfellesskap med dagspris og ledige plasser synlig.",
-      },
-    ],
-  },
-  {
-    label: "IDRETT & AKTIVITET",
-    meta: "HALL · PADEL · SVØMMING",
-    items: [
-      {
-        title: "Idrettshall",
-        Icon: Trophy,
-        to: "/leie/idrettshall",
-        body: "Trening, turnering eller bursdag i gymsalen. Ledige enkelttimer i hallene, bookbart uten søknad.",
-      },
-      {
-        title: "Padelbane",
-        Icon: Dumbbell,
-        to: "/leie/padelbane",
-        body: "Book padelbane per time. Ledige tider i sanntid på tvers av anlegg, med utstyrsleie og Vipps.",
-      },
-      {
-        title: "Svømmehall",
-        Icon: Waves,
-        to: "/leie/svommehall",
-        body: "Basseng til bursdag, svømmegruppe eller kurs. Ledige tider utenom klubbtidene, med pris og regler synlig.",
-      },
-    ],
-  },
-  {
-    label: "HOBBY & KLUBB",
-    meta: "HOBBYKLUBB · INTERESSEKLUBB",
-    items: [
-      {
-        title: "Hobbyklubb",
-        Icon: Palette,
-        to: "/leie/hobbyklubb",
-        body: "Strikkeklubb, yogagruppe eller brettspillkveld. Fast rom for klubbaktivitet, med pris og ledig ukedag synlig.",
-      },
-    ],
-  },
-];
-
-const STEPS = [
-  {
-    step: "01",
-    Icon: Search,
-    title: "Finn",
-    body: "Søk på sted og dato. Du ser grendehus, kulturhus og private selskapslokaler i nærområdet, med ekte priser og hva som faktisk er ledig.",
-  },
-  {
-    step: "02",
-    Icon: CalendarCheck,
-    title: "Book",
-    body: "Velg ledig tid og book direkte, ingen uforpliktende forespørsel og ingen dager med e-post fram og tilbake. Vilkår, depositum og kapasitet er synlig før du bekrefter.",
-  },
-  {
-    step: "03",
-    Icon: Wallet,
-    title: "Betal med Vipps",
-    body: "Betal trygt med Vipps eller kort. Bekreftelse og kvittering kommer med en gang. Ingen bankoverføring til en fremmed, ingen usikkerhet.",
-  },
-];
-
-const FAQ = [
-  {
-    question: "Hvor kan jeg leie lokaler?",
-    answer:
-      "Du kan leie lokaler på nett gjennom en bookingplattform som Digilist, der du søker på sted og dato og ser hva som faktisk er ledig i sanntid. Digilist samler både private selskapslokaler og kommunale lokaler på ett sted, så du slipper å lete gjennom kommunens sider, Finn-annonser og Facebook-grupper hver for seg.",
-  },
-  {
-    question: "Kan jeg leie både private og kommunale lokaler?",
-    answer:
-      "Ja. Digilist samler private festlokaler, grendehus og lag- og foreningslokaler sammen med kommunale kulturhus, møterom og idrettshaller i samme kalender. Du sammenligner tilgjengelighet og pris på tvers av private og offentlige utleiere ett sted, i stedet for å kontakte hver enkelt.",
-  },
-  {
-    question: "Hva koster det å leie et lokale?",
-    answer:
-      "Prisen varierer mye med type lokale, sted og varighet. Et grendehus kan koste noen hundre til noen tusen kroner for en helg, mens et kulturhus eller selskapslokale ligger høyere. På Digilist ser du den faktiske totalprisen for din dato, inkludert eventuelt depositum og rengjøring, før du booker, så du slipper å gjette.",
-  },
-  {
-    question: "Kan jeg se ledige datoer og booke på nett?",
-    answer:
-      "Ja. Du søker på sted og dato, ser hva som faktisk er ledig i sanntid, og booker direkte. Ingen uforpliktende forespørsel og ingen venting på svar, du får bekreftelsen med en gang.",
-  },
-  {
-    question: "Hvordan betaler jeg?",
-    answer:
-      "Du betaler trygt med Vipps eller kort i samme flyt som bookingen. Der lokalet krever depositum, håndteres det digitalt med automatisk frigjøring etter arrangementet. Ingen bankoverføring til en fremmed.",
-  },
-  {
-    question: "Hva slags lokaler finner jeg?",
-    answer:
-      "Selskapslokaler, møterom, idrettshaller og gymsaler, kulturhus, samfunnshus og grendehus, både kommunale og private. Digilist samler lokalene der du bor på ett sted, så du slipper å lete gjennom kommunens sider, Finn-annonser og Facebook-grupper hver for seg.",
-  },
-  {
-    question: "Er det gratis å bruke Digilist?",
-    answer:
-      "Ja, det er gratis å søke, sammenligne og booke som privatperson. Du betaler kun leieprisen til utleier. Depositum og eventuelle tilleggstjenester vises tydelig før du bekrefter.",
-  },
-  {
-    question: "Kan jeg avbestille?",
-    answer:
-      "Avbestillingsvilkårene settes av utleier og vises tydelig på hvert lokale før du booker. Der det er tillatt, kan du avbestille digitalt, og et eventuelt depositum frigjøres automatisk etter reglene som gjelder for lokalet.",
-  },
-];
-
 const Leie = () => {
+  const locale = localeFromPath(useLocation().pathname);
+  const en = locale === "en";
+  const c = rentCopy(locale);
+  const CATEGORY_GROUPS = c.groups;
+  const STEPS = c.steps;
+  const FAQ = c.faq;
+  const STEP_ICONS = [Search, CalendarCheck, Wallet];
+  // Icons pair with the translated items by their stable route, not by
+  // position — the groups differ in length and a positional index would put
+  // a swimming icon on a hobby club the first time a category moved.
+  const ITEM_INDEX: Record<string, number> = {
+    "/leie/selskapslokale": 0,
+    "/leie/gaard": 1,
+    "/leie/bursdagslokale": 2,
+    "/leie/kulturhus": 3,
+    "/leie/moterom": 4,
+    "/leie/konferanselokale": 5,
+    "/leie/kontorlokaler": 6,
+    "/leie/coworking": 7,
+    "/leie/idrettshall": 8,
+    "/leie/padelbane": 9,
+    "/leie/svommehall": 10,
+    "/leie/hobbyklubb": 11,
+  };
+  const ITEM_ICONS = [GlassWater, Warehouse, Cake, Theater, Users2, Presentation, Building2, Laptop, Trophy, Dumbbell, Waves, Palette];
+
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <SEO
-        title="Leie lokaler – finn og book selskapslokale | Digilist"
+        title={c.metaTitle}
         description="Leie lokaler på nett: både private selskapslokaler og kommunale lokaler samlet ett sted. Se ekte priser og ledige datoer, og book direkte med Vipps – til bryllup, selskap, møte eller arrangement."
         keywords="leie lokale, finn lokale, leie selskapslokale, leie møterom, leie festlokale, leie lokale til bursdag, hva koster selskapslokale, book lokale online, leie kulturhus, leie grendehus"
-        canonical="https://digilist.no/leie"
+        canonical={en ? "https://digilist.no/en/leie" : "https://digilist.no/leie"}
         breadcrumbs={[
           { name: "Hjem", url: "https://digilist.no/" },
           { name: "Leie", url: "https://digilist.no/leie" },
         ]}
-        faq={FAQ}
+        faq={c.faq}
         service
         howTo={{
-          name: "Slik finner og booker du lokale",
-          description: "Finn, book og betal med Vipps på tre steg via Digilist.",
+          name: c.howToName,
+          description: c.howToDescription,
           steps: STEPS.map((s) => ({ name: s.title, text: s.body })),
         }}
       />
@@ -231,25 +98,22 @@ const Leie = () => {
         <main id="main">
           <section className="pt-28 lg:pt-32 pb-14 lg:pb-20 bg-paper">
             <div className="container mx-auto md:px-8 lg:px-12">
-              <SectionRule label="FINN LOKALE" />
+              <SectionRule label={c.rule} />
 
               <div className="grid lg:grid-cols-12 gap-8 lg:gap-gutter mb-14 lg:mb-20 items-center">
                 <div className="lg:col-span-7">
                   <EditorialHeading as="h1" size="display">
-                    Finn og book lokale til festen,{" "}
+                    {c.h1}{" "}
                     <em
                       className="italic"
                       style={{ fontVariationSettings: getFraunces("display") }}
                     >
-                      der du bor
+                      {c.h1em}
                     </em>
                     .
                   </EditorialHeading>
                   <p className="mt-6 text-xl text-ink-soft measure leading-relaxed">
-                    Du kan leie lokaler på nett gjennom Digilist, en norsk bookingplattform
-                    der både private selskapslokaler og kommunale lokaler ligger i samme
-                    kalender. Søk på sted og dato, se ekte priser og hva som faktisk er
-                    ledig, og book direkte med Vipps, uten forespørsler og venting.
+                    {c.lede}
                   </p>
                   <div className="mt-8 flex flex-wrap gap-3">
                     <EditorialButton
@@ -259,26 +123,26 @@ const Leie = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Finn ledige lokaler
+                      {c.ctaFind}
                     </EditorialButton>
                     <EditorialButton variant="outline" size="lg" href="#slik">
-                      Slik funker det
+                      {c.ctaHow}
                     </EditorialButton>
                   </div>
                   <p className="mt-4 editorial-mono-caption">
-                    Skal du leie <em>ut</em> et lokale?{" "}
+                    {c.rentOutPromptA}<em>{c.rentOutPromptEm}</em>{c.rentOutPromptB}{" "}
                     <Link
-                      to="/bookingsystem-utleie"
+                      to={en ? "/en/bookingsystem-utleie" : "/bookingsystem-utleie"}
                       className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
                     >
-                      Se bookingsystem for utleie
+                      {c.rentOutLink}
                     </Link>
                   </p>
                 </div>
                 <div className="lg:col-span-5">
                   <CategoryVisual
                     icon={GlassWater}
-                    label="DIGILIST · LOKALER"
+                    label={c.visualLabel}
                     src="/images/cat/selskapslokale.jpg"
                     aspect="4 / 3"
                     variant="primary"
@@ -290,8 +154,8 @@ const Leie = () => {
               {/* Explainer video */}
               <div className="mb-14 lg:mb-20">
                 <VideoPlaceholder
-                  label="Reklamefilm · Finn lokaler"
-                  caption="Kort film om hvordan du finner og booker lokale"
+                  label={c.filmLabel}
+                  caption={c.filmCaption}
                   srcWebm="/videos/digilist-book-venue.webm"
                   src="/videos/digilist-book-venue.mp4"
                   poster="/videos/digilist-book-venue-poster.jpg"
@@ -307,10 +171,10 @@ const Leie = () => {
               <div>
                 <div className="flex items-baseline justify-between mb-8 border-b border-rule pb-3">
                   <h2 className="editorial-mono-caption text-accent-text">
-                    HVA VIL DU LEIE?
+                    {c.whatRule}
                   </h2>
                   <span className="editorial-mono-caption text-ink-faint">
-                    FEIRING · ARBEID · AKTIVITET
+                    {c.whatKinds}
                   </span>
                 </div>
                 <div className="space-y-10 lg:space-y-14">
@@ -323,15 +187,16 @@ const Leie = () => {
                         </span>
                       </div>
                       <div className="grid sm:grid-cols-2 gap-4 lg:gap-5">
-                        {group.items.map((c) => {
-                          const Icon = c.Icon;
+                        {group.items.map((item) => {
+                          const Icon = ITEM_ICONS[ITEM_INDEX[item.to] ?? 0];
                           const photo = imageForSlug(
-                            c.to.split("/").filter(Boolean).pop() ?? "",
+                            item.to.split("/").filter(Boolean).pop() ?? "",
                           );
                           return (
-                            <Link
-                              key={c.title}
-                              to={c.to}
+                            <LinkOrText
+                              en={en}
+                              key={item.title}
+                              to={item.to}
                               className="group bg-paper border border-rule rounded-2xl flex flex-col shadow-md transition-all duration-300 ease-editorial hover:-translate-y-1 hover:shadow-2xl hover:border-accent-text/40"
                             >
                               <div className="p-1.5 lg:p-2">
@@ -376,7 +241,7 @@ const Leie = () => {
                                       letterSpacing: "-0.015em",
                                     }}
                                   >
-                                    {c.title}
+                                    {item.title}
                                   </h4>
                                   <ArrowUpRight
                                     className="h-5 w-5 text-ink-faint group-hover:text-accent-text transition-transform duration-quick ease-editorial group-hover:translate-x-0.5 group-hover:-translate-y-0.5 flex-shrink-0"
@@ -384,14 +249,14 @@ const Leie = () => {
                                   />
                                 </header>
                                 <p className="text-base text-ink leading-relaxed flex-1">
-                                  {c.body}
+                                  {item.body}
                                 </p>
                                 <p className="mt-4 pt-4 border-t border-rule font-mono text-[0.65rem] uppercase tracking-widest text-accent-text inline-flex items-center gap-1.5">
-                                  Les mer
+                                  {c.readMore}
                                   <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
                                 </p>
                               </div>
-                            </Link>
+                            </LinkOrText>
                           );
                         })}
                       </div>
@@ -409,15 +274,15 @@ const Leie = () => {
               <div id="slik" className="scroll-mt-28">
                 <div className="flex items-baseline justify-between mb-6 border-b border-rule pb-3">
                   <h2 className="editorial-mono-caption text-accent-text">
-                    SLIK BOOKER DU
+                    {c.howRule}
                   </h2>
                   <span className="editorial-mono-caption text-ink-faint">
-                    FINN · BOOK · BETAL MED VIPPS
+                    {c.howKinds}
                   </span>
                 </div>
                 <ol className="relative border-l border-rule pl-8 lg:pl-12">
                   {STEPS.map((s, i) => {
-                    const Icon = s.Icon;
+                    const Icon = STEP_ICONS[i];
                     return (
                       <li
                         key={s.step}
@@ -459,9 +324,9 @@ const Leie = () => {
           <section className="py-12 lg:py-16 bg-paper border-t border-rule">
             <div className="container mx-auto md:px-8 lg:px-12">
               {/* FAQ */}
-              <SectionRule label="SPØRSMÅL OG SVAR" />
+              <SectionRule label={c.faqRule} />
               <EditorialHeading as="h2" size="section" className="mb-10">
-                Vanlige spørsmål om å leie lokale.
+                {c.faqH2}
               </EditorialHeading>
               <dl className="space-y-8 max-w-4xl">
                 {FAQ.map((q) => (
@@ -482,12 +347,12 @@ const Leie = () => {
                 ))}
               </dl>
               <p className="mt-10 editorial-mono-caption">
-                Skal du leie ut lokaler?{" "}
+                {c.rentOutTail}{" "}
                 <Link
-                  to="/bookingsystem-utleie"
+                  to={en ? "/en/bookingsystem-utleie" : "/bookingsystem-utleie"}
                   className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
                 >
-                  Se bookingsystem for utleie
+                  {c.rentOutLink}
                 </Link>
               </p>
             </div>
@@ -507,11 +372,10 @@ const Leie = () => {
                         lineHeight: 1.1,
                       }}
                     >
-                      Klar til å finne lokalet?
+                      {c.ctaHeading}
                     </h2>
                     <p className="text-base lg:text-lg text-ink leading-relaxed">
-                      Søk blant lokaler i nærområdet, se ekte priser og ledige datoer, og
-                      book på minutter med Vipps.
+                      {c.ctaBody}
                     </p>
                   </div>
                   <div className="lg:col-span-4 flex flex-wrap gap-3 lg:justify-end">
@@ -522,7 +386,7 @@ const Leie = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Finn ledige lokaler
+                      {c.ctaFind}
                     </EditorialButton>
                   </div>
                 </div>

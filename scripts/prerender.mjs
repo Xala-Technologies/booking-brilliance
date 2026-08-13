@@ -502,6 +502,29 @@ const ROUTES = [
     ],
   },
   {
+    route: "/en/leie",
+    title: "Rent a venue — find and book a function room | Digilist",
+    description:
+      "Rent a venue online: private function rooms and municipal venues in one place. See real prices and free dates, and book directly.",
+    ogType: "website",
+    lang: "en",
+    service: true,
+    breadcrumbs: [
+      { name: "Home", url: `${BASE_URL}/en` },
+      { name: "Rent a venue", url: `${BASE_URL}/en/leie` },
+    ],
+    faq: [
+      { question: "Where can I rent a venue?", answer: "You can rent a venue online through a booking platform such as Digilist, where you search by place and date and see what is genuinely free in real time. Digilist brings private function rooms and municipal venues together in one place, so you do not have to search the municipality's own pages, classified ads and Facebook groups separately." },
+      { question: "Can I rent both private and municipal venues?", answer: "Yes. Digilist brings private party venues, community halls and club premises together with municipal cultural venues, meeting rooms and sports halls in the same calendar. You compare availability and price across private and public operators in one place, instead of contacting each one." },
+      { question: "What does it cost to rent a venue?", answer: "The price varies a great deal with the type of venue, the location and the duration. A community hall might be a few hundred to a few thousand kroner for a weekend, while a cultural venue or function room sits higher. On Digilist you see the actual total for your date, including any deposit and cleaning, before you book — so there is nothing to guess at." },
+      { question: "Can I see free dates and book online?", answer: "Yes. You search by place and date, see what is genuinely free in real time, and book directly. No non-binding enquiry and no waiting for a reply — the confirmation comes at once." },
+      { question: "How do I pay?", answer: "You pay safely by card or with Vipps in the same flow as the booking. Where the venue requires a deposit, it is handled digitally and released automatically after the event. No bank transfer to a stranger." },
+      { question: "What kinds of venues will I find?", answer: "Function rooms, meeting rooms, sports halls and gyms, cultural venues and community halls, both municipal and private. Digilist gathers the venues where you live in one place, so you do not have to search the municipality's pages, classified ads and Facebook groups separately." },
+      { question: "Is Digilist free to use?", answer: "Yes — searching, comparing and booking is free for a private individual. You pay only the rental price to the operator. Any deposit and extras are shown clearly before you confirm." },
+      { question: "Can I cancel?", answer: "Cancellation terms are set by the operator and shown clearly on each venue before you book. Where cancellation is allowed you can do it digitally, and any deposit is released automatically under the rules that apply to that venue." },
+    ],
+  },
+  {
     route: "/leie",
     title: "Leie lokaler – finn og book selskapslokale | Digilist",
     description:
@@ -2785,6 +2808,7 @@ const TRANSLATED_ROUTES = {
   "/billettsystem": "/en/billettsystem",
   "/lokaler-til-leie": "/en/lokaler-til-leie",
   "/booking-av-lokaler-og-moterom": "/en/booking-av-lokaler-og-moterom",
+  "/leie": "/en/leie",
   "/blogg": "/en/blogg",
 };
 
