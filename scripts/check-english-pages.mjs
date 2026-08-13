@@ -19,14 +19,18 @@ const NB =
   /(^|[^\p{L}])(og|ikke|dere|våre|hvordan|utleie|lokaler|å|som|med|til|på|av|vi|du|den|det|er|har|kan|alle|finn|snakk|les|hva|når|hvor)([^\p{L}]|$)/iu;
 
 /**
- * Uppercase acronyms that collide with a Norwegian function word.
+ * Names that collide with a Norwegian function word.
  *
- * The NB pattern is case-insensitive, so "AV equipment" matched "av" and
- * flagged a fully English sentence. Stripped before the test rather than
- * removed from NB, because lowercase "av" is a real and common Norwegian
- * word — dropping it would blind the check to actual Norwegian prose.
+ * The NB pattern is case-insensitive, so "AV equipment" matched "av", and
+ * "Finn" — Norway's classifieds site, named in English copy as a brand —
+ * matched the verb "finn". Both flagged fully English sentences.
+ *
+ * Stripped before the test rather than removed from NB, and matched
+ * case-SENSITIVELY: lowercase "av" and "finn" are real, common Norwegian
+ * words, and dropping them from the list would blind the check to actual
+ * Norwegian prose. Only the capitalised forms are names.
  */
-const ACRONYMS = /\bAV\b/g;
+const ACRONYMS = /\b(AV|Finn)\b/g;
 
 const ALLOW = [
   /^[A-ZÆØÅ][a-zæøå]+(\s[A-ZÆØÅ][a-zæøå]+)*$/u, // proper nouns

@@ -1999,6 +1999,26 @@ const ROUTES = [
     ],
   },
   {
+    route: "/en/kanaler",
+    title: "Channels & sync · Digilist | Two-way calendar sync",
+    description:
+      "Connect Airbnb, Booking.com, Bookup, Eventum and Finn to Digilist. Real-time two-way calendar sync, and an AI agent that imports your listings into a finished draft.",
+    ogType: "website",
+    lang: "en",
+    service: true,
+    breadcrumbs: [
+      { name: "Home", url: `${BASE_URL}/en` },
+      { name: "Channels", url: `${BASE_URL}/en/kanaler` },
+    ],
+    faq: [
+      { question: "How does two-way calendar sync work?", answer: "You connect your channels — Airbnb, Booking.com, Bookup, Eventum or Finn, Norway's main classifieds site — to Digilist once. After that, calendar, prices and availability stay synchronised both ways: a booking on one channel immediately blocks that time on all the others, and changes you make in Digilist take effect everywhere. That is how you avoid double bookings without manual upkeep." },
+      { question: "Which channels can I connect?", answer: "Digilist connects to the channels Norwegian operators use most — Airbnb, Booking.com, Bookup, Eventum and Finn — as well as calendar standards such as iCal, CalDAV, Outlook and Google Calendar. If your channel is missing, get in touch and we will look at a connection." },
+      { question: "Can the AI agent import my listings automatically?", answer: "Yes. Paste the link to an existing listing, or upload a document, and the agent pulls in the text, images, calendar, prices and configuration and builds a finished draft in Digilist. All you do is review it and publish — no typing it all in from scratch." },
+      { question: "Can I keep using Airbnb and Booking.com at the same time?", answer: "Absolutely. The whole point of two-way sync is that you keep the channels you already earn from. Digilist becomes the calendar and operations layer that ties them together, while you carry on taking bookings where your customers already are." },
+      { question: "Does sync prevent double bookings?", answer: "Yes. Because availability stays synchronised in real time across every connected channel, a slot booked in one place becomes immediately unavailable everywhere else. That is precisely why a single shared calendar removes double bookings." },
+    ],
+  },
+  {
     route: "/kanaler",
     title: "Kanaler & synk · Digilist | Toveis kalendersynk og AI-import",
     description:
@@ -2635,6 +2655,7 @@ const TRANSLATED_ROUTES = {
   "/verktoy/kapasitetskalkulator": "/en/verktoy/kapasitetskalkulator",
   "/verktoy/leiepriskalkulator": "/en/verktoy/leiepriskalkulator",
   "/verktoy": "/en/verktoy",
+  "/kanaler": "/en/kanaler",
   "/blogg": "/en/blogg",
 };
 

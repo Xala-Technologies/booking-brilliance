@@ -33,6 +33,7 @@ Allow: /en/sikkerhet$
 Allow: /en/verktoy/kapasitetskalkulator$
 Allow: /en/verktoy/leiepriskalkulator$
 Allow: /en/verktoy$
+Allow: /en/kanaler$
 Allow: /en/blogg
 
 
