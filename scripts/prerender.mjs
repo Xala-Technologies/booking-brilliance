@@ -1968,6 +1968,27 @@ const ROUTES = [
     ],
   },
   {
+    route: "/en/bookingsystem-kommune",
+    title: "Booking system for municipalities | Digilist",
+    description:
+      "A digital booking platform for Norwegian municipalities. Real-time calendar, seasonal allocation, national identity sign-in, e-invoicing, ISO 27001. Built for SSA-L 2026.",
+    ogType: "website",
+    lang: "en",
+    service: true,
+    breadcrumbs: [
+      { name: "Home", url: `${BASE_URL}/en` },
+      { name: "For municipalities", url: `${BASE_URL}/en/bookingsystem-kommune` },
+    ],
+    faq: [
+      { question: "What is a municipal booking system?", answer: "A municipal booking system is a digital platform that lets residents, clubs and associations apply for and book municipal venues — sports halls, swimming pools, meeting rooms, canteens and cultural venues — in real time. The platform handles the calendar, approval, payment, seasonal allocation and invoicing." },
+      { question: "Does Digilist meet the SSA-L 2026 requirements?", answer: "Yes. Digilist is built against SSA-L 2026 — the Norwegian government's standard agreement for software leasing — and meets its core requirements: real-time availability, seasonal allocation with rule-driven distribution, authentication through the national identity portal, verification against the national organisation register, digital keys, EHF invoicing data, accessibility (WCAG 2.0 AA) and ISO 27001/27701 certification." },
+      { question: "How is seasonal allocation for clubs handled?", answer: "Digilist has its own seasonal allocation module, with an application portal for clubs and associations. The case officer receives a rule-driven allocation proposal that can be adjusted and approved. Grants, allocation and capacity use are reported automatically." },
+      { question: "Can a municipality import bookings from its existing system?", answer: "Yes. Digilist supports migration from RCO booking and other existing booking systems. We can take over historical bookings, seasonal agreements and club registers during setup." },
+      { question: "Where is data stored?", answer: "All data is stored in Norway and the EU, on PostgreSQL hosted by Convex. The platform is ISO 27001 and ISO 27701 certified and meets the requirements of GDPR." },
+      { question: "What does Digilist cost a municipality?", answer: "The price depends on the number of facilities, how many people use the system, and which integrations are needed. We offer a free demo and a quote based on the municipality's specific needs. Contact sales at kontakt@digilist.no." },
+    ],
+  },
+  {
     route: "/bookingsystem-kommune",
     title: "Bookingsystem for kommuner – Digilist | SSA-L 2026 klar",
     description:
@@ -2676,6 +2697,7 @@ const TRANSLATED_ROUTES = {
   "/verktoy": "/en/verktoy",
   "/kanaler": "/en/kanaler",
   "/ai-agenter": "/en/ai-agenter",
+  "/bookingsystem-kommune": "/en/bookingsystem-kommune",
   "/blogg": "/en/blogg",
 };
 

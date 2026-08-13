@@ -14,91 +14,26 @@ import {
 } from "@/components/editorial";
 import { getFraunces } from "@/lib/fonts";
 import PilotInvitationSection from "@/components/PilotInvitationSection";
-
-const FAQ = [
-  {
-    question: "Hva er et kommunalt bookingsystem?",
-    answer:
-      "Et kommunalt bookingsystem er en digital plattform som lar innbyggere, lag og foreninger søke om og booke kommunale lokaler (idrettshaller, svømmehaller, møterom, kantiner og kulturhus) i sanntid. Plattformen håndterer kalender, godkjenning, betaling, sesongleie og fakturering.",
-  },
-  {
-    question: "Oppfyller Digilist SSA-L 2026-kravene?",
-    answer:
-      "Ja. Digilist er bygget med SSA-L 2026-krav som referansepunkt og oppfyller kjernekrav om sanntidstilgjengelighet, sesongleie med regelstyrt fordeling, ID-porten-autentisering, BRREG-verifisering, digital nøkkel, EHF-fakturagrunnlag, universell utforming (WCAG 2.0 AA) og ISO 27001/27701-sertifisering.",
-  },
-  {
-    question: "Hvordan håndteres sesongleie for lag og foreninger?",
-    answer:
-      "Digilist har egen sesongleie-modul med søknadsportal for lag og foreninger. Saksbehandler får regelstyrt fordelingsforslag som kan justeres og godkjennes. Tilskudd, fordeling og kapasitetsutnyttelse rapporteres automatisk.",
-  },
-  {
-    question: "Kan kommunen importere bookinger fra eksisterende system?",
-    answer:
-      "Ja. Digilist støtter migrasjon fra RCO booking og andre eksisterende bookingsystemer. Vi kan ta over historiske bookinger, sesongleieavtaler og foreningsregistre i etableringsfasen.",
-  },
-  {
-    question: "Hvor lagres dataene?",
-    answer:
-      "All data lagres i Norge og EU på PostgreSQL hostet av Convex. Plattformen er ISO 27001 og ISO 27701-sertifisert, og oppfyller GDPR-kravene.",
-  },
-  {
-    question: "Hva koster Digilist for en kommune?",
-    answer:
-      "Prisen avhenger av antall anlegg, brukermengde og integrasjoner. Vi tilbyr en gratis demo og pristilbud basert på kommunens spesifikke behov. Kontakt salg på kontakt@digilist.no.",
-  },
-];
-
-const FEATURES = [
-  {
-    title: "Sanntidskalender",
-    body: "Innbyggere og saksbehandlere ser ledig, opptatt og blokkert tid umiddelbart. Endringer fra bookinger, avlysninger eller administrasjon oppdateres uten refresh.",
-  },
-  {
-    title: "Sesongleie med regelstyrt fordeling",
-    body: "Lag og foreninger søker via egen portal. Saksbehandler får regelstyrt forslag basert på kommunens prioriteringsregler og kan justere før godkjenning.",
-  },
-  {
-    title: "Driftsroller varsles automatisk",
-    body: "Vaktmestere, renholdspersonell, vektere og andre driftsroller får automatisk varsel ved bookingbekreftelse, endring eller avlysning.",
-  },
-  {
-    title: "ID-porten + BankID-innlogging",
-    body: "Innbyggere logger inn med ID-porten eller BankID. Lag og foreninger verifiseres via Brønnøysundregisteret (BRREG).",
-  },
-  {
-    title: "EHF / Peppol-fakturering",
-    body: "Faktura sendes automatisk via EHF til kommunens regnskapssystem. Integrasjoner med Visma, Tripletex, Fiken, PowerOffice og DNB Regnskap.",
-  },
-  {
-    title: "Digital nøkkel (Salto KS)",
-    body: "Adgangskontroll med Salto KS digital nøkkel. Tilgang aktiveres automatisk ved bookingstart og deaktiveres ved slutt.",
-  },
-];
-
-const SSA_L_CHECKLIST = [
-  "Sanntidstilgjengelighet",
-  "Sesongleiesøknad og regelstyrt fordeling",
-  "ID-porten + BankID-autentisering",
-  "BRREG-verifisering av organisasjoner",
-  "Digital nøkkel for adgangskontroll",
-  "EHF-fakturagrunnlag",
-  "Min side for innbyggere",
-  "Universell utforming (WCAG 2.0 AA)",
-  "ISO 27001 og 27701-sertifisering",
-  "Data lagret i Norge og EU (GDPR)",
-  "Rapportering på kapasitet og økonomi",
-  "Audit-logg på alle endringer",
-];
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { municipalCopy } from "@/content/bookingsystem-kommune";
 
 const BookingsystemKommune = () => {
+  const locale = localeFromPath(useLocation().pathname);
+  const en = locale === "en";
+  const c = municipalCopy(locale);
+  const FAQ = c.faq;
+  const FEATURES = c.features;
+  const SSA_L_CHECKLIST = c.checklist;
+
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <SEO
-        title="Bookingsystem for kommuner · Digilist | SSA-L 2026 klar"
-        description="Digital bookingplattform for norske kommuner. Sanntidskalender, sesongleie, ID-porten, EHF, ISO 27001. Bygget for SSA-L 2026-krav."
-        canonical="https://digilist.no/bookingsystem-kommune"
+        title={c.metaTitle}
+        description={c.metaDescription}
+        canonical={en ? "https://digilist.no/en/bookingsystem-kommune" : "https://digilist.no/bookingsystem-kommune"}
         ogImage="https://digilist.no/og-image.png"
-        faq={FAQ}
+        faq={c.faq}
         breadcrumbs={[
           { name: "Hjem", url: "https://digilist.no/" },
           { name: "Bookingsystem for kommuner", url: "https://digilist.no/bookingsystem-kommune" },
@@ -110,32 +45,31 @@ const BookingsystemKommune = () => {
       <main id="main">
         <section className="pt-28 lg:pt-32 pb-16 lg:pb-24 bg-paper">
           <div className="container mx-auto md:px-8 lg:px-12">
-            <SectionRule label="KOMMUNAL BOOKING · 2026" />
+            <SectionRule label={c.rule} />
 
             <div className="grid lg:grid-cols-12 gap-8 lg:gap-gutter items-start">
               <div className="lg:col-span-8">
                 <EditorialHeading as="h1" size="hero" className="mb-6">
-                  Bookingsystem for{" "}
+                  {c.h1}{" "}
                   <em
                     className="italic"
                     style={{ fontVariationSettings: getFraunces("hero") }}
                   >
-                    norske kommuner
+                    {c.h1em}
                   </em>
                   .
                 </EditorialHeading>
                 <p className="text-xl text-ink-soft measure leading-relaxed mb-10">
-                  Sanntidskalender, sesongleie, ID-porten-innlogging, EHF-fakturering
-                  og automatisk driftsvarsling, i én plattform bygget for{" "}
-                  <strong className="text-ink">SSA-L 2026-krav</strong>.
+                  {c.ledeA}
+                  <strong className="text-ink">{c.ledeStrong}</strong>.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <EditorialButton
                     variant="primary"
                     size="lg"
-                    href="/#kontakt"
+                    href={en ? "/en/book-demo" : "/#kontakt"}
                   >
-                    Be om pristilbud
+                    {c.ctaQuote}
                   </EditorialButton>
                   <EditorialButton
                     variant="outline"
@@ -145,7 +79,7 @@ const BookingsystemKommune = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Åpne plattformen
+                    {c.ctaOpen}
                   </EditorialButton>
                 </div>
               </div>
@@ -158,12 +92,11 @@ const BookingsystemKommune = () => {
                     className="font-serif text-2xl text-ink mb-4"
                     style={{ fontVariationSettings: getFraunces("section") }}
                   >
-                    Aktive kommuner
+                    {c.activeHeading}
                   </h2>
-                  <SpecRow label="Nordre Follo" value="12 anlegg" />
-                  <SpecRow label="Foreninger" value="~340" />
-                  <SpecRow label="Bookinger / mnd" value="~1 200" />
-                  <SpecRow label="Datalokasjon" value="Norge · EU" />
+                  {c.activeSpecs.map((spec) => (
+                    <SpecRow key={spec.label} label={spec.label} value={spec.value} />
+                  ))}
                 </EditorialCard>
               </div>
             </div>
@@ -172,12 +105,12 @@ const BookingsystemKommune = () => {
 
         <section className="py-14 lg:py-20 bg-paper-tinted border-y border-rule">
           <div className="container mx-auto md:px-8 lg:px-12">
-            <SectionRule label="I. SSA-L 2026 KRAV" />
+            <SectionRule label={c.ssaRule} />
             <div className="grid lg:grid-cols-12 gap-8 mb-10">
               <div className="lg:col-span-7">
                 <EditorialHeading as="h2" size="section">
-                  Bygget for offentlig{" "}
-                  <em className="italic">anskaffelse</em>.
+                  {c.ssaH2}{" "}
+                  <em className="italic">{c.ssaH2em}</em>.
                 </EditorialHeading>
               </div>
               <div className="lg:col-span-5 flex items-end">
@@ -185,7 +118,7 @@ const BookingsystemKommune = () => {
                   className="text-xl text-ink-soft italic"
                   style={{ fontVariationSettings: getFraunces("sub") }}
                 >
-                  Hver SSA-L 2026-funksjon dekket fra dag én, ikke som tillegg.
+                  {c.ssaLede}
                 </p>
               </div>
             </div>
@@ -206,11 +139,11 @@ const BookingsystemKommune = () => {
 
         <section className="py-14 lg:py-20 bg-paper">
           <div className="container mx-auto md:px-8 lg:px-12">
-            <SectionRule label="II. FUNKSJONALITET" />
+            <SectionRule label={c.featureRule} />
             <div className="grid lg:grid-cols-12 gap-8 mb-10">
               <div className="lg:col-span-7">
                 <EditorialHeading as="h2" size="section">
-                  Hva kommunen får.
+                  {c.featureH2}
                 </EditorialHeading>
               </div>
               <div className="lg:col-span-5 flex items-end">
@@ -218,7 +151,7 @@ const BookingsystemKommune = () => {
                   className="text-xl text-ink-soft italic"
                   style={{ fontVariationSettings: getFraunces("sub") }}
                 >
-                  Seks funksjoner som adresserer kjernekrav fra norske kommuner.
+                  {c.featureLede}
                 </p>
               </div>
             </div>
@@ -241,12 +174,12 @@ const BookingsystemKommune = () => {
 
         <section className="py-14 lg:py-20 bg-paper-tinted border-y border-rule">
           <div className="container mx-auto md:px-8 lg:px-12">
-            <SectionRule label="III. NORSKE INTEGRASJONER" />
+            <SectionRule label={c.integrationRule} />
             <div className="grid lg:grid-cols-12 gap-8 mb-10">
               <div className="lg:col-span-7">
                 <EditorialHeading as="h2" size="section">
-                  Tilkoblet kommunens{" "}
-                  <em className="italic">eksisterende systemer</em>.
+                  {c.integrationH2}{" "}
+                  <em className="italic">{c.integrationH2em}</em>.
                 </EditorialHeading>
               </div>
             </div>
@@ -280,7 +213,7 @@ const BookingsystemKommune = () => {
 
         <section className="py-14 lg:py-20 bg-accent-tinted">
           <div className="container mx-auto md:px-8 lg:px-12">
-            <SectionRule label="IV. KONTAKT" />
+            <SectionRule label={c.contactRule} />
             <div className="grid lg:grid-cols-12 gap-8">
               <div className="lg:col-span-7">
                 <EditorialHeading as="h2" size="display" className="mb-6">
@@ -288,13 +221,11 @@ const BookingsystemKommune = () => {
                   <em className="italic">pristilbud</em>.
                 </EditorialHeading>
                 <p className="text-xl text-ink-soft measure mb-8">
-                  Vi setter sammen et pristilbud basert på antall anlegg,
-                  bookingvolum og integrasjoner. Demo på 30–45 minutter, ingen
-                  forpliktelser.
+                  {c.contactLede}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <EditorialButton variant="primary" size="lg" href="/#kontakt">
-                    Be om demo
+                  <EditorialButton variant="primary" size="lg" href={en ? "/en/book-demo" : "/#kontakt"}>
+                    {c.ctaDemo}
                   </EditorialButton>
                   <EditorialButton
                     variant="outline"
@@ -312,15 +243,11 @@ const BookingsystemKommune = () => {
                     className="font-serif text-xl text-ink mb-4"
                     style={{ fontVariationSettings: getFraunces("sub"), fontStyle: "normal" }}
                   >
-                    Anskaffelsesinformasjon
+                    {c.procurementHeading}
                   </h3>
-                  <SpecRow label="Leverandør" value="Xala Technologies AS" />
-                  <SpecRow label="Org.nr." value="Tilgjengelig" />
-                  <SpecRow label="Adresse" value="Nesbruveien 75, 1394 Nesbru" />
-                  <SpecRow label="Telefon" value="+47 96 66 50 01" />
-                  <SpecRow label="E-post" value="kontakt@digilist.no" />
-                  <SpecRow label="SSA-L 2026" value="Tilpasset" />
-                  <SpecRow label="ISO 27001/27701" value="Sertifisert" />
+                  {c.procurementSpecs.map((spec) => (
+                    <SpecRow key={spec.label} label={spec.label} value={spec.value} />
+                  ))}
                 </EditorialCard>
               </div>
             </div>
@@ -329,9 +256,9 @@ const BookingsystemKommune = () => {
 
         <section className="py-14 lg:py-20 bg-paper">
           <div className="container mx-auto md:px-8 lg:px-12">
-            <SectionRule label="V. SPØRSMÅL OG SVAR" />
+            <SectionRule label={c.faqRule} />
             <EditorialHeading as="h2" size="section" className="mb-10">
-              Vanlige spørsmål fra kommuner.
+              {c.faqH2}
             </EditorialHeading>
             <dl className="space-y-8 max-w-4xl">
               {FAQ.map((q) => (
@@ -352,22 +279,28 @@ const BookingsystemKommune = () => {
               ))}
             </dl>
             <p className="mt-10 text-base text-ink-soft measure">
-              Klar for å gå i gang? Se{" "}
-              <Link
-                to="/blogg/hvordan-digitalisere-booking-kommunale-lokaler"
-                className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
-              >
-                hvordan digitalisere booking av kommunale lokaler
-              </Link>{" "}
-              for den konkrete prosessen, steg for steg.
+              {/* Points at a Norwegian blog post, so it is Norwegian-only. The
+                  English twin of that post will make this linkable again. */}
+              {!en && (
+                <>
+                  Klar for å gå i gang? Se{" "}
+                  <Link
+                    to="/blogg/hvordan-digitalisere-booking-kommunale-lokaler"
+                    className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
+                  >
+                    hvordan digitalisere booking av kommunale lokaler
+                  </Link>{" "}
+                  for den konkrete prosessen, steg for steg.
+                </>
+              )}
             </p>
             <p className="mt-6 editorial-mono-caption">
-              Tilbake til{" "}
+              {c.backTo}{" "}
               <Link
-                to="/"
+                to={en ? "/en" : "/"}
                 className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
               >
-                forsiden
+                {c.frontPage}
               </Link>
             </p>
           </div>

@@ -35,6 +35,7 @@ Allow: /en/verktoy/leiepriskalkulator$
 Allow: /en/verktoy$
 Allow: /en/kanaler$
 Allow: /en/ai-agenter$
+Allow: /en/bookingsystem-kommune$
 Allow: /en/blogg
 
 
