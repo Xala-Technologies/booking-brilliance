@@ -2026,6 +2026,18 @@ const ROUTES = [
     ],
   },
   {
+    route: "/en/salgsvilkar",
+    title: "Terms of sale – Digilist",
+    description:
+      "Terms for using Digilist: booking, payment, cancellation, right of withdrawal, and liability between the person renting and the operator.",
+    ogType: "website",
+    lang: "en",
+    breadcrumbs: [
+      { name: "Home", url: `${BASE_URL}/en` },
+      { name: "Terms of sale", url: `${BASE_URL}/en/salgsvilkar` },
+    ],
+  },
+  {
     route: "/salgsvilkar",
     title: "Salgsvilkår og leveransevilkår – Digilist",
     description: "Salgs- og leveransevilkår for Digilist bookingplattform – gjeldende avtale mellom Digilist og kunder.",
@@ -2543,6 +2555,7 @@ const TRANSLATED_ROUTES = {
   "/cookies": "/en/cookies",
   "/tilgjengelighet": "/en/tilgjengelighet",
   "/personvern": "/en/personvern",
+  "/salgsvilkar": "/en/salgsvilkar",
   "/blogg": "/en/blogg",
 };
 

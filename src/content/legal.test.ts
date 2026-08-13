@@ -3,6 +3,7 @@ import {
   ACCESSIBILITY_STATEMENT,
   COOKIE_POLICY,
   PRIVACY_POLICY,
+  TERMS_OF_SALE,
   type LegalDoc,
 } from "./legal";
 
@@ -22,6 +23,7 @@ const DOCS: Array<[string, { nb: LegalDoc; en: LegalDoc }]> = [
   ["cookie policy", COOKIE_POLICY],
   ["accessibility statement", ACCESSIBILITY_STATEMENT],
   ["privacy policy", PRIVACY_POLICY],
+  ["terms of sale", TERMS_OF_SALE],
 ];
 
 describe.each(DOCS)("%s says the same thing in both languages", (_name, doc) => {
@@ -69,7 +71,16 @@ describe.each(DOCS)("%s says the same thing in both languages", (_name, doc) => 
     // a paragraph someone forgot to translate — and a broad exemption is how
     // that paragraph would slip through. A registered company name is a legal
     // identifier, not prose; translating it would be the actual error.
-    const SHARED_BY_DESIGN = new Set(["Xala Technologies AS"]);
+    const SHARED_BY_DESIGN = new Set([
+      // A registered legal identifier. Translating it would be the error.
+      "Xala Technologies AS",
+      // The lead-in to an inline link: the brand name and an opening paren.
+      "Digilist (",
+      // "Force majeure" is the same term of art in Norwegian and English legal
+      // drafting, and the clause numbering is shared, so the whole heading
+      // matches. Rewording the English to differ would make the term wrong.
+      "4.4 Force majeure",
+    ]);
 
     // Punctuation is language-neutral — a lone "." after an inline link is
     // identical in both documents on purpose and is not a missed translation.

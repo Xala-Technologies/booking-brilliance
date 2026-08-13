@@ -28,6 +28,7 @@ Allow: /en/book-demo$
 Allow: /en/cookies$
 Allow: /en/tilgjengelighet$
 Allow: /en/personvern$
+Allow: /en/salgsvilkar$
 Allow: /en/blogg
 
 

@@ -727,6 +727,281 @@ const PRIVACY_EN: LegalDoc = {
 
 export const PRIVACY_POLICY = { nb: PRIVACY_NB, en: PRIVACY_EN } as const;
 
+const TERMS_NB: LegalDoc = {
+  title: "Salgsvilkår",
+  metaTitle: "Salgsvilkår – Digilist",
+  metaDescription:
+    "Vilkår for bruk av Digilist sine tjenester: bestilling, betaling, avbestilling, angrerett og ansvar mellom leietaker og utleier.",
+  intro: "Vilkår for bruk av Digilist sine tjenester",
+  updated: "Sist publisert: 07.01.2026",
+  sections: [
+    {
+      h2: "1. Om Digilist og utleieaktører",
+      blocks: [
+        {
+          link: {
+            before: "Digilist (",
+            href: "https://www.digilist.no",
+            text: "www.digilist.no",
+            after: ") er en digital portal som formidler leie av lokaler og ressurser fra flere utleieaktører. Hver utleier er ansvarlig for sine utleieobjekter, inkludert drift, vedlikehold, tilgjengelighet, priser og egne vilkår. Når en booking blir bekreftet, kan utleier gi supplerende vilkår for bruk. Du må gjøre deg kjent med vilkårene før du bekrefter leie.",
+          },
+        },
+      ],
+    },
+    {
+      h2: "2. Bestilling og bekreftelse",
+      blocks: [
+        {
+          body: "En booking kan være enten direkte bekreftet eller sendes inn som forespørsel for godkjenning, avhengig av utleiers regler for det aktuelle utleieobjektet. Booking regnes som bindende når den er bekreftet av utleier, eller når betaling/aksept er gjennomført i henhold til flyten som gjelder for utleieobjektet.",
+        },
+      ],
+    },
+    {
+      h2: "3. Bruk av reservert leieobjekt",
+      blocks: [
+        {
+          body: "Dersom leietaker ikke benytter et reservert leieobjekt i avtalt tidsrom, kan fullt leiebeløp belastes. Dersom leietaker benytter leieobjektet utover avtalt tid eller leverer tilbake utstyr/leieobjekt for sent, kan leietaker belastes for overtid/ekstra brukstid etter utleiers satser og regler.",
+        },
+      ],
+    },
+    {
+      h2: "4. Avbestilling og kansellering",
+      blocks: [
+        {
+          h3: "4.1 Forespørsler som venter på godkjenning",
+          body: "Forespørsler som ikke er godkjent kan kanselleres av leietaker frem til utleier har behandlet forespørselen.",
+        },
+        {
+          h3: "4.2 Godkjente bookinger",
+          body: "Utleier kan ha egne vilkår for avbestilling. Dersom booking er godkjent, kan kansellering kreve godkjenning fra utleier og eventuelle gebyrer kan gjelde i tråd med utleiers regler.",
+        },
+        {
+          h3: "4.3 Manglende avbestillingsvilkår",
+          body: "Dersom utleier ikke har oppgitt avbestillingsvilkår, kan leietaker normalt kansellere før leiestart uten å bli belastet for leie. Der utleier har oppgitt egne vilkår, gjelder disse.",
+        },
+        {
+          h3: "4.4 Force majeure",
+          body: "Utleier og leietaker kan avbestille en reservasjon dersom gjennomføring hindres av forhold utenfor partenes kontroll, og som ikke med rimelighet kunne forutsees eller unngås (force majeure).",
+        },
+      ],
+    },
+    {
+      h2: "5. Betaling",
+      blocks: [
+        {
+          body: "Betaling i Digilist kan skje enten som forskuddsbetaling (kort eller Vipps) eller etterskuddsvis via faktura. Hvilken betalingsmetode som gjelder bestemmes av utleier for hvert utleieobjekt. Ved spørsmål om faktura eller betalingsbetingelser, må leietaker kontakte utleier.",
+        },
+      ],
+    },
+    {
+      h2: "6. Kortbetaling",
+      blocks: [
+        {
+          body: "Kortbetaling gjennomføres etter at leie er godkjent, dersom utleieobjektet krever godkjenning. Dersom leie ikke krever godkjenning kan betaling skje umiddelbart ved bestilling. Kortbetaling behandles via betalingstjenesteleverandør (for eksempel Stripe). Betaling kan gjennomføres med vanlige debit- og kredittkort. Betalingsdata håndteres kryptert i henhold til leverandørens sikkerhetsmekanismer.",
+        },
+      ],
+    },
+    {
+      h2: "7. Betaling med Vipps",
+      blocks: [
+        {
+          body: "Vippsbetaling gjennomføres etter at leie er godkjent, dersom utleieobjektet krever godkjenning. Dersom leie ikke krever godkjenning kan betaling skje umiddelbart ved bestilling. Ved Vipps-betaling kan beløpet reserveres i henhold til Vipps sine standardrutiner og overføres i tråd med avtalte betingelser mellom utleier og betalingsleverandør.",
+        },
+      ],
+    },
+    {
+      h2: "8. Betaling med faktura",
+      blocks: [
+        {
+          body: "Utleier kan ha egne rutiner for fakturering, inkludert tidspunkt for utsendelse, betalingsfrist, gebyrer og eventuell samlefakturering. Spørsmål om faktura, innhold, beløp eller betalingsstatus må rettes til utleier.",
+        },
+      ],
+    },
+    {
+      h2: "9. Angrerett",
+      blocks: [
+        {
+          body: "Ved leie av lokaler og tjenester knyttet til fritidsaktiviteter eller arrangement som leveres på et bestemt tidspunkt eller innenfor en bestemt periode, gjelder normalt ikke angrerett etter angrerettreglene. Utleier kan likevel ha egne vilkår. Leietaker må gjøre seg kjent med utleiers vilkår før booking bekreftes.",
+        },
+      ],
+    },
+    {
+      h2: "10. Reklamasjon og ansvar",
+      blocks: [
+        {
+          body: "Digilist er en digital formidlingsplattform som kobler leietaker og utleier. Digilist er ikke part i leieforholdet mellom utleier og leietaker, og leier ikke ut lokaler eller utstyr i eget navn. Eventuelle reklamasjoner, innsigelser og erstatningskrav knyttet til leieobjektet eller leieforholdet håndteres direkte mellom leietaker og utleier.",
+        },
+        {
+          body: "Utleier er ansvarlig for at utleieobjektet beskrives korrekt, og at informasjon om tilstand, bruksområde og vilkår er oppdatert.",
+        },
+      ],
+    },
+    {
+      h2: "11. Refusjon",
+      blocks: [
+        {
+          body: "Utleier kan ha egne vilkår for refusjon, for eksempel dersom leieobjektet ikke er i forventet stand eller ikke kan benyttes som avtalt. Leietaker må gjøre seg kjent med utleiers vilkår før booking bekreftes.",
+        },
+      ],
+    },
+    {
+      h2: "12. Utestengelse fra Digilist",
+      blocks: [
+        {
+          body: "Bruk av Digilist forutsetter at vilkårene overholdes, samt gjeldende lov og forskrift. Digilist kan begrense eller stenge en brukers tilgang til hele eller deler av tjenesten ved brudd på vilkårene, misbruk, forsøk på svindel, eller handlinger som kan skade tjenestens integritet eller andre brukere. Bruker kan når som helst avslutte bruk av tjenesten ved å stenge sin konto der dette tilbys.",
+        },
+      ],
+    },
+    {
+      h2: "13. Utestengelse hos enkeltutleier",
+      blocks: [
+        {
+          body: "Utleiere kan ha egne rutiner for å avvise eller utestenge leietakere fra sine utleieobjekter, basert på interne retningslinjer eller tidligere kundeforhold. Slik utestengelse gjelder kun for den aktuelle utleieren.",
+        },
+      ],
+    },
+  ],
+};
+
+const TERMS_EN: LegalDoc = {
+  title: "Terms of sale",
+  metaTitle: "Terms of sale – Digilist",
+  metaDescription:
+    "Terms for using Digilist: booking, payment, cancellation, right of withdrawal, and liability between the person renting and the operator.",
+  intro: "Terms for using the Digilist services",
+  updated: "Last published: 7 January 2026",
+  sections: [
+    {
+      h2: "1. About Digilist and the operators",
+      blocks: [
+        {
+          link: {
+            before: "Digilist (",
+            href: "https://www.digilist.no",
+            text: "www.digilist.no",
+            after: ") is a digital portal that arranges the rental of venues and resources from a number of operators. Each operator is responsible for its own venues, including running them, maintenance, availability, prices and its own terms. When a booking is confirmed, the operator may add further terms of use. You must familiarise yourself with those terms before you confirm a rental.",
+          },
+        },
+      ],
+    },
+    {
+      h2: "2. Booking and confirmation",
+      blocks: [
+        {
+          body: "A booking is either confirmed directly or submitted as a request for approval, depending on the operator's rules for that venue. A booking is binding once the operator has confirmed it, or once payment or acceptance has gone through under the flow that applies to that venue.",
+        },
+      ],
+    },
+    {
+      h2: "3. Use of a reserved venue",
+      blocks: [
+        {
+          body: "If the person renting does not use a reserved venue during the agreed period, the full rental amount may be charged. If they use the venue beyond the agreed time, or return equipment or the venue late, they may be charged for the extra time at the operator's rates and under its rules.",
+        },
+      ],
+    },
+    {
+      h2: "4. Cancellation",
+      blocks: [
+        {
+          h3: "4.1 Requests awaiting approval",
+          body: "A request that has not been approved can be cancelled by the person renting until the operator has dealt with it.",
+        },
+        {
+          h3: "4.2 Approved bookings",
+          body: "The operator may have its own cancellation terms. Once a booking is approved, cancelling it may require the operator's approval, and fees may apply under the operator's rules.",
+        },
+        {
+          h3: "4.3 Where no cancellation terms are given",
+          body: "If the operator has not stated any cancellation terms, the person renting can normally cancel before the rental begins without being charged. Where the operator has stated its own terms, those apply.",
+        },
+        {
+          h3: "4.4 Force majeure",
+          body: "Either the operator or the person renting may cancel a reservation if it is prevented by circumstances outside the parties' control that could not reasonably have been foreseen or avoided (force majeure).",
+        },
+      ],
+    },
+    {
+      h2: "5. Payment",
+      blocks: [
+        {
+          body: "Payment in Digilist is made either in advance (by card or through the national payment app) or afterwards by invoice. Which method applies is decided by the operator for each venue. For questions about an invoice or payment terms, the person renting must contact the operator.",
+        },
+      ],
+    },
+    {
+      h2: "6. Card payment",
+      blocks: [
+        {
+          body: "Card payment is taken after the rental is approved, where the venue requires approval. Where it does not, payment may be taken immediately at the time of booking. Card payments are handled by a payment service provider, such as Stripe. Ordinary debit and credit cards can be used. Payment data is handled in encrypted form under that provider's security mechanisms.",
+        },
+      ],
+    },
+    {
+      h2: "7. Payment with Vipps",
+      blocks: [
+        {
+          body: "Payment with Vipps, the Norwegian payment app, is taken after the rental is approved, where the venue requires approval. Where it does not, payment may be taken immediately at the time of booking. The amount may be reserved under Vipps's standard procedures and transferred under the terms agreed between the operator and the payment provider.",
+        },
+      ],
+    },
+    {
+      h2: "8. Payment by invoice",
+      blocks: [
+        {
+          body: "The operator may have its own invoicing procedures, including when invoices are sent, the payment deadline, fees and whether invoices are combined. Questions about an invoice, its contents, the amount or its payment status must be directed to the operator.",
+        },
+      ],
+    },
+    {
+      h2: "9. Right of withdrawal",
+      blocks: [
+        {
+          body: "For the rental of venues and services connected to leisure activities or events delivered at a specific time or within a specific period, the statutory right of withdrawal normally does not apply. The operator may nevertheless have its own terms. The person renting must familiarise themselves with the operator's terms before a booking is confirmed.",
+        },
+      ],
+    },
+    {
+      h2: "10. Complaints and liability",
+      blocks: [
+        {
+          body: "Digilist is a digital platform that connects the person renting with the operator. Digilist is not a party to the rental agreement between them, and does not rent out venues or equipment in its own name. Complaints, objections and claims for compensation relating to the venue or the rental are handled directly between the person renting and the operator.",
+        },
+        {
+          body: "The operator is responsible for describing the venue correctly, and for keeping information about its condition, its intended use and its terms up to date.",
+        },
+      ],
+    },
+    {
+      h2: "11. Refunds",
+      blocks: [
+        {
+          body: "The operator may have its own refund terms — for example where the venue is not in the expected condition or cannot be used as agreed. The person renting must familiarise themselves with the operator's terms before a booking is confirmed.",
+        },
+      ],
+    },
+    {
+      h2: "12. Exclusion from Digilist",
+      blocks: [
+        {
+          body: "Use of Digilist requires that these terms are followed, along with the applicable law and regulations. Digilist may restrict or close a user's access to all or part of the service in the event of a breach of these terms, misuse, attempted fraud, or actions that could harm the integrity of the service or other users. A user may stop using the service at any time by closing their account, where that option is offered.",
+        },
+      ],
+    },
+    {
+      h2: "13. Exclusion by an individual operator",
+      blocks: [
+        {
+          body: "Operators may have their own procedures for refusing or excluding people from their venues, based on internal guidelines or a previous customer relationship. Such an exclusion applies only to that operator.",
+        },
+      ],
+    },
+  ],
+};
+
+export const TERMS_OF_SALE = { nb: TERMS_NB, en: TERMS_EN } as const;
+
+
 
 
 export function legalDoc(
