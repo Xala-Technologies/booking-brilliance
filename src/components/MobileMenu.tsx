@@ -5,6 +5,7 @@ import { EditorialButton } from "@/components/editorial";
 import { openChatbot } from "@/lib/chatbot/open";
 import { cn } from "@/lib/utils";
 import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 
 /**
  * The English drawer.
@@ -64,6 +65,7 @@ const ROUTES: Array<{ label: string; to: string; eyebrow?: string }> = [
 ];
 
 export function MobileMenu() {
+  const locale = localeFromPath(useLocation().pathname);
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const isEnglish = localeFromPath(location.pathname) === "en";
@@ -226,7 +228,7 @@ export function MobileMenu() {
             }}
             className="w-full"
           >
-            Snakk med oss
+            {t(locale, "nav.talkToUs")}
           </EditorialButton>
           <a
             href="https://app.digilist.no"

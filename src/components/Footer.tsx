@@ -279,11 +279,10 @@ const Footer = () => {
                     letterSpacing: "-0.015em",
                   }}
                 >
-                  Klar for å se Digilist i praksis?
+                  {t(locale, "footer.ctaHeading")}
                 </p>
                 <p className="mt-3 text-lg text-ink-soft measure leading-relaxed">
-                  Book en personlig demo, eller still spørsmål direkte i chat.
-                  Vi svarer på under et minutt i kontortid.
+                  {t(locale, "footer.ctaBody")}
                 </p>
               </div>
               <div className="lg:col-span-5 flex flex-wrap gap-3 lg:justify-end">
@@ -295,7 +294,7 @@ const Footer = () => {
                   size="md"
                   onClick={() => openChatbot({ mode: "chat" })}
                 >
-                  Snakk med oss
+                  {t(locale, "nav.talkToUs")}
                 </EditorialButton>
               </div>
             </div>

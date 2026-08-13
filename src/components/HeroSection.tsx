@@ -272,7 +272,7 @@ const HeroSection = () => {
               </div>
               <div className="mt-auto pt-6">
                 <EditorialButton variant="primary" size="lg" href={localeHref("/leie", locale)}>
-                  Finn ledige lokaler
+                  {t(locale, "nav.findVenues")}
                 </EditorialButton>
               </div>
             </div>
@@ -338,7 +338,7 @@ const HeroSection = () => {
               Kunder · I bruk
             </span>
             <span className="editorial-mono-caption text-ink-faint hidden md:inline">
-              To av flere: referanser på forespørsel
+              {t(locale, "stories.caption")}
             </span>
           </div>
 

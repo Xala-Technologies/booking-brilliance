@@ -8,6 +8,9 @@ import {
 } from "@/components/editorial";
 import { getFraunces } from "@/lib/fonts";
 import { openChatbot } from "@/lib/chatbot/open";
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 
 const DELIVERS = [
   "Sanntids tilgjengelighetskalender",
@@ -31,6 +34,7 @@ const NEEDS = [
 ];
 
 const PilotInvitationSection = () => {
+  const locale = localeFromPath(useLocation().pathname);
   return (
     <section
       id="pilot"
@@ -103,7 +107,7 @@ const PilotInvitationSection = () => {
                   openChatbot({ mode: "chat" });
                 }}
               >
-                Snakk med oss
+                {t(locale, "nav.talkToUs")}
               </EditorialButton>
             </div>
 
