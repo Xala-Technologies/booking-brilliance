@@ -2333,6 +2333,18 @@ const ROUTES = [
     ],
   },
   {
+    route: "/en/transparens",
+    title: "Transparency · quality report for Digilist",
+    description:
+      "A live quality report: SEO, accessibility, security, uptime and links, scanned automatically across the Digilist platform.",
+    ogType: "website",
+    lang: "en",
+    breadcrumbs: [
+      { name: "Home", url: `${BASE_URL}/en` },
+      { name: "Transparency", url: `${BASE_URL}/en/transparens` },
+    ],
+  },
+  {
     route: "/transparens",
     title: "Transparens – live kvalitetsrapport – Digilist",
     description:
@@ -2822,6 +2834,7 @@ const TRANSLATED_ROUTES = {
   "/booking-av-lokaler-og-moterom": "/en/booking-av-lokaler-og-moterom",
   "/leie": "/en/leie",
   "/status": "/en/status",
+  "/transparens": "/en/transparens",
   "/blogg": "/en/blogg",
 };
 

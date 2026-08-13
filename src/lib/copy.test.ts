@@ -58,6 +58,7 @@ describe("copy dictionaries", () => {
       "status.type.app": "'App' is the same word in both",
       "status.type.api": "an initialism, identical in both",
       "status.type.status": "'Status' is the same word in both",
+      "tr.areaSeo": "an initialism, identical in both",
     };
 
     const identical = copyKeys("nb")

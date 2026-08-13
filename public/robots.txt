@@ -42,6 +42,7 @@ Allow: /en/lokaler-til-leie$
 Allow: /en/booking-av-lokaler-og-moterom$
 Allow: /en/leie$
 Allow: /en/status$
+Allow: /en/transparens$
 Allow: /en/blogg
 
 

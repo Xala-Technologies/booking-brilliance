@@ -26,6 +26,9 @@ import {
   SectionRule,
 } from "@/components/editorial";
 import { cn } from "@/lib/utils";
+import { useLocation } from "react-router-dom";
+import { localeFromPath } from "@/lib/i18n";
+import { t } from "@/lib/copy";
 
 interface PublicSurface {
   id: string;
@@ -97,16 +100,19 @@ function scoreClass(s: number | null): string {
   return "text-red-700";
 }
 
-function scoreLabel(s: number | null): string {
-  if (s === null) return "Ingen data";
-  if (s >= 95) return "Utmerket";
-  if (s >= 85) return "Bra";
-  if (s >= 70) return "Akseptabelt";
-  if (s >= 50) return "Trenger forbedring";
-  return "Kritisk";
+/** Score band as a copy KEY; callers resolve it for their locale. */
+function scoreLabelKey(s: number | null): string {
+  if (s === null) return "tr.score.noData";
+  if (s >= 95) return "tr.score.excellent";
+  if (s >= 85) return "tr.score.good";
+  if (s >= 70) return "tr.score.acceptable";
+  if (s >= 50) return "tr.score.needsWork";
+  return "tr.score.critical";
 }
 
 export default function Transparens() {
+  const locale = localeFromPath(useLocation().pathname);
+  const en = locale === "en";
   const [data, setData] = useState<PublicSummary | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -148,8 +154,8 @@ export default function Transparens() {
   return (
     <div className="min-h-screen bg-paper overflow-x-hidden">
       <SEO
-        title="Transparens · kvalitetsrapport for Digilist"
-        description="Live kvalitetsrapport: SEO, tilgjengelighet, sikkerhet, oppetid og lenker, automatisk skannet på tvers av Digilist-økosystemet."
+        title={t(locale, "tr.metaTitle")}
+        description={t(locale, "tr.metaDescription")}
         canonical="https://digilist.no/transparens"
       />
       <ProgressRail />
@@ -165,10 +171,10 @@ export default function Transparens() {
                   aria-label="Brødsmuler"
                 >
                   <Link
-                    to="/"
+                    to={en ? "/en" : "/"}
                     className="group inline-flex items-center gap-2 text-accent-text"
                   >
-                    ← Tilbake til forsiden
+                    ← {t(locale, "bookDemo.back")}
                   </Link>
                 </nav>
                 <p className="editorial-mono-caption text-ink-faint">
@@ -184,40 +190,34 @@ export default function Transparens() {
                       '"opsz" 144, "wght" 360',
                   }}
                 >
-                  Transparens.
+                  {t(locale, "tr.h1")}
                 </h1>
                 <p className="mt-6 text-xl text-ink-soft measure leading-relaxed">
-                  En kommunal CIO bør vite hva slags plattform de velger. Denne
-                  siden viser{" "}
-                  <em>Digilist sin egen</em> kvalitet: SEO, tilgjengelighet,
-                  sikkerhet, oppetid og lenker, automatisk skannet og oppdatert.
+                  {t(locale, "tr.lede1a")}{" "}
+                  <em>{t(locale, "tr.ledeEm")}</em>{" "}
+                  {t(locale, "tr.lede1b")}
                 </p>
                 <p className="mt-3 text-base text-ink-soft measure">
-                  Skanninger kjøres minst hver 15. minutt for oppetid og daglig
-                  for hele økosystemet. Det vi viser her er det samme som vårt
-                  interne team ser.
+                  {t(locale, "tr.lede2")}
                 </p>
                 <p className="mt-3 text-base text-ink-soft measure">
-                  Rapporten dekker fem områder. <strong>SEO</strong> måler hvor
-                  synlig plattformen er i søk: titler, metadata, canonical og
-                  strukturert data. <strong>Tilgjengelighet</strong> sjekker
-                  WCAG-samsvar: overskriftshierarki, alt-tekster, landemerker og
-                  tastaturnavigasjon for skjermlesere. <strong>Sikkerhet</strong>{" "}
-                  vurderer HTTP-sikkerhetsheadere, TLS-sertifikater og at ingen
-                  sensitive filer er eksponert. <strong>Oppetid</strong> følger
-                  tilgjengelighet og responstid per tjeneste, med varsling ved
-                  avvik. <strong>Lenker</strong> verifiserer at ingen utgående
-                  lenker er brutt. Hver overflate i økosystemet (markedssiden,
-                  booking-appen, dashbordet, dokumentasjonen og API-et) skannes
-                  uavhengig, og tallene nedenfor er hentet direkte fra siste
-                  kjøring, uten manuell redigering eller utvalg.
+                  {t(locale, "tr.areasIntro")} <strong>{t(locale, "tr.areaSeo")}</strong>{" "}
+                  {t(locale, "tr.areaSeoBody")}{" "}
+                  <strong>{t(locale, "tr.areaA11y")}</strong>{" "}
+                  {t(locale, "tr.areaA11yBody")}{" "}
+                  <strong>{t(locale, "tr.areaSec")}</strong>{" "}
+                  {t(locale, "tr.areaSecBody")}{" "}
+                  <strong>{t(locale, "tr.areaUptime")}</strong>{" "}
+                  {t(locale, "tr.areaUptimeBody")}{" "}
+                  <strong>{t(locale, "tr.areaLinks")}</strong>{" "}
+                  {t(locale, "tr.areaLinksBody")}
                 </p>
               </header>
 
               {loading ? (
                 <div className="flex items-center gap-2 text-ink-soft">
                   <Loader2 className="h-4 w-4 animate-spin" />
-                  Henter live data…
+                  {t(locale, "tr.loading")}
                 </div>
               ) : error ? (
                 <div className="border-l-2 border-red-700 bg-paper-deep/60 px-5 py-4">
@@ -225,7 +225,7 @@ export default function Transparens() {
                     KUNNE IKKE HENTE LIVE DATA
                   </p>
                   <p className="text-base text-ink">
-                    Beklager, kommer tilbake snart. {error}
+                    {t(locale, "tr.errorPrefix")} {error}
                   </p>
                 </div>
               ) : data ? (
@@ -260,15 +260,15 @@ export default function Transparens() {
                           label="Snittscore"
                           value={Math.round(data.ecosystem.avgScore)}
                           tone={scoreClass(data.ecosystem.avgScore)}
-                          sub={scoreLabel(data.ecosystem.avgScore)}
+                          sub={t(locale, scoreLabelKey(data.ecosystem.avgScore))}
                         />
                         <Cell
-                          label="Overflater aktive"
+                          label={t(locale, "tr.surfacesActive")}
                           value={data.ecosystem.surfacesTotal}
                           sub={`${data.ecosystem.surfacesHealthy} sunne`}
                         />
                         <Cell
-                          label="Kritiske funn"
+                          label={t(locale, "tr.criticalFindings")}
                           value={data.ecosystem.errorCount}
                           tone={
                             data.ecosystem.errorCount > 0
@@ -277,8 +277,8 @@ export default function Transparens() {
                           }
                           sub={
                             data.ecosystem.errorCount === 0
-                              ? "Ingen blokkerende"
-                              : "Under aktiv utbedring"
+                              ? t(locale, "tr.noBlocking")
+                              : t(locale, "tr.underRemediation")
                           }
                         />
                         <Cell
@@ -289,7 +289,7 @@ export default function Transparens() {
                               ? "text-amber-700"
                               : undefined
                           }
-                          sub="Anbefalt forbedring"
+                          sub={t(locale, "tr.recommendedImprovement")}
                         />
                       </div>
                     </section>
@@ -343,11 +343,7 @@ export default function Transparens() {
                         ))}
                       </div>
                       <p className="mt-4 text-sm text-ink-faint italic max-w-3xl">
-                        Tallene viser implementeringsgrad, andelen
-                        anvendelige kontroller med dokumentert tilstand
-                        «Implementert» (full kreditt) eller «Delvis» (halv).
-                        Detaljer over hver kontroll er tilgjengelig på
-                        forespørsel for kommunale kunder under NDA.
+                        {t(locale, "tr.complianceNote")}
                       </p>
                     </section>
                   )}
@@ -360,7 +356,7 @@ export default function Transparens() {
                     <div className="space-y-px bg-rule border border-rule">
                       {productionSurfaces.length === 0 ? (
                         <div className="bg-paper p-6 text-ink-soft">
-                          Ingen aktive produksjons-overflater i siste skanning.
+                          {t(locale, "tr.noSurfaces")}
                         </div>
                       ) : (
                         productionSurfaces.map((s) => (
@@ -376,7 +372,7 @@ export default function Transparens() {
                     <div className="mt-8 grid lg:grid-cols-2 gap-8">
                       <div>
                         <h2 className="font-serif text-2xl text-ink mb-3">
-                          Hva vi måler
+                          {t(locale, "tr.whatWeMeasure")}
                         </h2>
                         <ul className="space-y-3 text-base text-ink-soft">
                           <li>
@@ -409,26 +405,26 @@ export default function Transparens() {
                       </div>
                       <div>
                         <h2 className="font-serif text-2xl text-ink mb-3">
-                          Score-tolkning
+                          {t(locale, "tr.scoreReading")}
                         </h2>
                         <ul className="space-y-2 text-base">
                           <li>
                             <span className="font-serif text-lg font-medium text-green-700">
                               95–100
                             </span>{" "}
-                            <span className="text-ink-soft">· utmerket</span>
+                            <span className="text-ink-soft">· {t(locale, "tr.band95")}</span>
                           </li>
                           <li>
                             <span className="font-serif text-lg font-medium text-green-700">
                               85–94
                             </span>{" "}
-                            <span className="text-ink-soft">· bra</span>
+                            <span className="text-ink-soft">· {t(locale, "tr.band85")}</span>
                           </li>
                           <li>
                             <span className="font-serif text-lg font-medium text-amber-700">
                               70–84
                             </span>{" "}
-                            <span className="text-ink-soft">· akseptabelt</span>
+                            <span className="text-ink-soft">· {t(locale, "tr.band70")}</span>
                           </li>
                           <li>
                             <span className="font-serif text-lg font-medium text-amber-700">
@@ -455,16 +451,13 @@ export default function Transparens() {
 
                   {/* External validators — independent third-party scanners */}
                   <section className="mb-14 lg:mb-20">
-                    <SectionRule label="UAVHENGIG VURDERING" />
+                    <SectionRule label={t(locale, "tr.validatorRule")} />
                     <div className="mt-8 mb-6 max-w-prose">
                       <h2 className="font-serif text-2xl text-ink mb-2">
-                        Verifiser oss hos uavhengige tredjeparter
+                        {t(locale, "tr.validatorH2")}
                       </h2>
                       <p className="text-base text-ink-soft">
-                        Vi kjører våre egne automatiske skanninger (oversikten
-                        over), men du bør ikke ta vårt ord for det. Sjekk
-                        digilist.no selv hos disse uavhengige
-                        sikkerhets- og kvalitetsmålerne. De gir sanntidsdom.
+                        {t(locale, "tr.validatorLede")}
                       </p>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-rule border border-rule">
@@ -511,21 +504,20 @@ export default function Transparens() {
                             {tool.desc}
                           </p>
                           <span className="inline-flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-widest text-accent-text mt-auto">
-                            Se live rapport
+                            {t(locale, "tr.liveReport")}
                             <ArrowUpRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                           </span>
                         </a>
                       ))}
                     </div>
                     <p className="text-xs text-ink-faint mt-4 font-mono uppercase tracking-widest">
-                      Live oppslag. Klikk en boks for å kjøre skanning hos
-                      tredjepart i sanntid.
+                      {t(locale, "tr.liveNote")}
                     </p>
                   </section>
 
                   {/* Compliance trust strip */}
                   <section className="mb-14 lg:mb-20">
-                    <SectionRule label="SAMSVAR" />
+                    <SectionRule label={t(locale, "tr.complianceRule")} />
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-rule border border-rule mt-8">
                       {[
                         ["ISO 27001", "Informasjonssikkerhetsstyring"],
@@ -544,7 +536,7 @@ export default function Transparens() {
 
                   {/* CTA — three-card resource grid */}
                   <section>
-                    <SectionRule label="VEIEN VIDERE" />
+                    <SectionRule label={t(locale, "tr.nextRule")} />
                     <header className="mt-8 mb-10 max-w-prose">
                       <h2
                         className="font-serif text-4xl lg:text-5xl text-ink leading-tight mb-4"
@@ -553,12 +545,10 @@ export default function Transparens() {
                             '"opsz" 96, "wght" 400',
                         }}
                       >
-                        Vil du se mer?
+                        {t(locale, "tr.nextH2")}
                       </h2>
                       <p className="text-base lg:text-lg text-ink-soft leading-relaxed">
-                        Vi deler gjerne sammendrag av siste penetrasjonstest og
-                        sårbarhetsstatus under NDA. Be om et møte. Vi viser
-                        rapportene side-om-side med plattformen.
+                        {t(locale, "tr.nextLede")}
                       </p>
                     </header>
 
@@ -568,7 +558,7 @@ export default function Transparens() {
                         eyebrow="DIREKTE"
                         title="Be om sikkerhetsmøte"
                         body="30–45 minutter, NDA, sammendrag av siste pen-test, vulnerability-status, RPO/RTO og beredskapsplan."
-                        href="/book-demo"
+                        href={en ? "/en/book-demo" : "/book-demo"}
                         cta="Book demo"
                       />
                       <ResourceCard
@@ -620,7 +610,7 @@ export default function Transparens() {
                         size="lg"
                         href="/blogg/penetrasjonstesting-sikkerhetsrevisjon-saas-leverandor"
                       >
-                        Les om sikkerhetsrevisjon
+                        {t(locale, "tr.readAudit")}
                       </EditorialButton>
                     </div>
                   </section>
@@ -772,6 +762,7 @@ function ScoreChip({ value, label }: { value: number | null; label: string }) {
 }
 
 function SurfaceRow({ s }: { s: PublicSurface }) {
+  const locale = localeFromPath(useLocation().pathname);
   return (
     <article className="bg-paper px-6 py-5 lg:px-7 lg:py-6">
       <header className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-4 lg:gap-6 items-baseline mb-4">
@@ -783,7 +774,7 @@ function SurfaceRow({ s }: { s: PublicSurface }) {
             {originPretty(s.origin)}
           </h3>
           <p className="text-xs text-ink-soft mt-1 font-mono uppercase tracking-widest">
-            {scoreLabel(s.overall)}
+            {t(locale, scoreLabelKey(s.overall))}
           </p>
         </div>
         <div className={cn("flex items-baseline gap-2", scoreClass(s.overall))}>
