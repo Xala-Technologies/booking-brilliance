@@ -67,8 +67,19 @@ const nb: Copy = {
     "Lokaler|Selskapslokaler|Møterom|Idrettshaller|Kulturhus|Bryllupslokaler|Julebordlokaler|Grendehus",
   "hero.headlineTail": "du trenger,",
   "hero.headlineEm": "og plattformen bak dem",
+  // Two audiences, equal billing.
+  //
+  // The old lede gave renters a full sentence and pushed operators and
+  // municipalities into a trailing clause — while Search Console shows
+  // booking-system queries taking 41% of impressions against venue-rental's
+  // 47%. Neither is a subordinate clause. The question form lets the reader
+  // self-select in the first two words instead of parsing a compound sentence
+  // to find themselves in it.
+  //
+  // It also lands the one commercial fact that separates us, which the hero
+  // did not say at all: we take no share of what the operator charges.
   "hero.lede":
-    "Finn og book lokaler med ekte priser og ledige datoer, og betal trygt med Vipps. Er du utleier eller kommune, drifter du alt fra kalender til oppgjør i samme plattform.",
+    "Skal du leie? Finn lokaler med ekte priser og ledige datoer, og betal trygt med Vipps. Leier du ut? Kalender, betaling, sesongleie og oppgjør i én plattform — uten at vi tar en andel av det du tar betalt.",
   "hero.bullet1": "Ekte priser og ledige datoer i sanntid",
   "hero.bullet2": "Betal trygt med Vipps eller faktura",
   "hero.bullet3": "Bygd for norske krav – BankID, GDPR og universell utforming",
@@ -768,7 +779,7 @@ const en: Copy = {
   "hero.headlineTail": "you need,",
   "hero.headlineEm": "and the platform behind them",
   "hero.lede":
-    "Find and book venues with real prices and real availability, and pay securely. If you rent space out, you run everything from the calendar to settlement in one platform.",
+    "Looking to rent? Find venues with real prices and real availability, and pay securely. Renting one out? Calendar, payment, seasonal allocation and settlement in one platform — and we take no share of what you charge.",
   "hero.bullet1": "Real prices and live availability",
   "hero.bullet2": "Pay securely by card, mobile payment or invoice",
   "hero.bullet3": "Built for Norwegian requirements — national ID, GDPR and accessibility",
