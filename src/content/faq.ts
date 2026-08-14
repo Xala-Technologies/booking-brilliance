@@ -217,7 +217,13 @@ export const FAQ_CATEGORIES: FAQCategory[] = [
       },
       {
         q: "Hva koster Digilist?",
-        a: "Digilist har abonnementsnivåer, og prisen avhenger av antall anlegg, brukermengde og integrasjoner. Vi tar ingen andel av bookinginntektene og har ingen skjulte gebyrer — dere betaler for bruk av Digilist og administrasjonspanelet. Mindre og private aktører får egne, tilpassede priser. De 100 første kundene får 6 måneder gratis.",
+        // Opens by naming both readings on purpose. Search Console shows the
+        // two audiences arriving in comparable numbers — venue-rental queries
+        // took 53% of clicks over the last period and booking-system queries
+        // 27% — so "hva koster det?" with no other context is genuinely
+        // ambiguous on this site. Assuming produced the live reply that
+        // lectured a would-be renter about their own rental income.
+        a: "Kommer an på hva du spør om. Skal du LEIE et lokale, avhenger prisen av lokalet, datoen og kapasiteten — du ser totalprisen før du bekrefter. Skal du BRUKE Digilist til å leie ut eller administrere lokaler, er det et abonnement: prisen avhenger av antall anlegg, brukermengde og integrasjoner. Vi tar ingen andel av bookinginntektene og har ingen skjulte gebyrer. Mindre og private aktører får egne, tilpassede priser, og de 100 første kundene får 6 måneder gratis.",
         // Two keywords ("pris", "kostnad") meant every way of asking about money
         // WITHOUT those words missed: "billigste alternativ" returned nothing at
         // all, "rimeligste alternativ for sånne som oss" returned implementation

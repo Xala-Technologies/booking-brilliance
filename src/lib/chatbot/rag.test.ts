@@ -49,7 +49,6 @@ describe("price questions reach the price answer, however they are phrased", () 
     "hva er det billigste alternativet deres?",
     "finnes det noe rimeligste alternativ for sånne som oss?",
     "bare si hva det koster",
-    "hva slags abonnement har dere?",
     "koss e prisen på sånt?",
   ];
 
@@ -64,6 +63,20 @@ describe("price questions reach the price answer, however they are phrased", () 
     expect(top("vi har ikke budsjett til noe dyrt")).toBe(
       "Er Digilist for dyrt for en liten forening?",
     );
+  });
+
+  it("sends a subscription-shape question to the subscription answer", () => {
+    // Same shape as the budget case above: a more specific entry wins, and
+    // that is right. "hva slags abonnement har dere?" is asking how the tiers
+    // are structured, which "Hvordan fungerer abonnementet?" answers directly
+    // and the price entry only alludes to.
+    //
+    // It moved here when the price answer grew: that entry now opens by naming
+    // both readings of "hva koster det?" — renting a venue versus using
+    // Digilist — because Search Console shows both audiences arriving in
+    // comparable numbers, and assuming one produced a live reply that lectured
+    // a would-be renter about their own rental income.
+    expect(top("hva slags abonnement har dere?")).toBe("Hvordan fungerer abonnementet?");
   });
 
   it("puts the price answer FIRST, not merely somewhere in the top three", () => {

@@ -22,6 +22,13 @@ const B2BLaneSection = lazy(() => import("@/components/B2BLaneSection"));
 const ChannelSyncSection = lazy(() => import("@/components/ChannelSyncSection"));
 const HowItWorksSection = lazy(() => import("@/components/HowItWorksSection"));
 const BrukerhistorierSection = lazy(() => import("@/components/BrukerhistorierSection"));
+// Placed after the proof (how it works, customer stories) and before the FAQ:
+// price is the most-asked question, so it belongs above the fold of a scroll
+// rather than buried at the end, but it reads better once the reader knows
+// what they would be paying for.
+const PricingSection = lazy(() =>
+  import("@/components/PricingSection").then((m) => ({ default: m.PricingSection })),
+);
 const BlogPreviewSection = lazy(() => import("@/components/BlogPreviewSection"));
 const HomepageFAQSection = lazy(() => import("@/components/HomepageFAQSection"));
 const CTASection = lazy(() => import("@/components/CTASection"));
@@ -102,6 +109,7 @@ const Index = () => {
           <ChannelSyncSection />
           <HowItWorksSection />
           <BrukerhistorierSection />
+          <PricingSection />
           <BlogPreviewSection />
           <HomepageFAQSection />
           <CTASection />
