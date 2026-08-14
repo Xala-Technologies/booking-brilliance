@@ -160,6 +160,10 @@ export function PricingSection() {
           </div>
         </EditorialCard>
 
+        <p className="mt-8 text-base text-ink-soft leading-relaxed measure-wide">
+          {t(locale, "homePricing.whyNoList")}
+        </p>
+
         <p className="mt-6">
           <Link
             to={href("/priser")}

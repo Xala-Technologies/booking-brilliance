@@ -1,11 +1,11 @@
 ---
 slug: beste-bookingsystem-kommune-norge
 title: "Beste bookingsystem for kommuner i Norge"
-description: "Hva er det beste bookingsystemet for norske kommuner? Se hvordan Digilist svarer på kravene til innbyggerselvbetjening, ID-porten, EHF og sesongleie, og hvilke kategorier dere bør sjekke uansett leverandør."
+description: "Hva er det beste bookingsystemet for norske kommuner? Digilist sammenlignet med Aktiv Kommune, BookUp og Gibbs på funksjoner, sikkerhet og anskaffelse — og hva plattformen koster: abonnement, ingen provisjon av bookinginntektene."
 date: 2026-07-27
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
-readingMinutes: 8
+readingMinutes: 11
 tag: "Anskaffelse"
 cover: "/images/blog/en_plattform_hero_no.webp"
 keywords: ["beste bookingsystem for kommuner", "beste bookingsystem kommune norge", "bookingsystem kommune", "kommunal booking", "aktiv kommune", "bookup", "rubic", "bookle", "reservio", "Digilist"]
@@ -59,6 +59,37 @@ Det som skiller Digilist fra mange etablerte bookingsystemer, er at plattformen 
 Vil dere se hvordan Digilist dekker kategoriene over i praksis for akkurat deres kommune? Book en demo, så går vi gjennom lokalene og kravene deres.
 
 [Se Digilists bookingsystem for kommuner →](/bookingsystem-kommune)
+
+## Digilist sammenlignet med Aktiv Kommune, BookUp og Gibbs
+
+Aktiv Kommune, BookUp og Gibbs er alle etablerte innen booking av kommunale lokaler i Norge, og alle løser kjernebehovet: sanntidsoversikt over ledig kapasitet. Forskjellen ligger i hvor bredt systemet dekker, og hvor godt dokumentert enkeltfunksjoner er offentlig.
+
+| Kriterium | Digilist | Aktiv Kommune | BookUp | Gibbs |
+|---|---|---|---|---|
+| Dekker både privat og offentlig marked | Ja | Nei, kun offentlig sektor | Nei, kun offentlig sektor | Nei, kun offentlig sektor |
+| ID-porten-innlogging | Ja | Ikke offentlig dokumentert | Ikke offentlig dokumentert | Ikke offentlig dokumentert |
+| Sanntidskalender for ledig kapasitet | Ja | Ja | Ja | Ja |
+| SSA-L-tilpasset avtaleverk | Ja | Ikke offentlig dokumentert | Ikke offentlig dokumentert | Ikke offentlig dokumentert |
+| Sømløs betaling innebygd | Ja | Ikke offentlig dokumentert | Ikke offentlig dokumentert | Ikke offentlig dokumentert |
+
+Merk: opplysningene om Aktiv Kommune, BookUp og Gibbs er basert på offentlig tilgjengelig markedsføringsmateriale på skrivetidspunktet, og kan variere per kommuneavtale. Kommuner bør alltid be om skriftlig bekreftelse av konkrete funksjoner direkte fra leverandøren før beslutning.
+
+Det som tydeligst skiller Digilist fra de tre andre, er at samme plattform også dekker privat utleie. Det er relevant for kommuner som leier ut til både lag og enkeltpersoner, og for private utleiere som sammenligner løsninger uavhengig av kommunemarkedet.
+
+## Hva Digilist koster — og hva vi ikke tar
+
+Prismodellen er den delen kommuner og private utleiere oftest spør om, og den er kort å forklare: **Digilist er et abonnement, ikke en provisjon.**
+
+- **Vi tar ingen andel av bookinginntektene.** Går dere fra tjue utleier i året til seksti, koster ikke Digilist mer. Et system som tjener mer når dere lykkes, straffer nettopp den som får det til.
+- **Ingen transaksjonsavgift per booking.** Dere betaler for å bruke plattformen og administrasjonspanelet — ikke per reservasjon, og ikke som en prosent av leien.
+- **Nivået følger behovet, ikke omsetningen.** Prisen avhenger av antall anlegg, hvor mange som skal bruke systemet, og hvilke integrasjoner dere trenger. Å gå fra ett anlegg til fem endrer abonnementet; flere bookinger i samme anlegg gjør det ikke.
+- **Integrasjonene er inkludert.** Betaling, ID-porten, EHF/Peppol og de vanlige regnskapssystemene er en del av abonnementet. Egne integrasjoner mot deres egne fagsystemer prises separat etter omfang.
+- **Ingen skjulte gebyrer.** Det som står i tilbudet, er det dere betaler.
+- **Egne priser for de små.** Lag, foreninger, grendehus og private utleiere med ett lokale får tilpassede priser. Det skal ikke ligne på det en stor kommune med mange bygg betaler, fordi behovet ikke ligner heller.
+
+Vi publiserer ingen prisliste, og grunnen er ærlig nok: spennet mellom et grendehus med én sal og en fylkeskommune med tjueto skoler gjør ett enkelt tall feil for nesten alle som leser det. Vi publiserer i stedet alt som avgjør prisen, og gir et konkret tilbud etter en kort samtale.
+
+**De 100 første kundene får 6 måneder gratis.** Vi hjelper med oppsett og publisering i prøveperioden, og dere får egen administrativ tilgang for videre drift. Ingen binding underveis.
 
 ## Kilder
 
