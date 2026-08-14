@@ -28,7 +28,12 @@ export const FAQ_CATEGORIES: FAQCategory[] = [
     questions: [
       {
         q: "Hva er Digilist?",
-        a: "Digilist er en norsk digital plattform for utleie og booking av selskapslokaler, idrettshaller, møterom, kantiner og kulturhus. Plattformen håndterer booking, betaling, kalender, sesongleie, fakturering og rapportering i én løsning, bygget for både private utleiere og norske kommuner.",
+        // Answers "hva er Digilist" for BOTH sides, in that order, because both
+        // arrive in comparable numbers. The previous answer said "for både
+        // private utleiere og norske kommuner" — which names two kinds of
+        // seller and leaves the person trying to book a room out of the
+        // description of what we are.
+        a: "Digilist er en norsk plattform som betjener begge sider av utleie. Skal du leie, finner du lokaler med ekte priser og ledige datoer og booker direkte. Leier du ut — privat eller kommunalt — drifter du kalender, betaling, sesongleie, fakturering og rapportering i samme løsning. Vi leverer tjenesten og tar ingen andel av leien.",
         keywords: ["digilist", "hva er", "bookingplattform"],
       },
       {
@@ -269,9 +274,15 @@ export const FAQ_CATEGORIES: FAQCategory[] = [
       {
         q: "Tar dere en andel av bookinginntektene?",
         a: "Nei. Digilist tar ingen transaksjonsavgift og ingen andel av det dere tar betalt for utleie. Vi tar betalt for bruk av tjenesten og administrasjonspanelet, og det er ingen skjulte gebyrer.",
+        // "per booking" added because the identity answer now also says we
+        // take no share of the rent — which is the point, but it meant "tar
+        // dere noe per booking?" started landing on "Hva er Digilist?" instead
+        // of the entry written to answer it. The fee entry should own fee
+        // phrasings no matter what else happens to mention the fee.
         keywords: [
           "transaksjon", "transaksjonsavgift", "andel", "provisjon", "kutt",
           "gebyr", "skjulte", "prosent", "avgift", "inntekt", "omsetning",
+          "per booking", "per reservasjon", "tar dere noe", "koster per",
         ],
       },
       {

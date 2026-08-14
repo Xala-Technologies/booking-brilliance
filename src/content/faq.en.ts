@@ -29,7 +29,7 @@ export const FAQ_CATEGORIES_EN: FAQCategory[] = [
     questions: [
       {
         q: "What is Digilist?",
-        a: "Digilist is a Norwegian platform for renting out and booking venues: function rooms, sports halls, meeting rooms, canteens and cultural centres. It handles booking, payment, calendars, seasonal allocation, invoicing and reporting in one place, for private operators and public bodies alike.",
+        a: "Digilist is a Norwegian platform serving both sides of venue rental. If you are looking to rent, you find venues with real prices and real availability and book directly. If you rent one out — privately or as a public body — you run the calendar, payment, seasonal allocation, invoicing and reporting in the same place. We provide the service and take no share of the rent.",
         keywords: ["what is digilist", "booking platform", "venue booking software", "rental platform"],
       },
       {

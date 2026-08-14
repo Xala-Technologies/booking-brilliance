@@ -2869,9 +2869,16 @@ function hreflangTags(route) {
 
 const HOMEPAGE = {
   route: "/",
-  title: "Digilist · Én plattform for alt som leies ut",
+  // Two-sided by construction.
+  //
+  // "Én plattform for alt som leies ut" described only the supply side, and the
+  // description was a list of venue types. Search Console shows both sides
+  // arriving in comparable numbers — venue-rental queries 47% of impressions,
+  // booking-system queries 41% — so a title that names one of them is wrong for
+  // roughly half the people who see it.
+  title: "Digilist · Plattformen for deg som leier og deg som leier ut",
   description:
-    "Digital bookingplattform for selskapslokaler, idrettshaller, møterom og kulturhus. Sanntidskalender, Vipps, BankID, EHF, sesongleie. ISO 27001-sertifisert.",
+    "Plattformen for deg som leier og deg som leier ut: ekte priser og ledige datoer, eller kalender, betaling, sesongleie og oppgjør. Ingen andel av leien.",
   breadcrumbs: [{ name: "Hjem", url: `${BASE_URL}/` }],
   aboutPage: true,
   service: true,
