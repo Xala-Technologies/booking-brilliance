@@ -33,7 +33,12 @@ import { enrichProfile } from "./sales/lead";
  * "already notified" flags forward so one conversation yields at most one
  * notification.
  */
-function play(scenario: Scenario): { decisions: TurnDecision[]; notifiedAt: number | null } {
+function play(scenario: Scenario): {
+  decisions: TurnDecision[];
+  notifiedAt: number | null;
+  /** First turn on which the visitor was offered a route to a human. */
+  ctaAt: number | null;
+} {
   const decisions: TurnDecision[] = [];
   let leadFiled = false;
   let notified = false;
@@ -56,17 +61,43 @@ function play(scenario: Scenario): { decisions: TurnDecision[]; notifiedAt: numb
     if (decision.notify === "lead") leadFiled = true;
     if (decision.notify !== "none") notified = true;
   }
-  return { decisions, notifiedAt };
+  // A serious visitor is now REACHED, not reported: the assistant offers the
+  // form instead of quietly emailing. `ctaAt` is the new measure of that.
+  const ctaAt = decisions.findIndex((d) => d.showInquiryCta);
+  return { decisions, notifiedAt, ctaAt: ctaAt === -1 ? null : ctaAt };
 }
 
 describe("scenario suite — does the assistant read visitors correctly?", () => {
   it.each(SCENARIOS.map((s) => [s.id, s] as const))("%s", (_id, scenario) => {
-    const { notifiedAt } = play(scenario);
-    const notified = notifiedAt !== null;
-    expect(
-      notified,
-      `${scenario.who}\n  ${scenario.note}\n  expected notify=${scenario.expectNotify}, got ${notified}`,
-    ).toBe(scenario.expectNotify);
+    // `expectNotify` now means "this visitor must be given a way to reach a
+    // human", which is the CTA. It used to mean "this visitor triggers an
+    // email", and that is what produced a notification with every field blank
+    // for someone who had only asked what a venue costs.
+    //
+    // A visitor who hands over an address still emails — that path is
+    // unchanged and is covered by the `captures the address` case below.
+    // `expectNotify` kept its meaning — "this visitor is worth a human" — but
+    // the mechanism changed underneath it. It used to be satisfied by a silent
+    // email; it is now satisfied by offering the form, and the visitor decides.
+    // So the assertion splits by what each case is actually protecting:
+    //
+    //   true  → they must be given a route to a human (CTA, or an email if
+    //           they handed over an address themselves)
+    //   false → they must never generate mail. Being shown a form button is
+    //           harmless; anyone may fill one in.
+    const { notifiedAt, ctaAt } = play(scenario);
+    if (scenario.expectNotify) {
+      const reached = ctaAt !== null || notifiedAt !== null;
+      expect(
+        reached,
+        `${scenario.who}\n  ${scenario.note}\n  no way to reach a human was offered`,
+      ).toBe(true);
+    } else {
+      expect(
+        notifiedAt !== null,
+        `${scenario.who}\n  ${scenario.note}\n  emailed when it should not have`,
+      ).toBe(false);
+    }
   });
 
   it.each(SCENARIOS.filter((s) => s.expectEmail !== undefined).map((s) => [s.id, s] as const))(
@@ -77,12 +108,27 @@ describe("scenario suite — does the assistant read visitors correctly?", () =>
     },
   );
 
-  it("notifies EVERY serious visitor — a missed lead is the expensive failure", () => {
-    const missed = SCENARIOS.filter((s) => s.kind === "serious" && play(s).notifiedAt === null);
+  it("offers EVERY serious visitor a way to reach a human — a dead end is the expensive failure", () => {
+    const missed = SCENARIOS.filter(
+      (s) => s.kind === "serious" && play(s).ctaAt === null && play(s).notifiedAt === null,
+    );
     expect(missed.map((s) => s.id)).toEqual([]);
   });
 
-  it("notifies NO bot and NO support request — a false lead trains people to ignore the inbox", () => {
+  it("emails ONLY when the visitor handed over contact details", () => {
+    // The rule the whole change rests on. A notification with no name, no
+    // address and no organisation is not a lead — it is a log line that landed
+    // in an inbox, and an inbox of those is one nobody opens.
+    for (const scenario of SCENARIOS) {
+      const emailed = play(scenario).decisions.filter((d) => d.notify !== "none");
+      for (const d of emailed) {
+        expect(d.notify, `${scenario.id} emailed without contact details`).toBe("lead");
+        expect(d.contact.email, `${scenario.id} emailed with no address`).toBeTruthy();
+      }
+    }
+  });
+
+  it("emails for NO bot and NO support request — a false lead trains people to ignore the inbox", () => {
     const noisy = SCENARIOS.filter(
       (s) => (s.kind === "bot" || s.kind === "support") && play(s).notifiedAt !== null,
     );
@@ -102,10 +148,15 @@ describe("scenario suite — does the assistant read visitors correctly?", () =>
     }
   });
 
-  it("tells the visitor whenever it notifies, and stays available", () => {
-    for (const scenario of SCENARIOS.filter((s) => s.expectNotify)) {
+  it("tells the visitor when it DOES notify, and stays available", () => {
+    // Narrowed to the case that still sends mail. The assistant used to say
+    // "jeg gir beskjed til en rådgiver" to anyone who sounded serious, which
+    // was a promise about something happening behind the scenes — and once
+    // that email stopped being sent, the sentence would have been a lie.
+    for (const scenario of SCENARIOS) {
       const { decisions, notifiedAt } = play(scenario);
-      const text = decisions[notifiedAt as number]?.text ?? "";
+      if (notifiedAt === null) continue;
+      const text = decisions[notifiedAt]?.text ?? "";
       expect(text, scenario.id).toContain("rådgiver");
       expect(text, scenario.id).toMatch(/jeg er her|spør gjerne/i);
     }

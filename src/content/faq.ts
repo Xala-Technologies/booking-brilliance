@@ -187,6 +187,35 @@ export const FAQ_CATEGORIES: FAQCategory[] = [
     description: "Hva Digilist koster, hvordan vi prises og hvilke kontraktsformer som er tilgjengelige.",
     questions: [
       {
+        // THE most-asked question on this site, and until now the corpus had no
+        // answer to it at all. A visitor asking "hva koster det å leie et
+        // lokale?" is a RENTER asking what a room costs to hire. The only
+        // pricing entry was "Hva koster Digilist?" — the platform subscription —
+        // so the retriever matched that, and the assistant told a renter about
+        // their own imagined rental income. It is the right answer to a
+        // question nobody asked.
+        //
+        // Placed FIRST in the category so it wins the tie on a bare "pris".
+        // The figures are the ones already published on /lokaler-til-leie and
+        // the price calculator — not new claims.
+        q: "Hva koster det å leie et lokale?",
+        a: "Det varierer med lokaltype, sted, kapasitet, ukedag og sesong. Som grove pekepinner ligger grendehus og foreningslokaler ofte på 1 000–5 000 kr per dag, selskaps- og festlokaler på 5 000–30 000 kr, møterom fra noen hundre kroner per time, og kulturhus og storsaler høyere. Lørdager i høysesong koster mest. Du ser den faktiske totalprisen for din dato, inkludert eventuelt depositum og rengjøring, før du bekrefter bookingen. Leiepriskalkulatoren gir et veiledende intervall.",
+        // Every keyword is anchored on renting — "leie", "leiepris", a venue
+        // type — and none contains a bare money word. That is deliberate and
+        // load-bearing: keyword scoring gives +3 when ANY query token matches
+        // ANY token of the keyword, so a keyword like "hva koster det å leie"
+        // would fire on a bare "hva koster det?" through the word "koster"
+        // alone and steal the platform-pricing question. Anchoring means this
+        // entry wins when someone says leie/lokale and stays out of the way
+        // otherwise — which is what the tests above pin.
+        keywords: [
+          "leie", "leier", "leiepris", "leiepriser", "leieprisen",
+          "leiepriskalkulator", "lokale", "lokalet", "lokaler", "leielokale",
+          "selskapslokale", "festlokale", "grendehus", "møterom", "kulturhus",
+          "utleiepris", "døgnpris", "dagspris", "timespris", "depositum",
+        ],
+      },
+      {
         q: "Hva koster Digilist?",
         a: "Digilist har abonnementsnivåer, og prisen avhenger av antall anlegg, brukermengde og integrasjoner. Vi tar ingen andel av bookinginntektene og har ingen skjulte gebyrer — dere betaler for bruk av Digilist og administrasjonspanelet. Mindre og private aktører får egne, tilpassede priser. De 100 første kundene får 6 måneder gratis.",
         // Two keywords ("pris", "kostnad") meant every way of asking about money
@@ -195,10 +224,16 @@ export const FAQ_CATEGORIES: FAQCategory[] = [
         // time, and "hva koster det per måned" returned GDPR. The model then
         // invented "fra omkring 300 kroner månedlig" to fill the gap.
         keywords: [
+          // Generic money words stay: removing them sent "hva koster det per
+          // måned" back to GDPR, which is the exact regression the tests above
+          // this line were written for. Disambiguation is done by ADDING
+          // renter-specific phrases to the venue-rental entry instead, which
+          // outscores this one on "leie"/"lokale" without weakening it here.
           "pris", "prisen", "priser", "kostnad", "koster", "koste", "billig",
           "billigste", "rimelig", "rimeligste", "dyrt", "budsjett", "alternativ",
           "måned", "månedlig", "abonnement", "abonnementsnivå", "gratis",
           "prøveperiode", "tilbud", "pricing", "cost",
+          "hva koster digilist", "hva koster plattformen", "hva koster systemet",
         ],
       },
       {

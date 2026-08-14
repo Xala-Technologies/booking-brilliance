@@ -637,6 +637,22 @@ async function handleInquiry(req, res, body, ip) {
   // nothing surfaced — the conversation reached nobody. The point of these is
   // to tell a human that a conversation is happening, so the only thing they
   // genuinely need is something to read.
+  // Conversation-start notifications are no longer accepted.
+  //
+  // They emailed on the strength of a visitor sounding interested, with name,
+  // address and organisation all blank because nothing had been collected yet.
+  // The visitor sends the form instead, and that mail says who they are.
+  //
+  // Enforced HERE and not only in the client, because the browser bundle is
+  // cached: every visitor still holding yesterday's JS would otherwise keep
+  // sending these for as long as their cache lives. 202 rather than 4xx — the
+  // old client treats a non-2xx as a failure and re-arms to try again on the
+  // next message, so rejecting it loudly would produce retries instead of
+  // silence. Nothing is sent either way.
+  if (body?.source === "chatbot-started") {
+    return json(res, 202, { ok: true, ignored: "conversation-start notices are no longer sent" });
+  }
+
   const isChatNotification =
     typeof body?.source === "string" && body.source.startsWith("chatbot-");
 

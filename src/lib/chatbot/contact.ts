@@ -366,7 +366,13 @@ export function shouldNotify(input: QualifyInput): { notify: boolean; reason: st
  * will contact you" and then met with silence has been dismissed, not helped.
  */
 export function handoffNotice(hasContact: boolean): string {
+  // Only reached when an email is genuinely sent, which now means the visitor
+  // gave us an address. The no-contact wording used to say the same thing —
+  // "jeg gir beskjed til en rådgiver om samtalen vår" — to anyone who merely
+  // sounded serious. Once that email stopped being sent, keeping the sentence
+  // would have made the assistant describe something that was not happening,
+  // which is the exact class of false promise the guardrails exist to catch.
   return hasContact
     ? " Jeg gir beskjed til en rådgiver som følger opp — og jeg er her videre hvis du lurer på noe mer."
-    : " Jeg gir beskjed til en rådgiver om samtalen vår. Spør gjerne videre imens — jeg svarer så godt jeg kan.";
+    : " Spør gjerne videre — jeg svarer så godt jeg kan, og du kan sende oss en forespørsel når du vil.";
 }

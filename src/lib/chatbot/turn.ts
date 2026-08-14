@@ -76,13 +76,19 @@ export function decideTurn(input: TurnInput): TurnDecision {
   } else if (contact.email && !input.leadAlreadyFiled) {
     notify = "lead";
     reason = "oppga kontaktinfo i chatten";
-  } else if (!input.alreadyNotified) {
-    const verdict = shouldNotify({ userTurns: input.userTurns, interest });
-    if (verdict.notify) {
-      notify = "qualified";
-      reason = verdict.reason;
-    }
   }
+  // A conversation that looks serious no longer emails on its own. It used to:
+  // "every contact must be visible to a human" meant a visitor asking "hva
+  // koster det å leie et lokale?" produced a notification with every field
+  // blank — no name, no email, no organisation — because there was nothing to
+  // put in them. An inbox full of anonymous "someone is chatting" notices is
+  // one nobody reads, which defeats the purpose it was built for.
+  //
+  // The visitor asks to be contacted instead, by filling in the form. That is
+  // the only thing that sends mail now, and it arrives with who they are.
+  // `qualifiedForCta` still marks the moment worth asking at.
+  const qualifiedForCta =
+    !hostile && shouldNotify({ userTurns: input.userTurns, interest }).notify;
 
   // Grade the reply against every rule, not just the false-action one. Each
   // incident on this project was fixed by adding a line to the prompt; each
@@ -111,10 +117,13 @@ export function decideTurn(input: TurnInput): TurnDecision {
     guardTripped,
     violations,
     // Offer the escalation whenever retrieval came up empty, whenever they
-    // asked for something only a human can do, and whenever a false promise
-    // was suppressed — a suppressed promise must always leave a way forward
-    // rather than a dead end.
-    showInquiryCta: input.hitCount === 0 || needsHuman(latest) || guardTripped,
+    // asked for something only a human can do, whenever a false promise was
+    // suppressed — a suppressed promise must always leave a way forward rather
+    // than a dead end — and whenever the conversation reads as serious.
+    // Also offered the moment the conversation reads as serious — that used
+    // to be the trigger for a silent email, and is now the trigger for asking.
+    showInquiryCta:
+      input.hitCount === 0 || needsHuman(latest) || guardTripped || qualifiedForCta,
     interest,
   };
 }

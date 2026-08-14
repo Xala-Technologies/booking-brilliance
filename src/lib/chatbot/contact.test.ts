@@ -224,8 +224,13 @@ describe("shouldNotify — only a serious prospect is worth a human", () => {
 
 describe("handoffNotice — tell them, and stay in the room", () => {
   it("says a rådgiver is being told AND that the assistant is still here", () => {
+    // Only the hasContact form claims a rådgiver, because only that case sends
+    // mail now. The other used to say the same thing to anyone who sounded
+    // serious, and once that email stopped, the sentence described something
+    // that was not happening.
+    expect(handoffNotice(true)).toContain("rådgiver");
+    expect(handoffNotice(false)).not.toContain("rådgiver");
     for (const notice of [handoffNotice(true), handoffNotice(false)]) {
-      expect(notice).toContain("rådgiver");
       // The second half matters as much as the first: "we will contact you"
       // followed by silence is a dismissal, not a handoff.
       expect(notice).toMatch(/jeg er her|spør gjerne/i);

@@ -193,63 +193,14 @@ export function useChatbot() {
    * failed lead POST must not delay or break it. It is logged, not swallowed.
    */
   /**
-   * Tell Digilist a conversation has begun, as soon as it begins.
+   * A conversation-start notifier used to live here.
    *
-   * Asked for directly: every real conversation should reach the inbox, not
-   * only the ones that finish the form. Before this, a visitor could ask about
-   * pricing, get answers, and leave — and nobody at Digilist would know the
-   * conversation had happened at all.
-   *
-   * Skipped when the first message already carries contact details: that case
-   * goes straight to `fileChatLead`, which sends the richer notification, and
-   * two emails about one person is how an inbox gets ignored.
+   * It fired the moment a visitor said anything that sounded serious, and sent
+   * an email with name, address, organisation and phone all blank — because at
+   * that point there was nothing to put in them. Someone asking "hva koster det
+   * å leie et lokale?" produced one. The visitor fills in the form instead, and
+   * the mail that arrives says who they are.
    */
-  const notifyConversationStarted = useCallback(async (userTurns: string[], reason: string) => {
-    const profile = enrichProfile(userTurns);
-    const latest = userTurns[userTurns.length - 1] ?? "";
-    try {
-      const res = await fetch(INQUIRY_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: "",
-          phone: "",
-          name: "",
-          organization: "",
-          persona: profile.segment ?? "ukjent",
-          topic: `Pågående samtale — ${reason}`,
-          message: latest,
-          // The briefing is the point. A raw "someone said hei" tells a human
-          // nothing; what the assistant has established about them — segment,
-          // number of venues, objections, buying signals — is what makes the
-          // email worth opening and gives whoever calls an opening line.
-          contextSummary: `${buildBriefing(profile)}\n\nSamtale:\n${userTurns.map((t, i) => `${i + 1}. ${t}`).join("\n")}`,
-          summary: `Chat: ${reason} — «${latest.slice(0, 70)}»`,
-          source: "chatbot-started",
-          chatStarted: true,
-          page: typeof window !== "undefined" ? window.location.pathname : "/",
-          userAgent: typeof navigator !== "undefined" ? navigator.userAgent : "unknown",
-          timestamp: new Date().toISOString(),
-        }),
-      });
-      // `fetch` RESOLVES on a 4xx/5xx — it does not throw. Without this check
-      // a rejected notification would look like a delivered one, which is the
-      // same silent-400 the /api/chat handler above already documents. It is
-      // how the first version of this shipped: every notification rejected,
-      // nothing logged, conversations still reaching nobody.
-      if (!res.ok) throw new Error(`Inquiry endpoint returned ${res.status}`);
-    } catch (err) {
-      // Re-arm so the NEXT message in this conversation tries again. The whole
-      // point of this notification is that someone getting in touch is never
-      // invisible; dropping it on one transient failure defeats that, and a
-      // duplicate is far cheaper than a missed lead.
-      startNotifiedRef.current = false;
-      // Never surfaced to the visitor: this is our notification, not their
-      // action, and it must not delay or break the reply they are waiting for.
-      console.error("[chatbot] conversation-start notification failed:", err);
-    }
-  }, []);
-
   const fileChatLead = useCallback(
     async (contact: { email: string | null; phone: string | null }, latestTurn: string) => {
       try {
@@ -415,10 +366,10 @@ export function useChatbot() {
             leadFiledRef.current = true;
             startNotifiedRef.current = true; // one person, one email
             void fileChatLead(decision.contact, trimmed);
-          } else if (decision.notify === "qualified") {
-            startNotifiedRef.current = true;
-            void notifyConversationStarted(userTurns, decision.reason);
           }
+          // There is deliberately no `qualified` branch any more. A visitor who
+          // merely sounds serious is offered the form (decision.showInquiryCta)
+          // rather than emailed about — see the note on `notify` in turn.ts.
 
           const assistantMsg: ChatMessage = {
             id: cryptoId(),
@@ -486,7 +437,7 @@ export function useChatbot() {
         dispatch({ type: "SET_THINKING", value: false });
       }, 250);
     },
-    [state.messages, fileChatLead, notifyConversationStarted],
+    [state.messages, fileChatLead],
   );
 
   const startInquiry = useCallback(() => {
@@ -514,8 +465,23 @@ export function useChatbot() {
   const submitInquiry = useCallback(async () => {
     dispatch({ type: "SET_THINKING", value: true });
     dispatch({ type: "SET_ERROR", error: null });
+    // What they asked, carried with who they are.
+    //
+    // The conversation-start notifier used to send this transcript on its own,
+    // with every contact field blank. Deleting it would have thrown away the
+    // useful half — whoever calls back wants to know they were asking about
+    // seasonal allocation for three halls, not just that a form arrived. So the
+    // briefing moves here, onto the mail that has a name and an address on it.
+    const userTurns = state.messages.filter((m) => m.role === "user").map((m) => m.text);
+    const profile = enrichProfile(userTurns);
+    const transcript = userTurns.length
+      ? `${buildBriefing(profile)}\n\nSamtale:\n${userTurns.map((t, i) => `${i + 1}. ${t}`).join("\n")}`
+      : "";
+
     const payload = {
       ...state.inquiry,
+      persona: state.inquiry.persona || profile.segment || "ukjent",
+      contextSummary: transcript,
       summary: summarizeInquiry(state.inquiry),
       source: "chatbot",
       page: typeof window !== "undefined" ? window.location.pathname : "/",
@@ -548,7 +514,7 @@ export function useChatbot() {
           "Vi fikk ikke sendt forespørselen. Prøv igjen, eller send e-post direkte til kontakt@digilist.no.",
       });
     }
-  }, [state.inquiry, state.degraded]);
+  }, [state.inquiry, state.degraded, state.messages]);
 
   const reset = useCallback(() => {
     dispatch({ type: "RESET" });
