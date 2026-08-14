@@ -692,7 +692,7 @@ function CTASection() {
           icon={FileText}
           eyebrow="DETALJER"
           title="Full transparensrapport"
-          body="Per-overflate scoringer for SEO, tilgjengelighet, sikkerhet og lenker, samme data vårt interne team ser."
+          body={t(locale, "status.card.report")}
           href="/transparens"
           cta="Se rapport"
         />
@@ -700,7 +700,7 @@ function CTASection() {
           icon={Mail}
           eyebrow="DIREKTE"
           title="Be om sikkerhetsmøte"
-          body="30–45 min, NDA, sammendrag av siste pen-test, vulnerability-status og beredskapsplan."
+          body={t(locale, "status.card.meeting")}
           href="/book-demo"
           cta="Book demo"
         />
@@ -708,7 +708,7 @@ function CTASection() {
           icon={BookOpen}
           eyebrow="SIKKERHET"
           title="security.txt"
-          body="Fant du en sårbarhet? Vi tar imot ansvarlig rapportering på sikkerhet@digilist.no. Kvittert innen 24 timer."
+          body={t(locale, "status.card.securityTxt")}
           href="/.well-known/security.txt"
           cta="Se security.txt"
         />

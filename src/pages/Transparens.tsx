@@ -552,7 +552,7 @@ export default function Transparens() {
                         icon={Mail}
                         eyebrow="DIREKTE"
                         title="Be om sikkerhetsmøte"
-                        body="30–45 minutter, NDA, sammendrag av siste pen-test, vulnerability-status, RPO/RTO og beredskapsplan."
+                        body={t(locale, "tr.card.meeting")}
                         href={en ? "/en/book-demo" : "/book-demo"}
                         cta="Book demo"
                       />
@@ -582,7 +582,7 @@ export default function Transparens() {
                         icon={FileText}
                         eyebrow="ANSVARLIG SÅRBARHETSRAPPORTERING"
                         title="security.txt"
-                        body="Fant du en sårbarhet? Vi tar imot ansvarlig sårbarhetsrapportering på sikkerhet@digilist.no. Rapportering kvittert innen 24 timer."
+                        body={t(locale, "tr.card.securityTxt")}
                         href="/.well-known/security.txt"
                         cta="Se security.txt"
                       />

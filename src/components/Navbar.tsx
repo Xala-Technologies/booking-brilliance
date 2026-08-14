@@ -165,7 +165,7 @@ const Navbar = () => {
       <div className="container mx-auto md:px-8 lg:px-12 grid grid-cols-[auto_1fr_auto] items-center gap-4">
         <Link
           to="/"
-          aria-label="Digilist, gå til forsiden"
+          aria-label={t(locale, "a11y.homeLink")}
           className="group inline-flex items-center gap-3 shrink-0"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         >

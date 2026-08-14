@@ -317,7 +317,7 @@ export default function UseCasePage({
           <section className="py-12 lg:py-16 bg-paper-tinted border-y border-rule">
             <div className="container mx-auto md:px-8 lg:px-12">
               <section className="mb-14 lg:mb-20">
-                <SectionRule label="SLIK FUNGERER DET" />
+                <SectionRule label={t(locale, "useCase.howItWorks")} />
                 <h2
                   className="mt-8 mb-10 font-serif text-3xl lg:text-4xl text-ink leading-tight max-w-prose"
                   style={{ fontVariationSettings: getFraunces("section") }}
@@ -348,7 +348,7 @@ export default function UseCasePage({
 
               {/* Explainer video */}
               <section className="mb-14 lg:mb-20">
-                <SectionRule label="SE HVORDAN DET FUNGERER" />
+                <SectionRule label={t(locale, "useCase.seeHow")} />
                 <div className="mt-8">
                   <VideoPlaceholder
                     label={`FILM · ${breadcrumb.toUpperCase()}`}

@@ -254,7 +254,7 @@ export function InquiryFlow({
           </p>
 
           <Field
-            label="Organisasjon eller kommune"
+            label={t(locale, "demo.orgOrCouncil")}
             id="chat-org"
             required
             value={draft.organization}

@@ -199,7 +199,7 @@ const HeroSection = () => {
                 <ThemedVideo
                   className="w-full block"
                   style={{ aspectRatio: "16 / 9" }}
-                  ariaLabel="Digilist i praksis – fra søk til booking"
+                  ariaLabel={t(locale, "a11y.heroVideo")}
                   light={{
                     webm: "/videos/digilist-hero-demo-light.webm",
                     mp4: "/videos/digilist-hero-demo-light.mp4",

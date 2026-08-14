@@ -221,7 +221,7 @@ export function ChatConversation({ controller, onClose, closeVariant = "close" }
                     void handleSend();
                   }
                 }}
-                placeholder="Søk eller spør om Digilist …"
+                placeholder={t(locale, "chat.searchPlaceholder")}
                 disabled={state.thinking}
                 className="flex-1 resize-none border border-hairline-strong bg-paper px-3 py-2.5 rounded-sm text-sm text-ink focus:outline-none focus:border-ink max-h-32 disabled:opacity-50"
               />
