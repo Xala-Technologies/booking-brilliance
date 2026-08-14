@@ -2,7 +2,7 @@
 slug: bryllupsbudsjett-totalpris-catering-utstyr-overnatting
 title: "Bryllupsbudsjett 2026: alt fra lokale til overnatting i én sum"
 description: "Bryllupslokalet er bare én post i totalregnestykket. Se hva catering, utstyr, dekor, tjenester, betalingsplan og overnatting til gjestene faktisk koster, og bygg et realistisk budsjett."
-date: 2026-08-13
+date: 2026-08-14
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7
