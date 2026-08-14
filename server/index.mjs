@@ -136,6 +136,9 @@ function json(res, status, body, extraHeaders = {}) {
   res.end(JSON.stringify(body));
 }
 
+/** Mirror of MAX_SYSTEM_CHARS in src/lib/chatbot/limits.ts. Pinned by a test. */
+const MAX_SYSTEM_CHARS = 12000;
+
 async function readJson(req, maxBytes = 64 * 1024) {
   return new Promise((resolve, reject) => {
     let received = 0;
@@ -206,7 +209,15 @@ async function handleChat(req, res, body, ip) {
   ) {
     return json(res, 400, { error: "Invalid request" });
   }
-  if (body.messages.length > 16 || body.system.length > 8000) {
+  // Keep in step with MAX_SYSTEM_CHARS in src/lib/chatbot/limits.ts — the
+  // client cannot import this file, and limits.test.ts pins the two together.
+  //
+  // Was 8000, which the prompt outgrew. The client had no idea the ceiling
+  // existed, so it kept building prompts a few hundred characters over it and
+  // the endpoint refused them: 9 of 38 topics, every pricing question among
+  // them. The visitor got a fallback answer read out of the FAQ and nothing
+  // reported that anything had failed.
+  if (body.messages.length > 16 || body.system.length > MAX_SYSTEM_CHARS) {
     return json(res, 413, { error: "Request too large" });
   }
   if (rateLimited(ip, 30)) {

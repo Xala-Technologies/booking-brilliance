@@ -1,4 +1,5 @@
 import { FAQ_CATEGORIES, allFAQEntries } from "@/content/faq";
+import { SYSTEM_BUDGET } from "./limits";
 import { FAQ_CATEGORIES_EN } from "@/content/faq.en";
 import { conversationLanguage, type ChatLanguage } from "./language";
 import type { SearchItem } from "@/lib/search/corpus";
@@ -201,10 +202,15 @@ export function buildLLMContext(
         `[${i + 1}] (${h.category})\nSpørsmål: ${h.q}\nSvar: ${h.a}`,
     )
     .join("\n\n");
-  const sider = pages
-    .slice(0, 6)
-    .map((p) => `- ${p.title}${p.subtitle ? `: ${p.subtitle}` : ""} (${p.href})`)
-    .join("\n");
+  // Page suggestions are the first thing dropped when the prompt runs long.
+  //
+  // They are the least load-bearing part of it: the FAQ entries are what the
+  // answer must be grounded in, while these are "you might also read". Trimming
+  // the subtitle first, then the count, keeps grounding intact and still gives
+  // the model somewhere to point.
+  const pageLine = (p: SearchItem, withSubtitle: boolean) =>
+    `- ${p.title}${withSubtitle && p.subtitle ? `: ${p.subtitle}` : ""} (${p.href})`;
+  let sider = pages.slice(0, 6).map((p) => pageLine(p, true)).join("\n");
   // The prompt used to be a SUPPORT prompt: answer from KILDER, three sentences,
   // otherwise point at the contact form. It contained no instruction to listen,
   // ask anything back, or notice someone trying to buy — which is exactly the
@@ -218,14 +224,24 @@ export function buildLLMContext(
   const enriched = enrichProfile(userTurns);
   const stage = inferStage({ userTurns, completeness: profileCompleteness(enriched) });
 
-  const system = buildSalesSystemPrompt({
+  const promptArgs = {
     language: conversationLanguage({ userTurns, pageLocale }),
     stage,
     profile: enriched,
     latestUserTurn: query,
     sources: corpus,
-    pages: sider,
-  });
+  };
+
+  let system = buildSalesSystemPrompt({ ...promptArgs, pages: sider });
+  // Trim only if we are over budget, and in order of what costs least to lose.
+  if (system.length > SYSTEM_BUDGET) {
+    sider = pages.slice(0, 6).map((p) => pageLine(p, false)).join("\n");
+    system = buildSalesSystemPrompt({ ...promptArgs, pages: sider });
+  }
+  for (let n = 5; n >= 0 && system.length > SYSTEM_BUDGET; n--) {
+    sider = pages.slice(0, n).map((p) => pageLine(p, false)).join("\n");
+    system = buildSalesSystemPrompt({ ...promptArgs, pages: sider });
+  }
 
   return {
     system,
