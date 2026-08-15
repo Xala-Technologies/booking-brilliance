@@ -48,11 +48,9 @@ pnpm dev:web
 | `pnpm test:convex` | Convex-funksjon-tester (Vitest, edge-runtime) | ~1 470 |
 | `pnpm test:convex:watch` | Convex-tester i watch-modus | — |
 | `pnpm test:convex:e2e` | Backend E2E-tester | ~71 |
-| `pnpm test:all` | Hele suiten | ~1 822 |
-
-Playwright browser-E2E (`test:e2e`, `test:e2e:a11y`, `test:e2e:critical`, `test:e2e:compat`,
-`test:e2e:perf`, `test:demos`) er fjernet fra repoet. Release-gating kjører nå på
-`verify + security + critical-tests` i stedet for `e2e-critical`.
+| `pnpm test:e2e` | Playwright browser E2E | ~135 |
+| `pnpm test:e2e:a-krav` | Compliance E2E-suiter (A–K) | ~87 |
+| `pnpm test:all` | Hele suiten | ~2 044 |
 
 Kjøre én test-fil:
 

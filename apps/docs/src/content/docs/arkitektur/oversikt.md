@@ -120,7 +120,7 @@ Operatør-verktøy — bygd oppå plattform + forretning.
 
 ## 5. Drift- og test-tall
 
-- **~1 822 tester** totalt: 281 SDK + 1 470 Convex unit + 71 Convex E2E (browser-E2E med Playwright er fjernet, se [Utvikling](/utvikling/))
+- **~2 044 tester** totalt: 281 SDK + 1 470 Convex unit + 71 Convex E2E + 135 Playwright + 87 A-krav
 - **99,98 % oppetid** siste 90 dager (mai 2026)
 - **94s median booking-tid** fra førstegangs-besøk til bekreftet betaling
 - **100 % EØS-data-lokasjon** (Frankfurt / Stockholm)
