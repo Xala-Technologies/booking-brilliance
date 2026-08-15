@@ -6,7 +6,7 @@ description: Forutsetninger, oppsett, kommandoer, monorepo-struktur, konvensjone
 import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
 
 Digilist er et pnpm monorepo med 2 apper, 8 delte pakker, og en Convex-kontrollplan.
-Stack: TypeScript, React 18, Tailwind, Convex, Vitest, Playwright.
+Stack: TypeScript, React 18, Tailwind, Convex, Vitest.
 
 <CardGrid>
   <Card title="pnpm 9+" icon="rocket">
@@ -18,8 +18,8 @@ Stack: TypeScript, React 18, Tailwind, Convex, Vitest, Playwright.
   <Card title="Source-only SDK" icon="puzzle">
     `@digilist/sdk` har ingen byggesteg. Endre en hook → app ser endringen umiddelbart.
   </Card>
-  <Card title="~2 044 tester" icon="approve-check">
-    SDK (281) + Convex unit (1 470) + Convex E2E (71) + Playwright (135) + A-krav (87).
+  <Card title="~1 822 tester" icon="approve-check">
+    SDK (281) + Convex unit (1 470) + Convex E2E (71). Browser-E2E med Playwright er fjernet.
   </Card>
 </CardGrid>
 
