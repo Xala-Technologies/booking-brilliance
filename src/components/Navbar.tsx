@@ -211,15 +211,24 @@ const Navbar = () => {
           </span>
         </Link>
 
-        {/* Center: primary nav (xl+) + søk (md–lg only; the desktop rail
-            replaces search at lg+). */}
+        {/* Center: søk (md+) + primary nav (xl+). The assistant rail was
+            assumed to replace search at `lg+`, so this was `lg:hidden` — but
+            the rail is a chat panel, not a search box, which left every
+            desktop width with no way to search the site at all. Search is back
+            at every width from `md`; it just gets narrower at `xl`, where the
+            inline nav appears beside it. */}
         <div className="flex items-center justify-center gap-6 min-w-0">
-          <div className="hidden md:flex lg:hidden w-full max-w-[320px]">
+          {/* Takes whatever width the nav leaves rather than a fixed one: at
+              `xl` the two share this column and the links can't wrap, so the
+              box absorbs the slack (and gives it back when the assistant rail
+              opens and reclaims 22rem) instead of pushing the nav into the
+              actions column. */}
+          <div className="hidden md:flex flex-1 min-w-0 max-w-[320px]">
             <GlobalSearch />
           </div>
           <nav
             aria-label={t(locale, "nav.main")}
-            className="hidden xl:flex items-center gap-6 2xl:gap-8"
+            className="hidden xl:flex shrink-0 items-center gap-6 2xl:gap-8"
           >
             {/* Norwegian-only sections. The pages behind them do not exist in
                 English, and a menu whose every item leaves the language is
