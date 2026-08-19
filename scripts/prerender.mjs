@@ -2461,7 +2461,11 @@ const BRAND_MENTIONS = [
   { "@type": "Service", name: "Vipps", url: "https://vipps.no" },
   { "@type": "Service", name: "BankID", url: "https://bankid.no" },
   { "@type": "Service", name: "ID-porten", url: "https://www.idporten.no" },
-  { "@type": "Service", name: "EHF / Peppol", url: "https://peppol.eu" },
+  // The apex peppol.eu has no DNS A record, so this URL resolved to nothing
+  // — a dead link in the JSON-LD of every page, homepage included. The live
+  // OpenPeppol site is peppol.org; only peppol.eu SUBdomains (docs.,
+  // directory.) still resolve, which is why the dead apex looked fine.
+  { "@type": "Service", name: "EHF / Peppol", url: "https://peppol.org" },
   { "@type": "Organization", name: "Digdir", url: "https://www.digdir.no" },
   {
     "@type": "Organization",
