@@ -27,3 +27,33 @@ Updated /bookingsystem-utleie landing page with CoS-approved copy for on-page SE
 - No changes to /bookingsystem-kommune, homepage, or blog posts
 - English version updated in parallel to maintain consistency
 - PR created as draft, ready for review
+
+## 2026-08-20 - Kontorlokaler Page Content and SEO Update
+
+Updated /leie/kontorlokaler page with approved copy for both page content and SEO metadata.
+
+### Completed Tasks
+- Updated H1 to "Kontorlokaler til leie"
+- Updated SEO title to "Kontorlokaler til leie: pris og vilkår synlig"
+- Updated meta description to exact approved text
+- Added opening scene with three-sentence hook about price visibility
+- Updated lead with two-sentence value proposition
+- Added new H2 section "Hva er kontorlokaler på Digilist?" with three explanatory paragraphs
+- Expanded FAQ from 6 to 8 questions including definitions
+- Updated prerender.mjs with all SEO metadata and 8 FAQs for JSON-LD schema
+- Enhanced UseCasePage component with optional introSection prop
+
+### Technical Details
+- Branch: cursor/kontorlokaler-seo-content-6d33
+- PR: https://github.com/Xala-Technologies/booking-brilliance/pull/308
+- Files modified: src/pages/LeieKontorlokaler.tsx, scripts/prerender.mjs, src/components/UseCasePage.tsx
+- Build status: Passing
+- Lint status: Passing
+- Merged: Yes
+
+### Notes
+- Both page content and SEO metadata updated in same PR
+- User stories remain marked as "Illustrasjon"
+- Only Norwegian /leie/kontorlokaler page updated
+- No changes to English routes, homepage, or blog content
+- Avoided previous issue where prerender was missed
