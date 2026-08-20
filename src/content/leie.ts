@@ -48,6 +48,10 @@ export interface RentCopy {
   h1: string;
   h1em: string;
   lede: string;
+  definitionH2: string;
+  definitionP1: string;
+  definitionP2: string;
+  definitionP3: string;
   ctaFind: string;
   ctaHow: string;
   rentOutPromptA: string;
@@ -218,6 +222,11 @@ const FAQ_NB: readonly QA[] = [
     answer:
       "Avbestillingsvilkårene settes av utleier og vises tydelig på hvert lokale før du booker. Der det er tillatt, kan du avbestille digitalt, og et eventuelt depositum frigjøres automatisk etter reglene som gjelder for lokalet.",
   },
+  {
+    question: "Hva er lokaler til leie?",
+    answer:
+      "Rom du leier for en kveld, en time eller en helg: selskapslokale, møterom, idrettshall, kulturhus eller grendehus. På Digilist ser du pris og ledig dato før du booker, både hos private utleiere og kommuner.",
+  },
 ];
 
 const GROUPS_EN: readonly CategoryGroup[] = [
@@ -369,18 +378,25 @@ const FAQ_EN: readonly QA[] = [
 ];
 
 const NB: RentCopy = {
-  metaTitle: "Leie lokaler – finn og book selskapslokale | Digilist",
+  metaTitle: "Lokaler til leie: finn og book med synlig pris",
   metaDescription:
-    "Leie lokaler på nett: både private selskapslokaler og kommunale lokaler samlet ett sted. Se ekte priser og ledige datoer, og book direkte med Vipps – til bryllup, selskap, møte eller arrangement.",
+    "Lokaler til leie på nett: private selskapslokaler og kommunale haller i samme kalender. Ekte pris, ledig dato og Vipps. Fest, møte eller idrett.",
   keywords:
-    "leie lokale, finn lokale, leie selskapslokale, leie møterom, leie festlokale, leie lokale til bursdag, hva koster selskapslokale, book lokale online, leie kulturhus, leie grendehus",
+    "lokaler til leie, leie lokaler, selskapslokale, kommunale lokaler, booke lokale",
   howToName: "Slik finner og booker du lokale",
   howToDescription: "Finn, book og betal med Vipps på tre steg via Digilist.",
   rule: "FINN LOKALE",
-  h1: "Finn og book lokale til festen,",
+  h1: "Lokaler til leie,",
   h1em: "der du bor",
   lede:
-    "Du kan leie lokaler på nett gjennom Digilist, en norsk bookingplattform der både private selskapslokaler og kommunale lokaler ligger i samme kalender. Søk på sted og dato, se ekte priser og hva som faktisk er ledig, og book direkte med Vipps, uten forespørsler og venting.",
+    "Du leter på kommunens side. Så på Finn. Så i en Facebook-gruppe. På Digilist ligger private og kommunale lokaler i samme kalender. Ekte pris og ledig dato synlig, og du booker med Vipps.",
+  definitionH2: "Hva er lokaler til leie?",
+  definitionP1:
+    "Lokaler til leie er rom du booker for en dato: selskapslokale, møterom, hall, kulturhus, grendehus.",
+  definitionP2:
+    "På Digilist ligger private og kommunale lokaler i samme kalender, med pris og ledig tid synlig.",
+  definitionP3:
+    "Du booker og betaler med Vipps, uten e-post og uten å ringe kommunen.",
   ctaFind: "Finn ledige lokaler",
   ctaHow: "Slik funker det",
   rentOutPromptA: "Skal du leie ",
@@ -396,7 +412,7 @@ const NB: RentCopy = {
   howRule: "SLIK BOOKER DU",
   howKinds: "FINN · BOOK · BETAL MED VIPPS",
   faqRule: "SPØRSMÅL OG SVAR",
-  faqH2: "Vanlige spørsmål om å leie lokale.",
+  faqH2: "Vanlige spørsmål om lokaler til leie",
   rentOutTail: "Skal du leie ut lokaler?",
   ctaHeading: "Klar til å finne lokalet?",
   ctaBody:
@@ -419,6 +435,13 @@ const EN: RentCopy = {
   h1em: "where you live",
   lede:
     "You can rent a venue online through Digilist, a Norwegian booking platform where private function rooms and municipal venues sit in the same calendar. Search by place and date, see real prices and what is genuinely free, and book directly — without enquiries and waiting.",
+  definitionH2: "What are venues for rent?",
+  definitionP1:
+    "Venues for rent are spaces you book for a date: function rooms, meeting rooms, halls, cultural venues, community halls.",
+  definitionP2:
+    "On Digilist, private and municipal venues sit in the same calendar, with prices and availability shown.",
+  definitionP3:
+    "You book and pay online, without email exchanges and without calling the council.",
   ctaFind: "Find available venues",
   ctaHow: "How it works",
   rentOutPromptA: "Are you renting a venue ",
