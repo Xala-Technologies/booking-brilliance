@@ -8,12 +8,20 @@ export default function LeieKontorlokaler() {
       sectionLabel="LEIE"
       slug="kontorlokaler"
       breadcrumb="Kontorlokaler"
-      title="Leie kontorlokaler"
-      dek="Privat kontor på fleksibel leie. Finn ledig kontorlokale nær deg, se pris og vilkår, og reserver på nett."
-      lead="Å finne kontor til en liten bedrift er ofte unødvendig tungt. Markedet er uoversiktlig, mange annonser oppgir ikke pris, felleskostnadene kommer som en overraskelse, og standardkontrakten binder deg i tre til fem år. Vil du bare se noen lokaler, må du gjerne gjennom en megler-runde først. På Digilist er ledige kontorlokaler samlet ett sted, med pris, felleskostnader, vilkår og ledig fra-dato synlig før du tar kontakt. Du finner private cellekontor, teamkontor og satellittkontor med fleksibel leie, og kan reservere digitalt når du har funnet det som passer."
-      seoTitle="Leie kontorlokaler: pris, vilkår og fleksibel leie | Digilist"
-      seoDescription="Leie kontorlokaler til din bedrift: finn ledige kontor nær deg, se pris med felleskostnader og vilkår, og reserver digitalt. Fleksibel leie uten lang binding."
+      title="Kontorlokaler til leie"
+      dek="Kjøkkenbordet er for lite. Megler-runden kommer før prisen. Kontrakten er tre år."
+      lead="På Digilist ser du månedsleie, felleskostnader og vilkår før du tar kontakt. Cellekontor, teamkontor og satellittkontor med kort binding, ikke en treårskontrakt som standard."
+      seoTitle="Kontorlokaler til leie: pris og vilkår synlig"
+      seoDescription="Kontorlokaler med månedsleie, felleskostnader og ledig fra-dato synlig før du tar kontakt. Cellekontor og teamkontor med kort binding, ikke en treårskontrakt."
       keywords="leie kontorlokaler, leie kontor, kontorlokaler til leie, kontor til leie, privat kontor leie, fleksibel kontorleie, leie kontorplass, satellittkontor, korttidsleie kontor"
+      introSection={{
+        heading: "Hva er kontorlokaler på Digilist?",
+        paragraphs: [
+          "Kontorlokaler her er cellekontor, teamkontor og satellittkontor du kan leie med synlig pris, ikke en FINN-næringsannonse uten tall.",
+          "Du ser månedsleie, felleskostnader, vilkår og ledig fra-dato før du tar kontakt.",
+          "Bindingen er kort eller løpende når utleier tilbyr det. Ikke en tre-til-fem-årskontrakt som standard.",
+        ],
+      }}
       audience={[
         {
           persona: "Gründere og oppstartsbedrifter",
@@ -157,6 +165,16 @@ export default function LeieKontorlokaler() {
           question: "Hvordan fungerer oppsigelse?",
           answer:
             "Oppsigelsestiden settes av utleier og står på lokalet før du reserverer, sammen med bindingstid og eventuelle depositumsregler. Ved løpende leie er oppsigelsestiden ofte en til tre måneder, og der det er mulig håndterer du oppsigelsen digitalt.",
+        },
+        {
+          question: "Hva er kontorlokaler?",
+          answer:
+            "Et rom eller en etasje bedriften leier til arbeid: cellekontor, teamkontor eller satellittkontor. På Digilist ser du pris, felleskostnader og vilkår før du tar kontakt.",
+        },
+        {
+          question: "Er dette det samme som lokaler til leie?",
+          answer:
+            "Kontorlokaler er én type. Selskapslokale, møterom og hall ligger under lokaler til leie. Denne siden er bare kontor.",
         },
       ]}
       relatedPosts={[

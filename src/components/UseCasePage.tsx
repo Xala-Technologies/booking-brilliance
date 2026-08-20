@@ -91,6 +91,8 @@ export interface UseCasePageProps {
   pullQuote?: { text: string; byline: string };
   /** Optional inline ReactNode injected before FAQ. */
   extra?: ReactNode;
+  /** Optional intro section with H2 + content rendered between lead and audience. */
+  introSection?: { heading: string; paragraphs: string[] };
   /** URL segment these slug pages live under. Default "/bruksomrader". Set "/leie" for the B2C track. */
   basePath?: string;
   /** Parent breadcrumb (name + route). Defaults to the Bruksområder hub. */
@@ -113,6 +115,7 @@ export default function UseCasePage({
   title,
   dek,
   lead,
+  introSection,
   seoTitle,
   seoDescription,
   keywords,
@@ -255,6 +258,24 @@ export default function UseCasePage({
                   {lead}
                 </p>
               </figure>
+
+              {introSection && (
+                <section className="mb-14 lg:mb-20">
+                  <h2
+                    className="font-serif text-3xl lg:text-4xl text-ink leading-tight mb-6"
+                    style={{ fontVariationSettings: getFraunces("section") }}
+                  >
+                    {introSection.heading}
+                  </h2>
+                  <div className="space-y-4">
+                    {introSection.paragraphs.map((p, i) => (
+                      <p key={i} className="text-lg text-ink leading-relaxed">
+                        {p}
+                      </p>
+                    ))}
+                  </div>
+                </section>
+              )}
 
               {/* Audience */}
               <section className="mb-14 lg:mb-20">

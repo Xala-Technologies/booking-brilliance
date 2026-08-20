@@ -1046,9 +1046,9 @@ const ROUTES = [
   },
   {
     route: "/leie/kontorlokaler",
-    title: "Leie kontorlokaler: pris, vilkår og fleksibel leie | Digilist",
+    title: "Kontorlokaler til leie: pris og vilkår synlig",
     description:
-      "Leie kontorlokaler til din bedrift: finn ledige kontor nær deg, se pris med felleskostnader og vilkår, og reserver digitalt. Fleksibel leie uten lang binding.",
+      "Kontorlokaler med månedsleie, felleskostnader og ledig fra-dato synlig før du tar kontakt. Cellekontor og teamkontor med kort binding, ikke en treårskontrakt.",
     ogType: "website",
     service: true,
     breadcrumbs: [
@@ -1059,11 +1059,35 @@ const ROUTES = [
     faq: [
       {
         q: "Hva koster det å leie kontorlokaler?",
-        a: "Prisen avhenger av by, beliggenhet, størrelse og hva som er inkludert. Et enkelt cellekontor kan koste fra noen tusen kroner i måneden, mens større teamkontor i sentrale strøk ligger høyere. På Digilist ser du månedsleie og felleskostnader samlet på hvert lokale.",
+        a: "Prisen avhenger av by, beliggenhet, størrelse og hva som er inkludert. Et enkelt cellekontor kan koste fra noen tusen kroner i måneden, mens større teamkontor i sentrale strøk ligger høyere. På Digilist ser du månedsleie og felleskostnader samlet på hvert lokale, slik at du sammenligner reell totalpris.",
       },
       {
         q: "Kan jeg leie kontor på korttid eller uten lang binding?",
-        a: "Ja. Mange lokaler på Digilist tilbys med kort bindingstid, løpende leie eller ren korttidsleie. Det passer for prosjekter, satellittkontor eller bedrifter som vil teste et område før de binder seg.",
+        a: "Ja. Mange lokaler på Digilist tilbys med kort bindingstid, løpende leie eller ren korttidsleie. Det passer for prosjekter, satellittkontor eller bedrifter som vil teste et område før de binder seg. Filtrer på fleksible vilkår når du søker.",
+      },
+      {
+        q: "Hva er inkludert i leien?",
+        a: "Det varierer fra lokale til lokale, og derfor står det tydelig på hvert kontor: møbler, wifi, tilgang til felles møterom, resepsjon, renhold og strøm kan være inkludert eller komme i tillegg. Du ser hele pakken før du reserverer.",
+      },
+      {
+        q: "Hva er forskjellen på coworking og eget kontor?",
+        a: "Coworking er en plass i et delt landskap, ofte med drop-in og skrivebord du deler med andre. Et eget kontorlokale er ditt: et privat cellekontor eller teamkontor med dør du kan lukke, fast adresse for bedriften og plass til utstyret deres. Mange kontorer har likevel tilgang til felles møterom og fellesarealer.",
+      },
+      {
+        q: "Kan bedriften betale med faktura?",
+        a: "Ja. Leien kan betales med faktura eller EHF direkte til bedriften, og du får bilag og kvitteringer samlet ett sted. For mindre leieforhold kan du også betale med kort eller Vipps.",
+      },
+      {
+        q: "Hvordan fungerer oppsigelse?",
+        a: "Oppsigelsestiden settes av utleier og står på lokalet før du reserverer, sammen med bindingstid og eventuelle depositumsregler. Ved løpende leie er oppsigelsestiden ofte en til tre måneder, og der det er mulig håndterer du oppsigelsen digitalt.",
+      },
+      {
+        q: "Hva er kontorlokaler?",
+        a: "Et rom eller en etasje bedriften leier til arbeid: cellekontor, teamkontor eller satellittkontor. På Digilist ser du pris, felleskostnader og vilkår før du tar kontakt.",
+      },
+      {
+        q: "Er dette det samme som lokaler til leie?",
+        a: "Kontorlokaler er én type. Selskapslokale, møterom og hall ligger under lokaler til leie. Denne siden er bare kontor.",
       },
     ],
   },
