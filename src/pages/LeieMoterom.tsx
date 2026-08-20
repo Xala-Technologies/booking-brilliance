@@ -9,11 +9,21 @@ export default function LeieMoterom() {
       slug="moterom"
       breadcrumb="Møterom"
       title="Leie møterom"
-      dek="Kundemøte, workshop, kurs eller styremøte. Finn ledig møterom nær deg, se pris per time, og book på nett med Vipps."
-      lead="Trenger du et møterom noen timer, ender du ofte med å google, ringe rundt og vente på tilbud, for et rom du kanskje bare skal bruke en formiddag. På Digilist finner du møterom i nærområdet samlet ett sted, kommunale rom, næringsbygg og private tilbydere, med pris per time og hva som faktisk er ledig, synlig før du booker. Du booker direkte, betaler med Vipps, og får bekreftelsen med en gang. Ingen ringerunde, ingen venting på svar."
-      seoTitle="Leie møterom: pris per time og booking på nett | Digilist"
-      seoDescription="Leie møterom til møte, workshop, kurs eller intervju: se pris per time, ledige tider i sanntid, og book på nett med Vipps. Møterom nær deg, samlet ett sted."
-      keywords="leie møterom, møterom til leie, hva koster møterom, leie møterom pris, book møterom online, møterom per time, leie møtelokale, møterom workshop, møterom kurs"
+      dek="Leie møterom per time: se pris og ledig tid før du booker med Vipps. Kommunale rom og private i samme kalender. Kundemøte, workshop, intervju eller styremøte."
+      lead="Google. Ring rundt. Vent på tilbud, for et rom du skal bruke en formiddag.
+
+På Digilist booker du møterom per time. Pris og ledig tid synlig, kommunalt og privat i samme kalender."
+      seoTitle="Leie møterom: pris per time synlig"
+      seoDescription="Leie møterom per time: se pris og ledig tid før du booker med Vipps. Kommunale rom og private i samme kalender. Kundemøte, workshop, intervju eller styremøte."
+      keywords="leie møterom, møterom, leie styrerom, booke møterom, møterom per time"
+      introSection={{
+        heading: "Hva er et møterom på Digilist?",
+        paragraphs: [
+          "Et møterom her er et rom du booker per time: kundemøte, workshop, intervju eller styremøte.",
+          "På Digilist ligger kommunale rom, næringsbygg og private tilbydere i samme kalender, med pris per time og ledig tid synlig.",
+          "Du booker og betaler med Vipps, uten å ringe rundt og vente på tilbud.",
+        ],
+      }}
       audience={[
         {
           persona: "Selvstendige og frilansere",
@@ -127,6 +137,7 @@ export default function LeieMoterom() {
         text: "Et møterom noen timer skal ikke kreve ringerunde og pristilbud på e-post. Søk, se pris per time, book med Vipps, ferdig.",
         byline: "Slik er Digilist ment å fungere for deg som skal leie",
       }}
+      faqHeading="Vanlige spørsmål om å leie møterom"
       faq={[
         {
           question: "Hva koster det å leie et møterom?",
@@ -157,6 +168,16 @@ export default function LeieMoterom() {
           question: "Kan jeg avbestille hvis møtet flyttes?",
           answer:
             "Avbestillingsreglene settes av utleier og står på hvert rom før du booker. Der det er tillatt, avbestiller du digitalt med noen klikk, og eventuell refusjon følger reglene som gjelder for rommet.",
+        },
+        {
+          question: "Hva er et møterom?",
+          answer:
+            "Et rom du leier for en eller flere timer til møte, workshop, intervju eller styremøte. På Digilist ser du pris per time og ledig tid før du booker, både hos kommuner og private utleiere.",
+        },
+        {
+          question: "Kan jeg leie styrerom, eller bare vanlige møterom?",
+          answer:
+            "Ja. Styrerom ligger i samme oversikt. Du filtrerer på antall personer og ser om skjerm, tavle og videomøteutstyr følger med, før du booker.",
         },
       ]}
       relatedPosts={[

@@ -1016,9 +1016,9 @@ const ROUTES = [
   },
   {
     route: "/leie/moterom",
-    title: "Leie møterom: pris per time og booking på nett | Digilist",
+    title: "Leie møterom: pris per time synlig",
     description:
-      "Leie møterom til møte, workshop, kurs eller intervju: se pris per time, ledige tider i sanntid, og book på nett med Vipps. Møterom nær deg, samlet ett sted.",
+      "Leie møterom per time: se pris og ledig tid før du booker med Vipps. Kommunale rom og private i samme kalender. Kundemøte, workshop, intervju eller styremøte.",
     ogType: "website",
     service: true,
     breadcrumbs: [
@@ -1029,11 +1029,35 @@ const ROUTES = [
     faq: [
       {
         q: "Hva koster det å leie et møterom?",
-        a: "Prisen varierer med sted, størrelse og utstyr. Et enkelt rom for fire til seks personer kan koste fra et par hundre kroner per time, mens større rom med videomøteutstyr ligger høyere. Kommunale rom er ofte rimelige. På Digilist ser du totalen for dine timer før du booker.",
+        a: "Prisen varierer med sted, størrelse og utstyr. Et enkelt rom for fire til seks personer kan koste fra et par hundre kroner per time, mens større rom med videomøteutstyr ligger høyere. Kommunale rom er ofte rimelige, og noen er gratis for lag og foreninger. På Digilist står prisen per rom, og du ser totalen for dine timer før du booker.",
       },
       {
         q: "Kan jeg leie møterom for bare noen timer?",
-        a: "Ja. De fleste rommene bookes per time, så du betaler for de timene du faktisk trenger, enten det er et møte på en time eller en workshop over en hel dag.",
+        a: "Ja. De fleste rommene bookes per time, så du betaler for de timene du faktisk trenger, enten det er et møte på en time eller en workshop over en hel dag. Du velger tidene i kalenderen når du booker.",
+      },
+      {
+        q: "Hvordan ser jeg om rommet er ledig?",
+        a: "Kalenderen på hvert rom viser ledige tider i sanntid. Du velger dato og klokkeslett, booker direkte og får bekreftelsen med en gang, uten å sende forespørsel og vente på svar.",
+      },
+      {
+        q: "Hva følger med rommet?",
+        a: "Det varierer, og derfor står det oppgitt på hvert rom: skjerm eller prosjektor, tavle, videomøteutstyr, trådløst nett, og om kaffe og vann er inkludert. Sjekk rombeskrivelsen før du booker, så vet du hva du kommer til.",
+      },
+      {
+        q: "Kan jeg booke som bedrift og få faktura?",
+        a: "Du kan booke som privatperson eller på vegne av en bedrift eller forening. Betaling skjer med Vipps eller kort i samme flyt, og der utleier tilbyr det, kan bedrifter få faktura i stedet.",
+      },
+      {
+        q: "Kan jeg avbestille hvis møtet flyttes?",
+        a: "Avbestillingsreglene settes av utleier og står på hvert rom før du booker. Der det er tillatt, avbestiller du digitalt med noen klikk, og eventuell refusjon følger reglene som gjelder for rommet.",
+      },
+      {
+        q: "Hva er et møterom?",
+        a: "Et rom du leier for en eller flere timer til møte, workshop, intervju eller styremøte. På Digilist ser du pris per time og ledig tid før du booker, både hos kommuner og private utleiere.",
+      },
+      {
+        q: "Kan jeg leie styrerom, eller bare vanlige møterom?",
+        a: "Ja. Styrerom ligger i samme oversikt. Du filtrerer på antall personer og ser om skjerm, tavle og videomøteutstyr følger med, før du booker.",
       },
     ],
   },
