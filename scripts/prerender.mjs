@@ -3346,6 +3346,52 @@ ${sitemapEntries
     console.warn(`  ⚠ Critical CSS step skipped: ${e?.message ?? e}`);
   }
 
+  // Generate redirects for untranslated /en/* paths.
+  // Any Norwegian route that's not in TRANSLATED_ROUTES should redirect from
+  // /en/* to the Norwegian URL. This ensures crawlers GET a proper redirect
+  // (meta refresh + canonical) instead of the homepage fallback.
+  const norwegianRoutes = ROUTES.filter(r => !r.route.startsWith("/en"))
+    .map(r => r.route)
+    .concat([
+      "/leie/selskapslokale", "/leie/gaard", "/leie/bursdagslokale",
+      "/leie/kulturhus", "/leie/moterom", "/leie/konferanselokale",
+      "/leie/kontorlokaler", "/leie/coworking", "/leie/idrettshall",
+      "/leie/hall", "/leie/padelbane", "/leie/svommehall", "/leie/hobbyklubb",
+    ]); // Add routes that render but aren't in ROUTES array
+
+  const redirectsGenerated = [];
+  for (const nbPath of norwegianRoutes) {
+    if (Object.prototype.hasOwnProperty.call(TRANSLATED_ROUTES, nbPath)) {
+      continue; // This path has an English translation, skip redirect
+    }
+    const enPath = `/en${nbPath}`;
+    const targetUrl = `${BASE_URL}${nbPath}`;
+    
+    // Simple redirect HTML with meta refresh, canonical, and noindex
+    const redirectHTML = `<!doctype html>
+<html lang="nb-NO">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="refresh" content="0; url=${targetUrl}">
+<link rel="canonical" href="${targetUrl}">
+<meta name="robots" content="noindex, follow">
+<title>Redirect</title>
+</head>
+<body>
+<p>Redirecting to <a href="${targetUrl}">${targetUrl}</a>…</p>
+</body>
+</html>`;
+
+    const outDir = join(DIST, enPath.replace(/^\//, ""));
+    await fs.mkdir(outDir, { recursive: true });
+    await fs.writeFile(join(outDir, "index.html"), redirectHTML, "utf-8");
+    redirectsGenerated.push(enPath);
+  }
+  
+  if (redirectsGenerated.length > 0) {
+    console.log(`  ✓ Generated ${redirectsGenerated.length} redirect(s) for untranslated /en/* paths`);
+  }
+
   console.log(`\nPre-rendered ${ROUTES.length + 1 + 1 + posts.length} pages + sitemap.`);
 }
 
