@@ -50,3 +50,61 @@
 - Lint passed with pre-existing warnings only
 - Build completed successfully
 - PR created as draft: https://github.com/Xala-Technologies/booking-brilliance/pull/310
+
+## 2026-08-20: CTR Optimization for /leie/konferanselokale
+
+### Changes Made
+- Tightened copy on konferanselokale page to reduce search friction
+- Updated title to "Leie konferanselokale: pris og kapasitet synlig"
+- Replaced long product lead with short problem-solution format
+- Added definition section "Hva er et konferanselokale?" with three clear paragraphs
+- Updated meta description to emphasize pris, kapasitet, ledig dato
+- Refined keywords to match user search language
+- Added FAQ heading "Vanlige spørsmål om konferanselokale"
+- Added Q7-Q9 to FAQ addressing membership, private vs municipal, and purchase confusion
+
+### Files Modified
+- src/pages/LeieKonferanselokale.tsx (title, dek, lead, introSection, SEO, FAQ)
+- scripts/prerender.mjs (route /leie/konferanselokale with title, description, all 9 FAQ items)
+
+### Constraints Met
+- Official Bokmål spelling
+- No invented numbers or client names
+- No city H2s added
+- No edits to /en/, /leie, or other routes
+- Single PR from main
+
+### Build Status
+- Lint passed
+- Build completed successfully
+- PR #311 merged to main
+
+## 2026-08-20: CTR Optimization for /leie/padelbane
+
+### Changes Made
+- Tightened copy on padelbane page to clarify hourly booking vs purchasing courts
+- Updated title to "Padelbane: book per time, pris synlig"
+- Replaced long product lead with short opening scene (four apps, unclear racket availability)
+- Added introSection "Hva er en padelbane på Digilist?" with three paragraphs
+- Updated meta description to emphasize per-time booking, not buying courts
+- Refined keywords to padelbane, leie padelbane, booke padel, padel per time, utstyrsleie
+- Added FAQ heading "Vanlige spørsmål om padelbane"
+- Added Q7 "Hva er en padelbane?" and Q8 "Må jeg kjøpe bane eller ha medlemskap?"
+- Updated Q2 in FAQ to include access code timing detail
+
+### Files Modified
+- src/pages/LeiePadelbane.tsx (title, dek, lead, introSection, SEO, FAQ)
+- scripts/prerender.mjs (route /leie/padelbane with title, description, all 8 FAQ items)
+
+### Constraints Met
+- Official Bokmål spelling
+- Kept "200 til 500 kroner" in Q1 per live copy
+- No city H2s added
+- No edits to /en/, /leie, /leie/kontorlokaler, or /leie/konferanselokale
+- Mobile overflow fix from #312 remains untouched
+- Single PR from main including #312 changes
+
+### Build Status
+- Lint passed with pre-existing warnings only
+- Build completed successfully
+- PR #313 merged to main
