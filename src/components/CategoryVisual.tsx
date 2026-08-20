@@ -204,7 +204,7 @@ export function CategoryVisual({
           />
         </div>
         {label && (
-          <span className="absolute left-5 bottom-5 inline-flex items-center editorial-mono-caption text-ink-soft bg-paper/85 backdrop-blur-sm border border-hairline-strong rounded-sm px-2 py-1">
+          <span className="absolute left-5 bottom-5 right-5 inline-flex items-center editorial-mono-caption text-ink-soft bg-paper/85 backdrop-blur-sm border border-hairline-strong rounded-sm px-2 py-1 break-words leading-tight">
             {label}
           </span>
         )}
