@@ -108,3 +108,34 @@
 - Lint passed with pre-existing warnings only
 - Build completed successfully
 - PR #313 merged to main
+
+## 2026-08-20: CTR Optimization for /leie/moterom
+
+### Changes Made
+- Tightened copy on møterom page to improve click-through from search results
+- Updated title to "Leie møterom: pris per time synlig"
+- Replaced long product lead with direct problem statement
+- Added introSection "Hva er et møterom på Digilist?" with three clear paragraphs
+- Updated meta description to emphasize per-time booking with visible pricing
+- Refined keywords to leie møterom, møterom, leie styrerom, booke møterom, møterom per time
+- Added FAQ heading "Vanlige spørsmål om å leie møterom"
+- Expanded FAQ from 2 to 8 questions by adding Q3-Q8
+- Added Q7 "Hva er et møterom?" and Q8 "Kan jeg leie styrerom, eller bare vanlige møterom?"
+- Kept "et par hundre kroner per time" in Q1 and added mention of free rooms for lag og foreninger
+
+### Files Modified
+- src/pages/LeieMoterom.tsx (title, dek, lead, introSection, faqHeading, SEO, FAQ)
+- scripts/prerender.mjs (route /leie/moterom with title, description, all 8 FAQ items)
+
+### Constraints Met
+- Official Bokmål spelling
+- Kept exact pricing reference from live copy in Q1
+- No city H2s added
+- No edits to /en/, /leie, /leie/kontorlokaler, /leie/konferanselokale, or /leie/padelbane
+- Mobile overflow fix from #312 remains untouched
+- Single PR from main
+
+### Build Status
+- Lint passed with pre-existing warnings only
+- Build completed successfully with 471 prerendered pages
+- PR #314 created, CI passed, merged to main
