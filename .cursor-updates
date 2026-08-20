@@ -1,5 +1,29 @@
 # Cursor Updates
 
+## 2026-08-20: Mobile Overflow Fix for Digilist Type Pages
+
+### Changes Made
+- Fixed mobile viewport overflow on /leie/* type pages where long Norwegian compound words were clipping
+- Reduced mobile H1 font-size from 48px to 36px for ~390px viewports
+- Added word-break handling to H1 and lead paragraph for long compound words like konferanselokale, kontorlokaler, selskapslokale
+- Added mobile horizontal padding to container to prevent edge clipping
+- Fixed CategoryVisual label overflow by constraining width and adding word wrapping
+- Desktop typography remains unchanged at 72px
+
+### Files Modified
+- src/components/UseCasePage.tsx (H1 mobile font-size, word-break, container padding)
+- src/components/CategoryVisual.tsx (label width constraint and word-break)
+
+### Scope
+- Fixes all /leie/* type pages sharing UseCasePage layout
+- Affects konferanselokale, kontorlokaler, selskapslokale, padelbane, møterom and other long-word pages
+- English routes also benefit from the same mobile fix
+
+### Build Status
+- Lint passed with pre-existing warnings only
+- Build completed successfully
+- PR #312 created, checks passed, merged to main
+
 ## 2026-08-20: CTR Optimization for /leie Route
 
 ### Changes Made
