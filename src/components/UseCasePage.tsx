@@ -169,7 +169,7 @@ export default function UseCasePage({
         <main id="main">
           <article>
           <section className="pt-20 lg:pt-24 pb-12 lg:pb-16 bg-paper">
-            <div className="container mx-auto md:px-8 lg:px-12">
+            <div className="container mx-auto px-4 md:px-8 lg:px-12">
               {/* Breadcrumb + section label */}
               <div className="flex items-baseline justify-between gap-4 mb-10 pb-4 border-b border-rule">
                 <nav
@@ -198,13 +198,13 @@ export default function UseCasePage({
               <header className="grid lg:grid-cols-12 gap-8 lg:gap-gutter mb-14 lg:mb-20 items-center">
                 <div className="lg:col-span-7">
                   <h1
-                    className="font-serif text-5xl lg:text-7xl text-ink leading-[1.04] tracking-tight"
+                    className="font-serif text-[2.25rem] sm:text-5xl lg:text-7xl text-ink leading-[1.04] tracking-tight break-words"
                     style={{ fontVariationSettings: getFraunces("hero") }}
                   >
                     {title}
                   </h1>
                   <p
-                    className="mt-6 text-xl lg:text-2xl text-ink measure leading-relaxed font-serif italic"
+                    className="mt-6 text-xl lg:text-2xl text-ink measure leading-relaxed font-serif italic break-words"
                     style={{ fontVariationSettings: getFraunces("quote") }}
                   >
                     {dek}
