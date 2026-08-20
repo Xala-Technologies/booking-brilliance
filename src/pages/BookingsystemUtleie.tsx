@@ -13,7 +13,6 @@ import {
   IntegrationLogo,
 } from "@/components/editorial";
 import { getFraunces } from "@/lib/fonts";
-import PilotInvitationSection from "@/components/PilotInvitationSection";
 import { useLocation } from "react-router-dom";
 import { localeFromPath } from "@/lib/i18n";
 import { operatorCopy } from "@/content/bookingsystem-utleie";
@@ -52,6 +51,9 @@ const BookingsystemUtleie = () => {
 
             <div className="grid lg:grid-cols-12 gap-8 lg:gap-gutter items-start">
               <div className="lg:col-span-8">
+                <p className="text-lg text-ink-soft mb-6 leading-relaxed">
+                  {c.openingScene}
+                </p>
                 <EditorialHeading as="h1" size="hero" className="mb-6">
                   {c.h1}{" "}
                   <em
@@ -99,6 +101,25 @@ const BookingsystemUtleie = () => {
                   ))}
                 </EditorialCard>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-14 lg:py-20 bg-paper-tinted border-y border-rule">
+          <div className="container mx-auto md:px-8 lg:px-12">
+            <SectionRule label={c.definitionRule} />
+            <div className="grid lg:grid-cols-12 gap-8 mb-10">
+              <div className="lg:col-span-7">
+                <EditorialHeading as="h2" size="section">
+                  {c.definitionH2}
+                </EditorialHeading>
+              </div>
+            </div>
+            <div className="max-w-4xl space-y-5 text-lg text-ink-soft leading-relaxed">
+              <p>{c.definitionP1}</p>
+              <p>{c.definitionP2}</p>
+              <p>{c.definitionP3}</p>
+              <p>{c.definitionP4}</p>
             </div>
           </div>
         </section>
@@ -252,7 +273,28 @@ const BookingsystemUtleie = () => {
           </div>
         </section>
 
-        <PilotInvitationSection />
+        <section className="py-14 lg:py-20 bg-paper-tinted border-y border-rule">
+          <div className="container mx-auto md:px-8 lg:px-12">
+            <SectionRule label={c.kommuneRule} />
+            <div className="grid lg:grid-cols-12 gap-8">
+              <div className="lg:col-span-7">
+                <EditorialHeading as="h2" size="section" className="mb-6">
+                  {c.kommuneH2}
+                </EditorialHeading>
+                <p className="text-lg text-ink-soft leading-relaxed measure">
+                  {c.kommuneBody}
+                  <Link
+                    to={en ? "/en/bookingsystem-kommune" : "/bookingsystem-kommune"}
+                    className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
+                  >
+                    {c.kommuneLinkText}
+                  </Link>
+                  .
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
 
         <section className="py-14 lg:py-20 bg-accent-tinted">
           <div className="container mx-auto md:px-8 lg:px-12">

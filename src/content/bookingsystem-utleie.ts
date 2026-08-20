@@ -38,6 +38,7 @@ export interface OperatorCopy {
   metaDescription: string;
   keywords: string;
   rule: string;
+  openingScene: string;
   h1: string;
   h1em: string;
   ledeA: string;
@@ -47,6 +48,12 @@ export interface OperatorCopy {
   ctaOpen: string;
   forOperators: string;
   operatorSpecs: readonly Spec[];
+  definitionRule: string;
+  definitionH2: string;
+  definitionP1: string;
+  definitionP2: string;
+  definitionP3: string;
+  definitionP4: string;
   whyRule: string;
   whyH2: string;
   whyH2em: string;
@@ -61,6 +68,10 @@ export interface OperatorCopy {
   integrationRule: string;
   integrationH2: string;
   integrationH2em: string;
+  kommuneRule: string;
+  kommuneH2: string;
+  kommuneBody: string;
+  kommuneLinkText: string;
   contactRule: string;
   contactLede: string;
   ctaDemo: string;
@@ -82,7 +93,7 @@ const FAQ_NB: readonly QA[] = [
   {
     question: "Hva er et bookingsystem for utleie?",
     answer:
-      "Et bookingsystem for utleie er en digital plattform der du som utleier legger ut ledige tider på lokalet ditt, og leietakere ser tilgjengelighet i sanntid og booker direkte. Systemet håndterer kalender, pris, tilleggstjenester, betaling og bekreftelser, så du slipper e-poster og telefoner frem og tilbake. Digilist er et slikt system, bygget for både private utleiere og offentlige/kommunale lokaler.",
+      "Et system der utleier legger ut ledige tider på et lokale, og leietaker ser sanntid, booker og betaler. Kalender, pris, tillegg og bekreftelse ligger ett sted. Digilist er et system for utleie av lokaler.",
   },
   {
     question: "Hvordan leier jeg ut lokaler med sanntidskalender?",
@@ -97,17 +108,27 @@ const FAQ_NB: readonly QA[] = [
   {
     question: "Hva koster et bookingsystem for utleie?",
     answer:
-      "Prisen avhenger av antall utleieobjekter, bookingvolum og integrasjoner. Digilist tilbyr en gratis demo og et pristilbud tilpasset behovet ditt. For leietakere er det gratis å søke, sammenligne og booke – de betaler kun leieprisen til utleier.",
+      "Prisen avhenger av antall utleieobjekter, bookingvolum og integrasjoner. Digilist tilbyr en gratis demo og et pristilbud tilpasset behovet ditt. For leietakere er det gratis å søke, sammenligne og booke. De betaler kun leieprisen til utleier.",
   },
   {
-    question: "Passer Digilist for både private utleiere og kommuner?",
+    question: "Passer dette for private utleiere, eller bare kommuner?",
     answer:
-      "Ja. Digilist er bygget for begge markeder i samme system. Private utleiere av festlokaler, gårder, møterom og idrettsanlegg bruker samme sanntidskalender som kommuner bruker for offentlige lokaler. Det betyr at leietakere finner både private og offentlige lokaler samlet ett sted.",
+      "Denne siden er for private utleiere av lokaler. Kommuner bruker bookingsystem for kommuner (https://digilist.no/bookingsystem-kommune). Samme produktfamilie, ulik landing.",
   },
   {
     question: "Hvordan får utleieobjektet mitt mer synlighet?",
     answer:
       "Utleieobjektet ditt blir søkbart på lokaltype, geografi og fasiliteter, slik at leietakere som leter etter akkurat den typen lokale finner deg. Sanntidskalender og direkte booking senker terskelen for at en interessert leietaker faktisk fullfører bookingen.",
+  },
+  {
+    question: "Er dette et bookingsystem for utstyr og lager, eller for lokaler?",
+    answer:
+      "For lokaler. Systemer for tilhenger, verktøy og minilager er en annen jobb. Digilist håndterer festlokale, møterom, gård og hall, med en kalender leietakeren kan booke.",
+  },
+  {
+    question: "Hva er forskjellen på et bookingsystem og et utleiesystem?",
+    answer:
+      "Booking er kalenderen og kassen. Et utleiesystem kjører også pris, tillegg, bekreftelse og oversikt. Digilist gjør begge deler for lokaler.",
   },
 ];
 
@@ -147,7 +168,6 @@ const WHY_NB: readonly string[] = [
   "Automatiske bekreftelser og påminnelser",
   "Mindre e-post og telefon per booking",
   "Søkbar på lokaltype, geografi og fasiliteter",
-  "Privat og offentlig utleie i samme system",
   "Data lagret i Norge og EU (GDPR)",
   "Rapportering på belegg og inntekt",
   "Audit-logg på alle endringer",
@@ -204,7 +224,6 @@ const WHY_EN: readonly string[] = [
   "Automatic confirmations and reminders",
   "Less email and fewer calls per booking",
   "Searchable by venue type, location and facilities",
-  "Private and public rentals in one system",
   "Data stored in Norway and the EU (GDPR)",
   "Reporting on occupancy and income",
   "An audit log on every change",
@@ -229,7 +248,7 @@ const FAQ_EN: readonly QA[] = [
   {
     question: "What is a booking system for venue rental?",
     answer:
-      "A booking system for venue rental is a platform where you, as the operator, publish the times your venue is free, and people see availability in real time and book directly. It handles the calendar, price, extras, payment and confirmations, so you avoid rounds of email and phone calls. Digilist is such a system, built for private operators and for public venues alike.",
+      "A system where the operator publishes free times for a venue, and the person renting sees real-time availability, books, and pays. Calendar, price, extras, and confirmation are all in one place. Digilist is a system for venue rental.",
   },
   {
     question: "How do I rent out venues with a real-time calendar?",
@@ -244,32 +263,43 @@ const FAQ_EN: readonly QA[] = [
   {
     question: "What does a booking system for venue rental cost?",
     answer:
-      "The price depends on the number of venues, booking volume and integrations. Digilist offers a free demo and a quote suited to your needs. For the person renting it is free to search, compare and book — they pay only the rental price to the operator.",
+      "The price depends on the number of venues, booking volume and integrations. Digilist offers a free demo and a quote suited to your needs. For the person renting it is free to search, compare and book. They pay only the rental price to the operator.",
   },
   {
-    question: "Does Digilist suit both private operators and public bodies?",
+    question: "Is this for private operators, or only for municipalities?",
     answer:
-      "Yes. Digilist is built for both markets in the same system. Private operators of function rooms, farms, meeting rooms and sports facilities use the same real-time calendar that municipalities use for public venues. That means people find private and public venues together, in one place.",
+      "This page is for private operators of venues. Municipalities use the booking system for municipalities (https://digilist.no/bookingsystem-kommune). Same product family, different landing page.",
   },
   {
     question: "How does my venue get more visibility?",
     answer:
       "Your venue becomes searchable by venue type, location and facilities, so people looking for exactly that kind of space find you. A real-time calendar and direct booking lower the barrier to an interested visitor actually completing the booking.",
   },
+  {
+    question: "Is this a booking system for equipment and storage, or for venues?",
+    answer:
+      "For venues. Systems for trailers, tools and storage are a different job. Digilist handles function rooms, meeting rooms, farms and halls, with a calendar people can book.",
+  },
+  {
+    question: "What is the difference between a booking system and a rental system?",
+    answer:
+      "Booking is the calendar and the checkout. A rental system also handles price, extras, confirmation and reporting. Digilist does both for venues.",
+  },
 ];
 
 const NB: OperatorCopy = {
-  metaTitle: "Bookingsystem utleie · Digilist | Leie ut lokaler på nett",
+  metaTitle: "Bookingsystem for utleie av lokaler | Digilist",
   metaDescription:
-    "Bookingsystem utleie av lokaler: sanntidskalender, online booking og betaling med Vipps, differensiert pris og kalendersynk. For private utleiere og kommuner.",
+    "Bookingsystem for utleie av lokaler. Sanntidskalender, Vipps og kort, differensiert pris og kalendersynk. Bygget for private utleiere som leier ut lokale, ikke utstyr.",
   keywords:
     "bookingsystem utleie, bookingsystem for utleie av lokaler, utleie booking, leie ut lokaler system, utleiesystem lokaler",
   rule: "BOOKINGSYSTEM UTLEIE · 2026",
+  openingScene: "Innboksen er full. Tre vil ha samme lørdag. Kalenderen sitter i hodet.",
   h1: "Bookingsystem for",
   h1em: "utleie av lokaler",
-  ledeA: "Et bookingsystem for utleie lar deg vise ledige tider i sanntid og la leietakere booke og betale direkte. Digilist er en norsk bookingplattform for ",
-  ledeStrong: "både private utleiere og kommuner",
-  ledeB: " – sanntidskalender, Vipps-betaling og differensiert pris, uten runder med e-post og telefon.",
+  ledeA: "Et bookingsystem for utleie av lokaler skal vise ledig tid, ta imot booking og betaling, og hindre dobbeltbooking. ",
+  ledeStrong: "Ikke mer e-post frem og tilbake",
+  ledeB: ".",
   ctaQuote: "Be om pristilbud",
   ctaOpen: "Åpne plattformen",
   forOperators: "For utleiere",
@@ -279,23 +309,33 @@ const NB: OperatorCopy = {
     { label: "Betaling", value: "Vipps · kort" },
     { label: "Datalokasjon", value: "Norge · EU" },
   ],
-  whyRule: "I. HVORFOR DIGITAL UTLEIE",
+  definitionRule: "I. DEFINISJON",
+  definitionH2: "Hva er et bookingsystem for utleie?",
+  definitionP1: "Et bookingsystem for utleie viser ledige tider, tar imot booking og betaling, og hindrer dobbeltbooking.",
+  definitionP2: "Denne siden gjelder utleie av lokaler (festlokale, møterom, gård, hall). Ikke tilhenger, verktøy eller minilager.",
+  definitionP3: "Mindre e-post og telefon. Samme kalender for utleier og leietaker.",
+  definitionP4: "Digilist er et system for utleie av lokaler. Sanntidskalender, Vipps og kort, differensiert pris og kalendersynk. Systemet folk forstår. Endringer ligger i en logg.",
+  whyRule: "II. HVORFOR DIGITAL UTLEIE",
   whyH2: "Fra e-post til",
   whyH2em: "direkte booking",
   whyLede: "Alt en utleier trenger for å fylle kalenderen, samlet ett sted.",
-  featureRule: "II. FUNKSJONALITET",
+  featureRule: "III. FUNKSJONALITET",
   featureH2: "Hva utleieren får.",
   featureLede: "Seks funksjoner som gjør utleie til en digital, selvbetjent flyt.",
-  typesRule: "III. LOKALTYPER DU KAN LEIE UT",
+  typesRule: "IV. LOKALTYPER DU KAN LEIE UT",
   typesH2: "Én plattform, mange",
   typesH2em: "lokaltyper",
   typesLede: "Fra festlokaler og gårder til møterom og idrettsanlegg.",
-  integrationRule: "IV. NORSKE INTEGRASJONER",
+  integrationRule: "V. NORSKE INTEGRASJONER",
   integrationH2: "Tilkoblet det du",
   integrationH2em: "allerede bruker",
-  contactRule: "V. KONTAKT",
+  kommuneRule: "VI. KOMMUNER",
+  kommuneH2: "Kommuner",
+  kommuneBody: "Kommuner som leier ut lokaler, bruker ",
+  kommuneLinkText: "bookingsystem for kommuner",
+  contactRule: "VII. KONTAKT",
   contactLede:
-    "Vi setter sammen et pristilbud basert på antall utleieobjekter, bookingvolum og integrasjoner. Demo på 30–45 minutter, ingen forpliktelser.",
+    "Vi setter sammen et pristilbud basert på antall utleieobjekter, bookingvolum og integrasjoner. Demo på 30 til 45 minutter, ingen forpliktelser.",
   ctaDemo: "Be om demo",
   supplierHeading: "Leverandørinformasjon",
   supplierSpecs: [
@@ -306,8 +346,8 @@ const NB: OperatorCopy = {
     { label: "Betaling", value: "Vipps · kort" },
     { label: "ISO 27001/27701", value: "Sertifisert" },
   ],
-  faqRule: "VI. SPØRSMÅL OG SVAR",
-  faqH2: "Vanlige spørsmål om utleie-booking.",
+  faqRule: "VIII. SPØRSMÅL OG SVAR",
+  faqH2: "Vanlige spørsmål om bookingsystem for utleie",
   seeAlso: "Se også",
   municipalLink: "bookingsystem for kommuner",
   orBackTo: "eller tilbake til",
@@ -325,11 +365,12 @@ const EN: OperatorCopy = {
   keywords:
     "venue booking system, booking system for venue rental, rent out a venue, hall hire software, venue management system",
   rule: "VENUE RENTAL BOOKING · 2026",
+  openingScene: "The inbox is full. Three want the same Saturday. The calendar is in your head.",
   h1: "A booking system for",
   h1em: "renting out venues",
-  ledeA: "A booking system for venue rental lets you show what is free in real time, and lets people book and pay directly. Digilist is a Norwegian booking platform for ",
-  ledeStrong: "private operators and public bodies alike",
-  ledeB: " — a real-time calendar, payment online and varied pricing, without rounds of email and phone calls.",
+  ledeA: "A booking system for venue rental shows what is free, takes bookings and payments, and prevents double bookings. ",
+  ledeStrong: "No more email back and forth",
+  ledeB: ".",
   ctaQuote: "Request a quote",
   ctaOpen: "Open the platform",
   forOperators: "For operators",
@@ -339,23 +380,33 @@ const EN: OperatorCopy = {
     { label: "Payment", value: "Vipps · card" },
     { label: "Data location", value: "Norway · EU" },
   ],
-  whyRule: "I. WHY RENT OUT DIGITALLY",
+  definitionRule: "I. DEFINITION",
+  definitionH2: "What is a booking system for venue rental?",
+  definitionP1: "A booking system for venue rental shows free times, takes bookings and payments, and prevents double bookings.",
+  definitionP2: "This page is about renting out venues (function rooms, meeting rooms, farms, halls). Not trailers, tools, or storage.",
+  definitionP3: "Less email and phone. One calendar for operator and renter.",
+  definitionP4: "Digilist is a system for venue rental. Real-time calendar, Vipps and card, varied pricing and calendar sync. A system people understand. Changes are logged.",
+  whyRule: "II. WHY RENT OUT DIGITALLY",
   whyH2: "From email to",
   whyH2em: "direct booking",
   whyLede: "Everything an operator needs to fill the calendar, in one place.",
-  featureRule: "II. CAPABILITIES",
+  featureRule: "III. CAPABILITIES",
   featureH2: "What the operator gets.",
   featureLede: "Six capabilities that turn renting out into a digital, self-service flow.",
-  typesRule: "III. VENUE TYPES YOU CAN RENT OUT",
+  typesRule: "IV. VENUE TYPES YOU CAN RENT OUT",
   typesH2: "One platform, many",
   typesH2em: "venue types",
   typesLede: "From function rooms and farms to meeting rooms and sports facilities.",
-  integrationRule: "IV. NORWEGIAN INTEGRATIONS",
+  integrationRule: "V. NORWEGIAN INTEGRATIONS",
   integrationH2: "Connected to what you",
   integrationH2em: "already use",
-  contactRule: "V. CONTACT",
+  kommuneRule: "VI. MUNICIPALITIES",
+  kommuneH2: "Municipalities",
+  kommuneBody: "Municipalities that rent out venues use ",
+  kommuneLinkText: "the booking system for municipalities",
+  contactRule: "VII. CONTACT",
   contactLede:
-    "We put together a quote based on the number of venues, booking volume and integrations. A 30–45 minute demo, with no commitment.",
+    "We put together a quote based on the number of venues, booking volume and integrations. A 30 to 45 minute demo, with no commitment.",
   ctaDemo: "Request a demo",
   supplierHeading: "Supplier details",
   supplierSpecs: [
@@ -366,7 +417,7 @@ const EN: OperatorCopy = {
     { label: "Payment", value: "Vipps · card" },
     { label: "ISO 27001/27701", value: "Certified" },
   ],
-  faqRule: "VI. QUESTIONS AND ANSWERS",
+  faqRule: "VIII. QUESTIONS AND ANSWERS",
   faqH2: "Common questions about rental booking.",
   seeAlso: "See also",
   municipalLink: "the booking system for municipalities",
