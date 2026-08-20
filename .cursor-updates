@@ -1,59 +1,28 @@
 # Cursor Updates
 
-## 2026-08-20 - Bookingsystem Utleie CoS-Approved Copy
+## 2026-08-20: CTR Optimization for /leie Route
 
-Updated /bookingsystem-utleie landing page with CoS-approved copy for on-page SEO optimization.
+### Changes Made
+- Updated /leie route metadata and content to target broader "lokaler til leie" search query
+- Changed title from party-focused to general venue rental: "Lokaler til leie: finn og book med synlig pris"
+- Updated H1 from "Finn og book lokale til festen" to "Lokaler til leie, der du bor"
+- Added definition section explaining what lokaler til leie covers (meeting rooms, halls, municipal venues, not just party venues)
+- Expanded FAQ schema from 5 to 9 questions to match all visible page questions
+- Updated meta description to mention halls, meetings, and sports alongside parties
 
-### Completed Tasks
-- Updated meta title to exact approved text
-- Updated meta description to exact approved text
-- Added opening scene text before H1 for reader engagement
-- Added new definition section with H2 and locked paragraphs
-- Updated all 8 FAQs with approved copy
-- Ensured FAQPage JSON-LD schema includes all 8 questions
-- Removed "Privat og offentlig utleie i samme system" from feature bullet list
-- Replaced large kommune pilot section with concise one-paragraph section
-- Fixed em dashes to official Bokmål
-- Verified "system for utleie av lokaler" appears exactly twice for SEO
+### Files Modified
+- src/content/leie.ts (NB object only - added definition fields, updated copy, added 9th FAQ)
+- src/pages/Leie.tsx (added definition section before type cards, updated SEO props)
+- scripts/prerender.mjs (updated route "/leie" with new title, description, and 9 FAQ items)
 
-### Technical Details
-- Branch: cursor/bookingsystem-utleie-cos-copy-531b
-- PR: https://github.com/Xala-Technologies/booking-brilliance/pull/305
-- Files modified: src/content/bookingsystem-utleie.ts, src/pages/BookingsystemUtleie.tsx
-- Build status: Passing
-- Lint status: Passing
+### Constraints Met
+- Official Bokmål spelling
+- No em-dash or en-dash in titles
+- No invented data or numbers
+- Only /leie route changed (no impact on /leie/kontorlokaler, /en/leie, city pages, or other routes)
+- Single PR created
 
-### Notes
-- No changes to /bookingsystem-kommune, homepage, or blog posts
-- English version updated in parallel to maintain consistency
-- PR created as draft, ready for review
-
-## 2026-08-20 - Kontorlokaler Page Content and SEO Update
-
-Updated /leie/kontorlokaler page with approved copy for both page content and SEO metadata.
-
-### Completed Tasks
-- Updated H1 to "Kontorlokaler til leie"
-- Updated SEO title to "Kontorlokaler til leie: pris og vilkår synlig"
-- Updated meta description to exact approved text
-- Added opening scene with three-sentence hook about price visibility
-- Updated lead with two-sentence value proposition
-- Added new H2 section "Hva er kontorlokaler på Digilist?" with three explanatory paragraphs
-- Expanded FAQ from 6 to 8 questions including definitions
-- Updated prerender.mjs with all SEO metadata and 8 FAQs for JSON-LD schema
-- Enhanced UseCasePage component with optional introSection prop
-
-### Technical Details
-- Branch: cursor/kontorlokaler-seo-content-6d33
-- PR: https://github.com/Xala-Technologies/booking-brilliance/pull/308
-- Files modified: src/pages/LeieKontorlokaler.tsx, scripts/prerender.mjs, src/components/UseCasePage.tsx
-- Build status: Passing
-- Lint status: Passing
-- Merged: Yes
-
-### Notes
-- Both page content and SEO metadata updated in same PR
-- User stories remain marked as "Illustrasjon"
-- Only Norwegian /leie/kontorlokaler page updated
-- No changes to English routes, homepage, or blog content
-- Avoided previous issue where prerender was missed
+### Build Status
+- Lint passed with pre-existing warnings only
+- Build completed successfully
+- PR created as draft: https://github.com/Xala-Technologies/booking-brilliance/pull/310

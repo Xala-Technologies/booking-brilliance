@@ -76,8 +76,8 @@ const Leie = () => {
     <div className="min-h-screen bg-background overflow-x-hidden">
       <SEO
         title={c.metaTitle}
-        description="Leie lokaler på nett: både private selskapslokaler og kommunale lokaler samlet ett sted. Se ekte priser og ledige datoer, og book direkte med Vipps – til bryllup, selskap, møte eller arrangement."
-        keywords="leie lokale, finn lokale, leie selskapslokale, leie møterom, leie festlokale, leie lokale til bursdag, hva koster selskapslokale, book lokale online, leie kulturhus, leie grendehus"
+        description={c.metaDescription}
+        keywords={c.keywords}
         canonical={en ? "https://digilist.no/en/leie" : "https://digilist.no/leie"}
         breadcrumbs={[
           { name: "Hjem", url: "https://digilist.no/" },
@@ -161,6 +161,33 @@ const Leie = () => {
                   poster="/videos/digilist-book-venue-poster.jpg"
                 />
               </div>
+
+              {/* Definition section - only for Norwegian */}
+              {!en && (
+                <div className="mb-14 lg:mb-20">
+                  <h2
+                    className="font-serif text-3xl lg:text-4xl text-ink mb-6"
+                    style={{
+                      fontVariationSettings: getFraunces("section"),
+                      letterSpacing: "-0.015em",
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    {c.definitionH2}
+                  </h2>
+                  <div className="space-y-4 max-w-3xl">
+                    <p className="text-base lg:text-lg text-ink leading-relaxed">
+                      {c.definitionP1}
+                    </p>
+                    <p className="text-base lg:text-lg text-ink leading-relaxed">
+                      {c.definitionP2}
+                    </p>
+                    <p className="text-base lg:text-lg text-ink leading-relaxed">
+                      {c.definitionP3}
+                    </p>
+                  </div>
+                </div>
+              )}
 
             </div>
           </section>
