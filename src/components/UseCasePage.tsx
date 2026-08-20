@@ -107,6 +107,8 @@ export interface UseCasePageProps {
   /** Optional explainer clip. A swap-ready placeholder shows when absent. */
   video?: string;
   videoPoster?: string;
+  /** Optional custom FAQ section heading. Defaults to "Spørsmål om {breadcrumb}". */
+  faqHeading?: string;
 }
 
 export default function UseCasePage({
@@ -136,6 +138,7 @@ export default function UseCasePage({
   heroImageAlt,
   video,
   videoPoster,
+  faqHeading,
 }: UseCasePageProps) {
   const locale = localeFromPath(useLocation().pathname);
   return (
@@ -478,7 +481,7 @@ export default function UseCasePage({
                   className="mt-8 mb-10 font-serif text-3xl lg:text-4xl text-ink leading-tight max-w-prose"
                   style={{ fontVariationSettings: getFraunces("section") }}
                 >
-                  Spørsmål om {breadcrumb.toLowerCase()}
+                  {faqHeading ?? `Spørsmål om ${breadcrumb.toLowerCase()}`}
                 </h2>
                 <dl className="divide-y divide-rule border-t border-b border-rule">
                   {faq.map((q, i) => (

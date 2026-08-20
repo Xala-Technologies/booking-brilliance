@@ -1039,9 +1039,9 @@ const ROUTES = [
   },
   {
     route: "/leie/konferanselokale",
-    title: "Leie konferanselokale: pris, kapasitet og booking | Digilist",
+    title: "Leie konferanselokale: pris og kapasitet synlig",
     description:
-      "Leie konferanselokale eller konferansesal til seminar, kurs og konferanse: se pris, kapasitet og ledige datoer, og book på nett. Lokaler samlet ett sted.",
+      "Leie konferanselokale til seminar, kurs eller fagdag: se pris, kapasitet og ledig dato, og book på nett. Private og kommunale lokaler i samme kalender.",
     ogType: "website",
     service: true,
     breadcrumbs: [
@@ -1057,6 +1057,30 @@ const ROUTES = [
       {
         q: "Hvor mange deltakere er det plass til?",
         a: "Kapasiteten står oppgitt per oppsett på hvert lokale. Kinooppsett gir plass til flest, klasserom og øyer krever mer plass per deltaker. Du filtrerer på antall deltakere når du søker.",
+      },
+      {
+        q: "Er prosjektor, lyd og servering inkludert?",
+        a: "Det varierer per lokale, og derfor står det tydelig oppgitt. Fasiliteter som prosjektor, lerret, lydanlegg, mikrofon og wifi listes på lokalet, og servering vises som tilvalg med egen pris der det tilbys. Du ser totalkostnaden før du bekrefter.",
+      },
+      {
+        q: "Kan bedriften få faktura i stedet for å betale med kort?",
+        a: "Ja, der utleier tilbyr det. Mange konferanselokaler tilbyr faktura til virksomheter, og du velger det i samme bookingflyt. Alternativt betaler du med Vipps eller kort og får kvittering med en gang.",
+      },
+      {
+        q: "Kan jeg leie for en halv dag i stedet for en hel?",
+        a: "Ja, de fleste konferanselokaler tilbyr både halv og hel dag, og noen tilbyr også kveldsleie. Prisene for de ulike variantene står på lokalet, og kalenderen viser hva som er ledig for den varigheten du trenger.",
+      },
+      {
+        q: "Hva skjer hvis jeg må avbestille eller flytte datoen?",
+        a: "Avbestillingsreglene settes av utleier og står på hvert lokale før du booker. Der det er tillatt, avbestiller du digitalt, og en eventuell refusjon følger reglene som gjelder for lokalet. Sjekk fristene før du bekrefter, spesielt for store arrangementer.",
+      },
+      {
+        q: "Hva er et konferanselokale?",
+        a: "En sal eller et rom du leier for konferanse, seminar, kurs eller fagdag. På Digilist ser du pris, kapasitet og ledig dato før du booker, både hos private utleiere og kommuner.",
+      },
+      {
+        q: "Kan jeg booke seminar eller kurs her, ikke bare konferanse?",
+        a: "Ja. Samme type lokale dekker seminar, kurs og fagdag. Du filtrerer på antall deltakere og ser om det finnes grupperom, prosjektor og servering før du booker.",
       },
     ],
   },

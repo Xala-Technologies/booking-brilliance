@@ -10,10 +10,19 @@ export default function LeieKonferanselokale() {
       breadcrumb="Konferanselokale"
       title="Leie konferanselokale"
       dek="Konferanse, seminar eller kurs. Finn ledig konferanselokale med plass til alle, se pris og kapasitet, og book og betal på nett."
-      lead="Skal du arrangere konferanse, seminar eller fagdag, starter jobben ofte med å lete gjennom hoteller, kulturhus og kurssentre hver for seg. Prisen er uklar, kapasiteten står ikke oppgitt, og du må sende forespørsel og vente dagevis på tilbud, uten å vite om prosjektor, lyd og servering er inkludert. På Digilist er konferanselokalene samlet ett sted, med pris, kapasitet og fasiliteter synlig på hvert lokale. Du ser hva som faktisk er ledig for din dato, sammenligner alternativene, og booker direkte med bekreftelse med en gang."
-      seoTitle="Leie konferanselokale: pris, kapasitet og booking | Digilist"
-      seoDescription="Leie konferanselokale eller konferansesal til seminar, kurs og konferanse: se pris, kapasitet og ledige datoer, og book på nett. Lokaler samlet ett sted."
-      keywords="leie konferanselokale, konferansesal, leie konferansesal, konferanselokale pris, book konferanselokale, leie lokale til seminar, kurslokale, leie lokale til konferanse, møtelokale stort"
+      lead="Hotell. Kulturhus. Kurssenter. Forespørsel sendt. Tilbudet kommer senere. På Digilist ser du pris, kapasitet og ledig dato før du booker. Private og kommunale lokaler i samme kalender."
+      seoTitle="Leie konferanselokale: pris og kapasitet synlig"
+      seoDescription="Leie konferanselokale til seminar, kurs eller fagdag: se pris, kapasitet og ledig dato, og book på nett. Private og kommunale lokaler i samme kalender."
+      keywords="leie konferanselokale, konferanselokale, seminarlokale, kurslokale, booke konferanse"
+      introSection={{
+        heading: "Hva er et konferanselokale?",
+        paragraphs: [
+          "Et konferanselokale er en sal eller et rom du leier for en dato: konferanse, seminar, kurs eller fagdag, med plass, lyd og pris synlig.",
+          "På Digilist ligger private og kommunale lokaler i samme kalender, med kapasitet og ledig tid på hvert lokale.",
+          "Du booker og betaler med Vipps eller faktura, uten å sende forespørsel og vente på tilbud.",
+        ],
+      }}
+      faqHeading="Vanlige spørsmål om å leie konferanselokale"
       audience={[
         {
           persona: "Bedrifter og HR",
@@ -157,6 +166,16 @@ export default function LeieKonferanselokale() {
           question: "Hva skjer hvis jeg må avbestille eller flytte datoen?",
           answer:
             "Avbestillingsreglene settes av utleier og står på hvert lokale før du booker. Der det er tillatt, avbestiller du digitalt, og en eventuell refusjon følger reglene som gjelder for lokalet. Sjekk fristene før du bekrefter, spesielt for store arrangementer.",
+        },
+        {
+          question: "Hva er et konferanselokale?",
+          answer:
+            "En sal eller et rom du leier for konferanse, seminar, kurs eller fagdag. På Digilist ser du pris, kapasitet og ledig dato før du booker, både hos private utleiere og kommuner.",
+        },
+        {
+          question: "Kan jeg booke seminar eller kurs her, ikke bare konferanse?",
+          answer:
+            "Ja. Samme type lokale dekker seminar, kurs og fagdag. Du filtrerer på antall deltakere og ser om det finnes grupperom, prosjektor og servering før du booker.",
         },
       ]}
       relatedPosts={[
