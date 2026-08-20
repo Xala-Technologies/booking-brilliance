@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   LOCALE_CHOICE_KEY,
+  alternatePath,
   browserLanguages,
   preferredLocale,
   shouldAutoRedirect,
@@ -56,6 +57,22 @@ export function LocaleRouter() {
       navigate(to, { replace: true });
       return;
     }
+
+    // Redirect untranslated /en/* paths to their Norwegian equivalents.
+    // If someone visits /en/leie/kontorlokaler but we have no English copy,
+    // send them to /leie/kontorlokaler instead of serving Norwegian content
+    // at an English URL or falling back to the homepage.
+    if (pathname.startsWith("/en/") || pathname === "/en") {
+      const nbPath = pathname === "/en" ? "/" : pathname.slice(3);
+      const alternate = alternatePath(pathname);
+      // If alternatePath returns null, this /en/* path has no translation pair.
+      // Redirect to the Norwegian version instead of serving untranslated content.
+      if (!alternate) {
+        navigate(nbPath, { replace: true });
+        return;
+      }
+    }
+
     setOffer(shouldOfferSwitch(input));
   }, [pathname, navigate]);
 
