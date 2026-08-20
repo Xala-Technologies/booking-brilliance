@@ -238,4 +238,26 @@ export const POST_FAQ = {
         "Ikke nødvendigvis, det avhenger av arrangementet, men for arrangement med publikumsbetalt inngang og bar er det ofte en forutsetning.",
     },
   ],
+  "beste-bookingsystem-kommune-norge": [
+    {
+      question: "Hva er det viktigste å sjekke når en kommune velger bookingsystem?",
+      answer:
+        "Selvbetjening for innbyggere, saksbehandlerflyt for godkjenning, sesongleie for lag og foreninger, ID-porten-pålogging, EHF-fakturering og migrering fra dagens system. Disse seks dekker det som faktisk skaper eller ødelegger drift.",
+    },
+    {
+      question: "Er denne sjekklisten bare for Digilist, eller kan den brukes mot andre leverandører?",
+      answer:
+        "Sjekklisten gjelder uansett leverandør. Still de samme spørsmålene til Aktiv Kommune, BookUp, Gibbs og enhver annen leverandør dere vurderer, og be om en demo som viser hver kategori i praksis.",
+    },
+    {
+      question: "Må kommunen bruke SSA-L som kontraktsmal?",
+      answer:
+        "SSA-L er ikke lovpålagt, men den anbefalte og mest brukte kontraktsmalen for kommunale SaaS-kjøp. De fleste kommuner legger den til grunn i konkurransegrunnlaget, og en leverandør som ikke kan levere på bilagene om sikkerhet og tjenestenivå, faller normalt fra i evalueringen.",
+    },
+    {
+      question: "Hva skjer med allerede bookede timer når en kommune bytter system?",
+      answer:
+        "Ved implementering overfører Digilist eksisterende sesongtildelinger og faste bookinger før løsningen settes i drift, slik at ingen lag mister allerede tildelt treningstid. Samme mulighet bør være tilgjengelig hos enhver leverandør dere vurderer.",
+    },
+  ],
 };
