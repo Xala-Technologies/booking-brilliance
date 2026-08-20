@@ -1210,9 +1210,9 @@ const ROUTES = [
   },
   {
     route: "/leie/padelbane",
-    title: "Leie padelbane: book padel per time nær deg | Digilist",
+    title: "Padelbane: book per time, pris synlig",
     description:
-      "Leie padelbane per time: finn ledige padelbaner nær deg, se pris og ledige tider i sanntid, og book padel med Vipps. Utstyrsleie og innendørs og utendørs baner.",
+      "Padelbane du booker per time: se ledig tid og pris før du betaler med Vipps. Innendørs og utendørs, racket-leie der anlegget tilbyr det. Ikke en bane du kjøper.",
     ogType: "website",
     service: true,
     breadcrumbs: [
@@ -1227,7 +1227,31 @@ const ROUTES = [
       },
       {
         q: "Hvordan booker jeg en padelbane?",
-        a: "Søk på sted og tidspunkt, se hvilke baner som er ledige i sanntid, velg en time og betal med Vipps eller kort. Bekreftelsen kommer med en gang, og du trenger ikke lage konto hos hvert enkelt anlegg.",
+        a: "Søk på sted og tidspunkt, se hvilke baner som er ledige i sanntid, velg en time og betal med Vipps eller kort. Bekreftelsen kommer med en gang, og eventuell adgangskode sendes før spilletid. Du trenger ikke lage konto hos hvert enkelt anlegg.",
+      },
+      {
+        q: "Kan jeg leie racket og baller?",
+        a: "Ja, der anlegget tilbyr utstyrsleie. Det står på banen om racketer og baller kan leies, og du legger utstyret til i samme booking som banen. Det gjør det enkelt å prøve padel uten å kjøpe eget utstyr først.",
+      },
+      {
+        q: "Er banene innendørs eller utendørs?",
+        a: "Begge deler finnes. Hver bane på Digilist viser om den er innendørs eller utendørs, slik at du kan velge etter vær og årstid. Innendørsbaner kan bookes hele året, mens utendørsbaner ofte er rimeligere i sesong.",
+      },
+      {
+        q: "Hvor mange kan spille på en padelbane?",
+        a: "Padel spilles vanligvis som dobbel med fire spillere, to på hvert lag. Mange spiller også single med to spillere på vanlig bane, og noen anlegg har egne singlebaner. Du booker hele banen per time, uansett hvor mange dere er.",
+      },
+      {
+        q: "Kan jeg avbestille timen hvis noe endrer seg?",
+        a: "Avbestillingsreglene settes av hvert anlegg og står tydelig på banen før du booker. Der det er tillatt, avbestiller du digitalt i samme løsning, og refusjonen følger reglene som gjelder for banen.",
+      },
+      {
+        q: "Hva er en padelbane?",
+        a: "En inngjerdet bane for padel, vanligvis for fire spillere. På Digilist leier du den per time, med pris og ledig tid synlig, i stedet for å kjøpe en bane.",
+      },
+      {
+        q: "Må jeg kjøpe bane eller ha medlemskap?",
+        a: "Nei. Du booker en time på en eksisterende bane. Medlemskap hos det enkelte anlegg er ikke et krav for å booke gjennom Digilist.",
       },
     ],
   },

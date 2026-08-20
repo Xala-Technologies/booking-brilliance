@@ -8,12 +8,21 @@ export default function LeiePadelbane() {
       sectionLabel="LEIE"
       slug="padelbane"
       breadcrumb="Padelbane"
-      title="Leie padelbane"
-      dek="Book padelbane per time. Finn ledig padelbane nær deg, se ledige tider i sanntid, og book og betal med Vipps."
-      lead="Har du prøvd å finne en ledig padelbane en torsdag kveld, vet du hvordan det er. Banene ligger spredt på ulike anlegg med hver sin app, du må lage konto hvert sted, og ingen viser deg hva som faktisk er ledig på tvers. Om du får leid racket og baller er heller ikke alltid klart før du står der. På Digilist samles ledige padelbaner nær deg ett sted, med ledig tid synlig i sanntid, pris per time, og book og betal med Vipps i samme flyt."
-      seoTitle="Leie padelbane: book padel per time nær deg | Digilist"
-      seoDescription="Leie padelbane per time: finn ledige padelbaner nær deg, se pris og ledige tider i sanntid, og book padel med Vipps. Utstyrsleie og innendørs og utendørs baner."
-      keywords="leie padelbane, book padel, padelbane til leie, book padelbane, ledig padelbane, padel bane, leie padel, padelbane pris, spille padel"
+      title="Padelbane til leie"
+      dek="Fire apper. Ny konto på hvert anlegg. Usikkert om racketen kan leies."
+      lead="På Digilist booker du padelbane per time. Ledig tid og pris synlig, og du betaler med Vipps."
+      introSection={{
+        heading: "Hva er en padelbane på Digilist?",
+        paragraphs: [
+          "En padelbane her er en time du booker, ikke en bane du kjøper av Norpadel eller FINN.",
+          "Du ser ledig tid og pris per time før du betaler, innendørs eller utendørs.",
+          "Du booker og betaler med Vipps. Racket og baller legger du til der anlegget tilbyr det.",
+        ],
+      }}
+      seoTitle="Padelbane: book per time, pris synlig"
+      seoDescription="Padelbane du booker per time: se ledig tid og pris før du betaler med Vipps. Innendørs og utendørs, racket-leie der anlegget tilbyr det. Ikke en bane du kjøper."
+      keywords="padelbane, leie padelbane, booke padel, padel per time, utstyrsleie"
+      faqHeading="Vanlige spørsmål om padelbane"
       audience={[
         {
           persona: "Venner som vil spille",
@@ -157,6 +166,16 @@ export default function LeiePadelbane() {
           question: "Kan jeg avbestille timen hvis noe endrer seg?",
           answer:
             "Avbestillingsreglene settes av hvert anlegg og står tydelig på banen før du booker. Der det er tillatt, avbestiller du digitalt i samme løsning, og refusjonen følger reglene som gjelder for banen.",
+        },
+        {
+          question: "Hva er en padelbane?",
+          answer:
+            "En inngjerdet bane for padel, vanligvis for fire spillere. På Digilist leier du den per time, med pris og ledig tid synlig, i stedet for å kjøpe en bane.",
+        },
+        {
+          question: "Må jeg kjøpe bane eller ha medlemskap?",
+          answer:
+            "Nei. Du booker en time på en eksisterende bane. Medlemskap hos det enkelte anlegg er ikke et krav for å booke gjennom Digilist.",
         },
       ]}
       relatedPosts={[
