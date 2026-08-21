@@ -260,4 +260,26 @@ export const POST_FAQ = {
         "Ved implementering overfører Digilist eksisterende sesongtildelinger og faste bookinger før løsningen settes i drift, slik at ingen lag mister allerede tildelt treningstid. Samme mulighet bør være tilgjengelig hos enhver leverandør dere vurderer.",
     },
   ],
+  "hva-er-bookingsystem-kommunale-lokaler": [
+    {
+      question: "Hva er et bookingsystem for kommunale lokaler?",
+      answer:
+        "En digital kalender der innbyggere, lag og foreninger booker kommunale rom og anlegg. Saksbehandleren godkjenner i samme løsning, med kontroll og logg.",
+    },
+    {
+      question: "Hvilke lokaler kan bookes?",
+      answer:
+        "Hall, møterom, kulturhus, idrettsanlegg og andre rom kommunen leier ut. På Digilist ser du typen, kapasitet og ledig tid før du booker.",
+    },
+    {
+      question: "Er dette det samme som et saksbehandlingssystem?",
+      answer:
+        "Nei. Bookingsystemet tar søknad, kalender og utleie. Saksbehandling av vedtak ligger i fagsystemet. De kan kobles, de er ikke det samme.",
+    },
+    {
+      question: "Må innbyggeren ringe kommunen?",
+      answer:
+        "Nei. Ledig tid og pris vises før booking. Saksbehandleren har fortsatt kontroll og kan be om mer dokumentasjon.",
+    },
+  ],
 };
