@@ -139,3 +139,30 @@
 - Lint passed with pre-existing warnings only
 - Build completed successfully with 471 prerendered pages
 - PR #314 created, CI passed, merged to main
+
+## 2026-08-21: CTR Optimization for /blogg/hva-er-bookingsystem-kommunale-lokaler
+
+### Changes Made
+- Tightened copy on existing blog post to improve click-through from search results
+- Updated title to "Hva er et bookingsystem for kommunale lokaler" (removed "Full guide for IT-ledere")
+- Updated meta description to emphasize innbygger, lag, saksbehandler workflow with visible pricing
+- Simplified opening paragraph to direct problem statement
+- Replaced first H2 content with three clear numbered points about digital calendar, saksbehandler approval, and unified platform
+- Updated keywords to focus on core terms: bookingsystem kommunale lokaler, bookingsystem kommune, kommunale lokaler, digital booking, hall og møterom
+- Added FAQ H2 "Vanlige spørsmål om bookingsystem for kommunale lokaler" with 4 questions
+- Kept all other H2s including live price sentence (50 000 and 250 000 kroner)
+
+### Files Modified
+- src/content/blog/hva-er-bookingsystem-kommunale-lokaler.md (frontmatter, opening, first H2 content, FAQ section)
+
+### Constraints Met
+- Official Bokmål spelling
+- Blog route NOT in scripts/prerender.mjs (blogs are MDX-only, not individually prerendered)
+- Kept existing price reference without adding new numbers
+- No edits to /bookingsystem-kommune, /blogg/beste-bookingsystem-kommune-norge, city landings, or other pages
+- Single PR from main
+
+### Build Status
+- Lint passed with pre-existing warnings only
+- Build completed successfully with 473 prerendered pages
+- PR #315 created, merged to main
