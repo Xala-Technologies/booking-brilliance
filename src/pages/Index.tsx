@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
+import LazySectionBoundary from "@/components/LazySectionBoundary";
 import HeroSection from "@/components/HeroSection";
 import MarketplaceSection from "@/components/MarketplaceSection";
 import { GrainOverlay, ProgressRail } from "@/components/editorial";
@@ -103,21 +104,27 @@ const Index = () => {
       <main id="main">
         <HeroSection />
         <MarketplaceSection />
-        <Suspense fallback={null}>
-          <AiAgentsSection />
-          <B2BLaneSection />
-          <ChannelSyncSection />
-          <HowItWorksSection />
-          <BrukerhistorierSection />
-          <PricingSection />
-          <BlogPreviewSection />
-          <HomepageFAQSection />
-          <CTASection />
-        </Suspense>
+        {/* A chunk that fails to fetch must cost these sections only — never
+            the navbar above them (geoqa #291). */}
+        <LazySectionBoundary>
+          <Suspense fallback={null}>
+            <AiAgentsSection />
+            <B2BLaneSection />
+            <ChannelSyncSection />
+            <HowItWorksSection />
+            <BrukerhistorierSection />
+            <PricingSection />
+            <BlogPreviewSection />
+            <HomepageFAQSection />
+            <CTASection />
+          </Suspense>
+        </LazySectionBoundary>
       </main>
-      <Suspense fallback={null}>
-        <Footer />
-      </Suspense>
+      <LazySectionBoundary>
+        <Suspense fallback={null}>
+          <Footer />
+        </Suspense>
+      </LazySectionBoundary>
     </div>
   );
 };
