@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
+import { ChunkErrorBoundary } from "@/components/ChunkErrorBoundary";
 import HeroSection from "@/components/HeroSection";
 import MarketplaceSection from "@/components/MarketplaceSection";
 import { GrainOverlay, ProgressRail } from "@/components/editorial";
@@ -103,21 +104,25 @@ const Index = () => {
       <main id="main">
         <HeroSection />
         <MarketplaceSection />
-        <Suspense fallback={null}>
-          <AiAgentsSection />
-          <B2BLaneSection />
-          <ChannelSyncSection />
-          <HowItWorksSection />
-          <BrukerhistorierSection />
-          <PricingSection />
-          <BlogPreviewSection />
-          <HomepageFAQSection />
-          <CTASection />
-        </Suspense>
+        <ChunkErrorBoundary>
+          <Suspense fallback={null}>
+            <AiAgentsSection />
+            <B2BLaneSection />
+            <ChannelSyncSection />
+            <HowItWorksSection />
+            <BrukerhistorierSection />
+            <PricingSection />
+            <BlogPreviewSection />
+            <HomepageFAQSection />
+            <CTASection />
+          </Suspense>
+        </ChunkErrorBoundary>
       </main>
-      <Suspense fallback={null}>
-        <Footer />
-      </Suspense>
+      <ChunkErrorBoundary>
+        <Suspense fallback={null}>
+          <Footer />
+        </Suspense>
+      </ChunkErrorBoundary>
     </div>
   );
 };
