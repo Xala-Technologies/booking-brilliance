@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
+import SectionErrorBoundary from "@/components/SectionErrorBoundary";
 import HeroSection from "@/components/HeroSection";
 import MarketplaceSection from "@/components/MarketplaceSection";
 import { GrainOverlay, ProgressRail } from "@/components/editorial";
@@ -103,21 +104,31 @@ const Index = () => {
       <main id="main">
         <HeroSection />
         <MarketplaceSection />
-        <Suspense fallback={null}>
-          <AiAgentsSection />
-          <B2BLaneSection />
-          <ChannelSyncSection />
-          <HowItWorksSection />
-          <BrukerhistorierSection />
-          <PricingSection />
-          <BlogPreviewSection />
-          <HomepageFAQSection />
-          <CTASection />
-        </Suspense>
+        {/* Suspense covers the chunk still loading; the boundary covers the
+            chunk never arriving. A rejected import() throws past Suspense, and
+            without a boundary it unmounts the whole root — navbar, hero and
+            marketplace included — leaving a blank page with no links at all
+            (geoqa #295, Narvik egress). Losing the sections below the fold is
+            the acceptable failure; losing the page is not. */}
+        <SectionErrorBoundary label="homepage sections">
+          <Suspense fallback={null}>
+            <AiAgentsSection />
+            <B2BLaneSection />
+            <ChannelSyncSection />
+            <HowItWorksSection />
+            <BrukerhistorierSection />
+            <PricingSection />
+            <BlogPreviewSection />
+            <HomepageFAQSection />
+            <CTASection />
+          </Suspense>
+        </SectionErrorBoundary>
       </main>
-      <Suspense fallback={null}>
-        <Footer />
-      </Suspense>
+      <SectionErrorBoundary label="footer">
+        <Suspense fallback={null}>
+          <Footer />
+        </Suspense>
+      </SectionErrorBoundary>
     </div>
   );
 };
