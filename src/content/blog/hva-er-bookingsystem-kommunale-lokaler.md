@@ -37,11 +37,11 @@ Forskjellen mellom lokaltypene ligger i reglene, ikke i teknologien. En gymsal t
 
 Prisen avhenger av antall lokaler, integrasjoner og om betaling og adgangskontroll skal inngå. De vanlige modellene er:
 
-- **Årlig lisens (SaaS):** en fast eller trappetrinnsbasert abonnementspris, gjerne knyttet til innbyggertall eller antall anlegg. For en mellomstor kommune i størrelsesorden 20 000 til 50 000 innbyggere, for eksempel Ringsaker eller Nordre Follo, ligger dette typisk mellom 50 000 og 250 000 kroner i året.
+- **Årlig lisens (SaaS):** en fast eller trappetrinnsbasert abonnementspris, gjerne knyttet til innbyggertall eller antall anlegg som skal håndteres i løsningen.
 - **Transaksjonsbasert:** et påslag per betalt booking, aktuelt der utleie til private står for mye av volumet.
 - **Etablering og oppsett:** en engangskostnad for konfigurasjon, migrering av eksisterende bookinger og opplæring.
 
-Legg til interne kostnader: prosjektledelse, integrasjon mot ID-porten og fakturasystem, og tid til å rydde i lokaldata før oppstart. Det er ofte den interne tiden, ikke lisensen, som avgjør totalprisen det første året.
+Den interne tiden som går til prosjektledelse, integrasjon mot ID-porten og fakturasystem, og opprydding i lokaldata før oppstart, bestemmer ofte år-ett-kostnaden mer enn lisensen i seg selv.
 
 Anskaffelser over terskelverdi må ut på anbud etter anskaffelsesregelverket. For et rent SaaS-bookingsystem er terskelen for åpen konkurranse fort nådd over en fireårig avtaleperiode, så regn med Doffin-utlysning, kravspesifikasjon og evaluering på både pris og kvalitet.
 
