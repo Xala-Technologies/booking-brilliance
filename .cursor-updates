@@ -166,3 +166,31 @@
 - Lint passed with pre-existing warnings only
 - Build completed successfully with 473 prerendered pages
 - PR #315 created, merged to main
+
+## 2026-08-22: Remove Invented Pricing Claims from /blogg/hva-er-bookingsystem-kommunale-lokaler
+
+### Changes Made
+- Removed invented pricing examples from price section (Ringsaker, Nordre Follo as specific municipalities)
+- Removed specific kroner amounts (50,000-250,000 kroner/year)
+- Rewrote price section with general principles instead of invented numbers
+- Emphasized that pricing depends on number of venues, integrations, payment and access control
+- Clarified that internal time costs (project, ID-porten, data cleanup) often exceed license cost in year one
+- Kept same URL, slug, cover image, CTR structure, and all four FAQs
+- Maintained official Bokmål throughout
+
+### Files Modified
+- src/content/blog/hva-er-bookingsystem-kommunale-lokaler.md (price section only)
+
+### Constraints Met
+- No invented clients, kroner amounts, SLA terms, or extra kommuner
+- Official Bokmål spelling maintained
+- Same cover image unchanged
+- Same URL and slug preserved
+- FAQs already correct in blogFaq.mjs
+- No em-dash or en-dash
+- Single PR from main with auto-merge enabled
+
+### Build Status
+- Lint passed with 41 pre-existing warnings only
+- Build completed successfully
+- PR #319 created, auto-merge enabled, merged to main
