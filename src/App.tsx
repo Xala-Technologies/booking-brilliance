@@ -1,4 +1,10 @@
-import { ReactNode, lazy, Suspense, useEffect, useState } from "react";
+import { ReactNode, Suspense, useEffect, useState } from "react";
+// React.lazy, plus recovery when a tab that outlived a deploy asks for chunk
+// names the current release no longer serves. Aliased to `lazy` so every
+// route below reads exactly as it did before.
+import { lazyRoute as lazy } from "@/lib/lazyRoute";
+import RouteErrorBoundary from "@/components/RouteErrorBoundary";
+import LazySectionBoundary from "@/components/LazySectionBoundary";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
@@ -200,10 +206,16 @@ function ChatbotMount() {
     location.pathname.startsWith("/admin") ||
     location.pathname.startsWith("/blogg/preview");
   if (skip) return null;
+  // Boundary, not just Suspense: a chatbot chunk that will not load used to
+  // throw past the root and take the entire page with it (see
+  // LazySectionBoundary). The widget is the least important thing on the
+  // page — losing it must never cost the page.
   return (
-    <Suspense fallback={null}>
-      <Chatbot />
-    </Suspense>
+    <LazySectionBoundary>
+      <Suspense fallback={null}>
+        <Chatbot />
+      </Suspense>
+    </LazySectionBoundary>
   );
 }
 
@@ -215,9 +227,11 @@ function AssistantRailMount() {
     location.pathname.startsWith("/blogg/preview");
   if (skip) return null;
   return (
-    <Suspense fallback={null}>
-      <AssistantRail />
-    </Suspense>
+    <LazySectionBoundary>
+      <Suspense fallback={null}>
+        <AssistantRail />
+      </Suspense>
+    </LazySectionBoundary>
   );
 }
 
@@ -504,6 +518,7 @@ export function AppShell() {
           <RumReporter />
           <ChatbotProvider>
           <ContentShell>
+          <RouteErrorBoundary>
           <Suspense fallback={<RouteFallback />}>
           <AnimatedRoutesWrap>
           <Routes>
@@ -513,6 +528,7 @@ export function AppShell() {
           </Routes>
           </AnimatedRoutesWrap>
           </Suspense>
+          </RouteErrorBoundary>
           </ContentShell>
           <CookieConsent />
           {/* Sends a visitor to their own language — homepage redirect,
