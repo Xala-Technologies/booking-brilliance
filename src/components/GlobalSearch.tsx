@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Search } from "lucide-react";
 import {
+  fallbackSuggestions,
   getSearchCorpus,
   searchCorpus,
   KIND_LABEL,
@@ -50,6 +51,58 @@ const tipGroupsFor = (locale: "nb" | "en"): Array<{ id: string; label: string; t
   },
 ];
 
+/**
+ * One row in the panel — a hit, or a suggestion when nothing matched.
+ *
+ * `data-result` is the row's public handle. Everything else in the panel (the
+ * tip chips, the chat link, the keyboard legend) is chrome, and from outside
+ * React there was no way to tell a result apart from any of it: the rows are
+ * buttons in a list, and so is half the navbar. Anything that has to find "the
+ * results" — an automated journey that searches and then opens the first hit,
+ * a browser extension, a test — had to guess at position instead.
+ */
+function ResultRow({
+  item,
+  active,
+  onSelect,
+  onHover,
+}: {
+  item: SearchItem;
+  active: boolean;
+  onSelect: () => void;
+  onHover?: () => void;
+}) {
+  return (
+    <li>
+      <button
+        type="button"
+        data-result={item.kind}
+        onClick={onSelect}
+        onMouseEnter={onHover}
+        aria-selected={active}
+        className={cn(
+          "w-full text-left px-4 py-3 flex items-start gap-4 transition-colors duration-quick ease-editorial",
+          active ? "bg-paper-deep" : "hover:bg-paper-deep/60",
+        )}
+      >
+        <span className="font-mono text-[0.65rem] tracking-widest text-accent-text mt-0.5 min-w-[60px]">
+          {KIND_LABEL[item.kind]}
+        </span>
+        <span className="flex-1 min-w-0">
+          <span className="block font-sans text-base text-ink leading-snug truncate">
+            {item.title}
+          </span>
+          {item.subtitle && (
+            <span className="block text-sm text-ink-soft leading-snug mt-0.5 line-clamp-2">
+              {item.subtitle}
+            </span>
+          )}
+        </span>
+      </button>
+    </li>
+  );
+}
+
 export function GlobalSearch() {
   const locale = localeFromPath(useLocation().pathname);
   const navigate = useNavigate();
@@ -69,6 +122,13 @@ export function GlobalSearch() {
   const results = useMemo(
     () => (query.trim() ? searchCorpus(query, corpus) : []),
     [query, corpus],
+  );
+  // A query that matches nothing is still a visitor who wants something. The
+  // panel used to answer them with one sentence and a chat link, so the search
+  // had no destination in it at all.
+  const suggestions = useMemo(
+    () => (query.trim() && results.length === 0 ? fallbackSuggestions() : []),
+    [query, results],
   );
 
   // Click outside → close
@@ -252,53 +312,51 @@ export function GlobalSearch() {
               </p>
             </div>
           ) : results.length === 0 ? (
-            <div className="p-6 text-center">
-              <p className="text-base text-ink-soft">
-                Ingen treff for «{query}».
+            <div className="py-1">
+              <div className="px-4 pt-4 pb-3 text-center">
+                <p className="text-base text-ink-soft">
+                  Ingen treff for «{query}».
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOpen(false);
+                    setQuery("");
+                    openChatbot({ mode: "chat" });
+                  }}
+                  className="mt-3 inline-block font-sans text-xs uppercase tracking-widest text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
+                >
+                  Spør oss direkte i chat ↗
+                </button>
+              </div>
+              <p className="editorial-mono-caption text-ink-faint px-4 pt-3 pb-1 border-t border-rule">
+                {t(locale, "search.tryInstead")}
               </p>
-              <button
-                type="button"
-                onClick={() => {
-                  setOpen(false);
-                  setQuery("");
-                  openChatbot({ mode: "chat" });
-                }}
-                className="mt-3 inline-block font-sans text-xs uppercase tracking-widest text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
-              >
-                Spør oss direkte i chat ↗
-              </button>
+              {/* Not keyboard-selectable, and deliberately: ↵ opens the
+                  highlighted hit, and a suggestion is not one. Nothing the
+                  visitor asked for should be reachable by pressing Enter on a
+                  query that matched none of it. */}
+              <ul role="listbox" className="py-1">
+                {suggestions.map((item) => (
+                  <ResultRow
+                    key={item.id}
+                    item={item}
+                    active={false}
+                    onSelect={() => selectItem(item)}
+                  />
+                ))}
+              </ul>
             </div>
           ) : (
             <ul role="listbox" className="py-1">
               {results.map((item, i) => (
-                <li key={item.id}>
-                  <button
-                    type="button"
-                    onClick={() => selectItem(item)}
-                    onMouseEnter={() => setSelectedIdx(i)}
-                    aria-selected={i === selectedIdx}
-                    className={cn(
-                      "w-full text-left px-4 py-3 flex items-start gap-4 transition-colors duration-quick ease-editorial",
-                      i === selectedIdx
-                        ? "bg-paper-deep"
-                        : "hover:bg-paper-deep/60",
-                    )}
-                  >
-                    <span className="font-mono text-[0.65rem] tracking-widest text-accent-text mt-0.5 min-w-[60px]">
-                      {KIND_LABEL[item.kind]}
-                    </span>
-                    <span className="flex-1 min-w-0">
-                      <span className="block font-sans text-base text-ink leading-snug truncate">
-                        {item.title}
-                      </span>
-                      {item.subtitle && (
-                        <span className="block text-sm text-ink-soft leading-snug mt-0.5 line-clamp-2">
-                          {item.subtitle}
-                        </span>
-                      )}
-                    </span>
-                  </button>
-                </li>
+                <ResultRow
+                  key={item.id}
+                  item={item}
+                  active={i === selectedIdx}
+                  onSelect={() => selectItem(item)}
+                  onHover={() => setSelectedIdx(i)}
+                />
               ))}
             </ul>
           )}

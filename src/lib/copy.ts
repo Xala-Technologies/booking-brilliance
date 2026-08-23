@@ -340,6 +340,7 @@ const nb: Copy = {
   "search.shortcuts": "Snarveier",
   "search.popular": "Populære søk",
   "search.blog": "Blogg",
+  "search.tryInstead": "Prøv disse i stedet",
 
   "stories.a.headline": "Fra excelark til kalenderautomatikk.",
   "stories.a.dek": "Privat selskapslokale i Asker som leier ut til selskaper, bryllup og jubileer.",
@@ -1036,6 +1037,7 @@ const en: Copy = {
   "search.shortcuts": "Shortcuts",
   "search.popular": "Popular searches",
   "search.blog": "Blog",
+  "search.tryInstead": "Try these instead",
 
   "stories.a.headline": "From spreadsheet to automated calendar.",
   "stories.a.dek": "A private function room outside Oslo, let out for parties, weddings and anniversaries.",
