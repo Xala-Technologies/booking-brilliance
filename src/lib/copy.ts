@@ -289,6 +289,10 @@ const nb: Copy = {
   "pricing.offerBody":
     "Ingen binding i prøveperioden. Et bookingsystem er umulig å vurdere ordentlig på en demo — du finner det ut i mai, når tre lag vil ha samme hall.",
   "pricing.start": "Kom i gang",
+  "pricing.legalHeading": "Pris, avtale og salgsvilkår",
+  "pricing.legalBody":
+    "Vi publiserer ikke fast prisliste fordi behovet varierer — konkret pris gis i tilbud etter en kort samtale, i norske kroner og med mva der dette er aktuelt. Abonnement inngås skriftlig med opplysning om bindingstid og oppsigelse. Digilist er ikke autorisert av Finanstilsynet som betalingsforetak og behandler ikke leieinnbetalinger på vegne av kunder. Fullstendige vilkår for kjøp, betaling, angrerett, retur og reklamasjon finner du i salgsvilkårene.",
+  "pricing.termsLink": "Les salgsvilkårene",
 
   "faqPage.title": "FAQ · Digilist | Vanlige spørsmål om booking og samsvar",
   "faqPage.description":
@@ -982,6 +986,10 @@ const en: Copy = {
   "pricing.offerBody":
     "No lock-in during the trial. A booking system is impossible to judge properly from a demo — you find out in the busy month, when three groups want the same room.",
   "pricing.start": "Get started",
+  "pricing.legalHeading": "Price, agreement and terms of sale",
+  "pricing.legalBody":
+    "We do not publish a fixed price list because needs vary — a concrete price is given in a quote after a short conversation, in Norwegian kroner with VAT where applicable. Subscriptions are entered into in writing with the minimum term and notice period stated. Digilist is not authorised by Finanstilsynet as a payment institution and does not process rental payments on behalf of customers. Full terms for purchase, payment, right of withdrawal, returns and complaints are set out in the terms of sale.",
+  "pricing.termsLink": "Read the terms of sale",
 
   "faqPage.title": "FAQ · Digilist | Common questions about booking and compliance",
   "faqPage.description":

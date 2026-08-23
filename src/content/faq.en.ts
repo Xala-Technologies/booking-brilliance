@@ -161,7 +161,7 @@ export const PRICING_FACTS_EN: readonly PricingFactEn[] = [
   },
   {
     title: "Integrations are included",
-    body: "Payment, national digital identity, e-invoicing and the common accounting systems are part of the subscription. Custom integrations against your own systems are priced separately by scope.",
+    body: "Technical integration with Vipps MobilePay, card payment, national digital identity, e-invoicing and the common accounting systems is part of the subscription. To accept payment you must have your own merchant agreement and credentials with a payment provider. Custom integrations against your own systems are priced separately by scope.",
   },
   {
     title: "Small operators pay small-operator prices",
@@ -170,6 +170,10 @@ export const PRICING_FACTS_EN: readonly PricingFactEn[] = [
   {
     title: "No hidden charges",
     body: "What is in the quote is what you pay. No per-booking cost, no share of revenue, and no fees that appear after signature.",
+  },
+  {
+    title: "Subscription and payment",
+    body: "You pay a subscription to Xala Technologies AS for the platform and administration. Rental payments from your guests go directly to you through your own payment agreement — Digilist does not process those payments. The exact price, minimum term and cancellation are agreed in writing and set out in the terms of sale.",
   },
 ];
 

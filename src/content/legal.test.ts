@@ -79,7 +79,7 @@ describe.each(DOCS)("%s says the same thing in both languages", (_name, doc) => 
       // "Force majeure" is the same term of art in Norwegian and English legal
       // drafting, and the clause numbering is shared, so the whole heading
       // matches. Rewording the English to differ would make the term wrong.
-      "4.4 Force majeure",
+      "12.4 Force majeure",
     ]);
 
     // Punctuation is language-neutral — a lone "." after an inline link is

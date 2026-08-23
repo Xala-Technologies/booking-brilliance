@@ -2404,7 +2404,7 @@ const ROUTES = [
     route: "/en/salgsvilkar",
     title: "Terms of sale – Digilist",
     description:
-      "Terms for using Digilist: booking, payment, cancellation, right of withdrawal, and liability between the person renting and the operator.",
+      "Terms of sale for Digilist subscriptions and use of the platform: parties, payment, cancellation, delivery, right of withdrawal, booking and liability.",
     ogType: "website",
     lang: "en",
     breadcrumbs: [
@@ -2415,7 +2415,8 @@ const ROUTES = [
   {
     route: "/salgsvilkar",
     title: "Salgsvilkår og leveransevilkår – Digilist",
-    description: "Salgs- og leveransevilkår for Digilist bookingplattform – gjeldende avtale mellom Digilist og kunder.",
+    description:
+      "Salgsvilkår for Digilist-abonnement og bruk av plattformen: parter, betaling, oppsigelse, levering, angrerett, booking og ansvar.",
     ogType: "website",
     breadcrumbs: [
       { name: "Hjem", url: `${BASE_URL}/` },
