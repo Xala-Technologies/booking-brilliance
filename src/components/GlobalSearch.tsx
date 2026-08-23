@@ -207,7 +207,10 @@ export function GlobalSearch() {
           </button>
         ) : (
           <kbd
-            className="hidden lg:inline-flex items-center font-mono text-[0.65rem] tracking-widest text-ink-faint border border-rule rounded-sm px-1.5 py-0.5"
+            // Only where the box is wide enough to spare the room: at `xl`
+            // the navbar shares the centre column with the inline nav, so the
+            // hint would eat the placeholder. The shortcut still works.
+            className="hidden 2xl:inline-flex items-center font-mono text-[0.65rem] tracking-widest text-ink-faint border border-rule rounded-sm px-1.5 py-0.5"
             aria-hidden="true"
           >
             ⌘K
@@ -219,7 +222,7 @@ export function GlobalSearch() {
         <div
           role="dialog"
           aria-label="Søkeresultater"
-          className="absolute left-0 right-0 mt-2 bg-paper border border-hairline-strong rounded-sm shadow-2xl max-h-[70vh] overflow-y-auto z-50"
+          className="absolute left-0 right-0 min-w-[20rem] mt-2 bg-paper border border-hairline-strong rounded-sm shadow-2xl max-h-[70vh] overflow-y-auto z-50"
         >
           {showTips ? (
             <div className="p-4 space-y-5">
