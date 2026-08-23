@@ -296,7 +296,16 @@ export interface AutoRedirectInput {
 /**
  * Whether to send this visitor to the other language, and where.
  *
- * **Homepage only.** This is the whole design, and it is not timidity.
+ * **Homepage: redirect only with an explicit choice, or to Norwegian.**
+ *
+ * digilist.no is a Norwegian product. Many visitors in Norway run browsers set
+ * to `en-US` or `en-GB`, and auto-sending them to `/en` on every homepage visit
+ * is the bug we hear about as "I always get English". Browser language alone
+ * must therefore never redirect *to* English — only a stored `digilist-locale`
+ * choice may do that.
+ *
+ * We still redirect Norwegian-preferring visitors off `/en` back to `/`, and we
+ * still honour a stored choice in both directions.
  *
  * Googlebot crawls with an English `Accept-Language` and executes JavaScript.
  * A redirect that fired on every page would bounce it off `/priser`, `/faq`
@@ -304,33 +313,27 @@ export interface AutoRedirectInput {
  * exist — deindexing the Norwegian site, which is the one currently earning
  * every visitor we have, in order to serve a market we have not entered yet.
  * Redirecting only the homepage is the behaviour Google documents as
- * acceptable, and it catches the case that actually matters: someone in the UK
- * or Canada arriving at digilist.no from an ad or a link.
- *
- * For deep links there is no redirect. Those visitors arrive from a search
- * engine that has already picked the right language via hreflang, and anyone
- * else gets the language banner offering the switch.
- *
- * A stored choice always wins, in both directions. Someone who deliberately
- * clicked "Norsk" must not be dragged back to English on their next visit —
- * an auto-redirect that overrules an explicit choice is a bug that feels like
- * a broken site.
+ * acceptable, and limiting *outbound* redirects to explicit choices or a
+ * Norwegian browser preference keeps that protection intact.
  */
 export function shouldAutoRedirect(input: AutoRedirectInput): string | null {
   const path = normalise(input.pathname);
   if (path !== "/" && path !== "/en") return null;
 
-  const wanted = input.stored ?? input.preferred;
-  if (!wanted) return null;
-
   const current = localeFromPath(path);
-  if (wanted === current) return null;
 
-  // Only ever to a page that EXISTS. Returning a hardcoded "/en" sent every
-  // non-Norwegian visitor to a 404 for as long as the English homepage was
-  // unwritten — the worst possible first impression, and invisible in testing
-  // because the redirect itself worked perfectly.
-  return alternatePath(path);
+  // Remembered choice always wins in both directions.
+  if (input.stored === "en" && current === "nb") return alternatePath(path);
+  if (input.stored === "nb" && current === "en") return alternatePath(path);
+
+  // Browser preference alone: only pull Norwegian speakers off the English homepage.
+  // Never auto-redirect to English — digilist.no defaults to Norwegian regardless
+  // of whether the visitor's OS/browser is set to English (common in Norway).
+  if (!input.stored && input.preferred === "nb" && current === "en") {
+    return alternatePath(path);
+  }
+
+  return null;
 }
 
 /**

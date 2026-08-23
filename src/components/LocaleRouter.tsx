@@ -23,19 +23,18 @@ function storedLocale(): Locale | null {
  * Sends a visitor to their own language, in the one way that cannot cost us the
  * Norwegian rankings.
  *
- * **Homepage: redirect. Everywhere else: offer.**
+ * **Homepage: redirect only with an explicit choice, or to Norwegian.**
+ *
+ * digilist.no defaults to Norwegian. Browser language alone must never send a
+ * visitor to `/en` — many people in Norway use English OS settings. English is
+ * still one click away via the language switcher, and a stored `digilist-locale`
+ * choice is honoured on return visits.
  *
  * Googlebot crawls with an English `Accept-Language` and runs JavaScript. A
- * redirect that fired on every page would bounce it off /priser, /faq and 335
- * Norwegian blog posts toward English versions that mostly do not exist —
- * deindexing the site that earns every visitor we have today, in order to serve
- * a market we have not entered yet. Redirecting only the homepage is the
- * behaviour Google documents as acceptable, and it catches the case that
- * actually matters: someone in the UK or Canada arriving at digilist.no.
- *
- * On a deep page the visitor gets a dismissible bar instead. They may have been
- * sent that exact link by a colleague, and moving them without asking loses the
- * page they came for.
+ * redirect on every page would bounce it off /priser, /faq and 335 Norwegian
+ * blog posts toward English versions that mostly do not exist — deindexing the
+ * site that earns every visitor we have today. Redirecting only the homepage,
+ * and never to English without an explicit stored choice, keeps that protection.
  *
  * `replace: true` on the redirect keeps the wrong-language URL out of history,
  * so Back does not bounce them straight into the redirect again.

@@ -118,9 +118,17 @@ describe("preferredLocale", () => {
   });
 });
 
-describe("shouldAutoRedirect — a visitor in the UK gets English", () => {
-  it("sends a non-Norwegian visitor from the homepage to the English one", () => {
-    expect(shouldAutoRedirect({ pathname: "/", preferred: "en", stored: null })).toBe("/en");
+describe("shouldAutoRedirect — homepage locale", () => {
+  it("does not auto-redirect to English from browser language alone", () => {
+    // A visitor in Norway with en-US Chrome must stay on Norwegian by default.
+    expect(shouldAutoRedirect({ pathname: "/", preferred: "en", stored: null })).toBeNull();
+  });
+
+  it("redirects to English only when the visitor chose English before", () => {
+    expect(shouldAutoRedirect({ pathname: "/", preferred: "nb", stored: "en" })).toBe("/en");
+  });
+
+  it("sends a Norwegian-preferring visitor from the English homepage to Norwegian", () => {
     expect(shouldAutoRedirect({ pathname: "/en", preferred: "nb", stored: null })).toBe("/");
   });
 
@@ -156,6 +164,7 @@ describe("shouldAutoRedirect — a visitor in the UK gets English", () => {
     // a bug that feels like a broken site.
     expect(shouldAutoRedirect({ pathname: "/", preferred: "en", stored: "nb" })).toBeNull();
     expect(shouldAutoRedirect({ pathname: "/en", preferred: "nb", stored: "en" })).toBeNull();
+    expect(shouldAutoRedirect({ pathname: "/", preferred: "en", stored: "en" })).toBe("/en");
   });
 
   it("does nothing when the browser tells us nothing", () => {
