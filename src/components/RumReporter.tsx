@@ -104,22 +104,27 @@ export default function RumReporter() {
         });
     };
 
-    // Dynamic import so web-vitals isn't in the critical chunk.
-    void import("web-vitals").then((wv) => {
-      if (cancelled) return;
-      const handler = (name: string) => (m: {
-        value: number;
-        rating: string;
-        navigationType?: string;
-      }) => {
-        send(name, m.value, m.rating, m.navigationType);
-      };
-      wv.onLCP(handler("LCP"));
-      wv.onCLS(handler("CLS"));
-      wv.onINP(handler("INP"));
-      wv.onFCP(handler("FCP"));
-      wv.onTTFB(handler("TTFB"));
-    });
+    // Dynamic import so web-vitals isn't in the critical chunk. A tab that
+    // outlived a deploy asks for a chunk name the current release no longer
+    // serves; RUM is best-effort, so that must stay silent rather than land as
+    // an unhandled rejection in every visitor's console.
+    void import("web-vitals")
+      .catch(() => null)
+      .then((wv) => {
+        if (!wv || cancelled) return;
+        const handler = (name: string) => (m: {
+          value: number;
+          rating: string;
+          navigationType?: string;
+        }) => {
+          send(name, m.value, m.rating, m.navigationType);
+        };
+        wv.onLCP(handler("LCP"));
+        wv.onCLS(handler("CLS"));
+        wv.onINP(handler("INP"));
+        wv.onFCP(handler("FCP"));
+        wv.onTTFB(handler("TTFB"));
+      });
 
     return () => {
       cancelled = true;

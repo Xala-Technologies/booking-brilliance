@@ -97,6 +97,30 @@ rsync -avz --progress \
 # one fails its health gate below.
 PREV_REL=$(ssh ${VPS_USER}@${VPS_HOST} "readlink ${REMOTE_BASE}/current 2>/dev/null || true")
 
+# Carry the previous release's hashed assets into this one.
+#
+# `current` points at exactly one release, so the instant we flip, every chunk
+# name the OLD entry bundle knows about starts 404ing. A tab opened before the
+# deploy then dies on its next lazy route:
+#   GET /assets/Blog-BuR9BW3m.js → 404
+#   Failed to fetch dynamically imported module: .../Blog-BuR9BW3m.js
+# src/lib/lazyRoute.ts recovers from that with one reload; inheriting the old
+# files means the visitor never even sees the reload.
+#
+# Hashed names never collide, so `cp -an` only ever adds files this build did
+# not produce, and -a keeps the inherited mtimes — which is what makes the
+# prune below work. Without it each release would carry the entire history
+# forward forever; with it, a chunk stops being served 14 days after the build
+# that produced it, long after any tab still has it open.
+if [ -n "$PREV_REL" ] && [ "$PREV_REL" != "${REMOTE_BASE}/${REL}" ]; then
+    ssh ${VPS_USER}@${VPS_HOST} "
+        if [ -d '${PREV_REL}/assets' ] && [ -d '${REMOTE_BASE}/${REL}/assets' ]; then
+            cp -an '${PREV_REL}/assets/.' '${REMOTE_BASE}/${REL}/assets/' 2>/dev/null || true
+            find '${REMOTE_BASE}/${REL}/assets' -type f -mtime +14 -delete 2>/dev/null || true
+        fi
+    " || echo -e "${YELLOW}⚠ Could not inherit previous release assets (non-fatal)${NC}"
+fi
+
 # Atomic switch to the new release (nginx follows the symlink per request).
 ssh ${VPS_USER}@${VPS_HOST} "ln -sfn ${REMOTE_BASE}/${REL} ${REMOTE_BASE}/current"
 echo -e "${GREEN}✓ Atomically switched current → ${REL}${NC}"
