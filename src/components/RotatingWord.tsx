@@ -58,9 +58,17 @@ const COLORS = [
  *    Møterom …" to anything that ignores aria-hidden.
  *
  * 3. CLS. Words differ in width ("Møterom" vs "Selskapslokaler"), so following
- *    text would jump on each swap. The visible box animates its width between
- *    measured values instead, and re-measures when a breakpoint changes the
- *    font size — stale widths from another breakpoint would mis-size the box.
+ *    text would jump on each swap. The box is therefore held at the width of
+ *    the WIDEST word for the whole rotation, and re-measured when a breakpoint
+ *    changes the font size — stale widths from another breakpoint would
+ *    mis-size the box. It used to animate width between the per-word values,
+ *    which is not a fix: `width` is a layout property, so every frame of that
+ *    0.4s animation moved "du trenger, og plattformen bak dem" and re-wrapped
+ *    the h1 — changing its height, and with it the position of everything
+ *    below the fold — once every `holdMs`, for as long as the page stayed
+ *    open. Only the roll itself (a transform) may animate. A short word now
+ *    leaves trailing space before the tail; that is the cost of the guarantee,
+ *    and the h1's type ramp was already sized against the longest word.
  *
  * 4. Motion sensitivity. The site claims WCAG 2.1 AA and WCAG 2.2.2 covers
  *    auto-starting movement running past five seconds. Under
@@ -77,7 +85,7 @@ export function RotatingWord({
 }: RotatingWordProps) {
   const reduceMotion = useReducedMotion();
   const [index, setIndex] = useState(0);
-  const [widths, setWidths] = useState<number[] | null>(null);
+  const [boxWidth, setBoxWidth] = useState<number | null>(null);
   const hostRef = useRef<HTMLElement | null>(null);
 
   // Measures against a probe in <body> that mirrors the heading's resolved
@@ -115,7 +123,7 @@ export function RotatingWord({
     });
     probe.remove();
 
-    if (next.every((w) => w > 0)) setWidths(next);
+    if (next.every((w) => w > 0)) setBoxWidth(Math.max(...next));
   }, [words]);
 
   useEffect(() => {
@@ -139,17 +147,17 @@ export function RotatingWord({
   }, [reduceMotion, measure]);
 
   useEffect(() => {
-    if (reduceMotion || !widths) return;
+    if (reduceMotion || boxWidth === null) return;
     const id = window.setInterval(
       () => setIndex((i) => (i + 1) % words.length),
       holdMs,
     );
     return () => window.clearInterval(id);
-  }, [reduceMotion, widths, words.length, holdMs]);
+  }, [reduceMotion, boxWidth, words.length, holdMs]);
 
   // Reduced motion, or pre-measurement: plain in-flow text, byte-identical to
   // the prerendered markup.
-  if (reduceMotion || !widths) {
+  if (reduceMotion || boxWidth === null) {
     return (
       <span ref={hostRef} className={`${COLORS[0]} ${className ?? ""}`}>
         {words[0]}
@@ -179,12 +187,10 @@ export function RotatingWord({
         // this pairing is the one way to mask a single axis.
         overflowY: "clip",
         overflowX: "visible",
+        // Fixed at the widest word, never animated: the text after this span
+        // must not move when the word swaps.
+        width: boxWidth,
       }}
-      animate={{ width: widths[index] }}
-      initial={false}
-      // Width settles faster than the roll, so a longer word has room before
-      // it arrives rather than briefly overhanging the text after it.
-      transition={{ ...ROLL, duration: 0.4 }}
     >
       {"​"}
       <AnimatePresence initial={false}>
