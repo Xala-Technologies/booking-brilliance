@@ -341,6 +341,15 @@ const nb: Copy = {
   "search.popular": "Populære søk",
   "search.blog": "Blogg",
   "search.tryInstead": "Prøv disse i stedet",
+  "search.submit": "Søk",
+  "search.seeAll": "Se alle treff for",
+  "search.resultsTitle": "Søkeresultater",
+  "search.resultsFor": "Treff for",
+  "search.noHits": "Ingen treff for",
+  "search.emptyQuery": "Skriv inn et søk for å komme i gang.",
+  "search.askChat": "Spør oss direkte i chat ↗",
+  "search.lede":
+    "Søk i lokaler, overnatting, arrangementer, utstyr, tjenester, blogg og ofte stilte spørsmål.",
 
   "stories.a.headline": "Fra excelark til kalenderautomatikk.",
   "stories.a.dek": "Privat selskapslokale i Asker som leier ut til selskaper, bryllup og jubileer.",
@@ -1038,6 +1047,15 @@ const en: Copy = {
   "search.popular": "Popular searches",
   "search.blog": "Blog",
   "search.tryInstead": "Try these instead",
+  "search.submit": "Search",
+  "search.seeAll": "See all results for",
+  "search.resultsTitle": "Search results",
+  "search.resultsFor": "Results for",
+  "search.noHits": "No results for",
+  "search.emptyQuery": "Type a search to get started.",
+  "search.askChat": "Ask us directly in chat ↗",
+  "search.lede":
+    "Search venues, stays, events, equipment, services, the blog and the FAQ.",
 
   "stories.a.headline": "From spreadsheet to automated calendar.",
   "stories.a.dek": "A private function room outside Oslo, let out for parties, weddings and anniversaries.",

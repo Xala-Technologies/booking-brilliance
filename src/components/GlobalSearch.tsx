@@ -112,7 +112,12 @@ export function GlobalSearch() {
 
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const [selectedIdx, setSelectedIdx] = useState(0);
+  // -1 is "the visitor has not picked a row yet", and it is why ↵ has
+  // somewhere to go. With the first hit pre-highlighted, ↵ always meant "open
+  // hit #1", so submitting a search could not lead to the results page — the
+  // search had no destination of its own at all. ↓ still lands on the first
+  // hit, and ↵ on a highlighted row still opens it.
+  const [selectedIdx, setSelectedIdx] = useState(-1);
 
   // Deferred until the user actually opens search — every page mounts this
   // component (it's in the Navbar), so building the ~150-item corpus (blog
@@ -156,7 +161,7 @@ export function GlobalSearch() {
 
   // Reset selected index when results change
   useEffect(() => {
-    setSelectedIdx(0);
+    setSelectedIdx(-1);
   }, [query]);
 
   const selectItem = (item: SearchItem) => {
@@ -185,6 +190,22 @@ export function GlobalSearch() {
     navigate(item.href);
   };
 
+  /**
+   * Submitting the search — ↵ with no row highlighted, or the search button.
+   *
+   * Everything the panel offers is a jump straight to one page, so before this
+   * there was no URL that meant "I searched for x": submitting left the
+   * visitor exactly where they were, on a page that says nothing about their
+   * search. `/sok?q=` is that URL, and it can be linked, reloaded and gone
+   * back to like any other page.
+   */
+  const submitSearch = () => {
+    const q = query.trim();
+    if (!q) return;
+    setOpen(false);
+    navigate(`/sok?q=${encodeURIComponent(q)}`);
+  };
+
   const onTip = (tip: Tip) => {
     setOpen(false);
     if (tip.action) {
@@ -207,17 +228,25 @@ export function GlobalSearch() {
       inputRef.current?.blur();
       return;
     }
+    if (e.key === "Enter") {
+      e.preventDefault();
+      // A row the visitor actually highlighted takes ↵ over. Otherwise ↵
+      // submits the search and lands on its results page — which is what ↵ in
+      // a search box means everywhere else. Handled here rather than left to
+      // the form's implicit submission so the behaviour does not depend on
+      // which element happens to be focused inside the box.
+      const item = results[selectedIdx];
+      if (item) selectItem(item);
+      else submitSearch();
+      return;
+    }
     if (results.length === 0) return;
     if (e.key === "ArrowDown") {
       e.preventDefault();
       setSelectedIdx((i) => (i + 1) % results.length);
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
-      setSelectedIdx((i) => (i - 1 + results.length) % results.length);
-    } else if (e.key === "Enter") {
-      e.preventDefault();
-      const item = results[selectedIdx];
-      if (item) selectItem(item);
+      setSelectedIdx((i) => (i <= 0 ? results.length - 1 : i - 1));
     }
   };
 
@@ -228,17 +257,24 @@ export function GlobalSearch() {
       ref={containerRef}
       className="relative w-full max-w-[420px] xl:max-w-[480px]"
     >
-      <div
+      <form
+        role="search"
+        onSubmit={(e) => {
+          e.preventDefault();
+          submitSearch();
+        }}
         className={cn(
           "flex items-center gap-2.5 border border-hairline-strong rounded-sm bg-paper px-3 py-2 transition-colors duration-quick ease-editorial",
           open ? "border-navy" : "hover:border-ink",
         )}
       >
-        <Search
-          className="h-4 w-4 text-ink-faint shrink-0"
-          aria-hidden="true"
-          strokeWidth={1.5}
-        />
+        <button
+          type="submit"
+          aria-label={t(locale, "search.submit")}
+          className="text-ink-faint hover:text-ink shrink-0 leading-none"
+        >
+          <Search className="h-4 w-4" aria-hidden="true" strokeWidth={1.5} />
+        </button>
         <input
           ref={inputRef}
           type="search"
@@ -276,7 +312,7 @@ export function GlobalSearch() {
             ⌘K
           </kbd>
         )}
-      </div>
+      </form>
 
       {open && (
         <div
@@ -348,17 +384,29 @@ export function GlobalSearch() {
               </ul>
             </div>
           ) : (
-            <ul role="listbox" className="py-1">
-              {results.map((item, i) => (
-                <ResultRow
-                  key={item.id}
-                  item={item}
-                  active={i === selectedIdx}
-                  onSelect={() => selectItem(item)}
-                  onHover={() => setSelectedIdx(i)}
-                />
-              ))}
-            </ul>
+            <div className="py-1">
+              <ul role="listbox">
+                {results.map((item, i) => (
+                  <ResultRow
+                    key={item.id}
+                    item={item}
+                    active={i === selectedIdx}
+                    onSelect={() => selectItem(item)}
+                    onHover={() => setSelectedIdx(i)}
+                  />
+                ))}
+              </ul>
+              {/* The panel shows the top hits; this is the same search as a
+                  page. Outside the listbox on purpose — it is not one of the
+                  options ↑↓ walks. */}
+              <button
+                type="button"
+                onClick={submitSearch}
+                className="w-full text-left px-4 py-3 border-t border-rule font-sans text-xs uppercase tracking-widest text-accent-text hover:bg-paper-deep/60 transition-colors duration-quick ease-editorial"
+              >
+                {t(locale, "search.seeAll")} «{query}» →
+              </button>
+            </div>
           )}
         </div>
       )}

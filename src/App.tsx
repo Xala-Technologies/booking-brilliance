@@ -76,6 +76,10 @@ const ArrangementTeaterOgScene = lazy(() => import("./pages/ArrangementTeaterOgS
 const ArrangementFestival = lazy(() => import("./pages/ArrangementFestival"));
 const ArrangementSport = lazy(() => import("./pages/ArrangementSport"));
 const Blog = lazy(() => import("./pages/Blog"));
+// Where a submitted search lands. Lazy like every other non-home route, and
+// deliberately absent from the prerender list: `?q=` is the whole page, so
+// there is no static version of it to write.
+const Sok = lazy(() => import("./pages/Sok"));
 const FAQ = lazy(() => import("./pages/FAQ"));
 const AiAgenter = lazy(() => import("./pages/AiAgenter"));
 const AgentSesongtildeling = lazy(() => import("./pages/agents/Sesongtildeling"));
@@ -353,6 +357,7 @@ function SiteRoutes() {
             <Route path="arrangementer/teater-og-scene" element={<ArrangementTeaterOgScene />} />
             <Route path="arrangementer/festival" element={<ArrangementFestival />} />
             <Route path="arrangementer/sport" element={<ArrangementSport />} />
+            <Route path="sok" element={<Sok />} />
             <Route path="blogg" element={<Blog />} />
             <Route
               path="blogg/preview/:draftId"

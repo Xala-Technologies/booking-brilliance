@@ -18,8 +18,13 @@ import { GlobalSearch } from "./GlobalSearch";
  * destination when the words missed.
  */
 function LocationProbe() {
-  const { pathname } = useLocation();
-  return <span data-testid="path">{pathname}</span>;
+  const { pathname, search } = useLocation();
+  return (
+    <>
+      <span data-testid="path">{pathname}</span>
+      <span data-testid="search">{search}</span>
+    </>
+  );
 }
 
 function type(input: HTMLInputElement, value: string) {
@@ -89,15 +94,42 @@ describe("GlobalSearch results", () => {
     expect(path?.startsWith("/")).toBe(true);
   });
 
-  it("still opens the highlighted hit on Enter, and no suggestion", () => {
-    // ↵ on a query that matched nothing must stay inert: teleporting a visitor
-    // to a page they did not ask for is worse than the dead end.
-    type(input(), "{query}");
+  const press = (key: string) => {
     act(() => {
-      input().dispatchEvent(
-        new KeyboardEvent("keydown", { key: "Enter", bubbles: true }),
-      );
+      input().dispatchEvent(new KeyboardEvent("keydown", { key, bubbles: true }));
     });
-    expect(container.querySelector('[data-testid="path"]')?.textContent).toBe("/");
+  };
+  const path = () =>
+    container.querySelector('[data-testid="path"]')?.textContent;
+
+  it("takes the visitor to a results page when the search is submitted", () => {
+    // Submitting used to leave the visitor exactly where they were: the panel
+    // was the whole feature, so there was no URL that meant "I searched for
+    // this" — nothing to link, reload or go back to.
+    type(input(), "{query}");
+    press("Enter");
+    expect(path()).toBe("/sok");
+    expect(container.querySelector('[data-testid="search"]')?.textContent).toBe(
+      "?q=%7Bquery%7D",
+    );
+  });
+
+  it("goes to the results page, never to a suggestion, on Enter", () => {
+    // The suggestions are still not keyboard-selectable: teleporting a visitor
+    // to a page they did not ask for is worse than the dead end. The results
+    // page IS what they asked for.
+    type(input(), "{query}");
+    const suggestion = firstResult()?.textContent ?? "";
+    expect(suggestion).not.toBe("");
+    press("Enter");
+    expect(path()).toBe("/sok");
+  });
+
+  it("still opens the highlighted hit on Enter", () => {
+    type(input(), "vipps");
+    press("ArrowDown");
+    press("Enter");
+    expect(path()).not.toBe("/sok");
+    expect(path()).not.toBe("/");
   });
 });

@@ -162,8 +162,18 @@ function stripFirstSentence(text: string): string {
   return s.slice(0, cut + 1);
 }
 
-/** Lightweight scored search — substring + token coverage. */
-export function searchCorpus(query: string, corpus: SearchItem[]): SearchItem[] {
+/**
+ * Lightweight scored search — substring + token coverage.
+ *
+ * `limit` is the panel's cap by default: the dropdown shows a peek at the top
+ * hits. The results page passes a larger one, because "see all results" has to
+ * be more than the same twelve rows.
+ */
+export function searchCorpus(
+  query: string,
+  corpus: SearchItem[],
+  limit = 12,
+): SearchItem[] {
   const q = query.trim().toLowerCase();
   if (!q) return [];
 
@@ -198,7 +208,7 @@ export function searchCorpus(query: string, corpus: SearchItem[]): SearchItem[] 
     })
     .filter((r) => r.score > 0)
     .sort((a, b) => b.score - a.score)
-    .slice(0, 12);
+    .slice(0, limit);
 
   return scored.map((r) => r.item);
 }
