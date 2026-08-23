@@ -89,6 +89,34 @@ const MARKETPLACE_ITEMS: SearchItem[] = [
   { id: "m-dekor", kind: "route", title: "Leie dekor og pynt", subtitle: "Blomster, bordpynt, ballongbue", href: "/tjenester/dekor", keywords: ["leie dekor", "bordpynt", "blomsterdekor", "ballongbue"] },
 ];
 
+/**
+ * Where a visitor goes when their words missed our vocabulary.
+ *
+ * "Ingen treff for «x»" used to be the whole answer: a sentence and a chat
+ * link, with no destination anywhere in the panel. That is a dead end for a
+ * person, and it is why a search that matches nothing offers nothing to open
+ * at all — the panel renders, and there is not one result in it.
+ *
+ * These are the hubs a lost visitor most often wants. Plain routes only: never
+ * an anchor (which resolves on the homepage and nowhere else) and never an
+ * action, so opening a suggestion always lands on a page.
+ */
+const FALLBACK_IDS = [
+  "m-leie",
+  "m-overnatting",
+  "m-arrangementer",
+  "m-utstyr",
+  "m-tjenester",
+  "r-blogg",
+];
+
+export function fallbackSuggestions(): SearchItem[] {
+  const pool = [...ROUTE_ITEMS, ...MARKETPLACE_ITEMS];
+  return FALLBACK_IDS.map((id) => pool.find((item) => item.id === id)).filter(
+    (item): item is SearchItem => Boolean(item),
+  );
+}
+
 const ACTION_ITEMS: SearchItem[] = [
   { id: "a-chatbot", kind: "action", title: "Snakk med oss", subtitle: "Åpne chat: svar på under et minutt", href: "#chat", action: "open-chatbot", keywords: ["chat", "spørsmål", "kontakt"] },
 ];
