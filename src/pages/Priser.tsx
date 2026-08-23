@@ -1,4 +1,5 @@
 import { Receipt } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -14,7 +15,6 @@ import { getFraunces } from "@/lib/fonts";
 import { CategoryVisual } from "@/components/CategoryVisual";
 import { PRICING_FACTS, PRICING_FAQ } from "@/content/pricing";
 import { PRICING_FACTS_EN, pricingFaqEn } from "@/content/faq.en";
-import { useLocation } from "react-router-dom";
 import { localeFromPath } from "@/lib/i18n";
 import { t } from "@/lib/copy";
 
@@ -187,6 +187,35 @@ export default function Priser() {
                   </EditorialCard>
                 ))}
               </div>
+            </div>
+          </section>
+
+          {/* Legal — Vipps reviewers and buyers need a path from price to terms. */}
+          <section className="pb-12 lg:pb-16">
+            <div className="container mx-auto md:px-8 lg:px-12">
+              <EditorialCard className="bg-paper-deep/40">
+                <div className="p-2 lg:p-6 measure-wide">
+                  <h2
+                    className="font-serif text-2xl lg:text-3xl text-ink mb-4"
+                    style={{
+                      fontVariationSettings: getFraunces("section"),
+                      letterSpacing: "-0.015em",
+                    }}
+                  >
+                    {t(locale, "pricing.legalHeading")}
+                  </h2>
+                  <p className="text-base lg:text-lg text-ink leading-relaxed">
+                    {t(locale, "pricing.legalBody")}{" "}
+                    <Link
+                      to={en ? "/en/salgsvilkar" : "/salgsvilkar"}
+                      className="text-accent-text underline underline-offset-4 hover:text-ink transition-colors"
+                    >
+                      {t(locale, "pricing.termsLink")}
+                    </Link>
+                    .
+                  </p>
+                </div>
+              </EditorialCard>
             </div>
           </section>
 

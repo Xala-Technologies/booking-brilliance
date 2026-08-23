@@ -46,7 +46,7 @@ export const PRICING_FACTS: readonly PricingFact[] = [
   {
     title: "Integrasjonene er inkludert",
     body:
-      "Vipps, kortbetaling, BankID, ID-porten, EHF og Peppol, og regnskapsintegrasjoner mot Visma, Tripletex, Fiken og PowerOffice ligger i abonnementet. Spesialtilpasninger mot egne systemer prises separat etter omfang.",
+      "Teknisk integrasjon mot Vipps MobilePay, kortbetaling, BankID, ID-porten, EHF og Peppol ligger i abonnementet. For å ta imot betaling må du ha egen merchant-avtale og credentials hos betalingsleverandør. Spesialtilpasninger mot egne systemer prises separat etter omfang.",
   },
   {
     title: "Egne priser for de små",
@@ -57,6 +57,11 @@ export const PRICING_FACTS: readonly PricingFact[] = [
     title: "Ingen skjulte gebyrer",
     body:
       "Det som står i tilbudet er det du betaler. Ingen kostnad per booking, ingen andel av inntektene, og ingen gebyrer som dukker opp etter at avtalen er signert.",
+  },
+  {
+    title: "Abonnement og betaling",
+    body:
+      "Du betaler abonnement til Xala Technologies AS for plattform og administrasjon. Leieinnbetalinger fra dine gjester går direkte til deg via din egen betalingsavtale — Digilist behandler ikke disse betalingene. Konkret pris, bindingstid og oppsigelse avtales skriftlig og fremgår av salgsvilkårene.",
   },
 ];
 
