@@ -1,7 +1,7 @@
 ---
 slug: idrettshall-ledige-tider-fra-sok-til-booking-venteliste-lag-foreninger
-title: "Ledige tider i idrettshallen: booking, venteliste og pris for laget"
-description: "Se hvordan ledige tider i idrettshallen oppdateres i sanntid, søk på tvers av flere haller og kommuner, velg riktig bookingform og få plass fra ventelisten når noen avbestiller."
+title: "Idrettshall: booking, venteliste og pris for lagene"
+description: "Se hvordan ledige tider i idrettshallen oppdateres i sanntid, søk på tvers av flere haller, velg riktig bookingform og få plass fra ventelisten."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

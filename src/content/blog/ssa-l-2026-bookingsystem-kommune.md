@@ -1,7 +1,7 @@
 ---
 slug: ssa-l-2026-bookingsystem-kommune
-title: "SSA-L: Avtale om løpende tjenestekjøp for kommunalt bookingsystem"
-description: "SSA-L er Avtale om løpende tjenestekjøp, oppdatert i 2026. Kravene et kommunalt bookingsystem må møte, og hvordan kommunen sjekker samsvar. Ikke en sikkerhetsbilag-side."
+title: "SSA-L 2026: kravene til kommunalt bookingsystem"
+description: "SSA-L er Avtale om løpende tjenestekjøp, oppdatert i 2026. Se kravene et kommunalt bookingsystem må møte, og hvordan kommunen sjekker samsvar."
 date: 2026-05-14
 updated: 2026-08-24
 author: "Ibrahim Rahmani"

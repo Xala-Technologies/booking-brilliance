@@ -1,7 +1,7 @@
 ---
 slug: utearealer-paviljonger-seating-bryllup-sommerfest
 title: "Utearealer og paviljong til bryllup og sommerfest"
-description: "Guide til utearealer, paviljonger og utesitteplasser for private arrangementer: hva som må være på plass, paviljong eller telt, plan B ved dårlig vær, og hvordan dere sjekker ledighet og booker."
+description: "Guide til utearealer, paviljonger og utesitteplasser: hva som må være på plass, paviljong eller telt, plan B ved dårlig vær, og hvordan dere booker."
 date: 2026-08-10
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

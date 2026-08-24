@@ -1,6 +1,6 @@
 ---
 slug: prisregulativ-sal-kommune-saksbehandler-dokumentasjon
-title: "Prisregulativ for sal i kommunen: saksbehandlerens praktiske guide"
+title: "Prisregulativ for sal: saksbehandlerens guide"
 description: "Se hvordan saksbehandler setter, dokumenterer og forsvarer prisregulativet for sal, slik at lag, foreninger, privatpersoner og bedrifter betaler riktig sats."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

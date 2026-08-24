@@ -1,7 +1,7 @@
 ---
 slug: idrettshall-ledige-tider-booking-lag-foreninger-pilar
-title: "Idrettshall ledige tider: hele sesongen for treningsansvarlige i laget"
-description: "Finn ledige tider, bytt eller avlys treningstid og løs kollisjoner med andre lag i ett system. Slik styrer treningsansvarlige hele sesongen i idrettshallen uten e-postrunder med kommunen."
+title: "Idrettshall: hele sesongen for treningsansvarlig i laget"
+description: "Finn ledige tider, bytt eller avlys treningstid og løs kollisjoner med andre lag i ett system. Slik styrer treningsansvarlige hele sesongen i idrettshallen."
 date: 2026-07-17
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

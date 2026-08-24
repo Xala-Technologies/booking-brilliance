@@ -270,9 +270,9 @@ const FAQ_EN: readonly QA[] = [
 ];
 
 const NB: VenuesCopy = {
-  metaTitle: "Lokaler til leie – finn og book ledige lokaler på nett | Digilist",
+  metaTitle: "Lokaler til leie – finn og book ledige lokaler | Digilist",
   metaDescription:
-    "Lokaler til leie: finn ledige selskapslokaler, møterom, kulturhus og haller i sanntid. Sammenlign private og kommunale lokaler, se pris, kapasitet og book direkte på Digilist.",
+    "Lokaler til leie: se ledige private og kommunale selskapslokaler, møterom, kulturhus og haller i sanntid. Sammenlign pris og book direkte på Digilist.",
   keywords:
     "lokaler til leie, lokale til leie, leie lokaler, leie lokale, finn lokale til leie, lokale til leie på nett, leie lokale pris",
   articleHeadline: "Lokaler til leie: slik finner, sammenligner og booker du",
@@ -330,7 +330,7 @@ const NB: VenuesCopy = {
 const EN: VenuesCopy = {
   metaTitle: "Venues to rent — find and book available spaces | Digilist",
   metaDescription:
-    "Venues to rent: find available function rooms, meeting rooms, cultural venues and halls in real time. Compare private and municipal venues, see price and capacity, and book directly.",
+    "Venues to rent: find available function rooms, meeting rooms, cultural venues and halls in real time. Compare private and municipal venues on price, and book.",
   keywords:
     "venues to rent, venue to rent, rent a venue, find a venue, hall hire, venue hire price, book a venue online",
   articleHeadline: "Venues to rent: how to find, compare and book one",

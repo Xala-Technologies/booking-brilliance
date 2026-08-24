@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-pris-guide
-title: "Bryllupslokale pris: dette avgjør hva dere faktisk betaler i 2026"
+title: "Bryllupslokale pris: dette betaler dere faktisk i 2026"
 description: "Se hva som driver prisen på bryllupslokale opp eller ned: lokaltype, region, sesong, gjesteantall og skjulte kostnader i leiekontrakten dere signerer."
 date: 2026-08-07
 author: "Ibrahim Rahmani"

@@ -1,6 +1,6 @@
 ---
 slug: moterom-bookingsystem-kommune-abonnement-ssal-gdpr
-title: "Møteromsystem for kommunen: hvorfor abonnement slår pris per booking"
+title: "Møteromsystem: abonnement slår pris per booking"
 description: "Et møteromsystem som dekker alle kommunens bygg bør prises som abonnement, ikke per booking. Se hva IT-leder bør kreve i SSA-L, GDPR, ID-porten og tilgangsstyring."
 date: 2026-08-18
 author: "Ibrahim Rahmani"

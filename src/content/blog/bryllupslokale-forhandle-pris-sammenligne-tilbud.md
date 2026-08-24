@@ -1,7 +1,7 @@
 ---
 slug: bryllupslokale-forhandle-pris-sammenligne-tilbud
-title: "Bryllupslokale 2026: forhandle pris med flere tilbud i hånden"
-description: "Prisen på bryllupslokale er sjeldnere fast enn den ser ut. Se hva som faktisk er forhandlingsbart, hvordan sesong og pakkepris slår ut, og hvordan flere tilbud gir dere et reelt forhandlingsgrunnlag."
+title: "Bryllupslokale: forhandle prisen med flere tilbud i hånden"
+description: "Prisen på bryllupslokale er sjeldnere fast enn den ser ut. Se hva som er forhandlingsbart, hvordan sesong og pakkepris slår ut, og hvorfor flere tilbud lønner seg."
 date: 2026-08-08
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

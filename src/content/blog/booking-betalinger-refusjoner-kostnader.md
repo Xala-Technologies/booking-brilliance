@@ -1,7 +1,7 @@
 ---
 slug: booking-betalinger-refusjoner-kostnader
 title: "Booking-betalinger, refusjoner og kostnader"
-description: "Transparent prisutregning, fleksible refusjonsregler og sikker betalingsintegrasjon er ikke bare god brukeropplevelse. Det er den billigste måten å redusere support-henvendelser på."
+description: "Transparent prisutregning, fleksible refusjonsregler og sikker betalingsintegrasjon er ikke bare god brukeropplevelse. Det er også færre support-henvendelser."
 date: 2026-07-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

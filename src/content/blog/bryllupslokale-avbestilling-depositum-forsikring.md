@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-avbestilling-depositum-forsikring
-title: "Bryllupslokale 2026: avbestilling, depositum og forsikring i praksis"
+title: "Bryllupslokale: avbestilling, depositum og forsikring"
 description: "Avbestillingsfrist, depositum og force majeure i bryllupslokalets leiekontrakt: hva dere taper, får tilbake, og hvordan Digilist viser vilkårene før booking."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

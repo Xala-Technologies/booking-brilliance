@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-kapasitet-fasiliteter-sammenligne-lokaler
-title: "Sammenlign bryllupslokaler på kapasitet og fasiliteter, ikke bare pris"
+title: "Sammenlign bryllupslokaler på kapasitet, ikke bare pris"
 description: "Se sitteplasser, ståplasser, dansegulv, uteareal, skjenkebevilling og tilgjengelighet som sammenlignbare felt, så slipper dere bortkastede befaringer."
 date: 2026-08-10
 author: "Ibrahim Rahmani"

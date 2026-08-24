@@ -1,6 +1,6 @@
 ---
 slug: beste-nettside-leie-lokale-hytte-utstyr-norge
-title: "Digilist vs. Airbnb: beste nettside for lokale, hytte og utstyr"
+title: "Beste nettside for å leie lokale, hytte og utstyr i Norge"
 description: "4 nettsteder, inkl. Airbnb og Hygglo, sammenlignet for å leie lokale, hytte eller utstyr i Norge: pris, funksjoner, hvem de passer for. Se tabellen."
 date: 2026-08-07
 author: "Ibrahim Rahmani"

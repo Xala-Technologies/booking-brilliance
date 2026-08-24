@@ -1,7 +1,7 @@
 ---
 slug: idrettshall-bookingansvarlig-prosedyremanual-kalenderoppsett-fakturering
-title: "Idrettshall ledige tider: prosedyremanualen fra kalender til faktura"
-description: "En praktisk prosedyremanual for bookingansvarlig: se stegene fra tomt kalenderoppsett til publiserte ledige tider, godkjent booking og fakturert time i idrettshallen."
+title: "Idrettshall: prosedyren fra kalender til faktura"
+description: "Praktisk prosedyremanual for bookingansvarlig: fra tomt kalenderoppsett til publiserte ledige tider, godkjent booking og fakturert time i idrettshallen."
 date: 2026-08-10
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

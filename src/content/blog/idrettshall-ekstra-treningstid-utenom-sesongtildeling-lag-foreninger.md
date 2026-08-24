@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-ekstra-treningstid-utenom-sesongtildeling-lag-foreninger
-title: "Ledige idrettshalltimer i sanntid: ekstra treningstid for laget"
+title: "Ledige idrettshalltimer: ekstra treningstid for laget"
 description: "Se ledige idrettshalltimer i sanntid på tvers av kommuner, book ekstra treningstid utenom sesongtildelingen og få varsel når andre lag avbestiller time."
 date: 2026-08-10
 author: "Ibrahim Rahmani"

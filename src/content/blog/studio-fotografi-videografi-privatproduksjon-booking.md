@@ -1,6 +1,6 @@
 ---
 slug: studio-fotografi-videografi-privatproduksjon-booking
-title: "Studio for fotografi, videografi og privatproduksjon: booking"
+title: "Booke studio til fotografi, video og privatproduksjon"
 description: "Se hvordan lokaleeiere gjør fotostudio og videostudio bookbare for portrettfotografer, content-skapere og videografer – en nisje med høy verdi per booking."
 date: 2026-08-10
 author: "Ibrahim Rahmani"

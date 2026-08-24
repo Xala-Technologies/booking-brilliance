@@ -1,6 +1,6 @@
 ---
 slug: leie-bryllupslokale-befaring-kontrakt-depositum
-title: "Bryllupslokale 2026: befaring, kontrakt og depositum før du signerer"
+title: "Bryllupslokale: befaring, kontrakt og depositum"
 description: "Guide til befaring, kontraktspunkter og depositum for bryllupslokale i 2026, med sjekkliste, ofte stilte spørsmål og søk på ledig dato nær deg."
 date: 2026-08-10
 author: "Ibrahim Rahmani"

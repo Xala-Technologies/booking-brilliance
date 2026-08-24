@@ -1,6 +1,6 @@
 ---
 slug: konferanse-sal-kommune-priser-arrangor-kulturarrangement
-title: "Konferansesal og kultursal 2026: priser, kapasitet og ledighet for arrangører"
+title: "Konferansesal og kultursal: pris, kapasitet og ledighet"
 description: "Sammenlign konferanse- og kultursaler fra kommune og private utleiere i én oversikt: kapasitet, pris, teknisk utstyr og ledighet i sanntid for arrangører."
 date: 2026-08-17
 author: "Ibrahim Rahmani"

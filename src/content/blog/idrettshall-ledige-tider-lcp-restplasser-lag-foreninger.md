@@ -1,7 +1,7 @@
 ---
 slug: idrettshall-ledige-tider-lcp-restplasser-lag-foreninger
-title: "Idrettshall ledige tider: raskeste lag booker restplassen først"
-description: "Digilists side for ledige tider lastet før på 20,53 sekunder og kostet lag restplasser ved avbud. Se hvordan under 2,5 sekunders lastetid, sanntidsvarsling og bookinglås avgjør hvem som får timen først."
+title: "Idrettshall: det raskeste laget får restplassen først"
+description: "Digilists side for ledige tider lastet før på 20,53 sekunder og kostet lag restplasser ved avbud. Se hvordan lastetid og bookinglås avgjør hvem som vinner."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

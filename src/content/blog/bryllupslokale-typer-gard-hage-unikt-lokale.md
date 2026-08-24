@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-typer-gard-hage-unikt-lokale
-title: "Bryllupslokale 2026: fem lokaltyper og hvordan dere velger riktig"
+title: "Bryllupslokale: fem lokaltyper og hvordan dere velger"
 description: "Gård, hage, selskapslokale, hotell eller unikt lokale: se hva som faktisk skiller typene, og finn riktig bryllupslokale for dere blant hundrevis på Digilist."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-velge-og-sammenligne-guide
-title: "Bryllupslokale: slik velger og sammenligner dere riktig lokale"
+title: "Bryllupslokale: slik velger dere riktig lokale"
 description: "Kapasitet, beliggenhet, catering og kontraktsvilkår: alt dere må sjekke før dere booker bryllupslokale, pluss slik dere sammenligner flere samtidig."
 date: 2026-08-01
 author: "Ibrahim Rahmani"

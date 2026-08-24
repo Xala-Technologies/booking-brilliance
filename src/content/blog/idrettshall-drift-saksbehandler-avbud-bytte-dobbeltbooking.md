@@ -1,7 +1,7 @@
 ---
 slug: idrettshall-drift-saksbehandler-avbud-bytte-dobbeltbooking
-title: "Idrettshall ledige tider: saksbehandlers rutiner etter tildelingen"
-description: "Avbud, bytte av treningstid og dobbeltbooking dukker opp hver uke etter tildelingen. Se de konkrete prosedyrene saksbehandler bruker for å holde kalenderen ryddig og etterprøvbar gjennom hele sesongen."
+title: "Idrettshall: saksbehandlers rutiner etter tildelingen"
+description: "Avbud, bytte av treningstid og dobbeltbooking dukker opp hver uke etter tildelingen. Se prosedyrene saksbehandler bruker for å holde kalenderen ryddig."
 date: 2026-08-10
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

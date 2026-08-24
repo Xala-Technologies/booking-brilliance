@@ -1,6 +1,6 @@
 ---
 slug: sesongbooking-idrettshall-frister-tildeling-klage-lag-foreninger
-title: "Sesongbooking av idrettshall 2026: frister, tildeling og klage"
+title: "Sesongbooking av idrettshall: frister, tildeling og klage"
 description: "Se når sesongbookingen åpner, hva søknaden må inneholde, hvordan kommunen prioriterer mellom lag, og hvordan du sjekker status og klager på tildeling."
 date: 2026-08-12
 author: "Ibrahim Rahmani"

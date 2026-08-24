@@ -1,6 +1,6 @@
 ---
 slug: leie-idrettshall-kommune-komplett-guide-lag
-title: "Leie idrettshall i kommunen: komplett guide for lag og foreninger"
+title: "Leie idrettshall i kommunen: guide for lag og foreninger"
 description: "Fra å finne ledig hall til fast treningstid, priser og avlysning. Slik booker idrettslag kommunale anlegg uke etter uke, uten papir og venting."
 date: 2026-07-09
 author: "Ibrahim Rahmani"

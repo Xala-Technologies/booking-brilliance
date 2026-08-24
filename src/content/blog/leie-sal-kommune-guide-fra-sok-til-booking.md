@@ -1,6 +1,6 @@
 ---
 slug: leie-sal-kommune-guide-fra-sok-til-booking
-title: "Leie sal i kommunen: slik går du fra søk til bekreftet booking"
+title: "Leie sal i kommunen: fra søk til bekreftet bestilling"
 description: "Praktisk guide til å leie sal i kommunen: typer sal og kapasitet, priser, sanntidsledighet, booking steg for steg, betaling, depositum og avbestillingsregler."
 date: 2026-08-07
 author: "Ibrahim Rahmani"

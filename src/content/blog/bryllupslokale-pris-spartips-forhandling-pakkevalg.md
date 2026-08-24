@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-pris-spartips-forhandling-pakkevalg
-title: "Bryllupslokale pris 2026: praktiske grep som senker totalregningen"
+title: "Bryllupslokale pris: grep som senker totalregningen"
 description: "Se prisspennet for bryllupslokale i 2026, og lær konkrete grep som ukedagvalg, forhandling og pakkevalg som senker totalregningen for bryllupet deres."
 date: 2026-08-20
 author: "Ibrahim Rahmani"

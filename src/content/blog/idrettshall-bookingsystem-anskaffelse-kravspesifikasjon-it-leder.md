@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-bookingsystem-anskaffelse-kravspesifikasjon-it-leder
-title: "Bytte bookingsystem for idrettshall: fra kravspesifikasjon til SSA-L"
+title: "Bytte bookingsystem for idrettshall: krav til SSA-L"
 description: "Anskaffelse av bookingsystem til idrettshaller for IT-ledere: kravspesifikasjon, SSA-L, GDPR, universell utforming, integrasjon og migrering i én guide."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

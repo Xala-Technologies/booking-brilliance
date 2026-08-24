@@ -1,7 +1,7 @@
 ---
 slug: leie-bryllupslokale-kapasitet-inkludert-skjenkebevilling
-title: "Bryllupslokale 2026: kapasitet, totalpris og hva som faktisk er inkludert"
-description: "Guide til å velge bryllupslokale: riktig gjestekapasitet, hva leieprisen faktisk dekker, skjenkebevilling, uteareal med vær-alternativ, og hvordan dere sammenligner flere lokaler samtidig på Digilist."
+title: "Bryllupslokale: kapasitet, totalpris og hva som inngår"
+description: "Guide til å velge bryllupslokale: riktig gjestekapasitet, hva leieprisen dekker, skjenkebevilling, uteareal med vær-alternativ og rask sammenligning."
 date: 2026-08-08
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

@@ -1,6 +1,6 @@
 ---
 slug: bookingsystem-sal-kommune-anskaffelse-it-leder
-title: "Bookingsystem for sal i kommunen: IT-lederens anskaffelsesguide 2026"
+title: "Bookingsystem for sal i kommunen: anskaffelsesguide"
 description: "SSA-L, GDPR, ID-porten og revisjonsspor: alt IT-lederen må ha med i kravspesifikasjonen før kommunen velger bookingsystem for sal og kulturhus."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

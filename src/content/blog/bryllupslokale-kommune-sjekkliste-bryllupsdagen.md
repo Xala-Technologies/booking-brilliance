@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-kommune-sjekkliste-bryllupsdagen
-title: "Bryllupslokale i kommunen: sjekklisten som avgjør bryllupsdagen"
+title: "Bryllupslokale i kommunen: sjekklisten for bryllupsdagen"
 description: "Fra kapasitet og kjøkken til pynt, alkohol, støy og depositum: en praktisk sjekkliste som viser hva et kommunalt bryllupslokale faktisk tillater før du signerer."
 date: 2026-07-25
 author: "Ibrahim Rahmani"

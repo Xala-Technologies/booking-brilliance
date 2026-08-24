@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-leiekontrakt-avbestilling-depositum
-title: "Leiekontrakt for bryllupslokale: avbestilling, depositum og force majeure"
+title: "Leiekontrakt for bryllupslokale: dette må dere sjekke"
 description: "Hva en trygg leiekontrakt for bryllupslokale må inneholde: avbestillingsvilkår, depositum, force majeure, forsikring og angrerett, før dere signerer og betaler."
 date: 2026-08-07
 author: "Ibrahim Rahmani"

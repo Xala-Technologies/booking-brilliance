@@ -1,7 +1,7 @@
 ---
 slug: sal-kommune-prisregulativ-sammenligne-flere-kommuner
-title: "Prisregulativ for sal i kommunen: dette betaler foreningen reelt"
-description: "Se hvordan prisregulativ, medlemsrabatt og skjulte gebyrer avgjør reell pris på sal, og hvordan foreningen sammenligner pris og ledighet på tvers av flere kommuner i én oversikt."
+title: "Prisregulativ for sal: dette betaler foreningen reelt"
+description: "Se hvordan prisregulativ, medlemsrabatt og skjulte gebyrer avgjør reell pris på sal, og hvordan foreningen sammenligner flere kommuner i én oversikt."
 date: 2026-08-07
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

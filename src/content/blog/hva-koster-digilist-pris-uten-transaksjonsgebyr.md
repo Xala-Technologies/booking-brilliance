@@ -1,7 +1,7 @@
 ---
 slug: hva-koster-digilist-pris-uten-transaksjonsgebyr
 title: "Hva koster Digilist? Abonnement, ingen transaksjonsgebyr"
-description: "Digilist tar ingen andel av bookinginntektene dine. Her er hele prismodellen: abonnementsnivåer, hva som er inkludert, tilpasset pris for små aktører og 6 måneder gratis for de 100 første kundene."
+description: "Digilist tar ingen andel av bookinginntektene dine. Her er prismodellen: abonnementsnivåer, hva som er inkludert, og tilpasset pris for små aktører."
 date: 2026-08-12
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

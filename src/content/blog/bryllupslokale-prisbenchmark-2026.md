@@ -1,7 +1,7 @@
 ---
 slug: bryllupslokale-prisbenchmark-2026
-title: "Bryllupslokale pris 2026: prisbenchmark per landsdel og gjestetall"
-description: "Se hva bryllupslokale faktisk koster i 2026, brutt ned på landsdel, lokaltype og gjestetall, slik at dere vet om et tilbud er markedspris eller overpriset, og hvordan dere forhandler det ned."
+title: "Bryllupslokale pris: benchmark per landsdel og gjestetall"
+description: "Se hva bryllupslokale koster i 2026, brutt ned på landsdel, lokaltype og gjestetall, så dere vet om et tilbud er markedspris eller overpriset."
 date: 2026-08-07
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-bedrift-firmaturnering-sanntid-samlefaktura
-title: "Idrettshall for bedrifter: book ledige tider i sanntid, ikke sesong"
+title: "Idrettshall for bedrifter: book ledige tider i sanntid"
 description: "Bedrifter får ingen sesongtildeling i idrettshaller. Se hvordan dere finner ledige timer i sanntid på tvers av haller og kommuner, og samler alt på én faktura."
 date: 2026-08-10
 author: "Ibrahim Rahmani"

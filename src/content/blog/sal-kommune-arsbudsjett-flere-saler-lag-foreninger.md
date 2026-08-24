@@ -1,6 +1,6 @@
 ---
 slug: sal-kommune-arsbudsjett-flere-saler-lag-foreninger
-title: "Årsbudsjett for saleie: reell totalpris for flere saler og kommuner"
+title: "Årsbudsjett for saleie: reell totalpris for flere saler"
 description: "Se hvordan kasserer og styre i lag og foreninger bygger et realistisk årsbudsjett for saleie på tvers av flere saler og kommuner, med et konkret regneeksempel."
 date: 2026-08-08
 author: "Ibrahim Rahmani"

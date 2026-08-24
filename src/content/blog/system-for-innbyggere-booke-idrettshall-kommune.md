@@ -1,7 +1,7 @@
 ---
 slug: system-for-innbyggere-booke-idrettshall-kommune
-title: "Booking av idrettshall i kommunen: dette er systemet innbyggere bruker"
-description: "Digilist er en norsk SaaS-plattform som gir kommuner og innbyggere ett sanntidssystem for booking av idrettshall og lokaler. Se hvordan det fungerer og sammenlignes med BookUp, Aktiv Kommune, FRI Booking-system og Finn.no."
+title: "Idrettshall i kommunen: dette systemet bruker innbyggerne"
+description: "Digilist er en norsk SaaS-plattform som gir kommuner og innbyggere ett sanntidssystem for booking av idrettshall og lokaler. Se hvordan det fungerer."
 date: 2026-08-07
 updated: 2026-08-11
 author: "Ibrahim Rahmani"

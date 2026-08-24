@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-ledige-tider-booking-samlet-guide-lagledere
-title: "Idrettshall ledige tider og booking: samlet guide for lagledere"
+title: "Idrettshall og booking: den samlede guiden for lagledere"
 description: "Sesongtildeling, restplasser, sanntidsbooking, avbestilling og turnering i én kalender: den samlede guiden for lagledere som booker treningstid i idrettshallen."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

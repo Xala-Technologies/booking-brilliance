@@ -1,7 +1,7 @@
 ---
 slug: idrettshall-enkelttime-saksbehandler-soknad-godkjenning-venteliste
-title: "Enkelttime i idrettshallen: saksbehandlerens guide til søknad og vedtak"
-description: "Fra søknad om ledig idrettshalltid til godkjenning, avslag, venteliste og konflikthåndtering. Slik behandler saksbehandler enkelttimer raskt, rettferdig og etterprøvbart."
+title: "Enkelttime i idrettshallen: saksbehandlers guide"
+description: "Fra søknad om ledig idrettshalltid til godkjenning, avslag, venteliste og konflikt. Slik behandler saksbehandler enkelttimer raskt og etterprøvbart."
 date: 2026-08-07
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

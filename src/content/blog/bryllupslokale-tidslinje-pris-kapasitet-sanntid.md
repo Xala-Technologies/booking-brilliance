@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-tidslinje-pris-kapasitet-sanntid
-title: "Bryllupslokale 2026: tidslinjen fra første søk til bryllupsdagen"
+title: "Bryllupslokale: tidslinjen fra første søk til dagen"
 description: "Når bør du booke, hva koster det, og hvor mange gjester får plass? Guide til bryllupslokale i 2026 med pris, kapasitet og sanntidsoversikt over ledige datoer."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

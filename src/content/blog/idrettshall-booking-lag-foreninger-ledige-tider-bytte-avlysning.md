@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-booking-lag-foreninger-ledige-tider-bytte-avlysning
-title: "Idrettshall for lag og foreninger: ledige tider, bytte og avlysning"
+title: "Idrettshall for lag: ledige tider, bytte og avlysning"
 description: "Sesongtildelt tid er bare starten. Se hvordan laget finner ledige tider, bytter økt med andre lag og avlyser trening uten å miste fast plass neste sesong."
 date: 2026-08-07
 author: "Ibrahim Rahmani"

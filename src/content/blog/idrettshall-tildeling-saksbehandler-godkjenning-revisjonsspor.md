@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-tildeling-saksbehandler-godkjenning-revisjonsspor
-title: "Idrettshall ledige tider: saksbehandlerens vei fra søknad til vedtak"
+title: "Idrettshall: saksbehandlerens vei fra søknad til vedtak"
 description: "Se hvordan saksbehandleren godkjenner, avviser og dokumenterer søknader om idrettshalltid i én sanntidsoversikt, med venteliste og fullt revisjonsspor."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

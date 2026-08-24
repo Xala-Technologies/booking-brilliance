@@ -1,7 +1,7 @@
 ---
 slug: moterom-kommune-omrade-mine-personlig-oversikt-saksbehandler
-title: "Møterom i kommunen: mine ledige rom på tvers av alle kommunale bygg"
-description: "Se hvordan kommuneansatte får én personlig oversikt over ledige møterom i eget område, booker i sanntid og styrer tilgang uten å kontakte driftsleder eller vaktmester."
+title: "Møterom i kommunen: mine ledige rom i alle bygg"
+description: "Se hvordan kommuneansatte får én personlig oversikt over ledige møterom i eget område, booker i sanntid og styrer tilgang uten å kontakte driftsleder."
 date: 2026-08-16
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

@@ -11,7 +11,7 @@ export default function ArrangementSport() {
       title="Sportsbilletter"
       dek="Finn kamper og idrettsarrangement nær deg, se pris og ledige billetter, og kjøp med Vipps. QR-billett på mobilen."
       lead="Billetter til kamper og idrettsarrangement ligger spredt på klubbenes egne sider og i ulike billettsystemer. Hvert sted krever sin egen konto, det er uklart om du får sete eller ståplass og hva billetten faktisk koster, og selve billetten kommer som papir eller PDF som fort blir borte på kampdagen. På Digilist er kampene og idrettsarrangementene i nærområdet samlet ett sted, med pris og ledige billetter synlig før du kjøper. Du betaler med Vipps uten å opprette ny konto, og QR-billetten ligger klar på mobilen når du skal inn."
-      seoTitle="Sportsbilletter: billetter til kamp, kjøp med Vipps | Digilist"
+      seoTitle="Sportsbilletter: kjøp billetter med Vipps | Digilist"
       seoDescription="Sportsbilletter samlet ett sted: finn kamper og idrettsarrangement nær deg, se pris og ledige seter, og kjøp billetter til kamp med Vipps. QR-billett på mobilen."
       keywords="sportsbilletter, billetter til kamp, fotballbilletter, kjøp kampbillett, idrettsarrangement billetter, sesongkort, håndball billetter, kamp nær meg"
       audience={[

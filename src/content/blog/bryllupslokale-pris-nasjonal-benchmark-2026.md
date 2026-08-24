@@ -1,7 +1,7 @@
 ---
 slug: bryllupslokale-pris-nasjonal-benchmark-2026
-title: "Bryllupslokale pris 2026: nasjonal prisbenchmark per lokaltype og landsdel"
-description: "Se typiske priser og prisspenn for bryllupslokale i 2026, basert på markedsdata og annonserte priser fra lokaler i hele landet, slik at dere kan vurdere et tilbud opp mot faktisk marked."
+title: "Bryllupslokale pris 2026: nasjonal prisbenchmark"
+description: "Se typiske priser og prisspenn for bryllupslokale i 2026, basert på markedsdata og annonserte priser fra hele landet, så dere kan vurdere et tilbud."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

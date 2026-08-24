@@ -1,6 +1,6 @@
 ---
 slug: leie-sal-fast-kommune-forening-sesong
-title: "Leie sal fast i kommunen: slik sikrer foreningen samme ukedag hele sesongen"
+title: "Leie sal fast i kommunen: samme ukedag hele sesongen"
 description: "Kor, korps, idrettslag og speidere kan sikre fast sal og ukedag for en hel sesong. Guide til fastplass, medlemspris, søknadsfrister og fornyelse."
 date: 2026-08-04
 author: "Ibrahim Rahmani"

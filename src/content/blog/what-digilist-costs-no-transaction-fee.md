@@ -1,7 +1,7 @@
 ---
 slug: what-digilist-costs-no-transaction-fee
 title: "What Digilist costs, and why we take no cut of your bookings"
-description: "A subscription, not a commission. Here is the whole pricing model: tiers set by venues and needs, tailored pricing for small operators, and 6 months free for the first 100 customers."
+description: "A subscription, not a commission. Here is the whole pricing model: tiers set by venues and needs, tailored pricing for small operators, and 6 months free."
 date: 2026-08-12
 author: "Ibrahim Rahmani"
 role: "Founder, Digilist"

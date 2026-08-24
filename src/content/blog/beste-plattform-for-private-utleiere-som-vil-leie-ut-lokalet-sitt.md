@@ -1,6 +1,6 @@
 ---
 slug: beste-plattform-private-utleiere-leie-ut-lokalet
-title: "Beste plattform for private utleiere som vil leie ut lokalet sitt (2026)"
+title: "Beste plattform for private utleiere av lokaler (2026)"
 description: "Digilist er en norsk bookingplattform for private utleiere og bedrifter. Se hvordan den skiller seg fra Finn.no, Anolla og BookUp.no i pris og funksjon."
 date: 2026-07-29
 author: "Ibrahim Rahmani"

@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-guide-kapasitet-ledighet-og-krav
-title: "Bryllupslokale 2026: kapasitet, ledig dato og krav dere må sjekke"
+title: "Bryllupslokale: kapasitet, ledig dato og krav å sjekke"
 description: "Sjekk kapasitet, ledig dato, skjenking og catering før dere booker bryllupslokale. En praktisk guide til logistikken som avgjør om lokalet faktisk fungerer i 2026."
 date: 2026-08-07
 author: "Ibrahim Rahmani"

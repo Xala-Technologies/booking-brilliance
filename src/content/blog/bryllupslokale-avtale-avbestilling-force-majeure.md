@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-avtale-avbestilling-force-majeure
-title: "Bryllupslokale-kontrakten: dette avgjør om dere taper depositum"
+title: "Bryllupslokale-kontrakten: slik unngår dere å tape depositum"
 description: "Se hva bryllupslokale-avtalen faktisk regulerer: avbestilling, force majeure, endret gjestetall og betalingsplan, slik at dere ikke taper depositum unødvendig."
 date: 2026-08-05
 author: "Ibrahim Rahmani"

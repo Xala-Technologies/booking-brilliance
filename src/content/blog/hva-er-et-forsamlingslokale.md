@@ -1,7 +1,7 @@
 ---
 slug: hva-er-et-forsamlingslokale
-title: "Hva er et forsamlingslokale? Lokaletyper og bookingrutiner i kommunen"
-description: "Grunnleggende kunnskap om lokaletyper i kommunen: hva et forsamlingslokale faktisk er, hvilke typer lokaler som finnes, og hvordan den kommunale bookingrutinen fungerer fra søknad til godkjenning."
+title: "Hva er et forsamlingslokale? Typer og bookingrutiner"
+description: "Hva et forsamlingslokale faktisk er, hvilke lokaletyper som finnes i kommunen, og hvordan den kommunale bookingrutinen fungerer fra søknad til godkjenning."
 date: 2026-07-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

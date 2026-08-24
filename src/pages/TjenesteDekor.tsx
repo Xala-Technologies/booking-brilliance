@@ -11,7 +11,7 @@ export default function TjenesteDekor() {
       title="Leie dekor og pynt"
       dek="Blomsterdekor, bordpynt og ballongbuer til fest. Finn ledig dekoratør nær deg, se pris per pakke, og book med Vipps."
       lead="Skal du pynte til bryllup, konfirmasjon eller fest, ligger dekoratørene spredt på Instagram, Facebook og egne nettsider uten pris, og gjør-det-selv-pynting spiser dagene før festen. Du vet heller ikke om dekoratøren er ledig på din dato før du har sendt melding og ventet på svar. På Digilist er dekoratører og pyntepakker samlet ett sted, med pris per pakke, ledig dato i sanntid og betaling med Vipps. Rigging og henting er inkludert der det tilbys, så du kan komme til ferdig pyntet lokale i stedet for å stå på stige selv."
-      seoTitle="Leie dekor og pynt til fest: pakker, pris og booking | Digilist"
+      seoTitle="Leie dekor og pynt til fest: pakker og pris | Digilist"
       seoDescription="Leie dekor til bryllup og fest: blomsterdekor, bordpynt og ballongbuer i ferdige pakker. Se pris, sjekk ledig dato og book dekoratør nær deg med Vipps."
       keywords="leie dekor, leie pynt, bordpynt bryllup, blomsterdekor bryllup, ballongbue, leie dekor til fest, festpynt, bryllupsdekor, leie bakvegg photobooth"
       audience={[

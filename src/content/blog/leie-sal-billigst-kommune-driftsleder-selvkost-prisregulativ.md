@@ -1,7 +1,7 @@
 ---
 slug: leie-sal-billigst-kommune-driftsleder-selvkost-prisregulativ
-title: "Billigst sal i kommunen: prisen som fortsatt dekker kostnadene"
-description: "Driftsleder-guide til billigst sal i kommunen: selvkost, prisregulativ, no-show-risiko og differensiert rabatt, slik at laveste pris fortsatt dekker kostnadene og tåler revisjon."
+title: "Billigst sal: prisen som fortsatt dekker kostnadene"
+description: "Driftsleder-guide til billigst sal i kommunen: selvkost, prisregulativ, no-show-risiko og differensiert rabatt, slik at laveste pris tåler revisjon."
 date: 2026-08-05
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

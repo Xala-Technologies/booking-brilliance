@@ -1,7 +1,7 @@
 ---
 slug: foreninger-lag-mote-arrangement-booking
 title: "Foreninger og lag: book lokale til styremøte og årsmøte"
-description: "Foreningens eget styremøte, årsmøte og sommerfest krever et annet lokale enn treningstiden. Se hvordan foreninger og lag booker møterom og sal uten å gå via én overbelastet leder."
+description: "Foreningens styremøte, årsmøte og sommerfest krever et annet lokale enn treningstiden. Se hvordan lag booker møterom og sal uten å gå via én leder."
 date: 2026-08-10
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

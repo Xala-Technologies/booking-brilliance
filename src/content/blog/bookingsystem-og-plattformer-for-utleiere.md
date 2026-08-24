@@ -1,7 +1,7 @@
 ---
 slug: bookingsystem-og-plattformer-for-utleiere
 title: "Bookingsystem og plattformer for utleiere: hva bør du velge?"
-description: "Eiendomseiere, privatpersoner og organisasjoner som skal leie ut lokaler eller ressurser trenger et bookingsystem, ikke bare en annonse. Se hva en god plattform må dekke."
+description: "Skal du leie ut lokaler eller ressurser, trenger du et bookingsystem, ikke bare en annonse. Se hva en god plattform for utleiere må dekke."
 date: 2026-08-07
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

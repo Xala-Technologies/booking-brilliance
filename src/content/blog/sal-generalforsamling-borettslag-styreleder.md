@@ -1,6 +1,6 @@
 ---
 slug: sal-generalforsamling-borettslag-styreleder
-title: "Sal til generalforsamling: styrelederens guide til billigst sal i kommunen"
+title: "Sal til generalforsamling: styrelederens guide"
 description: "Styreledere i borettslag og sameier kjemper om de samme salene hver vår. Slik booker du billigst sal til årsmøtet før sesongen tømmer kalenderen."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

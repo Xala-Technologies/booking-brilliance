@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-fast-treningstid-trener-kursholder-enkeltpersonforetak
-title: "Idrettshall til fast treningstid: guiden for trenere og kursholdere"
+title: "Fast treningstid i idrettshall: guide for kursholdere"
 description: "Se ledige idrettshalltimer i sanntid, book fast ukentlig time som enkeltpersonforetak, og styr hele timeplanen på tvers av kommuner uten dobbeltbooking."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

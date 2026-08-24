@@ -270,9 +270,9 @@ const NB: MunicipalCopy = {
 };
 
 const EN: MunicipalCopy = {
-  metaTitle: "Booking system for municipalities · Digilist | SSA-L 2026 ready",
+  metaTitle: "Booking for municipalities · Digilist | SSA-L 2026 ready",
   metaDescription:
-    "A digital booking platform for Norwegian municipalities. Real-time calendar, seasonal allocation, national identity sign-in, e-invoicing, ISO 27001. Built for SSA-L 2026.",
+    "A digital booking platform for Norwegian municipalities: real-time calendar, seasonal allocation, national identity sign-in, e-invoicing. Built for SSA-L 2026.",
   rule: "MUNICIPAL BOOKING · 2026",
   h1: "A booking system for",
   h1em: "Norwegian municipalities",

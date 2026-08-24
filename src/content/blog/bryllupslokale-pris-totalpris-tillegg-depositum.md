@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-pris-totalpris-tillegg-depositum
-title: "Bryllupslokale pris 2026: slik regner du ut totalprisen riktig"
+title: "Bryllupslokale pris: slik regner du ut totalprisen riktig"
 description: "Grunnleie er sjelden hele regningen. Se hva rengjøring, overtid, catering og depositum legger på toppen, og lær å sammenligne to tilbud på riktig grunnlag."
 date: 2026-08-10
 author: "Ibrahim Rahmani"

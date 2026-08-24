@@ -1,7 +1,7 @@
 ---
 slug: leie-bryllupslokale-pris-guide
-title: "Bryllupslokale: pris, hva som er inkludert, og slik booker dere riktig"
-description: "Se prisintervaller for bryllupslokale i Norge etter type og region, hva som er inkludert i leien, og hvordan dere sammenligner tilbud og booker uten endeløse telefonrunder."
+title: "Bryllupslokale: pris, hva som er inkludert og booking"
+description: "Se prisintervaller for bryllupslokale i Norge etter type og region, hva som er inkludert i leien, og hvordan dere sammenligner tilbud og booker."
 date: 2026-07-29
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

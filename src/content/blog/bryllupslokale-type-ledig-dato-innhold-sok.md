@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-type-ledig-dato-innhold-sok
-title: "Bryllupslokale 2026: sammenlign type, ledig dato og innhold i ett søk"
+title: "Bryllupslokale: sammenlign type, dato og innhold i ett søk"
 description: "Se gård, hotell, selskapslokale og utendørs i samme søk, sjekk ledig dato på tvers av lokaler, og få oversikt over hva som faktisk er inkludert i leien."
 date: 2026-08-10
 author: "Ibrahim Rahmani"

@@ -1,7 +1,7 @@
 ---
 slug: bryllupslokale-pris-filter-sammenlign-favoritter
 title: "Bryllupslokale pris 2026: finn riktig prisklasse på minutter"
-description: "Se hvordan lokaltype, sesong og beliggenhet styrer prisen på bryllupslokale i 2026, og bruk filter, sammenligning og favoritter på Digilist til å finne riktig lokale raskt."
+description: "Se hvordan lokaltype, sesong og beliggenhet styrer prisen på bryllupslokale i 2026, og bruk filter, sammenligning og favoritter til å finne lokalet raskt."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

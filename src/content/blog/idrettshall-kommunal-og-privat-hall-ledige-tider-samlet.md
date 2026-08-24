@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-kommunal-og-privat-hall-ledige-tider-samlet
-title: "Idrettshall: finn ledig tid i kommunal og privat hall i sanntid"
+title: "Idrettshall: ledig tid i kommunal og privat hall"
 description: "Se ledig tid i kommunale og private idrettshaller på ett sted, book enkelttime eller fast ukentlig tid, og få varsel automatisk når en tid frigjøres i sanntid."
 date: 2026-08-07
 author: "Ibrahim Rahmani"

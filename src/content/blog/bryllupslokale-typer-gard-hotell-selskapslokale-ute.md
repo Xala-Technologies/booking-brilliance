@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-typer-gard-hotell-selskapslokale-ute
-title: "Bryllupslokale: gård, hotell eller selskapslokale, hva passer dere?"
+title: "Bryllupslokale 2026: gård, hotell eller selskapslokale"
 description: "Se hva bryllupslokale på gård, hotell, selskapslokale og uteareal faktisk koster, og hvilken type som passer antall gjester, stil, årstid og budsjett."
 date: 2026-08-07
 author: "Ibrahim Rahmani"

@@ -1,6 +1,6 @@
 ---
 slug: leie-sal-billigst-kommune-driftsleder-totalkostnad-prisregulativ
-title: "Billigst sal i kommunen: driftslederens guide til reell totalpris"
+title: "Billigst sal i kommunen: driftslederens guide til totalpris"
 description: "Full pris på sal, idrettshall og møterom i kommunen: leiepris pluss strøm, renhold, depositum og avbestillingsgebyr, vist samlet før leietaker bekrefter."
 date: 2026-08-08
 author: "Ibrahim Rahmani"

@@ -1,7 +1,7 @@
 ---
 slug: bryllupslokale-utleier-bookingrate-dobbeltbooking
-title: "Bryllupslokale for utleiere: full kalender uten dobbeltbooking i 2026"
-description: "Praktisk guide for utleiere av bryllupslokale: samle henvendelser i én kalender, svar raskere enn konkurrentene, unngå dobbeltbooking og fyll restplasser i lavsesongen."
+title: "Leie ut bryllupslokale: full kalender, ingen dobbeltbooking"
+description: "Praktisk guide for utleiere av bryllupslokale: samle henvendelser i én kalender, svar raskere, unngå dobbeltbooking og fyll restplasser i lavsesongen."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

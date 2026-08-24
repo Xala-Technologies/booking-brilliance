@@ -1,7 +1,7 @@
 ---
 slug: moterom-kommune-omrade-mine-ekstern-utleie-driftsleder
-title: "Møterom i kommunen: område, «mine rom» og ekstern utleie i ett system"
-description: "Se hvordan driftsleder samler internt bruk og ekstern utleie av møterom i én løsning, med prisgrupper, ID-porten-pålogging og abonnement uten transaksjonsgebyr som spiser av leieinntekten."
+title: "Møterom i kommunen: internt bruk og ekstern utleie samlet"
+description: "Se hvordan driftsleder samler internt bruk og ekstern utleie av møterom i én løsning, med prisgrupper, ID-porten og abonnement uten transaksjonsgebyr."
 date: 2026-08-23
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

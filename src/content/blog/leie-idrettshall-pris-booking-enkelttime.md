@@ -1,6 +1,6 @@
 ---
 slug: leie-idrettshall-pris-booking-enkelttime
-title: "Leie idrettshall: pris per time og slik booker du enkelttime i 2026"
+title: "Leie idrettshall: pris per time og booking av enkelttime"
 description: "Guide for privatpersoner og bedrifter som vil leie idrettshall til trening, cup eller arrangement: pris per time, booking, depositum, utstyr og avbestillingsregler."
 date: 2026-08-03
 author: "Ibrahim Rahmani"

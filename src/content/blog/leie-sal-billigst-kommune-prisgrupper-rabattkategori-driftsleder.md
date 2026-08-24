@@ -1,6 +1,6 @@
 ---
 slug: leie-sal-billigst-kommune-prisgrupper-rabattkategori-driftsleder
-title: "Leie sal billigst: slik bygger driftsleder prisgrupper som tåler klage"
+title: "Slik bygger driftsleder prisgrupper som tåler klage"
 description: "En praktisk mal for driftsleder: prisgrupper, rabattkategorier og medlemskapskrav for sal, slik at leieprisen blir rettferdig, sporbar og klagesikker."
 date: 2026-08-20
 author: "Ibrahim Rahmani"

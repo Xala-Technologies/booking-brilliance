@@ -1,7 +1,7 @@
 ---
 slug: idrettshall-ledige-tider-lcp-driftsleder-booking-universell-utforming
-title: "Ledige tider i idrettshallen: hva LCP-rettingen betyr for driftsledere"
-description: "Siden med ledige tider i idrettshallen lastet på 20,53 sekunder, nå under 2,5. Se hva som er rettet, hva det koster i praktisk drift når siden er treg, og hva driftsledere bør følge opp selv."
+title: "Idrettshall: hva LCP-rettingen betyr for driftsledere"
+description: "Siden med ledige tider i idrettshallen lastet på 20,53 sekunder, nå under 2,5. Se hva som er rettet, og hva treg lasting koster i praktisk drift."
 date: 2026-08-08
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

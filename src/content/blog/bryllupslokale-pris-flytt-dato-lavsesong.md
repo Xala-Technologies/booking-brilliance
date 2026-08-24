@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-pris-flytt-dato-lavsesong
-title: "Bryllupslokale pris 2026: riktig dato kan halvere det dere betaler"
+title: "Bryllupslokale pris: riktig dato kan halvere regningen"
 description: "Dato og ukedag avgjør prisen på bryllupslokale mer enn selve lokalet. Se hvordan lavsesong, søndagsbryllup og fleksibel dato gir dere lavere pris i 2026."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

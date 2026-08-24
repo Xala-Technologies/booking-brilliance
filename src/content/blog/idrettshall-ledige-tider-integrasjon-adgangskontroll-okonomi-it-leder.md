@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-ledige-tider-integrasjon-adgangskontroll-okonomi-it-leder
-title: "Ledige tider i idrettshallen stemmer først når systemene er koblet sammen"
+title: "Ledige tider stemmer først når systemene er koblet sammen"
 description: "IT-lederens guide til å integrere bookingsystemet mot adgangskontroll, økonomi, sak/arkiv og ID-porten, slik at ledige tider i idrettshallen faktisk er riktige."
 date: 2026-08-07
 author: "Ibrahim Rahmani"

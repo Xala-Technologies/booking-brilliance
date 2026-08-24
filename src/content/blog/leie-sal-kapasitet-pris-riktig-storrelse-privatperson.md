@@ -1,7 +1,7 @@
 ---
 slug: leie-sal-kapasitet-pris-riktig-storrelse-privatperson
-title: "Leie sal i kommunen 2026: kapasitet avgjør totalprisen, ikke timepris"
-description: "Lær å regne riktig salkapasitet, unngå prisfellen ved å booke for stort, og sammenlign grendehus, forsamlingshus og kulturhus på kapasitet og totalpris i én oversikt."
+title: "Leie sal: kapasitet avgjør totalprisen, ikke timeprisen"
+description: "Lær å regne riktig salkapasitet, unngå prisfellen ved å booke for stort, og sammenlign grendehus, forsamlingshus og kulturhus på totalpris."
 date: 2026-08-10
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

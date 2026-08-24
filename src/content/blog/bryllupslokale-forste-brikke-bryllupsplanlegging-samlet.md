@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-forste-brikke-bryllupsplanlegging-samlet
-title: "Bryllupslokale er første steg: slik samler dere hele bryllupsplanleggingen"
+title: "Bryllupslokale først: slik samler dere hele planleggingen"
 description: "Bryllupslokale er bare det første steget i bryllupsplanleggingen. Se hvordan dere samler lokale, overnatting, catering, dekor og DJ i én oversikt på Digilist."
 date: 2026-08-07
 author: "Ibrahim Rahmani"

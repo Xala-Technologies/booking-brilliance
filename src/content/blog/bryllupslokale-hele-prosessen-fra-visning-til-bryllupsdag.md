@@ -1,7 +1,7 @@
 ---
 slug: bryllupslokale-hele-prosessen-fra-visning-til-bryllupsdag
-title: "Bryllupslokale 2026: hele prosessen fra søk til bryllupsdag i én oversikt"
-description: "Fra søk og befaring til overnatting, catering og kontrakt: se hvordan hele bryllupsbookingen kan følges i én oversikt, med sjekkliste og tidslinje fram mot bryllupsdagen."
+title: "Bryllupslokale: hele prosessen fra søk til bryllupsdag"
+description: "Fra søk og befaring til overnatting, catering og kontrakt: se hvordan hele bryllupsbookingen følges i én oversikt, med sjekkliste og tidslinje."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

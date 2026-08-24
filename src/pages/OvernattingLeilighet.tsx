@@ -11,7 +11,7 @@ export default function OvernattingLeilighet() {
       title="Leie leilighet"
       dek="Byferie, jobbreise eller mellombolig. Finn ledig leilighet nær deg, se totalprisen per natt, og book med Vipps."
       lead="Skal du leie leilighet for noen netter, ligger tilbudet spredt på Airbnb, Finn og ulike bookingsider, med hver sin kalender og hver sin pris. Totalprisen er uklar til du er nesten ferdig: rengjøring, servicegebyr og depositum dukker opp i siste steg. Ingen samlet oversikt viser hvilke netter som faktisk er ledige, og du vet sjelden hvordan innsjekken foregår før du står utenfor døra. På Digilist er korttidsleiligheter samlet ett sted, med totalpris synlig fra start, ledige netter i sanntid, og booking og betaling med Vipps."
-      seoTitle="Leie leilighet: korttidsleie, totalpris og booking | Digilist"
+      seoTitle="Leie leilighet: korttidsleie og totalpris | Digilist"
       seoDescription="Leie leilighet for korttid: byferie, jobbreise eller mellombolig. Se ledige netter, totalpris med rengjøring og gebyr, og book korttidsleie av leilighet med Vipps."
       keywords="leie leilighet, korttidsleie leilighet, leie leilighet korttid, leilighet til leie, leie leilighet ferie, leie leilighet jobbreise, mellombolig, book leilighet, leie leilighet natt"
       audience={[

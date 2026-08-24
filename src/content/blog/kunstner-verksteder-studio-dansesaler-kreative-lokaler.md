@@ -1,6 +1,6 @@
 ---
 slug: kunstner-verksteder-studio-dansesaler-kreative-lokaler
-title: "Kunstner-verksteder, studio og dansesaler: booking"
+title: "Booke kunstner-verksteder, studio og dansesaler"
 description: "Se hvordan kulturhus og lokaleeiere gjør kunstner-verksteder, studioer og dansesaler bookbare for hobby, kurs og profesjonell bruk – i én kalender."
 date: 2026-08-10
 author: "Ibrahim Rahmani"

@@ -1,7 +1,7 @@
 ---
 slug: leie-utstyr-til-fest-telt-bord-lyd-servering
-title: "Leie utstyr til fest: telt, bord, lyd og servering i én bestilling"
-description: "Se priser for å leie festtelt, bord, stoler, lyd, lys og serveringsutstyr til bryllup eller fest, med eksempelbudsjett for 50 og 100 gjester og en sjekkliste før du booker."
+title: "Leie utstyr til fest: telt, bord, lyd og servering samlet"
+description: "Se priser for å leie festtelt, bord, stoler, lyd, lys og serveringsutstyr til bryllup eller fest, med eksempelbudsjett for 50 og 100 gjester."
 date: 2026-08-01
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

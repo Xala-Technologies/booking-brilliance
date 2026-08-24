@@ -1,7 +1,7 @@
 ---
 slug: idrettshall-ledige-tider-restplasser-lastetid-driftsleder
-title: "Idrettshall ledige tider: restplassen forsvinner mens siden laster"
-description: "Driftsledere trenger en sanntidsvisning som faktisk laster raskt. Se hvordan Digilist kuttet lastetiden på bookingsiden for idrettshaller fra 20,53 til under 2,5 sekunder, og hva det betyr for restplasser og dobbeltbooking."
+title: "Idrettshall: restplassen forsvinner mens siden laster"
+description: "Driftsledere trenger en sanntidsvisning som laster raskt. Se hvordan Digilist kuttet lastetiden på bookingsiden for idrettshaller fra 20,53 til under 2,5 sekunder."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

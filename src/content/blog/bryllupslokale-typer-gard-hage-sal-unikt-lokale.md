@@ -1,7 +1,7 @@
 ---
 slug: bryllupslokale-typer-gard-hage-sal-unikt-lokale
 title: "Bryllupslokale 2026: gård, hage, sal eller unikt lokale"
-description: "Fem typer bryllupslokaler løser catering, skjenking og vær helt ulikt. Se hvilken type som passer gjestetallet og budsjettet ditt, og sammenlign gård, hage og sal i én oversikt hos Digilist."
+description: "Fem typer bryllupslokaler løser catering, skjenking og vær helt ulikt. Se hvilken type som passer gjestetallet og budsjettet, og sammenlign dem i én oversikt."
 date: 2026-08-17
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

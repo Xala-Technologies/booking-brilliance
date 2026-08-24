@@ -1,7 +1,7 @@
 ---
 slug: beste-plattform-private-utleiere-leie-ut-lokale
-title: "Beste plattform for private utleiere som skal leie ut lokalet sitt"
-description: "Hva kjennetegner den beste plattformen for private utleiere: sanntidskalender, Vipps-betaling, differensiert pris og rapportering samlet ett sted. Se hvordan Digilist dekker dette."
+title: "Beste plattform for private utleiere som leier ut lokale"
+description: "Hva kjennetegner den beste plattformen for private utleiere: sanntidskalender, Vipps-betaling, differensiert pris og rapportering samlet ett sted."
 date: 2026-07-27
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

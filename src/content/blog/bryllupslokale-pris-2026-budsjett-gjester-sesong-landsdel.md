@@ -1,7 +1,7 @@
 ---
 slug: bryllupslokale-pris-2026-budsjett-gjester-sesong-landsdel
-title: "Bryllupslokale pris 2026: budsjett etter gjester, sesong og landsdel"
-description: "Se realistiske prisintervaller for bryllupslokale i 2026 etter gjesteantall, sesong og landsdel, hvilke tilleggskostnader som ofte kommer etter grunnprisen, og vanlige feil å unngå når du sammenligner tilbud."
+title: "Bryllupslokale pris 2026: gjester, sesong og landsdel"
+description: "Se realistiske prisintervaller for bryllupslokale i 2026 etter gjesteantall, sesong og landsdel, og hvilke tilleggskostnader som ofte kommer etter grunnprisen."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

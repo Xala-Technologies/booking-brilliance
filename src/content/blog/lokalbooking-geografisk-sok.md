@@ -1,7 +1,7 @@
 ---
 slug: lokalbooking-geografisk-sok
 title: "Lokalbooking med geografisk søk: finn ledig lokale i din by"
-description: "Slik fungerer lokalbooking når søket filtreres på geografi. Sammenlign ledige lokaler i Oslo, Bergen, Trondheim og andre byer i én kalender, i stedet for å sjekke hvert sted for seg."
+description: "Slik fungerer lokalbooking når søket filtreres på geografi. Sammenlign ledige lokaler i Oslo, Bergen, Trondheim og andre byer i én kalender."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

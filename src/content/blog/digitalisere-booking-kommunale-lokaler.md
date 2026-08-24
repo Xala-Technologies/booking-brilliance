@@ -1,6 +1,6 @@
 ---
 slug: digitalisere-booking-kommunale-lokaler
-title: "Digitalisere booking av kommunale lokaler: guide og sammenligning 2026"
+title: "Digitalisere booking av kommunale lokaler: guide 2026"
 description: "Konkret guide til å digitalisere booking av kommunale lokaler: hva Digilist er, hvordan det fungerer, og hvordan det måler seg mot bookup.no og BookUp."
 date: 2026-07-31
 author: "Ibrahim Rahmani"

@@ -1,7 +1,7 @@
 ---
 slug: undervisnings-og-opplaeringslokaler
 title: "Undervisnings- og opplæringslokaler: rimelig og lett å booke"
-description: "Kursarrangører, språkskoler og opplæringsleverandører trenger rimelige, lett-bookbare undervisningslokaler. Se hvordan Digilist gjør prisen synlig og bookingen selvbetjent."
+description: "Kursarrangører, språkskoler og opplæringsleverandører trenger rimelige undervisningslokaler. Se hvordan Digilist gjør prisen synlig og bookingen selvbetjent."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

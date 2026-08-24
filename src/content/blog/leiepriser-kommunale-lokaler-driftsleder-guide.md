@@ -1,6 +1,6 @@
 ---
 slug: leiepriser-kommunale-lokaler-driftsleder-guide
-title: "Leiepriser på kommunale lokaler: driftslederens guide til prising"
+title: "Leiepriser på kommunale lokaler: driftslederens guide"
 description: "Slik setter og forvalter driftsledere leiepriser for idrettshall, gymsal og møterom: prismodeller, rabatt til lag, depositum og automatisk beregning."
 date: 2026-07-15
 author: "Ibrahim Rahmani"

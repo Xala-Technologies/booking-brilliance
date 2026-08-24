@@ -1,7 +1,7 @@
 ---
 slug: sal-billigst-kommune-prisstyring-driftsleder
-title: "Billigst sal i kommunen: driftslederens guide til riktig prisnivå"
-description: "Slik setter og forvalter driftsleder prisregulativ, restplassrabatt og sesongtildeling for sal og lokale, uten å underprise etterspurt kapasitet eller la restplasser stå tomme og tape inntekt."
+title: "Billigst sal: driftslederens guide til riktig prisnivå"
+description: "Slik setter driftsleder prisregulativ, restplassrabatt og sesongtildeling for sal og lokale, uten å underprise kapasitet eller la restplasser stå tomme."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

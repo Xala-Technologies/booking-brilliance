@@ -1,7 +1,7 @@
 ---
 slug: alternativer-til-sharefox-kommunal-booking
 title: "Alternativer til Sharefox for kommunal booking"
-description: "Vurderer kommunen alternativer til Sharefox for booking av lokaler? Se hva Digilist er, hvem det passer for, og hvilke kategorier dere bør sjekke før dere velger leverandør."
+description: "Vurderer kommunen alternativer til Sharefox for booking av lokaler? Se hva Digilist er, hvem det passer for, og hva dere bør sjekke før dere velger."
 date: 2026-07-27
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

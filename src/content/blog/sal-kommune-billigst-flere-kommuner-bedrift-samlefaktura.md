@@ -1,6 +1,6 @@
 ---
 slug: sal-kommune-billigst-flere-kommuner-bedrift-samlefaktura
-title: "Billigst sal i kommunen: slik booker bedrifter smartere på tvers av kommuner i 2026"
+title: "Billigst sal: slik booker bedrifter på tvers av kommuner"
 description: "Slik sammenligner og booker bedriften billigst sal i flere kommuner samtidig, med samlefaktura i stedet for å sjekke hvert kommunale bookingsystem for seg."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

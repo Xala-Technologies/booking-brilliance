@@ -1,6 +1,6 @@
 ---
 slug: leie-bryllupslokale-kapasitet-inkludert-bookingprosess
-title: "Leie bryllupslokale 2026: kapasitet, innhold og booking steg for steg"
+title: "Leie bryllupslokale: kapasitet, innhold og bestilling"
 description: "Se hvor mange gjester lokalet tar, hva som er inkludert i leien, når dere bør bestille, og hvordan dere booker lokale, catering og overnatting samlet."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

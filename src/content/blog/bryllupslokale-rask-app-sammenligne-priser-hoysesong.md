@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-rask-app-sammenligne-priser-hoysesong
-title: "Bryllupslokale 2026: appen viser priser og ledighet på 2,5 sekunder"
+title: "Bryllupslokale: se priser og ledighet på 2,5 sekunder"
 description: "Prisoversikten for bryllupslokaler brukte tidligere over 20 sekunder på å laste i verste fall. Se hva som er fikset, og hvorfor det betyr mest i høysesongen."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

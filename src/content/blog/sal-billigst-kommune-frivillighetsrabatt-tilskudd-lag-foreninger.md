@@ -1,7 +1,7 @@
 ---
 slug: sal-billigst-kommune-frivillighetsrabatt-tilskudd-lag-foreninger
-title: "Billigst sal i kommunen: slik sparer laget mest med rabatt og tilskudd"
-description: "Praktisk guide for lag og foreninger: frivillighetsrabatt, riktig tidspunkt, tilskudd og sesongavtale, slik booker dere billigst sal i kommunen uten å miste kvalitet eller tilgjengelighet."
+title: "Billigst sal: slik sparer laget med rabatt og tilskudd"
+description: "Praktisk guide for lag og foreninger: frivillighetsrabatt, riktig tidspunkt, tilskudd og sesongavtale, slik booker dere billigst sal i kommunen."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

@@ -1,7 +1,7 @@
 ---
 slug: wedding-venue-cost-norway-2026-season-weekday-guests
-title: "Wedding Venue Costs in Norway 2026: How Season, Weekday and Guest Count Set the Price"
-description: "The price range for wedding venues in Norway in 2026, how season, day of the week and guest count move the total, and how to build a realistic budget before you book."
+title: "Wedding Venue Costs in Norway 2026: What Sets the Price"
+description: "The price range for wedding venues in Norway in 2026, how season, weekday and guest count move the total, and how to budget before you book."
 date: 2026-08-12
 author: "Ibrahim Rahmani"
 role: "Founder, Digilist"

@@ -1,6 +1,6 @@
 ---
 slug: sanntidskalender-kommunal-booking
-title: "Sanntidskalender: hvorfor «oppdateres hver natt» ikke holder mål"
+title: "Sanntidskalender: «oppdateres hver natt» holder ikke"
 description: "Innbyggere som ser feil opptatt-tider og dobbeltbookinger er symptomer på én rot. Hvorfor reaktiv sanntid er en forutsetning, ikke luksus."
 date: 2026-05-18
 author: "Ibrahim Rahmani"

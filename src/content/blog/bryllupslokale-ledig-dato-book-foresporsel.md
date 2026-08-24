@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-ledig-dato-book-foresporsel
-title: "Ledig bryllupslokale: se datoer i sanntid og book uten å vente på svar"
+title: "Ledig bryllupslokale: se datoer i sanntid og book direkte"
 description: "Se faktisk ledige datoer for bryllupslokaler i sanntid, book direkte eller send forespørsel, og unngå dobbeltbooking før dere signerer."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

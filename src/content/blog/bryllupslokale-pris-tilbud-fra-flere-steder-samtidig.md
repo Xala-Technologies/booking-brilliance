@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-pris-tilbud-fra-flere-steder-samtidig
-title: "Bryllupslokale pris 2026: be om tilbud fra flere steder samtidig"
+title: "Bryllupslokale: be om tilbud fra flere steder samtidig"
 description: "Slik ber du om pristilbud fra flere bryllupslokaler samtidig, setter svarene opp i samme oppsett og ser totalprisen før dere takker ja til noen som helst."
 date: 2026-08-10
 author: "Ibrahim Rahmani"

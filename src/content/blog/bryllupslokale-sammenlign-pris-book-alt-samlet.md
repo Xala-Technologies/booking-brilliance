@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-sammenlign-pris-book-alt-samlet
-title: "Bryllupslokale 2026: sammenlign flere lokaler og book alt samlet"
+title: "Bryllupslokale: sammenlign flere lokaler og book samlet"
 description: "Se pris, kapasitet og ledighet for flere bryllupslokaler samtidig, og bestill lokale, overnatting og utstyr til bryllupet i én markedsplass."
 date: 2026-08-08
 author: "Ibrahim Rahmani"

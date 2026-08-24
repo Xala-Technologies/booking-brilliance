@@ -1,6 +1,6 @@
 ---
 slug: favoritter-pa-digilist-lagret-pa-konto-ikke-nettleser
-title: "Favoritter på Digilist: nå lagret på kontoen din, ikke i nettleseren"
+title: "Favoritter lagres på kontoen din, ikke i nettleseren"
 description: "Favorittlisten din følger nå den innloggede brukeren, ikke enheten. Se hva som var feil, hva vi har rettet, og hva det betyr for deg som bruker eller utleier."
 date: 2026-08-08
 author: "Ibrahim Rahmani"

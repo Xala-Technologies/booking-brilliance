@@ -1,6 +1,6 @@
 ---
 slug: bokingsystem-funksjonalitet-admin-paaminnelser-kalender-brukerkontroll
-title: "Bokingsystem-funksjonalitet og admin: derfor avgjør admin-siden adopsjonen"
+title: "Bookingsystem-admin: derfor avgjør admin-siden adopsjonen"
 description: "Et bokingsystem ingen bruker, er ikke et bokingsystem. Slik avgjør admin for påminnelser, kalender og brukerkontroll om ansatte fortsetter å bruke det."
 date: 2026-08-11
 author: "Ibrahim Rahmani"

@@ -1,7 +1,7 @@
 ---
 slug: bryllupslokale-velge-riktig-sammenligne-lokaler
-title: "Velge bryllupslokale 2026: kapasitet, uteareal og skjenkebevilling"
-description: "Sammenlign kapasitet, beliggenhet, uteareal, skjenkebevilling og cateringregler for bryllupslokaler i Digilist, med ni konkrete spørsmål å stille før dere bestiller befaring."
+title: "Velge bryllupslokale: kapasitet, uteareal og skjenking"
+description: "Sammenlign kapasitet, beliggenhet, uteareal, skjenkebevilling og cateringregler for bryllupslokaler, med ni spørsmål å stille før dere bestiller befaring."
 date: 2026-08-14
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

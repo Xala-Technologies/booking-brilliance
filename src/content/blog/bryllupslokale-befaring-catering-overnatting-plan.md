@@ -1,7 +1,7 @@
 ---
 slug: bryllupslokale-befaring-catering-overnatting-plan
-title: "Bryllupslokale: befaring, catering og gjesteovernatting i én plan"
-description: "Se når du bør bestille bryllupslokale, hva du må sjekke på befaring, og hvordan du samkjører catering, dekor og gjesteovernatting i én prosess fram mot bryllupsdagen."
+title: "Bryllupslokale: befaring, catering og gjesteovernatting"
+description: "Se når du bør bestille bryllupslokale, hva du må sjekke på befaring, og hvordan du samkjører catering, dekor og gjesteovernatting i én plan."
 date: 2026-08-08
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

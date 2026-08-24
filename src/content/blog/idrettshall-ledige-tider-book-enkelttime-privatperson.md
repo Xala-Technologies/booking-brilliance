@@ -1,7 +1,7 @@
 ---
 slug: idrettshall-ledige-tider-book-enkelttime-privatperson
 title: "Book ledig time i idrettshallen: guide for privatpersoner"
-description: "Slik finner og booker du en ledig enkelttime i idrettshallen til bursdag, teambuilding eller egentrening, uten kommunens sesongsøknad. Pris, booking og avbestilling forklart."
+description: "Slik finner og booker du en ledig enkelttime i idrettshallen til bursdag, teambuilding eller egentrening. Pris, booking og avbestilling forklart."
 date: 2026-08-07
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

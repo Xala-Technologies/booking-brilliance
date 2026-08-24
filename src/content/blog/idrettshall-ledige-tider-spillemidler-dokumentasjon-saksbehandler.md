@@ -1,7 +1,7 @@
 ---
 slug: idrettshall-ledige-tider-spillemidler-dokumentasjon-saksbehandler
-title: "Idrettshall ledige tider: fra bookingkalender til spillemidler-dokumentasjon"
-description: "Bookingdata fra idrettshallen kan bli revisjonssikker dokumentasjon for spillemidler og kommunalt tilskudd, ikke bare en oversikt over ledige tider og sesongtildeling."
+title: "Idrettshall: fra bookingkalender til spillemiddelsøknad"
+description: "Bookingdata fra idrettshallen kan bli revisjonssikker dokumentasjon for spillemidler og kommunalt tilskudd, ikke bare en oversikt over ledige tider."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

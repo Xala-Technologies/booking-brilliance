@@ -1,6 +1,6 @@
 ---
 slug: leie-ut-pa-digilist-guide-for-utleiere
-title: "Leie ut lokale, utstyr eller tjeneste: guide for private utleiere på Digilist"
+title: "Leie ut lokale, utstyr eller tjeneste: guide for utleiere"
 description: "Fra annonse til fast inntekt: slik setter bedrifter, sameier og privatpersoner riktig pris, unngår dobbeltbooking og får betalt trygt på Digilist."
 date: 2026-08-07
 author: "Ibrahim Rahmani"

@@ -1,6 +1,6 @@
 ---
 slug: bookingsystem-idrettshall-kommune-kravspesifikasjon-anskaffelse
-title: "Bookingsystem for idrettshall: kravspesifikasjonen en IT-leder må stille ved anskaffelse"
+title: "Kravspesifikasjon for bookingsystem til idrettshall"
 description: "Alt en IT-leder i kommunen må kravspesifisere ved anskaffelse av bookingsystem for idrettshall: SSA-L, ID-porten, sanntids ledighet, fakturering og revisjonsspor."
 date: 2026-08-19
 author: "Ibrahim Rahmani"

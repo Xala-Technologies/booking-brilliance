@@ -1,6 +1,6 @@
 ---
 slug: sal-kommune-restplasser-sesong-billigst-lag-foreninger
-title: "Billigst sal i kommunen: restplasser slår prisregulativet for lag og foreninger"
+title: "Billigst sal: restplasser slår prisregulativet for laget"
 description: "Se restplasser og reell fyllingsgrad i sanntid på tvers av saler i kommunen, og finn den faktisk billigste ledige timen for lag og foreninger med stramt budsjett."
 date: 2026-08-08
 author: "Ibrahim Rahmani"

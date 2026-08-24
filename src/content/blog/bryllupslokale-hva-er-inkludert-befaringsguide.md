@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-hva-er-inkludert-befaringsguide
-title: "Bryllupslokale: dette er inkludert i prisen, og hva dere må leie i tillegg"
+title: "Bryllupslokale: hva er inkludert i prisen, og hva må leies?"
 description: "En praktisk guide til hva som faktisk er inkludert i prisen for bryllupslokale, med sjekkliste til befaringen før dere signerer kontrakt."
 date: 2026-08-06
 author: "Ibrahim Rahmani"

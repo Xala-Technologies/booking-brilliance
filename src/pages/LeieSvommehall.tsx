@@ -11,7 +11,7 @@ export default function LeieSvommehall() {
       title="Leie svømmehall"
       dek="Barnebursdag, svømmegruppe eller kurs. Finn ledig svømmehall nær deg, se pris og regler, og book basseng på nett."
       lead="Skal du leie svømmehall til bursdag, svømmegruppe eller kurs, går det ofte via kommunens skjema eller en telefon i kontortiden. Det er uklart hva som er ledig utenom klubbtidene, hva det koster, og hvilke regler som gjelder for badevakt og antall badende. På Digilist ser du ledige tider i basseng og svømmehaller nær deg samlet ett sted, med pris og regler synlig før du booker direkte. Faste baner og klubbtider tildeles av kommunen i egen prosess, de ledige enkelttimene utenom booker du her."
-      seoTitle="Leie svømmehall og basseng: se ledige tider og book | Digilist"
+      seoTitle="Leie svømmehall og basseng: ledige tider | Digilist"
       seoDescription="Leie svømmehall eller basseng til bursdag, svømmegruppe eller kurs: se ledige tider utenom klubbtidene, pris og regler, og book direkte på nett. Samlet ett sted."
       keywords="leie svømmehall, leie basseng, svømmehall til leie, leie svømmebasseng, basseng til bursdag, leie basseng til arrangement, svømmehall enkelttime, booke svømmehall"
       audience={[

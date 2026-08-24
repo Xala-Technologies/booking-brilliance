@@ -1,7 +1,7 @@
 ---
 slug: idrettshall-dobbeltbooking-sanntidskalender-driftsleder
-title: "Idrettshall uten dobbeltbooking: én sanntidskalender for skole, lag, arrangement og private"
-description: "Slik unngår driftsledere dobbeltbooking av idrettshallen med én sanntidskalender for skole, lag, arrangement og private, komplett med prioriteringsregler, venteliste og varsling ved avbud."
+title: "Idrettshall uten dobbeltbooking: én sanntidskalender"
+description: "Slik unngår driftsledere dobbeltbooking av idrettshallen med én sanntidskalender for skole, lag og private, med prioriteringsregler og varsling ved avbud."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

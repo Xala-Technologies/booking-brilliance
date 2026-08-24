@@ -1,6 +1,6 @@
 ---
 slug: ledige-moterom-i-kommunen
-title: "Slik finner og booker du ledige møterom i din kommune på nett"
+title: "Ledige møterom i kommunen: finn og book på nett"
 description: "Søk opp alle kommunens møterom på område, se ledighet i sanntid og styr egne bookinger fra Mine side, uten å ringe rundt til hvert enkelt bygg."
 date: 2026-08-07
 author: "Ibrahim Rahmani"

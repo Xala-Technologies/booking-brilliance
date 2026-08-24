@@ -1,7 +1,7 @@
 ---
 slug: digilist-ledende-bookingplattform-norge
-title: "Vi vil bli Norges ledende bookingplattform. Her er hva det krever"
-description: "Digilists ambisjon er å bli den ledende plattformen for booking av lokaler i Norge, for både kommuner og private utleiere. Her er hva vi mener det faktisk krever, og hva vi har valgt bort."
+title: "Vi vil bli Norges ledende bookingplattform. Her er veien"
+description: "Digilists ambisjon er å bli den ledende plattformen for booking av lokaler i Norge, for kommuner og private utleiere. Her er hva vi har valgt bort."
 date: 2026-08-12
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

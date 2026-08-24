@@ -1,7 +1,7 @@
 ---
 slug: leie-sal-kommune-prisguide-sammenligning-lokaltyper
-title: "Leie sal i kommunen: full prisguide for gymsal, kulturhus og forsamlingshus"
-description: "Sammenlign leiepriser på gymsal, forsamlingshus, kulturhus og skolelokale i norske kommuner, og finn det faktisk billigste alternativet i 2026, inkludert rabatter og skjulte kostnader."
+title: "Leie sal: prisguide for gymsal, kulturhus og forsamlingshus"
+description: "Sammenlign leiepriser på gymsal, forsamlingshus, kulturhus og skolelokale i norske kommuner, og finn det faktisk billigste alternativet i 2026."
 date: 2026-08-03
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

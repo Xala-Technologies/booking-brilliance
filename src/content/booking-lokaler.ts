@@ -310,7 +310,7 @@ const STEPS_EN: readonly Step[] = [
 const NB: BookingCopy = {
   metaTitle: "Booking av lokaler og møterom · Digilist",
   metaDescription:
-    "Bookingsystem for lokaler og møterom i Norge: sanntidskalender, Vipps, BankID, EHF og sesongleie. Bygget for kommuner, selskapslokaler, idrettshaller og kulturhus. SSA-L 2026-klar, ISO 27001-sertifisert.",
+    "Bookingsystem for lokaler og møterom: sanntidskalender, Vipps, BankID, EHF og sesongleie. For kommuner, selskapslokaler, idrettshaller og kulturhus.",
   keywords:
     "lokaler bookingsystem, bookingsystem for lokaler, bookingsystem lokaler, booking av lokaler og møterom, booking lokale, booking møterom, leie lokale, leie møterom, bookingplattform Norge, kommunal booking, selskapslokale booking, idrettshall booking, kulturhus booking, Vipps booking, BankID booking, EHF, sesongleie",
   crumb: "Booking av lokaler og møterom",
@@ -350,7 +350,7 @@ const NB: BookingCopy = {
 const EN: BookingCopy = {
   metaTitle: "Booking venues and meeting rooms · Digilist",
   metaDescription:
-    "A booking system for venues and meeting rooms in Norway: a real-time calendar, card and Vipps payment, national identity sign-in, e-invoicing and seasonal allocation. ISO 27001 certified.",
+    "Booking for venues and meeting rooms in Norway: real-time calendar, card and Vipps payment, national ID sign-in, e-invoicing and seasonal allocation.",
   keywords:
     "venue booking system, booking venues and meeting rooms, book a venue, book a meeting room, hall hire, municipal booking, sports hall booking, cultural venue booking",
   crumb: "Booking venues and meeting rooms",

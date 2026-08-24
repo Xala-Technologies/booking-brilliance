@@ -1,7 +1,7 @@
 ---
 slug: leie-sal-avbestilling-refusjon-depositum-privatperson
-title: "Avbestille leid sal 2026: depositum, refusjon og bytte av dato"
-description: "Avbestillingsfrister, depositum, bytte av dato og force majeure: se hva som faktisk skjer med pengene dine når du skal leie sal billigst i kommunen eller privat, før du signerer."
+title: "Avbestille leid sal: depositum, refusjon og ny dato"
+description: "Avbestillingsfrister, depositum, bytte av dato og force majeure: se hva som faktisk skjer med pengene dine når du leier sal, før du signerer."
 date: 2026-08-10
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

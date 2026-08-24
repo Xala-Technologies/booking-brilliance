@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-kapasitet-m2-per-gjest-dansegulv
-title: "Bryllupslokale kapasitet 2026: m² per gjest avgjør riktig størrelse"
+title: "Bryllupslokale kapasitet: m² per gjest gir riktig størrelse"
 description: "Regn ut riktig kapasitet for bryllupslokalet: m² per gjest, bordoppsett, dansegulv, fasiliteter og sesong, så dere ikke betaler for plass som aldri blir brukt."
 date: 2026-08-10
 author: "Ibrahim Rahmani"

@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-utleier-pris-booking-kontrakt
-title: "Leie ut bryllupslokale 2026: riktig pris, depositum og booking uten dobbeltbooking"
+title: "Leie ut bryllupslokale: riktig pris, depositum og booking"
 description: "Skal du leie ut gården, hagen eller lokalet til bryllup? Guiden dekker prismodell, depositum, skjenkebevilling og booking som hindrer dobbeltbooking i høysesong."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

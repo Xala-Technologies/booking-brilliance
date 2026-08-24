@@ -1,6 +1,6 @@
 ---
 slug: sesongbooking-kommune-soknadsfrist-tildeling-klage-saksbehandler
-title: "Sesongbooking i kommunen: frister, tildeling og klagebehandling for saksbehandler"
+title: "Sesongbooking i kommunen: saksbehandlerens fristguide"
 description: "Slik designer kommunen en søknadsprosess for sesongbooking med faste frister, sporbar saksbehandling og en klageordning som lag og foreninger faktisk stoler på."
 date: 2026-08-14
 author: "Ibrahim Rahmani"

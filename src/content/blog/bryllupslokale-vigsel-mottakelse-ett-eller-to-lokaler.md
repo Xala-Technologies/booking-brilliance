@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-vigsel-mottakelse-ett-eller-to-lokaler
-title: "Bryllupslokale 2026: ett eller to lokaler avgjør pris og logistikk"
+title: "Bryllupslokale: ett eller to lokaler til vielse og fest"
 description: "Skal vigsel og fest være på samme sted eller to steder? Se hva som styrer totalpris, tidsplan og gjestelogistikk, og kravene til et gyldig vigsellokale."
 date: 2026-08-08
 author: "Ibrahim Rahmani"

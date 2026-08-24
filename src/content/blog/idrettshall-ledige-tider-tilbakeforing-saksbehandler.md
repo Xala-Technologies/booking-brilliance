@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-ledige-tider-tilbakeforing-saksbehandler
-title: "Ledige tider i idrettshallen: fra ubrukt tildeling til ny booking"
+title: "Idrettshall: fra ubrukt tildeling til ny booking"
 description: "Se hvordan saksbehandler i kommunen fanger opp ubrukt sesongtid i idrettshallen i sanntid, tilbakefører den til bookingpoolen og dokumenterer hvert vedtak."
 date: 2026-08-08
 author: "Ibrahim Rahmani"

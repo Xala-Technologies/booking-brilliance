@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-ledige-tider-skole-lag-privat-driftsleder
-title: "Idrettshallens ledige tider: skole, lag og private i én kalender"
+title: "Idrettshallen: skole, lag og private i samme kalender"
 description: "Se hvordan driftsleder fyller avlyste skoletimer og ubrukt sesongtildeling i idrettshallen samme dag, uten telefonrunde mellom skole, lag og private leietakere."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

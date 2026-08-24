@@ -1,7 +1,7 @@
 ---
 slug: idrettshall-turnering-flere-haller-overnatting-utstyr-arrangorkomite
-title: "Booke idrettshall til turnering: flere haller, overnatting og utstyr i én bestilling"
-description: "Slik booker turneringskomiteen flere idrettshaller samtidig på tvers av kommuner, overnatting til gjestelag og utstyr til sekretariatet i én samlet bestilling, med sanntidsstatus og samlefaktura."
+title: "Idrettshall til turnering: haller, overnatting og utstyr"
+description: "Slik booker turneringskomiteen flere idrettshaller på tvers av kommuner, overnatting til gjestelag og utstyr i én bestilling, med samlefaktura."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

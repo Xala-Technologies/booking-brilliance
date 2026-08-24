@@ -1,7 +1,7 @@
 ---
 slug: sal-kommune-vilkar-avbestilling-depositum-ansvar
 title: "Leie sal i kommunen: vilkårene du bør sjekke før du signerer"
-description: "Avbestillingsfrist, depositum, ansvar ved skade, forsikring og hva som skjer ved dobbeltbooking eller avlysning: dette bør du sjekke i leiekontrakten før du bekrefter booking av sal i kommunen."
+description: "Avbestillingsfrist, depositum, ansvar ved skade og hva som skjer ved dobbeltbooking: dette bør du sjekke i leiekontrakten før du booker sal i kommunen."
 date: 2026-08-08
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

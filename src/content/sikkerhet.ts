@@ -61,7 +61,7 @@ export interface SecurityCopy {
 const NB: SecurityCopy = {
   metaTitle: "Sikkerhet og personvern · Digilist | ISO 27001, GDPR",
   metaDescription:
-    "Slik ivaretar Digilist sikkerhet og personvern: data i Norge og EU, ISO 27001- og 27701-sertifisert, GDPR-kompatibelt, BankID/ID-porten og audit-logg. Trygt bookingsystem for kommuner og utleiere.",
+    "Slik ivaretar Digilist sikkerhet og personvern: data i Norge og EU, ISO 27001- og 27701-sertifisert, GDPR-kompatibelt, BankID/ID-porten og audit-logg.",
   keywords:
     "iso 27001, gdpr, personvern bookingsystem, datasikkerhet, sikker booking, gdpr bookingsystem, iso 27701, databehandleravtale, datalagring norge",
   rule: "SIKKERHET OG PERSONVERN · 2026",
@@ -171,7 +171,7 @@ const NB: SecurityCopy = {
 const EN: SecurityCopy = {
   metaTitle: "Security and privacy · Digilist | ISO 27001, GDPR",
   metaDescription:
-    "How Digilist handles security and privacy: data in Norway and the EU, ISO 27001 and 27701 certified, GDPR compliant, national identity sign-in, and an audit log on every change.",
+    "How Digilist handles security and privacy: data in Norway and the EU, ISO 27001 and 27701 certified, GDPR compliant, and an audit log on every change.",
   keywords:
     "iso 27001, gdpr, booking system security, data security, secure booking, iso 27701, data processing agreement, data stored in norway",
   rule: "SECURITY AND PRIVACY · 2026",

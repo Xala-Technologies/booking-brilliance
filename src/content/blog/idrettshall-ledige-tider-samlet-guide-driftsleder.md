@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-ledige-tider-samlet-guide-driftsleder
-title: "Idrettshall ledige tider: den samlede guiden for driftsledere"
+title: "Ledige tider i idrettshallen: guiden for driftsledere"
 description: "Se hvordan booking, avbestilling og sesongtildeling deler samme sanntidskalender, og hva driftslederen må kontrollere før neste sesong åpner for booking."
 date: 2026-08-08
 author: "Ibrahim Rahmani"

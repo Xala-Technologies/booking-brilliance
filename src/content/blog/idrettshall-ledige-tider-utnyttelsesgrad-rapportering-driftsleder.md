@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-ledige-tider-utnyttelsesgrad-rapportering-driftsleder
-title: "Idrettshall ledige tider: samme data styrer kalender, belegg og budsjett"
+title: "Idrettshall: samme data styrer kalender, belegg og budsjett"
 description: "Se hvordan sanntidsdataene bak ledige tider i idrettshallen også gir driftslederen utnyttelsesgrad, rapportering og dokumentasjon til budsjett og anleggsplanlegging."
 date: 2026-08-08
 author: "Ibrahim Rahmani"

@@ -131,7 +131,7 @@ const COOKIES_NB: LegalDoc = {
 
 const COOKIES_EN: LegalDoc = {
   title: "Cookies",
-  metaTitle: "Cookie policy · Digilist",
+  metaTitle: "Cookie policy · Digilist | Privacy-first, no tracking",
   metaDescription:
     "How Digilist uses cookies. Privacy-first analytics with no cookies: no tracking, no third parties, full GDPR sovereignty.",
   intro:
@@ -205,7 +205,7 @@ const A11Y_NB: LegalDoc = {
   title: "Tilgjengelighetserklæring",
   metaTitle: "Tilgjengelighetserklæring · Digilist | WCAG 2.1 AA",
   metaDescription:
-    "Digilists tilgjengelighetserklæring: standard, status, hvordan vi tester, og hvordan du gir tilbakemelding eller klager til Digitaliseringsdirektoratet (uustatus.no).",
+    "Digilists tilgjengelighetserklæring: standard (WCAG 2.1 AA), hvordan vi tester, og hvordan du gir tilbakemelding eller klager via uustatus.no.",
   intro:
     "Denne erklæringen beskriver hvordan Digilist arbeider med universell utforming av digilist.no og bookingplattformen, hvilken standard vi følger, og hvordan du gir tilbakemelding eller klager dersom du støter på et tilgjengelighetsproblem.",
   updated: "Sist oppdatert: 11.08.2026",
@@ -271,7 +271,7 @@ const A11Y_EN: LegalDoc = {
   title: "Accessibility statement",
   metaTitle: "Accessibility statement · Digilist | WCAG 2.1 AA",
   metaDescription:
-    "Digilist's accessibility statement: the standard we follow, current status, how we test, and how to give feedback or complain to the Norwegian Digitalisation Agency (uustatus.no).",
+    "Digilist's accessibility statement: the standard we follow, current status, how we test, and how to give feedback or complain via uustatus.no.",
   intro:
     "This statement describes how Digilist works on accessibility for digilist.no and the booking platform, which standard we follow, and how to give feedback or complain if you run into an accessibility problem.",
   updated: "Last updated: 11 August 2026",
@@ -936,7 +936,7 @@ const TERMS_NB: LegalDoc = {
 
 const TERMS_EN: LegalDoc = {
   title: "Terms of sale",
-  metaTitle: "Terms of sale – Digilist",
+  metaTitle: "Terms of sale and delivery · Digilist | Payment and booking",
   metaDescription:
     "Terms of sale for Digilist subscriptions and use of the platform: parties, payment, cancellation, delivery, right of withdrawal, returns, booking and liability.",
   intro: "Terms for purchasing a Digilist subscription and using the platform",

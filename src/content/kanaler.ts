@@ -60,7 +60,7 @@ export interface ChannelsCopy {
 const NB: ChannelsCopy = {
   metaTitle: "Kanaler & synk · Digilist | Toveis kalendersynk og AI-import",
   metaDescription:
-    "Koble Airbnb, Booking.com, Bookup, Eventum og Finn til Digilist. Toveis kalendersynk i sanntid og AI-agent som importerer oppføringene dine til et ferdig utkast – behold begge plattformer.",
+    "Koble Airbnb, Booking.com, Bookup, Eventum og Finn til Digilist. Toveis kalendersynk i sanntid og AI-import av oppføringene dine – behold begge plattformer.",
   keywords:
     "kanalsynk, channel manager, kalendersynk, importere oppføring airbnb, importere finn, toveis synk booking, unngå dobbeltbooking",
   rule: "KANALER · TOVEIS SYNK",
@@ -144,9 +144,9 @@ const NB: ChannelsCopy = {
 };
 
 const EN: ChannelsCopy = {
-  metaTitle: "Channels & sync · Digilist | Two-way calendar sync and AI import",
+  metaTitle: "Channels & sync · Digilist | Calendar sync and AI import",
   metaDescription:
-    "Connect Airbnb, Booking.com, Bookup, Eventum and Finn to Digilist. Real-time two-way calendar sync, and an AI agent that imports your listings into a finished draft — keep both platforms.",
+    "Connect Airbnb, Booking.com, Bookup, Eventum and Finn to Digilist. Real-time two-way calendar sync, and AI import of your listings — keep both platforms.",
   keywords:
     "channel sync, channel manager, calendar sync, import airbnb listing, two-way booking sync, avoid double bookings",
   rule: "CHANNELS · TWO-WAY SYNC",

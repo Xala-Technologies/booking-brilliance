@@ -1,6 +1,6 @@
 ---
 slug: leie-ovingsrom-musikk-dans-studio
-title: "Leie øvingsrom til musikk og dans: guide og priser"
+title: "Leie øvingsrom til musikk og dans: guide og priser 2026"
 description: "Slik finner musikklærere og danseinstruktører ledig øvingsrom eller danse-studio nær seg, hva det koster, og hvordan fast ukentlig leie bookes uten kollisjon."
 date: 2026-07-30
 author: "Ibrahim Rahmani"

@@ -1,7 +1,7 @@
 ---
 slug: bookup-og-eksisterende-booking-losninger
-title: "Alternativer til BookUp for kommunal booking: samle løsningene i én plattform"
-description: "Ser kommunen din etter alternativer til BookUp for kommunal booking? Digilist er en norsk bookingplattform for både private utleiere og kommuner, bygget med SSA-L 2026-kravene som referansepunkt."
+title: "Alternativer til BookUp for kommunal booking"
+description: "Ser kommunen etter alternativer til BookUp? Digilist er en norsk bookingplattform for kommuner og private utleiere, bygget med SSA-L-kravene som referanse."
 date: 2026-07-25
 updated: 2026-07-27
 author: "Ibrahim Rahmani"

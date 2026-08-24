@@ -1,7 +1,7 @@
 ---
 slug: registrere-lag-organisasjon-booke-kommunale-lokaler
 title: "Registrere lag og organisasjon for å booke kommunale lokaler"
-description: "Slik registrerer et idrettslag eller en frivillig organisasjon seg for å booke kommunale lokaler i Digilist, og hvordan lagkoordinatoren administrerer og gir medlemmene tilgang til å booke selv."
+description: "Slik registrerer et idrettslag eller en frivillig organisasjon seg for å booke kommunale lokaler, og hvordan koordinatoren gir medlemmene tilgang."
 date: 2026-07-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

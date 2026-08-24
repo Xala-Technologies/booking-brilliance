@@ -1,7 +1,7 @@
 ---
 slug: favoritter-lagret-konto-ikke-nettleser-innlogget
-title: "Favoritter-meldingen er rettet: nå stemmer teksten med lagringsstatus"
-description: "En feil i favorittfunksjonen viste innloggede brukere en oppfordring om å logge inn, selv om valget allerede lå lagret på kontoen. Nå viser meldingen riktig status enten du er innlogget eller gjest."
+title: "Favoritter-meldingen er rettet: teksten stemmer med status"
+description: "En feil i favorittfunksjonen ba innloggede brukere logge inn, selv om valget allerede lå lagret på kontoen. Nå viser meldingen riktig status for begge."
 date: 2026-08-08
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

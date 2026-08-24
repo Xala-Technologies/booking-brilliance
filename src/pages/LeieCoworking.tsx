@@ -11,7 +11,7 @@ export default function LeieCoworking() {
       title="Leie coworking-plass"
       dek="Dagplass, hot desk eller kontorfellesskap. Finn ledig coworking-plass nær deg, se dagsprisen, og book på nett."
       lead="Hjemmekontoret funker ikke alltid. Noen dager trenger du et skrivebord utenfor huset, men det er vanskelig å vite hvilke kontorfellesskap som finnes i nærheten, hva en dagplass faktisk koster, og altfor ofte må du registrere et medlemskap bare for å sitte der én dag. På Digilist er coworking-plasser samlet ett sted, med dagspris og ledige plasser synlig før du velger. Du booker direkte og betaler for dagen, uten medlemskap, uten skjema og uten å vente på svar fra en resepsjon."
-      seoTitle="Leie coworking-plass: dagplass og kontorfellesskap | Digilist"
+      seoTitle="Leie coworking-plass: dagplass og kontor | Digilist"
       seoDescription="Leie kontorplass i coworking eller kontorfellesskap: finn ledig dagplass nær deg, se dagspris og hva som er inkludert, og book på nett med Vipps. Uten medlemskap."
       keywords="coworking, coworking oslo, kontorfellesskap, leie kontorplass, dagplass kontor, hot desk, drop-in kontor, coworking plass, leie skrivebord"
       audience={[

@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-filtrer-stil-uteareal-tilgjengelighet
-title: "Bryllupslokale 2026: velg stil, uteareal og tilgjengelighet i ett søk"
+title: "Bryllupslokale: stil, uteareal og tilgjengelighet i ett søk"
 description: "Bryllupslokale i 2026: sammenlign stil, kapasitet, uteareal, overnatting, tilgjengelighet og skjenkebevilling for gjestene, og book befaring direkte i Digilist."
 date: 2026-08-10
 author: "Ibrahim Rahmani"

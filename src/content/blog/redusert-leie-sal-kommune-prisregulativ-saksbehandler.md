@@ -1,6 +1,6 @@
 ---
 slug: redusert-leie-sal-kommune-prisregulativ-saksbehandler
-title: "Redusert leie av sal i kommunen: prisregulativ, vedtak og klage"
+title: "Redusert leie av sal: prisregulativ, vedtak og klage"
 description: "Guide for saksbehandler: hvem har krav på redusert eller gratis leie, hvordan prisregulativet bygges, og hvordan vedtaket dokumenteres og holder ved klage."
 date: 2026-08-07
 author: "Ibrahim Rahmani"

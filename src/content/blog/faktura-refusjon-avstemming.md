@@ -1,6 +1,6 @@
 ---
 slug: faktura-refusjon-avstemming
-title: "Fakturering, refusjoner og avstemming: økonomimotoren i Digilist"
+title: "Fakturering, refusjon og avstemming i Digilist"
 description: "Hvordan en booking blir til en faktura, hvordan en kansellering blir til en refusjon og hvordan kommunens regnskap får tallene som stemmer, uten Excel."
 date: 2026-06-01
 author: "Ibrahim Rahmani"
