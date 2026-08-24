@@ -115,6 +115,11 @@ export const TRANSLATED: Readonly<Record<string, string>> = Object.fromEntries(
 export function isIndexableEnglish(pathname: string): boolean {
   const path = normalise(pathname);
   if (localeFromPath(path) !== "en") return true;
+  // English blog posts are real English prose. TRANSLATED_PATHS lists ROUTES,
+  // so a post's nb twin (/blogg/<slug>) can never appear in it — which made
+  // every English article `noindex` while robots.txt allowed /en/blogg and the
+  // sitemap listed it. Only posts written in English get an /en/blogg/ URL.
+  if (/^\/en\/blogg\/.+/.test(path)) return true;
   const nb = path === "/en" ? "/" : path.slice(3);
   return TRANSLATED_PATHS.has(nb);
 }

@@ -177,15 +177,25 @@
     --popover: var(--paper-deep);
     --popover-foreground: var(--ink);
     --primary: var(--navy);
-    --primary-foreground: var(--paper);
+    /* NOT var(--paper): in dark, --paper is #020817, so the shadcn default and
+       `hero` Button rendered near-black text on dark navy — 1.77:1. The cookie
+       banner's "Godta alle" is that button, so every first-time visitor in dark
+       mode met it. --on-navy is the token that exists for exactly this and is
+       white in both themes (17.4:1 here). */
+    --primary-foreground: var(--on-navy);
     --secondary: var(--paper-deep);
     --secondary-foreground: var(--ink);
     --muted: var(--paper-deep);
     --muted-foreground: var(--ink-faint);
+    /* --accent is the same light aqua in both themes, so its foreground must
+       stay DARK here. var(--ink) is near-white in dark mode: 1.47:1 on aqua,
+       which is what ghost/outline hover and every dropdown/select highlight
+       resolved to. */
     --accent: var(--aqua);
-    --accent-foreground: var(--ink);
+    --accent-foreground: 222 47% 11%;
     --destructive: 0 63% 45%;
-    --destructive-foreground: var(--paper);
+    /* var(--paper) again — near-black on dark red, 3.32:1. White clears AA. */
+    --destructive-foreground: var(--on-navy);
     --border: var(--rule);
     --input: var(--rule);
     --ring: var(--ink);
