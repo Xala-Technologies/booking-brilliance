@@ -84,15 +84,16 @@ const MARKETPLACES = [
 // Primary desktop navigation — the curated top-level links that sit inline. The
 // remaining routes live in the Finn/Løsninger dropdowns and the MobileMenu
 // drawer (the fallback below `xl` and on mobile).
+// Transparens is deliberately NOT here. The page, its route and its footer and
+// mobile-drawer links all remain — only the inline desktop entry is gone. It had
+// already been marked lowest-priority and hidden below 2xl, and Search Console
+// has no record of the URL at all: zero impressions across the entire dataset,
+// not merely the trailing window. It was costing top-bar room and returning
+// nothing. FAQ stays: its 29 impressions are almost entirely the brand query
+// "digilist" at position 1, i.e. a sitelink worth keeping.
 const PRIMARY_NAV = [
   { label: "Blogg", to: "/blogg" },
   { label: "FAQ", to: "/faq" },
-  // Lowest-priority item: dropped first when the desktop assistant rail
-  // (permanently reserving 22rem, see `--rail-w` below) leaves this nav too
-  // little room, so higher-priority items — notably "Book demo" — don't
-  // overflow into and get covered by the actions column at `xl`. Still
-  // reachable via the mobile drawer and footer at every width.
-  { label: "Transparens", to: "/transparens", collapseBelow2xl: true },
   { label: "Book demo", to: "/book-demo" },
 ] as const;
 
@@ -317,10 +318,7 @@ const Navbar = () => {
               <NavLink
                 key={item.to}
                 to={item.to}
-                className={cn(
-                  NAV_LINK,
-                  "collapseBelow2xl" in item && item.collapseBelow2xl && "hidden 2xl:inline",
-                )}
+                className={NAV_LINK}
                 activeClassName={NAV_LINK_ACTIVE}
               >
                 {item.label}
