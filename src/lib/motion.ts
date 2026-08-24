@@ -1,6 +1,6 @@
-import type { Variants, Transition } from "framer-motion";
+import type { Variants, Tween } from "framer-motion";
 
-const editorialEase: Transition["ease"] = [0.22, 1, 0.36, 1];
+const editorialEase: Tween["ease"] = [0.22, 1, 0.36, 1];
 
 export const revealUp: Variants = {
   hidden: { opacity: 0, y: 24 },

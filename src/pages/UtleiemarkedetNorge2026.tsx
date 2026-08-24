@@ -95,7 +95,7 @@ function DemandChart() {
               {d.term}
             </text>
             <rect x={labelW} y={y + 4} width={w} height={16} rx="3" fill="currentColor" opacity={0.72} />
-            <text x={labelW + w + 6} y={y + 16} fontSize="12" fill="currentColor" opacity="0.9" fontVariantNumeric="tabular-nums">
+            <text x={labelW + w + 6} y={y + 16} fontSize="12" fill="currentColor" opacity="0.9" style={{ fontVariantNumeric: "tabular-nums" }}>
               {d.vol.toLocaleString("nb-NO")}
             </text>
           </g>
@@ -128,7 +128,7 @@ function PriceChart() {
               {p.type}
             </text>
             <line x1={x0} y1={y + 10} x2={x1} y2={y + 10} stroke="currentColor" strokeWidth="10" strokeLinecap="round" opacity={0.72} />
-            <text x={labelW} y={y + 30} fontSize="11.5" fill="currentColor" opacity="0.8" fontVariantNumeric="tabular-nums">
+            <text x={labelW} y={y + 30} fontSize="11.5" fill="currentColor" opacity="0.8" style={{ fontVariantNumeric: "tabular-nums" }}>
               {p.lo.toLocaleString("nb-NO")}–{p.hi.toLocaleString("nb-NO")} {p.unit}
             </text>
           </g>

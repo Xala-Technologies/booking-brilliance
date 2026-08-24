@@ -53,7 +53,7 @@ export const EditorialButton = forwardRef<
     ...rest
   } = props;
 
-  const showIcon = icon === true || (icon && icon !== false);
+  const showIcon = Boolean(icon);
   const iconNode =
     icon === true || icon === undefined ? (
       <ArrowUpRight

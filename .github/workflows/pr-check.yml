@@ -1,8 +1,11 @@
 name: PR check
 # PRs on booking-brilliance had NO checks (only deploy.yml, on push to main), so
-# nothing verified a PR before merge. This runs lint + tests + the full build
-# (incl. prerender + blog word-count) on every PR, giving the CTO auto-merge a
-# real signal instead of relying on the reviewer alone.
+# nothing verified a PR before merge. This runs lint + typecheck + tests + the
+# full build (incl. prerender + blog word-count) on every PR, giving the CTO
+# auto-merge a real signal instead of relying on the reviewer alone.
+# Typecheck is enforced directly now that the ts-baseline is cleared: `pnpm
+# build` is Vite, which strips types without checking them, so tsc is the only
+# thing that catches a bad prop name or a dead branch.
 on:
   pull_request:
     branches: [main]
@@ -24,6 +27,8 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Lint
         run: pnpm lint
+      - name: Typecheck
+        run: pnpm typecheck
       - name: Test
         run: pnpm test
       - name: Build

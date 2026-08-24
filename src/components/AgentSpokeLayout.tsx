@@ -21,7 +21,7 @@ export interface AgentSpokeContent {
   lead: string;
   metaTitle: string;
   metaDescription: string;
-  keywords: string[];
+  keywords: string[]; // authored as a list, joined for the comma-separated keywords meta
   breadcrumbLabel: string;
   flowTitle: string;
   flow: string[];
@@ -38,7 +38,7 @@ const AgentSpokeLayout = ({ content }: { content: AgentSpokeContent }) => {
       <SEO
         title={content.metaTitle}
         description={content.metaDescription}
-        keywords={content.keywords}
+        keywords={content.keywords.join(", ")}
         canonical={url}
         breadcrumbs={[
           { name: "Hjem", url: "https://digilist.no/" },
