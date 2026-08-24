@@ -49,7 +49,7 @@ export function OccasionGuide({ author, role, updated, heading, intro, checklist
       <SectionRule label="PLANLEGGING" />
       <div className="mt-8 grid lg:grid-cols-12 gap-10">
         <div className="lg:col-span-7">
-          <EditorialHeading as="h2" size="lg">{heading}</EditorialHeading>
+          <EditorialHeading as="h2" size="section">{heading}</EditorialHeading>
           <Byline author={author} role={role} date={updated} className="mt-4" />
           <div className="mt-6 space-y-4">
             {intro.map((p, i) => (

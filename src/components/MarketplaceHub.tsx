@@ -122,7 +122,7 @@ export default function MarketplaceHub({
         keywords={keywords}
         canonical={canonical}
         breadcrumbs={breadcrumbsSeo}
-        faq={faq.map((f) => ({ q: f.question, a: f.answer }))}
+        faq={faq}
         service
         howTo={howTo}
       />

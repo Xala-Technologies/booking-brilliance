@@ -44,16 +44,7 @@ const AiAgenter = () => {
       <SEO
         title={c.metaTitle}
         description={c.metaDescription}
-        keywords={[
-          "AI bookingsystem",
-          "AI agenter booking",
-          "GDPR bookingplattform",
-          "automatisk godkjenning oppføringer",
-          "bookingsystem kommune",
-          "sesongtildeling idrettshall",
-          "compliance utleieplattform",
-          "universell utforming booking",
-        ]}
+        keywords="AI bookingsystem, AI agenter booking, GDPR bookingplattform, automatisk godkjenning oppføringer, bookingsystem kommune, sesongtildeling idrettshall, compliance utleieplattform, universell utforming booking"
         canonical={en ? "https://digilist.no/en/ai-agenter" : "https://digilist.no/ai-agenter"}
         breadcrumbs={[
           { name: "Hjem", url: "https://digilist.no/" },

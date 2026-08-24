@@ -13,12 +13,27 @@ import { describe, expect, it } from "vitest";
  * other's button label.
  *
  * That is the argument for this test rather than a lint rule: the failure was
- * invisible *and* user-visible at the same time.
+ * invisible *and* user-visible at the same time. And `pilot.cta` was not the
+ * only one. Working the baseline down turned up the same shape of defect over
+ * and over: three `<TrustBadge>`s on the demo block passed their text as
+ * `children` to a component that only reads `label`, so they had always
+ * rendered as empty bordered boxes; `MarketplaceHub` handed `SEO` its FAQ as
+ * `{q, a}` instead of `{question, answer}`, so four hub pages emitted
+ * FAQPage JSON-LD with no question and no answer in it; `OccasionGuide`
+ * asked for a heading `size="lg"` that is not in the union, missed the
+ * lookup table, and rendered a section heading at body-text size on five
+ * landing pages. Every one of those was live, none was visible to eslint or
+ * to Vite, and each was a single line at a call site.
  *
- * It is a RATCHET, not a gate. The 26 pre-existing errors are recorded in
- * ts-baseline.json per file; this fails when a file gains errors or a new file
- * appears. Fixing one and lowering its baseline is always welcome; the point
- * is that the number can only go down.
+ * It is a RATCHET, not a gate — but the baseline is now CLEARED and it holds
+ * at zero: ts-baseline.json is `{}`, so any file with any error is a
+ * regression. `pr-check.yml` also runs `pnpm typecheck` directly, which is
+ * the faster signal; this test is what keeps the number from being quietly
+ * negotiated back up by re-adding entries to the baseline.
+ *
+ * If you are here because this failed: fix the error. Do not add a baseline
+ * entry, and do not reach for `any`, `@ts-expect-error` or a `!` — those
+ * restore exactly the silence that let `pilot.cta` ship.
  */
 const BASELINE: Record<string, number> = JSON.parse(
   readFileSync("ts-baseline.json", "utf8"),
@@ -33,8 +48,9 @@ function currentErrors(): Record<string, number> {
       { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] },
     );
   } catch (err) {
-    // tsc exits non-zero whenever there is at least one error, which is the
-    // expected state until the baseline reaches zero.
+    // tsc exits non-zero whenever there is at least one error. Now that the
+    // baseline is empty that should never happen — but read its stdout anyway,
+    // so the failure names the offending files instead of just blowing up.
     out = String((err as { stdout?: string }).stdout ?? "");
   }
   const counts: Record<string, number> = {};

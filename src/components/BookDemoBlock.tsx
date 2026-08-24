@@ -221,9 +221,9 @@ export function BookDemoBlock({
             variants={staggerChild}
             className="pt-2 flex flex-wrap items-center gap-3"
           >
-            <TrustBadge>{t(locale, "demo.badge1")}</TrustBadge>
-            <TrustBadge>{t(locale, "demo.badge2")}</TrustBadge>
-            <TrustBadge>{t(locale, "demo.badge3")}</TrustBadge>
+            <TrustBadge label={t(locale, "demo.badge1")} />
+            <TrustBadge label={t(locale, "demo.badge2")} />
+            <TrustBadge label={t(locale, "demo.badge3")} />
           </motion.div>
 
           <motion.div variants={staggerChild} className="pt-2">

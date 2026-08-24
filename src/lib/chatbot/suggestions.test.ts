@@ -1,15 +1,15 @@
 import { describe, expect, it } from "vitest";
-import { followUpSuggestions } from "./rag";
+import { followUpSuggestions, type RagHit } from "./rag";
 import { FAQ_CATEGORIES } from "@/content/faq";
 
 const kommuneCat = FAQ_CATEGORIES.find((c) => c.id === "kommune")!;
 /** The entry a "vi driver et kulturhus" message actually matched on the live site. */
-const KOMMUNE_HIT = {
+const KOMMUNE_HIT: RagHit = {
   q: "Hvilke kommunale anleggstyper støttes?",
   a: "Idrettshaller, svømmehaller, …",
   category: kommuneCat.label,
   score: 9,
-} as never;
+};
 
 describe("followUpSuggestions", () => {
   /**
@@ -44,7 +44,7 @@ describe("followUpSuggestions", () => {
 
   it("falls back to private-flavoured generics when every sibling is municipal", () => {
     // A single-question municipal category leaves nothing after filtering.
-    const lonely = { ...KOMMUNE_HIT, q: kommuneCat.questions[0].q } as never;
+    const lonely: RagHit = { ...KOMMUNE_HIT, q: kommuneCat.questions[0].q };
     const chips = followUpSuggestions(lonely, "privat");
     expect(chips).not.toEqual(["Snakk med en rådgiver"]);
     expect(chips.length).toBeGreaterThanOrEqual(2);
