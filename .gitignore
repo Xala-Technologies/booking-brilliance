@@ -15,6 +15,11 @@ dist-server
 *.local
 
 # Local secrets — never commit. Production uses /etc/digilist-api.env on VPS.
+#
+# The root .env was tracked until 2026-08-24 — a trap in a public repo, since the
+# next server-side secret added to it would have shipped to GitHub unnoticed.
+# .gitignore covered server/.env but not this one.
+.env
 server/.env
 tools/content-agent/reports/
 tools/site-intelligence/reports/
