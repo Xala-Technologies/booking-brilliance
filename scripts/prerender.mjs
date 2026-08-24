@@ -3150,7 +3150,13 @@ async function main() {
           mainEntity: postFaq.map((q) => ({
             "@type": "Question",
             name: q.question,
-            acceptedAnswer: { "@type": "Answer", text: q.answer },
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: q.answer,
+              // Must match what SEO.tsx writes after hydration, and follow the
+              // post's own language for the same reason `inLanguage` above does.
+              inLanguage: postLang === "en" ? "en" : "nb-NO",
+            },
           })),
         }
       : null;

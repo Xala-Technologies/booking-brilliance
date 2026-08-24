@@ -115,22 +115,23 @@ Kommunale rom og private konferansehoteller løser ulike behov.
 
 Kommunale rom passer for det jevne behovet i nabolaget: et styremøte, en trening, et årsmøte. Trenger du full servering og teknisk drift til et heldags seminar, er et privat lokale ofte riktig. Portalen dekker det kommunale tilbudet, og gjør nettopp den delen enkel å finne frem i.
 
-## Ofte stilte spørsmål om møteromsbooking i kommunen
+## Vanlige spørsmål om ledige møterom i kommunen
 
-**Må jeg logge inn for å se ledige rom?**
-Nei. Du kan søke og se ledighet uten innlogging. BankID trengs først når du skal bekrefte en booking.
+### Må jeg logge inn for å se ledige møterom i kommunen?
 
-**Hvor finner jeg mine tidligere bookinger?**
-Under Mine side ligger både kommende og tidligere reservasjoner med kvitteringer og status.
+Nei. Du kan søke og se ledighet uten innlogging. BankID trengs først når du skal bekrefte en booking. Innloggingen sikrer at reservasjonen knyttes til en reell person eller organisasjon, og at kommunen vet hvem som er ansvarlig for rommet. Du oppgir aldri passordet ditt til kommunen; BankID håndterer selve verifiseringen.
 
-**Kan flere personer booke på vegne av samme forening?**
-Ja. Er du knyttet til en registrert organisasjon, kan flere lagledere booke på vegne av den.
+### Hva koster det å leie et kommunalt møterom?
 
-**Hva koster det?**
-Det varierer med rom og leietakertype. Prisen står alltid på rommets kort før du bekrefter.
+Prisen avhenger av rommet og hvem du er. Mange kommuner har egne satser for lag og foreninger, ofte gratis eller sterkt redusert for barne- og ungdomsaktivitet, mens privatpersoner og bedrifter betaler ordinær leie. Pris per time eller døgn, og eventuelt depositum eller rengjøringsgebyr, står på rommets kort før du bekrefter.
 
-**Kan jeg avbestille selv?**
-Ja, fra Mine side. Eventuelle avbestillingsregler vises før du fullfører.
+### Hvordan finner jeg møterom nær meg?
+
+Du kan velge bydel eller nærmeste tettsted fra en liste, eller se rommene plottet på et kart. Vil du ha noe i gangavstand, søker du på «møterom nær meg», og portalen sorterer etter avstand fra adressen din. Trenger du parkering eller trinnfri adkomst, huker du av for det i filteret, så faller rom uten det bort.
+
+### Kan jeg endre eller avbestille en booking selv?
+
+Ja. Fra Mine side åpner du bookingen og velger endre eller avbestill. Du ser hva som er ledig for den nye datoen og flytter reservasjonen hvis rommet tillater det. Eventuelle avbestillingsregler, for eksempel gebyr ved avbestilling senere enn 48 timer før, vises før du bekrefter. Rommet blir ledig for andre med en gang.
 
 ## Se hvordan portalen ser ut hos din kommune
 

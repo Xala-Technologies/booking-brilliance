@@ -82,3 +82,21 @@ Den praktiske utfordringen er sjelden å finne lokaler, men å få tilbudene på
 På Digilist kan dere søke på tvers av gård, selskapslokale, kulturhus, hotell og restaurant, se ledig dato direkte i kalenderen, og sammenligne alt-inkludert-pris i stedet for spredte listepriser fra hver enkelt utleier. Filtrer på gjesteantall og dato, hent flere tilbud samtidig, og legg dem side om side før dere bestemmer dere.
 
 Sammenlign bryllupslokaler på Digilist og få oversikten dere trenger for å velge riktig lokaltype, ikke bare det billigste tallet på forsiden.
+
+## Vanlige spørsmål
+
+### Hva koster et bryllupslokale per gjest?
+
+Et selskapslokale med selvcatering kan lande på 900 til 1 300 kroner per gjest når mat, drikke og leie er lagt sammen. Et fullservice hotellbryllup lander ofte på 1 600 til 2 400 kroner per gjest, men da er servering, dekketøy og rydding inkludert i tallet. En gård med delvis catering havner gjerne rundt 1 300 til 1 800 kroner per gjest.
+
+### Hva koster de ulike typene bryllupslokale i grunnleie?
+
+Gårdsanlegg ligger typisk i sjiktet 30 000 til 60 000 kroner i grunnleie for en helg, mens et selskapslokale i bysentrum ofte ligger på 12 000 til 20 000 kroner for tilsvarende antall timer, uten mat. Gård har høy grunnleie med lengre leietid inkludert, mens selskapslokale leies time- eller dagsvis med tillegg for opprigg og nedrigg.
+
+### Hvor mye sparer dere på selvcatering fremfor fullservice?
+
+Selvcatering kan spare 300 til 600 kroner per gjest sammenlignet med fullservice, men krever at dere selv, eller noen dere kjenner, ordner mat, servering, rydding og ofte utstyr som glass, tallerkener og bestikk. For 60 gjester kan forskjellen mellom de to modellene fort utgjøre 20 000 til 35 000 kroner i totalpris.
+
+### Når lønner et dyrere bryllupslokale seg i sum?
+
+Et hotell med fullservice kan vise seg billigere enn et rimelig selskapslokale med selvcatering, hvis dere ellers måtte leid inn ekstern catering, servitører, oppvask og overnatting til gjester som kommer langveisfra. For bryllup med over 80 gjester eller mange tilreisende snur regnestykket ofte i favør av lokaltypen som så dyrest ut på papiret.

@@ -89,6 +89,24 @@ Sjekk alltid om egen innboforsikring dekker leid lokale, siden ikke alle gjør d
 
 Faste treningstider tildeles gjennom kommunens sesongfordeling, ofte i mai eller juni for påfølgende sesong, og er forbeholdt registrerte lag og foreninger. Engangsleie til privat bruk følger en helt annen prosess: ingen søknadsfrist, ingen sesongbinding, bare booking av en konkret dato mot restplasser i kalenderen. Forveksler man de to, ender man ofte med å søke om noe som tar måneder å behandle, når det man egentlig trengte var én ledig kveld i november.
 
+## Vanlige spørsmål
+
+### Kan privatpersoner leie idrettshall til bursdag?
+
+Ja. De fleste kommuner lar innbyggere leie idrettshallen til bursdag, cup, loppemarked eller konfirmasjon. Lag og foreninger prioriteres først når sesongtildelingen settes, men det som blir til overs etter tildelingen frigis for engangsleie til privatpersoner, bedrifter og andre arrangører. Helger, skoleferier og enkelte formiddager står ofte åpne for slik bruk.
+
+### Hva koster det å leie idrettshall til et arrangement?
+
+Engangsleie av en full idrettshall ligger vanligvis på 400 til 900 kroner per time for privatpersoner, mens en mindre gymsal ofte koster 200 til 400 kroner per time. Prisen varierer med kommune, hallstørrelse og om du leier på dagtid eller kveld. Leier du bare en tredjedel av gulvet, kan prisen halveres.
+
+### Hvor lang tid i forveien bør du booke?
+
+Populære helgedatoer, spesielt i mai, juni og desember, blir ofte booket opp flere måneder i forveien. Hverdager på dagtid eller sene kveldstider er derimot ofte tilgjengelige innenfor et par uker. En cup eller et større arrangement med flere haller bør bookes minst to til tre måneder før, mens en enkel bursdag på en hverdagskveld ofte lar seg ordne på under en uke.
+
+### Hva skjer hvis arrangementet må avbestilles?
+
+En vanlig regel er gratis avbestilling frem til 14 dager før arrangementet, og deretter et gebyr på 25 til 50 prosent av leiesummen. Ved skade på gulv eller utstyr er leietaker som hovedregel ansvarlig, og enkelte kommuner krever et depositum på 1000 til 2000 kroner for arrangementer med mer enn 50 gjester.
+
 ## Se ledige tider og book demo
 
 Digilist samler alle idrettshallene i kommunen i én sanntidskalender, slik at du slipper å ringe rundt for å finne ledig dato til bursdagen, cupen eller konfirmasjonen. Book en demo med oss for å se hvordan det ser ut for din kommune.

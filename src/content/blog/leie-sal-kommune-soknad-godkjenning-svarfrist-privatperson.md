@@ -65,6 +65,24 @@ Forskjellen mellom e-post og et bookingsystem er ikke bare estetisk. Når søkna
 - Alternativ dato eller sal i bakhånd, i tilfelle avslag
 - Referanse til søknadsdato notert, slik at en eventuell purring går raskt
 
+## Vanlige spørsmål om søknad og svarfrist
+
+### Hvor lang tid tar det å få svar på en søknad om å leie sal?
+
+Kommunale nettsider oppgir ofte en behandlingstid på mellom tre og ti virkedager for søknader om utleie av saler, og mange opererer med en uttalt svarfrist på tre til fem virkedager for ukompliserte søknader. Det er sjelden selve vurderingen som tar tid, men antall manuelle steg mellom innsendt søknad og svar.
+
+### Hva må du ha klart før du søker om å leie sal?
+
+De fleste kommuner ber om formål med arrangementet, antall gjester, ønsket tidsrom inkludert rigge- og ryddetid, og en kontaktperson med ansvar under arrangementet. Enkelte saler krever i tillegg dokumentasjon, som forsikringsbevis for lag og foreninger, eller bekreftelse på at arrangementet er alkoholfritt.
+
+### Når betaler du leien og depositumet?
+
+Betaling skjer normalt etter godkjenning, ikke før. Når søknaden er innvilget, mottar du en faktura eller betalingslenke for leien, og i mange tilfeller et separat depositum som skal dekke eventuell skade eller manglende rydding. Depositumet tilbakebetales etter at lokalet er sjekket, ofte innen én til to uker.
+
+### Hva gjør du hvis søknaden om sal blir avslått?
+
+Avslag skyldes oftest dobbeltbooking, feil formål for lokalet, eller at salen er reservert til fast aktivitet på det tidspunktet du har søkt om. Et godt system viser deg alternative saler og ledige tider samme dag som avslaget kommer, slik at du kan sende en ny søknad umiddelbart i stedet for å starte søket på nytt.
+
 ## Se hvordan digital booking fungerer i praksis
 
 En rask og forutsigbar søknadsprosess er ikke et spørsmål om flaks med saksbehandleren. Det er et spørsmål om hvilket system kommunen bruker. Digilist gir innbyggere en sanntidskalender å søke i, tydelige svarfrister og et godkjenningsløp der saksbehandleren har all nødvendig informasjon i samme skjema, uten å måtte krysse-sjekke mot separate systemer. Er du saksbehandler eller beslutningstaker i en kommune som fortsatt bruker e-post og PDF for utleie av saler, book en demo og se hvor mye tid som kan spares på begge sider av søknaden.

@@ -71,6 +71,24 @@ Før du bekrefter en booking, er det verdt å sjekke følgende:
 
 Å stille disse fem spørsmålene før du booker avslører de fleste skjulte tillegg knyttet til tidspunkt og sesong, og gjør det enklere å sammenligne saler på likt grunnlag.
 
+## Vanlige spørsmål om sesongpris og tidspunkt
+
+### Når er det billigst å leie sal i kommunen?
+
+Januar, februar og deler av november er lavsesong, med rabatterte satser eller i noen kommuner gratis leie. Mai, juni og september er høysesong for konfirmasjon og bryllup, med priser typisk 20 til 35 prosent over grunnprisen. Innenfor samme måned er hverdag formiddag klart billigst.
+
+### Hvor mye dyrere er lørdag kveld enn en hverdag?
+
+En helgekveld koster i mange kommunale prisregulativ 40 til 60 prosent mer enn en formiddag på hverdag i det samme lokalet, fordi prisen følger etterspørsel time for time. Skal du ha et møte, en mindre markering eller en øvelse uten publikum, kan en tirsdag formiddag koste under halvparten av lørdag kveld.
+
+### Hvor lang tid i forveien bør du booke for å få lavest pris?
+
+Booker du en dato seks til ni måneder før arrangementet, unngår du at prisen justeres opp når få datoer er igjen. Et vanlig mønster er at de mest ettertraktede salene er fullbooket åtte til ti uker før en konfirmasjonshelg i mai, mens de samme salene hadde god ledig kapasitet ti måneder i forveien.
+
+### Kan du få sal billigere på kort varsel?
+
+Ja, hvis datoen er fleksibel. Når noen kansellerer en booking 10 til 14 dager før en avtalt dato, legger flere kommuner den ledige tiden ut som restplass, ofte til redusert sats, fordi målet er å unngå et tomt lokale. Strategien passer dårlig for bryllup og konfirmasjon, der datoen sjelden er fleksibel.
+
 ## Slik finner du billigste tidspunkt i Digilist
 
 I Digilist ser du priser og ledig kapasitet for saler i sanntid, i stedet for å ringe rundt eller vente på svar per e-post. Du kan sammenligne flere datoer for samme lokale side om side, filtrere på pris og se hvilke tidspunkt som ligger i lav- eller høysesong før du bestiller. Har du en fleksibel dato, kan du sette varsel på ledige tider og bli varslet automatisk hvis en avbestilt time blir tilgjengelig som restplass.

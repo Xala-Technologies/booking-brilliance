@@ -63,6 +63,24 @@ Trener eller lagleder booker som regel på farten, ofte fra bilen på vei til tr
 
 Hver booking gir automatisk kvittering, og laget får en løpende oversikt over ekstra treningstid brukt gjennom sesongen, med dato, hall og pris per booking samlet på ett sted. Oversikten kan eksporteres til Excel eller PDF, noe som gjør regnskapsføringen enklere for kasserer og gir styret et konkret tallgrunnlag når budsjettet for neste sesong skal settes. Det gjør det også lettere å vurdere i etterkant om ekstra leie av private haller faktisk lønte seg, eller om laget burde søkt om mer fast tid i tildelingsrunden året etter.
 
+## Vanlige spørsmål
+
+### Hva koster ekstra treningstid utenom sesongtildelingen?
+
+En enkelttime utenom tildelt tid i en kommunal hall koster typisk 350 til 450 kroner, mens private haller ofte tar 600 til 900 kroner i kveldstid, når etterspørselen er høyest. Barne- og ungdomsidrett har som regel redusert sats. For én ekstra time i uken over en sesong på rundt 30 uker utgjør forskjellen 6 000 til 13 500 kroner.
+
+### Hvordan finner laget ledig treningstid på kort varsel?
+
+Ekstra ledig tid oppstår som avbud fra andre lag, uutnyttede skoletimer på ettermiddagen og hull i private hallers program. Den er ikke søknadspliktig på samme måte som sesongtildelingen, men den må fanges opp raskt, for den forsvinner ofte i løpet av timer eller dager. En samlet sanntidskalender viser flere haller samtidig i stedet for én og én nettside.
+
+### Kan laget få varsel når en time blir ledig?
+
+Ja. Et lag som legger seg på venteliste for en ønsket time, får varsel på e-post eller push med en gang et annet lag avbestiller. Digilist praktiserer normalt et kort prioritetsvindu for ventelisten, typisk i størrelsesorden 10 til 15 minutter, før timen legges åpen for nytt søk. Med flere ønskede tidspunkt lønner det seg å stå på venteliste i mer enn én hall.
+
+### Må laget søke om fast ukentlig ekstratid?
+
+Ja. Fast ukentlig ekstratid går normalt gjennom kommunens ordinære tildelingsrunde eller en løpende søknad til driftsleder, fordi den legger beslag på kapasitet over lang tid og påvirker andre lags mulighet til å få tid. En enkelttime dekker derimot et engangsbehov og bookes direkte i kalenderen uten søknadsprosess, med bekreftelse med det samme.
+
 ## Kom i gang
 
 Ekstra treningstid finnes der ute, men den forsvinner fort. Søk ledige idrettshalltimer på tvers av kommuner og haller på Digilist, sett opp varsel for ønsket tidspunkt, og la laget booke restplassen før andre lag rekker å taste inn søket sitt.

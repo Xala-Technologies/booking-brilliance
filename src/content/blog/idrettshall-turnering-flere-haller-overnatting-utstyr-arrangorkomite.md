@@ -55,6 +55,24 @@ Med tre haller, flere gjestelag og innleid utstyr blir ansvarsspørsmålet mer s
 - Skriftliggjør avbestillingsfrist, depositum og ansvarsforhold med alle involverte haller, ikke bare hovedhallen
 - Utpek én person i komiteen som eier den samlede oversikten, slik at ingen booking gjøres i to kanaler samtidig
 
+## Vanlige spørsmål
+
+### Hvor mange idrettshaller trenger en cup med 20 lag?
+
+En cup med 20 lag i én aldersklasse gir fort 60-70 kamper fordelt over en helg. Skal alle kampene gjennomføres innenfor to dager, rekker ikke én hall med to baner. Komiteen må leie tid i to eller tre haller parallelt, pluss en reservetime søndag formiddag i tilfelle forsinkelser fredag kveld.
+
+### Hva er forskjellen på blokkbooking til turnering og fast sesongtildeling?
+
+Sesongtildeling går gjennom idrettsrådets fordelingsnøkkel og gjelder faste ukedager over en hel sesong, typisk med søknadsfrist tre til seks måneder før sesongstart. Et turneringsarrangement er en engangssøknad om blokkbooking av hele hallen, eller store deler av den, over en avgrenset helg, med kortere behandlingstid, men fortsatt med saksbehandling som kan ta et par uker.
+
+### Hvordan booker man overnatting til gjestelag under en cup?
+
+Gjestelag som reiser fra en annen landsdel trenger sovesal, ofte i samme bygg eller i en nærliggende skole. Bestilles hall og overnatting hver for seg, oppstår lett datoavvik der hallen er booket fredag til søndag og sovesalen bare til lørdag. Legg overnattingen inn i samme bestilling som hallene, med samme datoer på begge.
+
+### Når bør utstyr til sekretariatet bestilles?
+
+Resultattavle, sekretariatsbord og baller bør bestilles i samme prosess som selve hallbookingen, ikke som en etterfølgende tilleggsforespørsel sendt etter at hallene allerede er bekreftet. Bestilles utstyret separat og sent, er risikoen at det som var ledig da hallen ble booket, er utleid til et annet arrangement samme helg.
+
 ## Book neste turnering uten telefonrunden
 
 Digilist samler booking av haller på tvers av kommuner, overnatting og utstyr i én prosess med sanntidsstatus og samlefaktura, slik at komiteen bruker tiden på selve turneringen og ikke på å avstemme separate bestillinger fra tre kommuner og to leverandører. Ta kontakt med Digilist for å se hvordan samlet booking kan settes opp til neste turnering.

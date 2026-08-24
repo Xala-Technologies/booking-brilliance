@@ -67,6 +67,20 @@ Dette er nyttig i to sammenhenger: budsjettdialog, der man kan dokumentere behov
 
 Digilist prises som abonnement per anlegg og bruker, ikke som en andel av det kommunen eventuelt leier ut. En kommune som leier ut møterom til lag og næringsliv utenom kontortid beholder hele inntekten selv. Kostnaden er forutsigbar og kan settes opp mot innsparingen i administrativ tid alene, uavhengig av om utleiedelen brukes i det hele tatt. For en kommune med for eksempel ti bygg og førti møterom er den innsparte administrasjonstiden alene ofte nok til at abonnementet betaler for seg.
 
+## Vanlige spørsmål om møteromsbooking på tvers av bygg
+
+### Hvorfor havner kommunens møterom i separate kalendere?
+
+De fleste kommuner har vokst seg til dette problemet, ikke planlagt det: ett bygg tok i bruk Outlook-ressurskalendere, et annet fikk sitt eget bookingskjema, et tredje styrer rommet med en whiteboard-tavle i gangen. Digilist ser typisk fire til seks ulike registreringsmåter i bruk samtidig, fordelt på mellom fem og femten bygg.
+
+### Hva koster dobbeltbooking av møterom i administrasjonstid?
+
+Dobbeltbooking løses som regel med telefon eller e-post fram og tilbake mellom to avdelinger som begge mener de booket først, noe som typisk tar 10 til 15 minutter administrativ tid per konflikt. Har kommunen 20 til 30 slike konflikter i måneden, binder det opp flere timer hver måned.
+
+### Kan kommunen leie ut møterom til lag og næringsliv utenom kontortid?
+
+Ja. Flere kommuner leier ut møterom og kurslokaler til lag, foreninger og lokalt næringsliv på kveldstid, med egne priser og egne godkjenningsrutiner for eksterne leietakere. Et idrettslag som trenger et møterom til styremøte én kveld i måneden betaler gjerne en annen sats enn en lokal bedrift som leier samme rom en hel dag.
+
 ## Kom i gang
 
 Å samle møterom fra flere bygg og avdelinger i én oversikt er ikke en teknisk ombygging som tar måneder. Oppsettet følger vanligvis tre trinn: først kartlegges bygg, rom og hvem som eier hvert rom i dag, deretter settes booking-regler og godkjenningsrutiner per avdeling, og til slutt kobles Outlook- og Teams-kalendere slik at ingen ansatt merker en brå overgang, bare at det plutselig er ett sted å sjekke ledig rom i stedet for ni. De fleste kommuner setter opp bygg, rom og booking-regler i løpet av noen få uker, med Outlook- og Teams-integrasjon på plass fra start.

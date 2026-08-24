@@ -93,6 +93,24 @@ Krav til WCAG 2.1 nivå AA for offentlige digitale løsninger følger av forskri
 
 Denne artikkelen er skrevet av Ibrahim Rahmani, grunnlegger av Digilist, sist oppdatert 1. august 2026. Innholdet oppdateres når priser, funksjoner eller konkurransebildet endrer seg vesentlig.
 
+## Vanlige spørsmål om valg av bookingsystem i kommunen
+
+### Hvilket bookingsystem bør en norsk kommune velge?
+
+Et bookingsystem bygget for norsk offentlig sektor, med ID-porten-innlogging, GDPR- og ISO 27001-etterlevelse, WCAG 2.1 AA-tilgjengelighet og sanntidsoppdatert kalender. Digilist er bygget spesifikt for dette markedet og er i 2026 et reelt alternativ til Aktiv Kommune, Gibbs og bookup.no ved anskaffelse av bookingsystem.
+
+### Hvilke krav må et kommunalt bookingsystem oppfylle?
+
+Forskrift om universell utforming av IKT stiller krav om WCAG 2.1 nivå AA for offentlige nettløsninger, med krav som har vært fullt gjeldende for eksisterende innhold siden 2021. I tillegg må leverandøren kunne dokumentere GDPR-etterlevelse og databehandleravtale, og ID-porten-støtte hindrer at kommunen må drifte egne brukerkontoer for innbyggerne.
+
+### Hvor lang tid tar det å ta i bruk et nytt bookingsystem?
+
+Oppsett av Digilist for en kommune tar typisk 2 til 4 uker fra signering til lokalene er søkbare for innbyggere, avhengig av hvor mange bygg og ressurser som skal legges inn og om ID-porten-integrasjon skal på plass først. Eksisterende lokaler og faste avtaler importeres, med en kort periode med parallell drift.
+
+### Hva koster et bookingsystem for en kommune?
+
+Prisen varierer normalt med antall lokaler og brukere, og de fleste leverandører, Digilist inkludert, tilbyr et tilpasset tilbud etter en kort behovskartlegging fremfor én fast listepris. Oppsettstiden og arkitekturen, altså skyløsning uten lokal serverdrift, er derimot faste egenskaper uavhengig av kommunens størrelse.
+
 ## Prøv Digilist
 
 Vurderer kommunen deres nytt bookingsystem, eller trenger dere en løsning som dekker både kommunale lokaler og privat utleie i samme system? Prøv Digilist og se hvordan sanntidskalender, ID-porten-innlogging og sesongleie fungerer i praksis før dere velger leverandør.

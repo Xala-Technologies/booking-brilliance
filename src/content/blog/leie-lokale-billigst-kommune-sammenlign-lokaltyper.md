@@ -98,6 +98,24 @@ Hele reisen tar noen minutter, og laget ser totalprisen, inkludert eventuelt dep
 
 De fleste avviste søknadene skyldes at laget ikke er registrert med organisasjonsnummer, ikke at lokalet var opptatt. Et par minutter på riktig registrering før første booking løser derfor de fleste problemene på forhånd.
 
+## Vanlige spørsmål om billigste lokale i kommunen
+
+### Hva koster det for et lag å leie lokale i kommunen?
+
+En typisk lagssats ligger på 0 til 120 kroner per time for gymsal, 100 til 300 kroner for idrettshall, 150 til 400 kroner for møterom, 500 til 2 000 kroner per døgn eller kveld for kultursal, og 1 000 til 4 000 kroner per døgn for selskapslokale. Prisene varierer mellom kommuner.
+
+### Hvordan finner laget det billigste egnede lokalet?
+
+Ved å sammenligne på tvers av lokaltyper, ikke bare mellom kommuner. Skal koret ha generalprøve, kan en gymsal til 80 kroner timen erstatte en kultursal til 1 500 kroner kvelden når selve forestillingen holdes et annet sted. Definer først hva aktiviteten krever av plass, utstyr og tidsrom, og filtrer så på dato, kapasitet og maks pris.
+
+### Hvorfor betaler to lag ulik pris for det samme lokalet?
+
+Kommunen opererer normalt med tre satser for samme lokale: subsidiert lagssats for registrerte lag med aktivitet for barn og unge, medlemssats for øvrige frivillige lag, og kommersiell sats for bedrifter og private, gjerne 3-5 ganger lagssatsen. En hall til 900 kroner timen kommersielt kan ligge på 0 til 150 kroner for et idrettslag i samme kommune.
+
+### Hvilke kostnader kommer i tillegg til timeprisen?
+
+Depositum på 500 til 3 000 kroner som tilbakebetales etter godkjent rengjøring, avbestillingsgebyr fra 50 til 100 prosent av leien hvis du avbestiller for sent, eget renholdsgebyr hvis lokalet ikke leveres ryddet, og utstyr som lyd, lys og bord. Et selskapslokale til 2 000 kroner kan ende på 3 500 med depositum og renhold.
+
 ## Finn billigste egnede lokale med Digilist
 
 Med alle lokaltyper og reelle lagssatser i samme oversikt slutter laget å gjette på pris. Vil dere se hvordan sammenligning på tvers av lokaler ser ut i praksis? **Book demo**, så viser vi hvordan laget finner det billigste ledige lokalet på under to minutter.

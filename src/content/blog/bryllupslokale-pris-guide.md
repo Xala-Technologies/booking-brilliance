@@ -65,6 +65,24 @@ Be alltid om en spesifisert prisliste, ikke bare et rundt tilbudsbeløp. Regn ut
 - Hva er maksimal og minimum gjestekapasitet?
 - Hvor langt kan festen vare før overtid slår inn?
 
+## Vanlige spørsmål
+
+### Hva koster et bryllupslokale i Norge?
+
+Et forsamlingshus eller bygdehus ligger typisk på 5 000 til 15 000 kroner for hele døgnet, et rent selskapslokale i by på 15 000 til 40 000 kroner, og gods og gårder med eksklusiv bruk av hele anlegget på 40 000 til 120 000 kroner. Hoteller tar sjelden fast leiepris, men legger salen inn i en pakkepris per gjest, gjerne 900 til 1 800 kroner inkludert mat.
+
+### Hvor mye billigere er et bryllup utenfor høysesong?
+
+Mai til august er høysesong for bryllup i Norge, og mange utleiere legger en sesongpremie på 20 til 40 prosent oppå grunnprisen for lørdager i juni og juli. Bytter dere til fredag eller søndag samme måned, faller prisen gjerne 10 til 15 prosent. Legger dere bryllupet til en hverdag i november eller januar, kan leieprisen halveres sammenlignet med en junilørdag på samme lokale.
+
+### Hvor mye depositum krever et bryllupslokale?
+
+De fleste utleiere krever et depositum på 10 til 20 prosent av totalprisen, eller et fast beløp mellom 5 000 og 15 000 kroner, for å reservere datoen. Avbestillingsvilkårene er ofte trappet: full refusjon ved avbestilling mer enn 90 dager før, delvis refusjon ved 30 til 60 dager, og ingen refusjon nærmere enn 14 dager.
+
+### Hvilke skjulte kostnader kommer i tillegg til leieprisen?
+
+Spør alltid om korkasje for medbrakt drikke, ofte 100 til 300 kroner per flaske. Rengjøring utover grunnvask faktureres separat mange steder, gjerne 2 000 til 5 000 kroner. Overtid utover avtalt sluttidspunkt koster typisk 1 500 til 3 000 kroner per time, og mange utleiere krever egen arrangementsforsikring, som koster fra 500 til 1 500 kroner.
+
 ## Sjekk faktisk ledighet før dere blir forelsket i et lokale
 
 Mange par bruker uker på å ringe rundt til lokaler som allerede er booket den helgen de ønsker. Utleiere som viser reell, oppdatert ledighet og pris i en digital kalender sparer dere for akkurat den runden. Digilist gir utleiere en løsning der ledige datoer, priser og vilkår er synlige med én gang, uten at noen må svare på telefon først. Er du utleier og vil gjøre prisen og ledigheten tydelig for kommende brudepar? Book en demo med Digilist og se hvordan det fungerer i praksis.

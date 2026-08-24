@@ -121,6 +121,24 @@ Fokuser budsjettet på funksjonalitet som direkte reduserer manuelt arbeid:
 
 Unngå å betale for avansert CRM-funksjonalitet, integrasjoner med systemer dere ikke bruker, eller brukergrensesnitt oversatt fra andre land uten norsk tilpasning.
 
+## Vanlige spørsmål om pris på bookingsoftware for kommuner
+
+### Hvilke prismodeller finnes for bookingsoftware i kommunen?
+
+Det finnes i praksis tre: per-bruker-lisens, der du betaler per påloggingskonto per måned; per-lokale-lisens, der du betaler for hvert rom, hall eller uteareal som skal være bookbart; og flat avgift, en fast måneds- eller årssum uavhengig av antall brukere og lokasjoner. Digilist bruker flat avgift.
+
+### Hva koster bookingsoftware for en kommune?
+
+Basert på innhentede prisanslag per mai 2026 ligger Digilist på fra 39 000 kroner i årsleie med oppsett inkludert, mens de tre andre kategoriene av leverandører ligger på fra 48 000 til 62 000 kroner i årsleie, med oppsett og implementering på mellom 15 000 og 80 000 kroner i tillegg.
+
+### Hvilke kostnader kommer i tillegg til lisensen?
+
+Integrasjon med Microsoft 365 er den vanligste: erfaringstall fra tilsvarende prosjekter tilsier 20-40 timers internt arbeid bare for kalenderintegrasjon. I tillegg kommer oppsett og vedlikehold av ID-porten-avtaler, løpende drift med oppdateringer, brukerstøtte og opplæring, og en juridisk vurdering hvis data overføres til tredjeland.
+
+### Er det billigste bookingsystemet rimeligst over tid?
+
+Sjelden. Frogn kommune evaluerte bookingløsningen sin i 2024 og oppdaget at de brukte omtrent 40 timer årlig på manuelle bekreftelser og påminnelser til lag og foreninger. Regnet til en internpris på 500 kroner timen utgjør det 20 000 kroner per år, nok til å dekke mellomlegget til en mer komplett løsning.
+
 ---
 
 ## Ta neste steg

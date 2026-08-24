@@ -82,6 +82,24 @@ Et konkret eksempel: en gård til 20 000 kroner i lokaleleie pluss 35 000 kroner
 - Hva skjer med depositumet ved avbestilling, og innen hvilken frist må dere melde fra?
 - Er strøm, oppvarming og internett inkludert, eller fakturert etter forbruk i etterkant?
 
+## Vanlige spørsmål
+
+### Hva koster et bryllupslokale i Norge?
+
+For selve lokaleleien, uten mat og drikke, ligger de fleste par mellom 12 000 og 45 000 kroner for en helgedag. Legger du til pakkepris med catering fra hotell eller selskapslokale, havner totalprisen for lokale og mat som regel mellom 900 og 1 600 kroner per gjest, altså 65 000 til 110 000 kroner med 70 gjester.
+
+### Hvor mye dyrere er Oslo enn distriktene?
+
+Lokaleleien ligger på 25 000 til 60 000 kroner i Oslo, 20 000 til 45 000 i Bergen, 18 000 til 42 000 i Stavanger, 18 000 til 40 000 i Trondheim og 10 000 til 25 000 i distriktene. Forskjellen mellom Oslo og distriktene kan altså være 15 000 til 35 000 kroner for lokalet alene.
+
+### Hva koster gård, hotell og selskapslokale?
+
+Gård koster 15 000 til 35 000 kroner for helgeleie, ofte som bart lokale. Hotell prises som pakke fra 950 til 1 450 kroner per kuvert, med sal, servering og ofte overnatting til brudeparet inkludert. Selskapslokale og grendehus ligger på 8 000 til 18 000 kroner, mens unike lokaler som fyr, låve og sjøhus koster 20 000 til 50 000 kroner.
+
+### Når lønner pakkepris seg framfor ren lokaleleie?
+
+Pakkepris lønner seg når dere er over 60 gjester eller har begrenset tid til planlegging, fordi stordriftsfordelene hos hotellet veier opp for påslaget. Er dere færre enn 40 gjester og kjenner noen som kan stå for mat, snur regnestykket ofte i favør av ren lokaleleie.
+
 ## Se priser og ledige bryllupslokaler
 
 Før dere binder dere til ett tilbud, er det verdt å se hva som faktisk er ledig og hva det koster andre steder i samme uke. På Digilist finner dere oppdaterte priser og sanntidsledighet for bryllupslokaler over hele landet, samlet på ett sted.

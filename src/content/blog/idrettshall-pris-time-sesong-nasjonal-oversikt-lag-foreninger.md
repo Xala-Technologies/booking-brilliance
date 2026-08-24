@@ -85,6 +85,24 @@ Før laget signerer en sesongavtale eller bekrefter en enkelttime, bør styret e
 
 En kort sjekkliste som denne tar fem minutter å gå gjennom, men kan spare laget for både overraskelser på fakturaen og unødvendige avbestillingsgebyrer gjennom sesongen.
 
+## Vanlige spørsmål
+
+### Hva koster en time i idrettshallen i 2026?
+
+Prisen varierer fra rundt 150 kroner for barne- og ungdomsidrett i kommunal hall til over 900 kroner for en full flerbrukshall utenfor prioritert tid. Kommunal hall for voksne og seniorlag ligger typisk på 300 til 600 kroner timen, skolehall leid ut på kveldstid på 250 til 500 kroner, og privat idrettshall på 600 til 1200 kroner.
+
+### Lønner fast sesongleie seg framfor enkelttimer?
+
+Sesongleie gir vanligvis 15 til 30 prosent lavere kroner per time enn å booke enkelttimer løpende. For et lag som trener to faste timer i uken over en sesong på 40 uker utgjør det fort 4000 til 8000 kroner spart. Ulempen er mindre fleksibilitet: en fast time som ikke brukes, koster likevel penger uten en bytteklausul.
+
+### Hvilke tillegg kommer utenom timeprisen?
+
+Vanlige tillegg er garderobeleie på 50 til 150 kroner, vaktmestertilstedeværelse utenom ordinær arbeidstid på ofte 300 til 600 kroner per oppdrag, strømpåslag ved bruk av lysanlegg til kamp, og utstyrsleie som mål, matter eller lydanlegg. For en turneringsdag kan tilleggene alene utgjøre 1000 til 1500 kroner oppå den annonserte timeprisen.
+
+### Hvordan får laget ned prisen på halleie?
+
+Medlemskap i Norges idrettsforbund utløser lavere sats enn for uorganiserte grupper i de fleste kommunale prisregulativ. I tillegg finnes ungdomsrabatt på typisk 30 til 50 prosent under voksensats, klippekort eller sesongpakke med rabatt fra timer to og oppover, og samarbeidsavtaler mellom idrettsråd og kommune. Be om skriftlig prisregulativ før sesongstart.
+
 ## Book demo
 
 Digilist samler ledige tider, sesongavtaler og faktura for flere haller i én kalender, slik at laget ser reell totalpris, inkludert tillegg, før booking bekreftes, og kassereren slipper å avstemme kvitteringer fra flere ulike systemer. Book en demo med Digilist for å se hvordan idrettshaller i din region prises og bookes i praksis.

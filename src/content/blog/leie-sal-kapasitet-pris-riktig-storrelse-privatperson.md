@@ -69,6 +69,28 @@ Før du signerer, bekreft disse punktene:
 - Hvilken møblering prisen og kapasiteten faktisk gjelder for (rader, rundbord eller stående).
 - Om det kommunale lokalet krever medlemskap i lag eller forening for å få rabattert pris.
 
+## Vanlige spørsmål
+
+### Hvor stor sal trenger du til arrangementet?
+
+Sitteplassering med rundbord krever 1,5 til 2 kvadratmeter per person, mens rader klarer seg med under 1 kvadratmeter. Regn 2 kvadratmeter per gjest til bryllup med dans, 1,5 til konfirmasjon med rundbordsetting, og under 1 til minnestund og møter i radoppsett. 70 gjester i rundbordsetting med dansegulv krever om lag 140 kvadratmeter pluss areal til buffet og bar.
+
+### Hva koster de ulike kommunale saltypene?
+
+Et grendehus er rimeligst, typisk 400 til 900 kroner for hele døgnet. Forsamlingshus ligger i mellomsjiktet på 1200 til 2500 kroner per arrangement, som regel med kjøkken og garderobe inkludert. Aula på skole krever ofte vaktmestertilstedeværelse, som legger 300 til 600 kroner på totalprisen. Kulturhus er dyrest, gjerne fra 3000 og opp til 8000 kroner.
+
+### Hvorfor koster det mer å booke en for stor sal?
+
+Store saler koster mer å drifte, med høyere strøm-, vaske- og vaktholdstillegg. En sal for 40 personer kan ligge rundt 400 til 500 kroner timen, mens en sal for 120 personer i samme bygg ligger på 800 til 900 kroner timen. Et selskap på 45 gjester som bookes inn i salen for 80 i stedet for den for 50, betaler fort 600 til 1000 kroner ekstra.
+
+### Kan du leie bare en del av en kommunal sal?
+
+Ja, i bygg med foldevegger som deler ett stort rom i to eller tre mindre soner. En delt sal kan gjerne ligge 30 til 40 prosent under prisen for hele salen, selv om det er samme bygg og samme adresse. Mange lokaler lar deg booke den minste sonen med opsjon på å utvide frem til en avtalt frist. Spør bookingansvarlig, det står sjelden i prislisten.
+
+### Kan maks personantall i en sal fravikes?
+
+Nei. Maks personantall er en juridisk grense satt av brannforskriften ut fra rømningsveier og kvadratmeter per person, fastsatt av brannvesenet eller kommunens brannforebyggende avdeling, og den kan ikke fravikes av utleier selv om du tilbyr å betale mer. Grensen varierer med møblering: en sal godkjent for 150 med rader kan være godkjent for kun 90 med rundbord og dansegulv.
+
 ## Finn riktig sal første gang
 
 Riktig kapasitet er den enkleste måten å kutte kostnad på uten å gå på akkord med arrangementet. Søk på Digilist for å sammenligne ledige saler i din kommune og nabokommunene på kapasitet, dato og totalpris i én oversikt, og book den salen som faktisk passer antallet gjester du inviterer, ikke bare den du fant først.

@@ -68,6 +68,24 @@ Ta med denne listen på stedet, og noter svarene skriftlig mens dere står der, 
 7. Klokkeslett for musikkstopp og hvor sent dere faktisk disponerer lokalet
 8. Hva som er inkludert i prisen og hva som koster ekstra, skriftlig, ikke muntlig lovet
 
+## Vanlige spørsmål
+
+### Hvor lenge bør en befaring av bryllupslokale ta?
+
+Sett av minst 45-60 minutter per lokale, ta med en sjekkliste, og noter svarene skriftlig mens dere står der, ikke fra hukommelsen etterpå. Be utleier vise en konkret bordplan for akkurat deres gjestetall i stedet for å lene dere på maks-kapasiteten i brosjyren, som nesten alltid er oppgitt som stolrader uten bord.
+
+### Hva bør vi spørre om plan B ved regn?
+
+Spør konkret hva som skjer hvis det regner på seremonitidspunktet: finnes det et telt eller en innendørs sal som kan ta over med kort varsel, hvem setter opp overgangen, og hvor lang tid tar den i praksis. Be også om et konkret klokkeslett for når beslutningen om plan B senest må tas.
+
+### Hva må vi sjekke ved kjøkken og catering?
+
+Sjekk om lokalet har eget kjøkken, eller om all mat må produseres et annet sted, og om dere står fritt til å velge egen cateringleverandør eller er bundet til utleiers faste partner. Spør om strømkapasiteten er nok til varmeskap og kokeplater for hele gjestelisten samtidig, og om lokalet tar korkasje på medbrakt drikke.
+
+### Hvordan sjekker vi at lokalet er tilgjengelig for alle gjester?
+
+Ikke ta utleiers ord for at lokalet er tilgjengelig. Gå selv gjennom ruten fra parkering til inngang, mellom lokalene, og fram til toalett. Sjekk om det finnes trinnfri adkomst uten smale dører eller høye terskler, et HC-tilpasset toalett i rimelig gangavstand, og om trapper har rekkverk eller alternativ rampe.
+
 ## Slik sammenligner og booker dere raskere på Digilist
 
 Å reise på befaring til fem lokaler for å stille de samme spørsmålene hver gang tar tid dere sjelden har midt i en jobbhverdag. På Digilist filtrerer dere på kapasitet, uteareal, parkering og andre fasiliteter samtidig, slik at dere kun drar på befaring til lokaler som faktisk kan svare ja på det dere trenger, i stedet for å luke ut alternativer etter at dere har kjørt dit. Dere ser ledige datoer i sanntid, sammenligner flere lokaler side om side i én oversikt, og booker direkte uten å vente på svar fra fem forskjellige utleiere i separate e-poster og telefonrunder.

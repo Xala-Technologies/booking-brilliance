@@ -57,6 +57,24 @@ Før du signerer, se etter disse punktene i vilkårene:
 - Regler for overtid og hvordan nøkkel eller kode returneres
 - Om kontrakten faktisk kan lastes ned som dokument etter signering
 
+## Vanlige spørsmål om vilkår, depositum og avbestilling
+
+### Hva koster det å avbestille en kommunal sal?
+
+Et vanlig mønster er full refusjon ved avbestilling mer enn 14 dager før arrangementet, halv refusjon ved 7 til 14 dager, og ingen refusjon under 7 dager. Enkelttimer i idrettshall har ofte en kortere frist, gjerne 48 timer, mens hele dager i sal eller festlokale typisk krever 14 dagers varsel.
+
+### Hvor stort er depositumet, og når får du det tilbake?
+
+Vanlig nivå for en grendesal eller flerbrukshall ligger mellom 1 500 og 5 000 kroner, mens større kulturhus og festsaler kan kreve opp mot 10 000 kroner ved store selskaper. Depositumet betales normalt sammen med leien eller ved henting av nøkkel, og skal tilbakebetales innen 1-2 uker etter at lokalet er kontrollert.
+
+### Hvem er ansvarlig for skader i et leid kommunalt lokale?
+
+Leietaker er som hovedregel ansvarlig for skader som oppstår i leieperioden, uavhengig av om det er leietakeren selv eller en gjest som forårsaker dem. Kommunens bygningsforsikring dekker vanligvis selve bygget, ikke innhold leietaker tar med eller skader som oppstår som følge av arrangementet, så egen ansvarsforsikring forutsettes normalt.
+
+### Hva skjer hvis kommunen selv avlyser eller dobbeltbooker salen?
+
+Der kommunen selv avlyser, for eksempel ved akutt behov for lokalet til valg eller kriseledelse, har leietaker normalt krav på full refusjon og hjelp til å finne alternativt lokale, men sjelden erstatning for indirekte kostnader som catering eller innleid underholdning. Spør konkret hvordan kommunen unngår dobbeltbooking i praksis.
+
 ## Sjekk vilkårene før du booker neste sal
 
 Digilist viser leiebetingelser, depositum og avbestillingsfrist i selve bookingflyten, før du bekrefter reservasjonen, slik at du ikke trenger å lete gjennom vedlegg i etterkant. Se ledige lokaler og book direkte hos din kommune på Digilist, enten det er til et lag, en forening eller et privat selskap.

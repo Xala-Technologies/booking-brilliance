@@ -67,6 +67,24 @@ Før dere trykker book, sjekk dette:
 
 En kort sjekkliste tar to minutter og sparer dere for en ubehagelig overraskelse på fakturaen etter kurset.
 
+## Vanlige spørsmål om møterom og kurslokale til kurs
+
+### Hva koster det å leie et kurslokale?
+
+Kommunale kurslokaler ligger typisk mellom 300 og 600 kroner timen på dagtid, avhengig av kommune, beliggenhet og utstyrsnivå. Private aktører tar ofte 500 til 900 kroner timen, men inkluderer gjerne wifi, prosjektor og resepsjonstjeneste i prisen uten tillegg. Sammenlign totalpris for hele kursdagen, ikke bare timesatsen på annonsen.
+
+### Hvorfor er møterom og kurslokale billigere på dagtid enn på kveld?
+
+De fleste utleiere, både kommunale og private, prissetter etter etterspørsel. Kveld og helg er høysesong for private arrangementer som bursdager, jubileer og bryllup, mens dagtid mandag til fredag ofte står ledig. Et kurslokale som koster 700 kroner timen på kveldstid kan ligge på 450 kroner timen mellom klokken 08 og 16.
+
+### Trenger bedriften møterom, kurslokale eller sal?
+
+Møterom passer til inntil 10-12 deltakere og korte økter, som statusmøter eller mindre arbeidsgrupper. Kurslokale eller seminarrom er dimensjonert for gruppearbeid, med plass til flere bord, en pauseflate og ofte ett eller to grupperom ved siden av. Sal blir aktuelt først når kurset passerer 40-50 deltakere.
+
+### Når må vi avbestille et kurslokale for å slippe gebyr?
+
+Typisk praksis er gebyrfri avbestilling frem til 48-72 timer før kursstart, og delvis refusjon eller flytting mot et mindre gebyr etter det. Private aktører har ofte strammere frister rundt store helger og fellesferien. Be om fristen skriftlig i bekreftelsen, så slipper dere å tolke vilkår i etterkant.
+
 ## Book demo hos Digilist
 
 Slipp å ringe rundt til kommunen eller vente på tilbud fra flere utleiere hver gang bedriften skal booke kurslokale. Book en demo av Digilist, så viser vi hvordan dere ser dagtidspris, utstyr og ledig kalender for møterom, kurslokale og sal i én oversikt, og hvordan dere kan bestille flere kursdager samtidig uten å binde dere til en årsavtale. Demoen tar 20 minutter og er klar til å bestille lokale samme dag.

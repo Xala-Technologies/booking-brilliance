@@ -98,6 +98,24 @@ Noen ganger er alt opptatt akkurat når du trenger det. I stedet for å søke p�
 
 Når du er innlogget i Digilist, kan du følge et område eller et bestemt rom. Blir en time ledig, for eksempel fordi noen avbestiller, får du et varsel på e-post. Det er særlig nyttig for faste aktiviteter, som en ukentlig øvelse eller et månedlig styremøte, der du gjerne vil ha samme rom hver gang.
 
+## Vanlige spørsmål om ledige møterom i kommunen
+
+### Hva koster det å leie møterom i kommunen?
+
+Prisen avhenger av hvem du er og hva du skal bruke rommet til. Lag og foreninger får ofte gratis eller sterkt subsidiert leie, særlig for barne- og ungdomsaktivitet og for organisasjoner registrert i Frivillighetsregisteret. Privatpersoner betaler gjerne 100 til 500 kroner per time avhengig av rommets størrelse, og næringsliv full pris.
+
+### Hvordan finner jeg ledige møterom nær meg?
+
+Sett bydel eller posisjon først, velg riktig romtype og legg inn dato og klokkeslett. I Digilist ser du lokalene på kart og kan filtrere på sted, kapasitet, utstyr som skjerm, prosjektor eller teleslynge, og tidspunkt. Kombinasjonen tar deg fra hundrevis av mulige rom til en håndfull relevante treff.
+
+### Hva er forskjellen på møterom, grupperom og kurslokale?
+
+Møterom er mindre rom for 4 til 12 personer med bord, stoler og skjerm, og passer til styremøter og planleggingsmøter. Grupperom er enda mindre, ofte på bibliotek eller skoler, for 2 til 6 personer. Kurslokale er større rom for 20 personer eller flere, med prosjektor og noen ganger enkelt kjøkken.
+
+### Hvilke regler gjelder når du booker et kommunalt møterom?
+
+Du må normalt være myndig, altså fylt 18 år, for å stå som ansvarlig for en booking. Den som booker er ansvarlig for at rommet leveres ryddig og uskadd, og for at antall personer holder seg innenfor kapasiteten. Kommunen krever ofte avbestilling 24 til 48 timer før, ellers kan du bli fakturert.
+
 ## Kom i gang
 
 En digital oversikt gjør det raskere for innbyggere å finne og booke lokaler, og enklere for kommunen å holde ledighet oppdatert. Vil du se hvordan innbyggerne i din kommune kan finne og booke møterom i sitt område uten å ringe rundt? [Book en demo](https://digilist.no/demo) med oss, så viser vi løsningen i praksis.

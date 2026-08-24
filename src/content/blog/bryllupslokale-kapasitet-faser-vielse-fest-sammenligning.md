@@ -49,6 +49,24 @@ Den vanligste feilen er å sammenligne makstall på tvers av lokaler uten å sje
 
 De fleste brudepar ender med å ringe rundt til fem eller seks lokaler og notere tall i et regneark for å holde oversikt. Digilist samler kapasitet per fase, romegenskaper og ledig dato i én oversikt, slik at dere kan sammenligne seremonirom, middagskapasitet og dansegulv side om side uten å måtte etterspørre samme informasjon fra hvert sted på nytt. Det gjør det enklere å se hvilket lokale som faktisk tåler hele dagen, ikke bare det som ser størst ut på annonsebildet, og dere slipper å oppdage arealproblemet først på befaringen.
 
+## Vanlige spørsmål
+
+### Hvorfor stemmer ikke makstallet i annonsen med antall gjester?
+
+Brannforskriftens persontall angir maksimalt antall mennesker i rommet på ett gitt tidspunkt, ikke hvor mange som får plass ved bord med god avstand mellom stolradene. Et lokale godkjent for 200 personer stående kan bli trangt for 120 sittende gjester med servering, cateringstasjon og en liten scene. Be om separate tall for seremoni, middag og fest.
+
+### Hvor mange kvadratmeter trenger en sittende bryllupsmiddag?
+
+Med runde bord for 8 til 10 gjester, servitørganger mellom bordene og plass til en liten scene eller DJ-pult, regner mange lokaler og eventbyråer med rundt 1,8 til 2 kvadratmeter per gjest som utgangspunkt. Et bryllup med 120 gjester trenger dermed nærmere 220 kvadratmeter ren gulvflate til middagen alene.
+
+### Hvor stort må dansegulvet være?
+
+Et dansegulv bør ha minst 0,3 til 0,5 kvadratmeter per gjest som faktisk befinner seg der samtidig, ikke per gjest totalt på gjestelisten. For 100 gjester der rundt halvparten er på dansegulvet samtidig, snakker vi om minst 20 kvadratmeter sammenhengende gulv, i tillegg til bar og sittegrupper langs kanten.
+
+### Hvor lang tid tar det å bygge om lokalet mellom fasene?
+
+Ombygging i samme rom tar som regel mellom 45 og 90 minutter med to til tre personer, avhengig av hvor mye møblement som skal flyttes, og det er tid gjestene må fylle et annet sted, for eksempel med aperitiff ute eller i en foajé. Flere separate rom koster mer i leie, men fjerner den risikoen.
+
 ## Sjekkliste før du bestiller befaring
 
 - Be om arealtall per fase (seremoni, middag, fest), ikke bare ett samlet maksantall

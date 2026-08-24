@@ -68,6 +68,24 @@ Selv med god planlegging oppstår ledig tid gjennom sesongen: et lag legger ned,
 
 Kommuner som fortsatt kjører fordelingen i regneark, bruker ofte flere uker ekstra på selve tildelingsrunden sammenlignet med et system der søknad og beregning henger sammen. Feil oppstår gjerne når formler kopieres mellom faner, eller når siste versjon av søknadslisten ikke er den som faktisk ble brukt i beregningen. Det er sjelden selve fordelingsnøkkelen som er problemet i disse sakene, det er at ingen i etterkant kan dokumentere hvilket datagrunnlag vedtaket faktisk bygde på.
 
+## Vanlige spørsmål
+
+### Hva er forskjellen på sesongtildeling og løpende booking?
+
+Løpende booking er å reservere en ledig time i en kalender der først til mølla gjelder. Sesongtildeling er en forvaltningsprosess: kommunen samler inn søknader fra alle lag som ønsker fast treningstid, typisk fra august til juni, og fordeler den samlede kapasiteten etter kriterier vedtatt på forhånd. Resultatet er et enkeltvedtak som kan påklages etter forvaltningsloven.
+
+### Når er søknadsfristen for treningstid i idrettshall?
+
+Typisk søknadsfrist ligger i april eller mai for sesongen som starter i august, gjerne seks til åtte uker før terminlisten skal publiseres, slik at saksbehandler rekker både registrering, fordeling og eventuell klagebehandling før sesongstart. Registrerte idrettslag og foreninger med organisasjonsnummer kan søke, ofte med krav om tilknytning til et idrettsråd eller en overordnet klubb.
+
+### Hvilke kriterier brukes i fordelingsnøkkelen?
+
+De vanligste kriteriene er klubbstørrelse målt i antall aktive medlemmer i relevant aldersgruppe, aldersprioritet der barn og ungdom under 19 år ofte går foran seniorlag, kjønnsbalanse der enkelte kommuner vekter jenteidrett høyere, og tidligere bruk, slik at lag som fylte tildelt tid forrige sesong kan få fortrinn foran lag med høyt registrert fravær.
+
+### Hva må saksbehandler dokumentere i en klagesak?
+
+Klagefristen er normalt tre uker fra vedtaket er mottatt, i tråd med forvaltningsloven. Saksbehandler må kunne vise hvilken fordelingsnøkkel som ble brukt og hvordan laget konkret ble vurdert opp mot den, sammenligningsgrunnlag mot andre lag i samme kategori og aldersgruppe, og om det finnes ledig kapasitet klagen kan løses med uten å omfordele andre lags tid.
+
 ## Slik støtter Digilist hele sesongtildelingen for idrettshaller i praksis
 
 Digilist samler søknad, fordelingsnøkkel, vedtak og terminliste i én plattform, slik at saksbehandler slipper å jage informasjon i separate e-poster og regneark når en klage kommer inn måneder senere. Restplasser publiseres automatisk i sanntidskalenderen, lag kan melde inn bytter selv, og hvert vedtak har en dokumentert historikk som gjør klagebehandling raskere og mer konsistent på tvers av saker. Vil dere se hvordan sesongtildelingen kan digitaliseres i deres kommune før neste søknadsrunde? Book en demo med Digilist, så går vi gjennom løsningen sammen med idretts- eller kulturavdelingen.

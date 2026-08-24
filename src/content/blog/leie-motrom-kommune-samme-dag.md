@@ -74,6 +74,24 @@ Kommunale rom og kulturhus er ressurser som innbyggere og organisasjoner har nyt
 
 Det krever ingen store omstillinger. Det krever en plattform som passer inn i eksisterende arbeidsprosesser og gjør det enkle enkelt.
 
+## Vanlige spørsmål om booking av kommunale møterom samme dag
+
+### Kan man booke et kommunalt møterom samme dag?
+
+Ja. Med digitalisert booking ser en medarbeider som trenger rom til et hastemøte klokken 14 hva som er ledig, og bekrefter på under ett minutt uten å involvere andre. Rommet blokkeres i systemet umiddelbart, slik at alle andre ser oppdatert tilgjengelighet i samme sekund.
+
+### Hvorfor oppstår dobbeltbooking av kommunale møterom?
+
+Fordi bestillingen skjer i flere kanaler samtidig. Når rom bestilles via e-post, telefon eller en Excel-fil som oppdateres sporadisk, kan én avdeling sende e-post om Møterom B mens en annen ringer om det samme rommet. Uten en felles kalender som oppdateres i sanntid, oppdages kollisjonen først i etterkant.
+
+### Hvor mye administrasjonstid sparer kommunen på digital rombooking?
+
+En mellomstor norsk kommune med 12 møterom og 3 kulturhus samlet all bookingadministrasjon i én portal, og rapporterte etterpå om gjennomsnittlig 4 timer mindre administrasjon per uke knyttet til rom og lokaler. Kommunen oppga også at dobbeltbookingene forsvant og at eksterne leietakere fikk raskere svar.
+
+### Hvordan planlegges vedlikehold uten at det kolliderer med bookinger?
+
+Renhold, teknisk vedlikehold og oppgraderinger planlegges direkte i systemet. Rommet merkes som utilgjengelig i den aktuelle perioden, og ingen kan booke det i mellomtiden. Driftslederen slipper å koordinere dette manuelt med den som håndterer bookinger, fordi informasjonen er synlig for alle parter i sanntid.
+
 ---
 
 ## Se hvordan Digilist fungerer for din kommune

@@ -76,6 +76,24 @@ Før sesongen starter er det verdt å ha dette på plass i bookingsystemet, slik
 - Foreldre og spillere har fått tilgang til planen, eller vet hvor den deles fra
 - Laget vet hvordan en ekstra treningstime bookes og bekreftes, uten å måtte spørre driftsleder først
 
+## Vanlige spørsmål
+
+### Hva koster ekstra halltid utover tildelt sesongkvote?
+
+Ekstra treningstid utover tildelt kvote koster typisk 350 til 600 kroner per time i en kommunal hall, avhengig av halltype og tidspunkt, mens kveldstid i helgen ofte ligger i øvre sjikt. En lagleder som planlegger fem ekstraøkter foran en avgjørende turnering bør derfor sette av 1750 til 3000 kroner i budsjettet.
+
+### Hva er avbestillingsfristen for en treningstime?
+
+De fleste haller opererer med en avbestillingsfrist på 24 til 48 timer før økten. Avbestiller laget innenfor fristen, frigis timen umiddelbart til andre lag eller til venteliste. Avbestiller laget for sent, eller uteblir uten varsel, kan hallen belaste et avbestillingsgebyr, ofte i størrelsesorden 200 til 400 kroner per time.
+
+### Hva gjør laget når ønsket treningstid allerede er tatt?
+
+Laget legger seg på venteliste i stedet for å ringe rundt til andre lagledere. Frigis timen, for eksempel fordi et annet lag avbestiller innenfor fristen, går den automatisk videre til neste lag på listen, og laglederen får varsel så snart plassen er ledig. Mange lag bytter også tid seg imellom når begge ser hverandres kalender.
+
+### Hvorfor kolliderer treningstid og kamper så ofte?
+
+Sesongtildelingen gir laget faste timer, men kamper legges inn av kretsen med kort varsel, ofte to til tre uker før spilledato, og ekstra treningstid må bookes separat. Når kampoppsett og treningstid ligger i samme system, sjekkes en ny booking automatisk mot kamper, andre lags tildelte tid og vedlikeholdsvinduer før den bekreftes.
+
 ## Book demo
 
 Digilist samler sesongtildeling, kamper og ekstra treningstid i én kalender laget selv booker og styrer, med sanntidsoppdatering, venteliste og mobiltilgang. Book en demo for å se hvordan idrettslaget kan slippe telefonrundene til driftsleder og planlegge hele sesongen fra samme sted.

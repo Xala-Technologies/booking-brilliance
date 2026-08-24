@@ -64,3 +64,21 @@ Kommunale saler er sjelden det billigste alternativet for alle typer arrangement
 5. Bekreft bookingen i sanntid og motta kvittering umiddelbart
 
 Sjekk ledige saler i din kommune hos Digilist i dag. Sammenlign totalpris i sanntid, legg til utstyr i samme bestilling og få bekreftelse umiddelbart, uten å risikere dobbeltbooking.
+
+## Vanlige spørsmål
+
+### Hva koster det å leie sal i kommunen?
+
+Prisen styres av ukedag, sesong, minsteleie og rengjøringsavgift. En lørdag kveld koster ofte 30-50 prosent mer enn en hverdagskveld, og mange saler har minimum tre eller fire timer. En klasseromsal i Lillestrøm kommune ligger typisk rundt 450 kroner per time på hverdager, mens en tilsvarende sal i helg fort passerer 650 kroner.
+
+### Hvor stort er depositumet ved leie av kommunal sal?
+
+Depositum ved leie av sal ligger vanligvis mellom 1 000 og 2 500 kroner, avhengig av salens størrelse og om det serveres alkohol. Kontroller hvor mange dager før arrangementet du kan avbestille uten å tape depositumet, om depositumet dekker skader eller om det er en egen selvrisiko, og hvem som er ansvarlig for rydding.
+
+### Hvem kan leie kommunal sal, og betaler alle samme pris?
+
+Kommunale saler leies ut til privatpersoner som feirer bursdag eller konfirmasjon, pårørende som trenger et lokale til en minnestund, lag og foreninger som vil sikre fast øvingslokale, og bedrifter som booker møterom til kurs og samlinger. Enkelte kommuner har egne satser for innbyggere og reduserte priser for frivillige lag, mens andre praktiserer én fast pris uansett formål.
+
+### Når lønner et privat lokale seg fremfor kommunal sal?
+
+Et privat selskapslokale kan lønne seg når du trenger kort responstid, fleksible klokkeslett utenom kommunens ordinære åpningstider, eller når den kommunale salen allerede er fullbooket på ønsket dato. Private lokaler har ofte høyere minsteleie og mindre standardiserte priser. For faste, forutsigbare arrangementer er kommunal sal som regel billigst.

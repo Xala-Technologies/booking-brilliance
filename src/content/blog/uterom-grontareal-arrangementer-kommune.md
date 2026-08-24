@@ -70,6 +70,24 @@ Fordi et uterom er et åpent areal uten tilsyn utenom selve arrangementet, går 
 
 Arrangøren ser disse vilkårene i bookingløpet, før bekreftelsen sendes, i stedet for å måtte lete dem opp i en egen forskrift eller ringe kommunen for å finne ut hva som gjelder.
 
+## Vanlige spørsmål om booking av uterom og grøntareal
+
+### Hva regnes som uterom kommunen leier ut til arrangementer?
+
+Parker og grøntareal som kan romme alt fra en mindre feiring til en sommerkonsert, avgrensede strandavsnitt av en offentlig badeplass, torg og festplasser i sentrum, og uteareal ved idretts- og kulturanlegg som kan bookes separat fra selve bygget. Felles er at de er avgrensede arealer, ikke bygninger med lås.
+
+### Hvordan booker du en park eller et grøntareal til et arrangement?
+
+Filtrer på park, strand eller torg og på ønsket dato, sjekk areal, kapasitet og hva som finnes av strøm og vann, og velg tidspunkt og avgrensning i kalenderen. Send inn søknaden og bekreft med ID-porten, BankID eller organisasjonens innlogging. Kvitteringen viser areal, tidsrom og krav til rydding og avfallshåndtering.
+
+### Trenger du egen tillatelse i tillegg til selve bookingen?
+
+Større arrangementer krever ofte en egen tillatelse til bruk av offentlig grunn, ikke bare en booking. Denne kan følge samme flyt som selve reservasjonen, slik at arrangøren søker og booker i én prosess i stedet for to separate henvendelser til ulike etater. Ansvarsforsikring kreves ofte dokumentert ved store arrangementer.
+
+### Hvorfor mangler kommunen ofte oversikt over ledige utearealer?
+
+De fleste kommunale bookingsystemer er bygget rundt bygninger med en dør og en nøkkel, og et grøntareal legges derfor sjelden inn som en egen lokaltype. Oversikten over hvilke tillatelser som er gitt, blir liggende hos én saksbehandler i park- og idrettsavdelingen i stedet for i kalenderen, med risiko for to overlappende arrangementer samme helg.
+
 ## Kom i gang med booking av kommunens uterom og grøntareal
 
 Så lenge et uterom bare finnes i hodet til én saksbehandler eller på et regneark i park- og idrettsavdelingen, bærer begge parter risikoen: kommunen risikerer å gi klarsignal til to overlappende arrangementer uten å vite det, og arrangøren risikerer å planlegge et arrangement som kolliderer med noe kommunen allerede har godkjent. Legger kommunen parker, grøntareal og strandavsnitt inn i samme sanntidskalender som idrettsanlegg og møterom, ser både egne saksbehandlere og eksterne arrangører nøyaktig hva som er ledig, søkt om eller allerede bekreftet, uten en eneste telefon. Vil du se hvordan Digilist kan gjøre kommunens uterom like enkle å søke om og booke som et møterom? [Book en demo](https://digilist.no/demo) med oss, så viser vi løsningen i praksis.

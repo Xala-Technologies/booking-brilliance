@@ -142,6 +142,24 @@ Gå gjennom disse punktene før du bekrefter:
 
 Har du disse på plass, unngår du de vanligste overraskelsene, som at depositumet forsvinner på grunn av manglende rydding, eller at datoen ikke var reservert likevel.
 
+## Vanlige spørsmål
+
+### Hva koster det å leie bryllupslokale?
+
+Et lite forsamlingshus eller grendehus koster ofte 3 000 til 6 000 kroner for en helg, og utenfor de største byene finner du hele helger under 5 000 kroner. En sal i et kulturhus ligger typisk mellom 8 000 og 18 000 kroner, mens rene kommersielle selskapslokaler ofte starter på 15 000 til 40 000 kroner for lokalet alene.
+
+### Hva er inkludert i leien av et bryllupslokale?
+
+Bord og stoler, kjøkken med komfyr, ovn, oppvaskmaskin og kjøleskap, grunnbelysning, strøm og oppvarming samt toaletter, garderobe og som regel parkering er ofte inkludert. I tillegg kommer gjerne renhold til 1 500 til 4 000 kroner, servise i noen lokaler, teknisk utstyr som projektor og mikrofon, og duker, pynt og catering.
+
+### Hvor mange gjester får plass i et bryllupslokale?
+
+Et lokale merket for 150 personer tar gjerne 150 stående, men bare 90 til 100 ved langbord med servering. Regn 1,5 til 2 kvadratmeter per gjest ved bordsetting, og mer hvis buffé og dansegulv skal inn i samme rom. Sjekk både godkjent makskapasitet av branntekniske hensyn og hva lokalet realistisk rommer.
+
+### Hvor stort er depositumet, og når får vi det tilbake?
+
+Et depositum på 2 000 til 5 000 kroner er vanlig, og enkelte store lokaler krever mer. Beløpet betales ved booking og holdes tilbake som sikkerhet mot skader, tapt nøkkel og manglende rydding. Det betales tilbake etter en godkjent sluttbefaring, så det er ingen ekstra kostnad hvis alt er i orden.
+
 ## Klar til å sikre datoen?
 
 Et bryllupslokale gir mye fest for pengene når du kjenner de reelle kostnadene og finner en ledig dato tidlig. Nøkkelen er å sammenligne grunnpris, tillegg og kapasitet side om side, i stedet for å ringe rundt til ett sted av gangen. Digilist samler ledige datoer i sanntid, full pris for din helg og en tydelig oversikt over hva som er inkludert, slik at du kan leie bryllupslokale på minutter uten en eneste telefon. Søk opp lokalene i området ditt, sammenlign private festlokaler og kulturhus side om side, og book neste ledige lørdag direkte fra kalenderen.

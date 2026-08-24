@@ -68,3 +68,21 @@ Den vanligste feilen er å booke lokale før gjestelisten er klar, og ende opp m
 ## Book bryllupslokale hos Digilist
 
 Slutt å lete på ti forskjellige nettsider og vente på svar per e-post. På Digilist sammenligner dere gård, hotell, selskapslokale og uteareal i én oversikt, med sanntidspris og ledig dato for hvert lokale. Legg inn gjestetall, ønsket dato og budsjett, og se hvilke lokaltyper som faktisk er ledige og innenfor rammen deres. Book direkte når dere har funnet riktig match, uten purremail eller telefonkø.
+
+## Vanlige spørsmål
+
+### Hva koster bryllupslokale på gård, hotell, selskapslokale og uteareal?
+
+Gård koster 15 000–40 000 kroner for selve lokaleleien, hotell 25 000–70 000 kroner, gjerne med pakkepris per kuvert på 800–1 400 kroner per gjest som dekker mat, drikke og servering. Selskapslokale koster 8 000–25 000 kroner for leien alene, og uteareal 5 000–15 000 kroner for grunnen, pluss 20 000–50 000 kroner for teltleie, gulv og oppvarming.
+
+### Hvor mye billigere er bryllup utenfor høysesong?
+
+Høysesong betyr juni til august og lørdager. Bytter dere til en fredag eller søndag i mai eller september, ser dere ofte 15 til 30 prosent lavere pris på både lokale og catering. Om vinteren faller uteareal i praksis bort som hovedlokale, og valget står mellom hotell, selskapslokale eller en gård med isolert låve.
+
+### Hvilken lokaltype passer antall gjester?
+
+Gård har vanlig kapasitet 40 til 150 gjester, avhengig av om låven har fast tak eller må suppleres med telt; et gårdsbryllup med 150 gjester krever telt i tillegg, ekstra toaletter og gjerne innleid kjøkken. Hotell passer godt fra 50 gjester og oppover og skalerer bedre til store selskaper. Selskapslokaler passer mellomstore selskaper, typisk 50 til 100 gjester.
+
+### Hva koster det å regnsikre et utendørs bryllup?
+
+Telt med tett tak, gulv og varmeovner koster typisk 20 000–50 000 kroner ekstra avhengig av størrelse og sesong, mens gårder med egen låve slipper denne kostnaden helt siden bygningen allerede er der. Noen utearealer krever egen forsikring for teltoppsett, og enkelte kommunale parker som Frognerparken krever i tillegg søknad om arrangement i god tid før dato.

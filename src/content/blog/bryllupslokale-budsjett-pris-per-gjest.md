@@ -72,6 +72,24 @@ Sammenlign totalpris per gjest, ikke bare leiepris, og sjekk hvor lenge dere fak
 
 De hyppigste fellene er å sette budsjett før gjestelisten er klar, å glemme moms og servicetillegg i cateringtilbud, å undervurdere transport og overnatting for gjester ved lokaler utenfor byen, og å signere kontrakt uten å lese avbestillingsvilkårene. Mange glemmer også overtidskostnad hvis kvelden trekker ut, eller ekstra honorar til fotograf og musikere ved forlenget arrangement. Den dyreste feilen er likevel å signere uten å sjekke vilkårene: et par som må avbestille tre måneder før bryllupet kan tape 15 000 til 20 000 kroner i depositum de kunne unngått ved å velge et lokale med mer fleksible vilkår.
 
+## Vanlige spørsmål
+
+### Hva koster et bryllupslokale per gjest?
+
+Som praktisk referanse ligger totalkostnaden for lokale og catering til sammen typisk mellom 3 000 og 4 500 kroner per gjest hos norske bryllupslokaler, avhengig av om bar og drikke er inkludert i pakken. Tallet er nyttig som utgangspunkt, men sier ikke noe om akkurat deres gjesteliste og lokale, så bruk det som en grov sjekk, ikke en fasit.
+
+### Hvordan regner dere ut reell pris per gjest?
+
+Del alltid totalprisen på antall gjester før dere sammenligner lokaler. Lokalleie per gjest er leiepris delt på antall gjester, catering per gjest er tilbudt pris fra cateringfirmaet, og totalpris per gjest er summen av de to pluss eventuelle tillegg som rigg, vakthold og rydding. Legg de tre tallene i et regneark for hvert lokale dere vurderer.
+
+### Hvor mye sparer dere på å flytte bryllupet til lavsesong?
+
+Juni, juli og august er høysesong, og mange tar 20 til 40 prosent høyere pris i disse månedene enn i november eller februar. Lørdag er dyrest, fredag ofte 10 til 15 prosent billigere, og søndag eller hverdag kan gi 20 til 30 prosent rabatt. Et lokale som normalt tar 35 000 kroner en lørdag i juli, tilbys ofte for 25 000 til 28 000 kroner en fredag i oktober.
+
+### Hvordan bør dere fordele bryllupsbudsjettet?
+
+En vanlig fordeling for et bryllup med 80 til 100 gjester er om lag 30 prosent til lokale, 35 prosent til mat og drikke, 15 prosent til foto og underholdning, 10 prosent til antrekk, og 10 prosent til dekor og øvrig. Sett et samlet tak først, fordel deretter prosentvis, og hold av 5 til 10 prosent som buffer til uforutsette kostnader.
+
 ## Finn og book bryllupslokale med tydelig prisoversikt hos Digilist
 
 Digilist viser ledig kapasitet, pris og hva som er inkludert direkte i søket, slik at dere kan sammenligne totalpris per gjest mellom flere lokaler før dere tar kontakt. Bruk regnestykket over til å sette et realistisk tak for budsjettet, og book befaring med de lokalene som faktisk holder seg innenfor det dere har satt av.

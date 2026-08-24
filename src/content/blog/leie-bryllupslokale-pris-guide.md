@@ -76,6 +76,24 @@ Sett tilbudene opp mot hverandre linje for linje i et regneark, ikke bare bunnli
 
 Still spørsmålene skriftlig, og be om svarene i kontrakten, ikke bare muntlig under en omvisning.
 
+## Vanlige spørsmål
+
+### Hva koster det å leie bryllupslokale i Norge?
+
+Et rent selskapslokale i en by koster typisk 15 000 til 35 000 kroner for en helg, uten catering. En gård med hage og eventuelt overnatting ligger ofte på 20 000 til 50 000 kroner. Hoteller og kulturhus selger som regel bryllup som pakke per gjest, fra 900 til 1 800 kroner inkludert mat, drikke og bord og stoler.
+
+### Hvor mye dyrere er bryllupslokale i Oslo og Bergen?
+
+Lokaler i Oslo og Bergen ligger gjerne 20 til 30 prosent høyere enn tilsvarende lokaler i mindre byer og distriktene, både fordi etterspørselen er høyere og fordi færre lokaler konkurrerer om samme helg. Et bryllup for 80 gjester som koster 25 000 kroner i leie i Oslo, kan koste 18 000 til 20 000 kroner for et tilsvarende lokale i Innlandet eller Trøndelag.
+
+### Hva er inkludert i leieprisen for et bryllupslokale?
+
+Selve leieprisen dekker som regel bare lokalet, oppvarming eller kjøling, og et gitt antall timer, typisk 6 til 10 timer inkludert rigging og rydding. Catering, dekor, blomster, DJ eller band og overnatting til gjester kommer nesten alltid i tillegg. Regn med 800 til 1 200 kroner per couvert for en tre retters meny med servering, og egne priser for drikkepakker.
+
+### Må dere søke egen skjenkebevilling til bryllupet?
+
+Skal dere servere alkohol utover det lokalet selv har skjenkebevilling for, må dere søke egen skjenkebevilling for enkeltanledning hos kommunen der lokalet ligger. Søknaden bør sendes minst seks uker før bryllupet, og de fleste kommuner krever dokumentasjon på ansvarshavende og internkontroll for skjenking.
+
 ## Slik finner og booker dere bryllupslokale digitalt, uten telefonrunder
 
 De fleste brudepar bruker uker på å ringe og sende e-post til lokaler for å få svar på ledighet og pris, bare for å oppdage at datoen allerede er tatt eller at tilbudet var langt dyrere enn ventet. Digilist samler bryllupslokaler, gårder, selskapslokaler og hoteller i én markedsplass med reelle priser og oppdatert ledighet, slik at dere kan sammenligne lokaltyper side om side etter pris, kapasitet og beliggenhet, og booke det som passer uten å vente på tilbakemelding fra hvert enkelt sted.

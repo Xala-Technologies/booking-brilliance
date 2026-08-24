@@ -70,3 +70,21 @@ Depositum for en kommunal festsal ligger ofte mellom 2 000 og 5 000 kroner og be
 5. Betal depositum og leie samlet, og få vilkår, sluttid og avbestillingsregler skriftlig i bekreftelsen.
 
 Vil du se hvordan kommunen din kan samle vigsel, bevilling, catering og depositum i én bookingflyt? **Book en demo** med oss, så viser vi deg hele veien fra ledig dato til godkjent bryllup.
+
+## Vanlige spørsmål
+
+### Hva koster borgerlig vigsel i kommunen?
+
+Borgerlig vigsel er gratis på kommunens ordinære vigselssted i åpningstiden. Vil dere gifte dere utenom, for eksempel en lørdag eller på et annet sted, tar mange kommuner et gebyr, typisk mellom 1 500 og 4 000 kroner. Prøvingsattest fra Skatteetaten må være klar før vielsen, og den er gyldig i fire måneder.
+
+### Når trenger dere skjenkebevilling til bryllup i et kommunalt lokale?
+
+Skal det serveres alkohol mot betaling, eller i et arrangement som ikke regnes som rent privat, trenger dere skjenkebevilling. For et enkeltarrangement søker dere om en ambulerende bevilling hos kommunen. Behandlingstiden er ofte to til fire uker, gebyret ligger typisk på noen hundre kroner opp til rundt 1 000 kroner, og en ansvarlig person over 20 år må stå oppført som skjenkeansvarlig.
+
+### Hvor stort er depositumet på en kommunal festsal?
+
+Depositum for en kommunal festsal ligger ofte mellom 2 000 og 5 000 kroner og betales tilbake når lokalet er levert rent og uskadd. Du hefter for skader utover normal slitasje, og manglende rydding trekkes gjerne fra. Ta bilder når dere overtar og når dere leverer, så har dere dokumentasjon hvis det oppstår uenighet.
+
+### Hvilke regler gjelder for pynt i kommunale bryllupslokaler?
+
+De fleste kommunale lokaler tillater pynt, men med grenser. Levende lys er ofte forbudt av brannhensyn, og LED-lys er alternativet. Konfetti, roseblader og glitter som er vanskelig å rydde blir gjerne avvist eller utløser et rengjøringsgebyr. Teip og spiker i vegger er sjelden tillatt, så løsningen er som regel frittstående dekor og bordoppsatser.

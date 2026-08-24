@@ -69,6 +69,24 @@ Digilist samler lokale, catering, dekorasjon, lyd og lys, DJ og overnatting i é
 - **De siste månedene:** bekreft gjestetall til catering og overnatting, og betal siste rater til leverandørene.
 - **De siste ukene:** siste avstemming med alle leverandører på tid, adresse og leveringsrekkefølge på selve dagen.
 
+## Vanlige spørsmål
+
+### I hvilken rekkefølge bør lokale, catering og overnatting bookes?
+
+Dato og lokale kommer først, siden gjestetall, budsjett og hvor gjestene skal bo regner seg ut fra dem. Deretter bør overnatting avklares, fordi de beste alternativene nær lokalet forsvinner raskest. Catering kan vente til lokalet er bekreftet, men bør bestilles i god tid. Dekorasjon, lyd, lys og DJ har lengst tidsvindu og kan bookes noen måneder før.
+
+### Hvilke cateringmodeller kan man velge til bryllup?
+
+Tre modeller går igjen. Fullservice fra lokalet, der stedet leverer mat, servering og ofte servise selv, er enklest å administrere, men bindende. Ekstern cateringleverandør gir fritt valg av tilbyder, men lokalet må tillate ekstern mat, og noen krever påslag eller egen godkjenning. Selvcatering er rimeligst per gjest, men krever fullverdig kjøkken og folk som tar ansvar på selve dagen.
+
+### Hvorfor bør overnatting til gjestene bookes tidlig?
+
+Sommermånedene er høysesong for bryllup i Norge, og i populære reisemål som Lillehammer, Sørlandet og fjordstrøkene fylles de nærmeste overnattingsstedene raskere opp i denne perioden. Venter dere til lokalet er bekreftet, risikerer dere at de nærmeste alternativene er utsolgt. Reserver et rombudsjett hos ett eller to steder tidlig, og juster antallet nærmere datoen.
+
+### Hvordan holder man styr på avbestillingsfrister hos flere leverandører?
+
+Hver leverandør har sine egne vilkår for depositum, avbestilling og ansvar, og de stemmer sjelden overens. Lokalet kan ha én frist, cateringleverandøren en annen og overnattingsstedet en tredje. Skriv opp avbestillingsfrist, depositum og hvem som har ansvar for skader eller avlysning hos hver enkelt leverandør før dere signerer, og legg dem i samme kalender som selve bryllupsdatoen.
+
 ## Book hele bryllupet fra én plattform
 
 Å planlegge et bryllup handler om rekkefølge like mye som om valg. Digilist gir dere lokale, catering, dekorasjon, lyd og lys, DJ og overnatting samlet, med felles oversikt over avtaler og betalinger. Bla gjennom ledige lokaler og leverandører, sammenlign priser, og book det dere trenger til bryllupet uten å miste oversikten underveis.

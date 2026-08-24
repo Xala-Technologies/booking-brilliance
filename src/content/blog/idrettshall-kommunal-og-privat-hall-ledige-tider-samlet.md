@@ -67,6 +67,24 @@ De fleste konflikter mellom lag og driftsleder oppstår når en booket tid avbes
 - Avbestill i tide, slik at timen kan gå videre til neste på ventelisten i stedet for å stå tom.
 - Vurder en kombinasjon av fast kommunal tid og private enkelttimer ved behov for ekstra kapasitet foran kamper eller turneringer.
 
+## Vanlige spørsmål
+
+### Hvorfor er det så vanskelig å finne ledig tid i idrettshallen?
+
+Idrettshaller driftes sjelden i ett system. Kommunen fordeler treningstid gjennom sesongtildeling og et eget kommunalt bookingsystem, private haller bruker sine egne bookingløsninger, og enkelte flerbrukshaller har bare et Excel-ark eller en oppslagstavle i resepsjonen. Ingen av systemene snakker sammen, så ingen ser hele bildet på tvers av kommunale og private tilbydere.
+
+### Hva er prisforskjellen på kommunal og privat idrettshall?
+
+En kommunal hall følger et politisk vedtatt prisregulativ, ofte 150 til 300 kroner timen for lag med hjemmehørende medlemmer. En privat hall eller flerbrukshall tar markedspris, ofte 500 til 900 kroner timen. Et lag som trener to timer i uken i 30 uker betaler mellom 9000 og 18 000 kroner i en kommunal hall, mot 30 000 til 54 000 kroner i en privat.
+
+### Når blir kommunale enkelttimer synlige for booking?
+
+En typisk kommune legger ut sesongsøknad for 80 til 90 prosent av kapasiteten før enkelttimer i det hele tatt blir synlige for andre. Det som er igjen etter tildelingsvedtaket, dukker først opp i bookingsystemet etter at klagefristen på fordelingsvedtaket har gått ut, gjerne fire til seks uker inn i sesongen.
+
+### Bør laget velge fast ukentlig tid eller enkelttimer?
+
+Et fast lag med jevnlig trening bør sikte mot en fast ukentlig tid, enten gjennom sesongtildeling eller en løpende avtale med en privat hall. En privatperson som trener uregelmessig, eller et lag som trenger ekstra kapasitet foran en turnering, er bedre tjent med enkelttimer booket etter behov. Drop-in finnes stort sett bare hos private aktører.
+
 ## Book demo
 
 Digilist samler kommunale og private idrettshaller i én kalender med ledig tid i sanntid, venteliste med automatisk varsling og enkel bytte eller avbestilling. Book en demo for å se hvordan laget, foreningen eller kommunen din kan finne og booke ledig tid uten å miste oversikten.

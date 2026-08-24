@@ -83,6 +83,24 @@ Sal A ga inntrykk av å ligge på "vanlig pris" for kommunen ut fra timeprisen a
 
 Samme regnestykke for et mindre møte på tre timer uten skjenking viser et annet bilde: da faller skjenkebevilling og deler av vertstjenesten bort, og forskjellen mellom salene krymper til under 1 000 kroner. Poenget er det samme uansett arrangementstype: den faktiske kostnaden avhenger av hvilke poster som er inkludert, ikke av timeprisen alene.
 
+## Vanlige spørsmål
+
+### Hva koster det egentlig å leie en kommunal sal?
+
+Timeprisen er sjelden tallet du ender med å betale. En sal som koster 250 kroner timen i seks timer gir 1 500 kroner på papiret, men med depositum, rengjøring og en obligatorisk vertstjeneste kan totalen lande på 4 000 til 6 000 kroner, altså to til fire ganger grunnprisen. Forskjellen mellom to saler ligger nesten alltid i tilleggspostene, ikke i timeprisen.
+
+### Hva koster depositum, rengjøring og vertstjeneste?
+
+Depositum ligger vanligvis på 2 000 til 5 000 kroner og refunderes etter godkjent sluttsjekk av lokalet. Rengjøringsgebyr er 800 til 1 500 kroner hvis du ikke rydder og vasker selv. Vertstjeneste, altså en ansatt som må være til stede under arrangementet, koster ofte 300 til 500 kroner timen og er i mange saler obligatorisk etter klokken 22.
+
+### Hvorfor betaler lag og foreninger mindre for samme sal?
+
+Lag, foreninger og frivillige organisasjoner får ofte 30 til 50 prosent rabatt sammenlignet med private leietakere, fordi kommunen subsidierer lokalt organisasjonsliv gjennom lavere utleiepriser. En sal som koster 400 kroner timen for en privatperson, kan dermed koste 200 til 280 kroner timen for et registrert lag. Sjekk om kommunen skiller mellom medlemspris, lagspris og fullpris.
+
+### Når er kommunale saler billigst å leie?
+
+Fredag og lørdag kveld i mai og juni er dyrest, ofte 20 til 40 prosent over grunnpris, fordi konfirmasjon og bryllup fyller kalenderen i samme periode. Desember har et tilsvarende press. Hverdager, særlig tirsdag og onsdag ettermiddag utenom skoleferier, er nesten alltid billigst, og vinterhalvåret utenom desember gir lavere etterspørsel og bedre pris.
+
 ## Last ned sjekklisten og book med full oversikt
 
 Vil du ha spørsmålene fra denne artikkelen samlet på ett ark du kan ta med til befaring? Last ned PDF-sjekklisten, og bruk Digilist til å sammenligne ledige saler, priser og tilleggstjenester på tvers av kommuner før du bestemmer deg.

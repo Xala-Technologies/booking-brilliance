@@ -95,13 +95,27 @@ De tre løser delvis samme behov på ulike måter. Tabellen er en nøktern samme
 
 Eventum og Selskapslokaler.no er nyttige når du vil bla i mange lokaler og bli inspirert. Digilist er bygget for steget etter: å se om lokalet faktisk er ledig på din dato, og fullføre reservasjonen der og da.
 
-## Ofte stilte spørsmål
+## Vanlige spørsmål
 
-**Hvor lang tid før bør jeg booke?** Populære lokaler til bryllup og store fester bookes ofte 6 til 12 måneder i forveien, særlig for lørdager i høysesong. Er du fleksibel på dato, finner du oftere ledig plass på kortere varsel.
+### Hvor kan jeg leie et selskapslokale til bryllup eller fest?
 
-**Kan jeg leie kommunale lokaler og grendehus privat?** Ja. Mange grendehus, kulturhus og kommunale lokaler leies ut til private arrangementer. På Digilist ligger de i samme kalender som private festlokaler.
+De vanligste stedene å lete er bookingplattformer som Digilist, der du søker etter ledig dato og reserverer direkte; katalogtjenester som Selskapslokaler.no, der lokaler er listet opp og du kontakter hver enkelt selv; eventmarkedsplasser som Eventum; og direkte hos eier, altså grendehus, idrettslag, menighetshus og private festlokaler. En katalog viser deg lokalet, en bookingplattform lar deg fullføre reservasjonen.
 
-**Passer plattformen til andre anledninger enn bryllup?** Ja. Konfirmasjon, bursdag, jubileum, minnestund og firmafest bookes på samme måte, ut fra dato, kapasitet og pris.
+### Hvor lang tid før bør jeg booke et bryllups- eller festlokale?
+
+Rundt 20 000 par gifter seg i Norge hvert år, ifølge Statistisk sentralbyrå, og populære lokaler til bryllup og store fester bookes ofte 6 til 12 måneder i forveien. Lørdager i mai til september er de mest ettertraktede datoene. Er du fleksibel på ukedag, finner du oftere ledig plass på kortere varsel.
+
+### Kan jeg leie kommunale lokaler og grendehus til privat fest?
+
+Ja. Mange grendehus, kulturhus, samfunnshus og kommunale lokaler leies ut til private arrangementer som bryllup, konfirmasjon, bursdag og minnestund. På Digilist ligger de i samme kalender som private festlokaler, slik at du kan sammenligne et privat festlokale og det lokale grendehuset uten å bytte tjeneste underveis.
+
+### Hva koster det å leie et selskapslokale?
+
+Det finnes ingen fast nasjonal takst, og tre forhold styrer det meste: lokaltype, der grendehus, samfunnshus og lag- og foreningslokaler ligger lavere enn hotell-, restaurant- og rene selskapslokaler; dag og sesong, der lørdager i høysesong koster mer enn hverdager og lavsesong; og hva som er inkludert av bord, stoler, servise, kjøkken og renhold. Sammenlign totalpris, ikke bare grunnleien.
+
+### Kan jeg leie selskapslokale til konfirmasjon, bursdag eller minnestund på samme måte?
+
+Ja. Konfirmasjon, bursdag, jubileum, minnestund og firmafest bookes på samme måte som bryllup, ut fra dato, kapasitet og pris. Behovet er det samme uansett anledning: finne et lokale som er ledig på riktig dato, med plass til antallet gjester og til en pris du kjenner på forhånd.
 
 ## Kilder, forfatter og oppdatering
 
