@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { HTML_LANG, OG_LOCALE, hreflangFor, isIndexableEnglish, localeFromPath, type Hreflang } from "@/lib/i18n";
+import { entityLD } from "@/content/entity.mjs";
 
 interface HowToStep {
   name: string;
@@ -53,41 +54,6 @@ const DEFAULT_DESCRIPTION =
   "Selskapslokaler, idrettshaller, møterom, kantiner og kulturhus. Sanntidskalender, betaling, sesongleie og fakturering: én digital plattform for det norske utleiemarkedet.";
 const DEFAULT_KEYWORDS =
   "booking, utleie, selskapslokale, kulturhus, idrettshall, møterom, kommune, kontorbygg, foreninger, Vipps, BankID, ID-porten, EHF, Peppol, ISO 27001, GDPR, universell utforming, bookingsystem, lokalbooking, ressurstyring, Norge";
-
-const BRAND_KNOWS_ABOUT = [
-  "Bookingsystem",
-  "Kommunal utleie",
-  "Sesongleie",
-  "ID-porten",
-  "BankID",
-  "Vipps",
-  "EHF / Peppol-fakturering",
-  "ISO 27001",
-  "ISO 27701",
-  "GDPR",
-  "WCAG 2.1",
-  "SSA-L 2026",
-  "Digdir Designsystemet",
-  "Convex reaktiv runtime",
-  "PostgreSQL",
-];
-
-const BRAND_MENTIONS = [
-  { "@type": "Service", name: "Vipps", url: "https://vipps.no" },
-  { "@type": "Service", name: "BankID", url: "https://bankid.no" },
-  { "@type": "Service", name: "ID-porten", url: "https://www.idporten.no" },
-  // The apex peppol.eu has no DNS A record, so this URL resolved to nothing
-  // — a dead link in the JSON-LD of every page, homepage included. The live
-  // OpenPeppol site is peppol.org; only peppol.eu SUBdomains (docs.,
-  // directory.) still resolve, which is why the dead apex looked fine.
-  { "@type": "Service", name: "EHF / Peppol", url: "https://peppol.org" },
-  { "@type": "Organization", name: "Digdir", url: "https://www.digdir.no" },
-  {
-    "@type": "Organization",
-    name: "Brønnøysundregistrene",
-    url: "https://www.brreg.no",
-  },
-];
 
 const SEO = ({
   title = DEFAULT_TITLE,
@@ -192,112 +158,15 @@ const SEO = ({
       document.head.appendChild(link);
     }
 
-    // Build all JSON-LD blocks
-    const blocks: object[] = [];
-
-    // Organization
-    blocks.push({
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "@id": "https://digilist.no/#organization",
-      name: "Digilist",
-      alternateName: "Digilist · Enkel booking",
-      url: "https://digilist.no",
-      logo: "https://digilist.no/logo.svg",
-      image: "https://digilist.no/og-image.png",
-      sameAs: ["https://xala.no"],
-      foundingDate: "2024",
-      identifier: {
-        "@type": "PropertyValue",
-        propertyID: "Norwegian Organisasjonsnummer",
-        value: "920972454",
-      },
-      knowsAbout: BRAND_KNOWS_ABOUT,
-      mentions: BRAND_MENTIONS,
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "Nesbruveien 75",
-        postalCode: "1394",
-        addressLocality: "Nesbru",
-        addressCountry: "NO",
-      },
-      contactPoint: {
-        "@type": "ContactPoint",
-        telephone: "+47-96-66-50-01",
-        contactType: "Customer Service",
-        email: "kontakt@digilist.no",
-        areaServed: "NO",
-        availableLanguage: ["Norwegian", "English"],
-      },
-      parentOrganization: {
-        "@type": "Organization",
-        name: "Xala Technologies AS",
-        url: "https://xala.no",
-      },
-    });
-
-    // WebSite + SearchAction (sitelinks search box)
-    blocks.push({
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "@id": "https://digilist.no/#website",
-      url: "https://digilist.no",
-      name: "Digilist",
-      description: DEFAULT_DESCRIPTION,
-      inLanguage: "nb-NO",
-      publisher: { "@id": "https://digilist.no/#organization" },
-      potentialAction: {
-        "@type": "SearchAction",
-        target: {
-          "@type": "EntryPoint",
-          urlTemplate: "https://digilist.no/faq?q={search_term_string}",
-        },
-        "query-input": "required name=search_term_string",
-      },
-    });
-
-    // SoftwareApplication
-    blocks.push({
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "@id": "https://digilist.no/#software",
-      name: "Digilist",
-      applicationCategory: "BusinessApplication",
-      applicationSubCategory: "Booking & Reservation Platform",
-      operatingSystem: "Web, iOS, iPadOS, Android",
-      description: description,
-      softwareVersion: "2026.05",
-      url: "https://app.digilist.no",
-      featureList: [
-        "Sanntidskalender",
-        "Privatbookinger og sesongleie",
-        "Betaling med Vipps og kort",
-        "BankID og ID-porten autentisering",
-        "EHF / Peppol fakturering",
-        "Regnskapsintegrasjoner (Visma, Tripletex, Fiken, PowerOffice, DNB)",
-        "Driftsroller og varsler",
-        "Digital nøkkel (Salto KS)",
-        "Universell utforming (WCAG 2.1 AA)",
-        "ISO 27001 og 27701 sertifisert",
-        "RCO booking-migrasjon",
-        "Audit-spor og RBAC",
-      ],
-      offers: {
-        "@type": "Offer",
-        priceCurrency: "NOK",
-        price: "0",
-        priceSpecification: {
-          "@type": "PriceSpecification",
-          priceCurrency: "NOK",
-          description:
-            "Gratis pilot for norske kommuner. Pristilbud basert på antall anlegg og brukermengde.",
-        },
-        availability: "https://schema.org/InStock",
-      },
-      provider: { "@id": "https://digilist.no/#organization" },
-      areaServed: { "@type": "Country", name: "Norway" },
-      inLanguage: "nb-NO",
-    });
+    // Build all JSON-LD blocks.
+    //
+    // Organization + WebSite + SoftwareApplication describe the ENTITY, so
+    // they are identical on every page and come from one shared module that
+    // scripts/prerender.mjs also uses. Before hydration a crawler reads the
+    // prerendered copy; after hydration this one replaces it. If those two
+    // disagree — as they did — the entity is ambiguous exactly where it most
+    // needs to be unambiguous.
+    const blocks: object[] = [...entityLD(locale)];
 
     // FAQ
     if (faq && faq.length > 0) {

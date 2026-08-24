@@ -17,6 +17,12 @@
  * rewrite of the Norwegian does not orphan the key.
  */
 import type { Locale } from "./i18n";
+// The homepage's definitional sentence is not really interface copy: it is a
+// FACT about the entity, and it has to read identically in the hero, in the
+// Organization/SoftwareApplication JSON-LD and in /public/llms.txt. It lives
+// in src/content/entity.mjs so all three read the same string; only the
+// routing through t() happens here.
+import { ENTITY_DEFINITION } from "../content/entity.mjs";
 
 type Copy = Record<string, string>;
 
@@ -67,6 +73,15 @@ const nb: Copy = {
     "Lokaler|Selskapslokaler|Møterom|Idrettshaller|Kulturhus|Bryllupslokaler|Julebordlokaler|Grendehus",
   "hero.headlineTail": "du trenger,",
   "hero.headlineEm": "og plattformen bak dem",
+  // The definition, before the pitch.
+  //
+  // The h1 rotates its first word and ends in a slogan, which reads well and
+  // defines nothing — so anything asking "what is Digilist" found no sentence
+  // on the homepage worth quoting, and the AI Overview for our OWN brand name
+  // cited four other companies and not us. This is the one sentence an answer
+  // engine can lift verbatim, and it is deliberately the same string as the
+  // JSON-LD `description` and the "Hva Digilist er" paragraph in llms.txt.
+  "hero.definition": ENTITY_DEFINITION.nb,
   // Two audiences, equal billing.
   //
   // The old lede gave renters a full sentence and pushed operators and
@@ -797,6 +812,7 @@ const en: Copy = {
     "Venues|Function rooms|Meeting rooms|Sports halls|Cultural centres|Wedding venues|Party venues|Community halls",
   "hero.headlineTail": "you need,",
   "hero.headlineEm": "and the platform behind them",
+  "hero.definition": ENTITY_DEFINITION.en,
   "hero.lede":
     "Looking to rent? Find venues with real prices and real availability, and pay securely. Renting one out? Calendar, payment, seasonal allocation and settlement in one platform — and we take no share of what you charge.",
   "hero.bullet1": "Real prices and live availability",

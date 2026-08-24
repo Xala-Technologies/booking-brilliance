@@ -8,6 +8,7 @@ import { promises as fs } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { POST_FAQ } from "../src/content/blogFaq.mjs";
+import { BRAND_KNOWS_ABOUT, entityLD } from "../src/content/entity.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DIST = join(__dirname, "..", "dist");
@@ -1922,6 +1923,38 @@ const ROUTES = [
     ogType: "website",
     lang: "en",
     breadcrumbs: [{ name: "Home", url: `${BASE_URL}/en` }],
+    // MIRROR of HOMEPAGE_FAQ_EN in src/content/faq.en.ts — the accordion the
+    // English homepage actually renders. /en is indexable and was shipping the
+    // visible Q&A with no FAQPage markup at all, while the Norwegian homepage
+    // has had it all along. Keep the two byte-for-byte identical; the visible
+    // text must match the markup. src/content/faq-homepage-mirror.test.ts pins
+    // it.
+    faq: [
+    {
+      q: "What is Digilist?",
+      a: "Digilist is a Norwegian platform serving both sides of venue rental. If you are looking to rent, you find venues with real prices and real availability and book directly. If you rent one out — privately or as a public body — you run the calendar, payment, seasonal allocation, invoicing and reporting in the same place. We provide the service and take no share of the rent.",
+    },
+    {
+      q: "Who is Digilist for?",
+      a: "Two groups with the same underlying problem. Private operators — function rooms, community halls, farms, marinas, clubs — who take bookings by email and spreadsheet today. And public bodies renting out sports halls, gyms and cultural venues to residents and local clubs, where the rules around allocation and invoicing are stricter.",
+    },
+    {
+      q: "What does Digilist cost?",
+      a: "Digilist has subscription tiers, and the price depends on how many venues you have, how many people use the system, and which integrations you need. We take no share of your booking revenue and there are no hidden charges — you pay to use Digilist and its administration panel. Smaller and private operators get their own tailored pricing. The first 100 customers get 6 months free.",
+    },
+    {
+      q: "Do you take a cut of booking revenue?",
+      a: "No. Digilist charges no transaction fee and takes no share of what you charge for rentals. We charge for use of the service and the administration panel, and there are no hidden fees.",
+    },
+    {
+      q: "Where is data stored?",
+      a: "All customer data is stored in Norway and the EU. Backups and redundancy follow the same rule. No data is stored outside the EEA without explicit safeguards.",
+    },
+    {
+      q: "Is Digilist available outside Norway?",
+      a: "The platform is built in Norway and its deepest integrations are Norwegian — national digital identity, the European e-invoicing standard, and the local payment providers. The booking, marketplace and payment flow itself is not country-specific. Talk to us about what your market needs; we would rather be honest about a gap than promise a fit that is not there.",
+    },
+    ],
   },
   {
     route: "/en/priser",
@@ -2578,24 +2611,6 @@ const ROUTES = [
   },
 ];
 
-const BRAND_KNOWS_ABOUT = [
-  "Bookingsystem",
-  "Kommunal utleie",
-  "Sesongleie",
-  "ID-porten",
-  "BankID",
-  "Vipps",
-  "EHF / Peppol-fakturering",
-  "ISO 27001",
-  "ISO 27701",
-  "GDPR",
-  "WCAG 2.1",
-  "SSA-L 2026",
-  "Digdir Designsystemet",
-  "Convex reaktiv runtime",
-  "PostgreSQL",
-];
-
 /**
  * Filled by main() from Convex content_state.snapshot. Merged into the
  * <meta name="keywords"> tag of every prerendered route. Empty by
@@ -2603,121 +2618,16 @@ const BRAND_KNOWS_ABOUT = [
  */
 let DISCOVERED_KEYWORDS = [];
 
-const BRAND_MENTIONS = [
-  { "@type": "Service", name: "Vipps", url: "https://vipps.no" },
-  { "@type": "Service", name: "BankID", url: "https://bankid.no" },
-  { "@type": "Service", name: "ID-porten", url: "https://www.idporten.no" },
-  // The apex peppol.eu has no DNS A record, so this URL resolved to nothing
-  // — a dead link in the JSON-LD of every page, homepage included. The live
-  // OpenPeppol site is peppol.org; only peppol.eu SUBdomains (docs.,
-  // directory.) still resolve, which is why the dead apex looked fine.
-  { "@type": "Service", name: "EHF / Peppol", url: "https://peppol.org" },
-  { "@type": "Organization", name: "Digdir", url: "https://www.digdir.no" },
-  {
-    "@type": "Organization",
-    name: "Brønnøysundregistrene",
-    url: "https://www.brreg.no",
-  },
-];
-
-const baseLD = (description) => [
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "@id": `${BASE_URL}/#organization`,
-    name: "Digilist",
-    alternateName: "Digilist · Enkel booking",
-    url: BASE_URL,
-    logo: `${BASE_URL}/logo.svg`,
-    image: `${BASE_URL}/og-image.png`,
-    sameAs: ["https://xala.no"],
-    foundingDate: "2024",
-    identifier: {
-      "@type": "PropertyValue",
-      propertyID: "Norwegian Organisasjonsnummer",
-      value: "920972454",
-    },
-    knowsAbout: BRAND_KNOWS_ABOUT,
-    mentions: BRAND_MENTIONS,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "Nesbruveien 75",
-      postalCode: "1394",
-      addressLocality: "Nesbru",
-      addressCountry: "NO",
-    },
-    contactPoint: {
-      "@type": "ContactPoint",
-      telephone: "+47-96-66-50-01",
-      contactType: "Customer Service",
-      email: "kontakt@digilist.no",
-      areaServed: "NO",
-      availableLanguage: ["Norwegian", "English"],
-    },
-    parentOrganization: {
-      "@type": "Organization",
-      name: "Xala Technologies AS",
-      url: "https://xala.no",
-    },
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "@id": `${BASE_URL}/#website`,
-    url: BASE_URL,
-    name: "Digilist",
-    description,
-    inLanguage: "nb-NO",
-    publisher: { "@id": `${BASE_URL}/#organization` },
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${BASE_URL}/faq?q={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    },
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "@id": `${BASE_URL}/#software`,
-    name: "Digilist",
-    applicationCategory: "BusinessApplication",
-    applicationSubCategory: "Booking & Reservation Platform",
-    operatingSystem: "Web, iOS, iPadOS, Android",
-    description,
-    url: "https://app.digilist.no",
-    softwareVersion: "2026.05",
-    featureList: [
-      "Sanntidskalender",
-      "Privatbookinger og sesongleie",
-      "Betaling med Vipps og kort",
-      "BankID og ID-porten autentisering",
-      "EHF / Peppol fakturering",
-      "Regnskapsintegrasjoner (Visma, Tripletex, Fiken, PowerOffice, DNB)",
-      "Driftsroller og varsler",
-      "Digital nøkkel (Salto KS)",
-      "Universell utforming (WCAG 2.1 AA)",
-      "ISO 27001 og 27701 sertifisert",
-      "RCO booking-migrasjon",
-      "Audit-spor og RBAC",
-    ],
-    offers: {
-      "@type": "Offer",
-      priceCurrency: "NOK",
-      price: "0",
-      availability: "https://schema.org/InStock",
-    },
-    provider: { "@id": `${BASE_URL}/#organization` },
-    areaServed: { "@type": "Country", name: "Norway" },
-    inLanguage: "nb-NO",
-  },
-];
+// Organization + WebSite + SoftwareApplication used to be a second copy of the
+// graph in src/components/SEO.tsx, and the two had drifted. Both now build
+// from src/content/entity.mjs, so the JSON-LD a crawler reads in the static
+// HTML and the JSON-LD the client swaps in after hydration describe the same
+// Digilist. BRAND_KNOWS_ABOUT is imported (not copied) because main() appends
+// the content agent's cluster centroids to it before any route is rendered.
 
 function patchHTML(template, meta) {
   const canonical = `${BASE_URL}${meta.route}`;
-  const ldBlocks = [...baseLD(meta.description)];
+  const ldBlocks = [...entityLD(meta.lang === "en" ? "en" : "nb")];
   if (meta.faq && meta.faq.length > 0) {
     ldBlocks.push({
       "@context": "https://schema.org",
@@ -3112,8 +3022,9 @@ async function main() {
   // Pull live-discovered keywords from Convex and merge into the
   // static SEO surface. Falls back to empty when env vars missing.
   const discovered = await fetchDiscoveredKeywords();
-  // Mutate the module-level lists so downstream baseLD()/patchHTML()
-  // see the enriched values without threading args through.
+  // Mutate the shared lists so downstream entityLD()/patchHTML() see the
+  // enriched values without threading args through. entity.mjs reads
+  // BRAND_KNOWS_ABOUT at call time for exactly this reason.
   for (const c of discovered.centroids) {
     if (!BRAND_KNOWS_ABOUT.includes(c)) BRAND_KNOWS_ABOUT.push(c);
   }
@@ -3427,16 +3338,42 @@ async function main() {
     { loc: `${BASE_URL}/billettsystem`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/teknologi`, priority: "0.7", changefreq: "monthly" },
     { loc: `${BASE_URL}/priser`, priority: "0.9", changefreq: "monthly" },
-    { loc: `${BASE_URL}/en`, priority: "1.0", changefreq: "weekly" },
-    { loc: `${BASE_URL}/en/priser`, priority: "0.9", changefreq: "monthly" },
-    { loc: `${BASE_URL}/en/faq`, priority: "0.7", changefreq: "monthly" },
-    { loc: `${BASE_URL}/en/blogg`, priority: "0.8", changefreq: "daily" },
     { loc: `${BASE_URL}/om-oss`, priority: "0.6", changefreq: "monthly" },
     { loc: `${BASE_URL}/ai-agenter`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/ai-agenter/sesongtildeling`, priority: "0.7", changefreq: "monthly" },
     { loc: `${BASE_URL}/ai-agenter/compliance-godkjenning`, priority: "0.7", changefreq: "monthly" },
     { loc: `${BASE_URL}/ai-agenter/importer-oppforing`, priority: "0.7", changefreq: "monthly" },
   ];
+
+  // ── The /en half of the sitemap, derived rather than hand-listed ──────────
+  //
+  // This used to be four literal entries — /en, /en/priser, /en/faq,
+  // /en/blogg — while twenty-two other pages with real English copy were
+  // prerendered `index, follow` and never told to Google at all. The two /en
+  // URLs that DID appear (the English blog posts, which the `posts` spread
+  // above adds) were the two robots.txt blocked, so the sitemap and robots.txt
+  // disagreed about every English URL on the site.
+  //
+  // Deriving from TRANSLATED_ROUTES kills the third hand-maintained copy of
+  // the same fact: robots.txt no longer lists /en pages, prerender decides
+  // index/noindex from this map, and now the sitemap reads from it too.
+  //
+  // An /en page is listed only when its Norwegian twin is listed. That keeps
+  // the two halves symmetric and stops the sitemap inventing entries for
+  // pages we deliberately keep out of it (e.g. /status).
+  const nbSitemapEntry = new Map(
+    sitemapEntries.map((u) => [u.loc.slice(BASE_URL.length) || "/", u]),
+  );
+  for (const [nbPath, enPath] of Object.entries(TRANSLATED_ROUTES)) {
+    const twin = nbSitemapEntry.get(nbPath);
+    if (!twin) continue;
+    sitemapEntries.push({
+      loc: `${BASE_URL}${enPath}`,
+      priority: twin.priority,
+      changefreq: twin.changefreq,
+    });
+  }
+
   const sitemapXML = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${sitemapEntries
@@ -3508,16 +3445,14 @@ ${sitemapEntries
       "/leie/hall", "/leie/padelbane", "/leie/svommehall", "/leie/hobbyklubb",
     ]); // Add routes that render but aren't in ROUTES array
 
-  const redirectsGenerated = [];
-  for (const nbPath of norwegianRoutes) {
-    if (Object.prototype.hasOwnProperty.call(TRANSLATED_ROUTES, nbPath)) {
-      continue; // This path has an English translation, skip redirect
-    }
-    const enPath = `/en${nbPath}`;
-    const targetUrl = `${BASE_URL}${nbPath}`;
-    
-    // Simple redirect HTML with meta refresh, canonical, and noindex
-    const redirectHTML = `<!doctype html>
+  // Simple redirect HTML with meta refresh, canonical, and noindex.
+  //
+  // `noindex` is the whole point of writing a file here at all: robots.txt no
+  // longer hides the untranslated mirror, so each of these URLs has to carry
+  // its own removal instruction and its own canonical. A URL that is merely
+  // Disallow'd stays in the index forever as a snippet-less listing, because
+  // Google is never permitted to fetch the page and read the noindex.
+  const redirectStub = (targetUrl) => `<!doctype html>
 <html lang="nb-NO">
 <head>
 <meta charset="utf-8">
@@ -3531,12 +3466,40 @@ ${sitemapEntries
 </body>
 </html>`;
 
+  const writeRedirect = async (enPath, targetUrl) => {
     const outDir = join(DIST, enPath.replace(/^\//, ""));
     await fs.mkdir(outDir, { recursive: true });
-    await fs.writeFile(join(outDir, "index.html"), redirectHTML, "utf-8");
+    await fs.writeFile(join(outDir, "index.html"), redirectStub(targetUrl), "utf-8");
+  };
+
+  const redirectsGenerated = [];
+  for (const nbPath of norwegianRoutes) {
+    if (Object.prototype.hasOwnProperty.call(TRANSLATED_ROUTES, nbPath)) {
+      continue; // This path has an English translation, skip redirect
+    }
+    const enPath = `/en${nbPath}`;
+    await writeRedirect(enPath, `${BASE_URL}${nbPath}`);
     redirectsGenerated.push(enPath);
   }
-  
+
+  // The same treatment for the blog, which is the long tail of this mirror:
+  // ~335 Norwegian posts against two English ones. With no file on disk,
+  // /en/blogg/<norwegian-slug> falls through to the SPA shell and answers 200
+  // with `index, follow` and a canonical pointing at the homepage — a soft 404
+  // Google is free to index, and the one thing `Disallow: /en/` was still
+  // genuinely protecting. Now that the blanket Disallow is gone, the tail has
+  // to answer for itself like every other /en URL.
+  const enPostSlugs = new Set(posts.filter((p) => p.lang === "en").map((p) => p.slug));
+  for (const post of posts) {
+    if (post.lang === "en") continue;
+    // A Norwegian post whose slug is already taken by an English post: that
+    // URL is a real English article, not a stub. Never overwrite it.
+    if (enPostSlugs.has(post.slug)) continue;
+    const enPath = `/en/blogg/${post.slug}`;
+    await writeRedirect(enPath, `${BASE_URL}/blogg/${post.slug}`);
+    redirectsGenerated.push(enPath);
+  }
+
   if (redirectsGenerated.length > 0) {
     console.log(`  ✓ Generated ${redirectsGenerated.length} redirect(s) for untranslated /en/* paths`);
   }
