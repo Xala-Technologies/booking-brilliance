@@ -37,9 +37,9 @@ export const POST_FAQ = {
   ],
   "ssa-l-2026-bookingsystem-kommune": [
     {
-      question: "Hva er SSA-L 2026?",
+      question: "Hva er SSA-L?",
       answer:
-        "SSA-L er Statens standardavtale for løpende tjenestekjøp av IT – malen de fleste norske kommuner bruker når de anskaffer et bookingsystem som SaaS. 2026-versjonen skjerper kravene til sanntidsdata, ID-porten-autentisering, EHF-fakturering, universell utforming og ISO 27001.",
+        "SSA-L er Avtale om løpende tjenestekjøp. DFØ oppdaterte malen i 2026. Den gjelder standardiserte tjenester levert over internett, typisk et SaaS-abonnement der leverandøren har driftsansvaret. Et kommunalt bookingsystem hører hjemme her.",
     },
     {
       question: "Er SSA-L pliktig ved anskaffelse av bookingsystem?",
@@ -54,7 +54,12 @@ export const POST_FAQ = {
     {
       question: "Hvordan verifiserer kommunen SSA-L-samsvar hos leverandøren?",
       answer:
-        "Be om et utfylt sikkerhetsbilag (ikke bare en generell henvisning), et gyldig ISO 27001-sertifikat, siste pen-test-rapport og en kort demo av kravene i praksis: sanntidsoppdatering, ID-porten-innlogging og EHF-faktura. Selvdeklarasjon alene er ikke nok – krev dokumentasjon du kan verifisere.",
+        "Be om et utfylt sikkerhetsbilag (ikke bare en generell henvisning), et gyldig ISO 27001-sertifikat, siste pen-test-rapport og en kort demo av kravene i praksis: sanntidsoppdatering, ID-porten-innlogging og EHF-faktura. Selvdeklarasjon alene er ikke nok. Krev dokumentasjon du kan verifisere.",
+    },
+    {
+      question: "Hva er nytt i SSA-L 2026?",
+      answer:
+        "Anskaffelser.no skriver at avtalen ble oppdatert i 2026 og er ment for standardiserte tjenester levert over internett, inkludert sky og ASP. Se SSA-L hos Anskaffelser.no (https://www.anskaffelser.no/verktoy/mal/ssa-l-avtale-om-lopende-tjenestekjop).",
     },
   ],
   "statistikk-rapportering-bruksdata-kommunale-lokaler": [
