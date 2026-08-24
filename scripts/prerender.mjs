@@ -222,6 +222,17 @@ async function loadBlogPosts() {
 /** @type {Array<{route: string, title: string, description: string, ogType?: string, faq?: Array<{q: string, a: string}>, breadcrumbs?: Array<{name: string, url: string}>}>} */
 const ROUTES = [
   {
+    // Prerendered so /sok is a real page rather than the nginx SPA fallback
+    // handing back the homepage's HTML under a different URL. Deliberately
+    // NOT in the sitemap below: the page itself is noindex (internal search
+    // results), and listing a noindex URL is the contradiction that had every
+    // English blog post crawled and then dropped.
+    route: "/sok",
+    title: "Søk – Digilist",
+    description:
+      "Søk i alt på Digilist: lokaler og løsninger, artikler fra bloggen og svar fra FAQ-en.",
+  },
+  {
     route: "/rapport/utleiemarkedet-norge-2026",
     title: "Utleiemarkedet i Norge 2026 – data og priser | Digilist",
     description:
@@ -2927,7 +2938,7 @@ function patchHTML(template, meta) {
     // "index, follow" until this line.
     .replace(
       /<meta\s+name="robots"\s+content="[^"]*"\s*\/?>/,
-      isStagedEnglish(meta.route)
+      isStagedEnglish(meta.route) || isInternalSearch(meta.route)
         ? '<meta name="robots" content="noindex, follow" />'
         : '<meta name="robots" content="index, follow" />',
     )
@@ -2984,6 +2995,20 @@ const TRANSLATED_ROUTES = {
  * difference between a staged translation and a site claiming ninety English
  * pages when it has four.
  */
+/**
+ * Internal search results — /sok and /en/sok. Prerendered so the URL is a real
+ * page, but never indexed: search result pages are thin and infinitely
+ * variable, and Google asks specifically for them to be kept out. `follow`
+ * because the hits themselves are real pages.
+ *
+ * Set here rather than only in the SEO component, because that runs after
+ * hydration and the static HTML is what a crawler reads first — the same
+ * blind spot that let the staged /en pages ship "index, follow".
+ */
+function isInternalSearch(route) {
+  return route === "/sok" || route === "/en/sok";
+}
+
 function isStagedEnglish(route) {
   if (!route.startsWith("/en")) return false;
   // An English blog POST is real English prose, not a staged mirror. Its nb

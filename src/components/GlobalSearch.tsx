@@ -113,6 +113,8 @@ export function GlobalSearch() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [selectedIdx, setSelectedIdx] = useState(0);
+  /** Has the visitor arrowed to a specific hit? Decides what ↵ does. */
+  const [arrowed, setArrowed] = useState(false);
 
   // Deferred until the user actually opens search — every page mounts this
   // component (it's in the Navbar), so building the ~150-item corpus (blog
@@ -154,9 +156,12 @@ export function GlobalSearch() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  // Reset selected index when results change
+  // Reset selection when the query changes. `arrowed` resets with it: a new
+  // query means the visitor has not chosen a hit for THIS query yet, so ↵
+  // goes to the results page again.
   useEffect(() => {
     setSelectedIdx(0);
+    setArrowed(false);
   }, [query]);
 
   const selectItem = (item: SearchItem) => {
@@ -201,23 +206,45 @@ export function GlobalSearch() {
     inputRef.current?.focus();
   };
 
+  /** Send ↵ to the full results page, carrying the query. */
+  const submitToResultsPage = () => {
+    setOpen(false);
+    navigate(
+      `${locale === "en" ? "/en" : ""}/sok?q=${encodeURIComponent(query.trim())}`,
+    );
+  };
+
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Escape") {
       setOpen(false);
       inputRef.current?.blur();
       return;
     }
+    // ↵ has to work even with nothing matched. The early return used to sit
+    // above this, so a query the corpus did not match made Enter a no-op: the
+    // panel stayed open, the visitor stayed on the page, and search had no
+    // destination at all (geoqa #324).
+    if (e.key === "Enter") {
+      e.preventDefault();
+      if (!query.trim()) return;
+      // Arrowing to a hit means "open THAT one"; typing and hitting ↵ without
+      // arrowing means "show me everything for this", the way a search box has
+      // behaved everywhere since Google. selectedIdx alone cannot tell those
+      // apart — it starts at 0, so the first row is always highlighted.
+      const item = arrowed ? results[selectedIdx] : undefined;
+      if (item) selectItem(item);
+      else submitToResultsPage();
+      return;
+    }
     if (results.length === 0) return;
     if (e.key === "ArrowDown") {
       e.preventDefault();
+      setArrowed(true);
       setSelectedIdx((i) => (i + 1) % results.length);
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
+      setArrowed(true);
       setSelectedIdx((i) => (i - 1 + results.length) % results.length);
-    } else if (e.key === "Enter") {
-      e.preventDefault();
-      const item = results[selectedIdx];
-      if (item) selectItem(item);
     }
   };
 
