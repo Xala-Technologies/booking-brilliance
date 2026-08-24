@@ -99,7 +99,7 @@ describe("LanguageSwitcher behaviour", () => {
 describe("the English nav does not drop the visitor back into Norwegian", () => {
   it("links only to pages that exist in English", () => {
     // The dead end this fixes: on /en the shared navbar rendered the Norwegian
-    // one — Finn, Løsninger, Blogg, FAQ, Transparens — all pointing at
+    // one — Finn, Løsninger, Blogg, FAQ — all pointing at
     // Norwegian pages, so clicking anything left English immediately.
     render(<Navbar />, "/en");
     const hrefs = [...container.querySelectorAll("a")]
