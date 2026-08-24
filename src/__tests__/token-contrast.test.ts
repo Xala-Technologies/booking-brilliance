@@ -39,6 +39,47 @@ function token(name: string): string {
   return match[1].trim();
 }
 
+/**
+ * The same, for the `.dark` block — which nothing checked until a dark-mode
+ * sweep found the cookie banner's "Godta alle" CTA at 1.77:1. `.dark` inherited
+ * `--primary-foreground: var(--paper)` from the light mapping, and in dark
+ * `--paper` is #020817, so the primary button rendered near-black on navy.
+ * Reading only `:root` is what made that invisible here.
+ *
+ * Comments are stripped first: the light `:root` block documents ratios in
+ * prose that contains `--token:`-shaped text, which a naive regex reads as a
+ * declaration and the LAST match wins.
+ */
+const CSS_NO_COMMENTS = CSS.replace(/\/\*[\s\S]*?\*\//g, "");
+
+function darkBlock(): string {
+  const start = CSS_NO_COMMENTS.indexOf(".dark {");
+  if (start < 0) throw new Error(".dark block not found in index.css");
+  const open = CSS_NO_COMMENTS.indexOf("{", start);
+  let depth = 0;
+  for (let i = open; i < CSS_NO_COMMENTS.length; i++) {
+    if (CSS_NO_COMMENTS[i] === "{") depth++;
+    else if (CSS_NO_COMMENTS[i] === "}" && --depth === 0) return CSS_NO_COMMENTS.slice(open, i);
+  }
+  throw new Error(".dark block is unterminated");
+}
+
+const DARK = darkBlock();
+
+/**
+ * A token as it resolves inside `.dark`. Falls back to the light value when
+ * `.dark` does not redefine it — which is exactly how the browser resolves it,
+ * since `:root` and `.dark` are the same <html> element. `var(--x)` chains are
+ * followed for the same reason.
+ */
+export function darkToken(name: string, depth = 0): string {
+  if (depth > 5) throw new Error(`--${name} has a circular var() chain`);
+  const match = new RegExp(`--${name}:\\s*([^;]+);`).exec(DARK);
+  const raw = match?.[1]?.trim() ?? token(name);
+  const ref = /^var\(--([a-z0-9-]+)\)$/i.exec(raw);
+  return ref?.[1] ? darkToken(ref[1], depth + 1) : raw;
+}
+
 type RGB = [number, number, number];
 
 export function hslToRgb(hsl: string): RGB {
@@ -142,6 +183,68 @@ describe("every text token clears WCAG AA on every surface it actually lands on"
       });
     }
   }
+});
+
+/**
+ * Dark mode, the half this file used to skip entirely.
+ *
+ * These are the shadcn semantic pairs, which are structural: the class strings
+ * live in components/ui/button.tsx and friends, so wherever the component is
+ * used the pair renders. That is why they are asserted as pairs rather than as
+ * text-on-surface — the surface IS the other half of the token pair.
+ */
+const DARK_PAIRINGS: { fg: string; bg: string; where: string }[] = [
+  // button.tsx: variant `default` and `hero` = "bg-primary text-primary-foreground".
+  // CookieConsent.tsx renders `hero` as "Godta alle" — the first thing a new
+  // visitor in dark mode sees, and it measured 1.77:1 before --on-navy.
+  { fg: "primary-foreground", bg: "primary", where: "Button default + hero (CookieConsent CTA)" },
+  // button.tsx: `ghost` and `outline` carry "hover:bg-accent hover:text-accent-foreground"
+  // (37 call sites), and dropdown-menu/select/command highlight rows the same way.
+  { fg: "accent-foreground", bg: "accent", where: "ghost/outline hover, menu + select highlight" },
+  { fg: "secondary-foreground", bg: "secondary", where: "Button secondary" },
+  { fg: "muted-foreground", bg: "muted", where: "muted copy on muted fills" },
+  { fg: "card-foreground", bg: "card", where: "Card body copy" },
+  { fg: "on-navy", bg: "navy", where: "editorial navy buttons across the marketing pages" },
+];
+
+/** Editorial text tokens, on the surfaces they land on in dark mode. */
+const DARK_SURFACES = ["paper", "paper-deep", "paper-tinted", "accent-tinted", "footer"] as const;
+
+describe("dark mode clears WCAG AA too", () => {
+  for (const { text, surfaces, where } of PAIRINGS) {
+    // The warm rotating-word family is light-mode-only prose; in dark it is
+    // lifted separately and lands on --paper alone, same as light.
+    const dark = surfaces === ALL_SURFACES ? DARK_SURFACES : surfaces;
+    for (const surface of dark) {
+      it(`--${text} on --${surface} in dark (${where})`, () => {
+        const ratio = contrastRatio(hslToRgb(darkToken(text)), hslToRgb(darkToken(surface)));
+        expect(
+          ratio,
+          `--${text} on --${surface} is ${ratio.toFixed(2)}:1 in dark mode, below AA ${AA_BODY}:1.`,
+        ).toBeGreaterThanOrEqual(AA_BODY);
+      });
+    }
+  }
+
+  for (const { fg, bg, where } of DARK_PAIRINGS) {
+    it(`--${fg} on --${bg} in dark (${where})`, () => {
+      const ratio = contrastRatio(hslToRgb(darkToken(fg)), hslToRgb(darkToken(bg)));
+      expect(
+        ratio,
+        `--${fg} on --${bg} is ${ratio.toFixed(2)}:1 in dark mode, below AA ${AA_BODY}:1. ` +
+          `Check what the token resolves to in .dark — inheriting the light mapping is how ` +
+          `--primary-foreground became near-black text on navy.`,
+      ).toBeGreaterThanOrEqual(AA_BODY);
+    });
+  }
+
+  it("keeps the regression that prompted this suite pinned", () => {
+    // .dark once inherited --primary-foreground: var(--paper) from the light
+    // mapping. If someone re-points it at a surface token, this fails.
+    const before = contrastRatio(hslToRgb(darkToken("paper")), hslToRgb(darkToken("primary")));
+    expect(before).toBeLessThan(2); // near-black on navy, the shipped defect
+    expect(darkToken("primary-foreground")).toBe(darkToken("on-navy"));
+  });
 });
 
 describe("hard-coded surfaces this test cannot discover on its own", () => {

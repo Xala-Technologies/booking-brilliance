@@ -9,6 +9,7 @@ import {
   blogHreflang,
   blogPath,
   hreflangFor,
+  isIndexableEnglish,
   localeFromPath,
   browserLanguages,
   preferredLocale,
@@ -254,5 +255,28 @@ describe("English navigation links to routes that exist", () => {
       for (const re of DEAD) if (re.test(src)) offenders.push(`${file} → ${re}`);
     }
     expect(offenders, "components linking to a renamed English route").toEqual([]);
+  });
+});
+
+/**
+ * English blog posts were `noindex` while robots.txt allowed /en/blogg and the
+ * sitemap listed them — three signals, two of them saying "index me". The cause
+ * was that TRANSLATED_PATHS holds routes, never per-post slugs, so a post's nb
+ * twin could not be in it. Mirrored in scripts/prerender.mjs isStagedEnglish().
+ */
+describe("English blog posts are indexable", () => {
+  it("indexes an English post, whose slug can never be in TRANSLATED_PATHS", () => {
+    expect(isIndexableEnglish("/en/blogg/what-digilist-costs-no-transaction-fee")).toBe(true);
+    expect(isIndexableEnglish("/en/blogg/wedding-venue-cost-norway-2026-season-weekday-guests")).toBe(true);
+  });
+
+  it("still noindexes a mirrored route whose copy is Norwegian", () => {
+    expect(isIndexableEnglish("/en/lokaler-til-leie/oslo")).toBe(false);
+    expect(isIndexableEnglish("/en/arrangementer/teater-og-scene")).toBe(false);
+  });
+
+  it("leaves the blog index itself to the TRANSLATED_PATHS whitelist", () => {
+    // /en/blogg is a route, not a post — it belongs in the whitelist and is.
+    expect(isIndexableEnglish("/en/blogg")).toBe(true);
   });
 });

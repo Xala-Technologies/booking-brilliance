@@ -2986,6 +2986,14 @@ const TRANSLATED_ROUTES = {
  */
 function isStagedEnglish(route) {
   if (!route.startsWith("/en")) return false;
+  // An English blog POST is real English prose, not a staged mirror. Its nb
+  // twin (/blogg/<slug>) can never be in TRANSLATED_ROUTES, which lists routes
+  // and not per-post slugs, so this returned true and every English article
+  // shipped `noindex` — while robots.txt allowed /en/blogg and the sitemap
+  // listed it. Three signals, two of them saying "index me", one saying no.
+  // The loop below only ever renders /en/blogg/<slug> for posts whose own
+  // lang is "en", so reaching here means the copy really is English.
+  if (/^\/en\/blogg\/.+/.test(route)) return false;
   const nb = route === "/en" ? "/" : route.slice(3);
   return !Object.prototype.hasOwnProperty.call(TRANSLATED_ROUTES, nb);
 }
@@ -3156,17 +3164,17 @@ async function main() {
     lang: "en",
     breadcrumbs: [
       { name: "Home", url: `${BASE_URL}/en` },
-      { name: "Blog", url: `${BASE_URL}/en/blog` },
+      { name: "Blog", url: `${BASE_URL}/en/blogg` },
     ],
   });
   enBlogHTML = injectBody(enBlogHTML, await renderBody("/en/blogg"));
   const enBlogDir = join(DIST, "en", "blogg");
   await fs.mkdir(enBlogDir, { recursive: true });
   await fs.writeFile(join(enBlogDir, "index.html"), enBlogHTML, "utf-8");
-  console.log(`  ✓ /en/blog/index.html (${enBlogHTML.length} bytes)`);
+  console.log(`  ✓ /en/blogg/index.html (${enBlogHTML.length} bytes)`);
 
   for (const post of posts) {
-    // English posts live at /en/blog/<slug>, and their static HTML must say
+    // English posts live at /en/blogg/<slug>, and their static HTML must say
     // lang="en" — a prerendered English article filed as Norwegian is exactly
     // the confusion hreflang exists to prevent, and static HTML is what a
     // crawler reads first.
@@ -3193,7 +3201,10 @@ async function main() {
       },
       image: coverUrl,
       articleSection: post.tag || "Blogg",
-      inLanguage: "nb-NO",
+      // Follows the post, not the site: an English article declared nb-NO is
+      // the same "filed as Norwegian" confusion the postLang block above exists
+      // to prevent, three lines further down the same object.
+      inLanguage: postLang === "en" ? "en" : "nb-NO",
     };
     const postFaq = POST_FAQ[post.slug];
     const faqLD = postFaq
@@ -3394,7 +3405,7 @@ async function main() {
     { loc: `${BASE_URL}/en`, priority: "1.0", changefreq: "weekly" },
     { loc: `${BASE_URL}/en/priser`, priority: "0.9", changefreq: "monthly" },
     { loc: `${BASE_URL}/en/faq`, priority: "0.7", changefreq: "monthly" },
-    { loc: `${BASE_URL}/en/blog`, priority: "0.8", changefreq: "daily" },
+    { loc: `${BASE_URL}/en/blogg`, priority: "0.8", changefreq: "daily" },
     { loc: `${BASE_URL}/om-oss`, priority: "0.6", changefreq: "monthly" },
     { loc: `${BASE_URL}/ai-agenter`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/ai-agenter/sesongtildeling`, priority: "0.7", changefreq: "monthly" },

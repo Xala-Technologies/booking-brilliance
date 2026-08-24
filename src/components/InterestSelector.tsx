@@ -18,7 +18,10 @@ import { t } from "@/lib/copy";
 
 type Interest = {
   id: string;
-  label: string;
+  /** Copy key, not literal text — these buttons are rendered on /en too.
+      Was `label`, which no entry ever set: every button rendered an empty
+      <span> and shipped with no accessible name (a11y.button.name, #281). */
+  labelKey: string;
   icon: typeof Search;
   to: string;
 };
@@ -95,7 +98,7 @@ export function InterestSelector() {
                 <Icon className="h-5 w-5" strokeWidth={1.5} aria-hidden="true" />
               </span>
               <span className="text-sm lg:text-base font-medium text-ink">
-                {it.label}
+                {t(locale, it.labelKey)}
               </span>
               {on && (
                 <Check
