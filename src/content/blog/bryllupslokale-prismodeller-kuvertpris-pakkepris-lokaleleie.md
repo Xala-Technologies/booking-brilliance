@@ -1,7 +1,7 @@
 ---
 slug: bryllupslokale-prismodeller-kuvertpris-pakkepris-lokaleleie
-title: "Bryllupslokale pris 2026: kuvertpris, pakkepris eller lokaleleie"
-description: "De tre prismodellene for bryllupslokale er kuvertpris, pakkepris og ren lokaleleie. Se hvordan du regner om og sammenligner tilbud som ellers ikke er direkte sammenlignbare."
+title: "Bryllupslokale: kuvertpris, pakkepris eller lokaleleie"
+description: "De tre prismodellene for bryllupslokale er kuvertpris, pakkepris og ren lokaleleie. Se hvordan du regner om og sammenligner tilbud som ellers ikke er like."
 date: 2026-08-10
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

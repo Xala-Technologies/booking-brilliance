@@ -1,6 +1,6 @@
 ---
 slug: sal-kommune-sesongpris-tidspunkt-privatperson
-title: "Leie sal i kommunen: sesong og tidspunkt avgjør om du betaler billigst eller dyrest"
+title: "Leie sal: sesong og tidspunkt avgjør om du betaler mest"
 description: "Samme sal i kommunen kan koste flere tusen kroner mer på en lørdag i juni enn en tirsdag i februar. Se hva som styrer prisen, og hvordan du booker billigst."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

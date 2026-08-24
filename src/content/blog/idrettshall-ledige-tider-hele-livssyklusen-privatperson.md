@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-ledige-tider-hele-livssyklusen-privatperson
-title: "Idrettshall ledige tider: fra booking til avbestilling i sanntid"
+title: "Idrettshall: fra booking til avbestilling i sanntid"
 description: "Se hvordan booking av ledig tid i idrettshallen fungerer i praksis: bekreftelse, varsling, avbestilling, no-show og betaling samlet i én sanntidsflate."
 date: 2026-08-08
 author: "Ibrahim Rahmani"

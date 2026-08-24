@@ -1,7 +1,7 @@
 ---
 slug: idrettshall-bookingansvarlig-sanntidskalender-prisregler-godkjenning
-title: "Idrettshallens bookingansvarlig: én sanntidskalender for alle ledige tider"
-description: "Se hvordan bookingansvarlig samler sesongtildeling, faste avtaler og restplasser i én sanntidskalender, med prisregler, godkjenning, avbudsrutiner og fakturering i praksis."
+title: "Bookingansvarlig: én sanntidskalender for hele hallen"
+description: "Se hvordan bookingansvarlig samler sesongtildeling, faste avtaler og restplasser i én sanntidskalender, med prisregler, godkjenning og fakturering."
 date: 2026-08-10
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

@@ -1,7 +1,7 @@
 ---
 slug: differensiert-pris-bookingsystem-kommune-it-leder-kravspesifikasjon
-title: "Differensiert pris i bookingsystemet: kravene IT-leder må stille"
-description: "Guide for IT-leder: slik sikrer bookingsystemet at prisregulativ, rabattregler og fakturering for sal og lokale følges korrekt, uten manuell overstyring eller klager."
+title: "Differensiert pris i bookingsystemet: krav fra IT-leder"
+description: "Guide for IT-leder: slik sikrer bookingsystemet at prisregulativ, rabattregler og fakturering for sal og lokale følges uten manuell overstyring."
 date: 2026-07-31
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

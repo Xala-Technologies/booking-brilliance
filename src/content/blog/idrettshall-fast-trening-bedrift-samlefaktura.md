@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-fast-trening-bedrift-samlefaktura
-title: "Fast trening i idrettshallen: slik bestiller bedriften avtalen"
+title: "Fast trening i idrettshallen: slik bestiller bedriften"
 description: "Slik booker bedriften fast ukentlig trening i idrettshallen for ansatte, med samlefaktura, delt administrasjon og fleksibel avbestilling av enkeltøkter."
 date: 2026-08-08
 author: "Ibrahim Rahmani"

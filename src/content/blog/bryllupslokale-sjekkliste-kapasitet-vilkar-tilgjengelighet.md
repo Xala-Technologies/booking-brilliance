@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-sjekkliste-kapasitet-vilkar-tilgjengelighet
-title: "Bryllupslokale: dette avgjør om lokalet passer, ikke bare prisen"
+title: "Bryllupslokale: dette avgjør om lokalet passer dere"
 description: "Bryllupslokale handler om mer enn pris: kapasitet, vilkår, tilgjengelighet og hva som er inkludert. Se hvordan du sammenligner flere lokaler på ett sted."
 date: 2026-08-07
 author: "Ibrahim Rahmani"

@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-ledige-tider-ekstra-treningstid-venteliste-lag-foreninger
-title: "Idrettshall ledige tider: slik booker laget ekstra treningstid"
+title: "Idrettshall: slik får laget ekstra treningstid i uka"
 description: "Sesongen er fordelt, men hallen har ofte ledig kapasitet utover tildelingen. Se hvordan trenere finner, booker og får varsel om ekstra treningstid i sanntid."
 date: 2026-08-20
 author: "Ibrahim Rahmani"

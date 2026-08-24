@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-ledige-tider-sanntid-utnyttelsesgrad-driftsleder
-title: "Idrettshall ledige tider i sanntid: slik fyller driftsleder dødtiden"
+title: "Idrettshall i sanntid: slik fyller driftsleder dødtiden"
 description: "Digilist viser ledige tider i idrettshallen i sanntid, med lastetid under 2,5 sekunder, slik at driftsleder kan fylle dødtiden og løfte utnyttelsesgraden."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

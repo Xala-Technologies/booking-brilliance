@@ -11,7 +11,7 @@ export default function TjenesteCatering() {
       title="Bestille catering"
       dek="Koldtbord, tapas eller middag til arrangementet. Finn ledig cateringleverandør nær deg, og book trygt med Vipps."
       lead="Skal du servere gjestene noe godt, går tiden fort med å lete etter cateringleverandører på nettsider, i Facebook-grupper og via anbefalinger, sende forespørsler og vente dagevis på tilbud. Prisen per kuvert er uklar til noen svarer, og du vet ikke om leverandøren i det hele tatt er ledig på datoen din. På Digilist finner du cateringleverandører i nærområdet samlet ett sted, med meny, pris per kuvert og ledige datoer synlig før du bestiller. Du booker leverandøren direkte og betaler trygt med Vipps, uten venting og uten gjetting."
-      seoTitle="Bestille catering: meny, pris per kuvert og booking | Digilist"
+      seoTitle="Bestille catering: meny og pris per kuvert | Digilist"
       seoDescription="Bestille catering til bryllup, konfirmasjon eller firmafest: se meny og pris per kuvert, sjekk ledige datoer, og book cateringleverandør nær deg med Vipps."
       keywords="bestille catering, catering til bryllup, catering til selskap, catering pris, koldtbord catering, catering nær meg, leie catering, catering firmaarrangement, tapas catering"
       audience={[

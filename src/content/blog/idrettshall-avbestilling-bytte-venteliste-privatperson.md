@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-avbestilling-bytte-venteliste-privatperson
-title: "Idrettshall ledige tider 2026: booking, bytte og avbestilling samlet"
+title: "Idrettshall: ledige tider, bytte og avbestilling"
 description: "Se ledige tider i flere idrettshaller i sanntid, book, bytt eller avbestill en booket time, og få varsel når en ventelisteplass frigjøres på tvers av kommuner."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

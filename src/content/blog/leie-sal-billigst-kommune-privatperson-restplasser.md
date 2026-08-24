@@ -1,7 +1,7 @@
 ---
 slug: leie-sal-billigst-kommune-privatperson-restplasser
-title: "Billigst sal i kommunen 2026: guiden for deg som betaler full pris"
-description: "Prisregulativ, restplasser, lokaltyper og skjulte tillegg samlet i én sjekkliste: slik finner du som privatperson den reelt billigste salen til bursdag, dåp eller minnestund i 2026."
+title: "Billigst sal i kommunen: guiden for deg som betaler selv"
+description: "Prisregulativ, restplasser, lokaltyper og skjulte tillegg i én sjekkliste: slik finner du den reelt billigste salen til bursdag, dåp eller minnestund."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

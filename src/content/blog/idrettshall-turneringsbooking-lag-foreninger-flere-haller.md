@@ -1,7 +1,7 @@
 ---
 slug: idrettshall-turneringsbooking-lag-foreninger-flere-haller
-title: "Turneringsbooking i idrettshall: slik unngår foreningen kollisjon i flere haller"
-description: "Slik booker idrettslaget flere idrettshaller til cup og turnering samtidig, uten å kollidere med sesongtildeling, enkelttimer eller fast trening. Guide med steg for steg og sjekkliste for lag og foreninger."
+title: "Turneringsbooking: slik unngår foreningen kollisjoner"
+description: "Slik booker idrettslaget flere idrettshaller til cup og turnering samtidig, uten å kollidere med sesongtildeling, enkelttimer eller fast trening."
 date: 2026-08-07
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

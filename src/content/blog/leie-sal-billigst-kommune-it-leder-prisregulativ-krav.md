@@ -1,7 +1,7 @@
 ---
 slug: leie-sal-billigst-kommune-it-leder-prisregulativ-krav
-title: "Sal i kommunen: prisregulativet IT-leder må kreve av bookingsystemet"
-description: "Skal bookingsystemet beregne riktig pris automatisk og tåle revisjon? Kravene til differensiert pris, rabattkoder og fakturaintegrasjon IT-leder må stille i anskaffelsen."
+title: "Prisregulativ i bookingsystemet: kravene fra IT-leder"
+description: "Skal bookingsystemet beregne riktig pris automatisk og tåle revisjon? Se kravene til differensiert pris, rabattkoder og fakturaintegrasjon i anskaffelsen."
 date: 2026-08-07
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

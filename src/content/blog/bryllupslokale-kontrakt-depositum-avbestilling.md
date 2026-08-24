@@ -1,7 +1,7 @@
 ---
 slug: bryllupslokale-kontrakt-depositum-avbestilling
-title: "Bryllupslokale 2026: depositum, avbestilling, ansvar og forsikring i kontrakten"
-description: "Se hva bryllupslokale koster i depositum, avbestillingsgebyr, forsikring og ansvar for skader, og hvilke vilkår dere bør sjekke i kontrakten før dere signerer leieavtalen."
+title: "Bryllupslokale: depositum, avbestilling og forsikring"
+description: "Se hva bryllupslokale koster i depositum, avbestillingsgebyr, forsikring og ansvar for skader, og hvilke vilkår dere bør sjekke før dere signerer."
 date: 2026-08-08
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

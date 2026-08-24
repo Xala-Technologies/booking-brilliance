@@ -1,7 +1,7 @@
 ---
 slug: bryllupslokale-pris-antall-gjester-totalbudsjett
-title: "Bryllupslokale 2026: prisen følger gjestetallet, ikke lokalet"
-description: "Se hvordan kuvertpris og lokalleie faktisk henger sammen, hvordan totalprisen endrer seg fra 50 til 150 gjester, og bruk kostnadsoppstillingen til å sette et realistisk totalbudsjett for bryllupet."
+title: "Bryllupslokale: prisen følger gjestetallet, ikke lokalet"
+description: "Se hvordan kuvertpris og lokalleie henger sammen, hvordan totalprisen endrer seg fra 50 til 150 gjester, og sett et realistisk budsjett for bryllupet."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

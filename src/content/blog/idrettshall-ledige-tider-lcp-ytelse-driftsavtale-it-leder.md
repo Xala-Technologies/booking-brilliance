@@ -1,7 +1,7 @@
 ---
 slug: idrettshall-ledige-tider-lcp-ytelse-driftsavtale-it-leder
-title: "Idrettshall ledige tider: LCP-hendelsen IT-leder må kunne dokumentere"
-description: "Digilist dokumenterte en reell LCP-hendelse på 20,53 sekunder i idrettshallens ledige tider-visning, med root cause og retting. Se hva IT-leder bør kreve i driftsavtalen etterpå."
+title: "Idrettshall: LCP-hendelsen IT-leder bør dokumentere"
+description: "Digilist dokumenterte en reell LCP-hendelse på 20,53 sekunder i idrettshallens ledige tider. Se hva IT-leder bør kreve i driftsavtalen etterpå."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

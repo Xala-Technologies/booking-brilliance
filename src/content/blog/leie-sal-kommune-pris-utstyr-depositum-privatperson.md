@@ -1,6 +1,6 @@
 ---
 slug: leie-sal-kommune-pris-utstyr-depositum-privatperson
-title: "Leie sal i kommunen 2026: pris, utstyr og depositum i én bestilling"
+title: "Leie sal i kommunen: pris, utstyr og depositum samlet"
 description: "Guide til å leie sal i kommunen i 2026: finn billigst pris, bestill utstyr og catering samtidig, sjekk depositum og book uten dobbeltbooking på minutter."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

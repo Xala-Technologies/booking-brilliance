@@ -1,6 +1,6 @@
 ---
 slug: min-side-alle-bookinger-paa-ett-sted
-title: "Min side: alle bookinger, samtaler og kvitteringer på ett sted"
+title: "Min side: alle bookinger og kvitteringer på ett sted"
 description: "Kommende bookinger, fullførte, samtaletråder med utleier, kvitteringer og kalenderintegrasjon. Alt samlet et sted innbyggeren faktisk kan finne tilbake til."
 date: 2026-06-02
 author: "Ibrahim Rahmani"

@@ -1,7 +1,7 @@
 ---
 slug: hva-koster-det-a-leie-selskapslokale-eller-moterom
 title: "Hva koster det å leie et selskapslokale eller møterom?"
-description: "Kort svar: et selskapslokale koster typisk 1 500–40 000 kroner per dag, mens et møterom ligger fra 100 kroner timen kommunalt til 1 500 kroner timen privat. Se prisintervaller og hva som avgjør prisen."
+description: "Et selskapslokale koster typisk 1 500 til 40 000 kroner dagen, et møterom fra 100 kroner timen kommunalt til 1 500 privat. Se hva som avgjør prisen."
 date: 2026-07-27
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

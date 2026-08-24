@@ -12,7 +12,7 @@ export default function OvernattingRom() {
       dek="Rimelig overnatting i gjesterom eller privat rom. Finn ledig rom nær deg, se pris per natt, og book med Vipps."
       lead="Skal du bare ha en seng for natta, er det rart hvor vanskelig det kan være. Gjesterom og private rom ligger spredt på Finn, Facebook og lapper på butikken, prisen er uklar, og du vet ikke om badet er delt eller om frokost er inkludert, før du har sendt melding og ventet. Ofte ender det med bankoverføring til en fremmed. På Digilist er rom i nærheten samlet ett sted, med pris per natt, ledige netter i sanntid og hva som er inkludert synlig, og du booker trygt med Vipps."
       seoTitle="Leie rom og gjesterom: rimelig overnatting | Digilist"
-      seoDescription="Leie rom eller gjesterom for en natt eller flere: finn ledige rom nær deg, se pris per natt og hva som er inkludert, og book med Vipps. Rimelig alternativ til hotell."
+      seoDescription="Leie rom eller gjesterom: finn ledige rom nær deg, se pris per natt og hva som er inkludert, og book med Vipps. Rimelig alternativ til hotell."
       keywords="leie rom, leie gjesterom, privat rom til leie, rom til leie, rimelig overnatting, leie rom natt, bed and breakfast norge, leie enkeltrom, overnatting privat"
       audience={[
         {

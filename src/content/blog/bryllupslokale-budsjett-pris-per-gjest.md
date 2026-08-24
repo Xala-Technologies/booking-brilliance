@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-budsjett-pris-per-gjest
-title: "Bryllupslokale 2026: budsjettguide med pris per gjest og totalkostnad"
+title: "Bryllupslokale 2026: pris per gjest og totalkostnad"
 description: "Regn ut reell pris per gjest for bryllupslokale i 2026, sett et realistisk budsjett, og unngå skjulte kostnader og depositumfeller før dere signerer avtalen."
 date: 2026-08-07
 author: "Ibrahim Rahmani"

@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-romegenskaper-catering-lydanlegg-tilgjengelighet
-title: "Bryllupslokale 2026: romegenskapene som avgjør om dagen fungerer"
+title: "Bryllupslokale: romegenskapene som avgjør festen"
 description: "Kapasitet og kvadratmeter sier lite om et bryllupslokale faktisk fungerer til bryllupet. Se hvilke romegenskaper som avgjør, og sammenlign flere lokaler i ett søk."
 date: 2026-08-10
 author: "Ibrahim Rahmani"

@@ -1,7 +1,7 @@
 ---
 slug: catering-servering-lokale-med-kjokken-bursdag-bedriftsfest
 title: "Catering og servering: finn lokale med kjøkken"
-description: "Skal du bestille catering til bursdag, bedriftsfest eller høytid? Se hva som skiller et lokale med ekte kjøkkenfasiliteter fra ett med bare oppvarming, og hvordan cateringleverandører og lokaler bookes samlet."
+description: "Skal du bestille catering til bursdag eller bedriftsfest? Se hva som skiller et lokale med ekte kjøkken fra ett med bare oppvarming, og book begge deler samlet."
 date: 2026-08-10
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

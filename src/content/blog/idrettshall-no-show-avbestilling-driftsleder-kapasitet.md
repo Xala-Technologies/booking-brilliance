@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-no-show-avbestilling-driftsleder-kapasitet
-title: "Slik stopper driftslederen no-show og avbestilling i idrettshallen"
+title: "Slik stopper driftsleder no-show og avbestilling"
 description: "Se hvordan driftsledere bruker avbestillingsfrist, no-show-gebyr og automatisk venteliste for å frigjøre tapt kapasitet i idrettshallen."
 date: 2026-08-04
 author: "Ibrahim Rahmani"

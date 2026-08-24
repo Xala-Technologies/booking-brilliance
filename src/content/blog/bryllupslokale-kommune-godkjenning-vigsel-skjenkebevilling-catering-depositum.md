@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-kommune-godkjenning-vigsel-skjenkebevilling-catering-depositum
-title: "Bryllupslokale i kommunen: alt du må godkjenne, ikke bare booke"
+title: "Bryllupslokale i kommunen: dette må godkjennes først"
 description: "Vigsel, skjenkebevilling, catering, pynt, støygrenser, forsikring og depositum: dette må du avklare med kommunen før bryllupslokalet er godkjent, ikke bare booket."
 date: 2026-08-07
 author: "Ibrahim Rahmani"

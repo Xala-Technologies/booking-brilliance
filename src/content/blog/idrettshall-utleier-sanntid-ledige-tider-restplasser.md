@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-utleier-sanntid-ledige-tider-restplasser
-title: "Idrettshall-utleier: fyll ledige tider i sanntid og stopp tomme timer"
+title: "Idrettshall-utleier: fyll ledige tider i sanntid"
 description: "Guide for private idrettshall-utleiere: publiser restkapasitet i sanntid, sett riktig pris per tidspunkt og fyll avbud automatisk før timen står tom."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

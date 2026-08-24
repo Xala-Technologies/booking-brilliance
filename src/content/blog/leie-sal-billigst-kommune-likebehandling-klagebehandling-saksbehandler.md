@@ -1,7 +1,7 @@
 ---
 slug: leie-sal-billigst-kommune-likebehandling-klagebehandling-saksbehandler
-title: "Leie sal billigst i kommunen: saksbehandlers svar på klage om pristildeling"
-description: "En praktisk guide for saksbehandler: hvorfor samme sal koster ulikt, hvordan dokumentere likebehandling og hvordan håndtere en klage på pristildeling steg for steg, med sjekkliste før neste sesongtildeling."
+title: "Leie sal i kommunen: klage på pristildeling steg for steg"
+description: "Praktisk guide for saksbehandler: hvorfor samme sal koster ulikt, hvordan dokumentere likebehandling, og hvordan håndtere en klage på pristildeling."
 date: 2026-08-21
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

@@ -1,6 +1,6 @@
 ---
 slug: leie-bryllupslokale-sesong-pris-ledig-dato
-title: "Bryllupslokale 2026: derfor avgjør dato og sesong prisen mer enn lokalet"
+title: "Bryllupslokale: dato og sesong avgjør prisen, ikke lokalet"
 description: "Se hvordan sesong, ukedag og populære datoer styrer prisen på bryllupslokale, og lær når dere bør booke for å sikre ønsket dato til lavest kostnad."
 date: 2026-08-08
 author: "Ibrahim Rahmani"

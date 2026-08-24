@@ -1,7 +1,7 @@
 ---
 slug: uterom-grontareal-arrangementer-kommune
-title: "Uterom og grøntareal for arrangementer: booking for kommune og arrangører"
-description: "Parker, grøntareal og strandavsnitt bookes stadig oftere til fester og arrangementer, av både kommunen og private arrangører. Slik gjør digital booking uterom like enkelt å finne og reservere som et møterom."
+title: "Uterom og grøntareal: booking for kommune og arrangør"
+description: "Parker, grøntareal og strandavsnitt bookes stadig oftere til fester og arrangementer. Slik blir uterom like enkelt å finne og reservere som et møterom."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

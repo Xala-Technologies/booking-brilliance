@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-turnering-flere-haller-blokkbooking-samlefaktura
-title: "Turnering i idrettshall: book flere haller samtidig i én oversikt"
+title: "Turnering i idrettshall: book flere haller samtidig"
 description: "Se ledige tider i flere idrettshaller på tvers av kommuner, blokkbook baner til cupen og samle hele regningen i én faktura til klubb eller sponsor, i Digilist."
 date: 2026-08-08
 author: "Ibrahim Rahmani"

@@ -14,7 +14,7 @@ export default function UseCaseMoterom() {
       title="Møterom"
       dek="Kommunale møterom, næringsbygg, foreningslokaler. Sambruk mellom avdelinger, pris per brukergruppe, og hver booking i samme kalender."
       lead="Møterom er det mest brukte og oftest dobbeltbookede rommet i en organisasjon. Digilist gir deg én sanntidskalender for alle møterom, prising som vet om brukeren er ansatt, lag, forening eller innbygger, og automatiske varsler til vaktmester når et nytt møte skal arrangeres utenom åpningstid."
-      seoTitle="Møterom: bookingsystem for kommuner og næringsbygg · Digilist"
+      seoTitle="Møterom: bookingsystem for kommuner · Digilist"
       seoDescription="Bookingsystem for kommunale møterom, næringsbygg og foreningslokaler. Sanntidskalender, sambruk, prising per brukergruppe og Outlook-integrasjon."
       keywords="møterom booking, kommunal møterom, næringsbygg møterom, Outlook integrasjon, sambruk møterom, prising per brukergruppe, foreningslokaler"
       audience={[

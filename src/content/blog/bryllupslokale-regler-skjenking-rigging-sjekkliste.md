@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-regler-skjenking-rigging-sjekkliste
-title: "Bryllupslokale 2026: reglene som avgjør om bryllupsdagen går opp"
+title: "Bryllupslokale: skjenking, rigging og reglene rundt"
 description: "Skjenkebevilling, rigging, parkering, forsikring og rydding: dette må du avklare før du signerer kontrakten for bryllupslokalet."
 date: 2026-08-10
 author: "Ibrahim Rahmani"

@@ -1,6 +1,6 @@
 ---
 slug: leie-sal-kommune-bedrift-dagtid-fakturering
-title: "Leie sal i kommunen som bedrift: dagtid gir klart laveste pris"
+title: "Leie sal som bedrift: dagtid gir klart laveste pris"
 description: "Bedrifter betaler full pris uten medlemsrabatt når de leier sal i kommunen. Se hvordan dagtidskapasitet, riktig priskategori og fakturering gir laveste totalpris."
 date: 2026-08-08
 author: "Ibrahim Rahmani"

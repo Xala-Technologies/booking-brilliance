@@ -1,7 +1,7 @@
 ---
 slug: treningsrom-gymhaller-personlig-trener-fitnessinstruktor
 title: "Treningsrom og gymhaller: booking for private gymoperatører"
-description: "Personlige trenere og fitnessinstruktører trenger fleksible treningsrom til klasser og økter. Se hvordan private gymoperatører booker ut treningsrom og gymhaller med Digilist."
+description: "Personlige trenere og fitnessinstruktører trenger fleksible treningsrom. Se hvordan private gymoperatører booker ut treningsrom og gymhaller."
 date: 2026-08-10
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

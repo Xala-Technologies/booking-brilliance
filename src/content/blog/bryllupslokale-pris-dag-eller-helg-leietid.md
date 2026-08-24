@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-pris-dag-eller-helg-leietid
-title: "Bryllupslokale pris 2026: enkeltdag eller helg avgjør sluttsummen"
+title: "Bryllupslokale pris: enkeltdag eller helg avgjør summen"
 description: "Se hva et bryllupslokale koster for én dag mot en hel helg, hva helgeleie faktisk inkluderer, og hvordan dere sammenligner tilbud med ulik leietid før dere booker."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

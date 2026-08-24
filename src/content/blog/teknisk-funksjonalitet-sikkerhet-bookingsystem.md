@@ -1,6 +1,6 @@
 ---
 slug: teknisk-funksjonalitet-sikkerhet-bookingsystem
-title: "Teknisk funksjonalitet og sikkerhet i bookingsystem: hva kommune-IT bør sjekke"
+title: "Sikkerhet i bookingsystem: hva kommune-IT bør sjekke"
 description: "Sikker offentlig innlogging, revisjonsspor og avansert administrasjon: den tekniske sjekklisten kommune-IT bør legge til grunn før et bookingsystem anskaffes."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

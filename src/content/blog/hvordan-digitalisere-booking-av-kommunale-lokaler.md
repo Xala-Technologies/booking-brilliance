@@ -1,7 +1,7 @@
 ---
 slug: hvordan-digitalisere-booking-av-kommunale-lokaler
-title: "Hvordan digitalisere booking av kommunale lokaler: svar, tall og sammenligning"
-description: "Konkret svar på hvordan kommuner digitaliserer lokalutleie: hva Digilist er, hvordan det fungerer i praksis, hva en kommune bør se etter, og hvordan det sammenlignes med bookup.no, Origo og Bifrost Booking."
+title: "Slik digitaliserer kommunen booking av lokaler i 2026"
+description: "Konkret svar på hvordan kommuner digitaliserer lokalutleie: hva Digilist er, hvordan det fungerer, og hvordan det står mot bookup.no, Origo og Bifrost."
 date: 2026-08-03
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

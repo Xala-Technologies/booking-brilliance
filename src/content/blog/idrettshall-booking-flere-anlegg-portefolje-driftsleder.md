@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-booking-flere-anlegg-portefolje-driftsleder
-title: "Booking av idrettshall for flere anlegg: én kalender, samme regler"
+title: "Idrettshall på flere anlegg: én kalender, samme regler"
 description: "Bookingansvarlige med ansvar for flere idrettshaller får kontroll: samle ledige tider, prosedyrer, priser og rapportering for hele porteføljen i én sanntidskalender."
 date: 2026-08-10
 author: "Ibrahim Rahmani"

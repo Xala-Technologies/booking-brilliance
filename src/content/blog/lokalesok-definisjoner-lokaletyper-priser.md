@@ -1,7 +1,7 @@
 ---
 slug: lokalesok-definisjoner-lokaletyper-priser
 title: "Lokalesøk: definisjoner, lokaletyper og priser"
-description: "Hva betyr egentlig lokalesøk, og hvilke ord møter du underveis? Her er en enkel oversikt over lokaletyper, hva som følger med et lokale, og hva du bør forvente av pris før du søker videre."
+description: "Hva betyr egentlig lokalesøk, og hvilke ord møter du underveis? En enkel oversikt over lokaletyper, hva som følger med, og hva du bør forvente av pris."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

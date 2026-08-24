@@ -1,7 +1,7 @@
 ---
 slug: idrettshall-pris-time-sesong-nasjonal-oversikt-lag-foreninger
-title: "Idrettshall pris 2026: dette koster time, sesong og kamp for laget"
-description: "Nasjonal oversikt over hva idrettshall koster per time og sesong i 2026, med regionale prisforskjeller, skjulte tillegg og konkrete grep for å få ned kr/time for laget."
+title: "Idrettshall pris 2026: time, sesong og kamp for laget"
+description: "Nasjonal oversikt over hva idrettshall koster per time og sesong i 2026, med regionale forskjeller, skjulte tillegg og grep for å få ned kr/time."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

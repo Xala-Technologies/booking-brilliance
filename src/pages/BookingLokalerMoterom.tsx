@@ -44,7 +44,7 @@ const BookingLokalerMoterom = () => {
     <div className="min-h-screen bg-background overflow-x-hidden">
       <SEO
         title={c.metaTitle}
-        description="Bookingsystem for lokaler og møterom i Norge: sanntidskalender, Vipps, BankID, EHF og sesongleie. Bygget for kommuner, selskapslokaler, idrettshaller og kulturhus. SSA-L 2026-klar, ISO 27001-sertifisert."
+        description="Bookingsystem for lokaler og møterom: sanntidskalender, Vipps, BankID, EHF og sesongleie. For kommuner, selskapslokaler, idrettshaller og kulturhus."
         keywords="lokaler bookingsystem, bookingsystem for lokaler, bookingsystem lokaler, booking av lokaler og møterom, booking lokale, booking møterom, leie lokale, leie møterom, bookingplattform Norge, kommunal booking, selskapslokale booking, idrettshall booking, kulturhus booking, Vipps booking, BankID booking, EHF, sesongleie"
         canonical={en ? "https://digilist.no/en/booking-av-lokaler-og-moterom" : "https://digilist.no/booking-av-lokaler-og-moterom"}
         breadcrumbs={[

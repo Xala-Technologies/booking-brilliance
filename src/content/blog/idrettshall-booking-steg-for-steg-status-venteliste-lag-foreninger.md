@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-booking-steg-for-steg-status-venteliste-lag-foreninger
-title: "Slik booker laget idrettshall i Digilist: fra søk til bekreftet time"
+title: "Slik booker laget idrettshall: fra søk til bekreftet time"
 description: "Slik booker laget idrettshall i Digilist: statuser, sesongtid, venteliste, bytte og avbestilling forklart steg for steg for lagledere som styrer treningstid."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

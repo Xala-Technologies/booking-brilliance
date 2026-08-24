@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-ledige-tider-drop-in-dynamisk-pris-privat-utleier
-title: "Ledig tid i idrettshallen: fra tapt time til solgt time for private utleiere"
+title: "Idrettshall: fra tapt time til solgt time for utleiere"
 description: "Se hvordan private idrettshaller fyller hver ledig time med sanntidsoversikt, drop-in-booking og dynamisk pris, uten dobbeltbooking eller manuelt merarbeid."
 date: 2026-08-08
 author: "Ibrahim Rahmani"

@@ -1,6 +1,6 @@
 ---
 slug: digdir-designsystemet-kommunal-bookingplattform
-title: "Digdir Designsystemet: hvorfor det er et must i offentlig sektor"
+title: "Hvorfor Digdir Designsystemet er et must i kommunen"
 description: "Designsystemet er Norges offisielle byggekloss-bibliotek for offentlige digitale tjenester, og grunnlaget for tilliten Digilist bygger på."
 date: 2026-05-17
 author: "Ibrahim Rahmani"

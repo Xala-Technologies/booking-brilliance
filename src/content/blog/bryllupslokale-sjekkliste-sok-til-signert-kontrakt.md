@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-sjekkliste-sok-til-signert-kontrakt
-title: "Bryllupslokale 2026: hele prosessen fra søk til signert avtale"
+title: "Bryllupslokale: fra søk til signert avtale, steg for steg"
 description: "En praktisk sjekkliste for hele prosessen med å leie bryllupslokale: budsjett, visning, kontrakt, tidsplan, uteareal og gjestenes reise, i riktig rekkefølge."
 date: 2026-08-24
 author: "Ibrahim Rahmani"

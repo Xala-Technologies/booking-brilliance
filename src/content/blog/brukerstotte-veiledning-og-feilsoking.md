@@ -1,6 +1,6 @@
 ---
 slug: brukerstotte-veiledning-og-feilsoking
-title: "Brukerstøtte: veiledning og feilsøking for booking i Digilist"
+title: "Digilist brukerstøtte: veiledning og feilsøking"
 description: "Trenger du brukerstøtte til Digilist? Her er samlet veiledning for å endre tidspunkt, feilsøke, avbestille og dele bookinger, steg for steg."
 date: 2026-07-25
 author: "Ibrahim Rahmani"

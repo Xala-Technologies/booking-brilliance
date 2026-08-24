@@ -1,7 +1,7 @@
 ---
 slug: bookingsystem-idrettshall-kravspesifikasjon-it-leder
-title: "Bookingsystem for idrettshall: kravspesifikasjonen IT-leder må stille før anbud"
-description: "Praktisk kravspesifikasjon for bookingsystem til idrettshaller: sanntidsdata, kollisjonskontroll, integrasjon mot sesongtildeling, SSA-avtale, GDPR, ID-porten, driftsavtale og migrering IT-leder bør stille før anbud."
+title: "Bookingsystem idrettshall: kravspesifikasjon før anbud"
+description: "Praktisk kravspesifikasjon for bookingsystem til idrettshaller: sanntidsdata, kollisjonskontroll, sesongtildeling, SSA-avtale, GDPR, ID-porten og migrering."
 date: 2026-08-08
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

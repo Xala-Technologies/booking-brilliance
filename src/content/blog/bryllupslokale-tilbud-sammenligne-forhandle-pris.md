@@ -1,7 +1,7 @@
 ---
 slug: bryllupslokale-tilbud-sammenligne-forhandle-pris
-title: "Bryllupslokale 2026: slik blir listepris til et tilbud du kan stole på"
-description: "Lær hvordan du ber om tilbud fra flere bryllupslokaler samtidig, avslører skjulte kostnader og tillegg, forhandler smart og sammenligner priser epler mot epler før dere signerer kontrakten."
+title: "Bryllupslokale: fra listepris til et tilbud du kan stole på"
+description: "Slik ber du om tilbud fra flere bryllupslokaler samtidig, avslører skjulte tillegg, forhandler smart og sammenligner priser epler mot epler."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

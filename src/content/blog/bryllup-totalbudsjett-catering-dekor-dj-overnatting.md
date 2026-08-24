@@ -1,6 +1,6 @@
 ---
 slug: bryllup-totalbudsjett-catering-dekor-dj-overnatting
-title: "Totalbudsjett for bryllupet 2026: lokale, catering, dekor og DJ"
+title: "Totalbudsjett bryllup 2026: lokale, catering, dekor og DJ"
 description: "Se prisnivået for bryllupslokale, catering, dekor, DJ og overnatting til gjester i 2026, og lær å sette opp et realistisk totalbudsjett for hele bryllupsdagen."
 date: 2026-08-10
 author: "Ibrahim Rahmani"

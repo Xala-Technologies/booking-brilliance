@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-booking-lcp-hendelse-monitorering-driftsleder
-title: "Idrettshall-booking: slik rettet vi LCP fra 20,53 til 2,5 sekunder"
+title: "Idrettshall-booking: LCP ned fra 20,53 til 2,5 sekunder"
 description: "Digilist rettet en LCP på 20,53 sekunder på idrettshall-bookingen til under 2,5 sekunder, og overvåker Core Web Vitals løpende for driftsledere i appen."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

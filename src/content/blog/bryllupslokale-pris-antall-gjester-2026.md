@@ -1,7 +1,7 @@
 ---
 slug: bryllupslokale-pris-antall-gjester-2026
-title: "Bryllupslokale 2026: gjestetallet styrer prisen, ikke lokalet"
-description: "Digilist viser hvordan bryllupslokale-prisen endrer seg fra 40 til 200 gjester, med et konkret regneeksempel på pris per gjest, og hvorfor gjestetallet påvirker totalregningen mer enn selve lokalet."
+title: "Bryllupslokale 2026: gjestetallet styrer prisen"
+description: "Se hvordan bryllupslokale-prisen endrer seg fra 40 til 200 gjester, med et regneeksempel på pris per gjest og hvorfor gjestetallet veier tyngst."
 date: 2026-08-08
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

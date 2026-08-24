@@ -1,7 +1,7 @@
 ---
 slug: digitale-soknadsskjemaer-kommune
 title: "Digitale søknadsskjemaer for lokaler i kommunen"
-description: "Papirskjema, PDF på e-post og regneark koster kommunen tid og skaper feil. Slik erstatter Digilist søknadsskjema for lokaler med digital forespørsel og strukturert saksbehandling."
+description: "Papirskjema, PDF på e-post og regneark koster kommunen tid og skaper feil. Slik erstatter Digilist søknadsskjemaet med digital forespørsel og saksbehandling."
 date: 2026-07-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

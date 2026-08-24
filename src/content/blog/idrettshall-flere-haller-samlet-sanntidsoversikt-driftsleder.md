@@ -1,7 +1,7 @@
 ---
 slug: idrettshall-flere-haller-samlet-sanntidsoversikt-driftsleder
-title: "Flere idrettshaller i ett system: slik samler driftslederen ledig tid i sanntid"
-description: "Når hver idrettshall driftes i eget system eller regneark, blir ledig tid i én hall usynlig for laget som venter i en annen. Se hvordan dere samler alt i én sanntidsoversikt."
+title: "Flere idrettshaller i ett system: én sanntidsoversikt"
+description: "Når hver idrettshall driftes i eget regneark, blir ledig tid i én hall usynlig for laget som venter i en annen. Se hvordan dere samler alt i én oversikt."
 date: 2026-08-07
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

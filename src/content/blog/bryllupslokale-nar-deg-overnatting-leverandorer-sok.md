@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-nar-deg-overnatting-leverandorer-sok
-title: "Bryllupslokale nær deg: lokale, overnatting og leverandører i ett søk"
+title: "Bryllupslokale nær deg: lokale, overnatting og leverandører"
 description: "Bryllupslokale nær deg med ledig dato, overnatting til gjestene og catering, DJ og dekor samlet i én bestilling. Se tidslinjen fra søk til bryllupsdag."
 date: 2026-08-10
 author: "Ibrahim Rahmani"

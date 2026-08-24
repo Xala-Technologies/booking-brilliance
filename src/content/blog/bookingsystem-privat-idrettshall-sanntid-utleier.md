@@ -1,7 +1,7 @@
 ---
 slug: bookingsystem-privat-idrettshall-sanntid-utleier
-title: "Bookingsystem for privat idrettshall: null dobbeltbooking i sanntid"
-description: "Slik setter private idrettsanlegg opp bookingsystem for hall og bane: sanntidskalender, fastplass, klippekort og drop-in, Vipps-betaling, prissetting uten kommunalt regulativ og integrasjon mot adgangskontroll."
+title: "Bookingsystem for privat idrettshall: ingen dobbeltbooking"
+description: "Slik setter private idrettsanlegg opp bookingsystem for hall og bane: sanntidskalender, fastplass, klippekort, drop-in, Vipps-betaling og adgangskontroll."
 date: 2026-07-31
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

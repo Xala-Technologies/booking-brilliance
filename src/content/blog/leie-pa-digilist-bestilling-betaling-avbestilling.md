@@ -1,6 +1,6 @@
 ---
 slug: leie-pa-digilist-bestilling-betaling-avbestilling
-title: "Slik leier du på Digilist: bestilling, betaling og avbestilling"
+title: "Slik leier du på Digilist: bestilling, betaling og avbud"
 description: "Se hvordan bestilling, depositum, avbestilling og betaling fungerer når du leier lokale, utstyr, overnatting eller tjenester på Digilist, uansett hva du leier."
 date: 2026-08-07
 author: "Ibrahim Rahmani"

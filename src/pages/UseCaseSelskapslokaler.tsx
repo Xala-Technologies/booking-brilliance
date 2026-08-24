@@ -14,7 +14,7 @@ export default function UseCaseSelskapslokaler() {
       title="Selskapslokaler"
       dek="Bryllup, jubileer, firmafester. Bookinger som binder seg juridisk, betaler depositum og åpner døren med digital nøkkel."
       lead="Eier du et selskapslokale, vet du at hver helg blir bestilt av folk som planlegger en stor dag. Det krever en bookingplattform som tar gjestene seriøst: med ledige helger i sanntid, juridisk leieavtale signert med BankID, depositum reservert via Vipps og dørtilgang når dagen kommer."
-      seoTitle="Selskapslokaler: bookingsystem for bryllup og selskap · Digilist"
+      seoTitle="Selskapslokaler: bookingsystem for bryllup · Digilist"
       seoDescription="Bookingplattform for selskapslokaler: sanntidskalender, depositum via Vipps, BankID-signert leieavtale, digital nøkkel og automatisk faktura."
       keywords="selskapslokale, booking selskapslokale, leie selskapslokale, bryllupslokale booking, depositum Vipps, BankID leieavtale, digital nøkkel, jubileum"
       audience={[

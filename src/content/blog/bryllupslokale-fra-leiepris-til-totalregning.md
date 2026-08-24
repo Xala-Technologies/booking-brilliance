@@ -1,7 +1,7 @@
 ---
 slug: bryllupslokale-fra-leiepris-til-totalregning
-title: "Bryllupslokale 2026: fra leiepris til totalregning, post for post"
-description: "Se hva som faktisk avgjør prisen på bryllupslokale, fra ukedag og gjesteantall til inkludert service og typiske tillegg, og få svar på de vanligste spørsmålene før dere sammenligner tilbud."
+title: "Bryllupslokale: fra leiepris til totalregning, post for post"
+description: "Se hva som avgjør prisen på bryllupslokale, fra ukedag og gjesteantall til inkludert service og typiske tillegg, før dere sammenligner tilbud."
 date: 2026-08-08
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

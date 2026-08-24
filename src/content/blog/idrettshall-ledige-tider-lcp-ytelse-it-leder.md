@@ -1,7 +1,7 @@
 ---
 slug: idrettshall-ledige-tider-lcp-ytelse-it-leder
-title: "Idrettshallens ledige tider: LCP fra 20,53 til under 2,5 sekunder"
-description: "Siden for ledige tider i idrettshallen gikk fra 20,53 sekunder til under 2,5 i LCP. Se hva som ble målt, hvorfor det avgjør om en ledig time faktisk blir booket, og hvordan IT-ledere kan stille et etterprøvbart ytelseskrav i anbud."
+title: "Idrettshallens ledige tider: LCP fra 20,53 til 2,5 sek"
+description: "Siden for ledige tider i idrettshallen gikk fra 20,53 til under 2,5 sekunder i LCP. Se hva som ble målt, og hvordan IT-ledere kan stille ytelseskrav i anbud."
 date: 2026-08-08
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

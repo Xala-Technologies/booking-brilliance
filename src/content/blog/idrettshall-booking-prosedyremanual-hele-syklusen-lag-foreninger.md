@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-booking-prosedyremanual-hele-syklusen-lag-foreninger
-title: "Booke idrettshall for laget: hele prosedyren fra søk til avbud"
+title: "Booke idrettshall for laget: fra søk til avbud"
 description: "Slik fungerer booking av idrettshall i Digilist: søk, bekreft, endre, avbestill, venteliste og varsling samlet i én prosedyremanual for lagledere og trenere."
 date: 2026-08-15
 author: "Ibrahim Rahmani"

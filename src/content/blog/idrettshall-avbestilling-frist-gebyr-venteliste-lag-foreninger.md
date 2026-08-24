@@ -1,7 +1,7 @@
 ---
 slug: idrettshall-avbestilling-frist-gebyr-venteliste-lag-foreninger
-title: "Idrettshall ledige tider: avbestillingsfrist, gebyr og venteliste for laget"
-description: "Se avbestillingsfrist, no-show-gebyr og venteliste for idrettshalltimer i sanntid, slik at en frigjort treningstid går rett videre til neste lag i køen i stedet for å stå tom."
+title: "Idrettshall: avbestillingsfrist, gebyr og venteliste"
+description: "Se avbestillingsfrist, no-show-gebyr og venteliste for idrettshalltimer i sanntid, slik at en frigjort treningstid går rett videre til neste lag i køen."
 date: 2026-08-08
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

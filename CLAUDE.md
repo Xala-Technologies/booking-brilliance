@@ -58,13 +58,15 @@ Standalone checks, none of them wired into `pnpm test`:
 ```bash
 pnpm check:links            # every internal link against the real route table
 pnpm check:english          # Norwegian text leaking into prerendered /en pages
-pnpm check:title-lengths    # blog titles vs the ~65-char limit (informational)
+pnpm check:meta-lengths     # <title> ≤60 and <meta description> ≤165, blog +
+                            # prerender routes + copy.ts + content + pages (CI-gated)
 pnpm content:guard          # blog slugs colliding with standing 301s
 ```
 
-CI: `pr-check.yml` runs lint + test + build on every PR; `lint-main.yml` lints
-direct pushes to main (the nightly blog runner commits straight to main and
-bypasses the PR gate); `deploy.yml` runs `deploy.sh` on every push to main.
+CI: `pr-check.yml` runs lint + typecheck + test + meta lengths + build on every
+PR; `lint-main.yml` lints direct pushes to main (the nightly blog runner commits
+straight to main and bypasses the PR gate); `deploy.yml` runs `deploy.sh` on
+every push to main.
 **Deploys are automatic on merge.** Do not run `deploy.sh` by hand, and do not
 commit or push unless you were asked to.
 

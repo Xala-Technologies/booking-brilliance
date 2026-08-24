@@ -1,6 +1,6 @@
 ---
 slug: praktisk-guide-prosedyrer-krav-prising-booking
-title: "Praktisk guide til booking: krav, prosedyrer og prising for bookingansvarlige"
+title: "Praktisk guide til booking: krav, prosedyrer og prising"
 description: "Slik setter bookingansvarlige i kommune og hos private utleiere opp krav, godkjenningsprosedyre og prising for booking – en praktisk guide til den daglige driften."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

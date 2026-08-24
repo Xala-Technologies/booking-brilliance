@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-pris-utleier-sesong-restplasser
-title: "Bryllupslokale pris 2026: slik setter utleiere riktig pris per sesong"
+title: "Bryllupslokale: slik setter utleiere riktig pris per sesong"
 description: "Se hvordan du som utleier av bryllupslokale setter riktig pris etter sesong, ukedag og restplasser, uten å underprise eller svekke høysesongen i 2026."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

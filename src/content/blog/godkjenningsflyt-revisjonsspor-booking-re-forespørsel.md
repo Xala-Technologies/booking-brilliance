@@ -1,7 +1,7 @@
 ---
 slug: godkjenningsflyt-revisjonsspor-booking-re-forespørsel
-title: "Godkjenningsflyt i booking: revisjonsspor for kommune og private utleiere"
-description: "Hvorfor en avvist godkjenning i Digilist blir re-forespurt, ikke overstyrt, og hva det betyr for revisjonsspor, SSA-L, GDPR og dobbeltbooking i booking av sal, hall og lokale."
+title: "Godkjenningsflyt i booking: revisjonsspor som holder"
+description: "Hvorfor en avvist godkjenning i Digilist blir re-forespurt, ikke overstyrt, og hva det betyr for revisjonsspor, SSA-L, GDPR og dobbeltbooking."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

@@ -425,7 +425,7 @@ const NB: RentCopy = {
 const EN: RentCopy = {
   metaTitle: "Rent a venue — find and book a function room | Digilist",
   metaDescription:
-    "Rent a venue online: private function rooms and municipal venues in one place. See real prices and free dates, and book directly — for a wedding, party, meeting or event.",
+    "Rent a venue online: private function rooms and municipal venues in one place. See real prices and free dates, and book directly.",
   keywords:
     "rent a venue, find a venue, rent a function room, rent a meeting room, party venue hire, birthday venue hire, book a venue online, community hall hire",
   howToName: "How to find and book a venue",

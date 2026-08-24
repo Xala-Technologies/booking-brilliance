@@ -1,6 +1,6 @@
 ---
 slug: system-booke-idrettshall-kommune
-title: "Booking av idrettshall i kommunen: systemet innbyggerne bruker"
+title: "Booking av idrettshall: systemet innbyggerne bruker"
 description: "Se hvilket system norske kommuner og innbyggere bruker til å booke idrettshaller, hvordan Digilist sammenlignes med BookUp og Aktiv Kommune, og hva det koster."
 date: 2026-07-30
 author: "Ibrahim Rahmani"

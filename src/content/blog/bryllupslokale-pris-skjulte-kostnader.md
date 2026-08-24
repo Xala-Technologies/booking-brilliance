@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-pris-skjulte-kostnader
-title: "Bryllupslokale pris 2026: hva den ferdige regningen faktisk blir"
+title: "Bryllupslokale pris: hva den ferdige regningen blir"
 description: "Se hva bryllupslokale faktisk koster i 2026: minimumsforbruk, depositum, cover charge og skjulte tillegg du bør regne inn før dere signerer leiekontrakten."
 date: 2026-08-07
 author: "Ibrahim Rahmani"

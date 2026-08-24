@@ -1,7 +1,7 @@
 ---
 slug: leie-bryllupslokale-beliggenhet-regnplan-tilgjengelighet
-title: "Bryllupslokale 2026: de seks praktiske kravene som avgjør om lokalet fungerer"
-description: "Beliggenhet, regnplan, kjøkken, overnatting og tilgjengelighet avgjør om bryllupslokalet faktisk fungerer på dagen. Sjekkliste, typiske feil og filtre du trenger før du signerer."
+title: "Bryllupslokale: seks krav som avgjør om lokalet fungerer"
+description: "Beliggenhet, regnplan, kjøkken, overnatting og tilgjengelighet avgjør om bryllupslokalet fungerer på dagen. Sjekkliste, typiske feil og filtre."
 date: 2026-08-08
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

@@ -89,7 +89,7 @@ export default function Utstyr() {
   return (
     <MarketplaceHub
       sectionLabel="UTSTYR"
-      seoTitle="Leie utstyr: festutstyr, verktøy, maskiner, lyd og lys | Digilist"
+      seoTitle="Leie utstyr: festutstyr, verktøy, lyd og lys | Digilist"
       seoDescription="Leie utstyr på ett sted: festutstyr og telt, verktøy og maskiner, lyd og lys. Se pris per dag, depositum og ledighet, og book med Vipps. Henting eller levering."
       keywords="leie utstyr, leie festutstyr, leie telt, leie verktøy, leie maskiner, leie minigraver, leie lydanlegg, utstyr til leie, book utstyr"
       canonical="https://digilist.no/utstyr"

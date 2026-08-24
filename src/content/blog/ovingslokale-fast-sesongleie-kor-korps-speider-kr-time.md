@@ -1,7 +1,7 @@
 ---
 slug: ovingslokale-fast-sesongleie-kor-korps-speider-kr-time
 title: "Øvingslokale for laget: fast sesongavtale til lavest kr/time"
-description: "Kor, korps og speidergrupper betaler ofte for mye for fast øvingstid. Se hvordan dere sammenligner reell kr/time på tvers av skole, samfunnshus og kulturhus før dere signerer sesongavtalen."
+description: "Kor, korps og speidergrupper betaler ofte for mye for fast øvingstid. Se hvordan dere sammenligner reell kr/time før dere signerer sesongavtalen."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

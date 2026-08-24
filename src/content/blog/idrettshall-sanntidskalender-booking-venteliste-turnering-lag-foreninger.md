@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-sanntidskalender-booking-venteliste-turnering-lag-foreninger
-title: "Idrettshall for laget: sanntidskalender, avbud og booking av flere haller til turnering"
+title: "Idrettshall for laget: sanntidskalender, avbud og turnering"
 description: "Se ledige tider i sanntid, book steg for steg, håndter avbud og venteliste, og book flere haller til turnering, samlet i én kalender for laget."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

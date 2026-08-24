@@ -1,6 +1,6 @@
 ---
 slug: leie-sal-kommune-soknad-godkjenning-svarfrist-privatperson
-title: "Søke om sal i kommunen 2026: fra søknad til bekreftet booking"
+title: "Søke om sal i kommunen: fra søknad til bekreftet booking"
 description: "Hele søknadsløpet for å leie sal i kommunen: frister, dokumentasjon, betaling og hva du gjør ved avslag. Se hvorfor svartiden faller med digital booking."
 date: 2026-08-10
 author: "Ibrahim Rahmani"

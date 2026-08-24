@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-bookingsystem-drift-regler-roller-rapportering
-title: "Bookingsystem for idrettshall: regler, roller og rapportering i drift"
+title: "Bookingsystem for idrettshall: regler, roller, rapportering"
 description: "Slik setter du opp booking av idrettshall i praksis: regler, godkjenning, priser, roller, avbestilling og rapportering samlet i ett bookingsystem for drift."
 date: 2026-08-10
 author: "Ibrahim Rahmani"

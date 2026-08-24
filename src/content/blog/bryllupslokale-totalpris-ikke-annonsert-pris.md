@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-totalpris-ikke-annonsert-pris
-title: "Bryllupslokale 2026: dette koster totalprisen dere faktisk betaler"
+title: "Bryllupslokale: totalprisen dere faktisk betaler"
 description: "Se hvorfor annonsert pris sjelden er totalprisen for bryllupslokale, hvilke tillegg som kommer, og hvordan dere sammenligner tilbud rettferdig i Digilist."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

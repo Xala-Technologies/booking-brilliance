@@ -1,7 +1,7 @@
 ---
 slug: bryllupslokale-kontrakt-depositum-trygg-betaling
-title: "Bryllupslokale 2026: kontrakt, depositum og trygg betaling i praksis"
-description: "Se hva som bør stå i kontrakten for bryllupslokale, hvordan depositum og betaling sikres trygt, og hvordan anmeldelser, regler og avbestillingsvilkår avslører om lokalet leverer det som er lovet."
+title: "Bryllupslokale: kontrakt, depositum og trygg betaling"
+description: "Se hva som bør stå i kontrakten for bryllupslokale, hvordan depositum og betaling sikres, og hva anmeldelser og avbestillingsvilkår avslører før dere signerer."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

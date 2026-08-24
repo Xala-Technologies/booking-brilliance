@@ -1,7 +1,7 @@
 ---
 slug: leie-alt-til-arrangement-digilist-markedsplass
 title: "Leie sal, hytte og utstyr til arrangement: alt på ett sted"
-description: "Fra sal og hytte til telt, catering og billetter: slik bruker du Digilists markedsplasser til å finne, sammenligne og booke alt til arrangementet på tvers av kategorier."
+description: "Fra sal og hytte til telt, catering og billetter: slik finner, sammenligner og booker du alt til arrangementet på tvers av kategorier."
 date: 2026-08-07
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

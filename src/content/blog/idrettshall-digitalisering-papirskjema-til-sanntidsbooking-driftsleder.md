@@ -1,7 +1,7 @@
 ---
 slug: idrettshall-digitalisering-papirskjema-til-sanntidsbooking-driftsleder
-title: "Fra papirskjema til sanntidsbooking: slik digitaliserer driftslederen idrettshallen"
-description: "Den praktiske veien fra Excel-ark og e-post til sanntidsbooking av idrettshall: sesongtildeling, flere anlegg, mobilbooking, no-show-regler og hva IT-leder må sjekke før lansering."
+title: "Fra papirskjema til sanntidsbooking av idrettshallen"
+description: "Veien fra Excel-ark og e-post til sanntidsbooking av idrettshall: sesongtildeling, flere anlegg, mobilbooking, no-show-regler og hva IT-leder må sjekke."
 date: 2026-08-07
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

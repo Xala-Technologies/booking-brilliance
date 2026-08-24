@@ -1,7 +1,7 @@
 ---
 slug: privatmarkedet-utleie-lokaler-norge
-title: "Privatmarkedet for utleie av lokaler: den usynlige halvparten"
-description: "Grendehus, låver, menighetshus og selskapslokaler leies ut i hele Norge uten at noen teller det. Her er hvordan privatmarkedet faktisk fungerer, og hva det trenger av et bookingsystem."
+title: "Utleie av lokaler: privatmarkedets usynlige halvpart"
+description: "Grendehus, låver, menighetshus og selskapslokaler leies ut i hele Norge uten at noen teller det. Slik fungerer privatmarkedet, og hva det trenger."
 date: 2026-08-12
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

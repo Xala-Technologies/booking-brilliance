@@ -1,7 +1,7 @@
 ---
 slug: frivillig-organisasjon-bookingsystem-medlemstilgang
 title: "Frivillige organisasjoner: bookingsystem med medlemstilgang"
-description: "Frivillige organisasjoner og lag trenger ikke dele én innlogging for å booke lokaler. Se hvordan rollebasert medlemstilgang og strømlinjeformet booking fungerer i Digilist."
+description: "Frivillige organisasjoner trenger ikke dele én innlogging for å booke lokaler. Se hvordan rollebasert medlemstilgang og enkel booking fungerer i Digilist."
 date: 2026-07-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

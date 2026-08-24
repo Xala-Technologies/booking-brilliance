@@ -1,7 +1,7 @@
 ---
 slug: bryllupslokale-vilkar-kapasitet-skjenking-catering-lyd
-title: "Bryllupslokale 2026: vilkårene avgjør om festen blir som planlagt, ikke bare prisen"
-description: "Skjenkebevilling, reell gjestekapasitet, cateringregler og lydgrense avgjør om et bryllupslokale fungerer for festen dere planlegger. Se hva dere må sjekke før dere signerer."
+title: "Bryllupslokale: vilkårene avgjør festen, ikke bare prisen"
+description: "Skjenkebevilling, reell gjestekapasitet, cateringregler og lydgrense avgjør om et bryllupslokale fungerer for festen. Se hva dere må sjekke før signering."
 date: 2026-08-24
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

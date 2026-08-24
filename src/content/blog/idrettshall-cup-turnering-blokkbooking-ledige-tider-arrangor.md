@@ -1,7 +1,7 @@
 ---
 slug: idrettshall-cup-turnering-blokkbooking-ledige-tider-arrangor
-title: "Leie idrettshall til cup og turnering: søk, blokkbook og få bekreftet"
-description: "Se ledige tider i flere idrettshaller samtidig, blokkbook en hel helg fra fredag til søndag, og få svar raskt til cup eller turnering uten å ringe rundt til hver drifter."
+title: "Leie idrettshall til cup: søk, blokkbook og få svar"
+description: "Se ledige tider i flere idrettshaller samtidig, blokkbook en hel helg fra fredag til søndag, og få raskt svar til cup eller turnering."
 date: 2026-08-21
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

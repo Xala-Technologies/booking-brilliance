@@ -1,7 +1,7 @@
 ---
 slug: book-idrettshall-guide-ledige-tider-pris-avbestilling
 title: "Book idrettshall: ledige tider, pris og avbestillingsregler"
-description: "Full guide til å booke idrettshall: hva ledige tider betyr i sanntid, prisen per time, sesongplass, turneringsbooking og avbestillingsregler du bør kjenne før du booker."
+description: "Full guide til å booke idrettshall: hva ledige tider betyr i sanntid, pris per time, sesongplass, turneringsbooking og avbestillingsreglene du bør kjenne."
 date: 2026-08-07
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

@@ -1,6 +1,6 @@
 ---
 slug: sesongtildeling-idrettshall-saksbehandler-guide
-title: "Sesongtildeling av idrettshall: saksbehandlerens komplette guide"
+title: "Sesongtildeling av idrettshall: saksbehandlers guide"
 description: "Slik tildeler du treningstid i kommunens idrettshaller: søknadsfrister, prioritering, konflikthåndtering, drop-in og rapportering til idrettsrådet."
 date: 2026-07-14
 author: "Ibrahim Rahmani"

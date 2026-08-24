@@ -1,7 +1,7 @@
 ---
 slug: favoritter-digilist-lagring-lag-bedrift-kommune
-title: "Favoritter på Digilist: riktig meldingsstatus for privatpersoner, lag og kommune"
-description: "Favoritt-meldingen på Digilist stemmer nå med faktisk lagringsstatus (XAL-918). Se hva rettelsen betyr for privatpersoner, lag, bedrifter og kommunale driftsledere som bruker flere enheter."
+title: "Favoritter på Digilist: riktig status for lag og kommune"
+description: "Favoritt-meldingen på Digilist stemmer nå med faktisk lagringsstatus (XAL-918). Se hva rettelsen betyr for privatpersoner, lag, bedrifter og driftsledere."
 date: 2026-08-08
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

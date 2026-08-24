@@ -1,7 +1,7 @@
 ---
 slug: bryllupslokale-totalpris-depositum-tillegg
-title: "Bryllupslokale pris 2026: slik regner dere ut totalprisen før dere booker"
-description: "Se prisspenn for bryllupslokale i 2026, hva som faktisk er inkludert, skjulte kostnader som depositum og overtid, og en enkel modell for å regne ut totalprisen før dere ber om tilbud."
+title: "Bryllupslokale: regn ut totalprisen før dere booker"
+description: "Se prisspenn for bryllupslokale i 2026, hva som er inkludert, skjulte kostnader som depositum og overtid, og en enkel modell for å regne ut totalprisen."
 date: 2026-07-30
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

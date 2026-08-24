@@ -1,7 +1,7 @@
 ---
 slug: leie-lokale-privat-fest-og-bedriftsevent
-title: "Leie lokale til privat fest eller bedriftsevent: guide og pris"
-description: "Skal du leie lokale til bursdag, jubileum eller julebord? Se hvordan privatpersoner og bedrifter finner ledige lokaler i sanntid, hva et julebordlokale koster, og hva du bør sjekke før du booker."
+title: "Leie lokale til privat fest eller bedriftsevent"
+description: "Skal du leie lokale til bursdag, jubileum eller julebord? Se hvordan du finner ledige lokaler i sanntid, hva et julebordlokale koster, og hva du bør sjekke."
 date: 2026-07-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

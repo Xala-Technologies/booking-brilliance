@@ -1,7 +1,7 @@
 ---
 slug: leie-sal-billigst-kommune-prisstige-foreningsrabatt-dokumentasjon
-title: "Leie sal billigst i kommunen: slik dokumenterer laget riktig prisstige"
-description: "Kommunen har ofte tre til fire priser for samme sal: frivillig lag, privatperson og kommersiell aktør. Se hvordan laget dokumenterer seg til billigste kategori og unngår full pris ved feil papirarbeid."
+title: "Leie sal billigst: slik dokumenterer laget prisstigen"
+description: "Kommunen har ofte tre til fire priser for samme sal: frivillig lag, privatperson og kommersiell aktør. Slik dokumenterer laget seg til billigste kategori."
 date: 2026-08-19
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

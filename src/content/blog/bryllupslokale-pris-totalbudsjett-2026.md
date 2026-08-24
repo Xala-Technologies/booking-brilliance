@@ -1,7 +1,7 @@
 ---
 slug: bryllupslokale-pris-totalbudsjett-2026
-title: "Bryllupslokale pris 2026: full oversikt over totalbudsjett og skjulte kostnader"
-description: "Se hva et bryllupslokale faktisk koster i 2026, fra leiepris, depositum og catering til teknisk utstyr og overnatting, med et konkret eksempelbudsjett før dere booker."
+title: "Bryllupslokale pris 2026: totalbudsjett og skjulte kostnader"
+description: "Se hva et bryllupslokale koster i 2026, fra leiepris, depositum og catering til teknisk utstyr og overnatting, med et konkret eksempelbudsjett."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

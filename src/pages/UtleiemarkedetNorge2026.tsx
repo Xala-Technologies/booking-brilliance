@@ -144,7 +144,7 @@ export default function UtleiemarkedetNorge2026() {
     <div className="min-h-screen bg-background">
       <SEO
         title="Utleiemarkedet i Norge 2026 – data og priser | Digilist"
-        description="Datastudie om det norske utleiemarkedet for lokaler i 2026: søkeetterspørsel (DataForSEO), veiledende priser, sesong og bookingatferd, og det digitale gapet mellom e-post og sanntidsbooking. Frie tall og grafer for journalister og bransjen."
+        description="Datastudie om utleiemarkedet for lokaler i Norge 2026: søkeetterspørsel, veiledende priser, sesong og bookingatferd. Frie tall og grafer for presse og bransje."
         keywords="utleiemarkedet norge, lokaler til leie statistikk, leiepriser lokale, utleie marked 2026, bookingsystem marked, selskapslokale marked, datastudie utleie"
         canonical="https://digilist.no/rapport/utleiemarkedet-norge-2026"
         ogType="article"

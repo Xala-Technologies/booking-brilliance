@@ -1,6 +1,6 @@
 ---
 slug: leie-sal-konfirmasjon-minnestund-mote-sammenligning
-title: "Leie sal 2026: konfirmasjon, minnestund og møte i én oversikt"
+title: "Leie sal: konfirmasjon, minnestund og møte i én oversikt"
 description: "Sammenlign kommunale saler og private selskapslokaler side om side. Se realistiske prisnivåer for konfirmasjon, minnestund og møte, og book riktig sal på minutter."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

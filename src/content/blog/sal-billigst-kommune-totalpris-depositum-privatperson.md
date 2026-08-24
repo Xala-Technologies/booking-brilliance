@@ -1,7 +1,7 @@
 ---
 slug: sal-billigst-kommune-totalpris-depositum-privatperson
 title: "Billigst sal i kommunen: totalprisen avgjør, ikke timeprisen"
-description: "Timeprisen på en kommunal sal sier lite om sluttsummen. Se hvordan depositum, rengjøring, vertstjeneste, medlemspris og sesong avgjør hvem som til slutt betaler mest."
+description: "Timeprisen på en kommunal sal sier lite om sluttsummen. Se hvordan depositum, rengjøring, vertstjeneste og sesong avgjør hvem som betaler mest."
 date: 2026-08-10
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

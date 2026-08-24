@@ -1,7 +1,7 @@
 ---
 slug: idrettshall-ledige-tider-booking-uten-kollisjon-lag-foreninger
-title: "Idrettshall ledige tider: slik booker laget uten å kollidere med andre"
-description: "Guide for lag og foreninger: finn ledig tid i idrettshallen, book enkelttimer og restplasser i sanntid, unngå dobbeltbooking og avbestill uten å miste fast treningstid."
+title: "Idrettshall: slik booker laget uten å kollidere"
+description: "Guide for lag og foreninger: finn ledig tid i idrettshallen, book enkelttimer og restplasser i sanntid, og avbestill uten å miste fast treningstid."
 date: 2026-08-08
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

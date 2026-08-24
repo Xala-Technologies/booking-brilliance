@@ -266,7 +266,7 @@ const FAQ_EN: readonly QA[] = [
 const NB: AgentsCopy = {
   metaTitle: "AI-agenter for booking og utleie | Digilist",
   metaDescription:
-    "Digilist bruker AI-agenter som godkjenner oppføringer mot GDPR, NSM, SOC 2 og universell utforming, svarer på henvendelser, forklarer sesongtildeling og gir daglig driftsoversikt. Bygget for norske kommuner.",
+    "AI-agenter som godkjenner oppføringer mot GDPR, NSM, SOC 2 og universell utforming, svarer på henvendelser og forklarer sesongtildeling. For norske kommuner.",
   rule: "INNEBYGD INTELLIGENS",
   h1: "AI-agenter som gjør jobben.",
   lede:
@@ -286,7 +286,7 @@ const NB: AgentsCopy = {
 const EN: AgentsCopy = {
   metaTitle: "AI agents for booking and venue rental | Digilist",
   metaDescription:
-    "Digilist uses AI agents that approve listings against GDPR, national security principles, SOC 2 and accessibility rules, reply to enquiries, explain seasonal allocation, and give a daily operations overview.",
+    "AI agents approve listings against GDPR, national security principles, SOC 2 and accessibility rules, reply to enquiries, and explain seasonal allocation.",
   rule: "BUILT-IN INTELLIGENCE",
   h1: "AI agents that do the work.",
   lede:

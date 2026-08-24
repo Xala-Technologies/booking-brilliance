@@ -11,7 +11,7 @@ export default function ArrangementKonsert() {
       title="Konsertbilletter"
       dek="Finn konserter nær deg, se pris og ledige billetter, og kjøp med Vipps. QR-billetten kommer rett på mobilen."
       lead="Konserter annonseres litt overalt: på ulike billettsider, artistenes egne sider og i Facebook-eventer. Hver side krever sin egen konto, legger på sine egne gebyrer, og hva billetten faktisk koster ser du ofte ikke før i siste steg. Selve billetten kommer som en e-post eller papirlapp som fort blir borte. På Digilist er konsertene i nærområdet samlet ett sted, med pris og ledige billetter synlig før du kjøper. Du betaler med Vipps uten å opprette ny konto, og QR-billetten ligger klar på mobilen når du skal inn."
-      seoTitle="Konsertbilletter: finn konserter og kjøp med Vipps | Digilist"
+      seoTitle="Konsertbilletter: finn og kjøp med Vipps | Digilist"
       seoDescription="Konsertbilletter samlet ett sted: finn konserter nær deg, se pris og ledige billetter, og kjøp billetter til konsert med Vipps. QR-billett rett på mobilen."
       keywords="konsertbilletter, billetter til konsert, kjøp konsertbillett, konsert nær meg, konsert billetter, live konsert billett, konsertbillett vipps, billett konsert"
       audience={[

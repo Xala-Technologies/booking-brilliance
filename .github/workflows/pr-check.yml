@@ -31,5 +31,13 @@ jobs:
         run: pnpm typecheck
       - name: Test
         run: pnpm test
+      # Google truncates a <title> past ~60 chars and a description past ~165,
+      # which costs CTR at an unchanged ranking position. The blog is
+      # regenerated daily, so without a gate the backlog rebuilds itself every
+      # night. Kept out of `pnpm build` on purpose: build is what deploy.sh
+      # runs, so a failure there would block the production deploy of the whole
+      # site rather than just the offending change.
+      - name: Meta lengths
+        run: pnpm check:meta-lengths
       - name: Build
         run: pnpm build

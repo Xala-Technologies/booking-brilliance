@@ -1,6 +1,6 @@
 ---
 slug: leie-sal-billigst-kommunal-privat-totalpris-sammenligning
-title: "Billigst sal i kommunen 2026: kommunal og privat sal i ett søk"
+title: "Billigst sal i kommunen: kommunal og privat i ett søk"
 description: "Sammenlign totalpris på kommunal og privat sal i samme søk. Se hva som faktisk avgjør prisen, og hvorfor privat lokale ofte er billigere enn kommunen."
 date: 2026-08-10
 author: "Ibrahim Rahmani"

@@ -1,7 +1,7 @@
 ---
 slug: idrettshall-ledige-tider-booking-avbud-boter-lag-foreninger
 title: "Idrettshall ledige tider: booking, avbud og bøter for laget"
-description: "Slik finner laget ledige treningstider i sanntid, melder avbud før fristen og unngår no-show-gebyr. Guide til booking, avbestillingsfrist, venteliste og sesongtildeling for lag og foreninger."
+description: "Slik finner laget ledige treningstider i sanntid, melder avbud før fristen og unngår no-show-gebyr. Guide til booking, venteliste og sesongtildeling."
 date: 2026-07-20
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

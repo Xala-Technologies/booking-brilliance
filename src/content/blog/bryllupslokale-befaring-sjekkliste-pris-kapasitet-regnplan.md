@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-befaring-sjekkliste-pris-kapasitet-regnplan
-title: "Bryllupslokale 2026: dette må dere sjekke på befaring før signering"
+title: "Bryllupslokale: sjekk dette på befaring før signering"
 description: "Praktisk sjekkliste for befaring av bryllupslokale: hva som faktisk er inkludert i prisen, kapasitet, tekniske krav, restriksjoner og regnplan for uteseremoni."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

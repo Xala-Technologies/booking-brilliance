@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-bookingdata-kapasitetsbehov-driftsleder
-title: "Ledige tider i idrettshallen: bookingdata som styrker budsjettet"
+title: "Bookingdata fra idrettshallen som styrker budsjettet"
 description: "Digilist viser hvordan driftsledere bruker bookinghistorikk fra idrettshallen til å måle utnyttelse, avdekke dødtid og dokumentere behov for økt kapasitet."
 date: 2026-08-07
 author: "Ibrahim Rahmani"

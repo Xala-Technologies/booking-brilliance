@@ -1,7 +1,7 @@
 ---
 slug: booking-funksjonalitet-systemkrav-gdpr-sms-kalender-tilgang
 title: "Booking-funksjonalitet: GDPR, SMS, kalender og tilgang"
-description: "Kommune og privat utleier stiller ofte de samme fire teknisk kravene til et bookingsystem: GDPR/personvern, SMS-varsling, kalendersync og tilgangsstyring. Slik dekker Digilist alle fire."
+description: "Kommune og privat utleier stiller de samme fire kravene til et bookingsystem: GDPR, SMS-varsling, kalendersync og tilgangsstyring. Slik dekker Digilist alle."
 date: 2026-08-10
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

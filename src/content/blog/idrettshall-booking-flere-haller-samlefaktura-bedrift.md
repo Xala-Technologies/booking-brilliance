@@ -1,7 +1,7 @@
 ---
 slug: idrettshall-booking-flere-haller-samlefaktura-bedrift
-title: "Idrettshall for bedrifter: book ledige tider raskt og samle alt på én faktura"
-description: "Se hvordan bedrifter booker idrettshall til firmaidrett, teambuilding og kundearrangement på tvers av haller og kommuner, med sanntidsdata, samlefaktura og rask bekreftelse."
+title: "Idrettshall for bedrifter: flere haller, én faktura"
+description: "Se hvordan bedrifter booker idrettshall til firmaidrett, teambuilding og kundearrangement på tvers av haller, med sanntidsdata og samlefaktura."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

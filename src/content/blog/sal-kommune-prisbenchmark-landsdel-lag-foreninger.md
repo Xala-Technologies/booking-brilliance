@@ -1,6 +1,6 @@
 ---
 slug: sal-kommune-prisbenchmark-landsdel-lag-foreninger
-title: "Pris på sal i kommunen 2026: nasjonal benchmark for lag og foreninger"
+title: "Pris på sal i kommunen: nasjonal benchmark for laget"
 description: "Se hva foreninger faktisk betaler for sal i ulike landsdeler i 2026, og hvilke spørsmål som avslører reell totalkostnad før styret signerer avtalen."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

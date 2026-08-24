@@ -1,7 +1,7 @@
 ---
 slug: idrettshall-ledige-tider-booking-driftsleder-overgang
-title: "Idrettshall ledige tider: sjekklisten driftsleder trenger før bytte av bookingsystem"
-description: "Hvorfor manuell booking av idrettshall bryter sammen når skole, lag, bedrift og private deler haller, og sjekklisten driftsleder bør bruke før valg av nytt bookingsystem."
+title: "Idrettshall: driftsleders sjekkliste før systembytte"
+description: "Hvorfor manuell booking av idrettshall bryter sammen når skole, lag, bedrift og private deler haller, og sjekklisten driftsleder bør bruke før systembytte."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

@@ -1,6 +1,6 @@
 ---
 slug: moterom-kurslokale-leie-billig-dagtid-bedrift
-title: "Møterom og kurslokale til kurs: dagtidspris billigere enn kveld"
+title: "Møterom og kurslokale: dagtid er billigere enn kveld"
 description: "Se møterom, kurslokale og sal med dagtidspris, utstyr og ledig kalender i ett søk hos Digilist, så bedriften slipper årsavtale og telefon til kommunen."
 date: 2026-08-10
 author: "Ibrahim Rahmani"

@@ -1,6 +1,6 @@
 ---
 slug: leie-idrettshall-bursdag-arrangement-privatperson
-title: "Leie idrettshall til bursdag og arrangement 2026: ledige tider i sanntid"
+title: "Leie idrettshall til bursdag: ledige tider i sanntid"
 description: "Skal du leie idrettshall til bursdag, cup eller konfirmasjon? Se ledige tider i sanntid på tvers av alle haller i kommunen og book uten å ringe rundt."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

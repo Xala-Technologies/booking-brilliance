@@ -12,7 +12,7 @@ export default function LeieKulturhus() {
       dek="Konsert, forestilling, storselskap eller bygdefest. Finn ledig kulturhus, samfunnshus eller grendehus nær deg, se pris og kapasitet, og book med Vipps."
       lead="Skal du arrangere noe som trenger sal, scene eller plass til mange, er kulturhuset og samfunnshuset ofte det beste lokalet i nærområdet. Men å finne ut hva det koster, om datoen er ledig og hvem du skal spørre, betyr gjerne telefoner til kulturkontoret i åpningstiden og venting på svar. På Digilist finner du kulturhus, samfunnshus og grendehus i nærheten samlet ett sted, med pris, kapasitet og fasiliteter som scene og lydanlegg synlig, og ledige datoer du kan booke direkte og betale med Vipps."
       seoTitle="Leie kulturhus: pris, kapasitet og booking | Digilist"
-      seoDescription="Leie kulturhus, samfunnshus eller grendehus til konsert, forestilling eller storselskap: se pris, kapasitet og scene/lyd-fasiliteter, finn ledig dato og book med Vipps."
+      seoDescription="Leie kulturhus, samfunnshus eller grendehus til konsert, forestilling eller storselskap: se pris, kapasitet, scene og lyd, finn ledig dato og book med Vipps."
       keywords="leie kulturhus, leie samfunnshus, leie grendehus, kulturhussal til leie, leie kulturhus pris, leie sal med scene, leie lokale til konsert, samfunnshus til leie, grendehus til leie"
       audience={[
         {

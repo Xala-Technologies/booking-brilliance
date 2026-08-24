@@ -1,7 +1,7 @@
 ---
 slug: bryllupslokale-kapasitet-faser-vielse-fest-sammenligning
-title: "Bryllupslokale: makstallet på annonsen sier ikke om dagen går opp"
-description: "Kapasitetsbehovet endrer seg gjennom vielse, middag og fest samme dag. Se hvordan du sammenligner bryllupslokaler på arealkrav per fase, romegenskaper og pris i ett søk."
+title: "Bryllupslokale: makstallet sier ikke om dagen går opp"
+description: "Kapasitetsbehovet endrer seg gjennom vielse, middag og fest. Se hvordan du sammenligner bryllupslokaler på arealkrav per fase, romegenskaper og pris."
 date: 2026-08-10
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

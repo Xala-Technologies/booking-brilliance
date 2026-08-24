@@ -1,7 +1,7 @@
 ---
 slug: idrettshall-pris-ledige-tider-privatperson-bedrift
-title: "Idrettshall: pris og ledige tider for privatperson og bedrift"
-description: "Se pris og ledig tid for idrettshalltimer i kommunale og private haller side om side, book uten lag på under to minutter, og unngå avbestillingsgebyr og skjulte tillegg."
+title: "Idrettshall: pris og ledig tid for privat og bedrift"
+description: "Se pris og ledig tid for idrettshalltimer i kommunale og private haller side om side, book uten lag på to minutter, og unngå skjulte tillegg."
 date: 2026-08-08
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-pris-per-type-selvcatering-fullservice
-title: "Bryllupslokale 2026: lokaltype avgjør prisen mer enn tilleggene"
+title: "Bryllupslokale: lokaltypen avgjør prisen mer enn tilleggene"
 description: "Lokaltype, ikke enkelttillegg, styrer prisen på bryllupslokale. Se hvordan gård, selskapslokale, kulturhus og hotell sammenlignes på lik totalpris per gjest."
 date: 2026-08-08
 author: "Ibrahim Rahmani"

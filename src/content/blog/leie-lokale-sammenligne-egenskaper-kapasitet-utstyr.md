@@ -1,7 +1,7 @@
 ---
 slug: leie-lokale-sammenligne-egenskaper-kapasitet-utstyr
-title: "Lokaleegenskaper og kapasitet: slik sammenligner du lokaler før du booker"
-description: "Kapasitet, planløsning, utstyr, tilgjengelighet og fasiliteter forklart, slik at du vet nøyaktig hva du skal sjekke og sammenligne før du booker et lokale – uansett type."
+title: "Slik sammenligner du lokaler på kapasitet og innhold"
+description: "Kapasitet, planløsning, utstyr, tilgjengelighet og fasiliteter forklart, slik at du vet nøyaktig hva du skal sjekke og sammenligne før du booker et lokale."
 date: 2026-08-10
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

@@ -1,6 +1,6 @@
 ---
 slug: bryllupslokale-catering-dj-overnatting-samlet-bestilling
-title: "Bryllupslokale 2026: alt rundt lokalet, bestilt i riktig rekkefølge"
+title: "Bryllupslokale: bestill catering, DJ og overnatting riktig"
 description: "Bryllupslokalet er første bestilling, ikke den eneste. Se rekkefølgen for catering, dekorasjon, DJ, musikk og overnatting, og book alt samlet på Digilist."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

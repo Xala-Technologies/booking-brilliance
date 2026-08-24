@@ -1,7 +1,7 @@
 ---
 slug: bookingsystem-smakommuner-kostnadseffektive-losninger
 title: "Bookingsystem for småkommuner: kostnadseffektive løsninger"
-description: "Småkommuner trenger ikke en stor IT-avdeling eller et dyrt anbud for å få et godt bookingsystem. Slik velger du en kostnadseffektiv løsning, og hva open source faktisk koster i praksis."
+description: "Småkommuner trenger verken stor IT-avdeling eller dyrt anbud for et godt bookingsystem. Slik velger du kostnadseffektivt, og hva open source koster."
 date: 2026-07-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

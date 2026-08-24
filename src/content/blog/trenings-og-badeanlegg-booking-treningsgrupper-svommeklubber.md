@@ -1,6 +1,6 @@
 ---
 slug: trenings-og-badeanlegg-booking-treningsgrupper-svommeklubber
-title: "Trenings- og badeanlegg: gym, styrkerom og basseng"
+title: "Booke trenings- og badeanlegg: gym, styrkerom, basseng"
 description: "Treningsgrupper og svømmeklubber trenger enkel booking av gym, styrkerom og basseng. Se hvordan fleksible tidsslotter og gruppetakster løser dette."
 date: 2026-07-25
 author: "Ibrahim Rahmani"

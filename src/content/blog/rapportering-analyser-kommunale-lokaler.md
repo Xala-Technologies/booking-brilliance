@@ -1,7 +1,7 @@
 ---
 slug: rapportering-analyser-kommunale-lokaler
 title: "Rapportering og analyser for kommunale lokaler: full guide"
-description: "Rapportering på arealutnyttelse, leieinntekter og bruksmønster gir kommunen et solid beslutningsgrunnlag for budsjett og planlegging. Se hva en god rapporteringsløsning må levere."
+description: "Rapportering på arealutnyttelse, leieinntekter og bruksmønster gir kommunen grunnlag for budsjett og planlegging. Se hva en god løsning må levere."
 date: 2026-07-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

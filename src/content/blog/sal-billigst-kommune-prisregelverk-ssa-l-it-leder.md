@@ -1,6 +1,6 @@
 ---
 slug: sal-billigst-kommune-prisregelverk-ssa-l-it-leder
-title: "Billigst sal i kommunen: prisregelverket IT-leder bygger inn i systemet"
+title: "Billigst sal i kommunen: prisregelverket IT-leder bygger"
 description: "Riktig pris på sal og kulturhus bør ikke avgjøres manuelt fra sak til sak. Se hvordan IT-leder koder prisregler, revisjonsspor og SSA-L-krav inn i bookingsystemet."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

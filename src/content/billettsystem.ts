@@ -281,7 +281,7 @@ const NB: TicketCopy = {
 const EN: TicketCopy = {
   metaTitle: "Ticketing system: sell tickets with discounts | Digilist",
   metaDescription:
-    "The Digilist ticketing system: sell tickets to your event with discount codes, coupons and gift cards. Card and Vipps payment, QR tickets, scanning at the door and settlement. In real time.",
+    "Sell tickets with discount codes, coupons and gift cards. Card and Vipps payment, QR tickets, scanning at the door and settlement — in real time.",
   keywords:
     "ticketing system, sell tickets, event ticketing, discount codes tickets, coupons, gift cards, qr ticket, ticketing norway",
   howToName: "How to sell tickets with Digilist",

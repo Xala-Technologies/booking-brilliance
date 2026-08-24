@@ -11,7 +11,7 @@ export default function ArrangementTeaterOgScene() {
       title="Teater- og scenebilletter"
       dek="Teater, standup eller revy? Finn forestillinger nær deg, kjøp billett med Vipps og få QR-billett med sete på mobilen."
       lead="Skal du på teater, står forestillingene ofte spredt på teatrenes egne nettsider, hver med sitt billettsystem, sin konto og sin kø. Det er vanskelig å se hva som går nær deg, om du kan velge sete, og hva billetten faktisk koster før gebyrene. På Digilist er forestillinger, standup og revy i nærområdet samlet ett sted. Du ser dato, pris og ledige seter, velger plass, og betaler med Vipps uten å opprette ny konto. Billetten kommer som QR-kode på mobilen, med setenummeret ditt, klar til å skannes i døra."
-      seoTitle="Teaterbilletter: finn forestilling og kjøp billett | Digilist"
+      seoTitle="Teaterbilletter: finn og kjøp billett | Digilist"
       seoDescription="Teaterbilletter og billetter til forestilling, standup og revy nær deg. Se pris og ledige seter, velg plass og kjøp med Vipps. QR-billett med sete på mobilen."
       keywords="teaterbilletter, billetter til teater, forestilling billetter, standup billetter, revy billetter, scene billetter, kjøp teaterbillett, teater nær meg"
       audience={[

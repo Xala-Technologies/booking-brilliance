@@ -1,6 +1,6 @@
 ---
 slug: leie-ut-sal-pris-mot-kommunal-sats-utleier
-title: "Leie ut sal i 2026: riktig pris mot kommunal sats og full kalender"
+title: "Leie ut sal: riktig pris mot kommunal sats"
 description: "Praktisk guide for deg som leier ut sal eller selskapslokale: sett riktig pris mot kommunal sats, fyll ledige datoer i sanntid og unngå tap ved avbestilling."
 date: 2026-08-10
 author: "Ibrahim Rahmani"

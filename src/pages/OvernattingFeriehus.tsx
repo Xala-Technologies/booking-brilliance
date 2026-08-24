@@ -11,7 +11,7 @@ export default function OvernattingFeriehus() {
       title="Leie feriehus"
       dek="Familieferie eller gjenforening. Finn ledig feriehus nær sjøen eller fjellet, se totalpris og book med Vipps."
       lead="Skal du samle familien eller vennegjengen i et feriehus, starter letingen ofte i mange faner: Finn-annonser, Airbnb, Novasol og utleiesider med hver sin kalender. Prisen ser grei ut helt til vask og gebyrer dukker opp i siste steg, ingen samlet kalender viser hvilke uker som faktisk er ledige, og hvordan innsjekk og nøkler fungerer er ofte uklart helt til dagen før. Digilist samler feriehus til leie ett sted, med totalpris synlig fra start, ledige netter i sanntid og trygg betaling med Vipps, slik at hele gjengen kan booke ferien uten å gamble."
-      seoTitle="Leie feriehus: ledige netter, totalpris og booking | Digilist"
+      seoTitle="Leie feriehus: ledige netter og totalpris | Digilist"
       seoDescription="Leie feriehus til familieferie, gjenforening eller storfamilie: se ledige netter og totalpris uten skjulte gebyrer, og book trygt med Vipps. Feriehus i hele Norge."
       keywords="leie feriehus, feriehus til leie, leie feriehus ved sjøen, feriehus utleie, leie feriehus norge, feriehus til familie, stort feriehus leie, book feriehus"
       audience={[

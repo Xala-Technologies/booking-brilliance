@@ -1,7 +1,7 @@
 ---
 slug: leie-alt-til-arrangementet-lokale-utstyr-tjenester-overnatting
-title: "Leie sal, utstyr og overnatting til festen: alt i én bestilling"
-description: "Se hvordan du leier lokale, utstyr, catering og overnatting til bryllup, konfirmasjon eller bursdag i én bestilling på Digilist, i stedet for å bruke fem ulike nettsteder."
+title: "Leie sal, utstyr og overnatting: alt i én bestilling"
+description: "Se hvordan du leier lokale, utstyr, catering og overnatting til bryllup, konfirmasjon eller bursdag i én bestilling, i stedet for fem nettsteder."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

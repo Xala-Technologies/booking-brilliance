@@ -1,7 +1,7 @@
 ---
 slug: selskapslokaler-typer-og-hvordan-velge
 title: "Selskapslokaler: typer, pris og hvordan du velger riktig"
-description: "Skal du leie selskapslokaler til bursdag, jubileum eller privat selskap? Se hvilke typer som finnes, hva som passer til antall gjester og anledning, og hvordan du sammenligner ledige lokaler i sanntid."
+description: "Skal du leie selskapslokale til bursdag, jubileum eller selskap? Se hvilke typer som finnes, hva som passer antall gjester, og hvordan du sammenligner."
 date: 2026-08-07
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

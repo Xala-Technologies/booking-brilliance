@@ -1,7 +1,7 @@
 ---
 slug: utendorsfasiliteter-booking-og-tilgjengelighet
 title: "Utendørsfasiliteter: booking og tilgjengelighet i kommunen"
-description: "Grillhytter, paviljonger og bålplasser er ofte kommunens minst synlige fasiliteter. Slik gir digital booking og sanntids tilgjengelighet innbyggerne oversikt og kommunen bedre ressursbruk."
+description: "Grillhytter, paviljonger og bålplasser er kommunens minst synlige fasiliteter. Slik gir digital booking innbyggerne oversikt og bedre ressursbruk."
 date: 2026-07-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

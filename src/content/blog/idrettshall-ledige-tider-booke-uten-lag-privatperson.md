@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-ledige-tider-booke-uten-lag-privatperson
-title: "Idrettshall ledige tider 2026: book time uten lag eller sesongtildeling"
+title: "Idrettshall: book time uten lag eller sesongtildeling"
 description: "Slik booker du en enkelt idrettshalltime til bursdag, cup eller vennegjeng, uten sesongtildeling. Se ledige tider i sanntid, pris per time og avbestillingsregler."
 date: 2026-08-10
 author: "Ibrahim Rahmani"

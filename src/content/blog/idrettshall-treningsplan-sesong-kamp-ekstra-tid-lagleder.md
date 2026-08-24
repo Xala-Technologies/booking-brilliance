@@ -1,7 +1,7 @@
 ---
 slug: idrettshall-treningsplan-sesong-kamp-ekstra-tid-lagleder
-title: "Idrettshall for lagleder: sesongtildeling, kamp og ledige tider i én kalender"
-description: "Slik samler idrettslaget sesongtildelt treningstid, kamper og ledige tider i sanntid i én bookingkalender, med venteliste, avbestilling og budsjett laglederen styrer selv."
+title: "Idrettshall for lagleder: sesong, kamp og ledige tider"
+description: "Slik samler idrettslaget sesongtildelt treningstid, kamper og ledige tider i én bookingkalender, med venteliste, avbestilling og budsjett."
 date: 2026-08-08
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

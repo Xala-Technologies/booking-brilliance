@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-ledige-tider-sanntid-integrasjon-it-leder
-title: "Idrettshall ledige tider: sanntidsdata IT-leder må kunne stole på"
+title: "Idrettshall: sanntidsdata IT-leder kan stole på"
 description: "En pilarguide for IT-ledere om datamodellen bak ledige tider i idrettshall: arkitektur, API-integrasjon, dobbeltbooking, GDPR, SSA-L, audit trail og drift."
 date: 2026-08-08
 author: "Ibrahim Rahmani"

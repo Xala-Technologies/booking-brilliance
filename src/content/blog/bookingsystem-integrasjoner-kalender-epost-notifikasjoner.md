@@ -1,6 +1,6 @@
 ---
 slug: bookingsystem-integrasjoner-kalender-epost-notifikasjoner
-title: "Bookingsystem-integrasjoner: kalender, e-post og notifikasjoner"
+title: "Bookingsystem-integrasjoner: kalender, e-post og varsler"
 description: "Kalendersync, e-postbekreftelse og SMS-påminnelse er ikke tre separate funksjoner, men én integrasjonskjede. Slik henger de sammen og reduserer no-show."
 date: 2026-08-10
 author: "Ibrahim Rahmani"

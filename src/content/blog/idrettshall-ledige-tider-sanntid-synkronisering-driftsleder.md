@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-ledige-tider-sanntid-synkronisering-driftsleder
-title: "Ledige tider i idrettshallen: dobbeltbooking blir strukturelt umulig"
+title: "Ledige tider i idrettshallen: dobbeltbooking blir umulig"
 description: "Se hvordan Digilist synkroniserer sesongtildeling, restplass og engangsleie i sanntid, slik at driftsledere slipper å luke ut dobbeltbookinger manuelt."
 date: 2026-08-08
 author: "Ibrahim Rahmani"

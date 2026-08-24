@@ -1,7 +1,7 @@
 ---
 slug: valg-og-implementering-bookingsystem-kommune
 title: "Valg og implementering av bookingsystem for kommune"
-description: "Hele beslutningsprosessen for kommunalt bookingsystem, fra hvem som bør sitte ved bordet til gevinstrealisering etter go-live, med praktiske eksempler for IT-ledere og kommunale beslutningstakere."
+description: "Hele beslutningsprosessen for kommunalt bookingsystem, fra hvem som bør sitte ved bordet til gevinstrealisering etter go-live, med praktiske eksempler."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

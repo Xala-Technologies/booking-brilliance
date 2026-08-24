@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-ledige-tider-sanntid-livssyklus-driftsleder
-title: "Idrettshall ledige tider: sanntid gjennom hele bookinglivssyklusen"
+title: "Idrettshall: sanntid gjennom hele bookinglivssyklusen"
 description: "Ledige tider i idrettshallen er et sanntidsproblem, ikke en kalender. Se hvordan driftslederen styrer sesong, enkelttime og avbestilling i ett system."
 date: 2026-08-07
 author: "Ibrahim Rahmani"

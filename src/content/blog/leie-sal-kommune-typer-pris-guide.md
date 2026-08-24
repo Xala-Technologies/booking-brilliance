@@ -1,6 +1,6 @@
 ---
 slug: leie-sal-kommune-typer-pris-guide
-title: "Leie sal i kommunen: grendehus, kulturhus og gymsal sammenlignet"
+title: "Leie sal: grendehus, kulturhus og gymsal sammenlignet"
 description: "Se prisspenn for grendehus, kulturhus, skolegymsal og forsamlingshus i kommunen, og finn riktig sal til bursdag, møte eller minnestund uten å ringe rundt."
 date: 2026-08-07
 author: "Ibrahim Rahmani"

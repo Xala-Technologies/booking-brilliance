@@ -13,7 +13,7 @@ export default function LeieMinnestund() {
       dek="Et verdig sted for minnesamværet, nær seremonistedet. Finn ledige lokaler og book uten en lang telefonrunde i en tung tid."
       lead="Et minnesamvær planlegges ofte på kort varsel og midt i sorgen, gjerne bare noen dager før. Da er det en lettelse å finne et rolig, verdig lokale nær kirken eller seremonistedet, med plass til dem som kommer, uten å måtte ringe rundt og vente på svar. På Digilist finner du menighetshus, grendehus, kaféer og selskapslokaler samlet ett sted, med ledige datoer i sanntid og pris synlig, slik at én ting blir enklere når mye annet er vanskelig. Mange gravferdsbyrå hjelper også til med å ordne lokalet."
       seoTitle="Leie lokale til minnestund og minnesamvær | Digilist"
-      seoDescription="Leie lokale til minnestund etter gravferd: finn et verdig, ledig lokale nær seremonistedet, se pris og book uten lang telefonrunde. Menighetshus og selskapslokaler samlet."
+      seoDescription="Leie lokale til minnestund etter gravferd: finn et verdig, ledig lokale nær seremonistedet, se pris og book uten telefonrunde. Menighetshus og selskapslokaler."
       keywords="leie lokale til minnestund, minnesamvær lokale, lokale til minnestund, leie lokale til begravelse, minnestund etter gravferd, leie menighetshus minnestund, lokale til minnesamvær"
       audience={[
         { persona: "Etterlatte og pårørende", context: "Dere planlegger minnesamværet på kort tid og trenger et rolig lokale nær seremonistedet, med plass til slekt og venner og en pris dere kan forholde dere til." },

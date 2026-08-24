@@ -1,7 +1,7 @@
 ---
 slug: bolig-til-leie-oslo-mellombolig-leilighet
 title: "Bolig til leie i Oslo: mellombolig og korttidsleilighet"
-description: "Søker du bolig til leie i Oslo for en begrenset periode? Se hva som skiller en mellombolig fra en vanlig leiekontrakt, og hvordan du finner og booker en korttidsleilighet direkte."
+description: "Søker du bolig til leie i Oslo for en kort periode? Se hva som skiller en mellombolig fra vanlig leiekontrakt, og hvordan du booker en korttidsleilighet."
 date: 2026-08-11
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

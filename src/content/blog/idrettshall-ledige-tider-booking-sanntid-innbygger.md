@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-ledige-tider-booking-sanntid-innbygger
-title: "Ledige tider i idrettshallen: søk i sanntid og book fra mobilen"
+title: "Ledige tider i idrettshallen: søk og book fra mobilen"
 description: "Se ledige treningstider på tvers av alle idrettshaller i kommunen i sanntid, få varsel når en time avbestilles, og book fra mobilen på under ett minutt."
 date: 2026-07-14
 author: "Ibrahim Rahmani"

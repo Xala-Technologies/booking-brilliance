@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-bookingprosedyrer-driftsleder-rutine
-title: "Bookingprosedyrer for idrettshall: driftsleders faste ukerutine"
+title: "Bookingprosedyrer for idrettshall: driftsleders rutine"
 description: "Fra ledige tider til spillemidler-eksport: den samlede bookingrutinen driftsledere bruker i Digilist for prioritering, bytte, venteliste og revisjonsspor."
 date: 2026-08-09
 author: "Ibrahim Rahmani"

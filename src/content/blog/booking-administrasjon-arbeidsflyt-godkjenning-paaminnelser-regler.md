@@ -1,7 +1,7 @@
 ---
 slug: booking-administrasjon-arbeidsflyt-godkjenning-paaminnelser-regler
-title: "Booking-administrasjon og arbeidsflyt: godkjenning, påminnelser og regler"
-description: "Slik henger godkjenning, påminnelser og regelhåndtering sammen i booking-administrasjonen, og hvorfor kombinasjonen er det som faktisk reduserer no-show og misforståelser."
+title: "Booking-administrasjon: godkjenning, påminnelser og regler"
+description: "Slik henger godkjenning, påminnelser og regelhåndtering sammen i booking-administrasjonen, og hvorfor kombinasjonen reduserer no-show."
 date: 2026-08-11
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

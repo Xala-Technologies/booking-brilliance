@@ -1,6 +1,6 @@
 ---
 slug: bookingsystem-kommunale-lokaler-guide-it-leder
-title: "Bookingsystem for kommunale lokaler: alt en IT-leder må vurdere"
+title: "Bookingsystem for kommunale lokaler: IT-lederens guide"
 description: "Konkret sjekkliste for IT-ledere før anskaffelse av bookingsystem: lokaltyper, brukergrupper, SSA-L, GDPR, ID-porten, pris og fallgruver."
 date: 2026-07-19
 author: "Ibrahim Rahmani"

@@ -1,7 +1,7 @@
 ---
 slug: idrettshall-ledige-tider-booking-driftsleder-prioritering-skole-lag-privat
-title: "Idrettshall ledige tider: slik løser driftslederen bookingkonflikten mellom skole, lag og privat"
-description: "Når skole, lag og privat leie vil ha samme kveld: slik viser systemet ledige tider, prioritering og sanntidskollisjoner, så driftslederen slipper å avgjøre per telefon."
+title: "Idrettshall: slik løses kampen om samme kveld"
+description: "Når skole, lag og privat leie vil ha samme kveld: slik viser systemet ledige tider, prioritering og sanntidskollisjoner, uten avgjørelser per telefon."
 date: 2026-08-07
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"

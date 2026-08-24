@@ -1,6 +1,6 @@
 ---
 slug: leie-sal-billigst-kommune-lag-foreninger-reell-pris
-title: "Leie sal billigst i kommunen: slik finner foreningen reell pris"
+title: "Leie sal billigst: slik finner foreningen reell pris"
 description: "Listepris er sjelden det laget faktisk betaler. Slik regner foreningen ut reell pris med frivillighetsrabatt, friplass og sesongleie, og booker billigst."
 date: 2026-08-07
 author: "Ibrahim Rahmani"

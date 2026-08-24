@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-booking-prosedyre-avbud-dobbeltbooking-venteliste
-title: "Idrettshallbooking: prosedyren når avbud og dobbeltbooking skjer"
+title: "Idrettshallbooking: prosedyren ved avbud og dobbeltbooking"
 description: "Se prosedyren bookingansvarlig følger fra forespørsel til faktura: avbud, venteliste, dobbeltbooking og godkjenning samlet i ett system, ikke et løsark."
 date: 2026-08-10
 author: "Ibrahim Rahmani"

@@ -1,6 +1,6 @@
 ---
 slug: idrettshall-ledige-tider-enkelttime-sanntid-innbygger
-title: "Ledige tider i idrettshallen: slik booker du enkelttime i sanntid"
+title: "Ledige tider i idrettshallen: book enkelttime i sanntid"
 description: "Se ledige idrettshalltider live, book enkelttime med ID-porten eller BankID, og få varsel når en avbestilt time frigis. Slipp å ringe driftsleder."
 date: 2026-08-05
 author: "Ibrahim Rahmani"

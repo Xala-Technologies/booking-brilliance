@@ -1,7 +1,7 @@
 ---
 slug: regler-booking-kommunale-lokaler
 title: "Regler for booking av kommunale lokaler"
-description: "Hvilke regler, prosedyrer og krav gjelder når du booker et kommunalt lokale? Guide for søkere og kommunalt ansatte: dokumentasjon, godkjenning, bruksregler, avbestilling og klageadgang."
+description: "Hvilke regler og krav gjelder når du booker et kommunalt lokale? Guide for søkere og ansatte: dokumentasjon, godkjenning, avbestilling og klageadgang."
 date: 2026-08-09
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
