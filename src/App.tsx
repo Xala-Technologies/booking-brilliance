@@ -82,6 +82,7 @@ const ArrangementTeaterOgScene = lazy(() => import("./pages/ArrangementTeaterOgS
 const ArrangementFestival = lazy(() => import("./pages/ArrangementFestival"));
 const ArrangementSport = lazy(() => import("./pages/ArrangementSport"));
 const Blog = lazy(() => import("./pages/Blog"));
+const Sok = lazy(() => import("./pages/Sok"));
 const FAQ = lazy(() => import("./pages/FAQ"));
 const AiAgenter = lazy(() => import("./pages/AiAgenter"));
 const AgentSesongtildeling = lazy(() => import("./pages/agents/Sesongtildeling"));
@@ -368,6 +369,8 @@ function SiteRoutes() {
             <Route path="arrangementer/festival" element={<ArrangementFestival />} />
             <Route path="arrangementer/sport" element={<ArrangementSport />} />
             <Route path="blogg" element={<Blog />} />
+            {/* Where search sends you. Relative, so it serves /sok and /en/sok. */}
+            <Route path="sok" element={<Sok />} />
             <Route
               path="blogg/preview/:draftId"
               element={

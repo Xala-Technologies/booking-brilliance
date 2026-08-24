@@ -89,15 +89,41 @@ describe("GlobalSearch results", () => {
     expect(path?.startsWith("/")).toBe(true);
   });
 
-  it("still opens the highlighted hit on Enter, and no suggestion", () => {
-    // ↵ on a query that matched nothing must stay inert: teleporting a visitor
-    // to a page they did not ask for is worse than the dead end.
-    type(input(), "{query}");
+  const press = (key: string) =>
     act(() => {
-      input().dispatchEvent(
-        new KeyboardEvent("keydown", { key: "Enter", bubbles: true }),
-      );
+      input().dispatchEvent(new KeyboardEvent("keydown", { key, bubbles: true }));
     });
-    expect(container.querySelector('[data-testid="path"]')?.textContent).toBe("/");
+  const path = () => container.querySelector('[data-testid="path"]')?.textContent;
+
+  it("sends ↵ to the results page, carrying the query", () => {
+    // This assertion used to say ↵ must stay inert, on the reasoning that
+    // teleporting a visitor somewhere they did not ask for beats a dead end.
+    // Both were true only because there was nowhere to send them: /sok did not
+    // exist. It does now, and a search box whose ↵ does nothing is the dead end
+    // geoqa #324 measured from outside.
+    type(input(), "vipps");
+    press("Enter");
+    expect(path()).toBe("/sok");
+  });
+
+  it("sends ↵ to the results page even when nothing matched", () => {
+    type(input(), "{query}");
+    press("Enter");
+    expect(path()).toBe("/sok");
+  });
+
+  it("opens the hit itself once the visitor has arrowed to one", () => {
+    // Arrowing means "open THAT one" — selectedIdx alone cannot express it,
+    // since it starts at 0 and the first row is always highlighted.
+    type(input(), "vipps");
+    press("ArrowDown");
+    press("Enter");
+    expect(path()).not.toBe("/");
+    expect(path()).not.toBe("/sok");
+  });
+
+  it("leaves ↵ inert on an empty query", () => {
+    press("Enter");
+    expect(path()).toBe("/");
   });
 });

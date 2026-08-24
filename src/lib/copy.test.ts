@@ -42,6 +42,7 @@ describe("copy dictionaries", () => {
       "pilot.role": "a registered company name",
       "pilot.date": "a place name and a year",
       "price.per": "'per' is the same word in both",
+      "sokPage.h1em": "the product name — the /sok h1 reads 'Søk i Digilist' / 'Search Digilist'",
       // Norwegian place names. Listed one by one rather than exempting the
       // whole calc.city.* family, because calc.city.annet is NOT a place name
       // — it is "Annet / mindre sted" / "Elsewhere / a smaller place", and a

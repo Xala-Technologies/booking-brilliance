@@ -342,6 +342,20 @@ const nb: Copy = {
   "search.blog": "Blogg",
   "search.tryInstead": "Prøv disse i stedet",
 
+  // /sok — the page search sends you to. Its own keys rather than reusing the
+  // panel's: the panel labels a dropdown, this labels a page with an h1.
+  "sokPage.eyebrow": "SØK",
+  "sokPage.title": "Søk – Digilist",
+  "sokPage.description": "Søk i alt på Digilist: lokaler og løsninger, artikler fra bloggen og svar fra FAQ-en.",
+  "sokPage.h1": "Søk i",
+  "sokPage.h1em": "Digilist",
+  "sokPage.lede": "Søk i lokaler og løsninger, artikler fra bloggen og svar fra FAQ-en.",
+  "sokPage.inputLabel": "SØKEORD",
+  "sokPage.submit": "Søk",
+  "sokPage.hit": "treff",
+  "sokPage.hits": "treff",
+  "sokPage.noHits": "Ingen treff på dette søket. Prøv et bredere ord, eller start et av stedene under.",
+
   "stories.a.headline": "Fra excelark til kalenderautomatikk.",
   "stories.a.dek": "Privat selskapslokale i Asker som leier ut til selskaper, bryllup og jubileer.",
   "stories.a.body": "Som eier av et selskapslokale ønsket Rønningen å slutte å holde styr på bookinger i regneark. Med Digilist får gjestene en lenke der de selv ser ledige helger, betaler depositum og signerer leieavtalen digitalt.",
@@ -1038,6 +1052,18 @@ const en: Copy = {
   "search.popular": "Popular searches",
   "search.blog": "Blog",
   "search.tryInstead": "Try these instead",
+
+  "sokPage.eyebrow": "SEARCH",
+  "sokPage.title": "Search – Digilist",
+  "sokPage.description": "Search everything on Digilist: venues and features, articles from the blog, and answers from the FAQ.",
+  "sokPage.h1": "Search",
+  "sokPage.h1em": "Digilist",
+  "sokPage.lede": "Search venues and features, articles from the blog, and answers from the FAQ.",
+  "sokPage.inputLabel": "SEARCH TERM",
+  "sokPage.submit": "Search",
+  "sokPage.hit": "result",
+  "sokPage.hits": "results",
+  "sokPage.noHits": "Nothing matched that search. Try a broader word, or start from one of these.",
 
   "stories.a.headline": "From spreadsheet to automated calendar.",
   "stories.a.dek": "A private function room outside Oslo, let out for parties, weddings and anniversaries.",
