@@ -119,7 +119,6 @@ const BookingsystemUtleie = () => {
               <p>{c.definitionP1}</p>
               <p>{c.definitionP2}</p>
               <p>{c.definitionP3}</p>
-              <p>{c.definitionP4}</p>
             </div>
           </div>
         </section>

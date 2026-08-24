@@ -194,3 +194,39 @@
 - Lint passed with 41 pre-existing warnings only
 - Build completed successfully
 - PR #319 created, auto-merge enabled, merged to main
+
+## 2026-08-24: On-Page SEO Second Pass for /bookingsystem-utleie Landing
+
+### Changes Made
+- Updated title and og:title to "Bookingsystem for utleie av lokaler, ikke utstyr | Digilist"
+- Updated meta description to clarify scope with "festlokale, møterom, gård og hall, ikke tilhenger, verktøy eller minilager"
+- Updated keywords to official set including "system for utleie av lokaler" as protected phrase
+- Updated H1 to "Bookingsystem for utleie av lokaler, ikke utstyr"
+- Updated first definition H2 to "Hva er et bookingsystem for utleie av lokaler?"
+- Replaced definition section with three exact approved paragraphs
+- Removed old definition P4 from both content and component
+- Updated FAQ Q1 question to "Hva er et bookingsystem for utleie av lokaler?"
+- Updated FAQ Q1 answer to expand scope clarification and add "ikke et lagersystem for utstyr"
+- Tightened FAQ Q7 answer from "Systemer for tilhenger, verktøy og minilager" to "Tilhenger, verktøy og minilager"
+- All eight FAQ entries present in both visible HTML and FAQPage JSON-LD schema
+
+### Files Modified
+- src/content/bookingsystem-utleie.ts (updated Norwegian copy: metaTitle, metaDescription, keywords, h1/h1em, definitionH2, definitionP1-P3, FAQ Q1/Q7)
+- src/pages/BookingsystemUtleie.tsx (removed definitionP4 rendering)
+- scripts/prerender.mjs (updated title, description, FAQ Q1/Q7 for SSR/prerender)
+
+### Constraints Met
+- Official Bokmål spelling (koble/kobles, never kable as verb)
+- No em-dash
+- Same slug, not a new URL or blog
+- Hero and opening scene unchanged
+- Stats strip "For utleiere" unchanged
+- Other H2s unchanged
+- Kommuner block unchanged
+- FAQPage schema matches visible FAQ text
+- Single PR from main
+
+### Build Status
+- Lint passed with 41 pre-existing warnings only
+- Build completed successfully
+- PR #330 created, ready for merge

@@ -2235,9 +2235,9 @@ const ROUTES = [
   },
   {
     route: "/bookingsystem-utleie",
-    title: "Bookingsystem for utleie av lokaler | Digilist",
+    title: "Bookingsystem for utleie av lokaler, ikke utstyr | Digilist",
     description:
-      "Bookingsystem for utleie av lokaler. Sanntidskalender, Vipps og kort, differensiert pris og kalendersynk. Bygget for private utleiere som leier ut lokale, ikke utstyr.",
+      "Bookingsystem for utleie av lokaler. Festlokale, møterom, gård og hall, ikke tilhenger, verktøy eller minilager. Sanntidskalender, Vipps og kort, differensiert pris.",
     ogType: "website",
     breadcrumbs: [
       { name: "Hjem", url: `${BASE_URL}/` },
@@ -2245,8 +2245,8 @@ const ROUTES = [
     ],
     faq: [
       {
-        q: "Hva er et bookingsystem for utleie?",
-        a: "Et system der utleier legger ut ledige tider på et lokale, og leietaker ser sanntid, booker og betaler. Kalender, pris, tillegg og bekreftelse ligger ett sted. Digilist er et system for utleie av lokaler.",
+        q: "Hva er et bookingsystem for utleie av lokaler?",
+        a: "Et system der utleier legger ut ledige tider på et lokale (festlokale, møterom, gård, hall), og leietaker ser sanntid, booker og betaler. Kalender, pris, tillegg og bekreftelse ligger ett sted. Digilist er et system for utleie av lokaler, ikke et lagersystem for utstyr.",
       },
       {
         q: "Hvordan leier jeg ut lokaler med sanntidskalender?",
@@ -2270,7 +2270,7 @@ const ROUTES = [
       },
       {
         q: "Er dette et bookingsystem for utstyr og lager, eller for lokaler?",
-        a: "For lokaler. Systemer for tilhenger, verktøy og minilager er en annen jobb. Digilist håndterer festlokale, møterom, gård og hall, med en kalender leietakeren kan booke.",
+        a: "For lokaler. Tilhenger, verktøy og minilager er en annen jobb. Digilist håndterer festlokale, møterom, gård og hall, med en kalender leietakeren kan booke.",
       },
       {
         q: "Hva er forskjellen på et bookingsystem og et utleiesystem?",

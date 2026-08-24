@@ -53,7 +53,6 @@ export interface OperatorCopy {
   definitionP1: string;
   definitionP2: string;
   definitionP3: string;
-  definitionP4: string;
   whyRule: string;
   whyH2: string;
   whyH2em: string;
@@ -91,9 +90,9 @@ export interface OperatorCopy {
 
 const FAQ_NB: readonly QA[] = [
   {
-    question: "Hva er et bookingsystem for utleie?",
+    question: "Hva er et bookingsystem for utleie av lokaler?",
     answer:
-      "Et system der utleier legger ut ledige tider på et lokale, og leietaker ser sanntid, booker og betaler. Kalender, pris, tillegg og bekreftelse ligger ett sted. Digilist er et system for utleie av lokaler.",
+      "Et system der utleier legger ut ledige tider på et lokale (festlokale, møterom, gård, hall), og leietaker ser sanntid, booker og betaler. Kalender, pris, tillegg og bekreftelse ligger ett sted. Digilist er et system for utleie av lokaler, ikke et lagersystem for utstyr.",
   },
   {
     question: "Hvordan leier jeg ut lokaler med sanntidskalender?",
@@ -123,7 +122,7 @@ const FAQ_NB: readonly QA[] = [
   {
     question: "Er dette et bookingsystem for utstyr og lager, eller for lokaler?",
     answer:
-      "For lokaler. Systemer for tilhenger, verktøy og minilager er en annen jobb. Digilist håndterer festlokale, møterom, gård og hall, med en kalender leietakeren kan booke.",
+      "For lokaler. Tilhenger, verktøy og minilager er en annen jobb. Digilist håndterer festlokale, møterom, gård og hall, med en kalender leietakeren kan booke.",
   },
   {
     question: "Hva er forskjellen på et bookingsystem og et utleiesystem?",
@@ -288,15 +287,15 @@ const FAQ_EN: readonly QA[] = [
 ];
 
 const NB: OperatorCopy = {
-  metaTitle: "Bookingsystem for utleie av lokaler | Digilist",
+  metaTitle: "Bookingsystem for utleie av lokaler, ikke utstyr | Digilist",
   metaDescription:
-    "Bookingsystem for utleie av lokaler. Sanntidskalender, Vipps og kort, differensiert pris og kalendersynk. Bygget for private utleiere som leier ut lokale, ikke utstyr.",
+    "Bookingsystem for utleie av lokaler. Festlokale, møterom, gård og hall, ikke tilhenger, verktøy eller minilager. Sanntidskalender, Vipps og kort, differensiert pris.",
   keywords:
-    "bookingsystem utleie, bookingsystem for utleie av lokaler, utleie booking, leie ut lokaler system, utleiesystem lokaler",
+    "bookingsystem utleie, bookingsystem for utleie av lokaler, system for utleie av lokaler, utleie av lokaler, bookingsystem lokaler",
   rule: "BOOKINGSYSTEM UTLEIE · 2026",
   openingScene: "Innboksen er full. Tre vil ha samme lørdag. Kalenderen sitter i hodet.",
   h1: "Bookingsystem for",
-  h1em: "utleie av lokaler",
+  h1em: "utleie av lokaler, ikke utstyr",
   ledeA: "Et bookingsystem for utleie av lokaler skal vise ledig tid, ta imot booking og betaling, og hindre dobbeltbooking. ",
   ledeStrong: "Ikke mer e-post frem og tilbake",
   ledeB: ".",
@@ -310,11 +309,10 @@ const NB: OperatorCopy = {
     { label: "Datalokasjon", value: "Norge · EU" },
   ],
   definitionRule: "I. DEFINISJON",
-  definitionH2: "Hva er et bookingsystem for utleie?",
-  definitionP1: "Et bookingsystem for utleie viser ledige tider, tar imot booking og betaling, og hindrer dobbeltbooking.",
-  definitionP2: "Denne siden gjelder utleie av lokaler (festlokale, møterom, gård, hall). Ikke tilhenger, verktøy eller minilager.",
-  definitionP3: "Mindre e-post og telefon. Samme kalender for utleier og leietaker.",
-  definitionP4: "Digilist er et system for utleie av lokaler. Sanntidskalender, Vipps og kort, differensiert pris og kalendersynk. Systemet folk forstår. Endringer ligger i en logg.",
+  definitionH2: "Hva er et bookingsystem for utleie av lokaler?",
+  definitionP1: "Et bookingsystem for utleie av lokaler viser ledig tid på et lokale, tar imot booking og betaling, og holder én kalender for utleier og leietaker.",
+  definitionP2: "Denne siden gjelder festlokale, møterom, gård og hall. Ikke tilhenger, verktøy, lager eller minilager.",
+  definitionP3: "Digilist er et system for utleie av lokaler. Mindre e-post og telefon. Samme kalender for begge.",
   whyRule: "II. HVORFOR DIGITAL UTLEIE",
   whyH2: "Fra e-post til",
   whyH2em: "direkte booking",
@@ -385,7 +383,6 @@ const EN: OperatorCopy = {
   definitionP1: "A booking system for venue rental shows free times, takes bookings and payments, and prevents double bookings.",
   definitionP2: "This page is about renting out venues (function rooms, meeting rooms, farms, halls). Not trailers, tools, or storage.",
   definitionP3: "Less email and phone. One calendar for operator and renter.",
-  definitionP4: "Digilist is a system for venue rental. Real-time calendar, Vipps and card, varied pricing and calendar sync. A system people understand. Changes are logged.",
   whyRule: "II. WHY RENT OUT DIGITALLY",
   whyH2: "From email to",
   whyH2em: "direct booking",
