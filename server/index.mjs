@@ -120,7 +120,35 @@ function authorized(req) {
 }
 
 // ---------- helpers
+/**
+ * Security headers, on every response this service writes.
+ *
+ * api.digilist.no measured ZERO security headers — no HSTS, no nosniff, no
+ * frame policy (#220, #122). The obvious home for them is nginx, and this repo
+ * even has the snippet (infra/nginx/security-headers.conf) plus a script that
+ * installs it — but that script's TARGETS only covers docs.digilist.no, and
+ * this host's vhost is hand-maintained on the VPS where nothing in this repo
+ * can reach it. The service itself IS shipped from here (deploy.sh rsyncs
+ * server/ and restarts digilist-api), so the headers travel with the code that
+ * needs them and cannot drift away from it again.
+ *
+ * Values match infra/nginx/security-headers.conf so the two never disagree if
+ * the vhost later gains the include; duplicate identical headers are still
+ * worth avoiding, so drop this if the nginx snippet is ever applied here.
+ * DENY rather than SAMEORIGIN: nothing embeds a JSON API in a frame.
+ */
+const securityHeaders = {
+  "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
+  "X-Frame-Options": "DENY",
+  "X-Content-Type-Options": "nosniff",
+  "X-XSS-Protection": "0",
+  "Referrer-Policy": "strict-origin-when-cross-origin",
+  "Permissions-Policy":
+    "camera=(), microphone=(), geolocation=(), payment=(self), interest-cohort=()",
+};
+
 const corsHeaders = {
+  ...securityHeaders,
   "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
   "Access-Control-Allow-Headers": "Content-Type, Authorization",
   "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
