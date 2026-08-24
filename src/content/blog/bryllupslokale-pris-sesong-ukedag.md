@@ -82,6 +82,24 @@ Bylokaler, for eksempel sentralt i Oslo, tar ofte en høyere leiepris fordi tilg
 
 Regn derfor alltid ut totalkostnaden for gjestene, ikke bare leieprisen for lokalet, før dere sammenligner et bylokale med et landlokale. Et lokale som er 8 000 kroner billigere å leie kan fort koste mer for gjestene samlet sett når transport og overnatting legges til.
 
+## Vanlige spørsmål
+
+### Når bør dere booke bryllupslokale?
+
+Populære lokaler for lørdager i mai til august booker ofte fullt 12 til 18 måneder i forveien. Venter dere til seks måneder før, sitter dere igjen med et smalt utvalg og lite forhandlingsrom. Booker dere 12 til 24 måneder frem i tid, får dere velge fritt blant både dato og lokale, og flere utleiere gir tidligbooking-rabatt.
+
+### Hvor mye billigere er et bryllup på hverdag?
+
+Høysesong er mai til september, med topp i juni og august, og prisen ligger da ofte 20 til 40 prosent høyere enn i lavsesong. Lørdag er dyrest og booket lengst frem i tid. Fredag og søndag ligger typisk 15 til 25 prosent under lørdagsprisen, mens hverdager fra mandag til torsdag kan gi 30 til 50 prosent rabatt hos lokaler som ellers står tomme.
+
+### Hvorfor koster samme sal så ulikt på to datoer?
+
+Ta samme sal med plass til 100 gjester. En lørdag i juni, booket ni måneder før og med kveldsselskap til klokken 02, gir grunnpris 45 000 kroner og totalt rundt 58 000 kroner med obligatorisk cateringpakke og overtidstillegg. En søndag i oktober, booket 14 måneder før og avsluttet klokken 22, gir 27 000 kroner i grunnpris og rundt 32 000 kroner totalt.
+
+### Hvilket depositum krever et bryllupslokale, og hva skjer ved avbestilling?
+
+De fleste bryllupslokaler krever depositum på 10 til 20 prosent av totalsummen ved signering, med restbeløpet betalt 30 til 60 dager før datoen. Spør konkret om det koster noe å flytte datoen, om depositumet er refunderbart, delvis refunderbart eller tapt ved avbestilling, og om det finnes en frist der resten forfaller uansett. Be om at punktene står i selve kontrakten.
+
 ## Slik sammenligner dere flere bryllupslokaler raskt
 
 Skal dere sammenligne flere bryllupslokaler uten å ringe rundt til hvert enkelt sted, kan dere søke opp bryllupslokaler på Digilist, se ledige datoer i sanntid og sende forespørsel direkte til utleier. Det gjør det enklere å teste ut nettopp de kombinasjonene av sesong, ukedag og tidspunkt som denne artikkelen har gått gjennom, og sammenligne reell totalpris før dere bestemmer dere for dato og sted.

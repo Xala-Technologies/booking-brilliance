@@ -61,6 +61,24 @@ Ta utgangspunkt i cupen med 24 lag fra innledningen. Arrangøren søker først o
 6. Motta fakturagrunnlag med spesifisert tidsrom og tilleggstjenester etter arrangementet.
 7. Bekreft at faste lag i hallen er varslet om at sesongtreningen viker for arrangementet.
 
+## Vanlige spørsmål
+
+### Hvordan booker jeg idrettshall til en cup som varer hele helgen?
+
+En turneringshelg er ikke 40 enkelttimer, det er én sammenhengende reservasjon. Med blokkbooking legger arrangøren inn hele perioden i ett grep, for eksempel fredag klokken 17 til søndag klokken 18, i stedet for hver time separat. Driftslederen får da én forespørsel å forholde seg til fremfor 20, og ingen enkelttime glipper og blir bookbar for andre midt i turneringen.
+
+### Hva koster det å leie idrettshall til cup eller turnering?
+
+Prisen for arrangementsutleie ligger normalt høyere enn ordinær timepris, fordi hallen er utilgjengelig for andre i hele perioden og driftsleder ofte må stille med ekstra bemanning i helgen. En vanlig modell er en fast helgepris per hall pluss et tillegg for garderober og kiosk, fakturert samlet til arrangøren i etterkant. Flere driftsledere krever også depositum ved bekreftet booking.
+
+### Hvor raskt får arrangøren svar på en søknad om hall til turnering?
+
+Arrangementsutleie krever som regel godkjenning fra driftsleder eller idrettskonsulent, siden bookingen låser hallen for andre formål i flere dager. Ligger garderobebehov og utstyr som resultattavle og sekretariatbord i samme søknad, kuttes responstiden fra flere uker med e-post frem og tilbake til noen dager, fordi driftslederen slipper å etterspørre manglende informasjon.
+
+### Hva er forskjellen på sesongtildeling, enkelttimer og arrangementsutleie?
+
+Sesongtildeling er faste ukentlige treningstider tildelt lag for hele sesongen, normalt fastsatt før sommeren. Enkelttimer er løse timer som bookes etter behov, ofte med kort varsel og uten krav om egen godkjenning. Arrangementsutleie er en sammenhengende blokk over flere dager til cup, turnering eller stevne, og krever egen godkjenning fordi den fortrenger vanlig drift for alle andre brukere.
+
 ## Book demo
 
 Skal du arrangere cup eller turnering og trenger en hel idrettshall for helgen? Book en demo med Digilist, så viser vi hvordan du søker ledige tider på tvers av flere haller, blokkbooker sammenhengende tid og får bekreftelsen raskere enn med telefon og e-post.

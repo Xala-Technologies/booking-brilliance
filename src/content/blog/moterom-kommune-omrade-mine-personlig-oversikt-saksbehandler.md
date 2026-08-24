@@ -70,6 +70,24 @@ De fleste kommuner starter med ett pilotbygg, typisk rådhuset, i fire til seks 
 
 Underveis er det lurt å utpeke en superbruker per bygg, en ansatt som kjenner rutinene og kan svare på enkle spørsmål lokalt, slik at IT-avdelingen ikke blir eneste kontaktpunkt under utrullingen. Fordi tilgangsstyring og område-filtrering allerede ligger i systemet, krever hvert nytt bygg lite mer enn å legge inn romdata, ikke en ny teknisk oppsettsrunde.
 
+## Vanlige spørsmål ansatte stiller om møteromsbooking
+
+### Hvordan finner en kommuneansatt ledig møterom på tvers av byggene?
+
+Du velger område, for eksempel sentrum, en bydel eller en enhet, og får opp alle bookbare rom i de byggene som hører til der, uavhengig av hvem som formelt eier bygget. Filtrering går på område, byggtype, kapasitet og utstyr som prosjektor, videokonferanse og whiteboard, slik at du finner et rom som passer møtet.
+
+### Kan jeg endre eller avbestille møterommet selv?
+
+Ja. Under «Mine bookinger» ligger alle møtene du selv har reservert, uavhengig av hvilket bygg de gjelder. Du kan endre tidspunkt, bytte rom eller avbestille selv, uten å ringe vaktmester eller sende en ny e-post til resepsjonen. Blir rommet tatt ut av drift for vedlikehold, varsles du automatisk slik at du kan omboke.
+
+### Hvordan hindrer systemet at to ansatte booker samme møterom?
+
+Sanntidskalenderen viser status idet du ser på den, ikke slik den så ut da noen sist oppdaterte et regneark. To saksbehandlere kan derfor aldri booke samme rom samtidig, og en booking bekreftes umiddelbart. Bekreftelsen kommer som varsel i appen eller på e-post innen sekunder, ikke som svar neste virkedag.
+
+### Hvor lang tid tar utrullingen fra pilotbygg til hele kommunen?
+
+De fleste kommuner starter med ett pilotbygg, typisk rådhuset, i fire til seks uker. Uke 1 til 2 settes rom, brukere og tilgangsregler opp for pilotbygget, uke 3 til 6 kjøres pilotdrift med reell booking, i måned 2 rulles det ut til øvrige bygg ett tjenesteområde av gangen, og i måned 3 er det full drift.
+
 ## Se det i praksis
 
 Vil du se hvordan din kommune kan gå fra flere separate bookingsystemer til én personlig «mine møterom»-visning for hver ansatt? Book en demo med Digilist, så viser vi løsningen på deres egne bygg og tjenesteområder.

@@ -74,6 +74,24 @@ Avbestillingsfristen varierer, men 48 til 72 timer før bookingtidspunktet er va
 5. Motta bekreftelse med kode til garderobe og hallregler
 6. Legg avbestillingsfristen inn i egen kalender, slik at du slipper gebyr ved endring
 
+## Vanlige spørsmål
+
+### Hva koster det å leie idrettshall per time?
+
+I 2026 ligger enkelttimeprisen typisk mellom 450 og 950 kroner per time i norske kommuner, avhengig av hallstørrelse og om du leier hel eller delt hall. De fleste kommuner har en lav sats for lag og foreninger med fast tildeling, og en høyere enkelttimepris for privatpersoner og bedrifter. Kveld og helg koster mer enn dagtid på hverdager.
+
+### Må jeg betale depositum når jeg leier idrettshall?
+
+Depositum er vanlig ved enkeltbooking av bedrifter og private, typisk 1000 til 3000 kroner, og det trekkes tilbake dersom hallen leveres i samme stand som den ble mottatt. De fleste kommuner krever i tillegg at leietaker har egen ansvarsforsikring, særlig ved arrangementer med publikum eller mange deltakere. Sjekk hva som gjelder før du booker, ikke etter.
+
+### Når må jeg avbestille for å slippe gebyr?
+
+Avbestillingsfristen varierer, men 48 til 72 timer før bookingtidspunktet er vanlig for at du skal slippe gebyr. Avbestiller du senere, eller uteblir uten varsel, fakturerer flere kommuner full pris, siden tiden da ikke kan tilbys andre. Med et digitalt bookingsystem endrer eller kansellerer du selv i portalen, og du ser fristen tydelig før du bestiller.
+
+### Hvor lang tid i forveien bør jeg booke hall til en cup?
+
+Book i god tid, gjerne to til tre måneder før et større arrangement, siden kommuner med begrenset hallkapasitet fyller opp helgene raskt, særlig i turneringssesongen fra september til april. Avklar samtidig antall garderober, om det er strøm nok til flere boder samtidig, og om det finnes begrensning på antall tilskuere av brannvernhensyn.
+
 ## Book demo av Digilist
 
 Digilist gir kommuner og private hallutleiere en bookingløsning der ledig tid vises i sanntid, betaling skjer direkte i bestillingen, og avbestillingsfrister håndheves automatisk. Vil du se hvordan det fungerer for din hall eller kommune, book en demo med oss.

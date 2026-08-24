@@ -95,6 +95,24 @@ Et billig bryllupslokale på papiret kan bli det dyreste hvis alt utstyr må lei
 
 Bruk samme sjekkliste for hvert tilbud: leiepris, inkluderte timer, depositum, hva som følger med av inventar, og betalingsplan. Sett tallene opp side om side og regn ut totalprisen for hvert lokale med samme modell som over, ikke bare leieprisen isolert. Mange par henter tre til fem tilbud, men sammenligner bare leieprisen, som er akkurat tallet som forteller minst om hva bryllupet faktisk koster.
 
+## Vanlige spørsmål
+
+### Hva koster et bryllupslokale i 2026?
+
+En enkel forsamlingssal eller bygdehus koster 4.000 til 9.000 kroner for kvelden. Et selskapslokale med kjøkken og servise ligger på 12.000 til 25.000 kroner, en gård eller lada med eget uteareal på 20.000 til 40.000 kroner, og et eksklusivt lokale med catering og overnatting inkludert på 40.000 kroner og oppover. En lørdag i juni koster ofte 20-30 prosent mer enn samme lokale en fredag i november.
+
+### Hvilke skjulte kostnader kommer i tillegg til leieprisen?
+
+Depositum for bryllupslokale ligger vanligvis mellom 3.000 og 10.000 kroner. De vanligste skjulte postene er overtid utover avtalt sluttidspunkt, ofte 1.500-3.000 kroner per påbegynt time, rydding og søppelhåndtering, ansvarsforsikring for arrangementet, nøkkelvakt eller vertskap utover åpningstid, korkeavgift for medbrakt drikke, og minstekjøp av mat eller drikke fra lokalets eget kjøkken.
+
+### Hvordan regner dere ut totalprisen på et bryllupslokale?
+
+Bruk en enkel modell: leiepris pluss tillegg for stoler, servise og lyd, pluss depositum, pluss 10 prosent buffer for overtid eller ekstra timer. For et lokale med grunnpris 18.000 kroner, 4.000 kroner i tillegg og 5.000 kroner i depositum bør dere budsjettere med rundt 24.000-26.000 kroner reelt bundet, selv om depositumet i praksis kommer tilbake.
+
+### Hvorfor varierer prisen per gjest så mye?
+
+Pris per gjest faller når lokalet fylles opp, fordi den faste kostnaden til leie, oppvarming og personale fordeles på flere. Et lokale til 20.000 kroner gir 400 kroner per hode ved 50 gjester, rundt 267 kroner ved 75 gjester og 200 kroner ved 100 gjester. Samtidig øker mat, drikke og servise proporsjonalt, så totalregnestykket flater ofte ut rundt 60-70 gjester.
+
 ## Kom i gang
 
 Digilist viser ledig kapasitet, pris og vilkår for utleielokaler i sanntid, slik at dere slipper å ringe rundt for å få de samme svarene fra flere steder. Book en demo, så viser vi hvordan dere sammenligner bryllupslokaler på like vilkår før dere signerer.

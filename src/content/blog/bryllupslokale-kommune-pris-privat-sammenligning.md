@@ -80,6 +80,24 @@ Fire ting avgjør ofte valget i praksis:
 
 Avklar disse punktene før du signerer, ikke etter. Et lokale som ser rimelig ut på papiret, kan bli dyrt eller upraktisk hvis parkeringen er for liten eller cateringen er låst til én leverandør.
 
+## Vanlige spørsmål om bryllupslokale i kommunen
+
+### Hva koster et bryllupslokale i kommunen?
+
+Et grendehus eller en skoleaula koster typisk 1 500 til 4 000 kroner per dag, mens et kulturhus eller en representasjonssal ligger på 6 000 til 15 000 kroner. Et privat festlokale for samme antall gjester starter ofte på 15 000 kroner og passerer 40 000 når servering er med i pakken.
+
+### Er et kommunalt bryllupslokale billigere enn et privat festlokale?
+
+Selve rommet er sjelden den store utgiften i kommunen. Leier du en kommunal festsal til 8 000 kroner, tar inn catering for 80 gjester til rundt 600 kroner per kuvert, betaler 2 500 for sluttvask og legger ut 4 000 i depositum du får igjen, lander totalen rundt 58 500 kroner. Da utgjør lokalet under en femtedel av regningen.
+
+### Hva er inkludert når du leier bryllupslokale av kommunen?
+
+Kommunen inkluderer som regel selve lokalet, strøm, tilgang til kjøkken og ofte bord og stoler. Rigging, borddekking, vask og teknikk må du derimot ofte ordne selv eller betale ekstra for, og vakthold kreves gjerne ved skjenking. Be om en skriftlig oversikt over hva som konkret følger med.
+
+### Hvor lang tid i forveien bør du booke bryllupslokale?
+
+Bryllup planlegges gjerne 12 til 18 måneder i forveien, og populære lørdager i juni og august går først. Mange kommuner åpner booking omtrent ett år frem i tid. Med en sanntidskalender ser du hvilke datoer som faktisk er ledige, og om fredagen, søndagen eller uken etter er åpen.
+
 ## Slik sjekker du pris og ledighet på nett
 
 Digital booking gjør sammenligningen enkel: du ser pris, kapasitet, hva som er inkludert og hvilke datoer som er ledige på samme sted, uten å ringe rundt. Da vet du hva kommunalt mot privat faktisk koster for ditt bryllup, med dine gjester og dine leverandører, ikke bare listeprisen i en brosjyre.

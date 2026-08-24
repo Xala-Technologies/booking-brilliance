@@ -66,3 +66,21 @@ Den vanligste flaskehalsen er ikke at det mangler selskapslokaler, men at ingen 
 ## Kom i gang
 
 Enten du planlegger en bursdag, et jubileum eller et annet privat selskap, er stegene de samme: bestem antall gjester, sjekk ledige datoer, og sammenlign totalpris før du booker. [Prøv Digilist](https://digilist.no) og finn selskapslokalet som passer til ditt arrangement.
+
+## Vanlige spørsmål
+
+### Hvilke typer selskapslokaler finnes?
+
+De fleste selskapslokaler i Norge faller i fire kategorier: grendehus og bygdehus, som er enkle og rimelige og eid av en bygdelagsforening eller stiftelse; kulturhus og kommunale festsaler, ofte med scene eller lydanlegg og priset nær selvkost; klubbhus og foreningslokaler, der prisen ofte er lavere for medlemmer; og private festlokaler, gårder, hoteller og restauranter med høyere standard og prisnivå.
+
+### Hva koster det å leie et selskapslokale?
+
+Prisen henger sammen med kategori og hva som er inkludert. Et grendehus starter gjerne på 1 500–4 000 kroner per dag, mens et privat festlokale med servering fort lander på 15 000–40 000 kroner eller mer. Grendehus, kulturhus og klubbhus ligger lavest, mens private festlokaler ligger høyere fordi servering og personale ofte er inkludert i prisen.
+
+### Hvor mange gjester rommer et selskapslokale?
+
+Kapasitet oppgis nesten alltid i to tall: sittende ved bord og stående. De fleste grendehus, kulturhus og klubbhus er dimensjonert for 20–60 gjester, og det er her flest bursdager og jubileer havner. 60–120 gjester krever en større sal i et kulturhus, en gård eller et hotell. Et lokale som oppgir «inntil 150 personer» mener som regel stående.
+
+### Hva bør jeg sjekke før jeg booker selskapslokale?
+
+Sjekk kapasitet sittende, ikke bare lokalets oppgitte maksgrense for stående. Avklar om du kan lage mat selv eller må bruke lokalets faste catering, hvor mye av depositumet som holdes tilbake ved skade eller manglende vask, og hva som gjelder for parkering, tilgjengelighet, sluttidspunkt og støygrenser. Lørdager i høysesong bookes opp først.

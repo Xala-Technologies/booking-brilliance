@@ -65,6 +65,24 @@ Digilist samler bryllupslokaler på tvers av type, gård, hage, selskapslokale, 
 - Sammenlign hva som faktisk er inkludert, ikke bare kvadratmeterpris
 - Se ledige datoer direkte, i stedet for å vente på svar per e-post
 
+## Vanlige spørsmål
+
+### Hvilke typer bryllupslokaler kan vi velge mellom?
+
+De fleste norske bryllupslokaler faller i fem kategorier: gårdsbryllup, hagebryllup, selskapslokale, hotell og unike lokaler som fabrikkbygg, loft eller galleri. Forskjellen ligger sjelden i pris alene, men i hvor mye dere selv må organisere. Et hotell leverer mat, servering og ofte overnatting under ett tak, mens en gård krever at dere setter sammen catering, telt og toaletter selv.
+
+### Hvor mange gjester tar de ulike lokaltypene?
+
+Selskapslokaler tar typisk 50 til 120 gjester, mens gårder og hager ofte har plass til 150 til 300 med telt. For unike lokaler som fabrikkbygg, loft eller galleri må dere avklare brannforskriftene og maks antall personer godkjent for stedet, siden lokalet i utgangspunktet ikke er bygget for selskap.
+
+### Hva krever et gårdsbryllup ekstra planlegging til?
+
+Et gårdsbryllup krever værsikring, strøm til musikk og lys, parkering for gjester som kommer med bil, og ofte leie av telt separat fra selve gården. Mange gårder ligger utenfor by, så avstand for gjestene bør avklares tidlig. Sjekk også om gården har skjenkebevilling for arrangementer, eller om dere må søke selv gjennom kommunen.
+
+### Når bør vi booke, og hvilke lokaler går først?
+
+Lørdager i juni og august er mest etterspurt, og populære lokaler i disse periodene bookes typisk 12 til 18 måneder i forveien. Selskapslokaler og hotell i byer som Bergen og Trondheim går ofte tidligst unna, mens enkelte gårder og hager har bedre ledighet også seks til ni måneder før.
+
 ## Neste steg
 
 Uansett om dere vil ha bryllupslokale ute på en gård eller i hage utenfor byen, et selskapslokale midt i Bergen sentrum eller et unikt loft med utsikt, starter valget med å se det som faktisk finnes, samlet ett sted. Se bryllupslokaler på Digilist og finn lokaltypen som passer stilen og gjestene deres, ikke bare kalenderen.

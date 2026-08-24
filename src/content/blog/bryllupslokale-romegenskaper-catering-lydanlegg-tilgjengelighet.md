@@ -74,3 +74,21 @@ Se derfor aldri på grunnprisen alene. Spør konkret hva som er inkludert av bor
 - Hva er inkludert i grunnprisen, og hva kommer i tillegg?
 
 Book en demo hos Digilist, så viser vi hvordan du filtrerer på romegenskaper og sammenligner flere bryllupslokaler i ett søk, slik at kapasitetstallet faktisk stemmer med hvordan dagen skal gjennomføres.
+
+## Vanlige spørsmål
+
+### Hvor mange gjester får det plass til i et bryllupslokale i praksis?
+
+Kapasitetstallet forutsetter som regel et tomt rom, uten dansegulv, buffé, DJ-pult eller gangareal mellom bordene. Sett inn de elementene, og reell kapasitet faller ofte 20 til 30 prosent under det oppgitte maksimumtallet. Et lokale på 150 kvadratmeter som reklamerer med plass til 100 gjester sittende, har erfaringsmessig plass til rundt 70 til 80.
+
+### Hvor stort må dansegulvet være i et bryllupslokale?
+
+Dansegulvet bør regnes separat fra spiseplassen. Som tommelfingerregel trenger du minst 30 kvadratmeter dansegulv til 100 gjester hvis rundt halvparten skal danse samtidig, noe mer hvis dere planlegger en åpningsdans med plass til tilskuere rundt. Spør derfor hvor mange kvadratmeter som er satt av til dansegulv, og om kapasitetstallet gjelder med dansegulvet inkludert.
+
+### Hva kjennetegner et forsvarlig catering-kjøkken i et bryllupslokale?
+
+Et forsvarlig catering-kjøkken har varmeskap, kjøling og nok benkeplass til at maten kan ferdigstilles på stedet, ikke bare varmes opp. Uten det må cateringfirmaet levere ferdig anrettet mat, noe som begrenser menyvalgene og som regel koster ekstra i tillegg til selve cateringprisen.
+
+### Hva bør du sjekke om tilgjengelighet i et bryllupslokale?
+
+Sjekk om toalettet er tilgjengelig og ligger i samme etasje som festlokalet, om det finnes heis dersom festen holdes over gateplan, og om dørbredder og gangareal mellom bordene er brede nok for rullestol og rullator. Be om en konkret bekreftelse på at inngang, toalett og festlokale henger sammen uten trapper.

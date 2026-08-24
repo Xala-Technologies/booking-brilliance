@@ -103,6 +103,24 @@ Digilist er i bruk i flere norske kommuner. Lillestrøm kommune har tilgjengelig
 
 For innbyggere og lag betyr det færre vente-e-poster og mer tid til det som faktisk gjelder: trening og aktivitet.
 
+## Vanlige spørsmål
+
+### Hvordan booker du en kommunal idrettshall?
+
+I en digital bookingplattform søker du opp anlegget og filtrerer på kommune, idrettstype eller navn, velger hall og ser bilder, utstyrsliste og kapasitet, velger dato og tidspunkt i kalenderen, legger inn kontaktinformasjon for lag eller forening, og bekrefter bookingen. Du får en umiddelbar bekreftelse på e-post. Hele prosessen tar under ti minutter første gang.
+
+### Hva koster det å leie kommunal hall?
+
+Prisene varierer mye mellom kommuner og type anlegg. Lag og foreninger med kommunal støtte betaler gjerne en subsidiert pris, ofte mellom 0 og 200 kroner per time. Kommersielle aktører som bedriftsidrett og private arrangementer betaler markedspris, typisk 500–1500 kroner per time for en fullstørrelses hall. Arrangementer over helgen kan ha egne takster.
+
+### Kan laget booke fast treningstid gjennom hele sesongen?
+
+Ja. Mange lag trenger et fast treningstidspunkt gjennom hele sesongen i stedet for å booke enkeltøkter. Det gjøres som en serietidsbestilling: du velger for eksempel «hver tirsdag og torsdag kl. 19–21 fra august til mai», og systemet blokkerer alle tidene i én operasjon. Må en enkeltdato kanselleres, slettes kun den, ikke hele serien.
+
+### Hva skjer etter at du har booket?
+
+Bekreftelsen inneholder all relevant informasjon: adresse, tidspunkt, hvilken inngang du skal bruke og eventuelle regler for bruk av utstyret. Noen kommuner sender også en påminnelse dagen før. Trenger du å avbestille eller endre tidspunkt, gjøres det i samme system, uten at du må kontakte kommunen på nytt.
+
 ## Kom i gang med hallbooking i dag
 
 Hvis du representerer et lag eller en forening og vil vite om din kommune har åpnet for digital booking, kan du søke opp kommunen direkte i Digilist. Hvis hallen du trenger ikke er tilgjengelig ennå, kan du sende en forespørsel, vi hjelper kommunen med å komme i gang.

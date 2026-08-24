@@ -84,6 +84,24 @@ Praktisk rekkefølge som fungerer for de fleste par:
 
 Denne rekkefølgen henger sammen: venter dere med hotellblokken til dekor og catering er avklart, er ofte de beste rommene borte, og bekrefter dere dekor for tidlig, risikerer dere å planlegge rundt en gjesteliste som fortsatt endrer seg.
 
+## Vanlige spørsmål
+
+### Når bør du begynne å se etter bryllupslokale?
+
+Ønsker dere en lørdag i høysesongen mai til september, bør søket starte 12 til 18 måneder før. Med fleksibel dato eller ukedag holder det med 6 til 9 måneder, og i lavsesong eller ved kort planlegging 3 til 5 måneder. Gods, hovedgårder og signaturlokaler kan være fullbooket på attraktive lørdager mer enn ett år i forkant.
+
+### Hva bør du sjekke på befaring av bryllupslokalet?
+
+Gå gjennom lokalet på samme tid på døgnet som bryllupet skal foregå, slik at lyset er representativt. Sjekk kapasitet ved sittende middag versus stående mingling, akustikk med og uten musikk, temperatur og ventilasjon i et rom fullt av folk, avstand fra kjøkken til servering, og om vinduene kan mørklegges. Noter strømuttak og internettdekning hvis dere skal ha band, dj eller fotoboks.
+
+### Hvor langt unna lokalet bør bryllupsgjestene overnatte?
+
+Søk overnatting innenfor 10 til 15 minutters gange, eller avtal shuttlebuss om det ikke finnes hotell i nærheten. Book en blokk med rom tidlig, gjerne samtidig som dere bekrefter lokalet, siden hotell nær populære selskapslokaler fylles opp av samme kunder som booker lokalet selv. Spør hotellet om gruppepris ved 10 til 15 rom, og gi gjestene en bookingfrist.
+
+### I hvilken rekkefølge bør bryllupsbestillingene gjøres?
+
+Bekreft lokale og dato først, og signer kontrakten så snart depositumet er avklart. Lås catering og lyd innen 2 måneder etter det. Book hotellblokk samtidig som lokalet, siden rom nær populære lokaler forsvinner raskt. Bekreft dekor og siste detaljer 4 til 6 uker før dagen, og send en samlet kjøreplan til alle leverandørene en uke før bryllupet.
+
 ## Kom i gang med planleggingen
 
 Skal dere sammenligne flere bryllupslokaler, sende forespørsel til catering og hotell samtidig, og holde styr på hva som er bekreftet og hva som fortsatt venter på svar? Søk og sammenlign bryllupslokaler på Digilist, og send forespørsel direkte til vertskapet fra samme sted som dere booker resten av dagen.

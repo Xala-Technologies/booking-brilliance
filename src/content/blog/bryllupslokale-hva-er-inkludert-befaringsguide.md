@@ -101,6 +101,24 @@ Populære lokaler i mai til september bør bookes 10-14 måneder i forveien, spe
 
 Jo mer spesifikk dato eller jo mer ettertraktet lokale dere er innstilt på, jo tidligere bør dere sikre den. Er dere fleksible på ukedag eller sesong, kan dere vente lenger og samtidig forhandle bedre pris, siden utleier ofte priser ukedager og lavsesong lavere for å fylle kalenderen.
 
+## Vanlige spørsmål
+
+### Hva er inkludert i leieprisen for et bryllupslokale?
+
+Sjekk konkret om bord, stoler og duker, lyd- og lysanlegg, dansegulv, rydding og vask, garderobe og toaletter, vertskap under arrangementet, strøm til DJ eller band og adgang for rigging dagen før er med i grunnprisen. Mange lokaler oppgir en lav grunnpris og legger til 8 000-15 000 kroner i tilleggsleie for dansegulv, lyd og rydding alene.
+
+### Trenger vi skjenkebevilling i et leid bryllupslokale?
+
+Private lokaler har normalt ikke fast skjenkebevilling for enkeltarrangementer. Skal det serveres alkohol utover det gjestene selv tar med, må dere som regel søke kommunen om ambulerende skjenkebevilling. Søknadsfristen er ofte tre til fire uker før arrangementet, og gebyret ligger gjerne i sjiktet 300-400 kroner. Hotell har som regel bevilling på plass.
+
+### Hvor mange gjester rommer lokalet egentlig?
+
+Regn med 20-30 prosent mindre reell kapasitet enn lokalets oppgitte maksimumstall når alt skal inn i rommet. Et lokale markedsført for 150 sitteplasser rommer ofte reelt 100-120 gjester med dansegulv og buffé inkludert. Be alltid utleier om en oppsatt planskisse for akkurat deres gjestetall og bordoppsett.
+
+### Hvor lang tid i forkant bør vi booke lokalet?
+
+Populære lokaler i mai til september bør bookes 10-14 måneder i forveien, spesielt for lørdager. Utenfor høysesong, som januar, februar eller november, kan seks til åtte måneder holde, og dere har ofte bedre forhandlingsrom på pris. Er dere fleksible på ukedag eller sesong, kan dere vente lenger.
+
 ## Neste steg
 
 Digilist gir dere oversikt over ledige datoer, priser og fasiliteter hos flere bryllupslokaler samtidig, slik at dere kan sammenligne reelt innhold, ikke bare kvadratmeterpris, før dere bestiller befaring. Ta sjekklisten over med dere på neste visning, og be om totalpris skriftlig før dere signerer.

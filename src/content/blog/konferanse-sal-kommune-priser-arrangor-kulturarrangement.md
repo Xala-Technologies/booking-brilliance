@@ -79,6 +79,24 @@ For kommunale saler tar godkjenning ofte 3 til 10 virkedager, fordi saksbehandle
 
 Book i god tid for konserter og større kulturarrangement. Populære saler i sentrale byer fylles gjerne opp flere måneder frem i tid i høysesongen mot slutten av året, så en sen forespørsel begrenser ofte valgene dine til mindre attraktive datoer.
 
+## Vanlige spørsmål
+
+### Hva koster det å leie konferansesal eller kultursal i kommunen?
+
+De fleste kommuner opererer med to prisnivåer for samme sal. Lag og foreninger med lokal tilknytning betaler normalt en subsidiert timepris, mens kommersielle arrangører betaler full sats. Forskjellen ligger typisk på 2 til 3 ganger prisen: en frivillig lagsleie kan ligge rundt 150 til 250 kroner timen, mens en bedrift eller profesjonell arrangør betaler 400 til 600 kroner for samme rom.
+
+### Hva inkluderer timeprisen på en kultursal?
+
+Timeprisen på nettsiden er sjelden hele historien. Sjekk om rigging og nedrigging, bord, stoler og garderobe, vaktmestertilsyn utenom normal åpningstid og rengjøring er inkludert, og hva depositumet er, gjerne 3 000 til 8 000 kroner for større kultursaler. Et seminarlokale til 3 000 kroner dagen kan ende på 6 000 til 7 000 kroner når tilleggene legges til.
+
+### Hvor lang tid tar det å få en kommunal sal godkjent?
+
+For kommunale saler tar godkjenning ofte 3 til 10 virkedager, fordi saksbehandler må vurdere arrangementstype opp mot ordensregler og andre bookinger i samme periode. Private utleiere bekrefter som regel innen 24 til 48 timer. Book i god tid for konserter og større kulturarrangement, siden populære saler i sentrale byer fylles opp flere måneder frem i høysesongen.
+
+### Hvorfor stiger totalprisen selv om leieprisen står stille?
+
+Kommunale satser justeres normalt én gang i året, men strøm- og energitillegg legges på separat i mange bygg etter hvert som driftskostnadene øker. Forsikringskrav for konserter med publikum over 200 personer kan kreve egen arrangørforsikring som ikke står i den offisielle prislisten. Sesong spiller også inn, og helgeleie har ofte et eget tillegg sammenlignet med hverdager.
+
 ## Digilist for arrangører: én oversikt over kommunale og private saler
 
 Digilist kobler sammen kommunale kultursaler og private konferansesentre i én søkbar oversikt med sanntidsledighet, spesifisert pris og teknisk utstyr per sal. Du slipper å ringe rundt til hvert bygg for å finne ut hva som er ledig, og du ser hele kostnadsbildet, ikke bare timeprisen, før du sender forespørsel.

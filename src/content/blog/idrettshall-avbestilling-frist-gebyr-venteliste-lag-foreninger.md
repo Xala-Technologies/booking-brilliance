@@ -69,6 +69,24 @@ Når flere lag konkurrerer om samme frigjorte time, er det også driftsleder som
 
 Den vanligste feilen er å avbestille muntlig til en trener i en annen forening eller sende en tekstmelding direkte til driftsleder, uten å registrere avbestillingen i systemet. Da starter ikke fristklokken, og timen går ikke automatisk til ventelisten. Den nest vanligste feilen er å anta at en sesongtime kan avbestilles med samme 24-timersfrist som en enkelttime. Blir avbestillingen registrert for sent i systemet, teller den som sen selv om laget varslet muntlig i god tid.
 
+## Vanlige spørsmål
+
+### Hvor lenge før økten må laget avbestille idrettshallen?
+
+Fristen varierer mellom kommuner og haller, men mønsteret som går igjen er en frist på mellom 24 og 48 timer før økt. En vanlig modell er 48 timer for sesongtider og 24 timer for enkelttimer, fordi sesongtider er del av en helårsavtale og påvirker fordelingen for flere lag, mens en enkelttime er lettere å fylle på kort varsel.
+
+### Hva koster det å avbestille for sent eller ikke møte opp?
+
+Avbestilling innenfor fristen koster ingenting. Avbestilling etter fristen utløser ofte et delvis gebyr, rundt 50 prosent av timeprisen, mens uteblivelse uten varsel normalt faktureres til full pris, i noen tilfeller med et tillegg for administrasjon. Gebyret registreres automatisk på tidspunktet avbestillingen skjer, og går videre til fakturering.
+
+### Hva skjer med timen laget avbestiller?
+
+Så snart en avbestilling er godkjent innenfor fristen, går timen til ventelisten for den aktuelle hallen og tidsluken. Lag som står registrert med interesse for akkurat den ukedagen og det tidspunktet, får varsel på SMS eller push, og det laget som svarer først får timen bekreftet. Kalenderen oppdateres i sanntid for alle andre.
+
+### Hvilken feil gjør lag oftest ved avbestilling?
+
+Den vanligste feilen er å avbestille muntlig eller på tekstmelding direkte til driftsleder, uten å registrere avbestillingen i systemet. Da starter ikke fristklokken, og timen går ikke automatisk til ventelisten. Den nest vanligste er å anta at en sesongtime kan avbestilles med samme 24-timersfrist som en enkelttime.
+
 ## Se det i praksis
 
 Vil dere se hvordan avbestillingsfrister, venteliste og sanntidskalender fungerer for akkurat deres hall og lag? Book en demo med Digilist, så viser vi hvordan frigjorte treningstider går rett videre til neste lag i køen, uten tapte timer og uten manuelle telefonrunder.

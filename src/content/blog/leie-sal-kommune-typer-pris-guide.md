@@ -77,6 +77,24 @@ Hele prosessen tar under fem minutter når kommunen bruker et digitalt system so
 
 Den vanligste feilen er å booke kulturhusets store sal til en bursdag for 20 personer, når et grendehus hadde dekket behovet til en brøkdel av prisen. Den nest vanligste er å glemme å sjekke om rengjøring er inkludert, og bli overrasket over et gebyr på befaringen. Mange innbyggere avbestiller også for sent fordi de ikke har lest fristen, og taper depositumet unødig. En fjerde feil er å anta at prisen du fant for et annet lokale i kommunen gjelder alle bygg, når hvert lokale ofte har sin egen sats og sine egne regler.
 
+## Vanlige spørsmål om sal-typer og priser
+
+### Hva koster det å leie grendehus, kulturhus eller skolegymsal?
+
+Typiske spenn i 2026 er 400 til 1 200 kroner per døgn for grendehus, 250 til 600 kroner per time for skolegymsal, 1 500 til 3 500 kroner per døgn for forsamlingshus, 2 000 til 5 000 kroner per døgn for en mindre kultursal, og 800 til 2 000 kroner per arrangement for menighetshus.
+
+### Hva er forskjellen på grendehus, forsamlingshus og kulturhus?
+
+Grendehus er enkle bygg driftet av lokale lag eller velforeninger, ofte billigst, og passer bursdag og mindre samlinger på 20 til 60 personer. Forsamlingshus er mellomstore lokaler med kjøkken og garderobe, populære til konfirmasjon og bryllupsfest. Kulturhus har scene, lyd og lys, men er dyrere og krever gjerne teknisk personale.
+
+### Hva er inkludert i leieprisen for en kommunal sal?
+
+Sjelden alt. Kjøkken er ofte inkludert i grunnprisen, men noen steder kreves eget påslag for komfyr og oppvaskmaskin. Lyd og lys er som regel med i kulturhus, men koster ekstra i grendehus. Rengjøring koster gjerne 300 til 800 kroner hvis du ikke vasker selv, og vakthold kreves ofte ved alkoholservering eller over 50 gjester.
+
+### Hvor lang er avbestillingsfristen, og hvor stort er depositumet?
+
+De fleste kommuner krever depositum på 500 til 2 000 kroner, som tilbakebetales etter godkjent sluttbefaring av lokalet. Avbestillingsfristen varierer typisk fra 48 timer til to uker før arrangementet, og avbestiller du for sent, mister du hele eller deler av leiesummen.
+
 ## Slik kommer du i gang
 
 Sjekk om kommunen din har et digitalt bookingsystem der du kan se ledighet, pris og inkludert utstyr for alle sal-typer samlet, slik Digilist tilbyr for flere norske kommuner. Da slipper du å ringe rundt, og du ser med én gang om grendehuset eller forsamlingshuset faktisk er billigst for akkurat ditt arrangement.

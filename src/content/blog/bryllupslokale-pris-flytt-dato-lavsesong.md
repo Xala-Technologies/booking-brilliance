@@ -81,6 +81,24 @@ Når dere regner ut hva en flyttet dato faktisk sparer dere, se på lokalleie og
 - Bruk sanntidskalender for å se faktisk ledighet før dere kontakter noen
 - Spør konkret hva prisen inkluderer, slik at dere sammenligner likt innhold mellom lokalene
 
+## Vanlige spørsmål
+
+### Hva koster et bryllupslokale for 80 til 100 gjester?
+
+For et selskap på 80 til 100 gjester ligger totalprisen for lokale, mat og drikke typisk mellom 800 og 1 400 kroner per gjest, altså 65 000 til 140 000 kroner samlet. Selve lokalleien varierer fra rundt 15 000 kroner for et enkelt grendehus eller forsamlingshus til over 60 000 kroner for en eksklusiv gård med overnatting og eget kjøkken.
+
+### Hvor mye sparer vi på å gifte oss i lavsesong?
+
+Høysesongen juni til august går til full listepris. Skuldersesong i april, mai og september gir 10 til 20 prosent lavere lokalleie, med samme kvalitet på lokalet og samme meny, mens lavsesong fra oktober til mars kan gi 30 til 40 prosent lavere pris. Desember er unntaket, siden julearrangementer holder prisen oppe.
+
+### Hvor mye billigere er fredag eller søndag enn lørdag?
+
+Et fredagsbryllup ligger typisk 15 til 25 prosent under lørdagsprisen, mens et søndagsbryllup kan ligge 20 til 30 prosent under. For et lokale som tar 40 000 kroner for en lørdag i lavsesong, betyr det ofte 28 000 til 32 000 kroner for en søndag samme helg.
+
+### Hvilke kostnader endrer seg ikke med datoen?
+
+Depositumet er som regel fast, typisk 5 000 til 15 000 kroner uavhengig av sesong. Catering per kuvert varierer med leverandør og meny, ikke med dato, og det samme gjelder leie av service, dekorasjon og lyd. Minimumsbeløpet for mat og drikke er derimot ofte høyere i høysesong.
+
 ## Kom i gang
 
 Vil dere se hvilke datoer som faktisk gir lavest pris for lokalene dere vurderer? Søk opp bryllupslokaler i Digilist, filtrer på område og kapasitet, og sammenlign ledig kalender og pris på tvers av datoer i sanntid. Vil dere ha oversikten på papiret først, kan dere også laste ned PDF-guiden med full oversikt over sesong, ukedag og hva dere bør spørre om før dere signerer.

@@ -118,6 +118,24 @@ Planer endrer seg, og du skal kunne avbestille uten å ringe. Avbestillingsvilk�
 
 I en digital portal gjør du dette selv fra Min side: du åpner bookingen, velger avbestill eller endre, og ser umiddelbart hvor mye som refunderes etter gjeldende regler. Vil du bare flytte timen, frigjøres den gamle tiden for andre i samme øyeblikk, og du velger et nytt ledig felt. Refusjon til Vipps eller kort går tilbake automatisk fremfor at en saksbehandler må behandle den manuelt. Det betyr at du får pengene raskere, og kommunen slipper etterarbeid.
 
+## Vanlige spørsmål
+
+### Må du være medlem av et lag for å leie kommunal idrettshall?
+
+Nei. En privatperson kan booke en enkelttime til egentrening, en aktivitetsdag med kollegaer eller en bursdag uten å være medlem av noe lag. Som innbygger konkurrerer du ikke med idrettslagene om de faste kveldstidene. Du booker enkelttimer i det som er ledig etter at sesongtildelingen er lagt, typisk hull på dagtid, sene kvelder og helger.
+
+### Hva koster det å leie idrettshall privat?
+
+En hel idrettshall til privat bruk ligger typisk et sted mellom 300 og 800 kroner timen, en gymsal ofte lavere, mens en svømmehall eller et kulturhus med bemanning koster mer. Ved bursdager og større arrangementer kreves ofte et depositum, for eksempel 1 000 til 2 000 kroner, som du får tilbake når anlegget er levert i orden.
+
+### Hvorfor blir bookingen avvist eller forsinket?
+
+De vanligste årsakene er feil oppgitt formål, for eksempel at du booker trening når du egentlig skal ha bursdag, for sen booking av bemannede lokaler, manglende betaling innen fristen, et deltakerantall over anleggets kapasitet og branntekniske godkjenning, eller at du prøver å booke fast ukentlig tid gjennom enkelttime-flyten. Fast tid går via sesongtildeling.
+
+### Hva er du ansvarlig for når du leier hallen?
+
+Du er økonomisk ansvarlig for skader som oppstår i din leietid, og du skal rydde og forlate anlegget i samme stand som du fikk det. Etterlater du søppel, kan renholdsgebyr trekkes fra depositumet. Antall personer er begrenset av anleggets kapasitet og branntekniske godkjenning, og innesko er ofte påbudt i hallen.
+
 ## Book anlegget selv, når det passer deg
 
 Å leie kommunal idrettshall, gymsal eller svømmehall som privatperson skal være like enkelt som å bestille kinobilletter: finn ledig tid, se prisen, betal og få bekreftelsen på Min side. Med sanntidskalender, ID-porten-innlogging og automatisk refusjon slipper du både ventelister og telefonrunder.

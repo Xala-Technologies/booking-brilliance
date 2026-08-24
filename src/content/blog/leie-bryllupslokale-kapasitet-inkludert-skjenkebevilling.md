@@ -72,6 +72,24 @@ Book alltid en fysisk befaring før dere signerer kontrakt, gjerne på samme uke
 - Be om kontaktperson og telefonnummer for selve festdagen, ikke bare et bookingteam
 - Spør hva som skjer ved strømbrudd, vannlekkasje eller annet som er utenfor deres kontroll
 
+## Vanlige spørsmål
+
+### Hvor mange gjester tar et bryllupslokale egentlig?
+
+Kapasitetstallet i annonsen er sjelden ett tall. Et lokale som tar 100 gjester ved skoleoppsett tar gjerne bare 70 med rundbord til sittende middag, og enda færre med dansegulv og DJ-plass. Be om tre tall: sittende middag med rundbord, buffét med ståplass, og sittende middag pluss dansegulv. Et lokale oppgitt til 90 gjester kan lande på 55 til 60.
+
+### Trenger vi skjenkebevilling, og når må vi søke?
+
+Skal dere servere vin eller sprit, må lokalet enten ha egen skjenkebevilling, eller dere må søke om ambulerende bevilling hos kommunen der lokalet ligger. Fristen varierer fra kommune til kommune, så sett av minst tre til fire uker før arrangementet. Sjekk også om bevillingen gjelder hele lokalet inkludert uteareal, og om det er krav til vakthold.
+
+### Hva bør vi sjekke er inkludert i leien?
+
+Sjekk om bord, stoler og duker, lyd- og lysanlegg, rigging kvelden før og rydding dagen etter, kjøkken til catering, vaktmester eller kontaktperson under festen og parkering er inkludert eller kommer som tillegg. Spør også om utleier legger på et eget rengjøringsgebyr, og hvor stort depositumet er, oftest 15 til 25 prosent av leiesummen.
+
+### Hvor lang tid i forveien må vi booke?
+
+De fleste norske bryllup holdes mellom mai og september, og de mest populære lokalene er ofte fullbooket 8 til 12 måneder i forveien for lørdager i juni og august. Vil dere spare penger, gir en fredag eller en søndag i lavsesong ofte 15 til 25 prosent lavere pris hos samme lokale.
+
 ## Slik sammenligner og booker dere flere bryllupslokaler samtidig
 
 I stedet for å sende samme e-post til fem ulike lokaler og vente på svar fra hvert enkelt, kan dere på Digilist filtrere lokaler etter faktisk gjestekapasitet og se hva som er inkludert i leien, samtidig som dere sjekker ledige datoer hos flere steder på ett sted. Det gjør det enklere å sammenligne reell totalpris, ikke bare utropsprisen, før dere tar kontakt med noen av dem.

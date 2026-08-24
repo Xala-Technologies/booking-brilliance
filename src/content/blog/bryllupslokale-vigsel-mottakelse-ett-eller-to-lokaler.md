@@ -64,6 +64,24 @@ Spør om parkeringskapasitet på begge steder før dere signerer. Et lokale med 
 - Er prøvingsattesten fra Skatteetaten i orden, uavhengig av hvilket lokale dere velger?
 - Dekker depositum og avbestillingsvilkår begge leieavtalene likt, eller er de ulike?
 
+## Vanlige spørsmål
+
+### Kan vi holde en borgerlig vigsel i et leid selskapslokale?
+
+En borgerlig vigsel kan i utgangspunktet holdes hvor som helst, også i et leid selskapslokale, så lenge vigsler, brudepar og to myndige vitner er fysisk til stede. Det avgjørende er ikke en formell godkjenning av rommet, men om vigsleren har tilgang på riktig tidspunkt og om lokalet har ryddig plass til seremonien atskilt fra festriggingen.
+
+### Lønner det seg å ha vigsel og fest på samme sted?
+
+Ett lokale leid for hele dagen, typisk fra klokken 10 til midnatt, koster ofte 25 000-45 000 kroner i leie alene. To lokaler blir sjelden billigere: et separat festlokale på kveldstid ligger på 15 000-35 000 kroner, og legger dere til transport mellom stedene, spiser besparelsen på kortere leietid ofte opp forskjellen.
+
+### Hvor lang avstand kan vi ha mellom seremoni og fest?
+
+En avstand på 20-25 minutters kjøring er normalt håndterbart. Over 45 minutter bør dere sette av en egen transportpost i budsjettet, gjerne buss for gjestene, siden mange ellers kommer for sent til mottakelsen. Regn i tillegg inn 60-90 minutter til fotografering mellom seremonien og festen.
+
+### Hva må være på plass før vigselen kan gjennomføres?
+
+Brudeparet må ha en gyldig prøvingsattest fra Skatteetaten før vigselen kan gjennomføres. Attesten er knyttet til brudefolkets papirer, ikke til lokalet, men den må foreligge og fremvises til vigsleren på selve dagen. Avklar den tidlig, og hold den helt adskilt fra bookingen av lokale.
+
 ## Sammenlign og book alt på ett sted
 
 På Digilist kan dere søke og sammenligne seremonilokaler og mottakelseslokaler i samme flate, se ledig kapasitet i sanntid og vurdere om ett eller to lokaler gir dere den totalprisen og tidsplanen dere faktisk ønsker, før dere binder dere til noe. Bruk sjekklisten over som utgangspunkt på befaring, og book det dere har landet på direkte gjennom plattformen.

@@ -179,7 +179,11 @@ const SEO = ({
           acceptedAnswer: {
             "@type": "Answer",
             text: q.answer,
-            inLanguage: "nb-NO",
+            // Follows the page, not the site. Hardcoding nb-NO here would file
+            // an English post's answers as Norwegian, and would also disagree
+            // with the prerendered copy scripts/prerender.mjs writes — the same
+            // pre/post-hydration ambiguity the comment above exists to prevent.
+            inLanguage: HTML_LANG[locale],
           },
         })),
       });

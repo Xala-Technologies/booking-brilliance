@@ -92,6 +92,24 @@ Innlogging via ID-porten gjør at kontaktpersonen slipper enda et passord, og at
 
 Felles for alle fire er at de handler om oversikt og ansvar. Utpek én bookingansvarlig, samle vilkår og frister på ett sted, og gå gjennom neste sesongs behov før dere søker.
 
+## Vanlige spørsmål om fast sal gjennom sesongen
+
+### Hvordan får foreningen fast sal gjennom hele sesongen?
+
+Faste tider tildeles én gang før sesongen, ikke løpende, og fristen ligger typisk i mai eller juni for kommende skoleår. Foreningen søker om et tidsintervall, for eksempel tirsdag 18 til 20 gjennom hele høst- og vårsesongen, og kommunen tildeler ledige faste tider samlet før sesongstart.
+
+### Hva koster det for en forening å leie sal fast?
+
+En time som koster en privat leietaker mellom 400 og 800 kroner kan for en forening være alt fra gratis til rundt 150 kroner, avhengig av kommune og lokale. Tre ting avgjør prisen: foreningsrabatt, aldersfordeling og om avtalen er fast eller enkeltbooking. Hver kommune vedtar sine egne satser.
+
+### Hva må foreningen dokumentere i søknaden om fastplass?
+
+Saksbehandleren krever som regel organisasjonsnummer og registrering i Frivillighetsregisteret, medlemsliste eller medlemstall med aldersfordeling, en kontaktperson med ansvar for nøkkel, orden og avbestilling, og ønsket tid og lokale med et alternativ hvis førstevalget er opptatt. Barne- og ungdomsandelen avgjør ofte både rabatt og prioritet.
+
+### Beholder foreningen fastplassen fra år til år?
+
+Ikke automatisk. De fleste kommuner ber om fornyelse hver sesong, ofte innen samme vårfrist, og svarer dere ikke, kan tiden gå til en annen forening. Foreninger som har hatt samme tid i mange år har som regel en fordel ved fornyelse, men det forutsetter at tiden er brukt og at avlysninger er meldt fra om.
+
 ## Sikre fastplassen digitalt
 
 En sesongtildeling i sanntid gir foreningen forutsigbarhet og saksbehandleren mindre papirarbeid. Vil dere se hvordan fast sal, medlemspris og automatisk varsling ser ut for deres kommune? [Book en demo](https://digilist.no/demo) med Digilist.

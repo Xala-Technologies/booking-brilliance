@@ -76,6 +76,24 @@ Det gjør det mulig å sammenligne tre eller fire aktuelle lokaler på likt grun
 - Å ikke spørre om skjulte tillegg når gjestetallet nærmer seg lokalets øvre grense
 - Å velge det største lokalet dere har råd til, i stedet for det som er riktig dimensjonert for gjestelisten
 
+## Vanlige spørsmål
+
+### Hvor mange kvadratmeter trenger vi per gjest?
+
+Tommelfingerregelen for sittende gjester rundt runde bord er 1,2 til 1,5 kvadratmeter per person, inkludert stolplass og gangareal mellom bordene. Skal lokalet i tillegg romme dansegulv, scene og buffet, bør dere regne 1,8 til 2 kvadratmeter per gjest. Ved stående mingling uten faste bord kan dere regne ned mot 0,8 til 1 kvadratmeter.
+
+### Hvor mange gjester får plass i et lokale på 150 kvadratmeter?
+
+Et lokale på 150 kvadratmeter gir plass til rundt 100 sittende gjester med festmøblering, ikke 150 slik den rå arealoppgaven kan tyde på. Et lokale på 200 kvadratmeter som markedsføres som «opptil 180 gjester», holder i praksis rundt 100 til 110 når dansegulv og servering legges inn fullt ut.
+
+### Hvor mye plass tar dansegulvet?
+
+Dansegulv på 30 til 40 kvadratmeter er standard for 80 til 100 gjester, og det arealet må trekkes fra spiseplassen, ikke legges på toppen av den oppgitte kapasiteten. Scene til brudepar, DJ-bord og eventuell fotoboks legger typisk beslag på ytterligere 8 til 12 kvadratmeter.
+
+### Hva koster det å velge et for stort lokale?
+
+Et lokale dimensjonert for 150 gjester leies typisk ut for 40 000 til 45 000 kroner uansett faktisk belegg, mens et lokale skreddersydd for 60 gjester ofte koster 15 000 til 18 000 kroner. Booker dere 60 gjester i det store lokalet, ender dere på 667 til 750 kroner per gjesteplass, mot 250 til 300 kroner i det riktig dimensjonerte.
+
 ## Riktig kapasitet fra første befaring
 
 Regnestykket er enkelt når dere har tallene: sittende gjester krever 1,2 til 1,5 kvadratmeter, festoppsett med dansegulv krever 1,8 til 2. Ta med sjekklisten over spørsmål på hver befaring, og be om kapasitetstallet fordelt på oppsett før dere signerer. Da unngår dere både et lokale gjestene opplever som trangt, og en leiepris dere betaler for plass som aldri blir brukt.

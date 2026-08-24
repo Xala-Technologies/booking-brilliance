@@ -84,6 +84,24 @@ Før kontraktsslutt bør IT-leder og saksbehandler ha avklart:
 5. Hvem som får administrative roller, og hvordan tilgang tildeles nye ansatte
 6. Hvordan support og oppgraderinger er dekket i avtalen, og hva som eventuelt koster ekstra
 
+## Vanlige spørsmål om anskaffelse av møteromsystem
+
+### Hva bør IT-leder kreve i kravspesifikasjonen for et møteromsystem?
+
+Kravspesifikasjonen bør konkretisere antall bygg og rom systemet skal dekke ved oppstart og hvordan nye bygg legges til uten ny avtale, krav til oppetid på typisk 99,5 prosent eller høyere med bot ved brudd, integrasjon mot ID-porten, Active Directory og eksisterende kalendersystem, eierskap til data ved kontraktsslutt, og definert responstid på support.
+
+### Hvorfor er abonnement bedre enn pris per booking?
+
+Mange bookingsystemer tar betalt per transaksjon. For et møteromsystem som skal brukes hundrevis av ganger daglig på tvers av en hel kommune, snur den modellen insentivet på hodet: jo bedre ansatte tar systemet i bruk, jo høyere blir regningen. Går kommunen fra 1 000 til 3 000 bookinger i måneden, tredobles regningen i takt med suksessen.
+
+### Hvilke skjulte kostnader dukker opp i anbud på bookingsystem?
+
+Sjekk hva som ligger i grunnprisen og hva som er solgt som tillegg: integrasjon mot ID-porten og fagsystemer, support med definert responstid, løpende oppgraderinger og sikkerhetspatcher, opplæring av nye brukere og byggforvaltere, og eventuell tilleggsmodul for eksterne betalte utleier. Be leverandøren spesifisere totalpris for en fullt utbygd løsning.
+
+### Hva krever GDPR av et kommunalt møteromsystem?
+
+Møteromsbooking involverer ansattdata: navn, avdeling, arbeidssted og møtehistorikk. For en norsk kommune betyr det krav om databehandleravtale, dokumentert lagring innenfor EØS, og en leverandør som kan vise til ISO 27001 eller tilsvarende sertifisering. Sjekk at leverandøren kan dokumentere dette skriftlig før avtalen signeres.
+
 ## Book demo
 
 Digilist samler møteromsbooking for hele kommunen i ett system: alle bygg, «mine område» for ansatte, ID-porten-innlogging og et abonnement som ikke endrer seg med antall bookinger. Book en demo for å se hvordan et bytte fra regneark og e-post til ett system fungerer i praksis for din kommune.

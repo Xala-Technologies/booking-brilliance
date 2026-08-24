@@ -69,6 +69,28 @@ Er du medlem i et lag eller en forening, snur regnestykket ofte tilbake i kommun
 - Sjekk avbestillingsfrist, og om depositum refunderes automatisk eller krever egen henvendelse
 - Spør om prisen er lik uansett ukedag, eller om den varierer med sesong og etterspørsel
 
+## Vanlige spørsmål
+
+### Er kommunal sal alltid billigst?
+
+Nei. Kommunale saler har lav timepris fordi de er finansiert med skattepenger, men timeprisen er bare ett ledd i regnestykket. I et regneeksempel kan en kommunal sal koste 380 kroner timen og likevel kreve åtte timers minimumsleie, obligatorisk vask til 900 kroner og et depositum på 3000 kroner. Et privat selskapslokale i samme by kan ha flat pris på 6500 kroner inkludert vask, bord og stoler.
+
+### Hvorfor varierer prisen på private saler mer enn på kommunale?
+
+Kommunale priser følger et politisk vedtatt regulativ, normalt vedtatt én gang i året, og prisen er lik uansett ukedag eller sesong. Private utleiere prissetter etter etterspørsel, slik hoteller gjør: en lørdag i høysesong koster mer enn en hverdag utenfor sesong, men prisen faller ofte kraftig utenfor høysesong fordi utleier prioriterer inntekt fremfor et tomt lokale.
+
+### Hvilke skjulte kostnader avgjør hvilken sal som er billigst?
+
+Fire poster snur ofte rangeringen: rengjøring, der enkelte kommuner fakturerer 600 til 1200 kroner for profesjonell vask; depositum, ofte 2000 til 5000 kroner kommunalt og bundet i flere uker; vertstjeneste, som enkelte private lokaler inkluderer; og utstyr, som ofte er inkludert privat, men leies ut per gjenstand kommunalt. Forskjellen kan utgjøre 2000 til 4000 kroner.
+
+### Når lønner kommunal sal seg likevel?
+
+Er du medlem i et lag eller en forening, snur regnestykket ofte tilbake i kommunens favør. Mange kommuner gir frivillighetsrabatt på mellom 50 og 100 prosent av leieprisen for godkjente lag og foreninger, og enkelte tilbyr i tillegg kulturmidler eller aktivitetstilskudd som kan dekke deler av leien i etterkant. Den typen støtte finnes ikke i det private markedet.
+
+### Hvorfor har private lokaler oftere ledig tid enn kommunale saler?
+
+I byer der lag og foreninger har fast sesongleie i de kommunale salene, er fredager og lørdager ofte fullbooket flere måneder frem i tid, fordi den faste leien spiser opp mesteparten av kapasiteten før enkeltpersoner rekker å booke. Private lokaler har sjeldnere den samme bindingen, og frigjør oftere restplasser med kort varsel, gjerne til redusert pris.
+
 ## Søk ledige saler i dag
 
 Du trenger ikke sjekke kommunens nettside, tre private Facebook-grupper og en lokal oppslagstavle for å finne billigst sal til arrangementet ditt. Søk ledige saler hos Digilist, sammenlign kommunale og private alternativer med reell totalpris i samme oversikt, og bestill det lokalet som faktisk er billigst, ikke bare det som ser billigst ut på skiltet.

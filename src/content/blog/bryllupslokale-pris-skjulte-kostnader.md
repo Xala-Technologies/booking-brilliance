@@ -51,6 +51,24 @@ Spør om lavsesongrabatt hvis dere kan flytte dato til januar til mars eller nov
 
 Sett alle tilbud opp mot samme mal: pris per gjeste inkludert mat og drikke, depositum, opprydding, korkepenger og makstid før overtid slår inn. Uten en felles mal er det lett å velge det tilbudet som ser billigst ut på papiret og dyrest ut på fakturaen.
 
+## Vanlige spørsmål
+
+### Hva koster et bryllupslokale i 2026?
+
+Et enkelt grendehus eller forsamlingslokale starter gjerne på 8 000 til 15 000 kroner for leie av selve lokalet en helg. Et selskapslokale med servering og eget personale ligger typisk mellom 25 000 og 60 000 kroner for 80 til 120 gjester. Gårder og hoteller med eksklusiv bruk av hele anlegget kan lande på 80 000 til 200 000 kroner.
+
+### Hva betyr minimumsforbruk på et bryllupslokale?
+
+Minimumsforbruk betyr at lokalet er gratis eller billig å leie, men at dere forplikter dere til å bruke et minstebeløp på mat og drikke, ofte 800 til 1 500 kroner per gjest hos gårder og hoteller. Det er modellen flest overraskes av, fordi lokalet virker billig i annonsen mens den reelle kostnaden ligger i barregningen.
+
+### Hvilke skjulte kostnader har et bryllupslokale?
+
+Fire poster går ofte utenom fra-prisen: depositum på 5 000 til 20 000 kroner, opprydding og rengjøring på 2 000 til 6 000 kroner, overtid på 500 til 1 500 kroner per påbegynte time utover avtalt sluttid, og korkepenger for medbrakt drikke, ofte 100 til 250 kroner per flaske. Spør konkret om alle fire før dere ber om skriftlig tilbud.
+
+### Hvordan forhandler dere ned prisen på bryllupslokalet?
+
+Spør om lavsesongrabatt hvis dere kan flytte dato til januar til mars eller november. Be om å fjerne poster dere ikke trenger, som DJ-anlegg eller ekstra vertinne, i stedet for å be om rabatt på totalen. Mange lokaler gir 5 til 10 prosent for bestilling mer enn tolv måneder før. Spør også om minimumsforbruket kan reduseres mot noe mer i fast leie.
+
 ## Få full oversikt før dere booker
 
 Digilist samler ledige datoer, priser og vilkår fra flere bryllupslokaler på ett sted, slik at dere kan sammenligne reell totalpris før dere tar kontakt. Last ned PDF-guiden med sjekklisten for skjulte kostnader og ta den med til neste visning.

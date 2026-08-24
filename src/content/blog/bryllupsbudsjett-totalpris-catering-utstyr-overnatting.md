@@ -68,6 +68,24 @@ For 120 gjester dobles ikke alt lineært: lokale 30 000 kroner (større sal), ca
 
 Når tre lokaler og fire cateringleverandører sender hvert sitt tilbud i ulike formater, er det lett å sammenligne feil ting: ett tilbud inkluderer mva, et annet ikke, ett inkluderer bord og stoler, et annet ikke. Be hver leverandør spesifisere pris per gjest, hva som er inkludert, og hva som er tillegg, og sett tilbudene opp i samme regneark før dere bestemmer dere. Det er den eneste måten å se hvilket tilbud som faktisk er billigst når alt er talt med.
 
+## Vanlige spørsmål
+
+### Hvor mye av bryllupsbudsjettet går til mat og drikke?
+
+Mat og drikke utgjør normalt 40 til 50 prosent av totalbudsjettet. Prisen per kuvert varierer typisk fra 900 til 1 800 kroner for en tre retters middag med enkel drikkepakke, og opp mot 2 500 kroner for en full alt inkludert-pakke med aperitiff, vin til maten og kaffe. Ved 100 gjester utgjør det alene 90 000 til 250 000 kroner.
+
+### Hva koster overnatting til bryllupsgjester nær lokalet?
+
+Et dobbeltrom på hotell nær lokalet koster typisk 1 200 til 2 200 kroner natten i høysesong, mens en hytte eller et feriehus for flere kan ligge på 3 000 til 6 000 kroner natten. Overnatting innen gangavstand er ofte 20 til 30 prosent dyrere enn tilsvarende tilbud noen kilometer unna. Mange gir 10 til 15 prosent rabatt ved blokkbooking av fem rom eller flere.
+
+### Hvilke skjulte kostnader kommer på toppen av leieprisen?
+
+Regn med at de skjulte postene til sammen kan legge 10 000 til 25 000 kroner på toppen av leieprisen. Det gjelder overtid utover avtalt tidsrom, ofte 1 500 til 3 000 kroner per time, rydding og vask på 2 000 til 5 000 kroner, skjenkebevilling hvis lokalet ikke har egen, forsikring mot skader på 500 til 1 500 kroner for en kveld, og strømforbruk utover normalt.
+
+### Når forfaller betalingen for bryllupslokale og catering?
+
+De fleste lokaler og cateringleverandører krever et forskudd ved signering, ofte 20 til 30 prosent av totalprisen, for å sikre datoen. Restbeløpet forfaller som regel 14 til 30 dager før bryllupet, når endelig gjesteantall er bekreftet. Fotograf og DJ krever ofte forskudd ved bestilling, mens catering fakturerer basert på endelig gjestetall nærmere datoen.
+
 ## Få oversikt over hele budsjettet på ett sted
 
 Med Digilist søker dere opp bryllupslokaler og ser ledig kapasitet, pris og hva som er inkludert, i én oversikt. Der lokalet tilbyr utstyr, catering eller tilleggstjenester i tillegg til leien, ser dere det samlet i annonsen i stedet for å hente informasjon fra flere kilder. Søk opp lokaler i deres område og sammenlign totalpris, ikke bare leiepris, før dere bestemmer dere.

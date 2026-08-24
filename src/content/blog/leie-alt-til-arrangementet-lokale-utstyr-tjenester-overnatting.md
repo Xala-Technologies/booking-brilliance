@@ -51,6 +51,28 @@ Slik gjør de fleste det på Digilist:
 
 Depositum varierer med kategori. Lokaler krever ofte 15 til 25 prosent av leiesummen, utstyr gjerne et fast beløp på 500 til 1 500 kroner avhengig av verdi, mens tjenester som catering og fotograf sjelden krever depositum men i stedet delbetaling ved bekreftelse, typisk 30 til 50 prosent. Avbestiller dere mer enn 14 dager før arrangementet, får dere som regel depositum tilbake i sin helhet. Nærmere datoen varierer det mye fra leverandør til leverandør: noen trekker 50 prosent ved avbestilling innen 7 dager, andre beholder alt. Les vilkårene før dere trykker bestill, ikke etterpå, og sjekk om leverandøren tilbyr datoendring som alternativ til full avbestilling, det er ofte rimeligere for begge parter.
 
+## Vanlige spørsmål
+
+### Hva koster det å leie sal til et selskap med 80 gjester?
+
+En sal for 80 personer i et grendehus koster typisk 3 000 til 6 000 kroner for en helg, mens et dedikert selskapslokale med kjøkken, scene og garderobe fort ligger på 8 000 til 15 000 kroner. Sjekk alltid hva prisen faktisk inkluderer: noen lokaler tar separat betalt for opprydding og for bord og stoler, mens andre har alt inkludert i leieprisen.
+
+### Hvor mange gjester får plass til sittende middag?
+
+Til bryllup og konfirmasjon med sittende middag trenger dere typisk mer plass per gjest enn til en stående mingle-fest. Kapasiteten som oppgis på nettsiden er ofte maksimum ved møblering til konsert eller stående mingling, ikke ved bankettoppsett med runde bord. Regn heller 60 til 70 prosent av oppgitt tall til sittende middag.
+
+### Hva koster det å leie utstyr til festen?
+
+Et enkelt lydanlegg med mikrofon starter rundt 800 kroner for en kveld, et selskapstelt til 50 gjester ligger gjerne på 2 500 til 4 000 kroner, og en pakke med 60 stoler og 8 bord koster typisk 1 500 til 2 500 kroner. Skal dere ha scene til taler eller DJ, kommer det som egen post, ofte 1 000 til 2 000 kroner.
+
+### Hva koster overnatting til gjester som kommer langveisfra?
+
+En hytte til 8 personer i nærheten av arrangementet koster ofte 2 500 til 4 500 kroner per natt, mens en leilighet for 4 gjerne ligger på 1 200 til 2 000 kroner. Book overnattingen tidlig, særlig i høysesong fra mai til august og rundt konfirmasjonshelger i mai, for de nærmeste og billigste alternativene forsvinner først.
+
+### Hvor mye depositum må man regne med?
+
+Depositum varierer med kategori. Lokaler krever ofte 15 til 25 prosent av leiesummen, utstyr gjerne et fast beløp på 500 til 1 500 kroner avhengig av verdi, mens tjenester som catering og fotograf sjelden krever depositum, men i stedet delbetaling ved bekreftelse på typisk 30 til 50 prosent. Avbestiller dere mer enn 14 dager før, får dere som regel depositumet tilbake i sin helhet.
+
 ## Trygg booking uansett hva du leier
 
 Uansett om du leier en sal, et lydanlegg eller en hytte til gjestene, gjelder samme prinsipp på Digilist: betaling skjer trygt gjennom plattformen, avbestillingsvilkår står tydelig før du bekrefter, og du har én kontrakt per bestilling i stedet for fem ulike avtaler å holde styr på. Support er tilgjengelig hvis noe skjærer seg mellom leverandør og leietaker, og all kommunikasjon om bestillingen ligger samlet, så dere slipper å lete gjennom gamle e-poster to dager før festen. Det gjør det enklere å planlegge et arrangement som faktisk henger sammen, fra lokale til siste gjest som drar hjem.

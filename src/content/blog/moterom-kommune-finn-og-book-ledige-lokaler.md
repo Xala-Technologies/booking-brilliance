@@ -120,6 +120,24 @@ Møterom er ett av flere lokaler kommunen leier ut, og det lønner seg å velge 
 
 I portalen ligger alle disse typene sammen, så du kan sammenligne kapasitet og utstyr på tvers og bytte til en annen romtype hvis den passer bedre. Trenger du egentlig en sal og ikke et møterom, ser du det med en gang.
 
+## Vanlige spørsmål om kommunale møterom
+
+### Hva koster det å leie et kommunalt møterom?
+
+Kommunen setter satsene selv. Frivillige lag og foreninger betaler ofte lite eller ingenting, særlig til barne- og ungdomsaktivitet, private innbyggere betaler en moderat timepris eller døgnpris, og bedrifter betaler den høyeste satsen. Som størrelsesorden ligger et vanlig møterom for en privatperson gjerne mellom 200 og 600 kroner for en kveld.
+
+### Hvem kan booke et kommunalt møterom?
+
+Hvem som får booke varierer med kommunens reglement, men typisk kan fire grupper søke: innbyggere som trenger rom til private møter eller mindre arrangementer, lag og foreninger med aktivitet i kommunen, borettslag og sameier til beboermøter og årsmøter, og bedrifter og næringsdrivende, ofte til høyere pris enn frivilligheten. Noen rom er forbeholdt bestemte formål.
+
+### Hvorfor blir bookingen min avvist?
+
+De vanligste årsakene er feil brukertype for rommet, for mange deltakere i forhold til kapasiteten, et formål som ikke er tillatt, for eksempel servering eller salg der det ikke er lov, manglende organisasjonstilknytning når du booker på foreningens vegne, eller at rommet krever booking noen dager i forveien.
+
+### Hvordan endrer eller avbestiller jeg en booking?
+
+Gå inn på bookingen under «Mine bookinger» og rediger den, så lenge du er innenfor kommunens frist. Systemet sjekker at den nye tiden er ledig før endringen lagres. Vil du avbestille, finner du reservasjonen samme sted og trykker avbestill. Er du innenfor fristen for gratis avbestilling, refunderes eventuell betaling etter kommunens regler.
+
 ## Book smartere i din kommune
 
 Sanntidsbooking gjør kommunale lokaler enklere å bruke for innbyggere og frivillige, og enklere å drifte for kommunen. Vil du se hvordan Digilists portal fungerer for din kommune, med sanntidskalender, ID-porten-innlogging og «Mine bookinger» samlet ett sted? [Book en demo](/demo), så viser vi deg oppsettet tilpasset deres lokaler og reglement.

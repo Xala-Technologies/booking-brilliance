@@ -60,3 +60,17 @@ Denne artikkelen er skrevet av Ibrahim Rahmani, grunnlegger av Digilist, og sist
 ## Prøv Digilist
 
 Skal du leie et selskapslokale eller møterom, eller drifter du utleie av lokaler selv? Prøv Digilist og se ledig kapasitet i sanntid, book direkte og få oversikt over pris før du betaler, uten å ringe rundt til flere utleiere.
+
+## Vanlige spørsmål
+
+### Hva koster et møterom for 6-10 personer per time?
+
+Møterom for 6-10 personer koster typisk fra 300-800 kroner timen. Beliggenhet og innhold styrer resten: lokaler i Oslo sentrum koster mer enn tilsvarende lokaler i mindre byer, og bord, stoler, lyd- og bildeutstyr, kjøkken og vask trekker prisen opp hvis det ikke er inkludert i grunnprisen.
+
+### Hva koster et selskapslokale til 50-150 gjester?
+
+Selskapslokaler for 50-150 gjester ligger ofte mellom 8000 og 25000 kroner for en kveld. Beliggenhet slår kraftig ut: lokaler i Oslo sentrum koster mer enn tilsvarende lokaler i mindre byer, og ifølge Sentralens egne priser koster de største selskapslokalene med fullt utstyr over 30000 kroner for en kveld. Helg og kveld koster som regel mer enn hverdag på dagtid.
+
+### Hvordan booker jeg et selskapslokale uten å ringe rundt?
+
+Du søker opp lokale etter sted og dato, ser ledig kapasitet i en sanntidskalender, velger tidspunkt og betaler direkte i bookingen. Bekreftelsen kommer automatisk, uten e-postutveksling frem og tilbake med utleier. Digilist tar ikke betalt av deg for å bruke plattformen, det er utleier som setter prisen, og Digilist tar en mindre transaksjonsavgift for sanntidsbetalingen.

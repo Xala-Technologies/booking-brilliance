@@ -64,3 +64,21 @@ Som privatperson eller bedriftsrepresentant bekrefter du bookingen med vanlig in
 ## Kom i gang
 
 Enten du planlegger en bursdag, et jubileum eller julebordet for hele avdelingen, handler det om det samme: se hva som faktisk er ledig, sammenlign pris, og book uten å vente på svar per e-post. [Prøv Digilist](https://digilist.no) og finn lokale til neste private fest eller bedriftsarrangement.
+
+## Vanlige spørsmål
+
+### Hva koster et julebordlokale?
+
+Det finnes ingen fast pris; den varierer med lokaltype, kapasitet, ukedag og hvor mye som er inkludert av bord, stoler, kjøkken og rydding. Kommunale lokaler som grendehus, kulturhus og samfunnshus har ofte lavest pris, spesielt for lag og foreninger. Private selskapslokaler og restauranter koster mer, men har gjerne servering inkludert. Lag- og foreningslokaler ligger midt imellom.
+
+### Når bør bedriften booke julebordlokale?
+
+Populære datoer i november og desember bookes opp allerede i august og september, og de beste datoene blir booket ut i løpet av få uker. Et lokale som virker ledig på en statisk nettside kan allerede være tatt når du ringer. En kalender som oppdateres i sanntid viser at datoen er borte i det øyeblikket noen andre bekrefter.
+
+### Hva bør jeg avklare før jeg signerer?
+
+Sjekk kapasitet sittende, ikke stående; et julebord med tre-retters middag krever mer plass per gjest enn en enkel mingelfest. Avklar sluttidspunkt og støygrenser, avbestillingsfrist, om utleier kan levere fakturagrunnlag fremfor kortbetaling, og hva som forventes av rydding etter arrangementet, samt om det stilles depositum.
+
+### Hva skiller behovene til bedrifter og privatpersoner?
+
+Kravene til lokalet overlapper mye, men bedriftskunder legger typisk mer vekt på faktura fremfor kortbetaling, tydelig avbestillingsfrist når planene endres internt, og et lokale sentralt nok til at ansatte kan komme seg dit etter jobb. Privatpersoner legger mer vekt på pris per gjest og hvor tidlig de må booke for en bestemt lørdag.

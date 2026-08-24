@@ -90,3 +90,21 @@ Digilist samler lokaler for bryllup og lar dere sammenligne kapasitet, fasilitet
 - **Sett et gulv og et tak per post** før dere kontakter leverandører, slik at ingen enkeltpost spiser opp resten av budsjettet underveis
 
 Sett opp et budsjett med lavt og høyt anslag for hver post før dere kontakter leverandører, så vet dere hvor det er rom til å forhandle og hvor summen allerede er fast. Skal dere finne og sammenligne bryllupslokaler med riktig kapasitet og pris for deres gjesteantall, kan dere søke og filtrere blant flere lokaler samtidig på Digilist.
+
+## Vanlige spørsmål
+
+### Hva koster et bryllup for 80 gjester i 2026?
+
+For 80 gjester i et selskapslokale i midtsesong ligger et realistisk totalbudsjett mellom 155 000 og 267 000 kroner. Lokalet står for 25 000 til 45 000 kroner, catering 72 000 til 120 000, alkoholpakke 32 000 til 56 000, dekor og blomster 15 000 til 25 000, DJ og lyd 8 000 til 15 000, og rengjøring og vakthold 3 000 til 6 000 kroner. Overnatting kommer i tillegg.
+
+### Hva koster catering per gjest i et bryllup?
+
+En tre retters middag med servering ligger normalt på 900 til 1 500 kroner per gjest i 2026. Buffet er som regel 15 til 20 prosent billigere enn sittende servering med kelnere. Kake, kaffe og kveldsmat kommer ofte i tillegg, gjerne 150 til 250 kroner per gjest ekstra. Mange cateringfirmaer tilbyr halv pris for gjester under 12 år.
+
+### Hva koster overnatting til bryllupsgjestene?
+
+Et rom på nærmeste hotell eller pensjonat koster typisk 1 200 til 2 000 kroner per natt i 2026. Booker dere en blokk med rom for 20 til 30 gjester, kan det gi rabatt på 10 til 15 prosent fra enkelte overnattingssteder. Ligger nærmeste overnatting mer enn 20 minutter unna, bør dere også sette av 3 000 til 6 000 kroner til shuttlebuss.
+
+### Hvordan kan vi spare penger uten å kutte gjestelisten?
+
+Velg en hverdag eller lavsesong, altså januar til april eller oktober til november, der leieprisen på lokalet kan være 20 til 30 prosent lavere enn i juni og juli. Buffet fremfor sittende servering sparer typisk 15 til 20 prosent på cateringposten. Bruk lokalets eget lydanlegg, bestill overnatting i blokk tidlig, og spør om pakkepris når catering, dekor og bar bestilles samlet.

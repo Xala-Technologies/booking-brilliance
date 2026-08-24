@@ -54,3 +54,21 @@ Skal du inn i en spesifikk lokaltype, går [guiden til møterom i kommunen](/blo
 5. Avklar hva som er inkludert i prisen, og hva som må bestilles i tillegg.
 
 Når du vet hvilke egenskaper som betyr noe for deg, blir sammenligningen enkel: [søk og sammenlign ledige lokaler på Digilist](https://digilist.no) med kapasitet, utstyr og fasiliteter synlige for hvert lokale, og book direkte når du har funnet det som faktisk passer.
+
+## Vanlige spørsmål
+
+### Hva er forskjellen på sittende og stående kapasitet i et lokale?
+
+Et rom som tar seksti stående, tar gjerne bare tretti sittende rundt bord, fordi bord og stoler krever langt mer plass enn et publikum som står. Sjekk hvilket tall som gjelder for din anledning, ikke bare det høyeste tallet i annonsen, og legg inn en margin hvis arrangementet har innslag som krever egen plass.
+
+### Hvilket utstyr bør du sjekke før du booker et lokale?
+
+Sjekk wifi til presentasjoner, kjøkken til servering, prosjektor til bilder eller video og lydanlegg til tale eller musikk. Mangler et felt i annonsen, kan det bety at utstyret ikke finnes, men det kan også bety at utleier ikke har fylt ut hele lista ennå – spør heller enn å anta, hvis akkurat det punktet er avgjørende for deg.
+
+### Hva bør du sjekke om tilgjengelighet før du leier et lokale?
+
+Sjekk om det er parkering i gangavstand, og om den er gratis eller avgiftsbelagt. Sjekk kollektivforbindelse hvis noen av gjestene ikke kjører selv. Og sjekk selve adkomsten inn i lokalet: er det trinnfritt, finnes det heis hvis lokalet ligger i en etasje over bakkeplan, og er dørene brede nok for rullestol eller barnevogn.
+
+### Hva er inkludert i prisen på et lokale, og hva kommer i tillegg?
+
+Bord og stoler følger som regel med, mens duker, servise eller teknisk personell ofte må bestilles separat. Garderobe, toaletter i tilstrekkelig antall, uteareal og mulighet for catering eller egen matlaging er detaljene som sjelden avgjør om du booker et lokale i utgangspunktet, men som avgjør om dagen faktisk går knirkefritt.

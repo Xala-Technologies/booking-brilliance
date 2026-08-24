@@ -59,6 +59,24 @@ Rabatten dere fikk på leieprisen forsvinner fort i tillegg dere ikke spurte om:
 
 Før kontrakten underskrives bør følgende stå eksplisitt: totalpris inkludert alle tillegg, hva som skjer ved avbestilling og når fristen går, depositumets størrelse og vilkår for tilbakebetaling, og hvem som har ansvar ved skade på inventar. Et lokale som nøler med å spesifisere dette skriftlig, er et lokale dere bør sammenligne med ett til før dere binder dere.
 
+## Vanlige spørsmål
+
+### Hva er faktisk forhandlingsbart på prisen for et bryllupslokale?
+
+Leieprisen for selve lokalet er som regel forhandlingsbar, særlig ved lavere etterspørsel. Det samme gjelder overtid utover avtalt sluttidspunkt, opprydding og vask som ofte er lagt inn som fast tillegg og kan reduseres eller strykes, og møblering og oppsett som bord, stoler og lystavlinger. Skjenkebevilling, maksimalt antall gjester og lovpålagte krav til brannsikkerhet ligger utenfor forhandlingsrommet.
+
+### Hvor mye billigere er et bryllup på hverdag i lavsesong?
+
+Dato er det sterkeste kortet dere har. En lørdag i juni i Oslo-området kan ligge på 35 000 til 45 000 kroner i ren lokalleie, mens samme lokale en hverdag i november ofte havner på 15 000 til 20 000 kroner, en forskjell på 40 til 50 prosent. Fredag ettermiddag og søndag ligger typisk midt mellom.
+
+### Når bør dere booke for å få lavest pris?
+
+To ulike strategier gir lavere pris. Booker dere 12 til 18 måneder i forveien, får dere ofte tidligbestillingsrabatt fordi lokalet sikrer inntekt lenge før datoen. Booker dere en restplass tre til seks uker før, forhandler dere fra motsatt side: lokalet taper penger på en tom dato. Begge fungerer, men ingen av dem fungerer hvis dere booker midt imellom.
+
+### Hvordan bruker dere flere tilbud som forhandlingsgrunnlag?
+
+Å ringe ett lokale og be om rabatt gir sjelden resultat, fordi utleieren ikke har noe å måle seg mot. Be i stedet tre til fem lokaler om et sammenlignbart tilbud for samme dato, samme gjestetall og samme omfang, og bruk det billigste tilbudet aktivt når dere snakker med favoritten.
+
 ## Kom i gang
 
 Skal dere be flere bryllupslokaler om tilbud til samme dato, er det raskeste å samle dem ett sted. Last ned PDF-en med sjekkliste og forhandlingspunkter, og bruk Digilist til å sammenligne lokaler og sende forespørsler samlet i stedet for å ringe rundt.
