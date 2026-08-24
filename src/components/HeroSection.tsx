@@ -132,7 +132,27 @@ const HeroSection = () => {
               .
             </EditorialHeading>
 
+            {/* A definition, then the pitch — in that order, and both inside
+                the first 100 words of the page's real text.
+
+                The h1 above rotates its first word and ends in a slogan. It is
+                a good headline and it defines nothing, so an answer engine
+                asked "hva er Digilist" had nothing on the homepage to quote:
+                the AI Overview for our own brand name cites four other
+                companies and not us. This paragraph is the quotable sentence,
+                and it is byte-identical to the `description` on the
+                Organization and SoftwareApplication nodes in the JSON-LD and to
+                the definition in /llms.txt (all three read ENTITY_DEFINITION
+                from src/content/entity.mjs). Same claim, same wording, every
+                surface — which is what makes the entity unambiguous.
+
+                It renders in the SSR'd HTML, above the fold, so it is in the
+                static markup a crawler sees before any JavaScript runs. */}
             <p className="mt-8 text-lg lg:text-xl text-ink-soft measure leading-relaxed">
+              {t(locale, "hero.definition")}
+            </p>
+
+            <p className="mt-4 text-lg lg:text-xl text-ink-soft measure leading-relaxed">
               {t(locale, "hero.lede")}
             </p>
 

@@ -6,44 +6,48 @@ Disallow: /api/
 
 # ── Staged English pages ────────────────────────────────────────────────
 #
-# Every route is mirrored under /en, but only some have English copy yet; the
-# rest render the Norwegian components. Those must not be indexed — an English
+# There is deliberately NO rule for /en here. That is the policy, not an
+# omission — do not re-add one.
+#
+# Every route is mirrored under /en, but only ~24 have English copy yet; the
+# rest render the Norwegian components. Those must not be INDEXED — an English
 # URL serving Norwegian text is judged as duplicate content against the
-# Norwegian original, which is the page that actually ranks.
+# Norwegian original, which is the page that actually ranks. That reasoning
+# still holds. What changed is the instrument.
 #
-# Declared here rather than left to the meta tag, because a staged page is not
-# prerendered: it falls through to the SPA shell, whose robots meta says
-# "index, follow" and is only corrected after JavaScript runs. A crawler that
-# does not execute JS, or executes it late, would index the Norwegian copy in
-# the meantime.
+# This file used to say `Disallow: /en/` plus one $-anchored `Allow:` per
+# translated page. It failed in both directions at once:
 #
-# ALLOW an entry as its English copy ships, and keep this list in step with
-# TRANSLATED_PATHS in src/lib/i18n.ts.
-Disallow: /en/
-Allow: /en$
-Allow: /en/priser$
-Allow: /en/faq$
-Allow: /en/om-oss$
-Allow: /en/book-demo$
-Allow: /en/cookies$
-Allow: /en/tilgjengelighet$
-Allow: /en/personvern$
-Allow: /en/salgsvilkar$
-Allow: /en/sikkerhet$
-Allow: /en/verktoy/kapasitetskalkulator$
-Allow: /en/verktoy/leiepriskalkulator$
-Allow: /en/verktoy$
-Allow: /en/kanaler$
-Allow: /en/ai-agenter$
-Allow: /en/bookingsystem-kommune$
-Allow: /en/bookingsystem-utleie$
-Allow: /en/billettsystem$
-Allow: /en/lokaler-til-leie$
-Allow: /en/booking-av-lokaler-og-moterom$
-Allow: /en/leie$
-Allow: /en/status$
-Allow: /en/transparens$
-Allow: /en/blogg
+#   • Disallow does not keep a URL out of the index — it keeps the CRAWLER
+#     out, so Google indexes the bare URL with no title and no snippet. CTR on
+#     such a listing is structurally 0%, and /en/leie/kontorlokaler spent
+#     753 impressions in 28 days proving it. Worse, a page Google may not
+#     fetch is a page whose `noindex` Google may never read, so the URL can
+#     never be cleanly removed either. Disallow trapped it in the index.
+#
+#   • `$` anchors an Allow to exactly one URL, so `Allow: /en/blogg$` never
+#     matched `/en/blogg/<slug>`. Both real English articles — the only /en
+#     URLs the sitemap listed — fell back to `Disallow: /en/` and were blocked
+#     while sitemap.xml asked Google to index them.
+#
+# The rule now: a page we want OUT of the index must be CRAWLABLE and carry
+# `noindex` itself. Every /en URL answers for itself, and there are only two
+# kinds:
+#
+#   • Real English copy (TRANSLATED_PATHS in src/lib/i18n.ts, plus the English
+#     blog posts) — prerendered `index, follow`, self-canonical, hreflang'd,
+#     and listed in sitemap.xml.
+#
+#   • Everything else — prerendered by scripts/prerender.mjs as a stub that is
+#     `noindex, follow` and canonical to the Norwegian original, so Google can
+#     read the removal instruction and pass the equity to the page that ranks.
+#     Where server/nginx.snippet.conf is deployed these are 301s instead, which
+#     is strictly better, and any /en path with no file at all is a 404 rather
+#     than the SPA shell.
+#
+# src/lib/robots-staging.test.ts enforces the invariant that replaced the list:
+# no rule in this file may block a /en page that dist/ prerenders — neither an
+# indexable one (it would never rank) nor a noindex one (it would be trapped).
 
 
 # Standard search engines (explicit)

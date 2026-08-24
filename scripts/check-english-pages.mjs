@@ -74,10 +74,23 @@ if (!files.length) {
   process.exit(0);
 }
 
+// A redirect stub is not an English page and never was. prerender.mjs writes
+// one for every mirrored route without English copy and, now that robots.txt
+// no longer hides the mirror, for every untranslated blog post too — ~430 in
+// all. Their only prose is "Redirecting to <url>", and their only Norwegian is
+// the slug inside that URL, so each one scored a false positive. That buried
+// the real signal and would have made CHECK_ENGLISH_STRICT=1 permanently red.
+const isRedirectStub = (html) => /<meta\s+http-equiv="refresh"/i.test(html);
+
 let total = 0;
+let stubs = 0;
 const report = [];
 for (const f of files) {
   const html = await fs.readFile(f, "utf-8");
+  if (isRedirectStub(html)) {
+    stubs++;
+    continue;
+  }
   const bad = [...new Set(
     textRuns(html).filter(
       (t) => NB.test(t.replace(ACRONYMS, " ").replace(NUMERALS, " ")) && !ALLOW.some((re) => re.test(t)),
@@ -90,7 +103,10 @@ for (const f of files) {
 }
 
 report.sort((a, b) => b.count - a.count);
-console.log(`check-english: ${files.length} English page(s), ${total} Norwegian run(s) across ${report.length}\n`);
+console.log(
+  `check-english: ${files.length - stubs} English page(s), ${total} Norwegian run(s) across ${report.length}` +
+    ` (${stubs} redirect stub(s) skipped)\n`,
+);
 for (const r of report.slice(0, 25)) {
   console.log(`  ${String(r.count).padStart(4)}  ${r.page}`);
   for (const s of r.samples) console.log(`        · ${s.slice(0, 100)}`);

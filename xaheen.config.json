@@ -1,0 +1,156 @@
+{
+  "repos": {
+    "marketing": {
+      "key": "marketing",
+      "path": ".",
+      "github": "Xala-Technologies/booking-brilliance",
+      "defaultForIdeas": true
+    }
+  },
+  "linear": {
+    "teamKey": "XAL",
+    "improvementsProject": "Digilist - Improvements Agent",
+    "contentIdeasProject": "Digilist - Content Ideas",
+    "approveState": "Todo",
+    "inProgressState": "In Progress",
+    "reviewState": "In Review",
+    "blockedState": "Blocked"
+  },
+  "content": {
+    "blogDir": "src/content/blog",
+    "pagesDir": "src/pages",
+    "siteOrigin": "https://digilist.no",
+    "region": "NO",
+    "language": "no",
+    "userAgent": "XalaGrowthAgent/1.0 (+https://digilist.no)",
+    "rssFeeds": [
+      "https://www.digi.no/?service=rss",
+      "https://kommunal-rapport.no/rss"
+    ],
+    "redditSubs": [
+      "Norge",
+      "norge",
+      "Oslo"
+    ]
+  },
+  "audits": {
+    "surfaces": [
+      {
+        "id": "marketing",
+        "label": "Marketing — digilist.no",
+        "url": "https://digilist.no",
+        "type": "marketing",
+        "environment": "production",
+        "indexable": true,
+        "requiresAuth": false,
+        "active": true
+      },
+      {
+        "id": "app",
+        "label": "App — app.digilist.no",
+        "url": "https://app.digilist.no",
+        "type": "app",
+        "environment": "production",
+        "indexable": false,
+        "requiresAuth": true,
+        "active": true
+      }
+    ]
+  },
+  "convex": {
+    "path": "convex"
+  },
+  "prReviewRepos": [
+    "Xala-Technologies/booking-brilliance"
+  ],
+  "ideasRepo": "Xala-Technologies/booking-brilliance",
+  "routeRepo": {
+    "marketing": "marketing",
+    "docs": "marketing",
+    "app": "marketing",
+    "dashboard": "marketing",
+    "api": "marketing"
+  },
+  "productContext": "Digilist — norsk SaaS-plattform for booking og utleie av lokaler (selskapslokaler, idrettshaller, møterom, kantiner, kulturhus), for både kommuner og private utleiere. Utviklet av Xala Technologies AS.",
+  "seo": {
+    "primarySite": "marketing",
+    "gscProperty": "sc-domain:digilist.no",
+    "linearProject": "Digilist - SEO",
+    "contentLinearProject": "Digilist - Content Ideas",
+    "seedKeywords": [
+      "leie lokale",
+      "leie selskapslokale",
+      "utleie av lokaler",
+      "booking system utleie",
+      "leie møterom",
+      "bookingsystem for utleie",
+      "digilist",
+      "bookingsystem kommune"
+    ],
+    "competitors": [
+      "lokaler.no"
+    ],
+    "minConfidence": 0.7,
+    "rankApi": "none",
+    "fileMinPriority": "P2",
+    "autoHandoffContent": true,
+    "serpDiff": true,
+    "gscInspectTopPages": 5,
+    "aeo": {
+      "enabled": true,
+      "brandName": "Digilist",
+      "topic": "bookingsystem for utleie av lokaler",
+      "queries": [
+        {
+          "query": "digilist",
+          "intent": "brand",
+          "priority": "high"
+        },
+        {
+          "query": "hva er digilist",
+          "intent": "brand",
+          "priority": "high"
+        },
+        {
+          "query": "hvor kan jeg leie selskapslokale i oslo",
+          "intent": "commercial",
+          "priority": "high"
+        },
+        {
+          "query": "bookingsystem for utleie av lokaler",
+          "intent": "commercial",
+          "priority": "high"
+        }
+      ]
+    },
+    "geo": {
+      "enabled": true,
+      "description": "Digilist er en norsk digital plattform for utleie av selskapslokaler, idrettshaller, møterom, kantiner og kulturhus. Plattformen håndterer booking, betaling, kalender, sesongleie og fakturering i én løsning.",
+      "category": "Booking- og utleieplattform",
+      "applicationCategory": "BusinessApplication",
+      "markets": [
+        "Offentlig/kommune",
+        "Privat/utleie"
+      ],
+      "sameAs": [
+        "https://xala.no",
+        "https://app.digilist.no"
+      ],
+      "summary": "Digilist — én digital plattform for booking og utleie av lokaler i Norge."
+    }
+  },
+  "adversarial": {
+    "linearProject": "Digilist - SEO",
+    "enableHiddenContent": true,
+    "enableKeywordStuffing": true,
+    "enableCloaking": true,
+    "enableDoorwayDetection": true,
+    "cloakingThreshold": 0.4,
+    "minConfidence": 0.6,
+    "doorwayMaxPages": 5000,
+    "doorwaySimilarityThreshold": 0.85
+  },
+  "llm": {
+    "provider": "claude-cli"
+  }
+}
