@@ -1,8 +1,8 @@
 ---
 slug: moterom-kommune-omrade-ledig-booking-driftsleder
-title: "Møterom i kommunen: ett system for internt og eksternt"
+title: "Møterom i kommunen: ett system for alle bygg, internt og eksternt"
 description: "Slik samler driftsledere møteromsbooking for hele kommunen i én kalender, med egne regler for internt møte og ekstern utleie per bygg."
-date: 2026-08-14
+date: 2026-08-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7
@@ -76,24 +76,6 @@ Oppstarten følger tre steg:
 3. **Koble kalender og innlogging.** Aktiver Outlook/Exchange-synk og ID-porten før du åpner for eksterne bookinger.
 
 De fleste kommuner har rombiblioteket klart og første møterom bookbart i løpet av én til to uker, avhengig av hvor mange bygg som skal på plass samtidig. Mange starter med rådhuset alene og utvider til bibliotek og servicebygg i takt med at rutinene setter seg.
-
-## Vanlige spørsmål driftsledere stiller om møterom
-
-### Hva koster det for eksterne å leie et kommunalt møterom?
-
-En vanlig modell er at interne avdelinger booker til 0 kroner uten depositum, at lag og foreninger i rabattkategori betaler 50 til 150 kroner timen uten depositum, og at eksterne innen næring eller privat betaler 250 til 450 kroner timen med et depositum på 500 til 1000 kroner. Satsene håndheves automatisk ved booking.
-
-### Hvordan prioriterer kommunen mellom interne møter og ekstern utleie?
-
-Reglene settes per rom, ikke globalt. Intern administrasjon har typisk førsteprioritet på dagtid i rådhuset, med automatisk godkjenning for egne ansatte. Lag og foreninger kan få tildelt faste tidsluker på kveldstid, mens innbyggere og eksterne leietakere booker ledig kapasitet utenom kjernetid, med manuell godkjenning fra driftsansvarlig.
-
-### Hvordan unngår kommunen dobbeltbooking av møterom på tvers av bygg?
-
-Ved å samle all kapasitet i én plattform. Da ser du ledig møterom i ditt område på tvers av bygg i sanntid, ikke bare rommene i bygget du selv sitter i. Årsaken til dobbeltbooking er nesten alltid at bookingen skjer i flere systemer samtidig, en delt Excel-liste her og en lokal Outlook-kalender der, uten at de snakker sammen i sanntid.
-
-### Hvor lang tid tar det å sette opp møteromsbooking i kommunen?
-
-Oppstarten følger tre steg: bygg rombiblioteket med bygg, kapasitet, utstyr og geografisk område per rom, sett prioriterings- og godkjenningsregler per rom, og koble på Outlook- eller Exchange-synk og ID-porten. De fleste kommuner har rombiblioteket klart og første møterom bookbart i løpet av én til to uker.
 
 ## Kom i gang
 

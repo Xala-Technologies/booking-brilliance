@@ -1,8 +1,8 @@
 ---
 slug: sesongbooking-idrettshall-frister-tildeling-klage-lag-foreninger
-title: "Sesongbooking av idrettshall: frister, tildeling og klage"
+title: "Sesongbooking av idrettshall 2026: frister, tildeling og klage"
 description: "Se når sesongbookingen åpner, hva søknaden må inneholde, hvordan kommunen prioriterer mellom lag, og hvordan du sjekker status og klager på tildeling."
-date: 2026-08-12
+date: 2026-08-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7
@@ -73,25 +73,5 @@ Med en sanntidskalender ser alle registrerte lag ledige tider fortløpende, ikke
 Et regneark i et lukket saksbehandlersystem skaper mistanke selv når fordelingen faktisk er rettferdig, rett og slett fordi ingen søkere kan se kriteriene eller sammenligne med de andre søknadene. Når hele prosessen foregår i e-post mellom enkeltpersoner, er det heller ingen automatisk spor av hvorfor en beslutning ble tatt, noe som gjør både intern kontroll og klagebehandling tyngre enn nødvendig.
 
 Digilist gjør hele prosessen sporbar: publisert åpningsdato med varsel, søknadsskjema med tydelige krav til dokumentasjon, statusoppdatering per lag, dokumenterte tildelingskriterier og en klagefunksjon med frist synlig for alle involverte. Det fjerner ikke uenighet om selve fordelingen mellom lag som begge ønsker de beste tidene, men det fjerner tvilen om at prosessen i utgangspunktet var rettferdig og at alle søknader ble vurdert etter samme kriterier.
-
-## Vanlige spørsmål
-
-### Når åpner sesongbookingen av idrettshall?
-
-Det finnes ingen nasjonal frist for sesongtildeling, og kommunene styrer prosessen selv. Lillestrøm kommune åpner normalt søknadsvinduet i begynnelsen av mai for sesongen som starter i august, mens Bodø kommune legger åpningen til midten av juni. Forskjellen handler om når kommunen rekker å behandle søknader, avklare vedlikeholdsperioder og sette opp fordelingsmøter før sommeren.
-
-### Hva må søknaden om sesongtid inneholde?
-
-Laget bør ha klart oppdatert medlemstall fordelt på aldersgruppe, reelt treningsbehov i timer per uke, dokumentasjon på aktivitet som terminliste eller treningsplan, eventuell dokumentasjon for utøvere med nedsatt funksjonsevne, og en kontaktperson i styret som kan svare raskt. Ufullstendige søknader er en gjenganger som årsak til lav prioritering.
-
-### Hvordan prioriterer kommunen mellom lagene?
-
-De vanligste faktorene er antall aktive medlemmer, særlig andelen barn og unge under 19 år, som normalt veier tyngst, om laget driver breddeidrett eller toppidrett, om laget har hatt tildelt tid tidligere uten å bruke den, og geografisk tilhørighet. Et lag med 80 medlemmer fordelt på fem aldersklasser rangerer normalt høyere enn et seniorlag med 15 medlemmer.
-
-### Kan laget klage på tildelt treningstid?
-
-Klagefristen er som regel to til tre uker etter at tildelingsvedtaket er sendt ut, og klagen bør sendes skriftlig med referanse til vedtaksnummeret. Det som faktisk lar seg endre, er som regel feil i saksbehandlingen: at dokumentasjon ikke ble vurdert, at et kriterium ble feil anvendt, eller at et lag ble utelatt på grunn av en administrativ feil.
-
-## Book demo
 
 Vil du se hvordan Digilist gjør sesongtildelingen i din kommune sporbar fra søknad til klage? Book en demo, så viser vi løsningen med deres egne haller, frister og tildelingskriterier.

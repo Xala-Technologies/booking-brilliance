@@ -1,8 +1,8 @@
 ---
 slug: bryllupslokale-regler-skjenking-rigging-sjekkliste
-title: "Bryllupslokale: skjenking, rigging og reglene rundt"
+title: "Bryllupslokale 2026: reglene som avgjør om bryllupsdagen går opp"
 description: "Skjenkebevilling, rigging, parkering, forsikring og rydding: dette må du avklare før du signerer kontrakten for bryllupslokalet."
-date: 2026-08-10
+date: 2026-08-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7
@@ -67,24 +67,6 @@ Avklar konkret hva "ryddet" betyr: søppel ut, gulv feid, eller fullvasket kjøk
 6. Hva dekker lokalets forsikring, og hva må vi selv dekke med egen forsikring?
 7. Hva koster det å ikke rydde selv, og hva regnes som ryddet?
 8. Hva skjer med depositumet ved avlysning fra lokalets side?
-
-## Vanlige spørsmål
-
-### Trenger vi skjenkebevilling i bryllupet?
-
-Skal dere servere alkohol, må enten lokalet ha egen fast skjenkebevilling, eller dere må søke om bevilling for en enkelt anledning i kommunen der lokalet ligger. Gebyret varierer fra kommune til kommune, og søknaden bør sendes minst fire uker før arrangementet, siden enkelte kommuner har lang saksbehandlingstid i høysesong for bryllup.
-
-### Kan vi ta med egen alkohol til bryllupslokalet?
-
-Det må avtales særskilt, siden de fleste lokaler enten krever korkepenger eller nekter medbrakt alkohol helt. Har lokalet fast bevilling, er det ofte enklere og rimeligere enn å søke selv, men da er dere også bundet av lokalets utvalg og priser på drikke. Sjekk også skjenketiden, som kommunen eller husreglene kan sette kortere enn alkoholloven.
-
-### Hvor lang tid trenger vi til rigging av lokalet?
-
-Dekoratøren trenger ofte 3 til 4 timer for bord, blomster og lys, og cateringfirmaet gjerne 2 timer til klargjøring av kjøkken. Spør konkret om dere får tilgang dagen før eller samme morgen, og når alt må være ryddet ut. Spør også om det finnes vareheis eller egen leveringsinngang.
-
-### Hvilke husregler bør vi sjekke før vi signerer?
-
-Sjekk lydnivå og kveldsstopp, som mange lokaler setter mellom klokken 23.00 og 00.00, om levende lys er tillatt eller kun batteridrevne, om dyr slipper inn, om røyking kun er tillatt utendørs, om egen catering er tillatt, og hva makstallet for gjester er. Be om dokumentasjon på godkjent persontall, ikke bare utleiers muntlige anslag.
 
 ## Book bryllupslokale i Digilist
 

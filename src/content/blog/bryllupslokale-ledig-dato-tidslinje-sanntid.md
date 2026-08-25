@@ -1,8 +1,8 @@
 ---
 slug: bryllupslokale-ledig-dato-tidslinje-sanntid
-title: "Ledig bryllupslokale: når må dere booke for å sikre datoen?"
-description: "Populære bryllupsdatoer bookes over ett år før bryllupet. Se når dere bør begynne søket, og hvordan dere sjekker ledighet hos flere lokaler samtidig."
-date: 2026-08-16
+title: "Ledig bryllupslokale 2026: når du må booke for å sikre datoen"
+description: "Populære bryllupsdatoer bookes opp over ett år før bryllupet. Se når dere bør begynne søket, og hvordan dere sjekker ledighet hos flere lokaler samtidig i sanntid, uten å ringe rundt."
+date: 2026-08-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7

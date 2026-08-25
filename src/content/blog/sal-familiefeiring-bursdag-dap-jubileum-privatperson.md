@@ -1,8 +1,8 @@
 ---
 slug: sal-familiefeiring-bursdag-dap-jubileum-privatperson
-title: "Bursdag, dåp og jubileum: billigst sal til feiringen"
+title: "Bursdag, dåp og jubileum: slik finner du billigst sal til feiringen"
 description: "Planlegger du bursdag, dåp eller jubileum i sal? Se hvordan minstepris, barnesikkerhet og riktig kapasitet for 3-6 timer avgjør hva som faktisk er billigst."
-date: 2026-08-10
+date: 2026-08-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7

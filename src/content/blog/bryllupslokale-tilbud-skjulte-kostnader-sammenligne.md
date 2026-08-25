@@ -1,8 +1,8 @@
 ---
 slug: bryllupslokale-tilbud-skjulte-kostnader-sammenligne
-title: "Bryllupslokale: derfor er to tilbud sjelden sammenlignbare"
-description: "Se hva leieprisen på et bryllupslokale dekker, hvilke kostnader som ofte kommer i tillegg, og en metode for å sammenligne tilbud satt opp helt ulikt."
-date: 2026-08-18
+title: "Bryllupslokale pris 2026: derfor to tilbud sjelden er sammenlignbare"
+description: "Se hva leieprisen på et bryllupslokale faktisk dekker, hvilke tilleggskostnader som ofte kommer i tillegg, og en konkret metode for å sammenligne tilbud som er satt opp helt ulikt."
+date: 2026-08-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7

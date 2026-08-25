@@ -1,8 +1,8 @@
 ---
 slug: bryllupslokale-prismodeller-kuvertpris-pakkepris-lokaleleie
-title: "Bryllupslokale: kuvertpris, pakkepris eller lokaleleie"
-description: "De tre prismodellene for bryllupslokale er kuvertpris, pakkepris og ren lokaleleie. Se hvordan du regner om og sammenligner tilbud som ellers ikke er like."
-date: 2026-08-10
+title: "Bryllupslokale pris 2026: kuvertpris, pakkepris eller lokaleleie"
+description: "De tre prismodellene for bryllupslokale er kuvertpris, pakkepris og ren lokaleleie. Se hvordan du regner om og sammenligner tilbud som ellers ikke er direkte sammenlignbare."
+date: 2026-08-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7
@@ -88,24 +88,6 @@ For 90 gjester på en lørdag i juni:
 | Lokale C | Ren leie 20 000 kr + forbrukskrav 800 kr/gjest | 20 000 kr oppgitt | 92 000 kr (leie og forbrukskrav) |
 
 Lokale C ser desidert billigst ut på annonsen, men lander midt på treet når forbrukskravet regnes med. Uten omregningen ville de fleste valgt feil lokale ut fra prisen alene.
-
-## Vanlige spørsmål
-
-### Hva er kuvertpris på et bryllupslokale?
-
-Kuvertpris er en fast sum per gjest, typisk 950-1 400 kroner, som regel inkludert mat, servering og bruk av lokalet i et avtalt tidsrom. Modellen passer best når gjestetallet er usikkert helt frem til påmeldingsfristen, siden dere betaler for faktisk oppmøte og ikke for et antall dere har bundet dere til på forhånd.
-
-### Hva koster et bryllupslokale med ren lokaleleie?
-
-Ren lokaleleie er en fast leiesum for selve rommet, gjerne 15 000-40 000 kroner, hvor dere bestiller catering, servering og utstyr selv. Men mange leieavtaler har forbrukskrav på ofte 700-900 kroner per gjest. Med 90 gjester blir det fort 63 000-81 000 kroner i tillegg til selve leien, før personale, servise eller lydanlegg er lagt til.
-
-### Hvordan sammenligner du tilbud med ulike prismodeller?
-
-Regn alt om til én total kostnad delt på antall gjester: legg sammen leie, forbrukskrav, tillegg og depositum, del på antall gjester dere faktisk planlegger å invitere, og sammenlign kronebeløpet per gjest på tvers av lokalene i stedet for kuvertprisen alene mot pakkeprisen alene. Regn alltid ut fra deres faktiske gjestetall, ikke lokalets anbefalte makstall.
-
-### Hvor stort depositum er normalt for et bryllupslokale?
-
-Et depositum på 15-25 prosent av totalsummen ved signering er normalt, gjerne med resten fordelt på to til tre innbetalinger frem mot bryllupsdagen, for eksempel 20 prosent ved signering, 30 prosent seks måneder før og resten 30 dager før. Et varselsignal er et depositum over 50 prosent uten skriftlig avbestillingsklausul.
 
 ## Sammenlign bryllupslokaler nå
 

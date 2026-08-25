@@ -1,8 +1,8 @@
 ---
 slug: moterom-kommune-omrade-mine-ekstern-utleie-driftsleder
-title: "Møterom i kommunen: internt bruk og ekstern utleie samlet"
-description: "Se hvordan driftsleder samler internt bruk og ekstern utleie av møterom i én løsning, med prisgrupper, ID-porten og abonnement uten transaksjonsgebyr."
-date: 2026-08-23
+title: "Møterom i kommunen: område, «mine rom» og ekstern utleie i ett system"
+description: "Se hvordan driftsleder samler internt bruk og ekstern utleie av møterom i én løsning, med prisgrupper, ID-porten-pålogging og abonnement uten transaksjonsgebyr som spiser av leieinntekten."
+date: 2026-08-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7
@@ -54,23 +54,5 @@ Prisgrupper som dette gjør det mulig å håndheve likebehandling internt og sam
 ## Fra kartlegging av bygg til lansering: stegene for å digitalisere møteromsbooking i kommunen
 
 Digitaliseringen starter med en kartlegging av hvilke rom som finnes, i hvilke bygg og med hvilken kapasitet, inkludert rom som i dag ikke er del av noe bookingsystem i det hele tatt. Deretter defineres prisgrupper og tilgangsnivåer for hver brukergruppe, før løsningen testes i en pilot på ett eller to bygg. I pilotfasen bør driftsleder følge tre ting spesielt: hvor mange bookinger som faktisk gjennomføres av eksterne, hvor ofte interne kolliderer med utleie, og om godkjenningsflyten oppleves som rask nok av leietakerne. Når piloten er justert, kobles resten av kommunens bygg på i grupper, gjerne startende med byggene som allerede har høyest etterspørsel etter møterom fra eksterne. En kommune på størrelse med Lillestrøm kan realistisk gå fra kartlegging til full lansering på 6 til 10 uker, avhengig av hvor mange bygg og brukergrupper som skal inkluderes, og om kommunen migrerer data fra flere eksisterende kalendersystemer samtidig.
-
-## Vanlige spørsmål om ekstern utleie av møterom
-
-### Hvor mye tar et transaksjonsbasert bookingsystem av leieinntekten?
-
-Mange bookingløsninger tar en prosentandel av hver transaksjon, ofte mellom 3 og 8 prosent. En kommune som leier ut møterom 3 000 timer i året til 250 kroner timen sitter på en bruttoinntekt på 750 000 kroner. Med et transaksjonsgebyr på 5 prosent forsvinner 37 500 kroner rett ut av kommunekassen, år etter år.
-
-### Abonnement eller transaksjonsavgift: hva blir billigst for kommunen?
-
-Et fast abonnement koster det samme uansett hvor mange bookinger som gjennomføres, mens en transaksjonsbasert modell stiger med aktiviteten. For en kommune som aktivt jobber med å fylle møterom utenom arbeidstid, blir et abonnement raskt billigere. Regn totalkostnad ved forventet volum om ett og tre år, ikke bare ved dagens bruk.
-
-### Hvordan setter driftsleder opp ulike priser for ulike brukergrupper?
-
-Et møterom har sjelden bare én pris. Et praktisk oppsett er internt bruk for kommunale ansatte til 0 kroner og forhåndsgodkjent, lag og foreninger til redusert timepris koblet til medlemsregister, og bedrifter og private til full markedspris med betaling ved booking. Reglene ligger i systemet, ikke i hodet på én person.
-
-### Hvor lang tid tar det å digitalisere møteromsbooking i en kommune?
-
-Digitaliseringen starter med en kartlegging av hvilke rom som finnes, i hvilke bygg og med hvilken kapasitet. Deretter defineres prisgrupper og tilgangsnivåer for hver brukergruppe, før løsningen testes i en pilot på ett eller to bygg. En kommune på størrelse med Lillestrøm kan realistisk gå fra kartlegging til full lansering på 6 til 10 uker.
 
 Vil du se hvordan Digilist kan samle intern bruk og ekstern utleie av møterom i én løsning, med prisgrupper, ID-porten-pålogging og abonnement uten transaksjonsgebyr som spiser av leieinntekten? Book en demo, så viser vi løsningen tilpasset din kommunes bygningsmasse.

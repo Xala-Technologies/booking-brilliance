@@ -1,8 +1,8 @@
 ---
 slug: konferansesal-kultursal-pris-bookingsystem-driftsleder
-title: "Konferanse- og kultursal: pris, ledighet og bookingsystem"
-description: "Se hva som avgjør prisen på en konferanse- og kultursal, hvorfor prosentkutt av hver booking blir dyrere med volum, og hvordan dere velger system."
-date: 2026-08-12
+title: "Konferanse- og kultursal 2026: pris, ledighet og bookingsystem for driftsleder"
+description: "Se hva som avgjør prisen på en konferanse- og kultursal, hvorfor prosentkutt av hver booking blir dyrere med volum, og hvordan driftsledere velger riktig bookingsystem for en flerbrukssal."
+date: 2026-08-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7

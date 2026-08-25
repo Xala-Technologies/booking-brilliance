@@ -1,8 +1,8 @@
 ---
 slug: moterom-kommune-ledige-omrade-mine-oversikt-booking
-title: "Møterom i kommunen: ledige rom i ditt område"
-description: "Samle kommunens møterom fra alle bygg i én oversikt, sett booking-regler per avdeling, og la ansatte booke ledig rom selv, uten dobbeltbooking."
-date: 2026-08-12
+title: "Møterom i kommunen: samlet oversikt over ledige rom i ditt område"
+description: "Samle kommunens møterom fra alle bygg i én oversikt, sett booking-regler per avdeling, og la ansatte finne og booke ledig rom selv, uten dobbeltbooking eller telefonrunder."
+date: 2026-08-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7
@@ -66,20 +66,6 @@ Dette er nyttig i to sammenhenger: budsjettdialog, der man kan dokumentere behov
 ## Hva koster et bookingsystem for møterom
 
 Digilist prises som abonnement per anlegg og bruker, ikke som en andel av det kommunen eventuelt leier ut. En kommune som leier ut møterom til lag og næringsliv utenom kontortid beholder hele inntekten selv. Kostnaden er forutsigbar og kan settes opp mot innsparingen i administrativ tid alene, uavhengig av om utleiedelen brukes i det hele tatt. For en kommune med for eksempel ti bygg og førti møterom er den innsparte administrasjonstiden alene ofte nok til at abonnementet betaler for seg.
-
-## Vanlige spørsmål om møteromsbooking på tvers av bygg
-
-### Hvorfor havner kommunens møterom i separate kalendere?
-
-De fleste kommuner har vokst seg til dette problemet, ikke planlagt det: ett bygg tok i bruk Outlook-ressurskalendere, et annet fikk sitt eget bookingskjema, et tredje styrer rommet med en whiteboard-tavle i gangen. Digilist ser typisk fire til seks ulike registreringsmåter i bruk samtidig, fordelt på mellom fem og femten bygg.
-
-### Hva koster dobbeltbooking av møterom i administrasjonstid?
-
-Dobbeltbooking løses som regel med telefon eller e-post fram og tilbake mellom to avdelinger som begge mener de booket først, noe som typisk tar 10 til 15 minutter administrativ tid per konflikt. Har kommunen 20 til 30 slike konflikter i måneden, binder det opp flere timer hver måned.
-
-### Kan kommunen leie ut møterom til lag og næringsliv utenom kontortid?
-
-Ja. Flere kommuner leier ut møterom og kurslokaler til lag, foreninger og lokalt næringsliv på kveldstid, med egne priser og egne godkjenningsrutiner for eksterne leietakere. Et idrettslag som trenger et møterom til styremøte én kveld i måneden betaler gjerne en annen sats enn en lokal bedrift som leier samme rom en hel dag.
 
 ## Kom i gang
 

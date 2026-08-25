@@ -1,8 +1,8 @@
 ---
 slug: moterom-kurslokale-leie-billig-dagtid-bedrift
-title: "Møterom og kurslokale: dagtid er billigere enn kveld"
+title: "Møterom og kurslokale til kurs: dagtidspris billigere enn kveld"
 description: "Se møterom, kurslokale og sal med dagtidspris, utstyr og ledig kalender i ett søk hos Digilist, så bedriften slipper årsavtale og telefon til kommunen."
-date: 2026-08-10
+date: 2026-08-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7
@@ -66,24 +66,6 @@ Før dere trykker book, sjekk dette:
 - Om lokalet støtter hybridløsning dersom noen deltar digitalt
 
 En kort sjekkliste tar to minutter og sparer dere for en ubehagelig overraskelse på fakturaen etter kurset.
-
-## Vanlige spørsmål om møterom og kurslokale til kurs
-
-### Hva koster det å leie et kurslokale?
-
-Kommunale kurslokaler ligger typisk mellom 300 og 600 kroner timen på dagtid, avhengig av kommune, beliggenhet og utstyrsnivå. Private aktører tar ofte 500 til 900 kroner timen, men inkluderer gjerne wifi, prosjektor og resepsjonstjeneste i prisen uten tillegg. Sammenlign totalpris for hele kursdagen, ikke bare timesatsen på annonsen.
-
-### Hvorfor er møterom og kurslokale billigere på dagtid enn på kveld?
-
-De fleste utleiere, både kommunale og private, prissetter etter etterspørsel. Kveld og helg er høysesong for private arrangementer som bursdager, jubileer og bryllup, mens dagtid mandag til fredag ofte står ledig. Et kurslokale som koster 700 kroner timen på kveldstid kan ligge på 450 kroner timen mellom klokken 08 og 16.
-
-### Trenger bedriften møterom, kurslokale eller sal?
-
-Møterom passer til inntil 10-12 deltakere og korte økter, som statusmøter eller mindre arbeidsgrupper. Kurslokale eller seminarrom er dimensjonert for gruppearbeid, med plass til flere bord, en pauseflate og ofte ett eller to grupperom ved siden av. Sal blir aktuelt først når kurset passerer 40-50 deltakere.
-
-### Når må vi avbestille et kurslokale for å slippe gebyr?
-
-Typisk praksis er gebyrfri avbestilling frem til 48-72 timer før kursstart, og delvis refusjon eller flytting mot et mindre gebyr etter det. Private aktører har ofte strammere frister rundt store helger og fellesferien. Be om fristen skriftlig i bekreftelsen, så slipper dere å tolke vilkår i etterkant.
 
 ## Book demo hos Digilist
 

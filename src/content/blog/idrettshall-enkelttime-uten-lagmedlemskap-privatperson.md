@@ -1,8 +1,8 @@
 ---
 slug: idrettshall-enkelttime-uten-lagmedlemskap-privatperson
-title: "Booke idrettshall som privatperson: ledige enkelttimer"
-description: "Du trenger ikke lagmedlemskap for å bruke idrettshallen. Se ledige enkelttimer i sanntid, book og betal direkte, uten å vente på sesongtildelingen."
-date: 2026-08-17
+title: "Booke idrettshall som privatperson: ledige enkelttimer i sanntid"
+description: "Du trenger ikke lagmedlemskap for å bruke idrettshallen. Se ledige enkelttimer i sanntid, book og betal direkte på under to minutter, uten å vente på kommunens sesongtildeling."
+date: 2026-08-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7

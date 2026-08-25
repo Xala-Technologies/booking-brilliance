@@ -1,8 +1,8 @@
 ---
 slug: bryllupslokale-planlegging-tidslinje-pris-tilgjengelighet
-title: "Bryllupslokale: når du booker avgjør pris og ledig dato"
-description: "Bryllupslokale er en tidslinje, ikke bare et prisvalg: når du bør søke, hvorfor de beste datoene forsvinner først, og hva depositumet binder deg til."
-date: 2026-08-10
+title: "Bryllupslokale 2026: tidspunktet du booker avgjør pris og ledig dato"
+description: "Bryllupslokale er en tidslinje, ikke bare et prisvalg: når du bør søke, hvorfor de beste datoene forsvinner først, og hva depositum og betalingsplan faktisk binder deg til underveis."
+date: 2026-08-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7
@@ -54,24 +54,6 @@ Endringer etter signering er normalt, men koster ulikt avhengig av tidspunkt. En
 - 6 uker før: gi endelig gjestetall til catering og lokale
 - 2-4 uker før: betal sluttoppgjør og få skriftlig bekreftelse på hele dagens forløp, fra ankomst til opprydding
 - 1 uke før: siste kontaktpunkt med lokalet for praktiske detaljer på selve dagen, som parkering, nøkkelutlevering og kontaktperson
-
-## Vanlige spørsmål
-
-### Når bør vi begynne å søke etter bryllupslokale?
-
-Regn med 12 til 18 måneder fra frieri til bryllupsdag hvis dere vil ha en lørdag i juni, juli eller september. Populære lokaler i og rundt Oslo, Bergen, Trondheim og Stavanger tar ofte imot bestillinger så tidlig som 18 måneder frem i tid, mens hverdager og lavsesong fortsatt lar seg booke 4 til 6 måneder før.
-
-### Hvorfor forsvinner de mest populære datoene først?
-
-Norge har rundt 24 000 vielser i året ifølge SSB, og en stor andel samler seg i sommerhalvåret, med lørdager som den klart mest etterspurte ukedagen. Det gir et smalt tidsvindu mot bred etterspørsel, og lokaler med kapasitet til 80-120 gjester og uteareal egnet for vielsen blir fullbooket for hovedsesongen allerede tidlig på nyåret.
-
-### Hvor mye depositum må vi betale, og når forfaller resten?
-
-De fleste bryllupslokaler krever 20-30 prosent av totalprisen i depositum ved signering, ofte ikke refunderbart ved avbestilling. Andre rate på gjerne 30-40 prosent forfaller rundt seks måneder før, basert på foreløpig gjestetall, og sluttoppgjøret 2-4 uker før, basert på endelig gjestetall og tillegg som overtid, rigg eller ekstra catering.
-
-### Hva koster det å endre dato etter at vi har booket?
-
-En datoendring mer enn 6 måneder før koster som regel lite eller ingenting utover et administrasjonsgebyr, forutsatt at den nye datoen er ledig hos lokalet. Nærmere enn 3 måneder før behandles det ofte som en ny booking med nytt depositum, fordi lokalet allerede har avvist andre forespørsler for datoen dere forlater.
 
 ## Book demo
 

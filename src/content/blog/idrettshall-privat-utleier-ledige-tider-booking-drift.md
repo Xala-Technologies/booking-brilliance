@@ -1,8 +1,8 @@
 ---
 slug: idrettshall-privat-utleier-ledige-tider-booking-drift
-title: "Idrettshall: slik drifter privat utleier bookingen selv"
-description: "Praktisk guide for private idrettshalleiere: sanntidskalender, prisregler uten kommunal sats, avbudshåndtering, fakturering og belegg."
-date: 2026-08-10
+title: "Idrettshall ledige tider 2026: slik drifter privat utleier booking selv"
+description: "Praktisk guide for private idrettshalleiere: sanntidskalender, prisregler uten kommunal sats, leietakerkrav, avbudshåndtering, fakturering og belegg, uten sesongtildeling."
+date: 2026-08-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7

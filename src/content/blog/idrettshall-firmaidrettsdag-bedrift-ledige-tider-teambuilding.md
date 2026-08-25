@@ -1,8 +1,8 @@
 ---
 slug: idrettshall-firmaidrettsdag-bedrift-ledige-tider-teambuilding
-title: "Idrettshall: book firmaidrettsdag uten lagmedlemskap"
+title: "Idrettshall for bedrifter: book firmaidrettsdag uten lagmedlemskap"
 description: "Se ledige tider i kommunale og private idrettshaller samlet, book og betal firmaidrettsdagen som bedrift på minutter, uten lagmedlemskap eller sesongtildeling."
-date: 2026-08-24
+date: 2026-08-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7

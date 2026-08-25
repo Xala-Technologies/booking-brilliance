@@ -1,8 +1,8 @@
 ---
 slug: leie-sal-billigst-kommune-kort-varsel-privatperson
 title: "Billigst sal i kommunen på kort varsel: slik booker du i dag"
-description: "Trenger du sal denne uken, ikke om tre måneder? Se hvordan du sammenligner ledige kommunale og private saler i sanntid, og hva hurtigbooking koster."
-date: 2026-08-10
+description: "Trenger du sal denne uken, ikke om tre måneder? Se hvordan du sammenligner ledige kommunale og private saler i sanntid, og hva hurtigbooking faktisk koster i gebyr og depositum."
+date: 2026-08-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7

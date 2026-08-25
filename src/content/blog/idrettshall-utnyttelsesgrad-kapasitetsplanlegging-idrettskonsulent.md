@@ -1,8 +1,8 @@
 ---
 slug: idrettshall-utnyttelsesgrad-kapasitetsplanlegging-idrettskonsulent
-title: "Idrettshall: fra driftslogg til beslutningsgrunnlag"
-description: "Se hvordan sanntidsdata om ledige tider i idrettshallen gir idrettskonsulenten utnyttelsesgrad, rapportering til idrettsrådet og bedre grunnlag."
-date: 2026-08-10
+title: "Idrettshall ledige tider: fra driftslogg til beslutningsgrunnlag i kommunen"
+description: "Se hvordan sanntidsdata om ledige tider i idrettshallen gir idrettskonsulenten utnyttelsesgrad, rapportering til idrettsrådet og bedre grunnlag for investeringsbeslutninger."
+date: 2026-08-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7

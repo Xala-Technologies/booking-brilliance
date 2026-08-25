@@ -1,8 +1,8 @@
 ---
 slug: idrettshall-ledige-tider-enkelttime-droppin-privat-utleier
-title: "Idrettshall: ledig tid mellom faste timer er tapt inntekt"
-description: "Se hvordan private idrettshaller fyller ledig kapasitet mellom faste treningstider med enkelttimer og drop-in i sanntid, og øker utnyttelsen per uke."
-date: 2026-08-24
+title: "Idrettshall: ledig tid mellom faste timer er tapt inntekt, ikke bare tomrom"
+description: "Se hvordan private idrettshaller fyller ledig kapasitet mellom faste treningstider med enkelttimer og droppin i sanntid, uten telefon, og øker utnyttelsesgraden per uke."
+date: 2026-08-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7

@@ -1,8 +1,8 @@
 ---
 slug: bryllupslokale-vilkar-kapasitet-skjenking-catering-lyd
-title: "Bryllupslokale: vilkårene avgjør festen, ikke bare prisen"
-description: "Skjenkebevilling, reell gjestekapasitet, cateringregler og lydgrense avgjør om et bryllupslokale fungerer for festen. Se hva dere må sjekke før signering."
-date: 2026-08-24
+title: "Bryllupslokale 2026: vilkårene avgjør om festen blir som planlagt, ikke bare prisen"
+description: "Skjenkebevilling, reell gjestekapasitet, cateringregler og lydgrense avgjør om et bryllupslokale fungerer for festen dere planlegger. Se hva dere må sjekke før dere signerer."
+date: 2026-08-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7
@@ -92,21 +92,3 @@ Legg også inn skjulte kostnader i samme oppstilling: søknadsgebyr for skjenkeb
 Når dere har tallene ved siden av hverandre, blir valget tydelig. Det handler sjelden om hvilket lokale som er penest på bilde, men om hvilket som faktisk gir dere festen dere har planlagt, uten overraskelser på regningen dagen etter.
 
 Se ledige bryllupslokaler på Digilist, sammenlign vilkår som skjenkebevilling, cateringmodell og lydgrense side om side med prisen, og book datoen når dere finner lokalet som faktisk passer festen dere ønsker.
-
-## Vanlige spørsmål
-
-### Hvor lenge kan bryllupsfesten vare i lokalet?
-
-Mange lokaler i tettbygde strøk har lydgrense rundt 85 desibel etter klokken 23, og krever at musikken stopper senest klokken 01.00 av hensyn til naboer. Gårder og lokaler utenfor sentrum uten naboer i umiddelbar nærhet tillater ofte fest til 02.00 eller 03.00. Spør konkret om lydgrense i desibel og eksakt sluttidspunkt før dere booker.
-
-### Hvor lang tid tar det å få skjenkebevilling til bryllup?
-
-De fleste kommuner oppgir minst fire ukers frist for søknad før arrangementet, og enkelte krever seks. Søknaden går til kommunen der lokalet ligger, og de fleste kommuner henter uttalelse fra politiet før bevillingen innvilges. Gebyret er som regel noen få hundre kroner. Sjekk også om bevillingen dekker uteareal, eller bare innendørs.
-
-### Hva er forskjellen på annonsert og branngodkjent kapasitet?
-
-Et lokale annonsert for 150 gjester kan i praksis være godkjent for 120 etter brannforskriften, avhengig av rømningsveier, møblering og hvor mange dører som regnes som godkjent rømningsvei. Kapasitet med langbord, scene og dansegulv er ofte 20 til 30 prosent lavere enn tallet øverst i annonsen. Den branngodkjente kapasiteten står i lokalets bruksstillatelse.
-
-### Hvor mye sparer dere på fri catering fremfor fast leverandør?
-
-Fri catering kan spare 10 000 til 20 000 kroner på en middels stor fest, men bare hvis dere faktisk har noen som kan koordinere logistikken på dagen. Fast leverandør gir forutsigbarhet, men lite fleksibilitet på pris; et avvik oppover fra standardmenyen koster fort ekstra per kuvert.
