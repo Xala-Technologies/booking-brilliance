@@ -3019,4 +3019,31 @@ export const POST_FAQ = {
         "Ikke ta utleiers ord for at lokalet er tilgjengelig. Gå selv gjennom ruten fra parkering til inngang, mellom lokalene, og fram til toalett. Sjekk om det finnes trinnfri adkomst uten smale dører eller høye terskler, et HC-tilpasset toalett i rimelig gangavstand, og om trapper har rekkverk eller alternativ rampe.",
     },
   ],
+  "hvordan-unnga-dobbeltbooking-utleie": [
+    {
+      question: "Hva er dobbeltbooking når du leier ut lokaler?",
+      answer:
+        "To bekreftede bookinger på samme rom og samme tid. Det skjer når ja-et lever i Outlook, e-post eller hodet, mens hallkalenderen ikke er oppdatert.",
+    },
+    {
+      question: "Hvorfor skjer det når Outlook og hallkalenderen er separate?",
+      answer:
+        "En booking i den ene skriver ikke til den andre. To personer kan si ja til samme lørdag uten å se hverandres avtale.",
+    },
+    {
+      question: "Hindrer kalendersynk dobbeltbooking?",
+      answer:
+        "Ja, når synken er toveis og i sanntid. En booking ett sted gjør tiden opptatt overalt som er koblet. Det er selve grunnen til én felles kalender.",
+    },
+    {
+      question: "Må vi slutte å bruke Outlook og Google Kalender?",
+      answer:
+        "Nei. Du kobler dem til Digilist. Hallkalenderen forblir kilden. Outlook og Google viser det samme.",
+    },
+    {
+      question: "Hva ser innbyggeren og saksbehandleren etter en booking?",
+      answer:
+        "Innbyggeren ser ledig eller opptatt før hen sender. Saksbehandleren godkjenner i samme kalender. Endringen ligger i loggen.",
+    },
+  ],
 };
