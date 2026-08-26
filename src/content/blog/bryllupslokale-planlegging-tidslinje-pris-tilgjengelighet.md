@@ -2,7 +2,7 @@
 slug: bryllupslokale-planlegging-tidslinje-pris-tilgjengelighet
 title: "Bryllupslokale 2026: tidspunktet du booker avgjør pris og ledig dato"
 description: "Bryllupslokale er en tidslinje, ikke bare et prisvalg: når du bør søke, hvorfor de beste datoene forsvinner først, og hva depositum og betalingsplan faktisk binder deg til underveis."
-date: 2026-08-25
+date: 2026-08-26
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7
