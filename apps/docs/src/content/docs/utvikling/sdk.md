@@ -181,6 +181,7 @@ export default function App() {
 | `Mutation not found` | Glemt å re-eksportere i `convex/_generated/api`. Kjør `npx convex codegen`. |
 | Cache flapper | To hooks bruker samme query med litt forskjellige args. Konsolider eller bruk `useStableQuery`. |
 | `TypeError: Cannot read property 'pid' of undefined` | Bruker ikke `RequireAuth` rundt komponenten. |
+| Effekt hos en konsument kjører på hver render, ikke én gang per verdi | Hooken bygger et nytt objekt hver render (transform ikke `useMemo`-et på Convex' rå queryresultat). En konsument som gjør `useEffect(fn, [data])` løper da uendelig — og hvis effekten selv kaller en mutasjon, kan det spinne opp til Convex' grense på 1 000 utestående mutasjoner per socket og drepe forbindelsen. Memoiser returverdien (og selve return-objektet) på det rå queryresultatet. |
 
 ## Beslektet
 
