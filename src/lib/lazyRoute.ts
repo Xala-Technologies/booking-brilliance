@@ -28,11 +28,46 @@ import { lazy, type ComponentType, type LazyExoticComponent } from "react";
  * Anything that is not a chunk-fetch failure is rethrown untouched: a page
  * whose module throws while evaluating is a real bug and must not be
  * papered over with a reload.
+ *
+ * A stale deploy is not the only way that import rejects, though, and the
+ * two failures that are left both used to end on a page with nothing on it
+ * — see RETRY_DELAY_MS and RELOAD_GRACE_MS below.
  */
 
 /** Only one reload per window — past that, treat the failure as real. */
 const RELOAD_GUARD_MS = 10_000;
+
+/**
+ * Try the chunk once more before assuming the release moved under us.
+ *
+ * The import can also reject because the request never reached the server —
+ * one flaky hop, a dropped connection — and Chrome words that failure exactly
+ * like a deleted chunk, so it landed on the stale-deploy path above. A chunk
+ * that failed on the wire is usually still sitting there; the URL is hashed
+ * and served immutable, so a second GET is free when it works and one extra
+ * 404 when it does not.
+ */
+const RETRY_DELAY_MS = 400;
+
+/**
+ * How long the Suspense fallback may hold for a reload we asked for.
+ *
+ * index.html is `no-cache`, so a reload that is going to land lands well
+ * inside this and the visitor never sees the timer. Past it the reload is not
+ * coming — the network is still down, the navigation was refused — and a
+ * promise that never settles is a "Laster…" that never ends: geoqa #351
+ * caught a visitor stranded there after clicking a search result, with no
+ * heading on the page and nothing to click. Rejecting instead hands the route
+ * to RouteErrorBoundary, which renders a heading, a reload button and a link
+ * back to the front page.
+ */
+const RELOAD_GRACE_MS = 8_000;
+
 const RELOAD_KEY = "digilist:stale-chunk-reload";
+
+/** setTimeout as a promise — used for both waits above. */
+const after = (ms: number) =>
+  new Promise<void>((resolve) => setTimeout(resolve, ms));
 
 /** The bits of `window` this needs, so tests can pass a fake. */
 export type ReloadWindow = {
@@ -88,9 +123,13 @@ const browserWindow = (): ReloadWindow | null =>
 /**
  * Drop-in replacement for React.lazy on route-level imports.
  *
- * On a stale-chunk failure the returned promise never settles, which holds
- * the Suspense fallback ("Laster…") on screen while the reload lands — the
- * visitor sees the page loading, not an error they have no time to read.
+ * A chunk-fetch failure is retried once, because the commonest cause after a
+ * stale deploy is a request that never arrived. Only if the retry fails too
+ * do we reload for the current release, and the fallback ("Laster…") holds
+ * while that reload lands — the visitor sees the page loading, not an error
+ * they have no time to read. If it has not landed inside RELOAD_GRACE_MS it
+ * is not going to, so the error goes to the boundary rather than leaving the
+ * route suspended for good.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- mirrors React.lazy's own constraint
 export function lazyRoute<T extends ComponentType<any>>(
@@ -99,8 +138,17 @@ export function lazyRoute<T extends ComponentType<any>>(
 ): LazyExoticComponent<T> {
   return lazy(() =>
     factory().catch((error: unknown) => {
-      if (!recoverFromStaleChunk(error, win)) throw error;
-      return new Promise<{ default: T }>(() => {});
+      // Not a fetch failure: a module that threw while evaluating is a real
+      // bug, and retrying it only throws it twice.
+      if (!isStaleChunkError(error)) throw error;
+      return after(RETRY_DELAY_MS)
+        .then(factory)
+        .catch((retryError: unknown) => {
+          if (!recoverFromStaleChunk(retryError, win)) throw retryError;
+          return after(RELOAD_GRACE_MS).then<{ default: T }>(() => {
+            throw retryError;
+          });
+        });
     }),
   );
 }
