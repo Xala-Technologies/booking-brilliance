@@ -1,116 +1,232 @@
-# Cursor Updates - Renter Intent Consolidation + Blog Post Enrichment
+# Cursor Updates
 
-## Completed Work
+## 2026-08-20: Mobile Overflow Fix for Digilist Type Pages
 
-Two tasks completed on the same branch and PR:
-1. Consolidated competing renter-intent URLs with crawler-visible 301 redirects
-2. Enriched blog post with approved copy (CoS + Coordinator, QA PASS)
-
-### Task 1: Renter-Intent URL Consolidation
-
-**Redirect consolidation**
-- Created prerender redirect stubs for `/lokaler-til-leie` → `/leie`
-- Created prerender redirect stubs for `/booking-av-lokaler-og-moterom` → `/bookingsystem-utleie`
-- Each redirect stub contains meta refresh, canonical link, and noindex,follow directives
-- Removed both dying URLs from sitemap.xml
-
-**Navigation updates**
-- Updated Navbar.tsx to remove links to dying URLs from SOLUTIONS and MARKETPLACES dropdowns
-- Updated Footer.tsx to remove markedsplass links to dying URLs
-- Updated MobileMenu.tsx to remove mobile navigation entries for dying URLs
-- Updated InterestSelector.tsx to point calendar and payment interests to /bookingsystem-utleie
-- Updated UseCasePage.tsx parentCrumb to point to /bookingsystem-utleie
-
-**Preserved elements**
-- City pages under /lokaler-til-leie/:by remain as full pages with same URLs
-- Wedding and event pages untouched
-- English /en/* paths untouched
-- Homepage targeting unchanged
-
-### Task 2: Blog Post Enrichment
-
-**Post**: `https://digilist.no/blogg/hva-er-bookingsystem-kommunale-lokaler`
-
-**Frontmatter updates**
-- Added seoTitle: Hva er et bookingsystem for kommunale lokaler | Digilist
-- Updated description with full 33-word claim
-- Title unchanged (same H1)
-
-**Content updates**
-- Opening paragraph updated to official Bokmål (33 words)
-- FAQ heading simplified to "Vanlige spørsmål"
-- Updated 4 FAQ questions per approved copy:
-  1. Hva er et bookingsystem for kommunale lokaler?
-  2. Hva er booking av kommunale lokaler?
-  3. Hva er et bookingsystem for lokaler?
-  4. Hvilket bookingsystem bør en norsk kommune velge?
-
-**FAQ system integration**
-- Updated src/content/blogFaq.mjs with matching Q&A for FAQPage JSON-LD
-- Used existing FAQ wiring (no second system invented)
-
-**Preserved elements**
-- Same slug
-- Cover image unchanged
-- Demo CTA unchanged
-- Rest of article body unchanged
-- No trailing hashtag dump
-- No invented clients/kroner/SLA
-
-### Build Verification
-
-**Renter-intent redirects**
-- `/lokaler-til-leie/index.html` (405 bytes) redirects to https://digilist.no/leie
-- `/booking-av-lokaler-og-moterom/index.html` (469 bytes) redirects to https://digilist.no/bookingsystem-utleie
-- City pages remain full HTML (144KB each) with complete content
-- Sitemap contains 16 city pages but excludes parent URLs
-
-**Blog post**
-- FAQ heading "Vanlige spørsmål" present in HTML
-- New FAQ question "Hvilket bookingsystem bør en norsk kommune velge" appears in visible content and JSON-LD
-- Opening paragraph "IT-leder og kulturkontoret spør det samme" present
-
-**Quality checks**
-- Lint passed with 0 errors (41 pre-existing warnings)
-- TypeScript typecheck passed with 0 errors
-- Build completed successfully
-- All 378 blog posts passed word count validation
-
-### PR Details
-
-**Repository**: Xala-Technologies/booking-brilliance
-**Branch**: cursor/renter-intent-consolidation-165c
-**PR Number**: #354
-**PR URL**: https://github.com/Xala-Technologies/booking-brilliance/pull/354
-**HEAD SHA**: a9b2aeddf24ef20b8e2e63841df6d55d9b2b8c2c
-**Status**: Draft (not merged, auto-merge not enabled)
-
-**Commits**:
-1. d61f205 - Consolidate renter-intent URLs with 301 redirects
-2. a9b2aed - Enrich blog post: Hva er et bookingsystem for kommunale lokaler
-
-### Redirect Implementation
-
-Redirects are implemented via tiny prerendered HTML stubs rather than client-side navigation. This ensures crawlers see proper HTTP 200 responses with meta refresh and canonical directives, making the redirects crawler-visible. The implementation follows the existing pattern used for untranslated /en/* paths in this codebase.
+### Changes Made
+- Fixed mobile viewport overflow on /leie/* type pages where long Norwegian compound words were clipping
+- Reduced mobile H1 font-size from 48px to 36px for ~390px viewports
+- Added word-break handling to H1 and lead paragraph for long compound words like konferanselokale, kontorlokaler, selskapslokale
+- Added mobile horizontal padding to container to prevent edge clipping
+- Fixed CategoryVisual label overflow by constraining width and adding word wrapping
+- Desktop typography remains unchanged at 72px
 
 ### Files Modified
+- src/components/UseCasePage.tsx (H1 mobile font-size, word-break, container padding)
+- src/components/CategoryVisual.tsx (label width constraint and word-break)
 
-**Renter-intent consolidation**:
-- scripts/prerender.mjs (redirect stub generation + sitemap cleanup)
-- src/components/Navbar.tsx (navigation dropdown updates)
-- src/components/Footer.tsx (footer link removal)
-- src/components/MobileMenu.tsx (mobile nav cleanup)
-- src/components/InterestSelector.tsx (interest routing updates)
-- src/components/UseCasePage.tsx (breadcrumb path correction)
+### Scope
+- Fixes all /leie/* type pages sharing UseCasePage layout
+- Affects konferanselokale, kontorlokaler, selskapslokale, padelbane, møterom and other long-word pages
+- English routes also benefit from the same mobile fix
 
-**Blog post enrichment**:
-- src/content/blog/hva-er-bookingsystem-kommunale-lokaler.md (frontmatter + content updates)
-- src/content/blogFaq.mjs (FAQ schema updates for JSON-LD)
+### Build Status
+- Lint passed with pre-existing warnings only
+- Build completed successfully
+- PR #312 created, checks passed, merged to main
 
-### Next Steps
+## 2026-08-20: CTR Optimization for /leie Route
 
-After deployment to production:
-- Monitor Google Search Console for crawl behavior on redirected URLs
-- Verify nginx redirect rules if they exist beyond prerender stubs
-- Track position and impressions for /leie and /bookingsystem-utleie to measure consolidation impact
-- Monitor blog post performance for enriched FAQ content
+### Changes Made
+- Updated /leie route metadata and content to target broader "lokaler til leie" search query
+- Changed title from party-focused to general venue rental: "Lokaler til leie: finn og book med synlig pris"
+- Updated H1 from "Finn og book lokale til festen" to "Lokaler til leie, der du bor"
+- Added definition section explaining what lokaler til leie covers (meeting rooms, halls, municipal venues, not just party venues)
+- Expanded FAQ schema from 5 to 9 questions to match all visible page questions
+- Updated meta description to mention halls, meetings, and sports alongside parties
+
+### Files Modified
+- src/content/leie.ts (NB object only - added definition fields, updated copy, added 9th FAQ)
+- src/pages/Leie.tsx (added definition section before type cards, updated SEO props)
+- scripts/prerender.mjs (updated route "/leie" with new title, description, and 9 FAQ items)
+
+### Constraints Met
+- Official Bokmål spelling
+- No em-dash or en-dash in titles
+- No invented data or numbers
+- Only /leie route changed (no impact on /leie/kontorlokaler, /en/leie, city pages, or other routes)
+- Single PR created
+
+### Build Status
+- Lint passed with pre-existing warnings only
+- Build completed successfully
+- PR created as draft: https://github.com/Xala-Technologies/booking-brilliance/pull/310
+
+## 2026-08-20: CTR Optimization for /leie/konferanselokale
+
+### Changes Made
+- Tightened copy on konferanselokale page to reduce search friction
+- Updated title to "Leie konferanselokale: pris og kapasitet synlig"
+- Replaced long product lead with short problem-solution format
+- Added definition section "Hva er et konferanselokale?" with three clear paragraphs
+- Updated meta description to emphasize pris, kapasitet, ledig dato
+- Refined keywords to match user search language
+- Added FAQ heading "Vanlige spørsmål om konferanselokale"
+- Added Q7-Q9 to FAQ addressing membership, private vs municipal, and purchase confusion
+
+### Files Modified
+- src/pages/LeieKonferanselokale.tsx (title, dek, lead, introSection, SEO, FAQ)
+- scripts/prerender.mjs (route /leie/konferanselokale with title, description, all 9 FAQ items)
+
+### Constraints Met
+- Official Bokmål spelling
+- No invented numbers or client names
+- No city H2s added
+- No edits to /en/, /leie, or other routes
+- Single PR from main
+
+### Build Status
+- Lint passed
+- Build completed successfully
+- PR #311 merged to main
+
+## 2026-08-20: CTR Optimization for /leie/padelbane
+
+### Changes Made
+- Tightened copy on padelbane page to clarify hourly booking vs purchasing courts
+- Updated title to "Padelbane: book per time, pris synlig"
+- Replaced long product lead with short opening scene (four apps, unclear racket availability)
+- Added introSection "Hva er en padelbane på Digilist?" with three paragraphs
+- Updated meta description to emphasize per-time booking, not buying courts
+- Refined keywords to padelbane, leie padelbane, booke padel, padel per time, utstyrsleie
+- Added FAQ heading "Vanlige spørsmål om padelbane"
+- Added Q7 "Hva er en padelbane?" and Q8 "Må jeg kjøpe bane eller ha medlemskap?"
+- Updated Q2 in FAQ to include access code timing detail
+
+### Files Modified
+- src/pages/LeiePadelbane.tsx (title, dek, lead, introSection, SEO, FAQ)
+- scripts/prerender.mjs (route /leie/padelbane with title, description, all 8 FAQ items)
+
+### Constraints Met
+- Official Bokmål spelling
+- Kept "200 til 500 kroner" in Q1 per live copy
+- No city H2s added
+- No edits to /en/, /leie, /leie/kontorlokaler, or /leie/konferanselokale
+- Mobile overflow fix from #312 remains untouched
+- Single PR from main including #312 changes
+
+### Build Status
+- Lint passed with pre-existing warnings only
+- Build completed successfully
+- PR #313 merged to main
+
+## 2026-08-20: CTR Optimization for /leie/moterom
+
+### Changes Made
+- Tightened copy on møterom page to improve click-through from search results
+- Updated title to "Leie møterom: pris per time synlig"
+- Replaced long product lead with direct problem statement
+- Added introSection "Hva er et møterom på Digilist?" with three clear paragraphs
+- Updated meta description to emphasize per-time booking with visible pricing
+- Refined keywords to leie møterom, møterom, leie styrerom, booke møterom, møterom per time
+- Added FAQ heading "Vanlige spørsmål om å leie møterom"
+- Expanded FAQ from 2 to 8 questions by adding Q3-Q8
+- Added Q7 "Hva er et møterom?" and Q8 "Kan jeg leie styrerom, eller bare vanlige møterom?"
+- Kept "et par hundre kroner per time" in Q1 and added mention of free rooms for lag og foreninger
+
+### Files Modified
+- src/pages/LeieMoterom.tsx (title, dek, lead, introSection, faqHeading, SEO, FAQ)
+- scripts/prerender.mjs (route /leie/moterom with title, description, all 8 FAQ items)
+
+### Constraints Met
+- Official Bokmål spelling
+- Kept exact pricing reference from live copy in Q1
+- No city H2s added
+- No edits to /en/, /leie, /leie/kontorlokaler, /leie/konferanselokale, or /leie/padelbane
+- Mobile overflow fix from #312 remains untouched
+- Single PR from main
+
+### Build Status
+- Lint passed with pre-existing warnings only
+- Build completed successfully with 471 prerendered pages
+- PR #314 created, CI passed, merged to main
+
+## 2026-08-21: CTR Optimization for /blogg/hva-er-bookingsystem-kommunale-lokaler
+
+### Changes Made
+- Tightened copy on existing blog post to improve click-through from search results
+- Updated title to "Hva er et bookingsystem for kommunale lokaler" (removed "Full guide for IT-ledere")
+- Updated meta description to emphasize innbygger, lag, saksbehandler workflow with visible pricing
+- Simplified opening paragraph to direct problem statement
+- Replaced first H2 content with three clear numbered points about digital calendar, saksbehandler approval, and unified platform
+- Updated keywords to focus on core terms: bookingsystem kommunale lokaler, bookingsystem kommune, kommunale lokaler, digital booking, hall og møterom
+- Added FAQ H2 "Vanlige spørsmål om bookingsystem for kommunale lokaler" with 4 questions
+- Kept all other H2s including live price sentence (50 000 and 250 000 kroner)
+
+### Files Modified
+- src/content/blog/hva-er-bookingsystem-kommunale-lokaler.md (frontmatter, opening, first H2 content, FAQ section)
+
+### Constraints Met
+- Official Bokmål spelling
+- Blog route NOT in scripts/prerender.mjs (blogs are MDX-only, not individually prerendered)
+- Kept existing price reference without adding new numbers
+- No edits to /bookingsystem-kommune, /blogg/beste-bookingsystem-kommune-norge, city landings, or other pages
+- Single PR from main
+
+### Build Status
+- Lint passed with pre-existing warnings only
+- Build completed successfully with 473 prerendered pages
+- PR #315 created, merged to main
+
+## 2026-08-22: Remove Invented Pricing Claims from /blogg/hva-er-bookingsystem-kommunale-lokaler
+
+### Changes Made
+- Removed invented pricing examples from price section (Ringsaker, Nordre Follo as specific municipalities)
+- Removed specific kroner amounts (50,000-250,000 kroner/year)
+- Rewrote price section with general principles instead of invented numbers
+- Emphasized that pricing depends on number of venues, integrations, payment and access control
+- Clarified that internal time costs (project, ID-porten, data cleanup) often exceed license cost in year one
+- Kept same URL, slug, cover image, CTR structure, and all four FAQs
+- Maintained official Bokmål throughout
+
+### Files Modified
+- src/content/blog/hva-er-bookingsystem-kommunale-lokaler.md (price section only)
+
+### Constraints Met
+- No invented clients, kroner amounts, SLA terms, or extra kommuner
+- Official Bokmål spelling maintained
+- Same cover image unchanged
+- Same URL and slug preserved
+- FAQs already correct in blogFaq.mjs
+- No em-dash or en-dash
+- Single PR from main with auto-merge enabled
+
+### Build Status
+- Lint passed with 41 pre-existing warnings only
+- Build completed successfully
+- PR #319 created, auto-merge enabled, merged to main
+
+## 2026-08-24: On-Page SEO Second Pass for /bookingsystem-utleie Landing
+
+### Changes Made
+- Updated title and og:title to "Bookingsystem for utleie av lokaler, ikke utstyr | Digilist"
+- Updated meta description to clarify scope with "festlokale, møterom, gård og hall, ikke tilhenger, verktøy eller minilager"
+- Updated keywords to official set including "system for utleie av lokaler" as protected phrase
+- Updated H1 to "Bookingsystem for utleie av lokaler, ikke utstyr"
+- Updated first definition H2 to "Hva er et bookingsystem for utleie av lokaler?"
+- Replaced definition section with three exact approved paragraphs
+- Removed old definition P4 from both content and component
+- Updated FAQ Q1 question to "Hva er et bookingsystem for utleie av lokaler?"
+- Updated FAQ Q1 answer to expand scope clarification and add "ikke et lagersystem for utstyr"
+- Tightened FAQ Q7 answer from "Systemer for tilhenger, verktøy og minilager" to "Tilhenger, verktøy og minilager"
+- All eight FAQ entries present in both visible HTML and FAQPage JSON-LD schema
+
+### Files Modified
+- src/content/bookingsystem-utleie.ts (updated Norwegian copy: metaTitle, metaDescription, keywords, h1/h1em, definitionH2, definitionP1-P3, FAQ Q1/Q7)
+- src/pages/BookingsystemUtleie.tsx (removed definitionP4 rendering)
+- scripts/prerender.mjs (updated title, description, FAQ Q1/Q7 for SSR/prerender)
+
+### Constraints Met
+- Official Bokmål spelling (koble/kobles, never kable as verb)
+- No em-dash
+- Same slug, not a new URL or blog
+- Hero and opening scene unchanged
+- Stats strip "For utleiere" unchanged
+- Other H2s unchanged
+- Kommuner block unchanged
+- FAQPage schema matches visible FAQ text
+- Single PR from main
+
+### Build Status
+- Lint passed with 41 pre-existing warnings only
+- Build completed successfully
+- PR #330 created, ready for merge
