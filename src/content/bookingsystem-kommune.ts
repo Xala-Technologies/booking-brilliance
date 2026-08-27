@@ -70,34 +70,34 @@ export interface MunicipalCopy {
 
 const FAQ_NB: readonly QA[] = [
   {
-    question: "Hva er et kommunalt bookingsystem?",
+    question: "Hva er et bookingsystem kommune?",
     answer:
-      "Et kommunalt bookingsystem er en digital plattform som lar innbyggere, lag og foreninger søke om og booke kommunale lokaler (idrettshaller, svømmehaller, møterom, kantiner og kulturhus) i sanntid. Plattformen håndterer kalender, godkjenning, betaling, sesongleie og fakturering.",
+      "Et bookingsystem kommune er der innbygger, lag og saksbehandler ser ledig tid og booker kommunale lokaler. Sesongleie, ID-porten og EHF ligger i samme løsning.",
   },
   {
     question: "Oppfyller Digilist SSA-L 2026-kravene?",
     answer:
-      "Ja. Digilist er bygget med SSA-L 2026-krav som referansepunkt og oppfyller kjernekrav om sanntidstilgjengelighet, sesongleie med regelstyrt fordeling, ID-porten-autentisering, BRREG-verifisering, digital nøkkel, EHF-fakturagrunnlag, universell utforming (WCAG 2.0 AA) og ISO 27001/27701-sertifisering.",
+      "Ja. Digilist er bygget mot SSA-L 2026, med sesongleie, ID-porten, EHF og logg. Kjernekravene ligger i plattformen, ikke som tillegg.",
   },
   {
     question: "Hvordan håndteres sesongleie for lag og foreninger?",
     answer:
-      "Digilist har egen sesongleie-modul med søknadsportal for lag og foreninger. Saksbehandler får regelstyrt fordelingsforslag som kan justeres og godkjennes. Tilskudd, fordeling og kapasitetsutnyttelse rapporteres automatisk.",
+      "Lag og foreninger søker i en egen portal. Saksbehandleren får et forslag, justerer og godkjenner. Fordeling og kapasitet rapporteres.",
   },
   {
     question: "Kan kommunen importere bookinger fra eksisterende system?",
     answer:
-      "Ja. Digilist støtter migrasjon fra RCO booking og andre eksisterende bookingsystemer. Vi kan ta over historiske bookinger, sesongleieavtaler og foreningsregistre i etableringsfasen.",
+      "Ja. Historiske bookinger, sesongleieavtaler og foreningsregistre kan tas med i etableringen, også fra RCO booking.",
   },
   {
     question: "Hvor lagres dataene?",
     answer:
-      "All data lagres i Norge og EU på PostgreSQL hostet av Convex. Plattformen er ISO 27001 og ISO 27701-sertifisert, og oppfyller GDPR-kravene.",
+      "I Norge og EU. Plattformen er ISO 27001 og ISO 27701-sertifisert og følger GDPR.",
   },
   {
     question: "Hva koster Digilist for en kommune?",
     answer:
-      "Prisen avhenger av antall anlegg, brukermengde og integrasjoner. Vi tilbyr en gratis demo og pristilbud basert på kommunens spesifikke behov. Kontakt salg på kontakt@digilist.no.",
+      "Prisen avhenger av antall anlegg, brukermengde og integrasjoner. Dere får en gratis demo og et pristilbud.",
   },
 ];
 
@@ -219,14 +219,14 @@ const FAQ_EN: readonly QA[] = [
 ];
 
 const NB: MunicipalCopy = {
-  metaTitle: "Bookingsystem for kommuner · Digilist | SSA-L 2026 klar",
+  metaTitle: "Bookingsystem kommune: sesongleie, ID-porten og EHF | Digilist",
   metaDescription:
     "Digital bookingplattform for norske kommuner. Sanntidskalender, sesongleie, ID-porten, EHF, ISO 27001. Bygget for SSA-L 2026-krav.",
   rule: "KOMMUNAL BOOKING · 2026",
-  h1: "Bookingsystem for",
-  h1em: "norske kommuner",
-  ledeA: "Sanntidskalender, sesongleie, ID-porten-innlogging, EHF-fakturering og automatisk driftsvarsling, i én plattform bygget for ",
-  ledeStrong: "SSA-L 2026-krav",
+  h1: "Bookingsystem",
+  h1em: "kommune",
+  ledeA: "Et bookingsystem kommune tar sesongleie, ID-porten og EHF i samme kalender. Innbyggeren ser ledig tid. Saksbehandleren godkjenner med kontroll og logg. Se det i en demo",
+  ledeStrong: "",
   ctaQuote: "Be om pristilbud",
   ctaOpen: "Åpne plattformen",
   activeHeading: "Aktive kommuner",
@@ -248,7 +248,7 @@ const NB: MunicipalCopy = {
   integrationH2em: "eksisterende systemer",
   contactRule: "IV. KONTAKT",
   faqRule: "V. SPØRSMÅL OG SVAR",
-  faqH2: "Vanlige spørsmål fra kommuner.",
+  faqH2: "Vanlige spørsmål fra kommuner",
   backTo: "Tilbake til",
   frontPage: "forsiden",
   contactLede:
