@@ -2231,7 +2231,7 @@ const ROUTES = [
   },
   {
     route: "/bookingsystem-kommune",
-    title: "Bookingsystem for kommuner – Digilist | SSA-L 2026 klar",
+    title: "Bookingsystem kommune: sesongleie, ID-porten og EHF | Digilist",
     description:
       "Digital bookingplattform for norske kommuner. Sanntidskalender, sesongleie, ID-porten, EHF, ISO 27001. Bygget for SSA-L 2026-krav.",
     ogType: "website",
@@ -2241,16 +2241,28 @@ const ROUTES = [
     ],
     faq: [
       {
-        q: "Hva er et kommunalt bookingsystem?",
-        a: "Et kommunalt bookingsystem er en digital plattform som lar innbyggere, lag og foreninger søke om og booke kommunale lokaler – idrettshaller, svømmehaller, møterom, kantiner og kulturhus – i sanntid.",
+        q: "Hva er et bookingsystem kommune?",
+        a: "Et bookingsystem kommune er der innbygger, lag og saksbehandler ser ledig tid og booker kommunale lokaler. Sesongleie, ID-porten og EHF ligger i samme løsning.",
       },
       {
         q: "Oppfyller Digilist SSA-L 2026-kravene?",
-        a: "Ja. Digilist oppfyller SSA-L 2026-krav om sanntid, sesongleie, ID-porten, BRREG, digital nøkkel, EHF-fakturagrunnlag, WCAG 2.0 AA og ISO 27001/27701.",
+        a: "Ja. Digilist er bygget mot SSA-L 2026, med sesongleie, ID-porten, EHF og logg. Kjernekravene ligger i plattformen, ikke som tillegg.",
+      },
+      {
+        q: "Hvordan håndteres sesongleie for lag og foreninger?",
+        a: "Lag og foreninger søker i en egen portal. Saksbehandleren får et forslag, justerer og godkjenner. Fordeling og kapasitet rapporteres.",
       },
       {
         q: "Kan kommunen importere bookinger fra eksisterende system?",
-        a: "Ja. Digilist støtter migrasjon fra RCO booking og andre eksisterende bookingsystemer i etableringsfasen.",
+        a: "Ja. Historiske bookinger, sesongleieavtaler og foreningsregistre kan tas med i etableringen, også fra RCO booking.",
+      },
+      {
+        q: "Hvor lagres dataene?",
+        a: "I Norge og EU. Plattformen er ISO 27001 og ISO 27701-sertifisert og følger GDPR.",
+      },
+      {
+        q: "Hva koster Digilist for en kommune?",
+        a: "Prisen avhenger av antall anlegg, brukermengde og integrasjoner. Dere får en gratis demo og et pristilbud.",
       },
     ],
   },
