@@ -263,27 +263,30 @@ export const POST_FAQ = {
   ],
   "beste-bookingsystem-kommune-norge": [
     {
-      question:
-        "Hva er det viktigste å sjekke når en kommune velger bookingsystem?",
+      question: "Hva er det beste bookingsystemet for kommuner?",
       answer:
-        "Selvbetjening for innbyggere, saksbehandlerflyt for godkjenning, sesongleie for lag og foreninger, ID-porten-pålogging, EHF-fakturering og migrering fra dagens system. Disse seks dekker det som faktisk skaper eller ødelegger drift.",
+        "Det beste bookingsystemet for kommuner tar imot søknad, viser status og lar saksbehandleren godkjenne i samme kalender. Innbyggeren ser ledig tid. Saksbehandleren beholder kontroll og logg.",
+    },
+    {
+      question: "Hva er en sjekkliste for bookingsystem i kommunen?",
+      answer:
+        "En sjekkliste for bookingsystem i kommunen er det dere tester i demo: selvbetjening, saksbehandlerflyt, sesongleie, ID-porten, EHF og migrering fra dagens system.",
     },
     {
       question:
-        "Er denne sjekklisten bare for Digilist, eller kan den brukes mot andre leverandører?",
+        "Hva sjekker saksbehandler før kommunen velger bookingsystem?",
       answer:
-        "Sjekklisten gjelder uansett leverandør. Still de samme spørsmålene til Aktiv Kommune, BookUp, Gibbs og enhver annen leverandør dere vurderer, og be om en demo som viser hver kategori i praksis.",
+        "Saksbehandler sjekker om innbyggeren kan booke selv, om godkjenning og logg ligger i systemet, og om ID-porten, EHF og sesongleie kan kobles. Det er sjekklisten, ikke en prisliste.",
     },
     {
-      question: "Må kommunen bruke SSA-L som kontraktsmal?",
+      question: "Hvilket bookingsystem er best for kommuner?",
       answer:
-        "SSA-L er ikke lovpålagt, men den anbefalte og mest brukte kontraktsmalen for kommunale SaaS-kjøp. De fleste kommuner legger den til grunn i konkurransegrunnlaget, og en leverandør som ikke kan levere på bilagene om sikkerhet og tjenestenivå, faller normalt fra i evalueringen.",
+        "Det som tar køen, med samme ledig og opptatt for innbygger og saksbehandler, og som kan kobles til det kommunen allerede bruker. Digilist er et slikt bookingsystem.",
     },
     {
-      question:
-        "Hva skjer med allerede bookede timer når en kommune bytter system?",
+      question: "Kan sjekklisten brukes mot andre leverandører?",
       answer:
-        "Ved implementering overfører Digilist eksisterende sesongtildelinger og faste bookinger før løsningen settes i drift, slik at ingen lag mister allerede tildelt treningstid. Samme mulighet bør være tilgjengelig hos enhver leverandør dere vurderer.",
+        "Ja. Still de samme spørsmålene til alle dere vurderer, og be om en demo som viser hver kategori.",
     },
   ],
   "hva-er-bookingsystem-kommunale-lokaler": [
