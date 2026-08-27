@@ -2,7 +2,7 @@
 slug: leie-sal-billigst-kommune-rabattkategori-nabokommuner
 title: "Billigst sal i kommunen: rabattkategori og nabokommune avgjør prisen"
 description: "Rabattkategori og hvilken kommune du booker i avgjør ofte mer enn timeprisen når du leter etter billigst sal. Se hvordan du sammenligner totalpris riktig før du booker."
-date: 2026-08-26
+date: 2026-08-27
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7

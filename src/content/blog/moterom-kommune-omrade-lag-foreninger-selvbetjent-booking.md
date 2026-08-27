@@ -2,7 +2,7 @@
 slug: moterom-kommune-omrade-lag-foreninger-selvbetjent-booking
 title: "Møterom i kommunen: slik booker lag og foreninger selv, uten telefon"
 description: "Se ledige møterom i alle kommunale bygg i ditt område og book selv, uten å ringe saksbehandler. Hvorfor abonnement passer lag og foreninger bedre enn transaksjonsavgift per booking."
-date: 2026-08-26
+date: 2026-08-27
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7

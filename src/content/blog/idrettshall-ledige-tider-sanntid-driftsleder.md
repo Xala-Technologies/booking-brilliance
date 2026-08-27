@@ -2,7 +2,7 @@
 slug: idrettshall-ledige-tider-sanntid-driftsleder
 title: "Idrettshall ledige tider i sanntid: full oversikt for driftsleder"
 description: "Se ledige tider i alle idrettshaller i kommunen samlet, la lag og bedrifter booke ledig restkapasitet selv, og slipp å svare på telefoner om hva som er ledig i dag."
-date: 2026-08-26
+date: 2026-08-27
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7

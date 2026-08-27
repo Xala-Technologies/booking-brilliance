@@ -2,7 +2,7 @@
 slug: konferansesal-kultursal-priser-bookingsystem-anskaffelse-it-leder
 title: "Konferanse- og kultursal 2026: priser, ledighet og bookingsystem for IT-leder"
 description: "IT-leder skal anskaffe bookingsystem for kommunens konferanse- og kultursaler. Slik regner du totalkostnaden for hele porteføljen, ikke bare månedsprisen for én sal."
-date: 2026-08-26
+date: 2026-08-27
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7

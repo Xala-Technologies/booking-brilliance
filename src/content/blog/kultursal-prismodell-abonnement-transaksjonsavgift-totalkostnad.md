@@ -2,7 +2,7 @@
 slug: kultursal-prismodell-abonnement-transaksjonsavgift-totalkostnad
 title: "Kultursal og seminarlokale: abonnement slår transaksjonsavgift"
 description: "Se hvorfor bookingsystemets prismodell, ikke månedsprisen alene, avgjør totalkostnaden når kultursalen bookes ut igjen og igjen til konsert, utstilling og seminar."
-date: 2026-08-26
+date: 2026-08-27
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7
