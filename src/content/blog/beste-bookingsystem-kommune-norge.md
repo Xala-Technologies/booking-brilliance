@@ -1,7 +1,7 @@
 ---
 slug: beste-bookingsystem-kommune-norge
-title: "Sjekkliste: bookingsystem for kommunen"
-seoTitle: "Bookingsystem kommune: sjekkliste for saksbehandler"
+title: "Beste bookingsystem for kommuner: sjekklisten"
+seoTitle: "Beste bookingsystem for kommuner: sjekklisten | Digilist"
 description: "Sjekkliste for saksbehandler: selvbetjening, godkjenning, sesongleie, ID-porten og EHF. Hva du spør leverandøren om før dere velger bookingsystem i kommunen."
 date: 2026-07-27
 updated: 2026-08-20
@@ -18,9 +18,7 @@ keywords:
   - sesongleie
 ---
 
-Mandag 08:40. Køen er åpen. Tre søknader mangler vedlegg. To ligger i e-posten. Status finnes ikke i saken.
-
-Et bookingsystem for kommunen skal ta den køen. Ikke lage en ny.
+Mandag 08:40. Køen er åpen. Tre søknader mangler vedlegg. To ligger i e-posten. Beste bookingsystem for kommuner tar den køen, med sjekkliste for saksbehandler.
 
 ## Sjekkliste for saksbehandler
 
@@ -92,21 +90,25 @@ Vi publiserer ingen prisliste, og grunnen er ærlig nok: spennet mellom et grend
 
 ## Vanlige spørsmål
 
-### Hva er det viktigste å sjekke når en kommune velger bookingsystem?
+### Hva er det beste bookingsystemet for kommuner?
 
-Selvbetjening for innbyggere, saksbehandlerflyt for godkjenning, sesongleie for lag og foreninger, ID-porten-pålogging, EHF-fakturering og migrering fra dagens system. Disse seks dekker det som faktisk skaper eller ødelegger drift.
+Det beste bookingsystemet for kommuner tar imot søknad, viser status og lar saksbehandleren godkjenne i samme kalender. Innbyggeren ser ledig tid. Saksbehandleren beholder kontroll og logg.
 
-### Er denne sjekklisten bare for Digilist, eller kan den brukes mot andre leverandører?
+### Hva er en sjekkliste for bookingsystem i kommunen?
 
-Sjekklisten gjelder uansett leverandør. Still de samme spørsmålene til Aktiv Kommune, BookUp, Gibbs og enhver annen leverandør dere vurderer, og be om en demo som viser hver kategori i praksis.
+En sjekkliste for bookingsystem i kommunen er det dere tester i demo: selvbetjening, saksbehandlerflyt, sesongleie, ID-porten, EHF og migrering fra dagens system.
 
-### Må kommunen bruke SSA-L som kontraktsmal?
+### Hva sjekker saksbehandler før kommunen velger bookingsystem?
 
-SSA-L er ikke lovpålagt, men den anbefalte og mest brukte kontraktsmalen for kommunale SaaS-kjøp. De fleste kommuner legger den til grunn i konkurransegrunnlaget, og en leverandør som ikke kan levere på bilagene om sikkerhet og tjenestenivå, faller normalt fra i evalueringen.
+Saksbehandler sjekker om innbyggeren kan booke selv, om godkjenning og logg ligger i systemet, og om ID-porten, EHF og sesongleie kan kobles. Det er sjekklisten, ikke en prisliste.
 
-### Hva skjer med allerede bookede timer når en kommune bytter system?
+### Hvilket bookingsystem er best for kommuner?
 
-Ved implementering overfører Digilist eksisterende sesongtildelinger og faste bookinger før løsningen settes i drift, slik at ingen lag mister allerede tildelt treningstid. Samme mulighet bør være tilgjengelig hos enhver leverandør dere vurderer.
+Det som tar køen, med samme ledig og opptatt for innbygger og saksbehandler, og som kan kobles til det kommunen allerede bruker. Digilist er et slikt bookingsystem.
+
+### Kan sjekklisten brukes mot andre leverandører?
+
+Ja. Still de samme spørsmålene til alle dere vurderer, og be om en demo som viser hver kategori.
 
 ## Kilder
 
