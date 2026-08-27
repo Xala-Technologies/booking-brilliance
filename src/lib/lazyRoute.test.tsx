@@ -75,6 +75,10 @@ describe("lazyRoute", () => {
     document.body.appendChild(container);
     root = createRoot(container);
     errors = [];
+    // The recovery waits on timers now — the retry before the reload, and the
+    // grace the fallback holds for a reload that may never land. Faking them
+    // keeps the suite instant and lets a test sit at each stage.
+    vi.useFakeTimers();
     // React logs every boundary-caught error itself; keep the run readable.
     vi.spyOn(console, "error").mockImplementation(() => {});
     vi.spyOn(console, "warn").mockImplementation(() => {});
@@ -83,8 +87,16 @@ describe("lazyRoute", () => {
   afterEach(() => {
     act(() => root.unmount());
     container.remove();
+    vi.useRealTimers();
     vi.restoreAllMocks();
   });
+
+  /** Let a wait elapse and React re-render on what it settled into. */
+  async function advance(ms: number) {
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(ms);
+    });
+  }
 
   async function render(node: React.ReactNode) {
     await act(async () => {
@@ -112,10 +124,17 @@ describe("lazyRoute", () => {
 
   it("reloads once and stays suspended when the chunk is gone", async () => {
     const { win, reload } = fakeWindow();
-    const Page = lazyRoute(() => Promise.reject(STALE), win);
+    const factory = vi.fn(() => Promise.reject(STALE));
+    const Page = lazyRoute(factory, win);
 
     await render(<Page />);
+    // The retry comes first: one failed GET is not yet evidence the release
+    // moved, so nothing is reloaded on the strength of it.
+    expect(reload).not.toHaveBeenCalled();
 
+    await advance(500);
+
+    expect(factory).toHaveBeenCalledTimes(2);
     expect(reload).toHaveBeenCalledTimes(1);
     // The fallback holds while the document reloads — the visitor sees the
     // page loading, not an error flashing past.
@@ -123,17 +142,59 @@ describe("lazyRoute", () => {
     expect(errors).toEqual([]);
   });
 
+  it("retries a chunk that only failed on the wire", async () => {
+    const { win, reload } = fakeWindow();
+    // geoqa #351: the request for the route's chunk failed at the network
+    // level, Chrome worded it exactly like a deleted chunk, and the visitor
+    // got a reload instead of the page. The file was there the whole time.
+    let attempt = 0;
+    const Page = lazyRoute(() => {
+      attempt += 1;
+      return attempt === 1
+        ? Promise.reject(STALE)
+        : Promise.resolve({ default: () => <h1>Lokaler til leie</h1> });
+    }, win);
+
+    await render(<Page />);
+    await advance(500);
+
+    expect(container.textContent).toContain("Lokaler til leie");
+    expect(reload).not.toHaveBeenCalled();
+    expect(errors).toEqual([]);
+  });
+
+  it("stops holding the fallback when the reload never lands", async () => {
+    const { win, reload } = fakeWindow();
+    const Page = lazyRoute(() => Promise.reject(STALE), win);
+
+    await render(<Page />);
+    await advance(500);
+    expect(reload).toHaveBeenCalledTimes(1);
+    expect(container.textContent).toContain("Laster…");
+
+    // The reload was asked for and the document is still here, so it is not
+    // coming: the network is down or the navigation was refused. Suspending
+    // for good would leave a spinner and no heading on screen forever, which
+    // is how #351 ended. The boundary gets it instead, and it renders one.
+    await advance(9_000);
+
+    expect(container.textContent).toContain("feilside");
+    expect(errors.map(String).join()).toContain("Blog-BuR9BW3m.js");
+  });
+
   it("does not reload twice for the same stale deploy", async () => {
     const { win, reload } = fakeWindow();
 
     const First = lazyRoute(() => Promise.reject(STALE), win);
     await render(<First />);
+    await advance(500);
     expect(reload).toHaveBeenCalledTimes(1);
 
     // A second failure moments later means the reload did not fix it. Reloading
     // again would loop the tab, so the error goes to the boundary instead.
     const Second = lazyRoute(() => Promise.reject(STALE), win);
     await render(<Second />);
+    await advance(500);
 
     expect(reload).toHaveBeenCalledTimes(1);
     expect(errors.map(String).join()).toContain("Blog-BuR9BW3m.js");
@@ -159,6 +220,7 @@ describe("lazyRoute", () => {
     const Page = lazyRoute(() => Promise.reject(STALE), null);
 
     await render(<Page />);
+    await advance(500);
 
     expect(errors.some(isStaleChunkError)).toBe(true);
   });
