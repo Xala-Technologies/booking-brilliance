@@ -25,7 +25,6 @@ const ROUTES_EN: Array<{ label: string; to: string; eyebrow?: string }> = [
 const ROUTES: Array<{ label: string; to: string; eyebrow?: string }> = [
   { label: "Forsiden", to: "/", eyebrow: "Hjem" },
   { label: "Lokaler", to: "/leie", eyebrow: "Selskap · møte · idrett · kultur" },
-  { label: "Lokaler til leie", to: "/lokaler-til-leie", eyebrow: "By · type · anledning" },
   { label: "Overnatting", to: "/overnatting", eyebrow: "Hytte · leilighet · rom" },
   { label: "Arrangementer", to: "/arrangementer", eyebrow: "Konsert · teater · festival" },
   { label: "Utstyr", to: "/utstyr", eyebrow: "Fest · verktøy · lyd & lys" },
@@ -35,11 +34,6 @@ const ROUTES: Array<{ label: string; to: string; eyebrow?: string }> = [
   { label: "Blogg", to: "/blogg", eyebrow: "Artikler" },
   { label: "FAQ", to: "/faq", eyebrow: "Vanlige spørsmål" },
   { label: "Transparens", to: "/transparens", eyebrow: "Live kvalitetsrapport" },
-  {
-    label: "Booking av lokaler og møterom",
-    to: "/booking-av-lokaler-og-moterom",
-    eyebrow: "Landingsside",
-  },
   {
     label: "Bookingsystem for utleie",
     to: "/bookingsystem-utleie",

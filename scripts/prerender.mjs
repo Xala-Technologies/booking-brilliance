@@ -3271,7 +3271,6 @@ async function main() {
     { loc: `${BASE_URL}/leie/daap`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/leie/jubileum`, priority: "0.8", changefreq: "monthly" },
     { loc: `${BASE_URL}/sikkerhet`, priority: "0.80", changefreq: "monthly" },
-    { loc: `${BASE_URL}/booking-av-lokaler-og-moterom`, priority: "0.95", changefreq: "monthly" },
     { loc: `${BASE_URL}/faq`, priority: "0.9", changefreq: "monthly" },
     { loc: `${BASE_URL}/blogg`, priority: "0.9", changefreq: "weekly" },
     ...posts.map((p) => ({
@@ -3287,7 +3286,6 @@ async function main() {
     { loc: `${BASE_URL}/tilgjengelighet`, priority: "0.3", changefreq: "yearly" },
     { loc: `${BASE_URL}/transparens`, priority: "0.7", changefreq: "daily" },
     { loc: `${BASE_URL}/leie`, priority: "0.9", changefreq: "weekly" },
-    { loc: `${BASE_URL}/lokaler-til-leie`, priority: "0.95", changefreq: "weekly" },
     { loc: `${BASE_URL}/lokaler-til-leie/oslo`, priority: "0.85", changefreq: "monthly" },
     { loc: `${BASE_URL}/lokaler-til-leie/bergen`, priority: "0.85", changefreq: "monthly" },
     { loc: `${BASE_URL}/lokaler-til-leie/trondheim`, priority: "0.85", changefreq: "monthly" },
@@ -3395,6 +3393,35 @@ ${sitemapEntries
 </urlset>`;
   await fs.writeFile(join(DIST, "sitemap.xml"), sitemapXML, "utf-8");
   console.log(`  ✓ /sitemap.xml regenerated (${sitemapEntries.length} URLs)`);
+
+  // Generate redirect stubs for consolidated renter-intent URLs.
+  // /lokaler-til-leie competed with /leie for the same intent; consolidate to /leie.
+  // /booking-av-lokaler-og-moterom is product copy, not a marketplace; redirect to /bookingsystem-utleie.
+  const renterIntentRedirects = [
+    { from: "/lokaler-til-leie", to: "/leie" },
+    { from: "/booking-av-lokaler-og-moterom", to: "/bookingsystem-utleie" },
+  ];
+  
+  for (const { from, to } of renterIntentRedirects) {
+    const targetUrl = `${BASE_URL}${to}`;
+    const outDir = join(DIST, from.replace(/^\//, ""));
+    await fs.mkdir(outDir, { recursive: true });
+    const redirectHtml = `<!doctype html>
+<html lang="nb-NO">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="refresh" content="0; url=${targetUrl}">
+<link rel="canonical" href="${targetUrl}">
+<meta name="robots" content="noindex, follow">
+<title>Redirect</title>
+</head>
+<body>
+<p>Redirecting to <a href="${targetUrl}">${targetUrl}</a>…</p>
+</body>
+</html>`;
+    await fs.writeFile(join(outDir, "index.html"), redirectHtml, "utf-8");
+  }
+  console.log(`  ✓ Generated ${renterIntentRedirects.length} redirect stub(s) for renter-intent consolidation`);
 
   // Inline critical CSS on every prerendered page and load the full 107KB
   // stylesheet asynchronously. Without this, first paint waits on the

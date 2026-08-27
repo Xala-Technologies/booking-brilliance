@@ -28,8 +28,8 @@ type Interest = {
 
 const INTERESTS: Interest[] = [
   { id: "finn", labelKey: "interest.finn", icon: Search, to: "/leie" },
-  { id: "kalender", labelKey: "interest.kalender", icon: CalendarDays, to: "/booking-av-lokaler-og-moterom" },
-  { id: "betaling", labelKey: "interest.betaling", icon: Wallet, to: "/booking-av-lokaler-og-moterom" },
+  { id: "kalender", labelKey: "interest.kalender", icon: CalendarDays, to: "/bookingsystem-utleie" },
+  { id: "betaling", labelKey: "interest.betaling", icon: Wallet, to: "/bookingsystem-utleie" },
   { id: "kanaler", labelKey: "interest.kanaler", icon: RefreshCw, to: "/kanaler" },
   { id: "ai", labelKey: "interest.ai", icon: Sparkles, to: "/ai-agenter" },
   { id: "kommune", labelKey: "interest.kommune", icon: Building2, to: "/bookingsystem-kommune" },

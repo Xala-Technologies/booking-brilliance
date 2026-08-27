@@ -64,12 +64,10 @@ const Footer = () => {
 
   const markedsplass = [
     { labelKey: "footer.lokaler", href: "/leie" },
-    { labelKey: "footer.lokaler_til_leie", href: "/lokaler-til-leie" },
     { labelKey: "footer.overnatting", href: "/overnatting" },
     { labelKey: "footer.arrangementer", href: "/arrangementer" },
     { labelKey: "footer.utstyr", href: "/utstyr" },
     { labelKey: "footer.tjenester", href: "/tjenester" },
-    { labelKey: "footer.booking_av_lokaler_og_m_terom", href: "/booking-av-lokaler-og-moterom" },
   ];
 
   const losninger = [
