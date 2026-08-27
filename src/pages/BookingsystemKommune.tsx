@@ -17,6 +17,7 @@ import PilotInvitationSection from "@/components/PilotInvitationSection";
 import { useLocation } from "react-router-dom";
 import { localeFromPath } from "@/lib/i18n";
 import { municipalCopy } from "@/content/bookingsystem-kommune";
+import { PricingSummaryBlock } from "@/components/PricingSummaryBlock";
 
 const BookingsystemKommune = () => {
   const locale = localeFromPath(useLocation().pathname);
@@ -305,6 +306,9 @@ const BookingsystemKommune = () => {
             </p>
           </div>
         </section>
+
+        {/* Pricing summary block */}
+        <PricingSummaryBlock />
       </main>
 
       <Footer />

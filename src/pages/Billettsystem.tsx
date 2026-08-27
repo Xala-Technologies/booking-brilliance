@@ -26,6 +26,7 @@ import {
 import { getFraunces } from "@/lib/fonts";
 import { VideoPlaceholder } from "@/components/VideoPlaceholder";
 import { CategoryVisual } from "@/components/CategoryVisual";
+import { PricingSummaryBlock } from "@/components/PricingSummaryBlock";
 import { useLocation } from "react-router-dom";
 import { localeFromPath } from "@/lib/i18n";
 import { ticketCopy } from "@/content/billettsystem";
@@ -280,6 +281,9 @@ export default function Billettsystem() {
               </EditorialCard>
             </div>
           </section>
+
+          {/* Pricing summary block */}
+          <PricingSummaryBlock />
         </main>
       </PageTransition>
 

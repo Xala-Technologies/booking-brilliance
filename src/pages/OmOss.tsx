@@ -15,6 +15,7 @@ import { CategoryVisual } from "@/components/CategoryVisual";
 import AboutUsSection from "@/components/AboutUsSection";
 import { useLocation } from "react-router-dom";
 import { localeFromPath } from "@/lib/i18n";
+import { PricingSummaryBlock } from "@/components/PricingSummaryBlock";
 import { t } from "@/lib/copy";
 
 export default function OmOss() {
@@ -112,6 +113,9 @@ export default function OmOss() {
               </EditorialCard>
             </div>
           </section>
+
+          {/* Pricing summary block */}
+          <PricingSummaryBlock />
         </main>
       </PageTransition>
 

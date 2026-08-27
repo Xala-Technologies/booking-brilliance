@@ -29,6 +29,7 @@ import {
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { PricingSummaryBlock } from "@/components/PricingSummaryBlock";
 import PageTransition from "@/components/PageTransition";
 import {
   EditorialButton,
@@ -250,6 +251,9 @@ export default function Status() {
               )}
             </div>
           </article>
+
+          {/* Pricing summary block */}
+          <PricingSummaryBlock />
         </main>
       </PageTransition>
 

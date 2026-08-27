@@ -20,6 +20,7 @@ import { getPostBySlug } from "@/lib/postContent";
 import { getFraunces } from "@/lib/fonts";
 import { openChatbot } from "@/lib/chatbot/open";
 import { POST_FAQ } from "@/content/blogFaq.mjs";
+import { PricingSummaryBlock } from "@/components/PricingSummaryBlock";
 
 const CHAT_HREFS = new Set([
   "mailto:kontakt@digilist.no",
@@ -398,6 +399,9 @@ const BlogPost = () => {
 
           </div>
         </article>
+
+        {/* Pricing summary block appears on all blogs */}
+        <PricingSummaryBlock />
 
         {/* End-of-article call to action */}
         <section

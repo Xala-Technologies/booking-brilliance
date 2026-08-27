@@ -17,6 +17,7 @@ import { useLocation } from "react-router-dom";
 import { localeFromPath } from "@/lib/i18n";
 import { operatorCopy } from "@/content/bookingsystem-utleie";
 import { LinkOrText } from "@/components/LinkOrText";
+import { PricingSummaryBlock } from "@/components/PricingSummaryBlock";
 
 const BookingsystemUtleie = () => {
   const locale = localeFromPath(useLocation().pathname);
@@ -379,6 +380,9 @@ const BookingsystemUtleie = () => {
             </p>
           </div>
         </section>
+
+        {/* Pricing summary block */}
+        <PricingSummaryBlock />
       </main>
 
       <Footer />

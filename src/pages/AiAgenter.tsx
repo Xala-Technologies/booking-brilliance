@@ -23,6 +23,7 @@ import PageTransition from "@/components/PageTransition";
 import { ProgressRail, SectionRule, EditorialHeading, EditorialButton } from "@/components/editorial";
 import { AgentFlow } from "@/components/AgentFlow";
 import { useLocation } from "react-router-dom";
+import { PricingSummaryBlock } from "@/components/PricingSummaryBlock";
 import { localeFromPath } from "@/lib/i18n";
 import { agentsCopy } from "@/content/ai-agenter";
 import { LinkOrText } from "@/components/LinkOrText";
@@ -208,6 +209,9 @@ const AiAgenter = () => {
               </div>
             </div>
           </section>
+
+          {/* Pricing summary block */}
+          <PricingSummaryBlock />
         </main>
       </PageTransition>
 

@@ -17,6 +17,7 @@ import { PRICING_FACTS, PRICING_FAQ } from "@/content/pricing";
 import { PRICING_FACTS_EN, pricingFaqEn } from "@/content/faq.en";
 import { localeFromPath } from "@/lib/i18n";
 import { t } from "@/lib/copy";
+import { PricingSummaryBlock } from "@/components/PricingSummaryBlock";
 
 /**
  * The pricing page.
@@ -218,6 +219,9 @@ export default function Priser() {
               </EditorialCard>
             </div>
           </section>
+
+          {/* Pricing summary block (without self-link on this page) */}
+          <PricingSummaryBlock />
 
           {/* Closing CTA */}
           <section className="pb-20 lg:pb-28 bg-paper">

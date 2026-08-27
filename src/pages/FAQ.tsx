@@ -14,6 +14,7 @@ import { FAQ_CATEGORIES, allFAQEntries } from "@/content/faq";
 import { FAQ_CATEGORIES_EN, allFAQEntriesEn } from "@/content/faq.en";
 import { useLocation } from "react-router-dom";
 import { localeFromPath } from "@/lib/i18n";
+import { PricingSummaryBlock } from "@/components/PricingSummaryBlock";
 import { t } from "@/lib/copy";
 import { getFraunces } from "@/lib/fonts";
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/motion";
@@ -198,6 +199,9 @@ const FAQ = () => {
             </div>
           </div>
         </section>
+
+        {/* Pricing summary block */}
+        <PricingSummaryBlock />
       </main>
       </PageTransition>
 

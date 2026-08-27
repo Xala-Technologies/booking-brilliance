@@ -2,6 +2,7 @@ import { Link2, Wand2, FileCheck, RefreshCw, CheckCircle2 } from "lucide-react";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { PricingSummaryBlock } from "@/components/PricingSummaryBlock";
 import PilotInvitationSection from "@/components/PilotInvitationSection";
 import { useLocation } from "react-router-dom";
 import { localeFromPath } from "@/lib/i18n";
@@ -261,6 +262,9 @@ const Kanaler = () => {
             </dl>
           </div>
         </section>
+
+        {/* Pricing summary block */}
+        <PricingSummaryBlock />
       </main>
 
       <Footer />
