@@ -290,22 +290,22 @@ export const POST_FAQ = {
     {
       question: "Hva er et bookingsystem for kommunale lokaler?",
       answer:
-        "En digital kalender der innbyggere, lag og foreninger booker kommunale rom og anlegg. Saksbehandleren godkjenner i samme løsning, med kontroll og logg.",
+        "Et bookingsystem for kommunale lokaler er der innbygger, lag og saksbehandler ser ledig tid og booker hall, møterom eller kulturhus. Saksbehandleren godkjenner i samme løsning, med kontroll og logg.",
     },
     {
-      question: "Hvilke lokaler kan bookes?",
+      question: "Hva er booking av kommunale lokaler?",
       answer:
-        "Hall, møterom, kulturhus, idrettsanlegg og andre rom kommunen leier ut. På Digilist ser du typen, kapasitet og ledig tid før du booker.",
+        "Booking av kommunale lokaler er å reservere hall, møterom eller kulturhus i kommunens kalender. Innbyggeren ser ledig tid og pris før hen sender. Saksbehandleren godkjenner.",
     },
     {
-      question: "Er dette det samme som et saksbehandlingssystem?",
+      question: "Hva er et bookingsystem for lokaler?",
       answer:
-        "Nei. Bookingsystemet tar søknad, kalender og utleie. Saksbehandling av vedtak ligger i fagsystemet. De kan kobles, de er ikke det samme.",
+        "Et bookingsystem for lokaler viser ledig tid, tar imot booking og holder én kalender. På denne siden gjelder det kommunale lokaler: hall, møterom og kulturhus.",
     },
     {
-      question: "Må innbyggeren ringe kommunen?",
+      question: "Hvilket bookingsystem bør en norsk kommune velge?",
       answer:
-        "Nei. Ledig tid og pris vises før booking. Saksbehandleren har fortsatt kontroll og kan be om mer dokumentasjon.",
+        "Et system der innbyggeren ser samme ledig og opptatt som saksbehandleren, med kontroll og logg, og som kan kobles til det kommunen allerede bruker. Digilist er et slikt bookingsystem for kommunale lokaler.",
     },
   ],
   "bryllupslokale-ledig-dato-tidslinje-sanntid": [
