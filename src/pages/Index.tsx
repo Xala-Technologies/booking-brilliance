@@ -10,6 +10,7 @@ import { SideRails } from "@/components/editorial/SideRails";
 import { HOMEPAGE_FAQ } from "@/content/faq";
 import { localeFromPath } from "@/lib/i18n";
 import { t } from "@/lib/copy";
+import { PricingSummaryBlock } from "@/components/PricingSummaryBlock";
 
 // Below-the-fold homepage sections — lazy so the initial hydration only
 // has to run the JS for what's visible without scrolling (Hero + the
@@ -114,6 +115,7 @@ const Index = () => {
             <HowItWorksSection />
             <BrukerhistorierSection />
             <PricingSection />
+            <PricingSummaryBlock />
             <BlogPreviewSection />
             <HomepageFAQSection />
             <CTASection />
