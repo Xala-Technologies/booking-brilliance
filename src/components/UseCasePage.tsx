@@ -132,7 +132,7 @@ export default function UseCasePage({
   pullQuote,
   extra,
   basePath = "/bruksomrader",
-  parentCrumb = { name: "Bruksområder", path: "/booking-av-lokaler-og-moterom" },
+  parentCrumb = { name: "Bruksområder", path: "/bookingsystem-utleie" },
   sectionLabel = "BRUKSOMRÅDE",
   heroImage,
   heroImageAlt,
