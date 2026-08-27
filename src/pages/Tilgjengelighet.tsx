@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { PricingSummaryBlock } from "@/components/PricingSummaryBlock";
 import { LegalDocument } from "@/components/LegalDocument";
 import { ACCESSIBILITY_STATEMENT, legalDoc } from "@/content/legal";
 import { localeFromPath } from "@/lib/i18n";
@@ -38,6 +39,9 @@ const Tilgjengelighet = () => {
 
       <main id="main">
         <LegalDocument doc={doc} />
+
+        {/* Pricing summary block */}
+        <PricingSummaryBlock />
       </main>
 
       <Footer />

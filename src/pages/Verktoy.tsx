@@ -3,6 +3,7 @@ import { Calculator, Ruler, ArrowRight } from "lucide-react";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { PricingSummaryBlock } from "@/components/PricingSummaryBlock";
 import { EditorialHeading, EditorialCard } from "@/components/editorial";
 import PilotInvitationSection from "@/components/PilotInvitationSection";
 import { useLocation } from "react-router-dom";
@@ -74,6 +75,9 @@ export default function Verktoy() {
         </section>
 
         <PilotInvitationSection />
+
+        {/* Pricing summary block */}
+        <PricingSummaryBlock />
       </main>
 
       <Footer />

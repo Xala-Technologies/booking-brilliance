@@ -2,6 +2,7 @@ import { ShieldCheck } from "lucide-react";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { PricingSummaryBlock } from "@/components/PricingSummaryBlock";
 import PageTransition from "@/components/PageTransition";
 import {
   SectionRule,
@@ -167,6 +168,9 @@ export default function Teknologi() {
               </EditorialCard>
             </div>
           </section>
+
+          {/* Pricing summary block */}
+          <PricingSummaryBlock />
         </main>
       </PageTransition>
 

@@ -27,6 +27,7 @@ import { getFraunces } from "@/lib/fonts";
 import { useLocation } from "react-router-dom";
 import { localeFromPath } from "@/lib/i18n";
 import { t } from "@/lib/copy";
+import { PricingSummaryBlock } from "@/components/PricingSummaryBlock";
 
 export interface UseCaseAudience {
   persona: string;
@@ -586,6 +587,9 @@ export default function UseCasePage({
             </div>
           </section>
           </article>
+
+          {/* Pricing summary block */}
+          <PricingSummaryBlock />
         </main>
       </PageTransition>
 

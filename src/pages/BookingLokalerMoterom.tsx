@@ -29,6 +29,7 @@ import { useLocation } from "react-router-dom";
 import { localeFromPath } from "@/lib/i18n";
 import { bookingCopy } from "@/content/booking-lokaler";
 import { LinkOrText } from "@/components/LinkOrText";
+import { PricingSummaryBlock } from "@/components/PricingSummaryBlock";
 
 const BookingLokalerMoterom = () => {
   const locale = localeFromPath(useLocation().pathname);
@@ -348,6 +349,9 @@ const BookingLokalerMoterom = () => {
               </EditorialCard>
             </div>
           </section>
+
+          {/* Pricing summary block */}
+          <PricingSummaryBlock />
         </main>
       </PageTransition>
 

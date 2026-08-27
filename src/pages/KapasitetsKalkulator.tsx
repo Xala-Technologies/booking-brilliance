@@ -4,6 +4,7 @@ import { ArrowRight, Ruler } from "lucide-react";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { PricingSummaryBlock } from "@/components/PricingSummaryBlock";
 import { SectionRule, EditorialHeading, EditorialButton, EditorialCard, Byline } from "@/components/editorial";
 import { getFraunces } from "@/lib/fonts";
 import PilotInvitationSection from "@/components/PilotInvitationSection";
@@ -234,6 +235,9 @@ export default function KapasitetsKalkulator() {
         </section>
 
         <PilotInvitationSection />
+
+        {/* Pricing summary block */}
+        <PricingSummaryBlock />
       </main>
 
       <Footer />

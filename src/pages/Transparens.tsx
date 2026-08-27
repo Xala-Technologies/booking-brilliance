@@ -29,6 +29,7 @@ import { cn } from "@/lib/utils";
 import { useLocation } from "react-router-dom";
 import { localeFromPath } from "@/lib/i18n";
 import { t } from "@/lib/copy";
+import { PricingSummaryBlock } from "@/components/PricingSummaryBlock";
 
 interface PublicSurface {
   id: string;
@@ -619,6 +620,9 @@ export default function Transparens() {
               ) : null}
             </div>
           </article>
+
+          {/* Pricing summary block */}
+          <PricingSummaryBlock />
         </main>
       </PageTransition>
 

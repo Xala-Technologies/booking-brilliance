@@ -25,6 +25,7 @@ import {
   imageForSlug,
   bundledSrcSet,
 } from "@/components/CategoryVisual";
+import { PricingSummaryBlock } from "@/components/PricingSummaryBlock";
 
 /** The category slug is the last segment of its route (e.g. /overnatting/hytte). */
 function slugOf(to: string): string {
@@ -399,6 +400,9 @@ export default function MarketplaceHub({
               </EditorialCard>
             </div>
           </section>
+
+          {/* Pricing summary block */}
+          <PricingSummaryBlock />
         </main>
       </PageTransition>
 

@@ -39,6 +39,7 @@ import { useLocation } from "react-router-dom";
 import { localeFromPath } from "@/lib/i18n";
 import { rentCopy } from "@/content/leie";
 import { LinkOrText } from "@/components/LinkOrText";
+import { PricingSummaryBlock } from "@/components/PricingSummaryBlock";
 
 const APP = "https://app.digilist.no";
 
@@ -384,6 +385,9 @@ const Leie = () => {
               </p>
             </div>
           </section>
+
+          {/* Pricing summary block */}
+          <PricingSummaryBlock />
 
           <section className="py-12 lg:py-16 bg-paper-tinted border-y border-rule">
             <div className="container mx-auto md:px-8 lg:px-12">
