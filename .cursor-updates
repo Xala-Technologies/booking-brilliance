@@ -1,10 +1,12 @@
-# Cursor Updates - Renter Intent Consolidation
+# Cursor Updates - Renter Intent Consolidation + Blog Post Enrichment
 
 ## Completed Work
 
-Consolidated competing renter-intent URLs on digilist.no by implementing crawler-visible 301 redirects and updating all internal navigation.
+Two tasks completed on the same branch and PR:
+1. Consolidated competing renter-intent URLs with crawler-visible 301 redirects
+2. Enriched blog post with approved copy (CoS + Coordinator, QA PASS)
 
-### Changes Implemented
+### Task 1: Renter-Intent URL Consolidation
 
 **Redirect consolidation**
 - Created prerender redirect stubs for `/lokaler-til-leie` → `/leie`
@@ -24,17 +26,55 @@ Consolidated competing renter-intent URLs on digilist.no by implementing crawler
 - Wedding and event pages untouched
 - English /en/* paths untouched
 - Homepage targeting unchanged
-- No new blog posts or cover images added
+
+### Task 2: Blog Post Enrichment
+
+**Post**: `https://digilist.no/blogg/hva-er-bookingsystem-kommunale-lokaler`
+
+**Frontmatter updates**
+- Added seoTitle: Hva er et bookingsystem for kommunale lokaler | Digilist
+- Updated description with full 33-word claim
+- Title unchanged (same H1)
+
+**Content updates**
+- Opening paragraph updated to official Bokmål (33 words)
+- FAQ heading simplified to "Vanlige spørsmål"
+- Updated 4 FAQ questions per approved copy:
+  1. Hva er et bookingsystem for kommunale lokaler?
+  2. Hva er booking av kommunale lokaler?
+  3. Hva er et bookingsystem for lokaler?
+  4. Hvilket bookingsystem bør en norsk kommune velge?
+
+**FAQ system integration**
+- Updated src/content/blogFaq.mjs with matching Q&A for FAQPage JSON-LD
+- Used existing FAQ wiring (no second system invented)
+
+**Preserved elements**
+- Same slug
+- Cover image unchanged
+- Demo CTA unchanged
+- Rest of article body unchanged
+- No trailing hashtag dump
+- No invented clients/kroner/SLA
 
 ### Build Verification
 
-Build completed successfully with redirect stubs generated:
+**Renter-intent redirects**
 - `/lokaler-til-leie/index.html` (405 bytes) redirects to https://digilist.no/leie
 - `/booking-av-lokaler-og-moterom/index.html` (469 bytes) redirects to https://digilist.no/bookingsystem-utleie
 - City pages remain full HTML (144KB each) with complete content
 - Sitemap contains 16 city pages but excludes parent URLs
+
+**Blog post**
+- FAQ heading "Vanlige spørsmål" present in HTML
+- New FAQ question "Hvilket bookingsystem bør en norsk kommune velge" appears in visible content and JSON-LD
+- Opening paragraph "IT-leder og kulturkontoret spør det samme" present
+
+**Quality checks**
 - Lint passed with 0 errors (41 pre-existing warnings)
 - TypeScript typecheck passed with 0 errors
+- Build completed successfully
+- All 378 blog posts passed word count validation
 
 ### PR Details
 
@@ -42,8 +82,12 @@ Build completed successfully with redirect stubs generated:
 **Branch**: cursor/renter-intent-consolidation-165c
 **PR Number**: #354
 **PR URL**: https://github.com/Xala-Technologies/booking-brilliance/pull/354
-**HEAD SHA**: d61f20544d6c26075a32733871d9073a7923c64f
+**HEAD SHA**: a9b2aeddf24ef20b8e2e63841df6d55d9b2b8c2c
 **Status**: Draft (not merged, auto-merge not enabled)
+
+**Commits**:
+1. d61f205 - Consolidate renter-intent URLs with 301 redirects
+2. a9b2aed - Enrich blog post: Hva er et bookingsystem for kommunale lokaler
 
 ### Redirect Implementation
 
@@ -51,6 +95,7 @@ Redirects are implemented via tiny prerendered HTML stubs rather than client-sid
 
 ### Files Modified
 
+**Renter-intent consolidation**:
 - scripts/prerender.mjs (redirect stub generation + sitemap cleanup)
 - src/components/Navbar.tsx (navigation dropdown updates)
 - src/components/Footer.tsx (footer link removal)
@@ -58,9 +103,14 @@ Redirects are implemented via tiny prerendered HTML stubs rather than client-sid
 - src/components/InterestSelector.tsx (interest routing updates)
 - src/components/UseCasePage.tsx (breadcrumb path correction)
 
+**Blog post enrichment**:
+- src/content/blog/hva-er-bookingsystem-kommunale-lokaler.md (frontmatter + content updates)
+- src/content/blogFaq.mjs (FAQ schema updates for JSON-LD)
+
 ### Next Steps
 
 After deployment to production:
 - Monitor Google Search Console for crawl behavior on redirected URLs
 - Verify nginx redirect rules if they exist beyond prerender stubs
 - Track position and impressions for /leie and /bookingsystem-utleie to measure consolidation impact
+- Monitor blog post performance for enriched FAQ content
