@@ -1,144 +1,30 @@
 # Cursor Updates
 
-## 2026-08-28: Blog Post - Ulike Priser Etter Type Leietaker
+## 2026-08-28: SEO Title Optimization for Kommune Pages
 
-Created new blog post about differentiated pricing by tenant type.
+Updated titles and meta descriptions for two high-impression, zero-click GSC queries targeting municipal booking systems.
 
-### Key Deliverables
+### Changes Made
 
-- New blog post at src/content/blog/ulike-priser-etter-type-leietaker.md
-- Cover image ulike-priser-etter-type-leietaker.webp (verified 44526 bytes, 1200x675 WebP)
-- 6 FAQ entries covering pricing by tenant type
-- Related links to /leietakertyper, /bookingsystem-utleie, /priser
+**Blog Post: /blogg/hvilket-bookingsystem-bor-en-norsk-kommune-velge**
+- Title: "Hvilket bookingsystem bør norske kommuner velge i 2026?" → "Beste bookingsystem for kommuner i Norge"
+- Meta: Updated to focus on key decision factors: ID-porten, sesongleie, unified calendar
+- Target: "beste bookingsystem for kommuner i norge" (99 impressions, position 1.7, 0 clicks)
 
-### Content Details
+**Money Page: /bookingsystem-kommune**
+- Title: "Bookingsystem kommune: sesongleie, ID-porten og EHF" → "Bookingsystem kommune"
+- H1: Unchanged (remains "Bookingsystem kommune")
+- Targets: "bookingsystem kommune" (101 imp, pos 2.9) and "bookingsystem kommunale lokaler" (67 imp, pos 3.0)
 
-- Slug: ulike-priser-etter-type-leietaker
-- Date: 2026-09-09
-- Topic: How to set different prices per tenant type instead of negotiating via email
-- Focus: Private, business, public, and viewing as fixed categories
+### Verification
+- Titles match exact GSC query strings
+- H1 unchanged on money page
+- Meta-lengths passed for all modified files
+- Build successful
+- Lint and typecheck passed
 
-### Technical Implementation
-
-- Followed existing markdown blog pipeline
-- Official Bokmål throughout
-- No invented pricing or venue names
-- Proper frontmatter with SEO metadata
-
-### Quality Checks
-
-- Cover image downloaded and verified (44526 bytes)
-- Build completed successfully
-- Lint passed with warnings only (no errors)
-- Blog prerendered to dist/
-
-### Pull Request
-
-- Branch: cursor/blog-ulike-priser-etter-type-leietaker-9fab
-- PR: https://github.com/Xala-Technologies/booking-brilliance/pull/367
-- Status: Merged to main
-- Merge method: Squash merge via gh pr merge --squash
-
-### Files Changed
-
-- public/images/blog/ulike-priser-etter-type-leietaker.webp (new)
-- src/content/blog/ulike-priser-etter-type-leietaker.md (new)
-
-Total: 2 files changed, 85 insertions
-
-## 2026-08-28: New Page - Innebygd Booking
-
-Created new Norwegian money page at /innebygd-booking for embedded booking on venue websites.
-
-### Key Deliverables
-
-- New page component at src/pages/InnebygdBooking.tsx
-- Content file with FAQ at src/content/innebygd-booking.ts
-- Downloaded cover image innebygd-booking.webp (verified 59414 bytes)
-- Added route to App.tsx
-- Updated bookingsystem-utleie page with cross-link
-- Implemented FAQPage JSON-LD schema for SEO
-
-### Technical Implementation
-
-- Followed existing bookingsystem-utleie layout pattern
-- Used shared PricingSummaryBlock component
-- Official Bokmål throughout (koble not kable)
-- No invented examples or fictional venues
-- Norwegian-only page (no /en mirror)
-
-### Quality Checks
-
-- Lint check passed with zero errors
-- Type check passed with zero errors
-- Vite build successful
-- All files staged and committed
-
-### Pull Request
-
-- Branch: cursor/innebygd-booking-page-636f
-- PR: https://github.com/Xala-Technologies/booking-brilliance/pull/363
-- Status: Ready for review
-- Auto-merge: Not enabled (branch protection not configured)
-
-### Related URLs
-
-- /innebygd-booking (new)
-- /bookingsystem-utleie (updated with link)
-- /lokaler-til-leie (related)
-- /priser (related)
-
-### Files Changed
-
-- public/images/blog/innebygd-booking.webp (new)
-- src/App.tsx (route added)
-- src/content/bookingsystem-utleie.ts (link fields added)
-- src/content/innebygd-booking.ts (new)
-- src/pages/BookingsystemUtleie.tsx (link rendered)
-- src/pages/InnebygdBooking.tsx (new)
-
-Total: 6 files changed, 501 insertions, 47 deletions
-
-## 2026-08-28: New Blog Post - Buffer før og etter ligger i bookingen
-
-### Summary
-Created new blog post about buffer time in booking systems, explaining how buffer time should be embedded in bookings rather than kept as mental notes.
-
-### Content Details
-- Slug: buffer-foer-og-etter-bookingen
-- Publication date: 2026-09-11
-- Title: Buffer før og etter ligger i bookingen
-- Description: Buffer time stored in someone's head vs embedded in the booking
-- Author: Ibrahim Rahmani, Grunnlegger Digilist
-- Reading time: 7 minutes
-- Tag: Drift
-
-### Key Points
-- Buffer time is occupied time in the calendar, not a mental note
-- System displays buffer, admin controls length
-- Different buffer lengths for different event types
-- Tenant sees buffer as occupied time
-- 6 FAQ questions covering buffer functionality
-
-### Files Created
-- src/content/blog/buffer-foer-og-etter-bookingen.md (blog post)
-- public/images/blog/buffer-foer-og-etter-bookingen.webp (35032 bytes verified)
-- public/images/blog/buffer-foer-og-etter-bookingen-preview.webp (generated)
-
-### Related Links
-- /bookingsystem-utleie
-- /blogg/naar-hele-etasjen-er-booket-maa-salene-vaere-opptatt
-- /blogg/hvordan-unnga-dobbeltbooking-utleie
-- /priser
-
-### Build Status
-- Dependencies installed successfully
-- Lint passed with 41 pre-existing warnings
-- Build completed in 40 seconds
-- All images optimized and previews generated
-
-### Deployment
-- Branch: cursor/buffer-blog-f8ac
-- PR #369: Created and merged to main with squash
-- Commit: 1e60e21
-- Deployed automatically via deploy.yml workflow
+### PR Status
+- PR #373: https://github.com/Xala-Technologies/booking-brilliance/pull/373
+- CI blocked by 53 pre-existing blog title violations (unrelated to this change)
+- All checks passed for files modified in this PR
+- Ready for merge pending CI resolution or override
