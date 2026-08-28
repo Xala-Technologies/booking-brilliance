@@ -2,7 +2,7 @@
 slug: sesongbooking-apningsdato-varsling-driftsleder
 title: "Når åpner sesongbookingen i kommunen? Gjør datoen kjent, ikke innsideinfo"
 description: "Hvorfor svaret på 'når åpner sesongbookingen' i dag sitter hos én saksbehandler, og hva som skal til for at kommunen kan publisere og varsle søknadsvindu, tildeling og klagefrist automatisk."
-date: 2026-08-27
+date: 2026-08-28
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7

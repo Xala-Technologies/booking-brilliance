@@ -2,12 +2,12 @@
 slug: konferansesal-kultursal-priser-arrangor-driftsleder-bookingvolum
 title: "Kultur- og konferansesal for konsert, utstilling og seminar: hva bookingvolum gjør med kostnaden"
 description: "Se hvordan kapasitet, sesong og ukedag setter prisen på en flerbrukssal for konsert, utstilling og seminar, og hva som skjer med totalkostnaden i abonnement versus transaksjonsavgift når bookingvolumet vokser."
-date: 2026-08-27
+date: 2026-08-28
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7
 tag: "Driftsleder"
-cover: "/images/blog/sanntidskalender_hero_no.webp"
+cover: "/images/blog/naar-hele-etasjen-er-booket-maa-salene-vaere-opptatt.webp"
 keywords: ["konferanse sal kommune priser", "sal for kulturarrangementer og seminarer", "konsertsal utstillingslokale leie", "bookingsystem kultursal konferansesal", "abonnement versus transaksjonsavgift", "totalkostnad bookingvolum"]
 ---
 
