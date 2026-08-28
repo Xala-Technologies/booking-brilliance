@@ -1,5 +1,29 @@
 # Cursor Updates
 
+## 2026-08-28: Blog Cover Replacement - Kommune Comparison Post
+
+Replaced navy 1600×1600 cover with cream 1200×675 BESTE FOR KOMMUNEN cover for the municipal booking system comparison post.
+
+### Changes Made
+
+**Blog Post Cover**
+- Old: `/images/blog/ssal_2026_booking_hero.webp` (navy, 1600×1600)
+- New: `/images/blog/hvilket-bookingsystem-bor-en-norsk-kommune-velge.webp` (cream, 1200×675, 35836 bytes)
+- Generated preview: `hvilket-bookingsystem-bor-en-norsk-kommune-velge-preview.webp` (640×360, 13270 bytes)
+- Post: `/blogg/hvilket-bookingsystem-bor-en-norsk-kommune-velge`
+
+### Technical Details
+- Downloaded cream cover from live site (fallback)
+- Ran `scripts/optimize-images.mjs` to generate preview variant
+- Updated frontmatter `cover:` field in markdown
+- Title, body, FAQ, and H1 unchanged
+
+### PR and Deploy Status
+- PR #374: https://github.com/Xala-Technologies/booking-brilliance/pull/374
+- Merged successfully
+- Initial deploy failed (SSH timeout to VPS)
+- Triggering redeploy
+
 ## 2026-08-28: SEO Title Optimization for Kommune Pages
 
 Updated titles and meta descriptions for two high-impression, zero-click GSC queries targeting municipal booking systems.
