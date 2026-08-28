@@ -271,6 +271,14 @@ const BookingsystemUtleie = () => {
                 <div className="space-y-5 text-lg text-ink-soft leading-relaxed">
                   <p>{c.renterTypesP1}</p>
                   <p>{c.renterTypesP2}</p>
+                  <p>
+                    <Link
+                      to={c.renterTypesLinkUrl}
+                      className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
+                    >
+                      {c.renterTypesLinkText}
+                    </Link>
+                  </p>
                 </div>
               </div>
             </div>

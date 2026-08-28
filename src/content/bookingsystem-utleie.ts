@@ -81,6 +81,8 @@ export interface OperatorCopy {
   renterTypesH2: string;
   renterTypesP1: string;
   renterTypesP2: string;
+  renterTypesLinkText: string;
+  renterTypesLinkUrl: string;
   typesRule: string;
   typesH2: string;
   typesH2em: string;
@@ -402,6 +404,8 @@ const NB: OperatorCopy = {
   renterTypesH2: "Pris og regler per leietakertype",
   renterTypesP1: "Privat, næring, offentlig og visning kan ha ulike priser og regler. Forskning er egne regler per bruk, ikke en femte type ved siden av.",
   renterTypesP2: "Det er utleierens regler. Ikke kommunens prisgrupper.",
+  renterTypesLinkText: "Leietakertyper",
+  renterTypesLinkUrl: "/leietakertyper",
   typesRule: "IV. LOKALTYPER DU KAN LEIE UT",
   typesH2: "Én plattform, mange",
   typesH2em: "lokaltyper",
@@ -493,6 +497,8 @@ const EN: OperatorCopy = {
   renterTypesH2: "Price and rules per renter type",
   renterTypesP1: "Private, business, public and viewing can have different prices and rules. Research is its own rules per use, not a fifth type alongside the others.",
   renterTypesP2: "It is the operator's rules. Not the municipality's price groups.",
+  renterTypesLinkText: "Renter types",
+  renterTypesLinkUrl: "/leietakertyper",
   typesRule: "IV. VENUE TYPES YOU CAN RENT OUT",
   typesH2: "One platform, many",
   typesH2em: "venue types",
