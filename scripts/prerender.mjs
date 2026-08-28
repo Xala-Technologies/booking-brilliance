@@ -2335,6 +2335,43 @@ const ROUTES = [
     ],
   },
   {
+    route: "/innebygd-booking",
+    title: "Innebygd booking på egen nettside | Digilist",
+    description:
+      "Innebygd booking på egen nettside: kalenderen, eller hele bookingmotoren, hos dere. Administrasjonen blir i Digilist. Lokalet kan også vises på Digilist.",
+    ogType: "website",
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Innebygd booking", url: `${BASE_URL}/innebygd-booking` },
+    ],
+    faq: [
+      {
+        q: "Kan vi ha innebygd booking på egen nettside?",
+        a: "Ja. Innebygd booking ligger på nettsiden dere allerede har. Leietaker ser samme ledig og opptatt som dere.",
+      },
+      {
+        q: "Kan vi ha booking på nettsiden vår?",
+        a: "Ja. Booking på nettsiden er innebygd booking. Hen booker hos dere. Dere styrer i Digilist.",
+      },
+      {
+        q: "Må leietaker booke på Digilist?",
+        a: "Nei. Hen kan booke på deres nettside. Administrasjonen av bookingen blir i Digilist.",
+      },
+      {
+        q: "Hva er forskjellen på innebygd booking og kanalsynk?",
+        a: "Innebygd booking er kalenderen på deres egen nettside. Kanalsynk er når andre markedsplasser skriver til samme kalender.",
+      },
+      {
+        q: "Kan lokalet også vises på Digilist?",
+        a: "Ja. Samme kalender kan ligge på deres side og på Digilist. Ledig er ledig begge steder.",
+      },
+      {
+        q: "Hvem administrerer bookingen når den ligger på nettsiden vår?",
+        a: "Dere. Godkjenning, husregler, faktura og logg ligger i Digilist. Nettsiden viser det samme.",
+      },
+    ],
+  },
+  {
     route: "/en/kanaler",
     title: "Channels & sync · Digilist | Two-way calendar sync",
     description:
@@ -3272,6 +3309,7 @@ async function main() {
     { loc: `${BASE_URL}/`, priority: "1.0", changefreq: "weekly" },
     { loc: `${BASE_URL}/bookingsystem-kommune`, priority: "0.95", changefreq: "monthly" },
     { loc: `${BASE_URL}/bookingsystem-utleie`, priority: "0.95", changefreq: "monthly" },
+    { loc: `${BASE_URL}/innebygd-booking`, priority: "0.9", changefreq: "monthly" },
     { loc: `${BASE_URL}/kanaler`, priority: "0.9", changefreq: "monthly" },
     { loc: `${BASE_URL}/verktoy`, priority: "0.7", changefreq: "monthly" },
     { loc: `${BASE_URL}/verktoy/leiepriskalkulator`, priority: "0.8", changefreq: "monthly" },
