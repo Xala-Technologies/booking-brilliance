@@ -3049,4 +3049,31 @@ export const POST_FAQ = {
         "Innbyggeren ser ledig eller opptatt før hen sender. Saksbehandleren godkjenner i samme kalender. Endringen ligger i loggen.",
     },
   ],
+  "naar-hele-etasjen-er-booket-maa-salene-vaere-opptatt": [
+    {
+      question: "Hvordan booke to saler og hele etasjen uten kollisjon?",
+      answer:
+        "Dere knytter etasjen og salene sammen. Booker noen hele etasjen, går begge salene opptatt. Booker noen én sal, kan ikke etasjen bookes.",
+    },
+    {
+      question: "Hva er buffer tid i et bookingsystem?",
+      answer:
+        "Buffer tid er opptatt tid før eller etter en booking, så neste ikke kommer inn i oppryddingen. Den ligger i bookingen, ikke i hodet.",
+    },
+    {
+      question: "Kan leietaker se ledig tid på vår nettside?",
+      answer:
+        "Ja. Kalenderen kan ligge på deres egen nettside. Leietaker ser samme ledig og opptatt som dere.",
+    },
+    {
+      question: "Må bookinger godkjennes før de er bindende?",
+      answer:
+        "Ja, hvis dere vil. Forespørselen lander hos dere. Dere sjekker husregler og fakturaadresse, så bekrefter dere.",
+    },
+    {
+      question: "Kan et lite kulturhus få egen pris?",
+      answer:
+        "Ja. Mindre aktører får egne tilpassede priser. Se /priser.",
+    },
+  ],
 };

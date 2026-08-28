@@ -60,6 +60,10 @@ export interface OperatorCopy {
   featureRule: string;
   featureH2: string;
   featureLede: string;
+  linkedResourcesH2: string;
+  linkedResourcesP1: string;
+  linkedResourcesP2: string;
+  linkedResourcesP3: string;
   typesRule: string;
   typesH2: string;
   typesH2em: string;
@@ -128,6 +132,26 @@ const FAQ_NB: readonly QA[] = [
     question: "Hva er forskjellen på et bookingsystem og et utleiesystem?",
     answer:
       "Booking er kalenderen og kassen. Et utleiesystem kjører også pris, tillegg, bekreftelse og oversikt. Digilist gjør begge deler for lokaler.",
+  },
+  {
+    question: "Hva er sammenhengende bookingressurser?",
+    answer:
+      "Sammenhengende bookingressurser er lokaler som låser hverandre. Booker noen hele etasjen, går begge salene opptatt. Booker noen én sal, kan ikke etasjen bookes.",
+  },
+  {
+    question: "Kan vi sette buffer før og etter en booking?",
+    answer:
+      "Ja. Bufferen ligger i bookingen, ikke i hodet på den som sist redigerte Excel. Dere setter den per type, for eksempel kortere før en øving og lenger etter et selskap.",
+  },
+  {
+    question: "Må bookinger godkjennes før de er bindende?",
+    answer:
+      "Ja, hvis dere vil. Forespørselen lander hos dere. Dere sjekker husregler og fakturaadresse, så bekrefter dere. Før det er tiden ikke tatt.",
+  },
+  {
+    question: "Kan leietaker se ledig tid på vår nettside?",
+    answer:
+      "Ja. Kalenderen kan ligge på deres egen nettside. Leietaker ser samme ledig og opptatt som dere, og sender derfra.",
   },
 ];
 
@@ -284,6 +308,26 @@ const FAQ_EN: readonly QA[] = [
     answer:
       "Booking is the calendar and the checkout. A rental system also handles price, extras, confirmation and reporting. Digilist does both for venues.",
   },
+  {
+    question: "What are linked booking resources?",
+    answer:
+      "Linked booking resources are spaces that lock each other. If someone books the whole floor, both rooms become unavailable. If someone books one room, the floor cannot be booked.",
+  },
+  {
+    question: "Can we set buffer time before and after a booking?",
+    answer:
+      "Yes. The buffer sits in the booking, not in the head of whoever last edited the spreadsheet. You set it per type, for example shorter before a rehearsal and longer after a party.",
+  },
+  {
+    question: "Do bookings need to be approved before they are binding?",
+    answer:
+      "Yes, if you want. The request lands with you. You check house rules and billing address, then you confirm. Before that, the time is not taken.",
+  },
+  {
+    question: "Can the person renting see availability on our website?",
+    answer:
+      "Yes. The calendar can sit on your own website. The person renting sees the same availability as you, and sends from there.",
+  },
 ];
 
 const NB: OperatorCopy = {
@@ -320,6 +364,10 @@ const NB: OperatorCopy = {
   featureRule: "III. FUNKSJONALITET",
   featureH2: "Hva utleieren får.",
   featureLede: "Seks funksjoner som gjør utleie til en digital, selvbetjent flyt.",
+  linkedResourcesH2: "Sammenhengende bookingressurser",
+  linkedResourcesP1: "Etasjen og salene hører sammen. Booker noen hele etasjen, blir begge salene opptatt. Booker noen én sal, kan ikke etasjen bookes.",
+  linkedResourcesP2: "Buffer før og etter ligger i bookingen. Ikke i hodet. Godkjenning før bekreftelse, slik at husregler og fakturaadresse er med. Kalenderen kan ligge på deres egen nettside. Leietaker ser samme ledig og opptatt.",
+  linkedResourcesP3: "Det er en annen jobb enn to kalendere som ikke skriver til hverandre. Her er kollisjonen inne i huset.",
   typesRule: "IV. LOKALTYPER DU KAN LEIE UT",
   typesH2: "Én plattform, mange",
   typesH2em: "lokaltyper",
@@ -390,6 +438,10 @@ const EN: OperatorCopy = {
   featureRule: "III. CAPABILITIES",
   featureH2: "What the operator gets.",
   featureLede: "Six capabilities that turn renting out into a digital, self-service flow.",
+  linkedResourcesH2: "Linked booking resources",
+  linkedResourcesP1: "The floor and the rooms belong together. If someone books the whole floor, both rooms become unavailable. If someone books one room, the floor cannot be booked.",
+  linkedResourcesP2: "Buffer time before and after sits in the booking. Not in someone's head. Approval before confirmation, so house rules and billing address are included. The calendar can sit on your own website. The person renting sees the same availability as you.",
+  linkedResourcesP3: "This is a different job than two calendars that do not write to each other. Here the collision is inside the building.",
   typesRule: "IV. VENUE TYPES YOU CAN RENT OUT",
   typesH2: "One platform, many",
   typesH2em: "venue types",
