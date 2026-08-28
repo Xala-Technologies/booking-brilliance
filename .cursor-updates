@@ -230,3 +230,17 @@
 - Lint passed with 41 pre-existing warnings only
 - Build completed successfully
 - PR #330 created, ready for merge
+
+## 2026-08-28: Replace 0-byte Blog Cover Image
+
+### Changes Made
+- Downloaded real 37KB WebP image from live URL to replace 0-byte placeholder
+- Image dimensions 1200x675 (16:9 aspect ratio)
+- No markdown, FAQ, or other files modified
+
+### Files Modified
+- public/images/blog/naar-hele-etasjen-er-booket-maa-salene-vaere-opptatt.webp
+
+### Build Status
+- Single file change committed
+- PR #361 created with auto-merge enabled
