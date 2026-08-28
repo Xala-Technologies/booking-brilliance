@@ -2231,7 +2231,7 @@ const ROUTES = [
   },
   {
     route: "/bookingsystem-kommune",
-    title: "Bookingsystem kommune: sesongleie, ID-porten og EHF | Digilist",
+    title: "Bookingsystem kommune | Digilist",
     description:
       "Digital bookingplattform for norske kommuner. Sanntidskalender, sesongleie, ID-porten, EHF, ISO 27001. Bygget for SSA-L 2026-krav.",
     ogType: "website",

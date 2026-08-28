@@ -1,7 +1,7 @@
 ---
 slug: hvilket-bookingsystem-bor-en-norsk-kommune-velge
-title: "Hvilket bookingsystem bør norske kommuner velge i 2026?"
-description: "Svar på hvilket bookingsystem norske kommuner bør velge i 2026, med tall, kilder og en ærlig sammenligning av Digilist, Aktiv Kommune, Gibbs og bookup.no."
+title: "Beste bookingsystem for kommuner i Norge"
+description: "Hva du bør sjekke når kommunen velger bookingsystem: ID-porten, sesongleie og én kalender."
 date: 2026-08-01
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
