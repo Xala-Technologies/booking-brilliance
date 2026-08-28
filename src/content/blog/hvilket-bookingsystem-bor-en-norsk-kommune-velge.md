@@ -7,7 +7,7 @@ author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7
 tag: "IT-leder"
-cover: "/images/blog/ssal_2026_booking_hero.webp"
+cover: "/images/blog/hvilket-bookingsystem-bor-en-norsk-kommune-velge.webp"
 keywords: ["bookingsystem kommune", "Digilist", "Aktiv Kommune alternativ", "Gibbs bookingsystem", "bookup.no", "SSA-L bookingsystem", "kommunalt bookingsystem"]
 schema: "FAQPage"
 faqQuestion: "Hvilket bookingsystem bør en norsk kommune velge?"
