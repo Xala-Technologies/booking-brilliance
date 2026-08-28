@@ -230,3 +230,42 @@
 - Lint passed with 41 pre-existing warnings only
 - Build completed successfully
 - PR #330 created, ready for merge
+
+## 2026-08-28: Split bookingsystem-utleie H2s for Focused Content Sections
+
+### Changes Made
+- Replaced single "Sammenhengende bookingressurser" H2 section with 5 focused subsections
+- Added "Soner og tildeling" H2 with three paragraphs plus link to blog post /blogg/naar-hele-etasjen-er-booket-maa-salene-vaere-opptatt
+- Added "Godkjenning før bekreftelse" H2 with three paragraphs explaining approval workflow
+- Added "Døgnkalender og buffer" H2 with three paragraphs about 24-hour calendar and configurable buffers
+- Added "Kalender på egen nettside" H2 with single paragraph about embedded calendar capability
+- Added "Pris og regler per leietakertype" H2 with two paragraphs explaining differentiated pricing
+- Updated both Norwegian and English content in bookingsystem-utleie.ts
+- Restructured page component to render 5 separate H2 blocks instead of one combined section
+- Old "Sammenhengende bookingressurser" title preserved in FAQ Q9 as instructed
+
+### Files Modified
+- src/content/bookingsystem-utleie.ts (replaced linkedResources fields with zones, approval, buffer, embedded, renterTypes fields for both NB and EN)
+- src/pages/BookingsystemUtleie.tsx (replaced single linkedResources section with 5 separate H2 sections)
+
+### Constraints Met
+- Official Bokmål spelling (koble not kable)
+- No venue names mentioned
+- No kroner amounts added
+- No second price section
+- Same route, no new slug
+- No title, H1, first 40 words, cover, demo CTA changes
+- No locked price block changes
+- No FAQ changes beyond existing Q9
+- No new FAQ questions
+- Link to blog post added for section 1 only
+- No links for sections 4 and 5 as instructed
+
+### Build Status
+- TypeScript typecheck passed
+- Lint passed with 41 pre-existing warnings only
+- Build completed successfully
+- All 5 new H2s verified in dist/bookingsystem-utleie/index.html
+- Old H2 title only appears in FAQ (correct)
+- PR #362 created with auto-merge enabled
+- CI checks in progress
