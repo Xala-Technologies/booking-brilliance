@@ -98,3 +98,47 @@ Created new Norwegian money page at /innebygd-booking for embedded booking on ve
 - src/pages/InnebygdBooking.tsx (new)
 
 Total: 6 files changed, 501 insertions, 47 deletions
+
+## 2026-08-28: New Blog Post - Buffer før og etter ligger i bookingen
+
+### Summary
+Created new blog post about buffer time in booking systems, explaining how buffer time should be embedded in bookings rather than kept as mental notes.
+
+### Content Details
+- Slug: buffer-foer-og-etter-bookingen
+- Publication date: 2026-09-11
+- Title: Buffer før og etter ligger i bookingen
+- Description: Buffer time stored in someone's head vs embedded in the booking
+- Author: Ibrahim Rahmani, Grunnlegger Digilist
+- Reading time: 7 minutes
+- Tag: Drift
+
+### Key Points
+- Buffer time is occupied time in the calendar, not a mental note
+- System displays buffer, admin controls length
+- Different buffer lengths for different event types
+- Tenant sees buffer as occupied time
+- 6 FAQ questions covering buffer functionality
+
+### Files Created
+- src/content/blog/buffer-foer-og-etter-bookingen.md (blog post)
+- public/images/blog/buffer-foer-og-etter-bookingen.webp (35032 bytes verified)
+- public/images/blog/buffer-foer-og-etter-bookingen-preview.webp (generated)
+
+### Related Links
+- /bookingsystem-utleie
+- /blogg/naar-hele-etasjen-er-booket-maa-salene-vaere-opptatt
+- /blogg/hvordan-unnga-dobbeltbooking-utleie
+- /priser
+
+### Build Status
+- Dependencies installed successfully
+- Lint passed with 41 pre-existing warnings
+- Build completed in 40 seconds
+- All images optimized and previews generated
+
+### Deployment
+- Branch: cursor/buffer-blog-f8ac
+- PR #369: Created and merged to main with squash
+- Commit: 1e60e21
+- Deployed automatically via deploy.yml workflow
