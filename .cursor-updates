@@ -230,3 +230,39 @@
 - Lint passed with 41 pre-existing warnings only
 - Build completed successfully
 - PR #330 created, ready for merge
+
+## 2026-08-28: New Blog Post - Buffer før og etter ligger i bookingen
+
+### Changes Made
+- Created new blog post about buffer time in booking system
+- Downloaded cover image from live URL and verified 35032 bytes
+- Added FAQ section with 6 questions
+- Linked to related articles including dobbeltbooking blog and etasje blog
+- Build pipeline generated preview images automatically
+
+### Files Created
+- src/content/blog/buffer-foer-og-etter-bookingen.md (blog post content)
+- public/images/blog/buffer-foer-og-etter-bookingen.webp (cover image, 35032 bytes)
+- public/images/blog/buffer-foer-og-etter-bookingen-preview.webp (generated preview)
+
+### Blog Details
+- Slug: buffer-foer-og-etter-bookingen
+- Date: 2026-09-11
+- Title: Buffer før og etter ligger i bookingen
+- Author: Ibrahim Rahmani
+- Reading time: 7 minutes
+- Tag: Drift
+- Keywords: bookingsystem, buffer, utleie, kalender, drift
+
+### Content Structure
+- Opening scene: Øving ferdig, stolene ikke ryddet
+- H1: Buffer før og etter ligger i bookingen
+- Four main sections explaining buffer concept
+- Six FAQ questions
+- Related articles section
+- Book demo CTA
+
+### Build Status
+- Lint passed with 41 pre-existing warnings only
+- Build completed successfully in 40 seconds
+- PR #369 created and merged to main with squash
