@@ -380,7 +380,7 @@ const FAQ_EN: readonly QA[] = [
 const NB: RentCopy = {
   metaTitle: "Lokaler til leie: finn og book med synlig pris",
   metaDescription:
-    "Lokaler til leie på nett: private selskapslokaler og kommunale haller i samme kalender. Ekte pris, ledig dato og Vipps. Fest, møte eller idrett.",
+    "Finn lokaler til leie, leie lokale eller utleie av lokaler: private selskapslokaler og kommunale haller i samme kalender. Ekte pris, ledig dato og Vipps.",
   keywords:
     "lokaler til leie, leie lokaler, selskapslokale, kommunale lokaler, booke lokale",
   howToName: "Slik finner og booker du lokale",
