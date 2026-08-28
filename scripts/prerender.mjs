@@ -2372,6 +2372,43 @@ const ROUTES = [
     ],
   },
   {
+    route: "/leietakertyper",
+    title: "Pris og regler etter type leietaker | Digilist",
+    description:
+      "Samme sal. Ulike leietakere. Dere setter pris og regler for privat, næring, offentlig og visning. Systemet bruker dem. Dere bekrefter.",
+    ogType: "website",
+    breadcrumbs: [
+      { name: "Hjem", url: `${BASE_URL}/` },
+      { name: "Leietakertyper", url: `${BASE_URL}/leietakertyper` },
+    ],
+    faq: [
+      {
+        q: "Hva er pris og regler etter type leietaker?",
+        a: "Det er at dere setter pris og vilkår per type: privat, næring, offentlig og visning. Systemet bruker dem. Dere bekrefter.",
+      },
+      {
+        q: "Hvilke leietakertyper kan vi ha?",
+        a: "Fire: privat, næring, offentlig og visning. Det er utleierens typer. Ikke kommunens prisgrupper.",
+      },
+      {
+        q: "Er forskning, øving eller egne arrangementer en egen leietakertype?",
+        a: "Nei. Det er bruk, ikke type. Samme leietaker kan øve én kveld og holde selskap en annen. Reglene følger bruken.",
+      },
+      {
+        q: "Er dette det samme som kommunens prisgrupper?",
+        a: "Nei. Kommunens grupper er et annet vedtak. Denne siden er for utleieren som setter egne typer på eget lokale.",
+      },
+      {
+        q: "Kan visning ha andre regler enn en booking?",
+        a: "Ja. Visning er egen type. Egen tid. Egne regler. Den tar ikke salen som en vanlig leie.",
+      },
+      {
+        q: "Setter Digilist prisen for lokalet vårt?",
+        a: "Nei. Dere setter pris og regler. Digilist viser dem til leietaker og logger hvem som fikk hva.",
+      },
+    ],
+  },
+  {
     route: "/en/kanaler",
     title: "Channels & sync · Digilist | Two-way calendar sync",
     description:
@@ -3310,6 +3347,7 @@ async function main() {
     { loc: `${BASE_URL}/bookingsystem-kommune`, priority: "0.95", changefreq: "monthly" },
     { loc: `${BASE_URL}/bookingsystem-utleie`, priority: "0.95", changefreq: "monthly" },
     { loc: `${BASE_URL}/innebygd-booking`, priority: "0.9", changefreq: "monthly" },
+    { loc: `${BASE_URL}/leietakertyper`, priority: "0.9", changefreq: "monthly" },
     { loc: `${BASE_URL}/kanaler`, priority: "0.9", changefreq: "monthly" },
     { loc: `${BASE_URL}/verktoy`, priority: "0.7", changefreq: "monthly" },
     { loc: `${BASE_URL}/verktoy/leiepriskalkulator`, priority: "0.8", changefreq: "monthly" },
