@@ -2,7 +2,7 @@
 slug: bryllupslokale-pris-norge-regioner-lokaltyper
 title: "Bryllupslokale pris 2026: dette koster det i hele Norge"
 description: "Reelle prisintervaller for bryllupslokale i Oslo, Bergen, Trondheim, Stavanger og distriktene, pakkepris vs lokaleleie, tilleggskostnader og hvordan du sammenligner tilbud raskt."
-date: 2026-08-27
+date: 2026-08-28
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7
