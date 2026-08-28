@@ -190,41 +190,88 @@ const BookingsystemUtleie = () => {
               ))}
             </div>
 
-            <div className="mt-14 max-w-4xl">
-              <h2
-                className="font-serif text-3xl text-ink mb-6"
-                style={{ fontVariationSettings: getFraunces("section") }}
-              >
-                {c.linkedResourcesH2}
-              </h2>
-              <div className="space-y-5 text-lg text-ink-soft leading-relaxed">
-                <p>{c.linkedResourcesP1}</p>
-                <p>{c.linkedResourcesP2}</p>
-                <p>{c.linkedResourcesP3}</p>
-                <p>
-                  Se også{" "}
-                  <Link
-                    to={en ? "/en/bruksomrader/kulturhus-kantiner" : "/bruksomrader/kulturhus-kantiner"}
-                    className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
-                  >
-                    kulturhus og kantiner
-                  </Link>
-                  ,{" "}
-                  <Link
-                    to={en ? "/en/priser" : "/priser"}
-                    className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
-                  >
-                    priser
-                  </Link>{" "}
-                  og{" "}
-                  <Link
-                    to={en ? "/en/book-demo" : "/book-demo"}
-                    className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
-                  >
-                    book en demo
-                  </Link>
-                  .
-                </p>
+            <div className="mt-14 max-w-4xl space-y-12">
+              <div>
+                <h2
+                  className="font-serif text-3xl text-ink mb-6"
+                  style={{ fontVariationSettings: getFraunces("section") }}
+                >
+                  {c.zonesH2}
+                </h2>
+                <div className="space-y-5 text-lg text-ink-soft leading-relaxed">
+                  <p>{c.zonesP1}</p>
+                  <p>{c.zonesP2}</p>
+                  <p>{c.zonesP3}</p>
+                  <p>
+                    <Link
+                      to={c.zonesLinkUrl}
+                      className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
+                    >
+                      {c.zonesLinkText}
+                    </Link>
+                  </p>
+                </div>
+              </div>
+
+              <div>
+                <h2
+                  className="font-serif text-3xl text-ink mb-6"
+                  style={{ fontVariationSettings: getFraunces("section") }}
+                >
+                  {c.approvalH2}
+                </h2>
+                <div className="space-y-5 text-lg text-ink-soft leading-relaxed">
+                  <p>{c.approvalP1}</p>
+                  <p>{c.approvalP2}</p>
+                  <p>{c.approvalP3}</p>
+                </div>
+              </div>
+
+              <div>
+                <h2
+                  className="font-serif text-3xl text-ink mb-6"
+                  style={{ fontVariationSettings: getFraunces("section") }}
+                >
+                  {c.bufferH2}
+                </h2>
+                <div className="space-y-5 text-lg text-ink-soft leading-relaxed">
+                  <p>{c.bufferP1}</p>
+                  <p>{c.bufferP2}</p>
+                  <p>{c.bufferP3}</p>
+                </div>
+              </div>
+
+              <div>
+                <h2
+                  className="font-serif text-3xl text-ink mb-6"
+                  style={{ fontVariationSettings: getFraunces("section") }}
+                >
+                  {c.embeddedH2}
+                </h2>
+                <div className="space-y-5 text-lg text-ink-soft leading-relaxed">
+                  <p>{c.embeddedP1}</p>
+                  <p>
+                    <Link
+                      to={c.embeddedLinkUrl}
+                      className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
+                    >
+                      {c.embeddedLinkText}
+                    </Link>
+                  </p>
+                </div>
+              </div>
+
+              <div>
+                <h2
+                  className="font-serif text-3xl text-ink mb-6"
+                  style={{ fontVariationSettings: getFraunces("section") }}
+                >
+                  {c.renterTypesH2}
+                </h2>
+                <div className="space-y-5 text-lg text-ink-soft leading-relaxed">
+                  <p>{c.renterTypesP1}</p>
+                  <p>{c.renterTypesP2}</p>
+                </div>
               </div>
             </div>
           </div>

@@ -60,10 +60,27 @@ export interface OperatorCopy {
   featureRule: string;
   featureH2: string;
   featureLede: string;
-  linkedResourcesH2: string;
-  linkedResourcesP1: string;
-  linkedResourcesP2: string;
-  linkedResourcesP3: string;
+  zonesH2: string;
+  zonesP1: string;
+  zonesP2: string;
+  zonesP3: string;
+  zonesLinkText: string;
+  zonesLinkUrl: string;
+  approvalH2: string;
+  approvalP1: string;
+  approvalP2: string;
+  approvalP3: string;
+  bufferH2: string;
+  bufferP1: string;
+  bufferP2: string;
+  bufferP3: string;
+  embeddedH2: string;
+  embeddedP1: string;
+  embeddedLinkText: string;
+  embeddedLinkUrl: string;
+  renterTypesH2: string;
+  renterTypesP1: string;
+  renterTypesP2: string;
   typesRule: string;
   typesH2: string;
   typesH2em: string;
@@ -364,10 +381,27 @@ const NB: OperatorCopy = {
   featureRule: "III. FUNKSJONALITET",
   featureH2: "Hva utleieren får.",
   featureLede: "Seks funksjoner som gjør utleie til en digital, selvbetjent flyt.",
-  linkedResourcesH2: "Sammenhengende bookingressurser",
-  linkedResourcesP1: "Etasjen og salene hører sammen. Booker noen hele etasjen, blir begge salene opptatt. Booker noen én sal, kan ikke etasjen bookes.",
-  linkedResourcesP2: "Buffer før og etter ligger i bookingen. Ikke i hodet. Godkjenning før bekreftelse, slik at husregler og fakturaadresse er med. Kalenderen kan ligge på deres egen nettside. Leietaker ser samme ledig og opptatt.",
-  linkedResourcesP3: "Det er en annen jobb enn to kalendere som ikke skriver til hverandre. Her er kollisjonen inne i huset.",
+  zonesH2: "Soner og tildeling",
+  zonesP1: "Et lokale kan ha deler. En sal. En etasje. En sone.",
+  zonesP2: "Booker noen hele etasjen, går salene opptatt. Booker noen én sal, kan ikke etasjen bookes. Kalenderen behandler delene som hører sammen, ikke som tre rader som ikke kjenner hverandre.",
+  zonesP3: "Kollisjonen er inne i huset. Ikke to systemer som skriver forbi hverandre.",
+  zonesLinkText: "Når hele etasjen er booket, må salene også være opptatt",
+  zonesLinkUrl: "/blogg/naar-hele-etasjen-er-booket-maa-salene-vaere-opptatt",
+  approvalH2: "Godkjenning før bekreftelse",
+  approvalP1: "Forespørselen lander hos dere. Den er ikke bindende ennå.",
+  approvalP2: "Dere sjekker husregler og fakturaadresse. Så bekrefter dere. Før det er tiden ikke tatt. Etterpå er den tatt i salen, etasjen og sonen som hører sammen.",
+  approvalP3: "Systemet viser ledig og opptatt. Det fatter ikke vedtaket.",
+  bufferH2: "Døgnkalender og buffer",
+  bufferP1: "Kalenderen går døgnet rundt. Ledig er ledig. Opptatt er opptatt.",
+  bufferP2: "Buffer før og etter sitter i bookingen, ikke i hodet. Dere setter den per type. Kortere før en øving. Lenger etter et selskap.",
+  bufferP3: "Ingen fast minuttverdi som «slik er det hos oss». Det er husets regel, i bookingen.",
+  embeddedH2: "Kalender på egen nettside",
+  embeddedP1: "Kalenderen kan ligge på nettsiden dere allerede har. Leietaker ser samme ledig og opptatt som dere, og sender derfra.",
+  embeddedLinkText: "Innebygd booking",
+  embeddedLinkUrl: "/innebygd-booking",
+  renterTypesH2: "Pris og regler per leietakertype",
+  renterTypesP1: "Privat, næring, offentlig og visning kan ha ulike priser og regler. Forskning er egne regler per bruk, ikke en femte type ved siden av.",
+  renterTypesP2: "Det er utleierens regler. Ikke kommunens prisgrupper.",
   typesRule: "IV. LOKALTYPER DU KAN LEIE UT",
   typesH2: "Én plattform, mange",
   typesH2em: "lokaltyper",
@@ -438,10 +472,27 @@ const EN: OperatorCopy = {
   featureRule: "III. CAPABILITIES",
   featureH2: "What the operator gets.",
   featureLede: "Six capabilities that turn renting out into a digital, self-service flow.",
-  linkedResourcesH2: "Linked booking resources",
-  linkedResourcesP1: "The floor and the rooms belong together. If someone books the whole floor, both rooms become unavailable. If someone books one room, the floor cannot be booked.",
-  linkedResourcesP2: "Buffer time before and after sits in the booking. Not in someone's head. Approval before confirmation, so house rules and billing address are included. The calendar can sit on your own website. The person renting sees the same availability as you.",
-  linkedResourcesP3: "This is a different job than two calendars that do not write to each other. Here the collision is inside the building.",
+  zonesH2: "Zones and allocation",
+  zonesP1: "A venue can have parts. A hall. A floor. A zone.",
+  zonesP2: "If someone books the whole floor, the halls become unavailable. If someone books one hall, the floor cannot be booked. The calendar treats the parts that belong together as a unit, not as three rows that do not know each other.",
+  zonesP3: "The collision is inside the building. Not two systems writing past each other.",
+  zonesLinkText: "When the whole floor is booked, the halls must also be unavailable",
+  zonesLinkUrl: "/blogg/naar-hele-etasjen-er-booket-maa-salene-vaere-opptatt",
+  approvalH2: "Approval before confirmation",
+  approvalP1: "The request lands with you. It is not binding yet.",
+  approvalP2: "You check house rules and billing address. Then you confirm. Before that, the time is not taken. After that, it is taken in the hall, the floor and the zone that belong together.",
+  approvalP3: "The system shows free and booked. It does not make the decision.",
+  bufferH2: "Around-the-clock calendar and buffer",
+  bufferP1: "The calendar runs around the clock. Free is free. Booked is booked.",
+  bufferP2: "Buffer time before and after sits in the booking, not in someone's head. You set it per type. Shorter before a rehearsal. Longer after a party.",
+  bufferP3: "No fixed minute value of 'that is how we do it'. It is the building's rule, in the booking.",
+  embeddedH2: "Calendar on your own website",
+  embeddedP1: "The calendar can sit on the website you already have. The person renting sees the same availability as you, and sends from there.",
+  embeddedLinkText: "Embedded booking",
+  embeddedLinkUrl: "/innebygd-booking",
+  renterTypesH2: "Price and rules per renter type",
+  renterTypesP1: "Private, business, public and viewing can have different prices and rules. Research is its own rules per use, not a fifth type alongside the others.",
+  renterTypesP2: "It is the operator's rules. Not the municipality's price groups.",
   typesRule: "IV. VENUE TYPES YOU CAN RENT OUT",
   typesH2: "One platform, many",
   typesH2em: "venue types",
