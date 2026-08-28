@@ -58,7 +58,6 @@ const BookingsystemKommune = () => {
                   >
                     {c.h1em}
                   </em>
-                  .
                 </EditorialHeading>
                 <p className="text-xl text-ink-soft measure leading-relaxed mb-10">
                   {c.ledeA}
