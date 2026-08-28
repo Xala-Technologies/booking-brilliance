@@ -219,7 +219,7 @@ const FAQ_EN: readonly QA[] = [
 ];
 
 const NB: MunicipalCopy = {
-  metaTitle: "Bookingsystem kommune: sesongleie, ID-porten og EHF | Digilist",
+  metaTitle: "Bookingsystem kommune | Digilist",
   metaDescription:
     "Digital bookingplattform for norske kommuner. Sanntidskalender, sesongleie, ID-porten, EHF, ISO 27001. Bygget for SSA-L 2026-krav.",
   rule: "KOMMUNAL BOOKING · 2026",
