@@ -14,7 +14,7 @@ export default function LeieMoterom() {
 
 På Digilist booker du møterom per time. Pris og ledig tid synlig, kommunalt og privat i samme kalender."
       seoTitle="Leie møterom: pris per time synlig"
-      seoDescription="Leie møterom per time: se pris og ledig tid før du booker med Vipps. Kommunale rom og private i samme kalender. Kundemøte, workshop, intervju eller styremøte."
+      seoDescription="Leie møterom per time med synlig pris og ledig tid. Book direkte med Vipps. Kommunale og private møterom i samme kalender."
       keywords="leie møterom, møterom, leie styrerom, booke møterom, møterom per time"
       introSection={{
         heading: "Hva er et møterom på Digilist?",
@@ -142,7 +142,7 @@ På Digilist booker du møterom per time. Pris og ledig tid synlig, kommunalt og
         {
           question: "Hva koster det å leie et møterom?",
           answer:
-            "Prisen varierer med sted, størrelse og utstyr. Et enkelt rom for fire til seks personer kan koste fra et par hundre kroner per time, mens større rom med videomøteutstyr ligger høyere. Kommunale rom er ofte rimelige, og noen er gratis for lag og foreninger. På Digilist står prisen per rom, og du ser totalen for dine timer før du booker.",
+            "På Digilist ser du synlig timepris før du booker, og ledig tid i sanntid. Du betaler med Vipps. Prisen varierer med sted og utstyr: et enkelt rom for fire til seks personer koster fra noen hundre kroner per time, kommunale rom er ofte rimelige, og noen er gratis for lag.",
         },
         {
           question: "Kan jeg leie møterom for bare noen timer?",
