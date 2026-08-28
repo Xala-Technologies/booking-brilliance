@@ -76,6 +76,8 @@ export interface OperatorCopy {
   bufferP3: string;
   embeddedH2: string;
   embeddedP1: string;
+  embeddedLinkText: string;
+  embeddedLinkUrl: string;
   renterTypesH2: string;
   renterTypesP1: string;
   renterTypesP2: string;
@@ -395,6 +397,8 @@ const NB: OperatorCopy = {
   bufferP3: "Ingen fast minuttverdi som «slik er det hos oss». Det er husets regel, i bookingen.",
   embeddedH2: "Kalender på egen nettside",
   embeddedP1: "Kalenderen kan ligge på nettsiden dere allerede har. Leietaker ser samme ledig og opptatt som dere, og sender derfra.",
+  embeddedLinkText: "Innebygd booking",
+  embeddedLinkUrl: "/innebygd-booking",
   renterTypesH2: "Pris og regler per leietakertype",
   renterTypesP1: "Privat, næring, offentlig og visning kan ha ulike priser og regler. Forskning er egne regler per bruk, ikke en femte type ved siden av.",
   renterTypesP2: "Det er utleierens regler. Ikke kommunens prisgrupper.",
@@ -484,6 +488,8 @@ const EN: OperatorCopy = {
   bufferP3: "No fixed minute value of 'that is how we do it'. It is the building's rule, in the booking.",
   embeddedH2: "Calendar on your own website",
   embeddedP1: "The calendar can sit on the website you already have. The person renting sees the same availability as you, and sends from there.",
+  embeddedLinkText: "Embedded booking",
+  embeddedLinkUrl: "/innebygd-booking",
   renterTypesH2: "Price and rules per renter type",
   renterTypesP1: "Private, business, public and viewing can have different prices and rules. Research is its own rules per use, not a fifth type alongside the others.",
   renterTypesP2: "It is the operator's rules. Not the municipality's price groups.",

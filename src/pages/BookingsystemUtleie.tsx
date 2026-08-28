@@ -250,6 +250,14 @@ const BookingsystemUtleie = () => {
                 </h2>
                 <div className="space-y-5 text-lg text-ink-soft leading-relaxed">
                   <p>{c.embeddedP1}</p>
+                  <p>
+                    <Link
+                      to={c.embeddedLinkUrl}
+                      className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
+                    >
+                      {c.embeddedLinkText}
+                    </Link>
+                  </p>
                 </div>
               </div>
 
