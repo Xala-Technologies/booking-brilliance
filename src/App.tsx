@@ -30,6 +30,7 @@ const BookDemo = lazy(() => import("./pages/BookDemo"));
 const BookingsystemKommune = lazy(() => import("./pages/BookingsystemKommune"));
 const BookingsystemUtleie = lazy(() => import("./pages/BookingsystemUtleie"));
 const InnebygdBooking = lazy(() => import("./pages/InnebygdBooking"));
+const Leietakertyper = lazy(() => import("./pages/Leietakertyper"));
 const Kanaler = lazy(() => import("./pages/Kanaler"));
 const LokalerTilLeie = lazy(() => import("./pages/LokalerTilLeie"));
 const LokalerTilLeieBy = lazy(() => import("./pages/LokalerTilLeieBy"));
@@ -322,6 +323,7 @@ function SiteRoutes() {
             <Route path="verktoy/kapasitetskalkulator" element={<KapasitetsKalkulator />} />
             <Route path="bookingsystem-utleie" element={<BookingsystemUtleie />} />
             <Route path="innebygd-booking" element={<InnebygdBooking />} />
+            <Route path="leietakertyper" element={<Leietakertyper />} />
             <Route path="kanaler" element={<Kanaler />} />
             <Route path="lokaler-til-leie" element={<LokalerTilLeie />} />
             <Route path="lokaler-til-leie/:by" element={<LokalerTilLeieBy />} />
