@@ -1,5 +1,51 @@
 # Cursor Updates
 
+## 2026-08-28: Blog Post - Ulike Priser Etter Type Leietaker
+
+Created new blog post about differentiated pricing by tenant type.
+
+### Key Deliverables
+
+- New blog post at src/content/blog/ulike-priser-etter-type-leietaker.md
+- Cover image ulike-priser-etter-type-leietaker.webp (verified 44526 bytes, 1200x675 WebP)
+- 6 FAQ entries covering pricing by tenant type
+- Related links to /leietakertyper, /bookingsystem-utleie, /priser
+
+### Content Details
+
+- Slug: ulike-priser-etter-type-leietaker
+- Date: 2026-09-09
+- Topic: How to set different prices per tenant type instead of negotiating via email
+- Focus: Private, business, public, and viewing as fixed categories
+
+### Technical Implementation
+
+- Followed existing markdown blog pipeline
+- Official Bokmål throughout
+- No invented pricing or venue names
+- Proper frontmatter with SEO metadata
+
+### Quality Checks
+
+- Cover image downloaded and verified (44526 bytes)
+- Build completed successfully
+- Lint passed with warnings only (no errors)
+- Blog prerendered to dist/
+
+### Pull Request
+
+- Branch: cursor/blog-ulike-priser-etter-type-leietaker-9fab
+- PR: https://github.com/Xala-Technologies/booking-brilliance/pull/367
+- Status: Merged to main
+- Merge method: Squash merge via gh pr merge --squash
+
+### Files Changed
+
+- public/images/blog/ulike-priser-etter-type-leietaker.webp (new)
+- src/content/blog/ulike-priser-etter-type-leietaker.md (new)
+
+Total: 2 files changed, 85 insertions
+
 ## 2026-08-28: New Page - Innebygd Booking
 
 Created new Norwegian money page at /innebygd-booking for embedded booking on venue websites.
