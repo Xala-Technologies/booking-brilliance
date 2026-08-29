@@ -2,7 +2,7 @@
 slug: moterom-kommune-ledige-omrade-mine-oversikt-booking
 title: "Møterom i kommunen: samlet oversikt over ledige rom i ditt område"
 description: "Samle kommunens møterom fra alle bygg i én oversikt, sett booking-regler per avdeling, og la ansatte finne og booke ledig rom selv, uten dobbeltbooking eller telefonrunder."
-date: 2026-08-28
+date: 2026-08-29
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7

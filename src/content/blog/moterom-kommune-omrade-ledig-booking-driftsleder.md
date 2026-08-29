@@ -2,12 +2,12 @@
 slug: moterom-kommune-omrade-ledig-booking-driftsleder
 title: "Møterom i kommunen: ett system for alle bygg, internt og eksternt"
 description: "Slik samler driftsledere møteromsbooking for hele kommunen i én kalender, med egne regler for internt møte og ekstern utleie per bygg."
-date: 2026-08-28
+date: 2026-08-29
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7
 tag: "Driftsleder"
-cover: "/images/blog/digdir_designsystemet_hero_no.webp"
+cover: "/images/blog/buffer-foer-og-etter-bookingen.webp"
 keywords: ["møterom kommune", "møterom i mitt område", "ledig møterom kommune", "booke møterom kommune", "møterom ekstern utleie", "møterom utstyr og fasiliteter", "dobbeltbooking møterom flere bygg"]
 ---
 
