@@ -2,7 +2,7 @@
 slug: konferansesal-kultursal-totalkostnad-prosentmodell-abonnement-it-leder
 title: "Konferansesal og kultursal: prismodellen avgjør totalkostnaden, ikke månedsprisen"
 description: "Lik månedspris kan gi svært ulik totalkostnad for konferanse- og kultursal. Slik regner IT-leder prosentmodell mot abonnement, og slik bør prismodellen stå i kravspesifikasjonen før anskaffelsen signeres."
-date: 2026-08-29
+date: 2026-08-30
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7
