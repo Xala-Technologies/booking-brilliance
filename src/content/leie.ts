@@ -185,47 +185,32 @@ const FAQ_NB: readonly QA[] = [
   {
     question: "Hvor kan jeg leie lokaler?",
     answer:
-      "Du kan leie lokaler på nett gjennom en bookingplattform som Digilist, der du søker på sted og dato og ser hva som faktisk er ledig i sanntid. Digilist samler både private selskapslokaler og kommunale lokaler på ett sted, så du slipper å lete gjennom kommunens sider, Finn-annonser og Facebook-grupper hver for seg.",
+      "På Digilist. Du søker på sted og dato og ser hva som faktisk er ledig, private og kommunale lokaler i samme kalender.",
   },
   {
     question: "Kan jeg leie både private og kommunale lokaler?",
     answer:
-      "Ja. Digilist samler private festlokaler, grendehus og lag- og foreningslokaler sammen med kommunale kulturhus, møterom og idrettshaller i samme kalender. Du sammenligner tilgjengelighet og pris på tvers av private og offentlige utleiere ett sted, i stedet for å kontakte hver enkelt.",
-  },
-  {
-    question: "Hva koster det å leie et lokale?",
-    answer:
-      "Prisen varierer mye med type lokale, sted og varighet. Et grendehus kan koste noen hundre til noen tusen kroner for en helg, mens et kulturhus eller selskapslokale ligger høyere. På Digilist ser du den faktiske totalprisen for din dato, inkludert eventuelt depositum og rengjøring, før du booker, så du slipper å gjette.",
+      "Ja. Private festlokaler, grendehus og foreningslokaler ligger sammen med kommunale kulturhus, møterom og idrettshaller. Ett sted. Samme kalender.",
   },
   {
     question: "Kan jeg se ledige datoer og booke på nett?",
     answer:
-      "Ja. Du søker på sted og dato, ser hva som faktisk er ledig i sanntid, og booker direkte. Ingen uforpliktende forespørsel og ingen venting på svar, du får bekreftelsen med en gang.",
+      "Ja. Du ser ledig tid i sanntid og booker derfra. Ingen uforpliktende forespørsel. Bekreftelsen kommer med en gang.",
+  },
+  {
+    question: "Hva koster det å leie et lokale?",
+    answer:
+      "Prisen står på lokalet, for din dato, før du booker. Totalen inkluderer depositum og tillegg som utleier har satt. Du gjetter ikke.",
   },
   {
     question: "Hvordan betaler jeg?",
     answer:
-      "Du betaler trygt med Vipps eller kort i samme flyt som bookingen. Der lokalet krever depositum, håndteres det digitalt med automatisk frigjøring etter arrangementet. Ingen bankoverføring til en fremmed.",
-  },
-  {
-    question: "Hva slags lokaler finner jeg?",
-    answer:
-      "Selskapslokaler, møterom, idrettshaller og gymsaler, kulturhus, samfunnshus og grendehus, både kommunale og private. Digilist samler lokalene der du bor på ett sted, så du slipper å lete gjennom kommunens sider, Finn-annonser og Facebook-grupper hver for seg.",
-  },
-  {
-    question: "Er det gratis å bruke Digilist?",
-    answer:
-      "Ja, det er gratis å søke, sammenligne og booke som privatperson. Du betaler kun leieprisen til utleier. Depositum og eventuelle tilleggstjenester vises tydelig før du bekrefter.",
+      "Med Vipps eller kort i samme flyt som bookingen. Kvitteringen kommer med en gang. Ingen bankoverføring til en fremmed. Der lokalet krever depositum, håndteres det digitalt med automatisk frigjøring etter arrangementet.",
   },
   {
     question: "Kan jeg avbestille?",
     answer:
       "Avbestillingsvilkårene settes av utleier og vises tydelig på hvert lokale før du booker. Der det er tillatt, kan du avbestille digitalt, og et eventuelt depositum frigjøres automatisk etter reglene som gjelder for lokalet.",
-  },
-  {
-    question: "Hva er lokaler til leie?",
-    answer:
-      "Rom du leier for en kveld, en time eller en helg: selskapslokale, møterom, idrettshall, kulturhus eller grendehus. På Digilist ser du pris og ledig dato før du booker, både hos private utleiere og kommuner.",
   },
 ];
 
