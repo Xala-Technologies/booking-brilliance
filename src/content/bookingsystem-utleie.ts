@@ -113,64 +113,34 @@ export interface OperatorCopy {
 
 const FAQ_NB: readonly QA[] = [
   {
-    question: "Hva er et bookingsystem for utleie av lokaler?",
+    question: "Hva er et bookingsystem for utleie?",
     answer:
-      "Et system der utleier legger ut ledige tider på et lokale (festlokale, møterom, gård, hall), og leietaker ser sanntid, booker og betaler. Kalender, pris, tillegg og bekreftelse ligger ett sted. Digilist er et system for utleie av lokaler, ikke et lagersystem for utstyr.",
-  },
-  {
-    question: "Hvordan leier jeg ut lokaler med sanntidskalender?",
-    answer:
-      "Du legger utleieobjektet inn med ledige tider, pris og eventuelle tilleggstjenester. Leietakere ser umiddelbart hva som er ledig, opptatt og blokkert, og booker den datoen de trenger. Kalenderen oppdateres uten refresh, og dobbeltbooking hindres automatisk fordi alle ser samme sanntidsstatus.",
-  },
-  {
-    question: "Kan jeg ta betalt på nett for utleien?",
-    answer:
-      "Ja. Leietaker kan betale direkte ved booking med Vipps eller kort. Du kan sette differensiert pris etter ukedag, sesong og kapasitet, og legge til tilleggstjenester som rengjøring, utstyr eller bemanning som egne linjer i prisen.",
+      "Én kalender for lokalet. Leietaker ser ledig tid, booker og betaler. Dere ser det samme. Digilist er for lokaler, ikke for utstyr.",
   },
   {
     question: "Hva koster et bookingsystem for utleie?",
     answer:
-      "Prisen avhenger av antall utleieobjekter, bookingvolum og integrasjoner. Digilist tilbyr en gratis demo og et pristilbud tilpasset behovet ditt. For leietakere er det gratis å søke, sammenligne og booke. De betaler kun leieprisen til utleier.",
+      "Prisen avhenger av anlegg, brukermengde og integrasjoner. Digilist er et abonnement, ikke en provisjon. Se [hva Digilist koster](/priser).",
   },
   {
     question: "Passer dette for private utleiere, eller bare kommuner?",
     answer:
-      "Denne siden er for private utleiere av lokaler. Kommuner bruker bookingsystem for kommuner (https://digilist.no/bookingsystem-kommune). Samme produktfamilie, ulik landing.",
+      "Denne siden er for den som leier ut lokaler. Kommuner som leier ut, bruker [bookingsystem for kommuner](/bookingsystem-kommune).",
   },
   {
-    question: "Hvordan får utleieobjektet mitt mer synlighet?",
+    question: "Er dette et bookingsystem for utstyr, eller for lokaler?",
     answer:
-      "Utleieobjektet ditt blir søkbart på lokaltype, geografi og fasiliteter, slik at leietakere som leter etter akkurat den typen lokale finner deg. Sanntidskalender og direkte booking senker terskelen for at en interessert leietaker faktisk fullfører bookingen.",
+      "For lokaler. Tilhenger, verktøy og minilager er en annen jobb.",
   },
   {
-    question: "Er dette et bookingsystem for utstyr og lager, eller for lokaler?",
+    question: "Kan jeg ta betalt på nett for utleien?",
     answer:
-      "For lokaler. Tilhenger, verktøy og minilager er en annen jobb. Digilist håndterer festlokale, møterom, gård og hall, med en kalender leietakeren kan booke.",
-  },
-  {
-    question: "Hva er forskjellen på et bookingsystem og et utleiesystem?",
-    answer:
-      "Booking er kalenderen og kassen. Et utleiesystem kjører også pris, tillegg, bekreftelse og oversikt. Digilist gjør begge deler for lokaler.",
-  },
-  {
-    question: "Hva er sammenhengende bookingressurser?",
-    answer:
-      "Sammenhengende bookingressurser er lokaler som låser hverandre. Booker noen hele etasjen, går begge salene opptatt. Booker noen én sal, kan ikke etasjen bookes.",
-  },
-  {
-    question: "Kan vi sette buffer før og etter en booking?",
-    answer:
-      "Ja. Bufferen ligger i bookingen, ikke i hodet på den som sist redigerte Excel. Dere setter den per type, for eksempel kortere før en øving og lenger etter et selskap.",
-  },
-  {
-    question: "Må bookinger godkjennes før de er bindende?",
-    answer:
-      "Ja, hvis dere vil. Forespørselen lander hos dere. Dere sjekker husregler og fakturaadresse, så bekrefter dere. Før det er tiden ikke tatt.",
+      "Ja. Leietaker kan betale med Vipps eller kort når hen booker. Totalen vises før bekreftelsen.",
   },
   {
     question: "Kan leietaker se ledig tid på vår nettside?",
     answer:
-      "Ja. Kalenderen kan ligge på deres egen nettside. Leietaker ser samme ledig og opptatt som dere, og sender derfra.",
+      "Ja. Kalenderen kan ligge på nettsiden dere allerede har. Se [innebygd booking](/innebygd-booking).",
   },
 ];
 
@@ -350,18 +320,19 @@ const FAQ_EN: readonly QA[] = [
 ];
 
 const NB: OperatorCopy = {
-  metaTitle: "Bookingsystem for utleie av lokaler, ikke utstyr | Digilist",
+  metaTitle: "Bookingsystem utleie | Digilist",
   metaDescription:
     "Bookingsystem for utleie av lokaler. Festlokale, møterom, gård og hall, ikke tilhenger, verktøy eller minilager. Sanntidskalender, Vipps og kort, differensiert pris.",
   keywords:
     "bookingsystem utleie, bookingsystem for utleie av lokaler, system for utleie av lokaler, utleie av lokaler, bookingsystem lokaler",
   rule: "BOOKINGSYSTEM UTLEIE · 2026",
   openingScene: "Innboksen er full. Tre vil ha samme lørdag. Kalenderen sitter i hodet.",
-  h1: "Bookingsystem for",
-  h1em: "utleie av lokaler, ikke utstyr",
-  ledeA: "Et bookingsystem for utleie av lokaler skal vise ledig tid, ta imot booking og betaling, og hindre dobbeltbooking. ",
-  ledeStrong: "Ikke mer e-post frem og tilbake",
-  ledeB: ".",
+  h1: "Bookingsystem utleie:",
+  h1em: "én kalender, ikke tre e-poster",
+  ledeA:
+    "Bookingsystem utleie er én kalender for lokalet. Ledig tid, booking og betaling. Tre e-poster er tre sannheter. Én kalender er én. ",
+  ledeStrong: "",
+  ledeB: "Ikke tilhenger. Ikke verktøy. Ikke lager. Festlokale, møterom, gård og hall.",
   ctaQuote: "Be om pristilbud",
   ctaOpen: "Åpne plattformen",
   forOperators: "For utleiere",
@@ -431,7 +402,7 @@ const NB: OperatorCopy = {
     { label: "ISO 27001/27701", value: "Sertifisert" },
   ],
   faqRule: "VIII. SPØRSMÅL OG SVAR",
-  faqH2: "Vanlige spørsmål om bookingsystem for utleie",
+  faqH2: "Vanlige spørsmål om bookingsystem utleie",
   seeAlso: "Se også",
   municipalLink: "bookingsystem for kommuner",
   orBackTo: "eller tilbake til",

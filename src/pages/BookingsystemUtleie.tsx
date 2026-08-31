@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import type { ReactNode } from "react";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
@@ -19,6 +20,31 @@ import { operatorCopy } from "@/content/bookingsystem-utleie";
 import { LinkOrText } from "@/components/LinkOrText";
 import { PricingSummaryBlock } from "@/components/PricingSummaryBlock";
 
+/** Strip [label](url) to label for FAQPage JSON-LD. */
+function faqAnswerPlain(answer: string): string {
+  return answer.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
+}
+
+/** Render inline [label](path) links in FAQ answers. */
+function renderFaqAnswer(answer: string, en: boolean): ReactNode {
+  const parts = answer.split(/(\[[^\]]+\]\([^)]+\))/g);
+  return parts.map((part, i) => {
+    const match = /^\[([^\]]+)\]\(([^)]+)\)$/.exec(part);
+    if (!match) return part;
+    const [, label, path] = match;
+    const to = en && !path.startsWith("/en") ? `/en${path}` : path;
+    return (
+      <Link
+        key={i}
+        to={to}
+        className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
+      >
+        {label}
+      </Link>
+    );
+  });
+}
+
 const BookingsystemUtleie = () => {
   const locale = localeFromPath(useLocation().pathname);
   const en = locale === "en";
@@ -36,7 +62,10 @@ const BookingsystemUtleie = () => {
         keywords={c.keywords}
         canonical={en ? "https://digilist.no/en/bookingsystem-utleie" : "https://digilist.no/bookingsystem-utleie"}
         ogImage="https://digilist.no/og-image.png"
-        faq={c.faq}
+        faq={c.faq.map((q) => ({
+          question: q.question,
+          answer: faqAnswerPlain(q.answer),
+        }))}
         breadcrumbs={[
           { name: "Hjem", url: "https://digilist.no/" },
           { name: "Bookingsystem utleie", url: "https://digilist.no/bookingsystem-utleie" },
@@ -66,7 +95,9 @@ const BookingsystemUtleie = () => {
                 </EditorialHeading>
                 <p className="text-xl text-ink-soft measure leading-relaxed mb-10">
                   {c.ledeA}
-                  <strong className="text-ink">{c.ledeStrong}</strong>
+                  {c.ledeStrong ? (
+                    <strong className="text-ink">{c.ledeStrong}</strong>
+                  ) : null}
                   {c.ledeB}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
@@ -450,7 +481,7 @@ const BookingsystemUtleie = () => {
                     {q.question}
                   </dt>
                   <dd className="text-base text-ink-soft leading-relaxed measure">
-                    {q.answer}
+                    {renderFaqAnswer(q.answer, en)}
                   </dd>
                 </div>
               ))}
