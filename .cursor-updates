@@ -1,6 +1,13 @@
 # Cursor Updates
 
-## 2026-08-28: Blog Cover Replacement - Kommune Comparison Post
+## 2026-08-31: Sync /leie prerender FAQPage JSON-LD with leie.ts
+
+- Prerender now loads the six /leie FAQ entries from src/content/leie.ts at build time via scripts/leie-faq-loader.mjs
+- Removed stale nine-item FAQ mirror from scripts/prerender.mjs (old price answer still mentioned kroner)
+- Added src/content/leie-faq-sync.test.ts to pin prerender FAQ against rentCopy("nb").faq
+- Verified dist/leie/index.html emits six FAQPage questions with no kroner in the price answer
+- Visible /leie page copy unchanged
+
 
 Replaced navy 1600×1600 cover with cream 1200×675 BESTE FOR KOMMUNEN cover for the municipal booking system comparison post.
 
