@@ -1,7 +1,7 @@
 ---
 slug: hva-er-bookingsystem-kommunale-lokaler
 title: "Hva er et bookingsystem for kommunale lokaler"
-description: "Et bookingsystem for kommunale lokaler: innbygger, lag og saksbehandler ser ledig tid, pris og booker hall, møterom eller kulturhus med Vipps."
+description: "Hva er et bookingsystem for kommunale lokaler: innbyggeren ser ledig tid og pris, saksbehandleren godkjenner med logg. Hall, møterom og kulturhus. Demo og pristilbud etter anlegg."
 date: 2026-07-19
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
@@ -13,7 +13,7 @@ keywords: ["bookingsystem kommunale lokaler", "bookingsystem kommune", "kommunal
 
 IT-leder, innkjøp og kulturkontoret stiller det samme spørsmålet: hva er det egentlig, og hva må leverandøren tåle.
 
-Et bookingsystem for kommunale lokaler er der innbygger, lag og saksbehandler ser ledig tid, synlig pris og booker hall, møterom eller kulturhus med Vipps, uten å ringe kommunen.
+Et bookingsystem for kommunale lokaler er der innbygger, lag og saksbehandler ser ledig tid og pris og booker hall, møterom eller kulturhus, uten å ringe kommunen. Saksbehandleren godkjenner med logg.
 
 ## Hva er et bookingsystem for kommunale lokaler
 
