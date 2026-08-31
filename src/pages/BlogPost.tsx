@@ -134,6 +134,9 @@ const BlogPost = () => {
   while (bodyParas.length > 1 && isCta(bodyParas[bodyParas.length - 1]))
     bodyParas.pop();
   const body = bodyParas.join("\n\n");
+  const pageTitle =
+    post.seoTitle ??
+    (post.title.length > 50 ? post.title : `${post.title} · Digilist`);
 
   return (
     <div className="min-h-screen bg-background overflow-x-clip">
@@ -148,7 +151,7 @@ const BlogPost = () => {
             translationOf: p.translationOf,
           })),
         )}
-        title={post.title.length > 50 ? post.title : `${post.title} · Digilist`}
+        title={pageTitle}
         description={post.description}
         canonical={url}
         ogType="article"
@@ -214,15 +217,19 @@ const BlogPost = () => {
               {/* Main article column */}
               <div className="min-w-0">
                 <header className="mb-10 lg:mb-12">
-                  <EditorialHeading as="h1" size="display" className="mb-6">
-                    {post.title}
-                  </EditorialHeading>
-                  <p
-                    className="text-xl text-ink-soft italic measure leading-relaxed mb-8"
-                    style={{ fontVariationSettings: getFraunces("sub") }}
-                  >
-                    {post.description}
-                  </p>
+                  {!post.h1InBody && (
+                    <>
+                      <EditorialHeading as="h1" size="display" className="mb-6">
+                        {post.title}
+                      </EditorialHeading>
+                      <p
+                        className="text-xl text-ink-soft italic measure leading-relaxed mb-8"
+                        style={{ fontVariationSettings: getFraunces("sub") }}
+                      >
+                        {post.description}
+                      </p>
+                    </>
+                  )}
                   <Byline
                     author={post.author}
                     role={post.role}

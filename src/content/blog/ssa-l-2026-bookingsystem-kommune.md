@@ -1,6 +1,7 @@
 ---
 slug: ssa-l-2026-bookingsystem-kommune
-title: "SSA-L 2026: kravene til kommunalt bookingsystem"
+title: "Hva er SSA-L? Avtale om løpende tjenestekjøp"
+seoTitle: "Hva er SSA-L? Avtale om løpende tjenestekjøp – Digilist"
 description: "SSA-L er Avtale om løpende tjenestekjøp, oppdatert i 2026. Se kravene et kommunalt bookingsystem må møte, og hvordan kommunen sjekker samsvar."
 date: 2026-05-14
 updated: 2026-08-24
@@ -10,11 +11,36 @@ readingMinutes: 9
 tag: "Anskaffelse"
 cover: "/images/blog/ssal_2026_booking_hero.webp"
 keywords: ["SSA-L", "Avtale om løpende tjenestekjøp", "kommunalt bookingsystem", "SSA-L 2026", "sikkerhetsbilag"]
+h1InBody: true
 ---
 
 IT-lederen åpner Anskaffelser.no. Så docs. Så denne siden.
 
 SSA-L er Avtale om løpende tjenestekjøp. For et kommunalt bookingsystem er det malen.
+
+# Hva er SSA-L? Avtale om løpende tjenestekjøp
+
+SSA-L er Avtale om løpende tjenestekjøp, og det er malen for et kommunalt bookingsystem.
+
+## Vanlige spørsmål om SSA-L
+
+**Hva er SSA-L?**
+SSA-L er Avtale om løpende tjenestekjøp, og det er malen for et kommunalt bookingsystem. DFØ oppdaterte malen i 2026. Den gjelder standardiserte tjenester levert over internett, typisk et SaaS-abonnement der leverandøren har driftsansvaret.
+
+**Hva er Avtale om løpende tjenestekjøp?**
+Det er det SSA-L heter. Se [SSA-L hos Anskaffelser.no](https://www.anskaffelser.no/verktoy/mal/ssa-l-avtale-om-lopende-tjenestekjop). For et kommunalt bookingsystem er det malen.
+
+**Hvilken avtale gjelder for et kommunalt bookingsystem?**
+SSA-L. Et bookingsystem som leveres og driftes som abonnement, hører hjemme under Avtale om løpende tjenestekjøp. Ikke SSA-D. Ikke SSA-K.
+
+**Er SSA-L pliktig ved anskaffelse av bookingsystem?**
+Nei. Den er ikke lovpålagt. Den er den anbefalte malen for kommunale SaaS-kjøp, og mange kommuner legger den i konkurransegrunnlaget.
+
+**Hva er forskjellen på SSA-L, SSA-D og SSA-K?**
+SSA-L er løpende tjenestekjøp. SSA-D er utvikling og tilpasning. SSA-K er en enklere kjøpsavtale for korte leveranser. Et kommunalt bookingsystem som abonnement er SSA-L.
+
+**Hva er nytt i SSA-L 2026?**
+Avtalen ble oppdatert i 2026 og er ment for standardiserte tjenester levert over internett, inkludert sky og ASP. Se [SSA-L hos Anskaffelser.no](https://www.anskaffelser.no/verktoy/mal/ssa-l-avtale-om-lopende-tjenestekjop).
 
 ## Hva er SSA-L?
 
@@ -85,23 +111,6 @@ Et utfylt bilag er ikke det samme som verifisert samsvar. Fire trinn skiller en 
 4. **Se selvdeklarasjonen mot en uavhengig kilde**: mange leverandører publiserer et offentlig samsvars- eller transparensdashbord som oppdateres løpende – sammenlign tallene der mot det som står i tilbudet.
 
 Digilists eget [transparensdashbord](/transparens) viser sikkerhets- og kvalitetsstatus løpende, slik at en kommune kan verifisere kravene før signering, ikke bare stole på ordene i tilbudet.
-
-## Vanlige spørsmål om SSA-L
-
-**Hva er SSA-L?**
-SSA-L er Avtale om løpende tjenestekjøp. DFØ oppdaterte malen i 2026. Den gjelder standardiserte tjenester levert over internett, typisk et SaaS-abonnement der leverandøren har driftsansvaret. Et kommunalt bookingsystem hører hjemme her.
-
-**Er SSA-L pliktig ved anskaffelse av bookingsystem?**
-SSA-L er ikke lovpålagt, men den anbefalte og mest brukte kontraktsmalen for kommunale SaaS-kjøp. De fleste kommuner legger den til grunn i konkurransegrunnlaget, og en leverandør som ikke kan levere på bilagene om sikkerhet og tjenestenivå, faller normalt fra i evalueringen.
-
-**Hva er forskjellen på SSA-L, SSA-D og SSA-K?**
-SSA-L gjelder løpende tjenestekjøp (typisk SaaS med driftsansvar hos leverandøren), SSA-D gjelder utvikling og tilpasning av en løsning, og SSA-K er en enklere kjøpsavtale for korte, avgrensede leveranser. Et bookingsystem som leveres og driftes som abonnement, hører hjemme under SSA-L.
-
-**Hvordan verifiserer kommunen SSA-L-samsvar hos leverandøren?**
-Be om et utfylt sikkerhetsbilag (ikke bare en generell henvisning), et gyldig ISO 27001-sertifikat, siste pen-test-rapport og en kort demo av kravene i praksis: sanntidsoppdatering, ID-porten-innlogging og EHF-faktura. Selvdeklarasjon alene er ikke nok – krev dokumentasjon du kan verifisere.
-
-**Hva er nytt i SSA-L 2026?**
-Anskaffelser.no skriver at avtalen ble oppdatert i 2026 og er ment for standardiserte tjenester levert over internett, inkludert sky og ASP. Se [SSA-L hos Anskaffelser.no](https://www.anskaffelser.no/verktoy/mal/ssa-l-avtale-om-lopende-tjenestekjop).
 
 ## Hva kommunen bør gjøre nå
 
