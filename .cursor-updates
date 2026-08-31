@@ -1,5 +1,12 @@
 # Cursor Updates
 
+## 2026-08-31: CTR snippet enrich for /blogg/hva-er-bookingsystem-kommunale-lokaler
+
+- Locked meta, og/twitter description and H1 lede to approved snippet sentence
+- Replaced Vipps definition paragraph with innbygger/lag/saksbehandler copy and logg
+- Scene paragraph, cover, FAQ, price block and rest of body unchanged
+- Title and H1 unchanged
+
 ## 2026-08-31: On-page CTR enrich for /bookingsystem-kommune (Norwegian only)
 
 - New meta description naming demo and pristilbud, ISO removed from meta
