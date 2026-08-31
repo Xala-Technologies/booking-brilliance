@@ -260,6 +260,20 @@
       font-size: 1.25rem;
     }
   }
+  .post-body h1 {
+    font-family: "Newsreader", "Iowan Old Style", Georgia, serif;
+    font-size: 2.25rem;
+    font-variation-settings: "opsz" 96, "wght" 400, "SOFT" 30, "WONK" 0;
+    color: hsl(var(--ink));
+    margin: 2rem 0 1rem;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+  }
+  @media (min-width: 1024px) {
+    .post-body h1 {
+      font-size: 3rem;
+    }
+  }
   .post-body h2 {
     font-family: "Newsreader", "Iowan Old Style", Georgia, serif;
     font-size: 2rem;

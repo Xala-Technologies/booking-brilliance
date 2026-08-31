@@ -200,6 +200,7 @@ async function loadBlogPosts() {
     posts.push({
       slug: fm.slug || f.replace(/\.md$/, ""),
       title: fm.title,
+      seoTitle: fm.seoTitle,
       description: fm.description,
       date: fm.date,
       updated: fm.updated,
@@ -3218,7 +3219,8 @@ async function main() {
       : null;
     // Only append " — Digilist" if it still fits inside ~65 chars total.
     const postTitle =
-      post.title.length > 50 ? post.title : `${post.title} – Digilist`;
+      post.seoTitle ??
+      (post.title.length > 50 ? post.title : `${post.title} – Digilist`);
     let html = patchHTML(template, {
       route: postRoute,
       title: postTitle,

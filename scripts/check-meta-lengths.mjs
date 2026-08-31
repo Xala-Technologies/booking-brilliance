@@ -344,7 +344,8 @@ async function scanBlog() {
       continue;
     }
     const where = `src/content/blog/${file}`;
-    if (fm.title) check("blog", "title", where, renderedBlogTitle(fm.title));
+    if (fm.seoTitle) check("blog", "title", where, fm.seoTitle);
+    else if (fm.title) check("blog", "title", where, renderedBlogTitle(fm.title));
     if (fm.description) check("blog", "description", where, fm.description);
   }
 }

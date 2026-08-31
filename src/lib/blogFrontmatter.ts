@@ -5,7 +5,11 @@
 export interface BlogFrontmatter {
   slug: string;
   title: string;
+  /** SERP / og:title when it must differ from the visible H1 (≤60 chars). */
+  seoTitle?: string;
   description: string;
+  /** When true, the article H1 lives in the markdown body (below the lead), not in the header. */
+  h1InBody?: boolean;
   date: string;
   /** Last-substantially-updated date (ISO), for the Article schema's dateModified. */
   updated?: string;
@@ -68,6 +72,10 @@ export function parseFrontmatter(raw: string): { data: Record<string, unknown>; 
       data[key] = parseFloat(value);
       continue;
     }
+    if (value === "true" || value === "false") {
+      data[key] = value === "true";
+      continue;
+    }
     data[key] = value;
   }
   return { data, content: match[2] };
@@ -85,7 +93,9 @@ export function extractFrontmatter(path: string, raw: string): BlogFrontmatter {
   return {
     slug,
     title: (data.title as string) || "",
+    seoTitle: (data.seoTitle as string | undefined) || undefined,
     description: (data.description as string) || "",
+    h1InBody: data.h1InBody === true ? true : undefined,
     date: data.date ? new Date(data.date as string).toISOString().slice(0, 10) : "",
     updated: data.updated
       ? new Date(data.updated as string).toISOString().slice(0, 10)

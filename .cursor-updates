@@ -1,5 +1,12 @@
 # Cursor Updates
 
+## 2026-08-31: SSA-L blog post on-page enrich (ssa-l-2026-bookingsystem-kommune)
+
+- Set seoTitle, H1, kicker and six FAQ items to approved SSA-L copy
+- Moved FAQ block above body H2 Hva er SSA-L, synced POST_FAQ JSON-LD
+- Added seoTitle and h1InBody frontmatter support in BlogPost and prerender
+- Scene, cover, price block and body from H2 onward unchanged except FAQ relocation
+
 ## 2026-08-31: Sync /leie prerender FAQPage JSON-LD with leie.ts
 
 - Prerender now loads the six /leie FAQ entries from src/content/leie.ts at build time via scripts/leie-faq-loader.mjs
