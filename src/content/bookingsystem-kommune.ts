@@ -40,6 +40,9 @@ export interface MunicipalCopy {
   h1em: string;
   ledeA: string;
   ledeStrong: string;
+  /** Norwegian-only pointer toward demo/pris — empty in EN. */
+  demoH2: string;
+  demoBody: string;
   ctaQuote: string;
   ctaOpen: string;
   activeHeading: string;
@@ -70,14 +73,9 @@ export interface MunicipalCopy {
 
 const FAQ_NB: readonly QA[] = [
   {
-    question: "Hva er et bookingsystem kommune?",
+    question: "Kan innbyggeren se ledig tid og booke selv?",
     answer:
-      "Et bookingsystem kommune er der innbygger, lag og saksbehandler ser ledig tid og booker kommunale lokaler. Sesongleie, ID-porten og EHF ligger i samme løsning.",
-  },
-  {
-    question: "Oppfyller Digilist SSA-L 2026-kravene?",
-    answer:
-      "Ja. Digilist er bygget mot SSA-L 2026, med sesongleie, ID-porten, EHF og logg. Kjernekravene ligger i plattformen, ikke som tillegg.",
+      "Ja. Innbyggeren ser ledig, opptatt og blokkert tid i samme kalender som saksbehandleren. Bookingen går inn med kontroll og logg.",
   },
   {
     question: "Hvordan håndteres sesongleie for lag og foreninger?",
@@ -85,19 +83,24 @@ const FAQ_NB: readonly QA[] = [
       "Lag og foreninger søker i en egen portal. Saksbehandleren får et forslag, justerer og godkjenner. Fordeling og kapasitet rapporteres.",
   },
   {
-    question: "Kan kommunen importere bookinger fra eksisterende system?",
+    question: "Kan kommunen ta med bookinger fra systemet dere har i dag?",
     answer:
       "Ja. Historiske bookinger, sesongleieavtaler og foreningsregistre kan tas med i etableringen, også fra RCO booking.",
   },
   {
+    question: "Hvilken avtale gjelder for et kommunalt bookingsystem?",
+    answer:
+      "SSA-L, Avtale om løpende tjenestekjøp. Se [Hva er SSA-L?](/blogg/ssa-l-2026-bookingsystem-kommune). Kjernekravene ligger i plattformen, ikke som tillegg.",
+  },
+  {
     question: "Hvor lagres dataene?",
     answer:
-      "I Norge og EU. Plattformen er ISO 27001 og ISO 27701-sertifisert og følger GDPR.",
+      "I Norge og EU. Personopplysninger følger GDPR. Universell utforming ligger i løsningen.",
   },
   {
     question: "Hva koster Digilist for en kommune?",
     answer:
-      "Prisen avhenger av antall anlegg, brukermengde og integrasjoner. Dere får en gratis demo og et pristilbud.",
+      "Prisen avhenger av antall anlegg, brukermengde og integrasjoner. Digilist er et abonnement, ikke en provisjon. Se [hva Digilist koster](/priser). Dere får demo og pristilbud.",
   },
 ];
 
@@ -137,7 +140,6 @@ const CHECKLIST_NB: readonly string[] = [
   "EHF-fakturagrunnlag",
   "Min side for innbyggere",
   "Universell utforming (WCAG 2.0 AA)",
-  "ISO 27001 og 27701-sertifisering",
   "Data lagret i Norge og EU (GDPR)",
   "Rapportering på kapasitet og økonomi",
   "Audit-logg på alle endringer",
@@ -221,12 +223,16 @@ const FAQ_EN: readonly QA[] = [
 const NB: MunicipalCopy = {
   metaTitle: "Bookingsystem kommune | Digilist",
   metaDescription:
-    "Digital bookingplattform for norske kommuner. Sanntidskalender, sesongleie, ID-porten, EHF, ISO 27001. Bygget for SSA-L 2026-krav.",
+    "Bookingsystem kommune: innbyggeren ser ledig tid, saksbehandleren godkjenner med logg. Sesongleie, ID-porten og EHF. Demo og pristilbud etter anlegg.",
   rule: "KOMMUNAL BOOKING · 2026",
   h1: "Bookingsystem",
   h1em: "kommune",
-  ledeA: "Et bookingsystem kommune tar sesongleie, ID-porten og EHF i samme kalender. Innbyggeren ser ledig tid. Saksbehandleren godkjenner med kontroll og logg. Se det i en demo",
+  ledeA:
+    "Kulturkonsulenten har tre sannheter om lørdag. Hallkalenderen, e-posten fra laget, og innbyggeren som ringer. Et kommunalt bookingsystem er én kalender: sesongleie, ID-porten og EHF. Innbyggeren ser ledig tid. Saksbehandleren godkjenner med kontroll og logg.",
   ledeStrong: "",
+  demoH2: "Demo og pristilbud etter anlegg",
+  demoBody:
+    "Dere ser kalender, sesongleie og godkjenning med logg. Prisen følger anlegg, brukermengde og integrasjoner. Ingen provisjon. [Be om demo](/book-demo). Se [hva Digilist koster](/priser).",
   ctaQuote: "Be om pristilbud",
   ctaOpen: "Åpne plattformen",
   activeHeading: "Aktive kommuner",
@@ -262,7 +268,6 @@ const NB: MunicipalCopy = {
     { label: "Telefon", value: "+47 96 66 50 01" },
     { label: "E-post", value: "kontakt@digilist.no" },
     { label: "SSA-L 2026", value: "Tilpasset" },
-    { label: "ISO 27001/27701", value: "Sertifisert" },
   ],
   checklist: CHECKLIST_NB,
   features: FEATURES_NB,
@@ -278,6 +283,8 @@ const EN: MunicipalCopy = {
   h1em: "Norwegian municipalities",
   ledeA: "A real-time calendar, seasonal allocation, sign-in with the national identity services, e-invoicing and automatic notification of operations staff — in one platform built for ",
   ledeStrong: "the SSA-L 2026 requirements",
+  demoH2: "",
+  demoBody: "",
   ctaQuote: "Request a quote",
   ctaOpen: "Open the platform",
   activeHeading: "Municipalities live",
