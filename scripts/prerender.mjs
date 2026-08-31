@@ -2257,7 +2257,7 @@ const ROUTES = [
   },
   {
     route: "/bookingsystem-utleie",
-    title: "Bookingsystem for utleie av lokaler, ikke utstyr | Digilist",
+    title: "Bookingsystem utleie | Digilist",
     description:
       "Bookingsystem for utleie av lokaler. Festlokale, møterom, gård og hall, ikke tilhenger, verktøy eller minilager. Sanntidskalender, Vipps og kort, differensiert pris.",
     ogType: "website",
@@ -2267,36 +2267,28 @@ const ROUTES = [
     ],
     faq: [
       {
-        q: "Hva er et bookingsystem for utleie av lokaler?",
-        a: "Et system der utleier legger ut ledige tider på et lokale (festlokale, møterom, gård, hall), og leietaker ser sanntid, booker og betaler. Kalender, pris, tillegg og bekreftelse ligger ett sted. Digilist er et system for utleie av lokaler, ikke et lagersystem for utstyr.",
-      },
-      {
-        q: "Hvordan leier jeg ut lokaler med sanntidskalender?",
-        a: "Du legger utleieobjektet inn med ledige tider, pris og eventuelle tilleggstjenester. Leietakere ser umiddelbart hva som er ledig, opptatt og blokkert, og booker den datoen de trenger. Kalenderen oppdateres uten refresh, og dobbeltbooking hindres automatisk fordi alle ser samme sanntidsstatus.",
-      },
-      {
-        q: "Kan jeg ta betalt på nett for utleien?",
-        a: "Ja. Leietaker kan betale direkte ved booking med Vipps eller kort. Du kan sette differensiert pris etter ukedag, sesong og kapasitet, og legge til tilleggstjenester som rengjøring, utstyr eller bemanning som egne linjer i prisen.",
+        q: "Hva er et bookingsystem for utleie?",
+        a: "Én kalender for lokalet. Leietaker ser ledig tid, booker og betaler. Dere ser det samme. Digilist er for lokaler, ikke for utstyr.",
       },
       {
         q: "Hva koster et bookingsystem for utleie?",
-        a: "Prisen avhenger av antall utleieobjekter, bookingvolum og integrasjoner. Digilist tilbyr en gratis demo og et pristilbud tilpasset behovet ditt. For leietakere er det gratis å søke, sammenligne og booke. De betaler kun leieprisen til utleier.",
+        a: "Prisen avhenger av anlegg, brukermengde og integrasjoner. Digilist er et abonnement, ikke en provisjon. Se hva Digilist koster.",
       },
       {
         q: "Passer dette for private utleiere, eller bare kommuner?",
-        a: "Denne siden er for private utleiere av lokaler. Kommuner bruker bookingsystem for kommuner (https://digilist.no/bookingsystem-kommune). Samme produktfamilie, ulik landing.",
+        a: "Denne siden er for den som leier ut lokaler. Kommuner som leier ut, bruker bookingsystem for kommuner.",
       },
       {
-        q: "Hvordan får utleieobjektet mitt mer synlighet?",
-        a: "Utleieobjektet ditt blir søkbart på lokaltype, geografi og fasiliteter, slik at leietakere som leter etter akkurat den typen lokale finner deg. Sanntidskalender og direkte booking senker terskelen for at en interessert leietaker faktisk fullfører bookingen.",
+        q: "Er dette et bookingsystem for utstyr, eller for lokaler?",
+        a: "For lokaler. Tilhenger, verktøy og minilager er en annen jobb.",
       },
       {
-        q: "Er dette et bookingsystem for utstyr og lager, eller for lokaler?",
-        a: "For lokaler. Tilhenger, verktøy og minilager er en annen jobb. Digilist håndterer festlokale, møterom, gård og hall, med en kalender leietakeren kan booke.",
+        q: "Kan jeg ta betalt på nett for utleien?",
+        a: "Ja. Leietaker kan betale med Vipps eller kort når hen booker. Totalen vises før bekreftelsen.",
       },
       {
-        q: "Hva er forskjellen på et bookingsystem og et utleiesystem?",
-        a: "Booking er kalenderen og kassen. Et utleiesystem kjører også pris, tillegg, bekreftelse og oversikt. Digilist gjør begge deler for lokaler.",
+        q: "Kan leietaker se ledig tid på vår nettside?",
+        a: "Ja. Kalenderen kan ligge på nettsiden dere allerede har. Se innebygd booking.",
       },
     ],
   },
