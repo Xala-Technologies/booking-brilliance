@@ -9,6 +9,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { POST_FAQ } from "../src/content/blogFaq.mjs";
 import { BRAND_KNOWS_ABOUT, entityLD } from "../src/content/entity.mjs";
+import { loadLeieFaqNb } from "./leie-faq-loader.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DIST = join(__dirname, "..", "dist");
@@ -547,44 +548,9 @@ const ROUTES = [
       { name: "Hjem", url: `${BASE_URL}/` },
       { name: "Leie", url: `${BASE_URL}/leie` },
     ],
-    faq: [
-      {
-        q: "Hvor kan jeg leie lokaler?",
-        a: "Du kan leie lokaler på nett gjennom en bookingplattform som Digilist, der du søker på sted og dato og ser hva som faktisk er ledig i sanntid. Digilist samler både private selskapslokaler og kommunale lokaler på ett sted, så du slipper å lete gjennom kommunens sider, Finn-annonser og Facebook-grupper hver for seg.",
-      },
-      {
-        q: "Kan jeg leie både private og kommunale lokaler?",
-        a: "Ja. Digilist samler private festlokaler, grendehus og lag- og foreningslokaler sammen med kommunale kulturhus, møterom og idrettshaller i samme kalender. Du sammenligner tilgjengelighet og pris på tvers av private og offentlige utleiere ett sted, i stedet for å kontakte hver enkelt.",
-      },
-      {
-        q: "Hva koster det å leie et lokale?",
-        a: "Prisen varierer mye med type lokale, sted og varighet. Et grendehus kan koste noen hundre til noen tusen kroner for en helg, mens et kulturhus eller selskapslokale ligger høyere. På Digilist ser du den faktiske totalprisen for din dato, inkludert eventuelt depositum og rengjøring, før du booker, så du slipper å gjette.",
-      },
-      {
-        q: "Kan jeg se ledige datoer og booke på nett?",
-        a: "Ja. Du søker på sted og dato, ser hva som faktisk er ledig i sanntid, og booker direkte. Ingen uforpliktende forespørsel og ingen venting på svar, du får bekreftelsen med en gang.",
-      },
-      {
-        q: "Hvordan betaler jeg?",
-        a: "Du betaler trygt med Vipps eller kort i samme flyt som bookingen. Der lokalet krever depositum, håndteres det digitalt med automatisk frigjøring etter arrangementet. Ingen bankoverføring til en fremmed.",
-      },
-      {
-        q: "Hva slags lokaler finner jeg?",
-        a: "Selskapslokaler, møterom, idrettshaller og gymsaler, kulturhus, samfunnshus og grendehus, både kommunale og private. Digilist samler lokalene der du bor på ett sted, så du slipper å lete gjennom kommunens sider, Finn-annonser og Facebook-grupper hver for seg.",
-      },
-      {
-        q: "Er det gratis å bruke Digilist?",
-        a: "Ja, det er gratis å søke, sammenligne og booke som privatperson. Du betaler kun leieprisen til utleier. Depositum og eventuelle tilleggstjenester vises tydelig før du bekrefter.",
-      },
-      {
-        q: "Kan jeg avbestille?",
-        a: "Avbestillingsvilkårene settes av utleier og vises tydelig på hvert lokale før du booker. Der det er tillatt, kan du avbestille digitalt, og et eventuelt depositum frigjøres automatisk etter reglene som gjelder for lokalet.",
-      },
-      {
-        q: "Hva er lokaler til leie?",
-        a: "Rom du leier for en kveld, en time eller en helg: selskapslokale, møterom, idrettshall, kulturhus eller grendehus. På Digilist ser du pris og ledig dato før du booker, både hos private utleiere og kommuner.",
-      },
-    ],
+    // FAQ loaded from src/content/leie.ts at build time — pinned by
+    // src/content/leie-faq-sync.test.ts, not by the honour system.
+    faq: [],
     howTo: {
       name: "Slik finner og booker du lokale",
       description: "Finn, book og betal med Vipps på tre steg.",
@@ -3115,6 +3081,10 @@ async function main() {
     if (!BRAND_KNOWS_ABOUT.includes(c)) BRAND_KNOWS_ABOUT.push(c);
   }
   DISCOVERED_KEYWORDS = discovered.terms;
+
+  const leieFaqNb = await loadLeieFaqNb();
+  const leieRoute = ROUTES.find((route) => route.route === "/leie");
+  if (leieRoute) leieRoute.faq = leieFaqNb;
 
   const indexPath = join(DIST, "index.html");
   const template = await fs.readFile(indexPath, "utf-8");
