@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import type { ReactNode } from "react";
 import { CheckCircle2 } from "lucide-react";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
@@ -19,6 +20,31 @@ import { localeFromPath } from "@/lib/i18n";
 import { municipalCopy } from "@/content/bookingsystem-kommune";
 import { PricingSummaryBlock } from "@/components/PricingSummaryBlock";
 
+/** Strip [label](url) to label for FAQPage JSON-LD. */
+function faqAnswerPlain(answer: string): string {
+  return answer.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
+}
+
+/** Render inline [label](path) links in FAQ and demo copy. */
+function renderInlineLinks(text: string, en: boolean): ReactNode {
+  const parts = text.split(/(\[[^\]]+\]\([^)]+\))/g);
+  return parts.map((part, i) => {
+    const match = /^\[([^\]]+)\]\(([^)]+)\)$/.exec(part);
+    if (!match) return part;
+    const [, label, path] = match;
+    const to = en && !path.startsWith("/en") ? `/en${path}` : path;
+    return (
+      <Link
+        key={i}
+        to={to}
+        className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
+      >
+        {label}
+      </Link>
+    );
+  });
+}
+
 const BookingsystemKommune = () => {
   const locale = localeFromPath(useLocation().pathname);
   const en = locale === "en";
@@ -34,7 +60,10 @@ const BookingsystemKommune = () => {
         description={c.metaDescription}
         canonical={en ? "https://digilist.no/en/bookingsystem-kommune" : "https://digilist.no/bookingsystem-kommune"}
         ogImage="https://digilist.no/og-image.png"
-        faq={c.faq}
+        faq={c.faq.map((q) => ({
+          question: q.question,
+          answer: faqAnswerPlain(q.answer),
+        }))}
         breadcrumbs={[
           { name: "Hjem", url: "https://digilist.no/" },
           { name: "Bookingsystem for kommuner", url: "https://digilist.no/bookingsystem-kommune" },
@@ -61,9 +90,12 @@ const BookingsystemKommune = () => {
                 </EditorialHeading>
                 <p className="text-xl text-ink-soft measure leading-relaxed mb-10">
                   {c.ledeA}
-                  <strong className="text-ink">{c.ledeStrong}</strong>.
+                  {c.ledeStrong ? (
+                    <strong className="text-ink">{c.ledeStrong}</strong>
+                  ) : null}
+                  .
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col sm:flex-row gap-4 mb-10">
                   <EditorialButton
                     variant="primary"
                     size="lg"
@@ -82,6 +114,16 @@ const BookingsystemKommune = () => {
                     {c.ctaOpen}
                   </EditorialButton>
                 </div>
+                {!en && c.demoH2 ? (
+                  <>
+                    <EditorialHeading as="h2" size="section" className="mb-4">
+                      {c.demoH2}
+                    </EditorialHeading>
+                    <p className="text-xl text-ink-soft measure leading-relaxed">
+                      {renderInlineLinks(c.demoBody, en)}
+                    </p>
+                  </>
+                ) : null}
               </div>
 
               <div className="lg:col-span-4">
@@ -273,7 +315,7 @@ const BookingsystemKommune = () => {
                     {q.question}
                   </dt>
                   <dd className="text-base text-ink-soft leading-relaxed measure">
-                    {q.answer}
+                    {renderInlineLinks(q.answer, en)}
                   </dd>
                 </div>
               ))}

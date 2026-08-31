@@ -1,5 +1,14 @@
 # Cursor Updates
 
+## 2026-08-31: On-page CTR enrich for /bookingsystem-kommune (Norwegian only)
+
+- New meta description naming demo and pristilbud, ISO removed from meta
+- Replaced hero lede with kulturkonsulent scene copy using kommunalt bookingsystem
+- Added H2 Demo og pristilbud etter anlegg after CTAs with links to demo and priser
+- Replaced FAQ with six new kommune questions, synced FAQPage JSON-LD in prerender
+- Dropped ISO 27001 checklist item and anskaffelsesinformasjon row on this route only
+- English /en/bookingsystem-kommune untouched
+
 ## 2026-08-31: SSA-L blog post on-page enrich (ssa-l-2026-bookingsystem-kommune)
 
 - Set seoTitle, H1, kicker and six FAQ items to approved SSA-L copy
