@@ -2,7 +2,7 @@
 slug: idrettshall-ledige-tider-booke-uten-lag-privatperson
 title: "Idrettshall ledige tider: book time uten lag som privatperson"
 description: "Se ledige restkapasitetstimer i idrettshallen i sanntid og book en enkelttime direkte som privatperson, uten klubbmedlemskap eller telefon til anlegget. Se pris og avbestillingsfrist før du bestiller."
-date: 2026-09-01
+date: 2026-09-02
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7
