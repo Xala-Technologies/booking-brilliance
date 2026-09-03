@@ -2,7 +2,7 @@
 slug: leie-sal-billigst-kommune-totalkostnad-sammenligning-arrangor
 title: "Leie sal billigst i kommunen: slik regner du ut totalkostnaden"
 description: "Digilist viser hvorfor kvadratmeterpris ikke er totalprisen, og hvordan du som arrangør sammenligner totalkostnaden for sal-leie på tvers av kommuner uten å ringe rundt."
-date: 2026-09-02
+date: 2026-09-03
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7
