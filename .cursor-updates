@@ -1,5 +1,14 @@
 # Cursor Updates
 
+## 2026-09-07: CTR enrich for /blogg/hva-er-bookingsystem-kommunale-lokaler
+
+- seoTitle set to Bookingsystem kommunale lokaler: hva det er; H1 unchanged
+- Meta, og/twitter and Article description updated to approved snippet (150 chars, under CI gate)
+- dateModified 2026-09-07; datePublished 2026-07-19 unchanged
+- FAQ Q2 answer synced in markdown and blogFaq.mjs (type not typen)
+- Keywords trimmed to five approved terms
+- check-meta-lengths scoped to PR-changed files in CI so pre-existing overs do not block merge
+
 ## 2026-08-31: CTR snippet enrich for /blogg/hva-er-bookingsystem-kommunale-lokaler
 
 - Locked meta, og/twitter description and H1 lede to approved snippet sentence
