@@ -303,7 +303,7 @@ export const POST_FAQ = {
     {
       question: "Hvilke lokaler kan bookes?",
       answer:
-        "Hall, møterom, kulturhus, idrettsanlegg og andre rom kommunen leier ut. På Digilist ser du typen, kapasitet og ledig tid før du booker.",
+        "Hall, møterom, kulturhus, idrettsanlegg og andre rom kommunen leier ut. På Digilist ser du type, kapasitet og ledig tid før du booker.",
     },
     {
       question: "Er dette det samme som et saksbehandlingssystem?",

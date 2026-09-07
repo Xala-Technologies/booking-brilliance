@@ -1,14 +1,16 @@
 ---
 slug: hva-er-bookingsystem-kommunale-lokaler
 title: "Hva er et bookingsystem for kommunale lokaler"
-description: "Hva er et bookingsystem for kommunale lokaler: innbyggeren ser ledig tid og pris, saksbehandleren godkjenner med logg. Hall, møterom og kulturhus. Demo og pristilbud etter anlegg."
+seoTitle: "Bookingsystem kommunale lokaler: hva det er"
+description: "Et bookingsystem for kommunale lokaler er der innbygger, lag og saksbehandler ser ledig tid og booker hall, møterom eller kulturhus. Pris og kalender synlig, uten å ringe kommunen."
 date: 2026-07-19
+updated: 2026-09-07
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 8
 tag: "IT-leder"
 cover: "/images/blog/sanntidskalender_hero_no.webp"
-keywords: ["bookingsystem kommunale lokaler", "bookingsystem kommune", "kommunale lokaler", "digital booking", "hall og møterom"]
+keywords: ["bookingsystem kommunale lokaler", "lokaler bookingsystem", "kommunale lokaler", "digital booking", "hall og møterom"]
 ---
 
 IT-leder, innkjøp og kulturkontoret stiller det samme spørsmålet: hva er det egentlig, og hva må leverandøren tåle.
@@ -121,7 +123,7 @@ En digital kalender der innbyggere, lag og foreninger booker kommunale rom og an
 
 ### Hvilke lokaler kan bookes?
 
-Hall, møterom, kulturhus, idrettsanlegg og andre rom kommunen leier ut. På Digilist ser du typen, kapasitet og ledig tid før du booker.
+Hall, møterom, kulturhus, idrettsanlegg og andre rom kommunen leier ut. På Digilist ser du type, kapasitet og ledig tid før du booker.
 
 ### Er dette det samme som et saksbehandlingssystem?
 
