@@ -3,19 +3,17 @@
 // at an unchanged ranking position, which is the site's largest measured gap
 // — so this is a real revenue check, not a style rule.
 //
-// Usage: node scripts/check-meta-lengths.mjs [--all]
-//   --all  print every string that was checked, not just the violations.
+// Usage: node scripts/check-meta-lengths.mjs [--all] [--full]
+//   --all   print every string that was checked, not just the violations.
+//   --full  check the whole repo (default locally). In pull_request CI the gate
+//           is scoped to files changed vs the base branch unless --full is set.
 // Exit code: 0 when every checked string is within the limits, 1 otherwise.
 //
 // This IS wired into CI: `pnpm check:meta-lengths` runs as its own step in
-// .github/workflows/pr-check.yml. (It replaces check-title-lengths.mjs, which
-// checked blog titles only and was deliberately left un-wired while a backlog
-// of pre-existing violations was tracked separately. That backlog — 538
-// violations at the 60/165 limits — was cleared in the same change that added
-// this script and wired it into pr-check.yml, so the gate is enforced from
-// here on. It is a gate, not a ratchet: there is no baseline file to grow.
-// here on: the blog is regenerated daily by the content agent, and without a
-// gate the backlog rebuilds itself every night.)
+// .github/workflows/pr-check.yml. On pull requests the gate only fails on
+// meta strings in files touched by the PR — pre-existing overs on untouched
+// pages do not block merge. Push-to-main and local `--full` runs still audit
+// the whole repo.
 //
 // Deliberately NOT in `pnpm build`: build is what deploy.sh runs on every push
 // to main, so a failing meta check there would block the production deploy of
@@ -31,6 +29,7 @@
 // card and section copy; the titles among them are covered by the vitest above.
 
 import { promises as fs } from "node:fs";
+import { execSync } from "node:child_process";
 import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -44,6 +43,12 @@ const TITLE_LIMIT = 60;
 const DESC_LIMIT = 165;
 
 const SHOW_ALL = process.argv.includes("--all");
+const FULL_SCAN =
+  process.argv.includes("--full") || process.env.META_LENGTHS_FULL === "1";
+const CHANGED_ONLY =
+  !FULL_SCAN &&
+  (process.argv.includes("--changed-only") ||
+    process.env.GITHUB_EVENT_NAME === "pull_request");
 
 /* ------------------------------------------------------------------ *
  * A very small JS/TS value reader.
@@ -278,6 +283,26 @@ async function walk(dir, exts, excludeDirs = new Set()) {
 
 const rel = (p) => relative(ROOT, p);
 
+/** Source path behind a violation's `where` label (file:line or file (route)). */
+function sourceFileFromWhere(where) {
+  if (where.includes(":")) return where.split(":")[0];
+  return where.split(/\s+/)[0];
+}
+
+/** Extra source files that should re-gate a violation group when touched. */
+const GROUP_CHANGED_ALIASES = {
+  "city pages": ["src/content/lokalerByer.ts"],
+};
+
+function violationTouchesChangedFile(row, changedFiles) {
+  const primary = sourceFileFromWhere(row.where);
+  if (changedFiles.has(primary)) return true;
+  for (const alias of GROUP_CHANGED_ALIASES[row.group] ?? []) {
+    if (changedFiles.has(alias)) return true;
+  }
+  return false;
+}
+
 /* ------------------------------------------------------------------ *
  * Findings
  * ------------------------------------------------------------------ */
@@ -292,6 +317,29 @@ function check(group, kind, where, text) {
 }
 
 const fatal = [];
+
+/** Paths changed on this branch vs the PR base (merge-base..HEAD). */
+function getChangedFiles() {
+  const baseRef = process.env.GITHUB_BASE_REF || process.env.META_LENGTHS_BASE || "main";
+  try {
+    const mergeBase = execSync(`git merge-base HEAD origin/${baseRef}`, {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "pipe"],
+    }).trim();
+    const raw = execSync(`git diff --name-only ${mergeBase} HEAD`, {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "pipe"],
+    }).trim();
+    return new Set(raw ? raw.split("\n") : []);
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    fatal.push(
+      `could not list changed files vs origin/${baseRef} (${msg}) — ` +
+        "fetch the base branch or pass --full for a repo-wide scan",
+    );
+    return null;
+  }
+}
 
 /* ------------------------------------------------------------------ *
  * 1. Blog posts — src/content/blog/*.md
@@ -600,16 +648,40 @@ await scanContent();
 await scanPages();
 await scanCityPages();
 
+const changedFiles = CHANGED_ONLY ? getChangedFiles() : null;
+const scopeActive = CHANGED_ONLY && changedFiles !== null;
+
 const GROUPS = ["blog", "prerender", "copy.ts", "src/content", "src/pages", "city pages"];
 const over = rows.filter((r) => r.length > r.limit);
+const blocking = CHANGED_ONLY
+  ? changedFiles === null
+    ? []
+    : over.filter((r) => violationTouchesChangedFile(r, changedFiles))
+  : over;
+const ignoredPreexisting = scopeActive ? over.length - blocking.length : 0;
+
+if (scopeActive) {
+  const listed = [...changedFiles].sort().join(", ") || "(none)";
+  console.log(
+    `\nPR scope: only meta violations in changed files fail the gate (${changedFiles.size} file(s): ${listed})`,
+  );
+}
 
 for (const group of GROUPS) {
   const groupRows = rows.filter((r) => r.group === group);
   if (groupRows.length === 0) continue;
   const groupOver = groupRows.filter((r) => r.length > r.limit);
-  const shown = (SHOW_ALL ? groupRows : groupOver).sort((a, b) => b.length - a.length);
+  const groupBlocking = scopeActive
+    ? groupOver.filter((r) => violationTouchesChangedFile(r, changedFiles))
+    : groupOver;
+  const shown = (SHOW_ALL ? groupRows : scopeActive ? groupBlocking : groupOver).sort(
+    (a, b) => b.length - a.length,
+  );
+  const scopeNote = scopeActive && groupOver.length > groupBlocking.length
+    ? `, ${groupBlocking.length} blocking (${groupOver.length - groupBlocking.length} pre-existing ignored)`
+    : "";
   console.log(
-    `\n${group}: ${groupRows.length} string(s) checked, ${groupOver.length} over limit`,
+    `\n${group}: ${groupRows.length} string(s) checked, ${groupOver.length} over limit${scopeNote}`,
   );
   for (const r of shown) {
     const flag = r.length > r.limit ? "OVER" : "ok  ";
@@ -623,13 +695,18 @@ if (fatal.length > 0) {
   for (const f of fatal) console.log(`  ${f}`);
 }
 
-const overTitles = over.filter((r) => r.kind === "title").length;
-const overDescs = over.length - overTitles;
+const overTitles = blocking.filter((r) => r.kind === "title").length;
+const overDescs = blocking.length - overTitles;
 console.log(
   `\n${rows.length} string(s) checked · title limit ${TITLE_LIMIT}, description limit ${DESC_LIMIT}` +
-    ` · ${overTitles} title(s) and ${overDescs} description(s) over limit.`,
+    (scopeActive
+      ? ` · ${blocking.length} blocking violation(s) in changed files` +
+        (ignoredPreexisting > 0
+          ? ` · ${ignoredPreexisting} pre-existing violation(s) on unchanged files ignored`
+          : "")
+      : ` · ${overTitles} title(s) and ${overDescs} description(s) over limit`),
 );
-if (over.length > 0) {
+if (blocking.length > 0) {
   console.log(
     "Rewrite the copy shorter — do not raise the limits. These strings are the search\n" +
       "snippet: keep the keyword, keep it readable, just say it in fewer words." +
@@ -640,4 +717,4 @@ if (over.length > 0) {
   );
 }
 
-process.exit(over.length > 0 || fatal.length > 0 ? 1 : 0);
+process.exit(blocking.length > 0 || fatal.length > 0 ? 1 : 0);
