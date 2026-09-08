@@ -39,7 +39,7 @@ Innbyggere kan utøve sine GDPR-rettigheter via Min side eller ved å kontakte k
 
 - **Innsyn** — eksport av all data tilknyttet innbygger som JSON + PDF
 - **Retting** — innbyggeren retter selv navn/kontaktinfo i Min side
-- **Sletting** — kommune godkjenner, vi sletter innen 30 dager (med unntak for data som må beholdes 7 år av bokføringsloven)
+- **Sletting** — kommune godkjenner, vi sletter innen 30 dager (med unntak for data som må beholdes 7 år av bokføringsloven). Digilist Mobile-brukere kan i tillegg slette egen konto direkte i appen — umiddelbar anonymisering, uten kommunegodkjenning
 - **Dataportabilitet** — JSON-eksport av alle bookinger, kommentarer, fakturaer
 - **Innsigelse** — direkte til kommunen, vi følger deres beslutning
 
