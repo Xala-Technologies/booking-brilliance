@@ -25,7 +25,7 @@ Standard EU-DPA. Signeres digitalt ved onboarding. Tilgjengelig på forespørsel
 
 | Data | Formål | Retention |
 |---|---|---|
-| Navn, e-post, telefon | Bookingbekreftelse, faktura | 7 år (bokføringslov) |
+| Navn, e-post, telefon, fakturaadresse | Bookingbekreftelse, faktura | 7 år (bokføringslov) |
 | Booking-historikk | Min side, fakturering | 7 år |
 | Saksbehandler-kommentarer | Saksbehandling | 7 år (arkivloven) |
 | ID-porten / BankID-claims | Identifisering ved innlogging | Ikke persistert utover sesjon |
