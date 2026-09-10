@@ -27,7 +27,7 @@ Digilist eksponerer tre kategorier endepunkter:
 - **Admin** — site-intelligence, content-agent harness. Beskyttet med HTTP Basic Auth.
 - **Platform** — booking-API, betaling, identitet. Convex actions bak api.digilist.no.
 
-V1-dokumentasjonen dekker public + admin. Platform-API-et får egen seksjon når Convex-skjemaet er stabilt.
+V1-dokumentasjonen dekker public + admin. Platform-API-et (`/api/v1/`) har nå betalingsmetode-endepunkter for Digilist Mobile — lagrede kort som kan belastes direkte ved checkout, og Vipps-betalingsavtaler (satt opp/aktivert/stoppet via REST, ikke lenger stub) — dokumentert i `GET /api/v1/openapi.json`. Full endepunkt-referanse i denne seksjonen kommer senere.
 
 ## Authentisering
 
