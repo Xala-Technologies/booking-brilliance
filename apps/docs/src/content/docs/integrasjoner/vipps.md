@@ -90,7 +90,7 @@ http.route({
 
 Refusjon kan utløses av:
 
-- **Saksbehandler** kansellerer en godkjent booking via `/admin/bookings/{id}/cancel`
+- **Saksbehandler** kansellerer en godkjent booking via `/admin/bookings/{id}/cancel` — kun mulig før `endTime`. Passerte bekreftede bookinger fullføres i stedet (15-min cron `autoCompletePastBookings`) og utløser ingen refusjon
 - **Innbygger** kansellerer (hvis lokalets kanselleringspolitikk tillater)
 - **System** ved force-majeure (stengt lokale)
 
