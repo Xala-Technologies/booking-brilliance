@@ -291,7 +291,6 @@ const nb: Copy = {
     "Digilist priser, bookingsystem abonnement, uten provisjon, private utleiere, kommune booking",
   "pricing.label": "PRISER",
   "pricing.h1": "Tre priser for private. Kommune får tilbud.",
-  "pricing.h1em": "",
   "pricing.lede":
     "Du spør hva Digilist koster. For private utleiere ligger tre månedspriser her. Abonnement, ikke provisjon. Ingen andel av det du leier ut for. Kommuner og skreddersøm får eget tilbud.",
   "pricing.cta": "Book demo",
@@ -1008,10 +1007,9 @@ const en: Copy = {
     "Digilist pricing, booking system subscription, no commission, private operators, municipality booking",
   "pricing.label": "PRICING",
   "pricing.h1": "Three prices for private operators. Public bodies get a quote.",
-  "pricing.h1em": "",
   "pricing.lede":
     "You want to know what Digilist costs. For private operators, three monthly prices are published here. A subscription, not a commission. No share of what you earn from rentals. Public bodies and custom setups receive their own quote.",
-  "pricing.cta": "Book demo",
+  "pricing.cta": "Book a demo",
   "pricing.contactCta": "Talk to us",
   "pricing.faqCta": "Read the full FAQ",
   "pricing.visual": "SUBSCRIPTION · NO COMMISSION",
