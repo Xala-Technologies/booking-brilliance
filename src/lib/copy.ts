@@ -286,7 +286,7 @@ const nb: Copy = {
 
   "pricing.title": "Priser: tre abonnement for private utleiere | Digilist",
   "pricing.description":
-    "Private utleiere: Small 490 kr, Medium 790 kr eller Large 1 290 kr i måneden. Abonnement, ikke provisjon. Kommune og skreddersøm: kontakt oss. 6 måneder gratis for de 100 første.",
+    "Private: Small 490, Medium 790 eller Large 1 290 kr/mnd. Abonnement, ikke provisjon. Kommune: kontakt oss. 6 måneder gratis for de 100 første.",
   "pricing.keywords":
     "Digilist priser, bookingsystem abonnement, uten provisjon, private utleiere, kommune booking",
   "pricing.label": "PRISER",
@@ -1000,9 +1000,9 @@ const en: Copy = {
   "chat.org": "Organisation",
   "chat.orgExample": "e.g. Riverside Function Rooms",
 
-  "pricing.title": "Pricing: three subscriptions for private operators | Digilist",
+  "pricing.title": "Pricing: three plans for private operators | Digilist",
   "pricing.description":
-    "Private operators: Small NOK 490, Medium NOK 790 or Large NOK 1,290 per month. A subscription, not a commission. Public bodies and custom setups: contact us. 6 months free for the first 100.",
+    "Private: Small NOK 490, Medium 790 or Large 1,290/mo. Subscription, not commission. Municipal: contact us. First 100 get 6 months free.",
   "pricing.keywords":
     "Digilist pricing, booking system subscription, no commission, private operators, municipality booking",
   "pricing.label": "PRICING",

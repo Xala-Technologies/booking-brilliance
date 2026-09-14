@@ -1869,7 +1869,7 @@ const ROUTES = [
     route: "/priser",
     title: "Priser: tre abonnement for private utleiere | Digilist",
     description:
-      "Private utleiere: Small 490 kr, Medium 790 kr eller Large 1 290 kr i måneden. Abonnement, ikke provisjon. Kommune og skreddersøm: kontakt oss. 6 måneder gratis for de 100 første.",
+      "Private: Small 490, Medium 790 eller Large 1 290 kr/mnd. Abonnement, ikke provisjon. Kommune: kontakt oss. 6 måneder gratis for de 100 første.",
     ogType: "website",
     breadcrumbs: [
       { name: "Hjem", url: `${BASE_URL}/` },
@@ -1927,9 +1927,9 @@ const ROUTES = [
   },
   {
     route: "/en/priser",
-    title: "Pricing: three subscriptions for private operators | Digilist",
+    title: "Pricing: three plans for private operators | Digilist",
     description:
-      "Private operators: Small NOK 490, Medium NOK 790 or Large NOK 1,290 per month. A subscription, not a commission. Public bodies and custom setups: contact us. 6 months free for the first 100.",
+      "Private: Small NOK 490, Medium 790 or Large 1,290/mo. Subscription, not commission. Municipal: contact us. First 100 get 6 months free.",
     ogType: "website",
     lang: "en",
     breadcrumbs: [
