@@ -18,40 +18,20 @@ import { PRICING_FACTS_EN, pricingFaqEn } from "@/content/faq.en";
 import { localeFromPath } from "@/lib/i18n";
 import { t } from "@/lib/copy";
 import { PricingSummaryBlock } from "@/components/PricingSummaryBlock";
+import { PrivatePricingPlans } from "@/components/PrivatePricingPlans";
 
-/**
- * The pricing page.
- *
- * There was no such page, on a product whose pricing IS the differentiator. A
- * visitor who wanted to know what Digilist costs had to ask the chatbot or fill
- * in a form, and an ad click had nowhere to land — /priser fell through to the
- * 404 page.
- *
- * No numbers here on purpose. We publish no price list, because the span
- * between a grendehus with one hall and a county with twenty-two schools makes
- * any single figure wrong for nearly everyone reading it. What IS published is
- * everything that decides the figure, and the one thing competitors do that we
- * do not: take a share of what the customer earns.
- *
- * The facts come from `content/pricing.ts`, which the chatbot, the FAQ page and
- * this page all read. One source, so a change in policy cannot leave a stale
- * claim behind on a surface someone forgot about.
- */
 export default function Priser() {
-  // The mirror renders this component at /en/priser too, so the content and
-  // the metadata both follow the URL. Before this it was the Norwegian page at
-  // an English address — and TRANSLATED_PATHS claimed otherwise, which made it
-  // indexable.
   const locale = localeFromPath(useLocation().pathname);
   const en = locale === "en";
   const facts = en ? PRICING_FACTS_EN : PRICING_FACTS;
   const faq = en ? pricingFaqEn() : PRICING_FAQ;
+
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <SEO
         title={t(locale, "pricing.title")}
         description={t(locale, "pricing.description")}
-        keywords="digilist pris, hva koster digilist, bookingsystem pris, bookingsystem uten provisjon, transaksjonsgebyr booking, abonnement bookingsystem"
+        keywords={t(locale, "pricing.keywords")}
         canonical="https://digilist.no/priser"
         breadcrumbs={[
           { name: "Hjem", url: "https://digilist.no/" },
@@ -64,8 +44,6 @@ export default function Priser() {
 
       <PageTransition>
         <main id="main">
-          {/* Hero — the differentiator first, because it is the answer to the
-              question people actually arrive with. */}
           <section className="pt-28 lg:pt-32 pb-8 lg:pb-12 bg-paper">
             <div className="container mx-auto md:px-8 lg:px-12">
               <SectionRule label={t(locale, "pricing.label")} />
@@ -73,14 +51,7 @@ export default function Priser() {
               <div className="grid lg:grid-cols-12 gap-8 lg:gap-gutter items-center">
                 <div className="lg:col-span-7">
                   <EditorialHeading as="h1" size="display">
-                    {t(locale, "pricing.h1")}{" "}
-                    <em
-                      className="italic"
-                      style={{ fontVariationSettings: getFraunces("display") }}
-                    >
-                      {t(locale, "pricing.h1em")}
-                    </em>
-                    .
+                    {t(locale, "pricing.h1")}
                   </EditorialHeading>
                   <p className="mt-6 text-xl text-ink-soft measure leading-relaxed">
                     {t(locale, "pricing.lede")}
@@ -89,8 +60,8 @@ export default function Priser() {
                     <EditorialButton variant="primary" size="lg" href="/book-demo">
                       {t(locale, "pricing.cta")}
                     </EditorialButton>
-                    <EditorialButton variant="outline" size="lg" href={en ? "/en/faq" : "/faq"}>
-                      {t(locale, "pricing.faqCta")}
+                    <EditorialButton variant="outline" size="lg" href="/#kontakt">
+                      {t(locale, "pricing.contactCta")}
                     </EditorialButton>
                   </div>
                 </div>
@@ -107,9 +78,75 @@ export default function Priser() {
             </div>
           </section>
 
-          {/* The facts, as a list rather than a tier table — we publish no
-              figures, so a three-column price grid would be theatre. */}
+          <section className="py-12 lg:py-16 bg-paper border-y border-rule">
+            <div className="container mx-auto md:px-8 lg:px-12">
+              <h2
+                className="font-serif text-3xl lg:text-4xl text-ink mb-3"
+                style={{
+                  fontVariationSettings: getFraunces("section"),
+                  letterSpacing: "-0.015em",
+                  lineHeight: 1.1,
+                }}
+              >
+                {t(locale, "pricing.plansHeading")}
+              </h2>
+              <p className="text-base lg:text-lg text-ink-soft leading-relaxed measure-wide mb-8">
+                {t(locale, "pricing.plansLede")}
+              </p>
+              <PrivatePricingPlans />
+              <p className="mt-8 text-base text-ink-soft leading-relaxed measure-wide">
+                {t(locale, "pricing.mvaNote")}{" "}
+                <Link
+                  to={en ? "/en/salgsvilkar" : "/salgsvilkar"}
+                  className="text-accent-text underline underline-offset-4 hover:text-ink transition-colors"
+                >
+                  {t(locale, "pricing.termsLink")}
+                </Link>
+                .
+              </p>
+            </div>
+          </section>
+
           <section className="py-12 lg:py-16">
+            <div className="container mx-auto md:px-8 lg:px-12">
+              <h2
+                className="font-serif text-3xl lg:text-4xl text-ink mb-4"
+                style={{
+                  fontVariationSettings: getFraunces("section"),
+                  letterSpacing: "-0.015em",
+                  lineHeight: 1.1,
+                }}
+              >
+                {t(locale, "pricing.kommuneHeading")}
+              </h2>
+              <p className="text-base lg:text-lg text-ink leading-relaxed measure-wide">
+                {t(locale, "pricing.kommuneBody")}{" "}
+                <Link
+                  to="/book-demo"
+                  className="text-accent-text underline underline-offset-4 hover:text-ink transition-colors"
+                >
+                  Book demo
+                </Link>{" "}
+                eller{" "}
+                <Link
+                  to="/book-demo"
+                  className="text-accent-text underline underline-offset-4 hover:text-ink transition-colors"
+                >
+                  kontakt oss
+                </Link>
+                . Se også{" "}
+                <Link
+                  to={en ? "/en/bookingsystem-kommune" : "/bookingsystem-kommune"}
+                  className="text-accent-text underline underline-offset-4 hover:text-ink transition-colors"
+                >
+                  bookingsystem for kommuner
+                </Link>
+                .
+              </p>
+            </div>
+          </section>
+
+          <section className="py-12 lg:py-16 bg-paper border-y border-rule">
             <div className="container mx-auto md:px-8 lg:px-12">
               <h2
                 className="font-serif text-3xl lg:text-4xl text-ink mb-8"
@@ -138,30 +175,6 @@ export default function Priser() {
             </div>
           </section>
 
-          {/* Why there is no price list. Saying nothing here reads as hiding
-              something, which is the opposite of the page's whole argument. */}
-          <section className="pb-12 lg:pb-16">
-            <div className="container mx-auto md:px-8 lg:px-12">
-              <EditorialCard className="bg-paper-deep/40">
-                <div className="p-2 lg:p-6 measure-wide">
-                  <h2
-                    className="font-serif text-2xl lg:text-3xl text-ink mb-4"
-                    style={{
-                      fontVariationSettings: getFraunces("section"),
-                      letterSpacing: "-0.015em",
-                    }}
-                  >
-                    {t(locale, "pricing.whyHeading")}
-                  </h2>
-                  <p className="text-base lg:text-lg text-ink leading-relaxed">
-                    {t(locale, "pricing.whyBody")}
-                  </p>
-                </div>
-              </EditorialCard>
-            </div>
-          </section>
-
-          {/* FAQ — the same entries the chatbot answers from. */}
           <section className="pb-12 lg:pb-16">
             <div className="container mx-auto md:px-8 lg:px-12">
               <h2
@@ -191,7 +204,6 @@ export default function Priser() {
             </div>
           </section>
 
-          {/* Legal — Vipps reviewers and buyers need a path from price to terms. */}
           <section className="pb-12 lg:pb-16">
             <div className="container mx-auto md:px-8 lg:px-12">
               <EditorialCard className="bg-paper-deep/40">
@@ -220,38 +232,7 @@ export default function Priser() {
             </div>
           </section>
 
-          {/* Pricing summary block (without self-link on this page) */}
           <PricingSummaryBlock />
-
-          {/* Closing CTA */}
-          <section className="pb-20 lg:pb-28 bg-paper">
-            <div className="container mx-auto md:px-8 lg:px-12">
-              <EditorialCard className="bg-paper-deep/40">
-                <div className="grid lg:grid-cols-12 gap-6 lg:gap-gutter items-center p-2 lg:p-6">
-                  <div className="lg:col-span-8">
-                    <h2
-                      className="font-serif text-3xl lg:text-4xl text-ink mb-3"
-                      style={{
-                        fontVariationSettings: getFraunces("section"),
-                        letterSpacing: "-0.015em",
-                        lineHeight: 1.1,
-                      }}
-                    >
-                      {t(locale, "pricing.offerHeading")}
-                    </h2>
-                    <p className="text-base lg:text-lg text-ink leading-relaxed">
-                      {t(locale, "pricing.offerBody")}
-                    </p>
-                  </div>
-                  <div className="lg:col-span-4 flex flex-wrap gap-3 lg:justify-end">
-                    <EditorialButton variant="primary" size="lg" href="/book-demo">
-                      {t(locale, "pricing.start")}
-                    </EditorialButton>
-                  </div>
-                </div>
-              </EditorialCard>
-            </div>
-          </section>
         </main>
       </PageTransition>
 

@@ -1867,19 +1867,21 @@ const ROUTES = [
   },
   {
     route: "/priser",
-    title: "Priser: abonnement uten transaksjonsgebyr | Digilist",
+    title: "Priser: tre abonnement for private utleiere | Digilist",
     description:
-      "Digilist tar ingen andel av bookinginntektene dine. Abonnement etter antall anlegg, tilpasset pris for små aktører, og 6 måneder gratis for de 100 første.",
+      "Private: Small 490, Medium 790 eller Large 1 290 kr/mnd. Abonnement, ikke provisjon. Kommune: kontakt oss. 6 måneder gratis for de 100 første.",
     ogType: "website",
     breadcrumbs: [
       { name: "Hjem", url: `${BASE_URL}/` },
       { name: "Priser", url: `${BASE_URL}/priser` },
     ],
     faq: [
-      { q: "Tar dere en andel av bookinginntektene?", a: "Nei. Digilist tar ingen transaksjonsavgift og ingen andel av det dere tar betalt for utleie. Vi tar betalt for bruk av tjenesten og administrasjonspanelet, og det er ingen skjulte gebyrer." },
-      { q: "Hva koster Digilist?", a: "Digilist har abonnementsnivåer, og prisen avhenger av antall anlegg, brukermengde og integrasjoner. Vi tar ingen andel av bookinginntektene og har ingen skjulte gebyrer — dere betaler for bruk av Digilist og administrasjonspanelet. Mindre og private aktører får egne, tilpassede priser. De 100 første kundene får 6 måneder gratis." },
-      { q: "Er Digilist for dyrt for en liten forening?", a: "Nei. Mindre lag, foreninger og private utleiere får egne tilpassede priser — prisen skal ikke ligne på det en kommune med mange bygg betaler. Ett lokale er helt greit, og de 100 første kundene får 6 måneder gratis." },
-      { q: "Hva er tilbudet til de første kundene?", a: "De 100 første kundene får 6 måneder gratis bruk av Digilist. Etter prøveperioden velger dere abonnementsnivå ut fra antall anlegg og behov. Ingen binding i prøveperioden." },
+      { q: "Hva koster Digilist for private utleiere?", a: "Small 490 kr, Medium 790 kr eller Large 1 290 kr i måneden, etter antall lokaler. Abonnement, ikke provisjon. De 100 første får 6 måneder gratis." },
+      { q: "Hva koster Digilist for en kommune?", a: "Kommune får eget tilbud. Vi publiserer ikke kommune-kroner her. Book demo eller kontakt oss." },
+      { q: "Har dere en prisliste?", a: "Ja. For private utleiere er tre månedsplaner publisert over. Kommune og skreddersøm er fortsatt kontakt." },
+      { q: "Tar dere en andel av bookinginntektene?", a: "Nei. Ingen transaksjonsavgift. Ingen kostnad per booking. Ingen andel av det dere tar betalt for utleie." },
+      { q: "Hva er inkludert i prisen?", a: "Kalender, booking, betaling, kontrakter og rapportering. Standardintegrasjoner som Vipps, BankID, ID-porten, EHF og regnskapssystemer. Ingen skjulte gebyrer." },
+      { q: "Er Digilist for dyrt for en liten forening?", a: "Nei. Small er 490 kr i måneden for ett lokale. De 100 første kundene får 6 måneder gratis, uten binding." },
     ],
   },
   {
@@ -1907,11 +1909,11 @@ const ROUTES = [
     },
     {
       q: "What does Digilist cost?",
-      a: "Digilist has subscription tiers, and the price depends on how many venues you have, how many people use the system, and which integrations you need. We take no share of your booking revenue and there are no hidden charges — you pay to use Digilist and its administration panel. Smaller and private operators get their own tailored pricing. The first 100 customers get 6 months free.",
+      a: "For private operators it is a monthly subscription with no transaction fee: Small (1 venue) NOK 490/month, Medium (2–3 venues) NOK 790/month, Large (4+ venues) NOK 1,290/month. Public bodies and custom setups get a quote. We take no share of your booking revenue and there are no hidden charges. The first 100 customers get 6 months free.",
     },
     {
       q: "Do you take a cut of booking revenue?",
-      a: "No. Digilist charges no transaction fee and takes no share of what you charge for rentals. We charge for use of the service and the administration panel, and there are no hidden fees.",
+      a: "No. No transaction fee. No per-booking cost. No share of what you charge for rentals.",
     },
     {
       q: "Where is data stored?",
@@ -1925,9 +1927,9 @@ const ROUTES = [
   },
   {
     route: "/en/priser",
-    title: "Pricing: a subscription, with no transaction fee | Digilist",
+    title: "Pricing: three plans for private operators | Digilist",
     description:
-      "Digilist takes no share of your booking revenue. Subscription tiers set by venues and needs, tailored for small operators, and 6 months free for the first 100.",
+      "Private: Small NOK 490, Medium 790 or Large 1,290/mo. Subscription, not commission. Municipal: contact us. First 100 get 6 months free.",
     ogType: "website",
     lang: "en",
     breadcrumbs: [
@@ -1935,10 +1937,12 @@ const ROUTES = [
       { name: "Pricing", url: `${BASE_URL}/en/priser` },
     ],
     faq: [
-      { q: "Do you take a cut of booking revenue?", a: "No. Digilist charges no transaction fee and takes no share of what you charge for rentals. We charge for use of the service and the administration panel, and there are no hidden fees." },
-      { q: "What does Digilist cost?", a: "Digilist has subscription tiers, and the price depends on how many venues you have, how many people use the system, and which integrations you need. We take no share of your booking revenue and there are no hidden charges. Smaller and private operators get their own tailored pricing. The first 100 customers get 6 months free." },
-      { q: "Is Digilist too expensive for a small organisation?", a: "No. Smaller clubs, associations and private operators get their own tailored pricing — it should not resemble what a large public body with many buildings pays. A single venue is perfectly fine, and the first 100 customers get 6 months free." },
-      { q: "What is the offer for early customers?", a: "The first 100 customers get 6 months of Digilist free. After the trial you choose a subscription tier based on your venues and needs. No lock-in during the trial." },
+      { q: "What does Digilist cost for private operators?", a: "Small NOK 490, Medium NOK 790 or Large NOK 1,290 per month, depending on the number of venues. A subscription, not a commission. The first 100 customers get 6 months free." },
+      { q: "What does Digilist cost for a municipality?", a: "Municipalities receive their own quote. We do not publish public-sector figures here. Book a demo or contact us." },
+      { q: "Do you have a price list?", a: "Yes. Three monthly plans are published for private operators above. Public bodies and custom setups are still contact-only." },
+      { q: "Do you take a cut of booking revenue?", a: "No. No transaction fee. No per-booking cost. No share of what you charge for rentals." },
+      { q: "What is included in the price?", a: "Calendars, booking, payment, contracts and reporting. Standard integrations such as Vipps, national digital identity, e-invoicing and accounting systems. No hidden charges." },
+      { q: "Is Digilist too expensive for a small organisation?", a: "No. Small is NOK 490 per month for a single venue. The first 100 customers get 6 months free, with no lock-in." },
     ],
   },
   {
