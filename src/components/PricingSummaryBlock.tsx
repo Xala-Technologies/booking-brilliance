@@ -5,19 +5,13 @@ import { localeFromPath } from "@/lib/i18n";
 /**
  * Universal pricing summary for all marketing pages and blog posts.
  *
- * This block appears after the main content and before the closing CTA on every
- * marketing page and blog. The wording is locked and matches the live /priser
- * page. It explains the subscription model and the 6-month free offer.
- *
- * On /priser itself, it still shows the heading and body but omits the CTA link
- * to avoid a self-link. The full /priser page retains its long-form content.
+ * Wording is locked to match /priser. On /priser itself the self-link is omitted.
  */
 export function PricingSummaryBlock() {
   const location = useLocation();
   const locale = localeFromPath(location.pathname);
   const isPricingPage = location.pathname === "/priser" || location.pathname === "/en/priser";
 
-  // Norwegian-first by design. English mirror is a future expansion point.
   if (locale === "en") {
     return null;
   }
@@ -46,8 +40,8 @@ export function PricingSummaryBlock() {
             kostnad per booking, og ingen andel av det du leier ut for.
           </p>
           <p className="text-base lg:text-lg text-ink leading-relaxed">
-            Prisen avhenger av antall anlegg, brukermengde og integrasjoner. Mindre
-            aktører får egne tilpassede priser. De 100 første kundene får 6 måneder
+            Private utleiere har tre publiserte månedsplaner: Small, Medium og Large.
+            Kommune og skreddersøm får tilbud. De 100 første kundene får 6 måneder
             gratis, uten binding.
           </p>
         </div>

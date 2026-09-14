@@ -228,7 +228,7 @@ export const FAQ_CATEGORIES: FAQCategory[] = [
         // 27% — so "hva koster det?" with no other context is genuinely
         // ambiguous on this site. Assuming produced the live reply that
         // lectured a would-be renter about their own rental income.
-        a: "Kommer an på hva du spør om. Skal du LEIE et lokale, avhenger prisen av lokalet, datoen og kapasiteten — du ser totalprisen før du bekrefter. Skal du BRUKE Digilist til å leie ut eller administrere lokaler, er det et abonnement: prisen avhenger av antall anlegg, brukermengde og integrasjoner. Vi tar ingen andel av bookinginntektene og har ingen skjulte gebyrer. Mindre og private aktører får egne, tilpassede priser, og de 100 første kundene får 6 måneder gratis.",
+        a: "Kommer an på hva du spør om. Skal du LEIE et lokale, avhenger prisen av lokalet, datoen og kapasiteten — du ser totalprisen før du bekrefter. Skal du BRUKE Digilist til å leie ut eller administrere lokaler: Small 490 kr, Medium 790 kr eller Large 1 290 kr i måneden, etter antall lokaler. Abonnement, ikke provisjon. Kommune og skreddersøm får tilbud. De 100 første får 6 måneder gratis.",
         // Two keywords ("pris", "kostnad") meant every way of asking about money
         // WITHOUT those words missed: "billigste alternativ" returned nothing at
         // all, "rimeligste alternativ for sånne som oss" returned implementation
@@ -248,16 +248,31 @@ export const FAQ_CATEGORIES: FAQCategory[] = [
         ],
       },
       {
-        q: "Hvorfor har dere ingen prisliste?",
-        a: "Fordi ett tall ville vært feil for nesten alle som leste det. Spennet mellom et grendehus med én sal og en fylkeskommune med tjueto skoler er for stort. Vi publiserer i stedet alt som avgjør prisen, og gir et konkret tilbud etter en kort samtale.",
+        q: "Hva koster Digilist for private utleiere?",
+        a: "Small 490 kr, Medium 790 kr eller Large 1 290 kr i måneden, etter antall lokaler. Abonnement, ikke provisjon. De 100 første får 6 måneder gratis.",
         keywords: [
-          "prisliste", "priser", "hvorfor ingen", "tall", "oversikt over priser",
-          "hva koster det egentlig", "konkret pris", "estimat",
+          "private", "utleier", "utleiere", "small", "medium", "large",
+          "490", "790", "1290", "måned", "månedlig", "abonnement",
+        ],
+      },
+      {
+        q: "Hva koster Digilist for en kommune?",
+        a: "Kommune får eget tilbud. Vi publiserer ikke kommune-kroner her. Book demo eller kontakt oss.",
+        keywords: [
+          "kommune", "kommuner", "offentlig", "fylkeskommune", "pristilbud",
+          "prisliste", "priser", "hva koster det egentlig", "konkret pris", "estimat",
+        ],
+      },
+      {
+        q: "Har dere en prisliste?",
+        a: "Ja. For private utleiere er tre månedsplaner publisert over. Kommune og skreddersøm er fortsatt kontakt.",
+        keywords: [
+          "prisliste", "priser", "oversikt over priser", "publisert", "planer",
         ],
       },
       {
         q: "Hvordan fungerer abonnementet?",
-        a: "Digilist er en abonnementstjeneste med flere nivåer. Nivået velges ut fra antall anlegg, hvor mange som skal bruke systemet og hvilke integrasjoner dere trenger. Dere betaler for bruk av Digilist og administrasjonspanelet — ingenting per booking.",
+        a: "Digilist er en abonnementstjeneste med flere nivåer. Private utleiere velger Small (1 lokale), Medium (2–3 lokaler) eller Large (4+ lokaler) — se prisene på /priser. Kommuner og skreddersøm får tilbud etter behov. Dere betaler for bruk av Digilist og administrasjonspanelet — ingenting per booking.",
         keywords: [
           "abonnement", "abonnementsnivå", "nivå", "pakke", "plan", "lisens",
           "hvordan fungerer", "modell", "prismodell", "subscription", "tier",
@@ -265,7 +280,7 @@ export const FAQ_CATEGORIES: FAQCategory[] = [
       },
       {
         q: "Hva er inkludert i prisen?",
-        a: "Bruk av Digilist og administrasjonspanelet, med kalender, booking, betaling, kontrakter og rapportering. Standardintegrasjoner som Vipps, BankID, ID-porten, EHF og regnskapssystemer er inkludert. Ingen skjulte gebyrer og ingen kostnad per booking.",
+        a: "Kalender, booking, betaling, kontrakter og rapportering. Standardintegrasjoner som Vipps, BankID, ID-porten, EHF og regnskapssystemer. Ingen skjulte gebyrer.",
         keywords: [
           "inkludert", "inngår", "hva får vi", "hva dekker", "tillegg",
           "ekstra", "skjulte", "gebyr", "inkluderer",
@@ -273,7 +288,7 @@ export const FAQ_CATEGORIES: FAQCategory[] = [
       },
       {
         q: "Tar dere en andel av bookinginntektene?",
-        a: "Nei. Digilist tar ingen transaksjonsavgift og ingen andel av det dere tar betalt for utleie. Vi tar betalt for bruk av tjenesten og administrasjonspanelet, og det er ingen skjulte gebyrer.",
+        a: "Nei. Ingen transaksjonsavgift. Ingen kostnad per booking. Ingen andel av det dere tar betalt for utleie.",
         // "per booking" added because the identity answer now also says we
         // take no share of the rent — which is the point, but it meant "tar
         // dere noe per booking?" started landing on "Hva er Digilist?" instead
@@ -287,7 +302,7 @@ export const FAQ_CATEGORIES: FAQCategory[] = [
       },
       {
         q: "Er Digilist for dyrt for en liten forening?",
-        a: "Nei. Mindre lag, foreninger og private utleiere får egne tilpassede priser — prisen skal ikke ligne på det en kommune med mange bygg betaler. Ett lokale er helt greit, og de 100 første kundene får 6 måneder gratis.",
+        a: "Nei. Small er 490 kr i måneden for ett lokale. De 100 første kundene får 6 måneder gratis, uten binding.",
         keywords: [
           "liten", "små", "lite", "forening", "lag", "frivillig", "ett lokale",
           "for dyrt", "har ikke råd", "billig", "rimelig", "budsjett", "grendehus",

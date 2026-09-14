@@ -51,38 +51,48 @@ export const FAQ_CATEGORIES_EN: FAQCategory[] = [
     questions: [
       {
         q: "What does Digilist cost?",
-        a: "Digilist has subscription tiers, and the price depends on how many venues you have, how many people use the system, and which integrations you need. We take no share of your booking revenue and there are no hidden charges — you pay to use Digilist and its administration panel. Smaller and private operators get their own tailored pricing. The first 100 customers get 6 months free.",
+        a: "For private operators it is a monthly subscription with no transaction fee: Small (1 venue) NOK 490/month, Medium (2–3 venues) NOK 790/month, Large (4+ venues) NOK 1,290/month. Public bodies and custom setups get a quote. We take no share of your booking revenue and there are no hidden charges. The first 100 customers get 6 months free.",
         keywords: ["price", "pricing", "cost", "how much", "what does it cost", "cheap", "cheapest", "budget", "monthly", "subscription", "free trial"],
       },
       {
+        q: "What does Digilist cost for private operators?",
+        a: "Small NOK 490, Medium NOK 790 or Large NOK 1,290 per month, depending on the number of venues. A subscription, not a commission. The first 100 customers get 6 months free.",
+        keywords: ["private", "operator", "small", "medium", "large", "490", "790", "1290", "monthly"],
+      },
+      {
+        q: "What does Digilist cost for a municipality?",
+        a: "Municipalities receive their own quote. We do not publish public-sector figures here. Book a demo or contact us.",
+        keywords: ["municipality", "public sector", "public body", "quote", "price list", "estimate"],
+      },
+      {
+        q: "Do you have a price list?",
+        a: "Yes. Three monthly plans are published for private operators above. Public bodies and custom setups are still contact-only.",
+        keywords: ["price list", "prices", "published", "plans"],
+      },
+      {
         q: "Do you take a cut of booking revenue?",
-        a: "No. Digilist charges no transaction fee and takes no share of what you charge for rentals. We charge for use of the service and the administration panel, and there are no hidden fees.",
+        a: "No. No transaction fee. No per-booking cost. No share of what you charge for rentals.",
         keywords: ["transaction fee", "commission", "cut", "percentage", "revenue share", "hidden fees", "per booking"],
       },
       {
         q: "How does the subscription work?",
-        a: "Digilist is a subscription with several tiers. The tier is set by the number of venues, how many people use the system, and which integrations you need. You pay to use Digilist and the administration panel — nothing per booking.",
+        a: "Digilist is a subscription with several tiers. Private operators choose Small (1 venue), Medium (2–3 venues) or Large (4+ venues) — see the prices on /en/priser. Public bodies and custom setups get a quote. You pay to use Digilist and the administration panel — nothing per booking.",
         keywords: ["subscription", "tier", "plan", "licence", "how it works", "pricing model"],
       },
       {
         q: "What is included in the price?",
-        a: "Use of the platform and the administration panel, with calendars, booking, payment, contracts and reporting. Standard integrations are included. Custom integrations against your own systems are priced separately by scope.",
+        a: "Calendars, booking, payment, contracts and reporting. Standard integrations such as Vipps, national digital identity, e-invoicing and accounting systems. No hidden charges.",
         keywords: ["included", "what do we get", "extras", "add-ons", "covered"],
       },
       {
         q: "Is Digilist too expensive for a small organisation?",
-        a: "No. Smaller clubs, associations and private operators get their own tailored pricing — it should not resemble what a large public body with many buildings pays. A single venue is perfectly fine, and the first 100 customers get 6 months free.",
+        a: "No. Small is NOK 490 per month for a single venue. The first 100 customers get 6 months free, with no lock-in.",
         keywords: ["small", "too expensive", "afford", "club", "association", "single venue", "volunteer"],
       },
       {
         q: "What is the offer for early customers?",
         a: "The first 100 customers get 6 months of Digilist free. After the trial you choose a subscription tier based on your venues and needs. No lock-in during the trial.",
         keywords: ["free trial", "first 100", "offer", "discount", "early customer", "launch", "no lock-in"],
-      },
-      {
-        q: "Why is there no price list?",
-        a: "Because one number would be wrong for almost everyone reading it. The gap between a community hall with one room and a county authority with twenty-two schools is too wide. We publish everything that decides the price instead, and give a concrete quote after a short conversation.",
-        keywords: ["price list", "no prices", "why no price", "quote", "estimate"],
       },
     ],
   },
@@ -117,13 +127,12 @@ export function allFAQEntriesEn(): Array<{ q: string; a: string; keywords?: stri
 
 /** The pricing questions, for /en/pricing. Same selection as the Norwegian page. */
 const PRICING_QUESTIONS_EN = [
-  "What does Digilist cost?",
+  "What does Digilist cost for private operators?",
+  "What does Digilist cost for a municipality?",
+  "Do you have a price list?",
   "Do you take a cut of booking revenue?",
-  "How does the subscription work?",
   "What is included in the price?",
   "Is Digilist too expensive for a small organisation?",
-  "What is the offer for early customers?",
-  "Why is there no price list?",
 ] as const;
 
 export function pricingFaqEn(): Array<{ q: string; a: string }> {
@@ -149,31 +158,23 @@ export interface PricingFactEn {
 export const PRICING_FACTS_EN: readonly PricingFactEn[] = [
   {
     title: "A subscription, not a commission",
-    body: "Digilist is a subscription with several tiers. You pay to use the platform and the administration panel — not per booking, and not as a share of what you charge for rentals.",
+    body: "You pay for the platform and administration panel. Not per booking. Not a share of the rent.",
   },
   {
     title: "No transaction fee",
-    body: "We take no percentage of your booking revenue. Going from twenty rentals a year to sixty does not make Digilist cost more. A system that earns more when you succeed penalises exactly the operator who is getting it right.",
-  },
-  {
-    title: "The tier follows the need",
-    body: "Price depends on how many venues you have, how many people use the system, and which integrations you need. Growing from one venue to five changes the subscription — more bookings in the same venue does not.",
+    body: "Going from twenty rentals a year to sixty does not make Digilist cost more.",
   },
   {
     title: "Integrations are included",
-    body: "Technical integration with Vipps MobilePay, card payment, national digital identity, e-invoicing and the common accounting systems is part of the subscription. To accept payment you must have your own merchant agreement and credentials with a payment provider. Custom integrations against your own systems are priced separately by scope.",
+    body: "Vipps MobilePay, card payment, national digital identity, e-invoicing and Peppol are part of the subscription. You need your own merchant agreement with a payment provider. Custom integrations against your own systems are priced by scope.",
   },
   {
-    title: "Small operators pay small-operator prices",
-    body: "Clubs, associations, community halls and private operators with a single venue get tailored pricing. It should not resemble what a large public body with many buildings pays, because the need does not resemble it either.",
+    title: "The rent goes to you",
+    body: "The subscription is paid to Xala Technologies AS. Rental payments from your guests go to you through your own payment agreement. Digilist does not process those payments.",
   },
   {
-    title: "No hidden charges",
-    body: "What is in the quote is what you pay. No per-booking cost, no share of revenue, and no fees that appear after signature.",
-  },
-  {
-    title: "Subscription and payment",
-    body: "You pay a subscription to Xala Technologies AS for the platform and administration. Rental payments from your guests go directly to you through your own payment agreement — Digilist does not process those payments. The exact price, minimum term and cancellation are agreed in writing and set out in the terms of sale.",
+    title: "Six months free for the first 100",
+    body: "The first 100 customers get 6 months free, with no lock-in. Afterwards you choose a tier based on the number of venues.",
   },
 ];
 

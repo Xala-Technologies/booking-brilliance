@@ -161,7 +161,7 @@ export function PricingSection() {
         </EditorialCard>
 
         <p className="mt-8 text-base text-ink-soft leading-relaxed measure-wide">
-          {t(locale, "homePricing.whyNoList")}
+          {t(locale, "homePricing.plansNote")}
         </p>
 
         <p className="mt-6">

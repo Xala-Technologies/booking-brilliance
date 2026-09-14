@@ -1,23 +1,10 @@
 /**
  * The pricing policy, in one place.
  *
- * The site had no pricing page at all, on a product whose pricing IS the
- * differentiator — /priser fell through to the 404 page, so an ad click had
- * nowhere to land and a visitor who wanted a number had to ask the chatbot.
- *
- * This module backs that page. The Q&A is DERIVED from `content/faq.ts` rather
- * than copied, because that file is already the declared source of truth for
- * /faq, the FAQPage JSON-LD, /llms.txt and the assistant's retrieval corpus.
- * The one claim that must never be stale on any surface is "we take no share of
- * your revenue", and the way to guarantee that is to have one place where it is
- * written. The editorial cards below are page-only framing and exist nowhere
- * else, so they are literals.
- *
- * **No figures.** We publish no price list, deliberately — the span between a
- * grendehus with one hall and a county with twenty-two schools makes any single
- * number wrong for nearly everyone reading it. The guardrails block the
- * assistant from stating a figure precisely because there is no true one to
- * state.
+ * Backs /priser, the shared PricingSummaryBlock, the FAQ corpus, FAQPage
+ * JSON-LD, /llms.txt and the assistant. Private subscription tiers are locked
+ * numbers — do not invent kroner here. Kommune and customized solutions stay
+ * contact-only with no published figures.
  */
 import { allFAQEntries } from "./faq";
 
@@ -26,67 +13,91 @@ export interface PricingFact {
   body: string;
 }
 
-/** What decides the price, and what does not. */
+export interface PrivatePlan {
+  id: "small" | "medium" | "large";
+  name: string;
+  priceKr: number;
+  venues: string;
+  body: string;
+}
+
+/** Locked private monthly plans — the only kroner we publish for subscriptions. */
+export const PRIVATE_PLANS: readonly PrivatePlan[] = [
+  {
+    id: "small",
+    name: "Small",
+    priceKr: 490,
+    venues: "1 lokale.",
+    body:
+      "Kalender, booking, betaling, kontrakter og rapportering. Vipps, kort, BankID og vanlige regnskapsintegrasjoner ligger i abonnementet.",
+  },
+  {
+    id: "medium",
+    name: "Medium",
+    priceKr: 790,
+    venues: "2–3 lokaler.",
+    body:
+      "Samme plattform. Flere lokaler i én kalender. Samme regel: ingen provisjon, ingen kostnad per booking.",
+  },
+  {
+    id: "large",
+    name: "Large",
+    priceKr: 1290,
+    venues: "4 eller flere lokaler.",
+    body:
+      "Samme plattform for den som drifter flere bygg. Vokser du videre, eller trenger noe utenfor planen: kontakt oss.",
+  },
+];
+
+/** Format a monthly subscription price in Norwegian kroner. */
+export function formatPriceKr(amount: number): string {
+  return `${amount.toLocaleString("nb-NO")} kr/mnd`;
+}
+
+/** One-line summary of all private tiers, for FAQ and the assistant corpus. */
+export function privatePlansSummary(): string {
+  return PRIVATE_PLANS
+    .map((p) => `${p.name} ${p.priceKr} kr`)
+    .join(", ");
+}
+
+/** «Det som fortsatt gjelder» on /priser. */
 export const PRICING_FACTS: readonly PricingFact[] = [
   {
     title: "Abonnement, ikke provisjon",
     body:
-      "Digilist er en abonnementstjeneste med flere nivåer. Du betaler for å bruke plattformen og administrasjonspanelet — ikke per booking, og ikke som en andel av det du tar betalt for utleien.",
+      "Du betaler for plattform og administrasjonspanel. Ikke per booking. Ikke en andel av leien.",
   },
   {
     title: "Ingen transaksjonsavgift",
     body:
-      "Vi tar ingen prosent av bookinginntektene dine. Går du fra tjue til seksti utleier i året, koster ikke Digilist mer av den grunn. Et system som tjener mer når du lykkes, straffer nettopp den utleieren som får det til.",
-  },
-  {
-    title: "Nivået følger behovet",
-    body:
-      "Prisen avhenger av hvor mange anlegg du har, hvor mange som skal bruke systemet, og hvilke integrasjoner du trenger. Vokser du fra ett til fem lokaler, endrer det abonnementet — flere bookinger i det samme lokalet gjør det ikke.",
+      "Går du fra tjue til seksti utleier i året, koster ikke Digilist mer av den grunn.",
   },
   {
     title: "Integrasjonene er inkludert",
     body:
-      "Teknisk integrasjon mot Vipps MobilePay, kortbetaling, BankID, ID-porten, EHF og Peppol ligger i abonnementet. For å ta imot betaling må du ha egen merchant-avtale og credentials hos betalingsleverandør. Spesialtilpasninger mot egne systemer prises separat etter omfang.",
+      "Vipps MobilePay, kortbetaling, BankID, ID-porten, EHF og Peppol ligger i abonnementet. Du trenger egen merchant-avtale hos betalingsleverandør. Spesialtilpasninger mot egne systemer prises etter omfang.",
   },
   {
-    title: "Egne priser for de små",
+    title: "Leien går til deg",
     body:
-      "Lag, foreninger, grendehus, menighetshus og private utleiere med ett enkelt lokale får tilpassede priser. Prisen skal ikke ligne på det en kommune med mange bygg betaler, av den enkle grunn at behovet ikke ligner heller.",
+      "Abonnementet betales til Xala Technologies AS. Leieinnbetalinger fra gjestene går til deg via din egen betalingsavtale. Digilist behandler ikke de betalingene.",
   },
   {
-    title: "Ingen skjulte gebyrer",
+    title: "6 måneder gratis for de 100 første",
     body:
-      "Det som står i tilbudet er det du betaler. Ingen kostnad per booking, ingen andel av inntektene, og ingen gebyrer som dukker opp etter at avtalen er signert.",
-  },
-  {
-    title: "Abonnement og betaling",
-    body:
-      "Du betaler abonnement til Xala Technologies AS for plattform og administrasjon. Leieinnbetalinger fra dine gjester går direkte til deg via din egen betalingsavtale — Digilist behandler ikke disse betalingene. Konkret pris, bindingstid og oppsigelse avtales skriftlig og fremgår av salgsvilkårene.",
+      "De 100 første kundene får 6 måneder gratis, uten binding. Etterpå velger dere nivå ut fra antall lokaler.",
   },
 ];
 
-/**
- * The pricing questions, pulled out of the FAQ corpus by exact question text.
- *
- * DERIVED, not copied. `content/faq.ts` is already the declared source of truth
- * for the /faq page, the FAQPage JSON-LD, /llms.txt and the chatbot's retrieval
- * corpus — so the pricing page reads from it rather than becoming a fifth copy
- * of a commercial policy. The one claim that must never be stale anywhere is
- * "we take no share of your revenue"; the way to guarantee that is to have one
- * place where it is written.
- *
- * `pricingFaq()` throws on a missing question rather than silently rendering a
- * shorter page. A pricing page that quietly loses the no-transaction-fee answer
- * is worse than one that fails to build.
- */
+/** FAQ on /priser — derived from content/faq.ts, not copied. */
 const PRICING_QUESTIONS = [
-  "Hva koster Digilist?",
+  "Hva koster Digilist for private utleiere?",
+  "Hva koster Digilist for en kommune?",
+  "Har dere en prisliste?",
   "Tar dere en andel av bookinginntektene?",
-  "Hvordan fungerer abonnementet?",
   "Hva er inkludert i prisen?",
   "Er Digilist for dyrt for en liten forening?",
-  "Hva er tilbudet til de første kundene?",
-  "Hvorfor har dere ingen prisliste?",
 ] as const;
 
 export interface PricingQA {
