@@ -3027,6 +3027,38 @@ export const POST_FAQ = {
         "Ikke ta utleiers ord for at lokalet er tilgjengelig. Gå selv gjennom ruten fra parkering til inngang, mellom lokalene, og fram til toalett. Sjekk om det finnes trinnfri adkomst uten smale dører eller høye terskler, et HC-tilpasset toalett i rimelig gangavstand, og om trapper har rekkverk eller alternativ rampe.",
     },
   ],
+  "hvordan-digitalisere-booking-av-kommunale-lokaler": [
+    {
+      question: "Hva betyr det å digitalisere booking av kommunale lokaler?",
+      answer:
+        "Å digitalisere booking av kommunale lokaler betyr å erstatte telefon, e-post og papirskjema med en sanntidskalender der innbyggere, lag og foreninger ser ledig tid og bestiller direkte, mens kommunen godkjenner, fakturerer og fører statistikk automatisk. Digilist er bygget for nettopp denne flyten for både kommuner og private utleiere.",
+    },
+    {
+      question: "Hvordan digitaliserer en kommune booking av lokaler i praksis?",
+      answer:
+        "I praksis publiserer kommunen ledig kapasitet, lar brukeren bestille selv i kalenderen, og automatiserer godkjenning, varsling og etterarbeid. Oppsettet kobles typisk til ID-porten, godkjenningsregler og lokalene kommunen allerede forvalter.",
+    },
+    {
+      question: "Hvor lang tid tar det å digitalisere booking av kommunale lokaler?",
+      answer:
+        "For en enkelt kommune handler oppsettet vanligvis om uker, ikke måneder: kartlegging av lokaler, konfigurering av regler og en kort opplæringsøkt for saksbehandlerne. Hvor lang tid det tar i praksis avhenger av hvor mange lokaltyper og godkjenningsregler kommunen har fra før.",
+    },
+    {
+      question: "Må kommunen ut på anbud for å bytte bookingsystem?",
+      answer:
+        "Det avhenger av kontraktens verdi og kommunens egne anskaffelsesregler. Systemer som allerede er tilpasset SSA-L, Statens standardavtale for løpende tjenestekjøp, gjør normalt selve avtaleinngåelsen enklere, men terskelverdiene for konkurranse følger regelverket uavhengig av leverandør.",
+    },
+    {
+      question: "Kan innbyggere booke uten å opprette ny brukerkonto?",
+      answer:
+        "Ja, forutsatt at systemet støtter ID-porten. Da logger innbyggeren inn med den digitale identiteten de allerede har fra BankID eller MinID, og kommunen slipper å forvalte et eget passordregister.",
+    },
+    {
+      question: "Hva koster Digilist for en kommune?",
+      answer:
+        "Kommune får eget tilbud. Digilist publiserer ikke kommune-kroner på bloggen. Book demo eller kontakt oss. Private utleiere har tre publiserte månedsplaner på /priser.",
+    },
+  ],
   "hvordan-unnga-dobbeltbooking-utleie": [
     {
       question: "Hva er dobbeltbooking når du leier ut lokaler?",
