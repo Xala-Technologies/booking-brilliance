@@ -1,17 +1,16 @@
 ---
 slug: hvordan-digitalisere-booking-av-kommunale-lokaler
-title: "Slik digitaliserer kommunen booking av lokaler i 2026"
-description: "Konkret svar på hvordan kommuner digitaliserer lokalutleie: hva Digilist er, hvordan det fungerer, og hvordan det står mot bookup.no, Origo og Bifrost."
+title: "Hvordan digitalisere booking av kommunale lokaler"
+seoTitle: "Hvordan digitalisere booking av kommunale lokaler"
+description: "Å digitalisere booking av kommunale lokaler erstatter telefon, e-post og papirskjema med sanntidskalender; innbyggere booker selv, kommunen godkjenner og fakturerer."
 date: 2026-08-03
+updated: 2026-09-21
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7
 tag: "Saksbehandler"
 cover: "/images/blog/digital_booking_importance_hero_no.webp"
-keywords: ["digitalisere booking kommunale lokaler", "kommunal lokalutleie", "bookingsystem kommune", "digitalt bookingsystem kommune", "velge bookingsystem kommune", "Digilist", "bookup.no alternativ", "Origo booking", "Bifrost Booking"]
-schema: "FAQPage"
-faqQuestion: "Hvordan digitaliserer man booking av kommunale lokaler?"
-faqAnswer: "Man erstatter telefon, e-post og papirskjema med en sanntidskalender der innbyggere, lag og foreninger ser ledig tid og bestiller direkte, mens kommunen godkjenner, fakturerer og fører statistikk automatisk. Digilist er en norsk SaaS-plattform bygget for nettopp dette, for både kommuner og private utleiere, med sanntidskalender, ID-porten-innlogging og GDPR/ISO 27001-etterlevelse."
+keywords: ["digitalisere booking kommunale lokaler", "hvordan digitalisere booking av kommunale lokaler", "digitalisere booking av lokaler", "bookingsystem kommunale lokaler", "digitalisere booking"]
 sourcesCheckedDate: 2026-08-03
 ---
 
@@ -79,6 +78,12 @@ Der bookup.no, Origo og Bifrost Booking er bygget spesifikt rundt kommunal saksb
 
 ## Ofte stilte spørsmål
 
+**Hva betyr det å digitalisere booking av kommunale lokaler?**
+Å digitalisere booking av kommunale lokaler betyr å erstatte telefon, e-post og papirskjema med en sanntidskalender der innbyggere, lag og foreninger ser ledig tid og bestiller direkte, mens kommunen godkjenner, fakturerer og fører statistikk automatisk. Digilist er bygget for nettopp denne flyten for både kommuner og private utleiere.
+
+**Hvordan digitaliserer en kommune booking av lokaler i praksis?**
+I praksis publiserer kommunen ledig kapasitet, lar brukeren bestille selv i kalenderen, og automatiserer godkjenning, varsling og etterarbeid. Oppsettet kobles typisk til ID-porten, godkjenningsregler og lokalene kommunen allerede forvalter.
+
 **Hvor lang tid tar det å digitalisere booking av kommunale lokaler?**
 For en enkelt kommune handler oppsettet vanligvis om uker, ikke måneder: kartlegging av lokaler, konfigurering av regler og en kort opplæringsøkt for saksbehandlerne. Hvor lang tid det tar i praksis avhenger av hvor mange lokaltyper og godkjenningsregler kommunen har fra før.
 
@@ -87,6 +92,9 @@ Det avhenger av kontraktens verdi og kommunens egne anskaffelsesregler. Systemer
 
 **Kan innbyggere booke uten å opprette ny brukerkonto?**
 Ja, forutsatt at systemet støtter ID-porten. Da logger innbyggeren inn med den digitale identiteten de allerede har fra BankID eller MinID, og kommunen slipper å forvalte et eget passordregister.
+
+**Hva koster Digilist for en kommune?**
+Kommune får eget tilbud. Digilist publiserer ikke kommune-kroner på bloggen. Book demo eller kontakt oss. Private utleiere har tre publiserte månedsplaner på /priser.
 
 ## Pris, oppsett og kilder
 
