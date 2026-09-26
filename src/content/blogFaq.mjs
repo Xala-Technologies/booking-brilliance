@@ -3113,4 +3113,36 @@ export const POST_FAQ = {
         "Ja. Mindre aktører får egne tilpassede priser. Se /priser.",
     },
   ],
+  "klubbhus-til-leie-utleie-lag-velforening": [
+    {
+      question: "Hvordan finner jeg et klubbhus til leie?",
+      answer:
+        "Start med idrettslaget, velforeningen eller kommunen nærmest deg, og se etter en bookingside med ledig kalender. Mange lag har fortsatt bare et telefonnummer eller en PDF, så da må du ringe.",
+    },
+    {
+      question: "Hva koster det å leie et klubbhus?",
+      answer:
+        "Det avhenger av laget, og de fleste har ulik pris for medlem, ikke-medlem og bedrift. Sjekk lagets gjeldende prisliste, eller prisen som vises når du booker.",
+    },
+    {
+      question: "Kan hvem som helst leie klubbhuset?",
+      answer:
+        "Det bestemmer laget selv. Mange har aldersgrense eller leier bare ut til medlemmer og lokale lag, og med godkjenning i bookingsystemet kan laget sjekke hver forespørsel før det sier ja.",
+    },
+    {
+      question: "Hvordan kan et idrettslag leie ut klubbhuset uten dobbeltbooking?",
+      answer:
+        "Legg trening, kamper, medlemsarrangementer og privat leie i samme sanntidskalender. Da forsvinner en opptatt dato for alle på en gang.",
+    },
+    {
+      question: "Hvordan tar laget betalt for utleie av klubbhus?",
+      answer:
+        "La leietakeren betale på nett når hen booker, med Vipps, kort eller faktura. Da slipper kassereren å jage betalinger etterpå.",
+    },
+    {
+      question: "Hva er forskjellen på klubbhus, grendehus og velhus?",
+      answer:
+        "Et klubbhus eies som regel av et idrettslag eller en klubb, mens et grendehus eller velhus eies av en velforening, et grendelag eller kommunen. Alle tre leies vanligvis ut til private selskaper og møter.",
+    },
+  ],
 };
