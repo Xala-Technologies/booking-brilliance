@@ -1,5 +1,12 @@
 # Cursor Updates
 
+## 2026-09-26: Fix verify-live deploy check for seoTitle
+
+- verify-live.mjs now resolves blog titles like prerender.mjs: seoTitle when set, else suffix when title is 50 chars or less
+- Duplicate-title guard no longer false-positives on posts that share H1 but differ in seoTitle (hvordan-digitalisere-booking pair)
+- Per-post title check compares served HTML against resolved title, not raw frontmatter title (klubbhus post with h1InBody)
+- Self-test extended for seoTitle resolution; live verify against digilist.no passes all 425 posts
+
 ## 2026-09-21: CTR enrich for /blogg/hvordan-digitalisere-booking-av-kommunale-lokaler
 
 - Title and seoTitle set to Hvordan digitalisere booking av kommunale lokaler (dropped Slik and i 2026)

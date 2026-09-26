@@ -40,9 +40,12 @@ export function parseFrontmatter(raw) {
   return fm;
 }
 
-/** The title prerender.mjs writes for a post (mirrors its ~65-char rule). */
-export function expectedTitle(postTitle) {
-  return postTitle.length > 50 ? postTitle : `${postTitle} — Digilist`;
+/** The <title> prerender.mjs writes — mirrors scripts/prerender.mjs + BlogPost.tsx. */
+export function resolvePostTitle(post) {
+  const title = typeof post === "string" ? post : post.title || "";
+  const seoTitle = typeof post === "object" ? post.seoTitle : undefined;
+  if (seoTitle) return seoTitle;
+  return title.length > 50 ? title : `${title} – Digilist`;
 }
 
 /** Resolve a frontmatter cover into the absolute URL prerender.mjs emits. */
@@ -65,7 +68,7 @@ export function extractOgImage(html) {
 export function findDuplicateTitles(posts) {
   const bySlugTitle = new Map();
   for (const p of posts) {
-    const title = expectedTitle(p.title);
+    const title = resolvePostTitle(p);
     if (!bySlugTitle.has(title)) bySlugTitle.set(title, []);
     bySlugTitle.get(title).push(p.slug);
   }
@@ -79,8 +82,11 @@ export function judgePost(html, status, post) {
   const title = extractTitle(html);
   if (!title) problems.push("no <title>");
   else if (title === GENERIC_TITLE) problems.push("served the generic SPA shell (not pre-rendered)");
-  else if (post.title && !title.startsWith(post.title.slice(0, 40))) {
-    problems.push(`title mismatch (got "${title.slice(0, 50)}")`);
+  else {
+    const expected = resolvePostTitle(post);
+    if (expected && !title.startsWith(expected.slice(0, 40))) {
+      problems.push(`title mismatch (got "${title.slice(0, 50)}")`);
+    }
   }
   const og = extractOgImage(html);
   if (!og) problems.push("no og:image");
@@ -109,6 +115,7 @@ async function loadPosts() {
     posts.push({
       slug: fm.slug || f.replace(/\.md$/, ""),
       title: fm.title || "",
+      seoTitle: fm.seoTitle || "",
       cover: fm.cover || "",
       date: fm.date || "",
       // English posts live at /en/blogg/<slug>. Without this the verifier
@@ -212,8 +219,12 @@ function selfTest() {
   const fm = parseFrontmatter('---\nslug: "abc"\ntitle: "Hei der"\ncover: "/images/x.webp"\n---\nbody');
   assert(fm.slug === "abc" && fm.title === "Hei der" && fm.cover === "/images/x.webp", "frontmatter");
   assert(parseFrontmatter("no frontmatter") === null, "no-frontmatter → null");
-  assert(expectedTitle("Kort") === "Kort — Digilist", "short title suffix");
-  assert(expectedTitle("x".repeat(60)) === "x".repeat(60), "long title no suffix");
+  assert(resolvePostTitle({ title: "Kort" }) === "Kort – Digilist", "short title suffix");
+  assert(resolvePostTitle({ title: "x".repeat(60) }) === "x".repeat(60), "long title no suffix");
+  assert(
+    resolvePostTitle({ title: "H1 som er annerledes", seoTitle: "SEO tittel" }) === "SEO tittel",
+    "seoTitle wins over title",
+  );
   assert(coverUrl("/img.webp", "https://d.no") === "https://d.no/img.webp", "rel cover");
   assert(coverUrl("https://cdn/x.png", "https://d.no") === "https://cdn/x.png", "abs cover");
   assert(coverUrl("", "https://d.no") === "https://d.no/og-image.png", "no cover fallback");
@@ -233,6 +244,23 @@ function selfTest() {
   ]);
   assert(dupes.length === 1 && dupes[0][1].join(",") === "a,b", "detect duplicate title");
   assert(findDuplicateTitles([{ slug: "a", title: "Kort" }]).length === 0, "no false positive on single post");
+  assert(
+    findDuplicateTitles([
+      { slug: "a", title: "Samme H1", seoTitle: "Kort SEO" },
+      { slug: "b", title: "Samme H1" },
+    ]).length === 0,
+    "seoTitle suffix difference is not a duplicate",
+  );
+  const klubbhus = judgePost(
+    '<title>Klubbhus til leie: tomme kvelder når bookingen er én telefon</title><meta property="og:image" content="https://digilist.no/og-image.png">',
+    200,
+    {
+      title: "Klubbhus til leie: når bookingen bor i én telefon, står huset tomt",
+      seoTitle: "Klubbhus til leie: tomme kvelder når bookingen er én telefon",
+      cover: "",
+    },
+  );
+  assert(klubbhus.ok, "judge accepts seoTitle over H1 title");
   console.log("verify-live self-test: all parser checks passed.");
 }
 
