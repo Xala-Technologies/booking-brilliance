@@ -3113,6 +3113,38 @@ export const POST_FAQ = {
         "Ja. Mindre aktører får egne tilpassede priser. Se /priser.",
     },
   ],
+  "leie-ut-selskapslokale-steg-for-steg": [
+    {
+      question: "Trenger jeg et bookingsystem for å leie ut ett selskapslokale?",
+      answer:
+        "Nei, men med mer enn noen få utleier i måneden sparer en sanntidskalender med betaling på nett deg for de fleste telefonene og purringene. Med ett lokale er det kalenderen og betalingen som gjør mest.",
+    },
+    {
+      question: "Hvordan bør jeg prise helg mot hverdag?",
+      answer:
+        "Start med en grunnpris for hverdag, og legg et tillegg på fredag, lørdag og høysesong. I Digilist setter du dette som differensiert pris og sesongpris.",
+    },
+    {
+      question: "Kan jeg godkjenne bookinger før de blir bekreftet?",
+      answer:
+        "Ja, du velger selv hvilke bookinger som krever godkjenning. Alle beslutninger lagres i en logg på bookingen.",
+    },
+    {
+      question: "Hvilke betalingsmåter kan leietakerne bruke?",
+      answer:
+        "Leietakerne kan betale med Vipps, kort, faktura eller EHF. De kan betale når de booker, eller få faktura etterpå.",
+    },
+    {
+      question: "Kan kalenderen synkes med kalenderen jeg bruker i dag?",
+      answer:
+        "Ja, Digilist har kalendersynk, så egne avtaler og bookinger ligger på samme sted. Se kanaler og kalendersynk på /kanaler.",
+    },
+    {
+      question: "Tar Digilist provisjon av utleien?",
+      answer:
+        "Nei, Digilist er et fast abonnement uten provisjon. Se prisene over, eller gå til /priser.",
+    },
+  ],
   "klubbhus-til-leie-utleie-lag-velforening": [
     {
       question: "Hvordan finner jeg et klubbhus til leie?",
