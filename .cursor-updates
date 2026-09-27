@@ -6,6 +6,12 @@
 - Cover image and 640w preview committed; hardcoded pricing section omitted in favour of shared PricingSummaryBlock
 - Rendered title matches frontmatter exactly: Leie ut selskapslokale: 7 steg til første booking | Digilist
 
+## 2026-09-27: Inline prices in PricingSummaryBlock
+
+- PricingSummaryBlock now renders Small, Medium and Large monthly kroner from content/pricing.ts (PRIVATE_PLANS and formatPriceKr), same source as /priser
+- Added PricingSummaryBlock.test.tsx asserting 490, 790 and 1 290 kr/mnd render on blog routes
+- Lint, full test suite and build pass; check:meta-lengths fails on pre-existing blog title overs unrelated to this change
+
 ## 2026-09-26: Fix verify-live deploy check for seoTitle
 
 - verify-live.mjs now resolves blog titles like prerender.mjs: seoTitle when set, else suffix when title is 50 chars or less

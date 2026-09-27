@@ -1,6 +1,16 @@
 import { Link, useLocation } from "react-router-dom";
+import { formatPriceKr, PRIVATE_PLANS } from "@/content/pricing";
 import { getFraunces } from "@/lib/fonts";
 import { localeFromPath } from "@/lib/i18n";
+
+function privatePlansInlineSummary(): string {
+  const formatted = PRIVATE_PLANS.map(
+    (plan) =>
+      `${plan.name} (${formatPriceKr(plan.priceKr)}, ${plan.venues.replace(/\.$/, "")})`,
+  );
+  if (formatted.length <= 1) return formatted[0] ?? "";
+  return `${formatted.slice(0, -1).join(", ")} og ${formatted[formatted.length - 1]}`;
+}
 
 /**
  * Universal pricing summary for all marketing pages and blog posts.
@@ -40,9 +50,15 @@ export function PricingSummaryBlock() {
             kostnad per booking, og ingen andel av det du leier ut for.
           </p>
           <p className="text-base lg:text-lg text-ink leading-relaxed">
-            Private utleiere har tre publiserte månedsplaner: Small, Medium og Large.
-            Kommune og skreddersøm får tilbud. De 100 første kundene får 6 måneder
-            gratis, uten binding.
+            Private utleiere har tre publiserte månedsplaner: {privatePlansInlineSummary()}.
+            Kommune og skreddersøm:{" "}
+            <Link
+              to="/book-demo"
+              className="text-accent-text underline underline-offset-4 hover:text-ink transition-colors"
+            >
+              kontakt oss
+            </Link>
+            . De 100 første kundene får 6 måneder gratis, uten binding.
           </p>
         </div>
         {!isPricingPage && (
