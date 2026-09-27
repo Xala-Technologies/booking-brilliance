@@ -45,6 +45,12 @@ describe("PricingSummaryBlock", () => {
     expect(text).toContain("Large");
   });
 
+  it("links kommune and custom setups to /book-demo, same as /priser", () => {
+    render("/blogg/test-post");
+    const link = container.querySelector('a[href="/book-demo"]');
+    expect(link?.textContent).toBe("kontakt oss");
+  });
+
   it("links to /priser off the pricing page", () => {
     render("/blogg/test-post");
     const link = container.querySelector('a[href="/priser"]');

@@ -51,8 +51,14 @@ export function PricingSummaryBlock() {
           </p>
           <p className="text-base lg:text-lg text-ink leading-relaxed">
             Private utleiere har tre publiserte månedsplaner: {privatePlansInlineSummary()}.
-            Kommune og skreddersøm får tilbud. De 100 første kundene får 6 måneder
-            gratis, uten binding.
+            Kommune og skreddersøm:{" "}
+            <Link
+              to="/book-demo"
+              className="text-accent-text underline underline-offset-4 hover:text-ink transition-colors"
+            >
+              kontakt oss
+            </Link>
+            . De 100 første kundene får 6 måneder gratis, uten binding.
           </p>
         </div>
         {!isPricingPage && (
