@@ -3177,4 +3177,36 @@ export const POST_FAQ = {
         "Et klubbhus eies som regel av et idrettslag eller en klubb, mens et grendehus eller velhus eies av en velforening, et grendelag eller kommunen. Alle tre leies vanligvis ut til private selskaper og møter.",
     },
   ],
+  "leie-ut-lokale-filminnspilling-vanlige-feil": [
+    {
+      question: "Kan jeg leie ut lokalet mitt til filminnspilling?",
+      answer:
+        "Ja, hvis du disponerer lokalet og bruken er avklart med eventuelle medeiere eller styre. Resten handler om pris, kalender og godkjenning.",
+    },
+    {
+      question: "Hvordan bør jeg prise en innspillingsdag?",
+      answer:
+        "Sett en egen pris for produksjoner, gjerne per dag eller halv dag, adskilt fra privatpersoner og lag. I Digilist setter du pris og vilkår per type leietaker, og en produksjon hører til næring.",
+    },
+    {
+      question: "Hvordan tar jeg med tid til rigg og nedrigg?",
+      answer:
+        "Legg inn buffer før og etter bookingen. Bufferen er opptatt tid, og både du og leietaker ser den i kalenderen.",
+    },
+    {
+      question: "Kan kommunen leie ut skole, kulturhus eller idrettshall til filmproduksjon?",
+      answer:
+        "Ja, dersom kommunens utleiereglement åpner for det. I Digilist lander forespørselen hos kommunen og er ikke bindende før den er bekreftet, og endringene logges.",
+    },
+    {
+      question: "Hvordan fakturerer jeg produksjonsselskapet?",
+      answer:
+        "Send faktura eller EHF til selskapet. I Digilist går faktura og bilag til Visma, Tripletex, Fiken, PowerOffice, DNB Regnskap eller EHF/Peppol.",
+    },
+    {
+      question: "Tar Digilist provisjon av utleien?",
+      answer:
+        "Nei, Digilist er et fast abonnement uten provisjon. Se prisene over, eller gå til /priser.",
+    },
+  ],
 };
