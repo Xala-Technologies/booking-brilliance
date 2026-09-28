@@ -1,5 +1,11 @@
 # Cursor Updates
 
+## 2026-09-28: Blog post leie ut lokale til filminnspilling
+
+- Added Bokmål guide at /blogg/leie-ut-lokale-filminnspilling-vanlige-feil with seoTitle, h1InBody and six FAQ items in POST_FAQ
+- Cover image and 640w preview committed; hand-written pricing section omitted in favour of shared PricingSummaryBlock
+- Rendered title matches draft exactly: Leie ut lokale til filminnspilling: 6 feil | Digilist
+
 ## 2026-09-27: Blog post leie ut selskapslokale steg for steg
 
 - Added Bokmål guide at /blogg/leie-ut-selskapslokale-steg-for-steg with seoTitle, h1InBody and six FAQ items in POST_FAQ
