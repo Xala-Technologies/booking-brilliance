@@ -3209,4 +3209,36 @@ export const POST_FAQ = {
         "Nei, Digilist er et fast abonnement uten provisjon. Se prisene over, eller gå til /priser.",
     },
   ],
+  "leie-rom-per-time-vs-overnatting": [
+    {
+      question: "Er leie av rom per time det samme som overnatting?",
+      answer:
+        "Nei. Timeleie er et lokale i et avgrenset tidsrom. Overnatting er et sted å sove.",
+    },
+    {
+      question: "Kan jeg leie hotellrom per time hos Digilist?",
+      answer:
+        "Nei. Digilist tilbyr ikke hotellrom per time. Timeleie gjelder lokaler. Overnatting er egne annonser.",
+    },
+    {
+      question: "Hva bør en kommune velge?",
+      answer:
+        "Timeleie, når innbygger, lag eller kurs bruker et rom noen timer og drar. Overnatting bare hvis kommunen faktisk leier ut et sted å sove.",
+    },
+    {
+      question: "Hva bør en privat utleier velge?",
+      answer:
+        "Timeleie hvis gjesten bruker rommet og forlater det. Overnatting hvis noen skal overnatte.",
+    },
+    {
+      question: "Tar Digilist provisjon av leien?",
+      answer:
+        "Nei. Det er abonnement, ikke provisjon. Prisene står i prisblokken under.",
+    },
+    {
+      question: "Får timeleie de seks gratis månedene?",
+      answer:
+        "Ja. Tilbudet står i prisblokken under og gjelder abonnementet, også for timeleie. Det er ikke en egen timepris.",
+    },
+  ],
 };
