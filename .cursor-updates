@@ -1,5 +1,11 @@
 # Cursor Updates
 
+## 2026-09-29: Blog post leie rom per time vs overnatting
+
+- Added Bokmål guide at /blogg/leie-rom-per-time-vs-overnatting with seoTitle, h1InBody and six FAQ items in POST_FAQ
+- Cover image and 640w preview committed; hand-written pricing section omitted in favour of shared PricingSummaryBlock
+- Primary CTA links to /bookingsystem-utleie; FAQ 2 states Digilist does not offer hotellrom per time
+
 ## 2026-09-28: Blog post leie ut lokale til filminnspilling
 
 - Added Bokmål guide at /blogg/leie-ut-lokale-filminnspilling-vanlige-feil with seoTitle, h1InBody and six FAQ items in POST_FAQ
