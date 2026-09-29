@@ -71,10 +71,10 @@ Timeleie, når innbygger, lag eller kurs bruker et rom noen timer og drar. Overn
 Timeleie hvis gjesten bruker rommet og forlater det. Overnatting hvis noen skal overnatte.
 
 **Tar Digilist provisjon av leien?**
-Nei. Det er abonnement, ikke provisjon. Prisene står i prisblokken over.
+Nei. Det er abonnement, ikke provisjon. Prisene står i prisblokken under.
 
 **Får timeleie de seks gratis månedene?**
-Ja. Tilbudet står i prisblokken over og gjelder abonnementet, også for timeleie. Det er ikke en egen timepris.
+Ja. Tilbudet står i prisblokken under og gjelder abonnementet, også for timeleie. Det er ikke en egen timepris.
 
 ## Legg ut riktig leieform
 

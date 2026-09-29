@@ -3233,12 +3233,12 @@ export const POST_FAQ = {
     {
       question: "Tar Digilist provisjon av leien?",
       answer:
-        "Nei. Det er abonnement, ikke provisjon. Prisene står i prisblokken over.",
+        "Nei. Det er abonnement, ikke provisjon. Prisene står i prisblokken under.",
     },
     {
       question: "Får timeleie de seks gratis månedene?",
       answer:
-        "Ja. Tilbudet står i prisblokken over og gjelder abonnementet, også for timeleie. Det er ikke en egen timepris.",
+        "Ja. Tilbudet står i prisblokken under og gjelder abonnementet, også for timeleie. Det er ikke en egen timepris.",
     },
   ],
 };
