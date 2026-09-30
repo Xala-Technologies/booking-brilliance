@@ -3209,6 +3209,38 @@ export const POST_FAQ = {
         "Nei, Digilist er et fast abonnement uten provisjon. Se prisene over, eller gå til /priser.",
     },
   ],
+  "kurslokaler-hele-kursdagen": [
+    {
+      question: "Er et kurslokale det samme som et konferanselokale?",
+      answer:
+        "Rommet kan være det samme, men kurset trenger hele dagen, ikke en kort time.",
+    },
+    {
+      question: "Hvor lenge skal bookingen vare?",
+      answer:
+        "Fra før deltakerne kommer, til siste økt er ferdig.",
+    },
+    {
+      question: "Kan noen andre ta rommet etter lunsj?",
+      answer:
+        "Bare hvis kurset er slutt. Varer kurset til 15:00, skal den tiden være med i samme booking.",
+    },
+    {
+      question: "Gjelder regelen bare kommunen?",
+      answer:
+        "Nei. Privat utleier med ett rom følger samme regel.",
+    },
+    {
+      question: "Blir kurset en næringsleiekontrakt?",
+      answer:
+        "Nei. Digilist er abonnement for booking, ikke programvare for leieavtaler.",
+    },
+    {
+      question: "Hva koster Digilist?",
+      answer:
+        "Prisene står i blokken under og på /priser. Det er abonnement, ikke provisjon.",
+    },
+  ],
   "leie-rom-per-time-vs-overnatting": [
     {
       question: "Er leie av rom per time det samme som overnatting?",
