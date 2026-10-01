@@ -3273,4 +3273,36 @@ export const POST_FAQ = {
         "Ja. Tilbudet står i prisblokken under og gjelder abonnementet, også for timeleie. Det er ikke en egen timepris.",
     },
   ],
+  "minnesamvaer-uten-navn-i-kalenderen": [
+    {
+      question: "Er minnesamvær seremonien?",
+      answer:
+        "Nei. Det er samlingen etter seremonien, i et leid rom.",
+    },
+    {
+      question: "Hvorfor er navnet ute av kalenderen?",
+      answer:
+        "Kalenderen viser om tiden er ledig. Den er ikke en gjesteliste.",
+    },
+    {
+      question: "Hvem kan likevel se navnet?",
+      answer:
+        "Utleier og de som har bookingen kan se navnet. Den som bare ser etter ledige timer, ser det ikke.",
+    },
+    {
+      question: "Gjelder regelen kommunen?",
+      answer:
+        "Ja. En kommune følger samme regel som en privat utleier.",
+    },
+    {
+      question: "Skal timen stå ledig så lenge navnet er skjult?",
+      answer:
+        "Nei. Rommet vises som opptatt i den tiden som er booket.",
+    },
+    {
+      question: "Hvor finner man et rom?",
+      answer:
+        "Rom til samlingen ligger på /leie/minnestund.",
+    },
+  ],
 };
