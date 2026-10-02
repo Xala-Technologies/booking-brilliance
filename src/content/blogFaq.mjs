@@ -3305,4 +3305,36 @@ export const POST_FAQ = {
         "Rom til samlingen ligger på /leie/minnestund.",
     },
   ],
+  "firmafest-er-ikke-et-mote": [
+    {
+      question: "Er firmafesten et møte hvis den starter rett etter arbeidstid?",
+      answer:
+        "Nei. Tidspunktet gjør den ikke til et møte.",
+    },
+    {
+      question: "Kan den likevel stå i et møterom?",
+      answer:
+        "Bare hvis det rommet tåler festen. Hvis ikke, avslå det rommet.",
+    },
+    {
+      question: "Skal kalenderen si møte så festen ikke synes?",
+      answer:
+        "Nei. Rommet vises opptatt, og anledningen er firmafest. Ikke skjul den som et møte, og ikke skriv et personnavn.",
+    },
+    {
+      question: "Gjelder avslaget kommunen?",
+      answer:
+        "Ja. Samme avslag som for privat utleier.",
+    },
+    {
+      question: "Er dette en guide til julebord?",
+      answer:
+        "Nei. Dette innlegget er ikke en guide til julebord.",
+    },
+    {
+      question: "Hvor tar man imot festen?",
+      answer:
+        "Festen tas imot i et rom som tåler den. Se /leie/firmafest.",
+    },
+  ],
 };
