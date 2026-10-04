@@ -1,5 +1,11 @@
 # Cursor Updates
 
+## 2026-10-04: Blog post barnebursdag-i-bekreftelsen
+
+- Added Bokmål post at /blogg/barnebursdag-i-bekreftelsen dated 2026-10-03 with draft copy, cover and preview derivative
+- POST_FAQ entry with five questions; coverAlt wired through blogFrontmatter and BlogPost
+- BlogPost strips price-block HTML comment before markdown render so FAQ section is not broken
+
 ## 2026-09-28: Blog post leie ut lokale til filminnspilling
 
 - Added Bokmål guide at /blogg/leie-ut-lokale-filminnspilling-vanlige-feil with seoTitle, h1InBody and six FAQ items in POST_FAQ

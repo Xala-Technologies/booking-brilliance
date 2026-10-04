@@ -133,7 +133,12 @@ const BlogPost = () => {
   const bodyParas = post.content.trimEnd().split(/\n{2,}/);
   while (bodyParas.length > 1 && isCta(bodyParas[bodyParas.length - 1]))
     bodyParas.pop();
-  const body = bodyParas.join("\n\n");
+  // Author markers like `<!-- price-block: shared -->` document where the
+  // shared PricingSummaryBlock below the article belongs; strip them so
+  // ReactMarkdown does not emit raw HTML that breaks the following markdown.
+  const body = bodyParas
+    .join("\n\n")
+    .replace(/<!--\s*price-block:\s*shared\s*-->\s*/gi, "");
   const pageTitle =
     post.seoTitle ??
     (post.title.length > 50 ? post.title : `${post.title} · Digilist`);
@@ -242,7 +247,7 @@ const BlogPost = () => {
                     <div className="relative aspect-[16/9] overflow-hidden rounded-sm border border-hairline-strong bg-navy">
                       <img
                         src={post.cover}
-                        alt=""
+                        alt={post.coverAlt ?? ""}
                         className="absolute inset-0 w-full h-full object-cover"
                       />
                     </div>
