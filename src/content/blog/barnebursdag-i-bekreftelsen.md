@@ -20,13 +20,13 @@ h1InBody: true
 
 Den bekreftede bookingen sier barnebursdag, ikke en annen anledning. Når setningen nevner noe annet, klargjøres rommet til feil bruk.
 
-## Scene
+## Bekreftelsen sier selskap
 
 Bookingen er bekreftet. På den står én setning, og den setningen sier selskap.
 
 Den som leser [kalenderen](/bookingsystem-utleie) ser selskap, ikke barnebursdag.
 
-## Rule
+## Setningen skal si barnebursdag
 
 Setningen på den bekreftede bookingen skal si barnebursdag. Det er anledningen som er bekreftet.
 
@@ -36,7 +36,7 @@ Kommune og privat utleier bruker samme setning.
 
 Samme setning vises når bookingen ligger [på egen nettside](/innebygd-booking).
 
-## Takeaway
+## Rett setningen, ikke bookingen
 
 Når setningen nevner en annen anledning, klargjøres rommet til den anledningen. En som kommer etterpå tror det var et selskap, ikke en barnebursdag.
 
