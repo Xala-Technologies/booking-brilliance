@@ -19,7 +19,7 @@ h1InBody: true
 
 Forespørselen om dåp fra kl. 12 ser riktig ut, men gjestene er ikke i rommet da. Book starten til gjestene kommer, og avslå ikke dåpen.
 
-## Scene
+## Forespørselen fra kl. 12
 
 Én forespørsel gjelder dåp i ett rom, fra kl. 12 til kl. 16.
 
@@ -29,7 +29,7 @@ Forespørselen ser ut som en vanlig booking av tidene som står skrevet.
 
 Den som tar imot den, ser timene i [kalenderen](/bookingsystem-utleie).
 
-## Rule
+## Klokken står på feil sted
 
 Vanlig regel er å booke de timene forespørselen nevner, når rommet er ledig.
 
@@ -39,7 +39,7 @@ Kirken er ikke et annet rom som skal velges.
 
 Det er bare klokken som står på feil sted.
 
-## Takeaway
+## Book fra gjestene kommer
 
 Book det samme rommet fra tiden gjestene faktisk kommer, ikke fra kl. 12.
 
