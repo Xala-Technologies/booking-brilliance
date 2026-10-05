@@ -3391,4 +3391,31 @@ export const POST_FAQ = {
         "Nei. Kategorien nevner navnefest i overskriften. Dette innlegget gjør ikke det.",
     },
   ],
+  "kontor-for-en-dag-er-en-dagplass": [
+    {
+      question: "Må jeg bli medlem for å sitte der én dag?",
+      answer:
+        "Nei, ikke på steder som tilbyr dagplass via Digilist. Se hva stedet oppgir før du booker.",
+    },
+    {
+      question: "Hva hvis jeg skal ha videomøter hele dagen?",
+      answer:
+        "Velg et sted som oppgir telefonboks, stille sone eller møterom i det som følger med plassen.",
+    },
+    {
+      question: "Kan vi være flere?",
+      answer:
+        "Ja. To til fem kan booke flere dagplasser på samme sted.",
+    },
+    {
+      question: "Hva hvis jeg trenger plassen hver dag?",
+      answer:
+        "Da er det et kontor med kort binding. Se /leie/kontorlokaler.",
+    },
+    {
+      question: "Er dette det samme som å leie rom per time?",
+      answer:
+        "Nei. Rom per time er noe annet. Se /blogg/leie-rom-per-time-vs-overnatting.",
+    },
+  ],
 };
