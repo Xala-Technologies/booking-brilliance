@@ -3337,4 +3337,31 @@ export const POST_FAQ = {
         "Festen tas imot i et rom som tåler den. Se /leie/firmafest.",
     },
   ],
+  "barnebursdag-i-bekreftelsen": [
+    {
+      question: "Skal bookingen avvises når setningen sier selskap?",
+      answer:
+        "Nei. Bookingen er bekreftet. Rett setningen.",
+    },
+    {
+      question: "Kan setningen si møte i stedet?",
+      answer:
+        "Nei. Anledningen er barnebursdag, ikke en annen anledning.",
+    },
+    {
+      question: "Gjelder setningen kommunen?",
+      answer:
+        "Ja. Samme setning som for privat utleier. Ikke et eget løp.",
+    },
+    {
+      question: "Er dette en katalog over bursdagslokaler?",
+      answer:
+        "Nei. Lenken går til kategorien.",
+    },
+    {
+      question: "Skal barnets navn stå i setningen?",
+      answer:
+        "Nei. Setningen sier anledningen, ikke et personnavn.",
+    },
+  ],
 };

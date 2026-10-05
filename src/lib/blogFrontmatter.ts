@@ -18,6 +18,8 @@ export interface BlogFrontmatter {
   readingMinutes?: number;
   tag?: string;
   cover?: string;
+  /** Accessible description for the cover image (detail page). */
+  coverAlt?: string;
   keywords?: string[];
   /**
    * Which language the post is written in. Absent means Norwegian.
@@ -105,6 +107,7 @@ export function extractFrontmatter(path: string, raw: string): BlogFrontmatter {
     readingMinutes: data.readingMinutes as number | undefined,
     tag: data.tag as string | undefined,
     cover: data.cover as string | undefined,
+    coverAlt: data.coverAlt as string | undefined,
     keywords: data.keywords as string[] | undefined,
     lang: data.lang === "en" ? "en" : undefined,
     translationOf: (data.translationOf as string | undefined) || undefined,
