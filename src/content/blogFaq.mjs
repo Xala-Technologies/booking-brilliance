@@ -3364,4 +3364,31 @@ export const POST_FAQ = {
         "Nei. Setningen sier anledningen, ikke et personnavn.",
     },
   ],
+  "daap-klokken-er-ikke-rommet": [
+    {
+      question: "Skal dåpen avslås fordi klokken er feil?",
+      answer:
+        "Nei. Rett starten. Bookingen skal stå.",
+    },
+    {
+      question: "Er kl. 12 alltid feil?",
+      answer:
+        "Nei. Bare når kl. 12 er dåpen og ikke tiden gjestene er i rommet.",
+    },
+    {
+      question: "Er dette to romtyper?",
+      answer:
+        "Nei. Ett rom. Starten flyttes.",
+    },
+    {
+      question: "Gjelder rettingen kommunen?",
+      answer:
+        "Ja. Samme retting som for privat utleier. Ikke et eget løp.",
+    },
+    {
+      question: "Er dette en guide til navnefest?",
+      answer:
+        "Nei. Kategorien nevner navnefest i overskriften. Dette innlegget gjør ikke det.",
+    },
+  ],
 };
