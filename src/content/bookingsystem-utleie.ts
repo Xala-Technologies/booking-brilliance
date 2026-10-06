@@ -494,7 +494,7 @@ const EN: OperatorCopy = {
   contactH2: "See Digilist",
   contactH2em: "in a demo",
   contactLede:
-    "We put together a quote based on the number of venues, booking volume and integrations. A 30 to 45 minute demo, with no commitment.",
+    "A 30 to 45 minute demo, with no commitment. We show the calendar, booking and payment as you and people renting see them. Municipalities and custom setups get a separate quote.",
   ctaDemo: "Request a demo",
   supplierHeading: "Supplier details",
   supplierSpecs: [

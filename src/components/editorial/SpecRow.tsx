@@ -5,10 +5,12 @@ interface SpecRowProps {
   label: string;
   value: ReactNode;
   mono?: boolean;
+  /** Allow the value to wrap on narrow cards; default keeps one line per row. */
+  wrap?: boolean;
   className?: string;
 }
 
-export function SpecRow({ label, value, mono = true, className }: SpecRowProps) {
+export function SpecRow({ label, value, mono = true, wrap = false, className }: SpecRowProps) {
   return (
     <div
       className={cn(
@@ -30,7 +32,7 @@ export function SpecRow({ label, value, mono = true, className }: SpecRowProps) 
       />
       <span
         className={cn(
-          "shrink-0 text-ink text-right",
+          wrap ? "text-ink text-right break-words" : "shrink-0 text-ink text-right",
           mono ? "font-mono text-sm" : "font-serif text-base"
         )}
       >
