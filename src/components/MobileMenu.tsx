@@ -19,7 +19,7 @@ const ROUTES_EN: Array<{ label: string; to: string; eyebrow?: string }> = [
   { label: "Pricing", to: "/en/priser", eyebrow: "No transaction fee" },
   { label: "Blog", to: "/en/blogg" },
   { label: "FAQ", to: "/en/faq" },
-  { label: "Book demo", to: "/book-demo" },
+  { label: "Book demo", to: "/en/book-demo" },
 ];
 
 const ROUTES: Array<{ label: string; to: string; eyebrow?: string }> = [
@@ -208,7 +208,7 @@ export function MobileMenu() {
           <EditorialButton
             variant="outline"
             size="lg"
-            href="/book-demo"
+            href={isEnglish ? "/en/book-demo" : "/book-demo"}
             className="w-full"
           >
             {isEnglish ? "Book a demo" : "Book demo"}
