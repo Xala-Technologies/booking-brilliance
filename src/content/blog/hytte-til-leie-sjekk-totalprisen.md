@@ -1,32 +1,20 @@
 ---
-host: digilist
-title: "Hytte til leie: se totalprisen, ikke nattprisen"
-description: "Når du leier hytte, er det totalprisen for nettene som teller. Sjekk vask, sengeplasser, maks antall gjester, kjæledyr og avbestilling før du booker."
-h1: "Hytte til leie: se totalprisen, ikke nattprisen"
 slug: hytte-til-leie-sjekk-totalprisen
-canonical: https://digilist.no/blogg/hytte-til-leie-sjekk-totalprisen
+title: "Hytte til leie: se totalprisen, ikke nattprisen"
+seoTitle: "Hytte til leie: se totalprisen, ikke nattprisen | Digilist"
+description: "Når du leier hytte, er det totalprisen for nettene som teller. Sjekk vask, sengeplasser, maks antall gjester, kjæledyr og avbestilling før du booker."
 date: 2026-10-06
-language: nb
-status: draft
-cover: /images/blog/hytte-til-leie-sjekk-totalprisen.webp
+author: "Ibrahim Rahmani"
+role: "Grunnlegger, Digilist"
+tag: "Privatperson"
+cover: "/images/blog/hytte-til-leie-sjekk-totalprisen.webp"
 coverAlt: "Strektegning av en hyttegavl som et regnestykke: netter pluss vask pluss sengetøy over en strek, og under streken totalpris i oransje. Overskrift «SE SUMMEN FØR DU BOOKER»."
-priceBlock: shared
 keywords:
   - hytte til leie
   - leie hytte
   - leie stor hytte
   - leie hytte vinterferie
-faq:
-  - question: "Hva er inkludert når jeg leier hytte?"
-    answer: "Det står på hver hytte. Totalprisen viser hva som er med og hva som eventuelt koster ekstra, som sengetøy eller sluttvask."
-  - question: "Hvordan ser jeg om hytta er ledig de nettene vi vil?"
-    answer: "Hver hytte har en sanntidskalender. Velg innsjekk og utsjekk, så vises hvilke netter som er ledige."
-  - question: "Kan vi ta med hund eller katt på hytta?"
-    answer: "Det kommer an på hytta. Noen hytter tillater kjæledyr, andre ikke. Det står tydelig på hver hytte, og du kan filtrere på kjæledyr når du søker."
-  - question: "Hvordan finner vi en hytte som er stor nok?"
-    answer: "Sjekk både antall sengeplasser og maks antall gjester. Begge tallene står på hver hytte, og du kan filtrere på størrelsen dere er."
-  - question: "Hvem bestemmer avbestillingsreglene?"
-    answer: "Utleieren. Avbestillingsreglene settes av utleier og står på hver hytte før du booker."
+h1InBody: true
 ---
 
 # Hytte til leie: se totalprisen, ikke nattprisen
