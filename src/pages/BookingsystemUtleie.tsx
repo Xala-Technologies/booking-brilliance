@@ -66,7 +66,7 @@ const BookingsystemUtleie = () => {
           question: q.question,
           answer: faqAnswerPlain(q.answer),
         }))}
-        dateModified="2026-10-06"
+        dateModified={en ? undefined : "2026-10-06"}
         breadcrumbs={[
           { name: "Hjem", url: "https://digilist.no/" },
           { name: "Bookingsystem for utleie", url: "https://digilist.no/bookingsystem-utleie" },
@@ -162,7 +162,7 @@ const BookingsystemUtleie = () => {
               <div className="lg:col-span-7">
                 <EditorialHeading as="h2" size="section">
                   {c.whyH2}{" "}
-                  <em className="italic">{c.whyH2em}</em>
+                  <em className="italic">{c.whyH2em}</em>{en ? "." : ""}
                 </EditorialHeading>
               </div>
               <div className="lg:col-span-5 flex items-end">
@@ -324,7 +324,7 @@ const BookingsystemUtleie = () => {
               <div className="lg:col-span-7">
                 <EditorialHeading as="h2" size="section">
                   {c.typesH2}{" "}
-                  <em className="italic">{c.typesH2em}</em>
+                  <em className="italic">{c.typesH2em}</em>{en ? "." : ""}
                 </EditorialHeading>
               </div>
               <div className="lg:col-span-5 flex items-end">
@@ -370,7 +370,7 @@ const BookingsystemUtleie = () => {
               <div className="lg:col-span-7">
                 <EditorialHeading as="h2" size="section">
                   {c.integrationH2}{" "}
-                  <em className="italic">{c.integrationH2em}</em>
+                  <em className="italic">{c.integrationH2em}</em>{en ? "." : ""}
                 </EditorialHeading>
               </div>
             </div>
@@ -425,10 +425,17 @@ const BookingsystemUtleie = () => {
             <SectionRule label={c.contactRule} />
             <div className="grid lg:grid-cols-12 gap-8">
               <div className="lg:col-span-7">
-                <EditorialHeading as="h2" size="display" className="mb-6">
-                  {c.contactH2}{" "}
-                  <em className="italic">{c.contactH2em}</em>
-                </EditorialHeading>
+                {en ? (
+                  <EditorialHeading as="h2" size="display" className="mb-6">
+                    Be om{" "}
+                    <em className="italic">pristilbud</em>.
+                  </EditorialHeading>
+                ) : (
+                  <EditorialHeading as="h2" size="display" className="mb-6">
+                    {c.contactH2}{" "}
+                    <em className="italic">{c.contactH2em}</em>
+                  </EditorialHeading>
+                )}
                 <p className="text-xl text-ink-soft measure mb-8">
                   {c.contactLede}
                 </p>
@@ -436,6 +443,16 @@ const BookingsystemUtleie = () => {
                   <EditorialButton variant="primary" size="lg" href={en ? "/en/book-demo" : "/#kontakt"}>
                     {c.ctaDemo}
                   </EditorialButton>
+                  {en ? (
+                    <EditorialButton
+                      variant="outline"
+                      size="lg"
+                      icon={false}
+                      href="mailto:kontakt@digilist.no"
+                    >
+                      kontakt@digilist.no
+                    </EditorialButton>
+                  ) : null}
                 </div>
               </div>
               <div className="lg:col-span-5">
