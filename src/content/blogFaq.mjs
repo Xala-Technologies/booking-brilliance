@@ -3391,6 +3391,33 @@ export const POST_FAQ = {
         "Nei. Kategorien nevner navnefest i overskriften. Dette innlegget gjør ikke det.",
     },
   ],
+  "hytte-til-leie-sjekk-totalprisen": [
+    {
+      question: "Hva er inkludert når jeg leier hytte?",
+      answer:
+        "Det står på hver hytte. Totalprisen viser hva som er med og hva som eventuelt koster ekstra, som sengetøy eller sluttvask.",
+    },
+    {
+      question: "Hvordan ser jeg om hytta er ledig de nettene vi vil?",
+      answer:
+        "Hver hytte har en sanntidskalender. Velg innsjekk og utsjekk, så vises hvilke netter som er ledige.",
+    },
+    {
+      question: "Kan vi ta med hund eller katt på hytta?",
+      answer:
+        "Det kommer an på hytta. Noen hytter tillater kjæledyr, andre ikke. Det står tydelig på hver hytte, og du kan filtrere på kjæledyr når du søker.",
+    },
+    {
+      question: "Hvordan finner vi en hytte som er stor nok?",
+      answer:
+        "Sjekk både antall sengeplasser og maks antall gjester. Begge tallene står på hver hytte, og du kan filtrere på størrelsen dere er.",
+    },
+    {
+      question: "Hvem bestemmer avbestillingsreglene?",
+      answer:
+        "Utleieren. Avbestillingsreglene settes av utleier og står på hver hytte før du booker.",
+    },
+  ],
   "kontor-for-en-dag-er-en-dagplass": [
     {
       question: "Må jeg bli medlem for å sitte der én dag?",
