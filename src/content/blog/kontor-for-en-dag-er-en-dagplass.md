@@ -1,7 +1,7 @@
 ---
 slug: kontor-for-en-dag-er-en-dagplass
 title: "Kontor for en dag starter med en dagplass"
-seoTitle: "Kontor for en dag: start med en dagplass | Digilist"
+seoTitle: "Kontor for en dag starter med en dagplass | Digilist"
 description: "Leie kontor for en dag? Book én dagplass for den dagen. Skal du ringe mye, velg et sted med telefonboks. Trenger du plassen fast, se kontorlokaler."
 date: 2026-10-05
 author: "Ibrahim Rahmani"
