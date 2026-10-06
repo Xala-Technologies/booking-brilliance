@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { LayoutGrid, Users2, Gauge, Scaling, ArrowUpRight, type LucideIcon } from "lucide-react";
 import { motion } from "framer-motion";
 import { EditorialButton } from "@/components/editorial";
@@ -72,7 +73,23 @@ const B2BLaneSection = () => {
         <SectionHeader
           label={t(locale, "b2b.label")}
           headingId="for-utleiere-heading"
-          intro={t(locale, "b2b.intro")}
+          intro={
+            <>
+              {t(locale, "b2b.intro")}
+              {locale === "nb" ? (
+                <>
+                  {t(locale, "b2b.introLinkLead")}
+                  <Link
+                    to="/bookingsystem-utleie"
+                    className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
+                  >
+                    {t(locale, "b2b.introLinkText")}
+                  </Link>
+                  .
+                </>
+              ) : null}
+            </>
+          }
         >
           {t(locale, "b2b.headline")}{" "}
           <em

@@ -40,6 +40,8 @@ interface SEOProps {
   aboutPage?: boolean;
   /** Optional Service schema — for service offering pages */
   service?: boolean;
+  /** Optional dateModified for WebPage JSON-LD (ISO date) */
+  dateModified?: string;
   /**
    * hreflang alternates for a page whose pair is not in the static map —
    * blog posts, which pair by frontmatter and number in the hundreds.
@@ -68,6 +70,7 @@ const SEO = ({
   article,
   aboutPage,
   service,
+  dateModified,
   alternates: explicitAlternates,
   robots,
 }: SEOProps) => {
@@ -283,6 +286,19 @@ const SEO = ({
       });
     }
 
+    if (dateModified) {
+      blocks.push({
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": canonical,
+        url: canonical,
+        name: title,
+        description: description,
+        dateModified,
+        inLanguage: HTML_LANG[locale],
+      });
+    }
+
     // Remove every previous ld+json block — both prerendered (SSR) and
     // client-injected ones from an earlier render — so hydration doesn't
     // leave two copies of the same graph in the DOM, then write the fresh
@@ -312,6 +328,7 @@ const SEO = ({
     article,
     aboutPage,
     service,
+    dateModified,
   ]);
 
   return null;
