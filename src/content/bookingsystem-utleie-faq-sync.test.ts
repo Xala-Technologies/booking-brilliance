@@ -8,35 +8,51 @@ import { operatorCopy } from "./bookingsystem-utleie";
  */
 const PRERENDER = readFileSync("scripts/prerender.mjs", "utf8");
 
-function faqBlockFor(route: string): string {
+/** Strip [label](url) to label — same as BookingsystemUtleie faqAnswerPlain. */
+function faqAnswerPlain(answer: string): string {
+  return answer.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
+}
+
+function routeBlock(route: string): string {
   const at = PRERENDER.indexOf(`route: "${route}"`);
   expect(at, `no prerender entry for ${route}`).toBeGreaterThan(-1);
-  const faqAt = PRERENDER.indexOf("faq: [", at);
-  const end = PRERENDER.indexOf("],", faqAt);
-  expect(faqAt).toBeGreaterThan(-1);
-  return PRERENDER.slice(faqAt, end);
+  const end = PRERENDER.indexOf("\n  },", at);
+  expect(end, `unterminated block for ${route}`).toBeGreaterThan(-1);
+  return PRERENDER.slice(at, end);
+}
+
+function prerenderedFAQ(route: string): Array<{ q: string; a: string }> {
+  const block = routeBlock(route);
+  const faqStart = block.indexOf("faq: [");
+  expect(faqStart, `no FAQ block for ${route}`).toBeGreaterThan(-1);
+  const faq = block.slice(faqStart);
+  return [...faq.matchAll(/q:\s*"((?:[^"\\]|\\.)*)"\s*,\s*a:\s*"((?:[^"\\]|\\.)*)"/g)].map(
+    (m) => ({
+      q: m[1].replace(/\\"/g, '"'),
+      a: m[2].replace(/\\"/g, '"'),
+    }),
+  );
+}
+
+function prerenderedDateModified(route: string): string | undefined {
+  const block = routeBlock(route);
+  const match = /dateModified:\s*"([^"]+)"/.exec(block);
+  return match?.[1];
 }
 
 describe.each([
-  ["nb", "/bookingsystem-utleie"],
-  ["en", "/en/bookingsystem-utleie"],
-] as const)("bookingsystem-utleie %s FAQ matches prerender", (locale, route) => {
-  const block = faqBlockFor(route);
-  const entries = operatorCopy(locale).faq;
-
-  it("has every question, verbatim", () => {
-    const missing = entries
-      .map(({ question }) => question)
-      .filter((q) => !block.includes(q));
-    expect(
-      missing,
-      `questions missing from scripts/prerender.mjs for ${route}: ${missing.join(" | ")}`,
-    ).toEqual([]);
+  ["nb", "/bookingsystem-utleie", "2026-10-06"],
+  ["en", "/en/bookingsystem-utleie", undefined],
+] as const)("bookingsystem-utleie %s FAQ matches prerender", (locale, route, dateModified) => {
+  it("has the same question and answer pairs as the page", () => {
+    const pageFaq = operatorCopy(locale).faq.map(({ question, answer }) => ({
+      q: question,
+      a: faqAnswerPlain(answer),
+    }));
+    expect(prerenderedFAQ(route)).toEqual(pageFaq);
   });
 
-  it("has the same entry count as the page", () => {
-    const count = (block.match(/\bq: "/g) ?? []).length;
-    expect(count, `prerender lists ${count} entries, page shows ${entries.length}`)
-      .toBe(entries.length);
+  it("has the same dateModified as the page", () => {
+    expect(prerenderedDateModified(route)).toBe(dateModified);
   });
 });

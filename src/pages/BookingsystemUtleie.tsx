@@ -458,7 +458,7 @@ const BookingsystemUtleie = () => {
                     {c.supplierHeading}
                   </h3>
                   {c.supplierSpecs.map((spec) => (
-                    <SpecRow key={spec.label} label={spec.label} value={spec.value} />
+                    <SpecRow key={spec.label} label={spec.label} value={spec.value} wrap />
                   ))}
                 </EditorialCard>
               </div>
