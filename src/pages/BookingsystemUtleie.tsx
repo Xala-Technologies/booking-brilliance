@@ -102,7 +102,7 @@ const BookingsystemUtleie = () => {
                   {c.ledeB}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <EditorialButton variant="primary" size="lg" href={en ? "/en/book-demo" : "/#kontakt"}>
+                  <EditorialButton variant="primary" size="lg" href={en ? "/en/book-demo" : "/book-demo"}>
                     {c.ctaQuote}
                   </EditorialButton>
                   <EditorialButton
@@ -347,9 +347,9 @@ const BookingsystemUtleie = () => {
                   en={en}
                   key={t.to}
                   to={t.to}
-                  className="group bg-paper p-5 lg:p-6 flex items-center justify-between gap-3 hover:bg-accent-tinted transition-colors"
+                  className="group bg-paper p-5 lg:p-6 flex items-center justify-between gap-3 min-w-0 hover:bg-accent-tinted transition-colors"
                 >
-                  <span className="text-base text-ink group-hover:text-accent-text">
+                  <span className="min-w-0 text-base text-ink group-hover:text-accent-text">
                     {t.label}
                   </span>
                   <ArrowRight
@@ -425,22 +425,16 @@ const BookingsystemUtleie = () => {
             <SectionRule label={c.contactRule} />
             <div className="grid lg:grid-cols-12 gap-8">
               <div className="lg:col-span-7">
-                {en ? (
-                  <EditorialHeading as="h2" size="display" className="mb-6">
-                    Be om{" "}
-                    <em className="italic">pristilbud</em>.
-                  </EditorialHeading>
-                ) : (
-                  <EditorialHeading as="h2" size="display" className="mb-6">
-                    {c.contactH2}{" "}
-                    <em className="italic">{c.contactH2em}</em>
-                  </EditorialHeading>
-                )}
+                <EditorialHeading as="h2" size="display" className="mb-6">
+                  {c.contactH2}{" "}
+                  <em className="italic">{c.contactH2em}</em>
+                  {en ? "." : ""}
+                </EditorialHeading>
                 <p className="text-xl text-ink-soft measure mb-8">
                   {c.contactLede}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <EditorialButton variant="primary" size="lg" href={en ? "/en/book-demo" : "/#kontakt"}>
+                  <EditorialButton variant="primary" size="lg" href={en ? "/en/book-demo" : "/book-demo"}>
                     {c.ctaDemo}
                   </EditorialButton>
                   {en ? (

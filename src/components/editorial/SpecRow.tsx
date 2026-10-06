@@ -12,7 +12,7 @@ export function SpecRow({ label, value, mono = true, className }: SpecRowProps) 
   return (
     <div
       className={cn(
-        "flex items-baseline gap-3 py-3 border-b border-rule last:border-b-0",
+        "flex items-baseline gap-3 py-3 border-b border-rule last:border-b-0 min-w-0",
         className
       )}
     >
@@ -30,7 +30,7 @@ export function SpecRow({ label, value, mono = true, className }: SpecRowProps) 
       />
       <span
         className={cn(
-          "shrink-0 text-ink text-right",
+          "min-w-0 text-ink text-right break-words [overflow-wrap:anywhere]",
           mono ? "font-mono text-sm" : "font-serif text-base"
         )}
       >
