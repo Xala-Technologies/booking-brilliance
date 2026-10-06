@@ -66,9 +66,10 @@ const BookingsystemUtleie = () => {
           question: q.question,
           answer: faqAnswerPlain(q.answer),
         }))}
+        dateModified="2026-10-06"
         breadcrumbs={[
           { name: "Hjem", url: "https://digilist.no/" },
-          { name: "Bookingsystem utleie", url: "https://digilist.no/bookingsystem-utleie" },
+          { name: "Bookingsystem for utleie", url: "https://digilist.no/bookingsystem-utleie" },
         ]}
       />
       <ProgressRail />
@@ -161,7 +162,7 @@ const BookingsystemUtleie = () => {
               <div className="lg:col-span-7">
                 <EditorialHeading as="h2" size="section">
                   {c.whyH2}{" "}
-                  <em className="italic">{c.whyH2em}</em>.
+                  <em className="italic">{c.whyH2em}</em>
                 </EditorialHeading>
               </div>
               <div className="lg:col-span-5 flex items-end">
@@ -323,7 +324,7 @@ const BookingsystemUtleie = () => {
               <div className="lg:col-span-7">
                 <EditorialHeading as="h2" size="section">
                   {c.typesH2}{" "}
-                  <em className="italic">{c.typesH2em}</em>.
+                  <em className="italic">{c.typesH2em}</em>
                 </EditorialHeading>
               </div>
               <div className="lg:col-span-5 flex items-end">
@@ -369,7 +370,7 @@ const BookingsystemUtleie = () => {
               <div className="lg:col-span-7">
                 <EditorialHeading as="h2" size="section">
                   {c.integrationH2}{" "}
-                  <em className="italic">{c.integrationH2em}</em>.
+                  <em className="italic">{c.integrationH2em}</em>
                 </EditorialHeading>
               </div>
             </div>
@@ -425,8 +426,8 @@ const BookingsystemUtleie = () => {
             <div className="grid lg:grid-cols-12 gap-8">
               <div className="lg:col-span-7">
                 <EditorialHeading as="h2" size="display" className="mb-6">
-                  Be om{" "}
-                  <em className="italic">pristilbud</em>.
+                  {c.contactH2}{" "}
+                  <em className="italic">{c.contactH2em}</em>
                 </EditorialHeading>
                 <p className="text-xl text-ink-soft measure mb-8">
                   {c.contactLede}
@@ -434,14 +435,6 @@ const BookingsystemUtleie = () => {
                 <div className="flex flex-col sm:flex-row gap-4">
                   <EditorialButton variant="primary" size="lg" href={en ? "/en/book-demo" : "/#kontakt"}>
                     {c.ctaDemo}
-                  </EditorialButton>
-                  <EditorialButton
-                    variant="outline"
-                    size="lg"
-                    icon={false}
-                    href="mailto:kontakt@digilist.no"
-                  >
-                    kontakt@digilist.no
                   </EditorialButton>
                 </div>
               </div>

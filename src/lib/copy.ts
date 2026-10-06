@@ -184,6 +184,9 @@ const nb: Copy = {
   "b2b.label": "FOR UTLEIERE OG KOMMUNER",
   "b2b.intro":
     "Digilist drifter privat utleie og kommunal booking i samme løsning: privatbookinger, sesongleie til lag og foreninger, sambruk mellom avdelinger og innbyggerdialog med ID-porten.",
+  "b2b.introLinkLead":
+    " Leier du ut lokaler selv, finner du kalender, booking og betaling i vårt ",
+  "b2b.introLinkText": "bookingsystem for utleie",
   "b2b.headline": "Fra ett lokale til",
   "b2b.headlineEm": "hele kommunen",
   "b2b.b1.title": "Alt samlet",
@@ -904,6 +907,9 @@ const en: Copy = {
   "b2b.label": "FOR OPERATORS AND PUBLIC BODIES",
   "b2b.intro":
     "Digilist runs private rental and public-sector booking in one system: individual bookings, recurring seasonal slots for local clubs, shared use across departments, and resident access through national digital identity.",
+  "b2b.introLinkLead":
+    " If you rent out venues yourself, you will find calendar, booking and payment in our ",
+  "b2b.introLinkText": "booking system for rental",
   "b2b.headline": "From one venue to",
   "b2b.headlineEm": "an entire authority",
   "b2b.b1.title": "Everything in one place",

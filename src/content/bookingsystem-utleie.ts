@@ -95,6 +95,8 @@ export interface OperatorCopy {
   kommuneBody: string;
   kommuneLinkText: string;
   contactRule: string;
+  contactH2: string;
+  contactH2em: string;
   contactLede: string;
   ctaDemo: string;
   supplierHeading: string;
@@ -115,32 +117,37 @@ const FAQ_NB: readonly QA[] = [
   {
     question: "Hva er et bookingsystem for utleie?",
     answer:
-      "Én kalender for lokalet. Leietaker ser ledig tid, booker og betaler. Dere ser det samme. Digilist er for lokaler, ikke for utstyr.",
+      "Et bookingsystem for utleie er én kalender for lokalet. Leietaker ser ledig tid, booker og betaler. Du som utleier ser den samme kalenderen, så samme tid kan ikke bookes to ganger.",
   },
   {
-    question: "Hva koster et bookingsystem for utleie?",
+    question: "Er Digilist for utstyr eller for lokaler?",
     answer:
-      "Prisen avhenger av anlegg, brukermengde og integrasjoner. Digilist er et abonnement, ikke en provisjon. Se [hva Digilist koster](/priser).",
+      "Digilists bookingsystem er for lokaler: festlokale, møterom, gård og hall. Det er ikke laget for utleie av tilhenger, verktøy, lager eller minilager.",
   },
   {
-    question: "Passer dette for private utleiere, eller bare kommuner?",
+    question: "Hva koster et bookingsystem for utleie hos Digilist?",
     answer:
-      "Denne siden er for den som leier ut lokaler. Kommuner som leier ut, bruker [bookingsystem for kommuner](/bookingsystem-kommune).",
+      "Fra 490 kr/mnd. Small koster 490 kr/mnd for 1 lokale, Medium 790 kr/mnd for 2 til 3 lokaler og Large 1 290 kr/mnd for 4 eller flere lokaler. Kommune og skreddersøm får pristilbud, kontakt oss.",
   },
   {
-    question: "Er dette et bookingsystem for utstyr, eller for lokaler?",
+    question: "Er Digilist gratis?",
     answer:
-      "For lokaler. Tilhenger, verktøy og minilager er en annen jobb.",
+      "De 100 første kundene får 6 måneder gratis, uten binding. Etterpå velger du Small, Medium eller Large etter hvor mange lokaler du leier ut. Det finnes ingen permanent gratisplan.",
   },
   {
-    question: "Kan jeg ta betalt på nett for utleien?",
+    question: "Tar Digilist en andel av leien?",
     answer:
-      "Ja. Leietaker kan betale med Vipps eller kort når hen booker. Totalen vises før bekreftelsen.",
+      "Nei. Digilist er et abonnement, ikke provisjon. Det er ingen transaksjonsavgift og ingen kostnad per booking. Leien går til deg gjennom din egen betalingsavtale.",
   },
   {
-    question: "Kan leietaker se ledig tid på vår nettside?",
+    question: "Kan leietaker betale på nett når de booker?",
     answer:
-      "Ja. Kalenderen kan ligge på nettsiden dere allerede har. Se [innebygd booking](/innebygd-booking).",
+      "Ja. Leietaker betaler med kort eller mobilbetaling i samme steg som bookingen. Totalprisen vises før bekreftelsen.",
+  },
+  {
+    question: "Kan leietaker se ledig tid på vår egen nettside?",
+    answer:
+      "Ja. Kalenderen kan ligge på nettsiden dere allerede har. Leietaker ser samme ledig og opptatt tid som dere, og booker derfra.",
   },
 ];
 
@@ -320,22 +327,22 @@ const FAQ_EN: readonly QA[] = [
 ];
 
 const NB: OperatorCopy = {
-  metaTitle: "Bookingsystem utleie | Digilist",
+  metaTitle: "Bookingsystem for utleie: én kalender for lokalet | Digilist",
   metaDescription:
-    "Bookingsystem for utleie av lokaler. Festlokale, møterom, gård og hall, ikke tilhenger, verktøy eller minilager. Sanntidskalender, Vipps og kort, differensiert pris.",
+    "Bookingsystem for utleie av lokaler: ledig tid, booking og betaling i én kalender. Fra 490 kr/mnd, ingen provisjon. Festlokale og møterom, ikke utstyr.",
   keywords:
     "bookingsystem utleie, bookingsystem for utleie av lokaler, system for utleie av lokaler, utleie av lokaler, bookingsystem lokaler",
-  rule: "BOOKINGSYSTEM UTLEIE · 2026",
+  rule: "BOOKINGSYSTEM FOR UTLEIE · 2026",
   openingScene: "Innboksen er full. Tre vil ha samme lørdag. Kalenderen sitter i hodet.",
-  h1: "Bookingsystem utleie:",
+  h1: "Bookingsystem for utleie:",
   h1em: "én kalender, ikke tre e-poster",
   ledeA:
-    "Bookingsystem utleie er én kalender for lokalet. Ledig tid, booking og betaling. Tre e-poster er tre sannheter. Én kalender er én. ",
+    "Et bookingsystem for utleie er én kalender for lokalet. Ledig tid, booking og betaling. Tre e-poster er tre sannheter. Én kalender er én. ",
   ledeStrong: "",
   ledeB: "Ikke tilhenger. Ikke verktøy. Ikke lager. Festlokale, møterom, gård og hall.",
-  ctaQuote: "Be om pristilbud",
+  ctaQuote: "Book en demo",
   ctaOpen: "Åpne plattformen",
-  forOperators: "For utleiere",
+  forOperators: "For deg som leier ut lokaler",
   operatorSpecs: [
     { label: "Marked", value: "Privat · offentlig" },
     { label: "Lokaltyper", value: "11+" },
@@ -349,10 +356,10 @@ const NB: OperatorCopy = {
   definitionP3: "Digilist er et system for utleie av lokaler. Mindre e-post og telefon. Samme kalender for begge.",
   whyRule: "II. HVORFOR DIGITAL UTLEIE",
   whyH2: "Fra e-post til",
-  whyH2em: "direkte booking",
+  whyH2em: "booking og betaling på nett",
   whyLede: "Alt en utleier trenger for å fylle kalenderen, samlet ett sted.",
   featureRule: "III. FUNKSJONALITET",
-  featureH2: "Hva utleieren får.",
+  featureH2: "Dette får du som utleier",
   featureLede: "Seks funksjoner som gjør utleie til en digital, selvbetjent flyt.",
   zonesH2: "Soner og tildeling",
   zonesP1: "Et lokale kan ha deler. En sal. En etasje. En sone.",
@@ -378,20 +385,22 @@ const NB: OperatorCopy = {
   renterTypesLinkText: "Leietakertyper",
   renterTypesLinkUrl: "/leietakertyper",
   typesRule: "IV. LOKALTYPER DU KAN LEIE UT",
-  typesH2: "Én plattform, mange",
-  typesH2em: "lokaltyper",
+  typesH2: "Festlokale, møterom, gård og hall",
+  typesH2em: "i samme kalender",
   typesLede: "Fra festlokaler og gårder til møterom og idrettsanlegg.",
   integrationRule: "V. NORSKE INTEGRASJONER",
-  integrationH2: "Tilkoblet det du",
+  integrationH2: "Koble til systemene du",
   integrationH2em: "allerede bruker",
   kommuneRule: "VI. KOMMUNER",
   kommuneH2: "Kommuner",
   kommuneBody: "Kommuner som leier ut lokaler, bruker ",
   kommuneLinkText: "bookingsystem for kommuner",
   contactRule: "VII. KONTAKT",
+  contactH2: "Se Digilist",
+  contactH2em: "i en demo",
   contactLede:
-    "Vi setter sammen et pristilbud basert på antall utleieobjekter, bookingvolum og integrasjoner. Demo på 30 til 45 minutter, ingen forpliktelser.",
-  ctaDemo: "Be om demo",
+    "Demo på 30 til 45 minutter, ingen forpliktelser. Vi viser kalender, booking og betaling slik du og leietakerne ser dem. Kommune og skreddersøm får eget pristilbud.",
+  ctaDemo: "Book en demo",
   supplierHeading: "Leverandørinformasjon",
   supplierSpecs: [
     { label: "Leverandør", value: "Xala Technologies AS" },
@@ -402,7 +411,7 @@ const NB: OperatorCopy = {
     { label: "ISO 27001/27701", value: "Sertifisert" },
   ],
   faqRule: "VIII. SPØRSMÅL OG SVAR",
-  faqH2: "Vanlige spørsmål om bookingsystem utleie",
+  faqH2: "Vanlige spørsmål om bookingsystem for utleie",
   seeAlso: "Se også",
   municipalLink: "bookingsystem for kommuner",
   orBackTo: "eller tilbake til",
@@ -482,6 +491,8 @@ const EN: OperatorCopy = {
   kommuneBody: "Municipalities that rent out venues use ",
   kommuneLinkText: "the booking system for municipalities",
   contactRule: "VII. CONTACT",
+  contactH2: "See Digilist",
+  contactH2em: "in a demo",
   contactLede:
     "We put together a quote based on the number of venues, booking volume and integrations. A 30 to 45 minute demo, with no commitment.",
   ctaDemo: "Request a demo",

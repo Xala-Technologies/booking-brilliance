@@ -2262,38 +2262,43 @@ const ROUTES = [
   },
   {
     route: "/bookingsystem-utleie",
-    title: "Bookingsystem utleie | Digilist",
+    title: "Bookingsystem for utleie: én kalender for lokalet | Digilist",
     description:
-      "Bookingsystem for utleie av lokaler. Festlokale, møterom, gård og hall, ikke tilhenger, verktøy eller minilager. Sanntidskalender, Vipps og kort, differensiert pris.",
+      "Bookingsystem for utleie av lokaler: ledig tid, booking og betaling i én kalender. Fra 490 kr/mnd, ingen provisjon. Festlokale og møterom, ikke utstyr.",
     ogType: "website",
+    dateModified: "2026-10-06",
     breadcrumbs: [
       { name: "Hjem", url: `${BASE_URL}/` },
-      { name: "Bookingsystem utleie", url: `${BASE_URL}/bookingsystem-utleie` },
+      { name: "Bookingsystem for utleie", url: `${BASE_URL}/bookingsystem-utleie` },
     ],
     faq: [
       {
         q: "Hva er et bookingsystem for utleie?",
-        a: "Én kalender for lokalet. Leietaker ser ledig tid, booker og betaler. Dere ser det samme. Digilist er for lokaler, ikke for utstyr.",
+        a: "Et bookingsystem for utleie er én kalender for lokalet. Leietaker ser ledig tid, booker og betaler. Du som utleier ser den samme kalenderen, så samme tid kan ikke bookes to ganger.",
       },
       {
-        q: "Hva koster et bookingsystem for utleie?",
-        a: "Prisen avhenger av anlegg, brukermengde og integrasjoner. Digilist er et abonnement, ikke en provisjon. Se hva Digilist koster.",
+        q: "Er Digilist for utstyr eller for lokaler?",
+        a: "Digilists bookingsystem er for lokaler: festlokale, møterom, gård og hall. Det er ikke laget for utleie av tilhenger, verktøy, lager eller minilager.",
       },
       {
-        q: "Passer dette for private utleiere, eller bare kommuner?",
-        a: "Denne siden er for den som leier ut lokaler. Kommuner som leier ut, bruker bookingsystem for kommuner.",
+        q: "Hva koster et bookingsystem for utleie hos Digilist?",
+        a: "Fra 490 kr/mnd. Small koster 490 kr/mnd for 1 lokale, Medium 790 kr/mnd for 2 til 3 lokaler og Large 1 290 kr/mnd for 4 eller flere lokaler. Kommune og skreddersøm får pristilbud, kontakt oss.",
       },
       {
-        q: "Er dette et bookingsystem for utstyr, eller for lokaler?",
-        a: "For lokaler. Tilhenger, verktøy og minilager er en annen jobb.",
+        q: "Er Digilist gratis?",
+        a: "De 100 første kundene får 6 måneder gratis, uten binding. Etterpå velger du Small, Medium eller Large etter hvor mange lokaler du leier ut. Det finnes ingen permanent gratisplan.",
       },
       {
-        q: "Kan jeg ta betalt på nett for utleien?",
-        a: "Ja. Leietaker kan betale med Vipps eller kort når hen booker. Totalen vises før bekreftelsen.",
+        q: "Tar Digilist en andel av leien?",
+        a: "Nei. Digilist er et abonnement, ikke provisjon. Det er ingen transaksjonsavgift og ingen kostnad per booking. Leien går til deg gjennom din egen betalingsavtale.",
       },
       {
-        q: "Kan leietaker se ledig tid på vår nettside?",
-        a: "Ja. Kalenderen kan ligge på nettsiden dere allerede har. Se innebygd booking.",
+        q: "Kan leietaker betale på nett når de booker?",
+        a: "Ja. Leietaker betaler med kort eller mobilbetaling i samme steg som bookingen. Totalprisen vises før bekreftelsen.",
+      },
+      {
+        q: "Kan leietaker se ledig tid på vår egen nettside?",
+        a: "Ja. Kalenderen kan ligge på nettsiden dere allerede har. Leietaker ser samme ledig og opptatt tid som dere, og booker derfra.",
       },
     ],
   },
@@ -2758,6 +2763,18 @@ function patchHTML(template, meta) {
       category: "Software / SaaS",
       description: meta.description,
       url: canonical,
+    });
+  }
+  if (meta.dateModified) {
+    ldBlocks.push({
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "@id": canonical,
+      url: canonical,
+      name: meta.title,
+      description: meta.description,
+      dateModified: meta.dateModified,
+      inLanguage: meta.lang === "en" ? "en" : "nb-NO",
     });
   }
   if (meta.dataset) {

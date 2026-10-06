@@ -91,5 +91,5 @@ Svarene avgjør om du trenger en enkel bookingkalender eller en fullverdig platt
 Nå vet du hva et digitalt bookingsystem er og de 6 stegene det styrer. Hvilken retning passer for deg?
 
 - **Kommunale lokaler:** [guiden for kommunalt bookingsystem](/blogg/kommunalt-bookingsystem-hva-er-det) går grundigere gjennom ID-porten, SSA-L og kostnad.
-- **Kommersiell utleie:** se hvordan [Digilists bookingsystem for utleie](/bookingsystem-utleie) håndterer betaling og kalenderstyring for private utleiere.
+- **Kommersiell utleie:** se hvordan Digilists [bookingsystem for private utleiere](/bookingsystem-utleie) håndterer betaling og kalenderstyring for lokaler.
 - **Velge mellom annonse, markedsplass eller plattform:** [bookingsystem og plattformer for utleiere](/blogg/bookingsystem-og-plattformer-for-utleiere) går gjennom sjekklisten.
