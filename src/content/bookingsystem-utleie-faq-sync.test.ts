@@ -35,7 +35,7 @@ describe.each([
   });
 
   it("has the same entry count as the page", () => {
-    const count = (block.match(/\{ q: /g) ?? []).length;
+    const count = (block.match(/\bq: "/g) ?? []).length;
     expect(count, `prerender lists ${count} entries, page shows ${entries.length}`)
       .toBe(entries.length);
   });
