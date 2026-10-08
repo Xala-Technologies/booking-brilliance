@@ -11,6 +11,7 @@ import {
   hreflangFor,
   isIndexableEnglish,
   localeFromPath,
+  localeHref,
   browserLanguages,
   preferredLocale,
   shouldAutoRedirect,
@@ -77,6 +78,23 @@ describe("alternatePath", () => {
     expect(alternatePath(UNTRANSLATED_PATH)).toBeNull();
     expect(alternatePath("/blogg")).toBe("/en/blogg");
     expect(alternatePath("/en/blogg")).toBe("/blogg");
+  });
+});
+
+describe("localeHref", () => {
+  it("prefixes translated paths on English pages", () => {
+    expect(localeHref("/book-demo", "en")).toBe("/en/book-demo");
+    expect(localeHref("/priser", "en")).toBe("/en/priser");
+  });
+
+  it("leaves Norwegian paths unchanged", () => {
+    expect(localeHref("/book-demo", "nb")).toBe("/book-demo");
+  });
+
+  it("does not double-prefix or rewrite external or already-prefixed paths", () => {
+    expect(localeHref("/en/book-demo", "en")).toBe("/en/book-demo");
+    expect(localeHref("https://app.digilist.no", "en")).toBe("https://app.digilist.no");
+    expect(localeHref("/#kontakt", "en")).toBe("/#kontakt");
   });
 });
 

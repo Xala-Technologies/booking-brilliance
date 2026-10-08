@@ -106,6 +106,20 @@ export const TRANSLATED: Readonly<Record<string, string>> = Object.fromEntries(
 );
 
 /**
+ * Keep an internal link inside the visitor's language.
+ *
+ * Prefixes only translated pages. Every route is mirrored under `/en`, but only
+ * the translated ones are prerendered — the Norwegian URL is the better
+ * destination for an untranslated page. Anchors, external URLs and paths that
+ * are already prefixed are left alone.
+ */
+export function localeHref(href: string, locale: Locale): string {
+  if (locale !== "en") return href;
+  if (!href.startsWith("/") || href.startsWith("/en")) return href;
+  return TRANSLATED[href] ?? href;
+}
+
+/**
  * Whether an English URL should be indexed.
  *
  * False for a mirrored route whose copy is still Norwegian. Serving that page

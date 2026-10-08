@@ -1,5 +1,5 @@
 import { Link, useLocation, useParams, Navigate } from "react-router-dom";
-import { blogHreflang, blogPath, localeFromPath } from "@/lib/i18n";
+import { blogHreflang, blogPath, localeFromPath, localeHref } from "@/lib/i18n";
 import { t } from "@/lib/copy";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -440,7 +440,7 @@ const BlogPost = () => {
                 </p>
               </div>
               <div className="lg:col-span-4 flex flex-wrap gap-3 lg:justify-end">
-                <EditorialButton variant="primary" size="md" href="/book-demo">
+                <EditorialButton variant="primary" size="md" href={localeHref("/book-demo", locale)}>
                   {t(locale, "nav.bookDemo")}
                 </EditorialButton>
                 <EditorialButton

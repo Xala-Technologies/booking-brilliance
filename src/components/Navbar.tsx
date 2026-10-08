@@ -107,7 +107,7 @@ const PRIMARY_NAV_EN = [
   { label: "Pricing", to: "/en/priser" },
   { label: "Blog", to: "/en/blogg" },
   { label: "FAQ", to: "/en/faq" },
-  { label: "Book demo", to: "/book-demo" },
+  { label: "Book demo", to: "/en/book-demo" },
 ] as const;
 
 // Editorial hover/active: an animated hairline that grows from the left on

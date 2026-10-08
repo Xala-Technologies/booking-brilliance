@@ -1,34 +1,12 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
-import { TRANSLATED, localeFromPath } from "@/lib/i18n";
+import { localeFromPath, localeHref } from "@/lib/i18n";
 import { t } from "@/lib/copy";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { getFraunces } from "@/lib/fonts";
 import { EditorialButton } from "@/components/editorial";
 import { openChatbot } from "@/lib/chatbot/open";
 
-
-/**
- * Keep a footer link inside the visitor's language.
- *
- * Every route is mirrored under /en, so the English footer can point at
- * /en/<same-path> and the visitor stays in the English space with English
- * chrome. Before this, every one of the ~60 footer links on an English page
- * sent the reader to a Norwegian URL — the largest single leak out of English
- * on the site, and one no dictionary entry could fix.
- *
- * Anchors, external URLs and the already-prefixed are left alone.
- */
-function localeHref(href: string, locale: "nb" | "en"): string {
-  if (locale !== "en") return href;
-  if (!href.startsWith("/") || href.startsWith("/en")) return href;
-  // Prefix ONLY translated pages. Every route is mirrored, so /en/<anything>
-  // routes client-side — but only the translated ones are prerendered, so the
-  // rest served an empty shell to anything that does not run JavaScript, and
-  // showed Norwegian copy at an English URL to everything that does. The
-  // Norwegian URL is the better destination for an untranslated page.
-  return TRANSLATED[href] ?? href;
-}
 
 const Footer = () => {
   const location = useLocation();
@@ -288,7 +266,7 @@ const Footer = () => {
                 </p>
               </div>
               <div className="lg:col-span-5 flex flex-wrap gap-3 lg:justify-end">
-                <EditorialButton variant="primary" size="md" href="/book-demo">
+                <EditorialButton variant="primary" size="md" href={localeHref("/book-demo", locale)}>
                   Book demo
                 </EditorialButton>
                 <EditorialButton

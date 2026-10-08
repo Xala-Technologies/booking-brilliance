@@ -85,7 +85,7 @@ export function ChannelSyncSection() {
               >
                 {t(locale, "sync.cta")}
               </EditorialButton>
-              <EditorialButton variant="outline" size="lg" href="/book-demo">
+              <EditorialButton variant="outline" size="lg" href={localeHref("/book-demo", locale)}>
                 {t(locale, "nav.bookDemo")}
               </EditorialButton>
             </div>

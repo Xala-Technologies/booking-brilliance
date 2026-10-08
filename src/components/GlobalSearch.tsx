@@ -10,7 +10,7 @@ import {
 } from "@/lib/search/corpus";
 import { openChatbot } from "@/lib/chatbot/open";
 import { cn } from "@/lib/utils";
-import { localeFromPath } from "@/lib/i18n";
+import { localeFromPath, localeHref } from "@/lib/i18n";
 import { t } from "@/lib/copy";
 
 /**
@@ -31,7 +31,7 @@ const tipGroupsFor = (locale: "nb" | "en"): Array<{ id: string; label: string; t
     id: "snarveier",
     label: t(locale, "search.shortcuts"),
     tips: [
-      { id: "t-demo", label: t(locale, "nav.bookDemo"), href: "/book-demo" },
+      { id: "t-demo", label: t(locale, "nav.bookDemo"), href: localeHref("/book-demo", locale) },
       { id: "t-chat", label: t(locale, "nav.talkToUs"), action: () => openChatbot({ mode: "chat" }) },
       { id: "t-blogg", label: t(locale, "search.blog"), href: "/blogg" },
       { id: "t-faq", label: "FAQ", href: "/faq" },
