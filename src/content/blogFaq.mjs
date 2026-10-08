@@ -3418,6 +3418,33 @@ export const POST_FAQ = {
         "Utleieren. Avbestillingsreglene settes av utleier og står på hver hytte før du booker.",
     },
   ],
+  "lave-til-leie-sjekk-vilkarene": [
+    {
+      question: "Hvor sent kan vi holde på når vi leier låve til fest?",
+      answer:
+        "Det står på stedet. Sluttiden står på hver gård før du booker, så du vet hvor lenge festen kan vare før du bekrefter.",
+    },
+    {
+      question: "Får vi servere alkohol i låven?",
+      answer:
+        "Det står i vilkårene på stedet. Sjekk hva som gjelder for alkohol før du booker, ikke etterpå.",
+    },
+    {
+      question: "Hvor mange gjester er det plass til i en låve?",
+      answer:
+        "Kapasiteten står på hvert sted, både for bordsetting i låven og mingling på tunet. Du kan også filtrere på antall gjester når du søker.",
+    },
+    {
+      question: "Hva følger med når vi leier en låve?",
+      answer:
+        "Det står på stedet. Hver gård viser hva som er inkludert, for eksempel bord og stoler, kjøkken, toaletter, strøm, parkering og uteområde.",
+    },
+    {
+      question: "Hvem bestemmer avbestillingsreglene?",
+      answer:
+        "Utleieren. Avbestillingsreglene settes av utleier og står på hver gård før du booker.",
+    },
+  ],
   "kontor-for-en-dag-er-en-dagplass": [
     {
       question: "Må jeg bli medlem for å sitte der én dag?",
