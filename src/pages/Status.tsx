@@ -38,7 +38,7 @@ import {
 } from "@/components/editorial";
 import { cn } from "@/lib/utils";
 import { useLocation } from "react-router-dom";
-import { localeFromPath } from "@/lib/i18n";
+import { localeFromPath, localeHref } from "@/lib/i18n";
 import { t } from "@/lib/copy";
 
 type SurfaceStatus = "operational" | "degraded" | "down";
@@ -705,7 +705,7 @@ function CTASection() {
           eyebrow="DIREKTE"
           title="Be om sikkerhetsmøte"
           body={t(locale, "status.card.meeting")}
-          href="/book-demo"
+          href={localeHref("/book-demo", locale)}
           cta="Book demo"
         />
         <ResourceCard
@@ -719,7 +719,7 @@ function CTASection() {
       </div>
 
       <div className="flex flex-wrap gap-3 max-w-prose">
-        <EditorialButton variant="primary" size="lg" href="/book-demo">
+        <EditorialButton variant="primary" size="lg" href={localeHref("/book-demo", locale)}>
           Book demo
         </EditorialButton>
         <EditorialButton variant="outline" size="lg" href="/transparens">

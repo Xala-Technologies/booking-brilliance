@@ -127,3 +127,50 @@ describe("GlobalSearch results", () => {
     expect(path()).toBe("/");
   });
 });
+
+describe("GlobalSearch book-demo shortcut on English pages", () => {
+  let container: HTMLDivElement;
+  let root: Root;
+
+  beforeEach(() => {
+    container = document.createElement("div");
+    document.body.appendChild(container);
+    root = createRoot(container);
+    act(() => {
+      root.render(
+        <MemoryRouter initialEntries={["/en/priser"]}>
+          <GlobalSearch />
+          <Routes>
+            <Route path="*" element={<LocationProbe />} />
+          </Routes>
+        </MemoryRouter>,
+      );
+    });
+  });
+
+  afterEach(() => {
+    act(() => {
+      root.unmount();
+    });
+    container.remove();
+  });
+
+  it("navigates the Book demo tip to /en/book-demo", () => {
+    act(() => {
+      window.dispatchEvent(
+        new KeyboardEvent("keydown", { key: "k", metaKey: true, bubbles: true }),
+      );
+    });
+    const tip = [...container.querySelectorAll("button")].find((b) =>
+      b.textContent?.trim() === "Book a demo",
+    );
+    expect(tip).toBeDefined();
+    act(() => {
+      tip?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    });
+    expect(container.querySelector('[data-testid="path"]')?.textContent).toBe(
+      "/en/book-demo",
+    );
+  });
+});
+

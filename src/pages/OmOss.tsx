@@ -14,7 +14,7 @@ import { getFraunces } from "@/lib/fonts";
 import { CategoryVisual } from "@/components/CategoryVisual";
 import AboutUsSection from "@/components/AboutUsSection";
 import { useLocation } from "react-router-dom";
-import { localeFromPath } from "@/lib/i18n";
+import { localeFromPath, localeHref } from "@/lib/i18n";
 import { PricingSummaryBlock } from "@/components/PricingSummaryBlock";
 import { t } from "@/lib/copy";
 
@@ -59,7 +59,7 @@ export default function OmOss() {
                     {t(locale, "about.lede")}
                   </p>
                   <div className="mt-8 flex flex-wrap gap-3">
-                    <EditorialButton variant="primary" size="lg" href="/book-demo">
+                    <EditorialButton variant="primary" size="lg" href={localeHref("/book-demo", locale)}>
                       {t(locale, "nav.bookDemo")}
                     </EditorialButton>
                     <EditorialButton variant="outline" size="lg" href="/teknologi">
@@ -105,7 +105,7 @@ export default function OmOss() {
                     </p>
                   </div>
                   <div className="lg:col-span-4 flex flex-wrap gap-3 lg:justify-end">
-                    <EditorialButton variant="primary" size="lg" href="/book-demo">
+                    <EditorialButton variant="primary" size="lg" href={localeHref("/book-demo", locale)}>
                       Book demo
                     </EditorialButton>
                   </div>

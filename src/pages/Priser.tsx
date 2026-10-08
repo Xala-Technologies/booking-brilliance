@@ -15,7 +15,7 @@ import { getFraunces } from "@/lib/fonts";
 import { CategoryVisual } from "@/components/CategoryVisual";
 import { PRICING_FACTS, PRICING_FAQ } from "@/content/pricing";
 import { PRICING_FACTS_EN, pricingFaqEn } from "@/content/faq.en";
-import { localeFromPath } from "@/lib/i18n";
+import { localeFromPath, localeHref } from "@/lib/i18n";
 import { t } from "@/lib/copy";
 import { PricingSummaryBlock } from "@/components/PricingSummaryBlock";
 import { PrivatePricingPlans } from "@/components/PrivatePricingPlans";
@@ -57,10 +57,10 @@ export default function Priser() {
                     {t(locale, "pricing.lede")}
                   </p>
                   <div className="mt-8 flex flex-wrap gap-3">
-                    <EditorialButton variant="primary" size="lg" href="/book-demo">
+                    <EditorialButton variant="primary" size="lg" href={localeHref("/book-demo", locale)}>
                       {t(locale, "pricing.cta")}
                     </EditorialButton>
-                    <EditorialButton variant="outline" size="lg" href="/#kontakt">
+                    <EditorialButton variant="outline" size="lg" href={en ? "/en#kontakt" : "/#kontakt"}>
                       {t(locale, "pricing.contactCta")}
                     </EditorialButton>
                   </div>
@@ -122,14 +122,14 @@ export default function Priser() {
               <p className="text-base lg:text-lg text-ink leading-relaxed measure-wide">
                 {t(locale, "pricing.kommuneBody")}{" "}
                 <Link
-                  to="/book-demo"
+                  to={localeHref("/book-demo", locale)}
                   className="text-accent-text underline underline-offset-4 hover:text-ink transition-colors"
                 >
                   Book demo
                 </Link>{" "}
                 eller{" "}
                 <Link
-                  to="/book-demo"
+                  to={localeHref("/book-demo", locale)}
                   className="text-accent-text underline underline-offset-4 hover:text-ink transition-colors"
                 >
                   kontakt oss
