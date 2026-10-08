@@ -3445,4 +3445,31 @@ export const POST_FAQ = {
         "Nei. Rom per time er noe annet. Se /blogg/leie-rom-per-time-vs-overnatting.",
     },
   ],
+  "leie-band-til-fest-les-profilen": [
+    {
+      question: "Hva bør stå på profilen til et band jeg vil leie til fest?",
+      answer:
+        "Sjanger, repertoar, besetning og pris for din type arrangement. Profilen bør også ha lydprøver eller klipp, og omtaler fra andre som har booket samme band.",
+    },
+    {
+      question: "Er prisen per sett hele prisen?",
+      answer:
+        "Ikke alltid. Prisen vises per opptreden eller per sett, og eventuelle tillegg for reise og utstyr vises før du bekrefter. Legg dem sammen før du sammenligner.",
+    },
+    {
+      question: "Hvor lenge spiller et band på en fest?",
+      answer:
+        "Et vanlig oppsett er to til tre sett på 45 minutter med pauser imellom. Det dere avtaler, står i bekreftelsen.",
+    },
+    {
+      question: "Har bandet med eget lydanlegg?",
+      answer:
+        "De fleste har eget utstyr til vanlige lokaler, og profilen sier hva som er inkludert. Til større lokaler eller utendørs kan det trenges ekstra anlegg.",
+    },
+    {
+      question: "Hvem bestemmer avbestillingsreglene?",
+      answer:
+        "Musikeren. Avbestillingsreglene settes av musikeren og står på profilen før du booker.",
+    },
+  ],
 };
