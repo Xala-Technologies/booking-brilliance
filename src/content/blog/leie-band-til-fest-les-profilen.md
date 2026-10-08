@@ -25,7 +25,7 @@ Tre ting går ofte galt når du skal leie band til fest:
 - Du vet ikke om bandet er ledig på datoen.
 - Du har ikke hørt dem spille.
 
-Alle tre svarene skal stå på profilen, og gjennomgangen under viser hvor. Eksemplet under er tenkt, ikke en ekte profil. Det er et tenkt eksempel, laget for å vise hvilke felt du bør lese, og i hvilken rekkefølge.
+Alle tre svarene skal stå på profilen, og gjennomgangen under viser hvor. Eksemplet under er tenkt, ikke en ekte profil. Det viser hvilke felt du bør lese, og i hvilken rekkefølge.
 
 ## Tenkt eksempel: én trio, én profil, én fest
 
