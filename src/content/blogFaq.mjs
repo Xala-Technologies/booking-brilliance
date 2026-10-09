@@ -3472,6 +3472,32 @@ export const POST_FAQ = {
         "Nei. Rom per time er noe annet. Se /blogg/leie-rom-per-time-vs-overnatting.",
     },
   ],
+  "leie-verktoy-og-maskiner-feil-vi-ser": [
+    {
+      question: "Leier jeg per dag eller per helg?",
+      answer:
+        "Begge deler. Mange utleiere har helgepris som ofte er rimeligere enn to enkeltdager, og du ser totalprisen for dine datoer før du bekrefter.",
+    },
+    {
+      question: "Hvordan vet jeg om maskinen er ledig?",
+      answer:
+        "Hver maskin har en sanntidskalender. Du ser med en gang om den er ledig for datoene dine, og kan booke direkte uten å vente på svar.",
+    },
+    {
+      question: "Kan jeg få utstyret levert?",
+      answer:
+        "Det varierer per annonse. Annonsen sier om du henter selv eller kan få utstyret levert, med tidspunkt og eventuell kostnad oppgitt på forhånd.",
+    },
+    {
+      question: "Hva bør jeg lese på annonsen før jeg booker?",
+      answer:
+        "Type, modell, alder, drivstoff og tilbehør, bruksanvisningen der den finnes, og avbestillingsreglene.",
+    },
+    {
+      question: "Hvem bestemmer avbestillingsreglene?",
+      answer: "Utleieren. Reglene står på hvert utstyr før du booker.",
+    },
+  ],
   "leie-band-til-fest-les-profilen": [
     {
       question: "Hva bør stå på profilen til et band jeg vil leie til fest?",
