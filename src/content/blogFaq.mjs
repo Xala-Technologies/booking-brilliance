@@ -3525,4 +3525,30 @@ export const POST_FAQ = {
         "Musikeren. Avbestillingsreglene settes av musikeren og står på profilen før du booker.",
     },
   ],
+  "cateringbestilling-hva-er-med": [
+    {
+      question: "Hva er med i en cateringbestilling?",
+      answer:
+        "Menyen med pris per kuvert, antall kuverter og tilvalgene du velger, som servering og oppdekking.",
+    },
+    {
+      question: "Er servering og oppdekking inkludert?",
+      answer:
+        "Det avhenger av leverandøren. Servering og oppdekking er tilvalg, og prisen for hvert tilvalg står synlig før du bekrefter.",
+    },
+    {
+      question: "Hvordan sier jeg fra om allergier?",
+      answer:
+        "Allergener er merket på menyen. Allergier og spesialkost skriver du direkte i bestillingen, og leverandøren får beskjeden sammen med den.",
+    },
+    {
+      question: "Er det et minimum antall gjester?",
+      answer:
+        "Det varierer fra leverandør til leverandør. Et eventuelt minimum står tydelig på leverandøren før du bestiller.",
+    },
+    {
+      question: "Hvem bestemmer avbestillingsreglene?",
+      answer: "Leverandøren. Reglene står på hver meny før du bestiller.",
+    },
+  ],
 };
