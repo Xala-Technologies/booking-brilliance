@@ -51,10 +51,10 @@ function relatedSolutions(post: {
   const hits = SOLUTION_PAGES.filter((s) => s.match.test(hay)).map(
     ({ href, labelKey }) => ({ href, labelKey }),
   );
-  return hits.length
-    ? hits.slice(0, 2)
-    : [{ href: "/booking-av-lokaler-og-moterom", labelKey: "blog.crumbVenues" }];
+  return hits.length ? hits.slice(0, 2) : [];
 }
+
+export { relatedSolutions };
 
 /** URL-safe anchor slug from a heading's text (matches the TOC to the H2 ids). */
 function slugify(s: string): string {
@@ -123,6 +123,7 @@ const BlogPost = () => {
   ]
     .filter((p, i, arr) => arr.findIndex((x) => x.slug === p.slug) === i)
     .slice(0, 3);
+  const solutionLinks = relatedSolutions(post);
   // Strip a trailing "book a demo" CTA from the body — the CTA band below the
   // article already provides one, so an in-article copy is a duplicate. Only
   // pops CTA paragraph(s) at the very end, so mid-article mentions are safe.
@@ -301,31 +302,33 @@ const BlogPost = () => {
                   </ReactMarkdown>
                 </div>
 
-                <aside
-                  aria-label="Relevante løsninger"
-                  className="mt-12 pt-8 border-t border-rule max-w-[68ch]"
-                >
-                  <p className="editorial-mono-caption text-accent-text mb-4">
-                    Relevante løsninger
-                  </p>
-                  <ul className="flex flex-col gap-2.5">
-                    {relatedSolutions(post).map((s) => (
-                      <li key={s.href}>
-                        <Link
-                          to={s.href}
-                          className="group inline-flex items-baseline gap-2 text-ink hover:text-accent-text transition-colors"
-                        >
-                          <span className="text-accent-text font-mono text-xs">
-                            →
-                          </span>
-                          <span className="font-serif text-lg border-b border-rule group-hover:border-accent-text pb-0.5">
-                            {t(locale, s.labelKey)}
-                          </span>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </aside>
+                {solutionLinks.length > 0 && (
+                  <aside
+                    aria-label="Relevante løsninger"
+                    className="mt-12 pt-8 border-t border-rule max-w-[68ch]"
+                  >
+                    <p className="editorial-mono-caption text-accent-text mb-4">
+                      Relevante løsninger
+                    </p>
+                    <ul className="flex flex-col gap-2.5">
+                      {solutionLinks.map((s) => (
+                        <li key={s.href}>
+                          <Link
+                            to={s.href}
+                            className="group inline-flex items-baseline gap-2 text-ink hover:text-accent-text transition-colors"
+                          >
+                            <span className="text-accent-text font-mono text-xs">
+                              →
+                            </span>
+                            <span className="font-serif text-lg border-b border-rule group-hover:border-accent-text pb-0.5">
+                              {t(locale, s.labelKey)}
+                            </span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </aside>
+                )}
               </div>
 
               {/* Sticky sidebar — reading meta, TOC, related, share */}

@@ -21,7 +21,7 @@ h1InBody: true
 
 Å leie en minigraver ligner mer på å booke et rom enn på å kjøpe et verktøy. Det er datoen som avgjør, ikke hylla. De fleste feilene vi ser kommer av at folk handler som om de kjøper, ikke leier.
 
-Når du kjøper, ser du på varen og prisen. Når du leier, må varen også være ledig, komme seg hjem til deg og passe planen din. Her er fem feil som går igjen, og hvor på annonsen svaret allerede står.
+Når du kjøper, ser du på varen og prisen. Når du leier, må varen også være ledig, komme seg hjem til deg og passe planen din. Her er fem feil som går igjen, og hva du bør sjekke før du booker.
 
 ## Dagsprisen sammenlignes, men prosjektet tar hele helgen
 
@@ -29,7 +29,7 @@ Mange starter med å sammenligne dagspris. Det virker fornuftig. Men et hagepros
 
 Da blir dagsprisen feil tall å se på. Leier du to enkeltdager, kan det bli dyrere enn nødvendig. Mange utleiere tilbyr helgepris som ofte er rimeligere enn to enkeltdager.
 
-Pris per dag eller helg står på hvert utstyr. Velg datoene dine i kalenderen, så ser du totalprisen for akkurat den perioden før du bekrefter. Sammenlign totalen, ikke dagsprisen.
+Se etter pris per dag og per helg på utstyret. Spør utleieren om totalprisen for akkurat dine datoer før du bekrefter. Sammenlign totalen, ikke dagsprisen.
 
 ## Ringerunden starter før kalenderen er sjekket
 
@@ -37,7 +37,7 @@ Utstyr ligger spredt. Hos maskinutleiere, i byggevarehus, i annonser og i nabola
 
 Det koster tid, og ofte mister du helgen du hadde satt av. Når noen endelig svarer, er maskinen kanskje allerede leid ut.
 
-Start heller med ledigheten. Hver maskin har en sanntidskalender. Du ser med en gang om utstyret er ledig for dine datoer, og du booker direkte uten å vente på svar. Vil du se bredden først, kan du [se alt utstyr samlet](https://digilist.no/utstyr) før du snevrer inn.
+Start heller med ledigheten. Sjekk om utleieren har en kalender som viser om utstyret er ledig for dine datoer, og om du kan booke direkte uten å vente på svar. Vil du se bredden først, kan du [se utstyrskategoriene](https://digilist.no/utstyr) før du snevrer inn.
 
 ## Hentingen blir planlagt etter at maskinen er booket
 
@@ -45,7 +45,7 @@ Maskinen er booket. Så kommer spørsmålet: hvordan får vi den hjem? Det er he
 
 Da står prosjektet stille før det har startet. En minigraver som står hos utleieren, graver ikke i hagen din.
 
-Hver annonse viser om du henter selv eller kan få utstyret levert. Tidspunkt og eventuell kostnad er oppgitt på forhånd. Les det før du booker, og tenk gjennom hva du selv trenger for å frakte utstyret. Trenger du tilhenger, sjekk det som en egen sak. Ikke regn med at den følger med.
+Sjekk om du henter selv eller kan få utstyret levert, og spør utleieren om tidspunkt og eventuell kostnad på forhånd. Avklar det før du booker, og tenk gjennom hva du selv trenger for å frakte utstyret. Trenger du tilhenger, sjekk det som en egen sak. Ikke regn med at den følger med.
 
 ## Tilstand, drivstoff og tilbehør blir ikke lest
 
@@ -53,7 +53,7 @@ Det er lett å se på bildet og navnet på maskinen og tenke at resten ordner se
 
 Små detaljer kan stoppe en hel dag. En høytrykksspyler uten riktig munnstykke eller en slagbormaskin uten borene du trenger, gjør lite nytte.
 
-Type, modell, alder, drivstoff og tilbehør står på hver maskin. Der det er relevant, følger bruksanvisningen med. Les det samlet før du booker. Da vet du hva du får, og hva du selv må ha klart.
+Se etter type, modell, alder, drivstoff og tilbehør i annonsen. Spør utleieren om bruksanvisningen følger med der det er relevant. Les det samlet før du booker. Da vet du hva du får, og hva du selv må ha klart.
 
 ## Avbestillingsreglene leses først når planene endres
 
@@ -61,7 +61,7 @@ Hageprosjekter flytter seg med været. Regner det hele helgen, er det ikke sikke
 
 Mange leser avbestillingsreglene først når det har skjedd. Da er det for sent å velge en leie som passer bedre med en usikker plan.
 
-Avbestillingsreglene settes av utleier og står på hvert utstyr. Les dem før du booker, på samme måte som du leser prisen. Er datoen usikker, er reglene like viktige som selve maskinen.
+Avbestillingsreglene settes av utleier. Spør etter dem og les dem før du booker, på samme måte som du leser prisen. Er datoen usikker, er reglene like viktige som selve maskinen.
 
 Leier du selv ut et lokale, er Digilist et abonnement, ikke en provisjon.
 
@@ -71,25 +71,25 @@ Leier du selv ut et lokale, er Digilist et abonnement, ikke en provisjon.
 
 ## Les annonsen før helgen, ikke på lørdag morgen
 
-De fem feilene har samme svar. Les annonsen før du booker. Pris for hele perioden, ledighet i kalenderen, henting eller levering, tilstand og tilbehør, og avbestilling. Alt står der allerede.
+De fem feilene har samme svar. Les annonsen før du booker. Sjekk pris for hele perioden, ledighet, henting eller levering, tilstand og tilbehør, og avbestilling. Mangler noe i annonsen, spør utleieren før du booker.
 
 Gjør det i god tid, ikke på lørdag morgen med hagen full av planer. Du kan også leie [telt og bord hvis hagen skal brukes til fest etterpå](https://digilist.no/utstyr/festutstyr).
 
-[Se verktøy og maskiner med pris, ledige datoer og henting på annonsen](https://digilist.no/utstyr/verktoy-maskiner).
+[Les mer om å leie verktøy og maskiner på Digilist](https://digilist.no/utstyr/verktoy-maskiner).
 
 ## Ofte stilte spørsmål
 
 **Leier jeg per dag eller per helg?**
 
-Begge deler. Mange utleiere har helgepris som ofte er rimeligere enn to enkeltdager, og du ser totalprisen for dine datoer før du bekrefter.
+Begge deler. Mange utleiere har helgepris som ofte er rimeligere enn to enkeltdager. Spør om totalprisen for dine datoer før du bekrefter.
 
 **Hvordan vet jeg om maskinen er ledig?**
 
-Hver maskin har en sanntidskalender. Du ser med en gang om den er ledig for datoene dine, og kan booke direkte uten å vente på svar.
+Sjekk om utleieren har en kalender som viser ledige datoer. Hvis ikke, spør om maskinen er ledig for datoene dine før du planlegger rundt den.
 
 **Kan jeg få utstyret levert?**
 
-Det varierer per annonse. Annonsen sier om du henter selv eller kan få utstyret levert, med tidspunkt og eventuell kostnad oppgitt på forhånd.
+Det varierer fra utleier til utleier. Spør om du henter selv eller kan få utstyret levert, og om tidspunkt og eventuell kostnad på forhånd.
 
 **Hva bør jeg lese på annonsen før jeg booker?**
 
@@ -97,4 +97,4 @@ Type, modell, alder, drivstoff og tilbehør, bruksanvisningen der den finnes, og
 
 **Hvem bestemmer avbestillingsreglene?**
 
-Utleieren. Reglene står på hvert utstyr før du booker.
+Utleieren. Spør etter reglene og les dem før du booker.
