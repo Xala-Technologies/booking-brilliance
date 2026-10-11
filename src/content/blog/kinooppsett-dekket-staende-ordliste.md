@@ -73,7 +73,7 @@ Kapasiteten kan da være oppgitt per rom eller for huset samlet, og det er stor 
 
 Maks kapasitet er det høyeste antallet utleieren oppgir for lokalet. Det er taket, ikke et planleggingstall. Tallene fra kalkulatoren er en god pekepinn, ikke en fasit, så det er lokalets oppgitte kapasitet som gjelder.
 
-Planleggingstallene dekker bare gjestene. Skal du ha scene, buffé, bar eller garderobe, legger kalkulatoren til 15 til 25 prosent ekstra areal. Har du barn som løper rundt eller et variert program, velg øvre del av intervallet.
+Planleggingstallene dekker bare gjestene. Skal du ha scene, buffé, bar eller garderobe, anbefaler kalkulatoren som tommelfingerregel å legge til 15 til 25 prosent ekstra areal. Har du barn som løper rundt eller et variert program, velg øvre del av intervallet.
 
 Spør hva maks er for hele lokalet, og hvilket oppsett det tallet gjelder.
 
