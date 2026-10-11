@@ -3551,4 +3551,31 @@ export const POST_FAQ = {
       answer: "Leverandøren. Reglene står på hver meny før du bestiller.",
     },
   ],
+  "kinooppsett-dekket-staende-ordliste": [
+    {
+      question: "Hva betyr kinooppsett?",
+      answer:
+        "Stolrader vendt mot en scene eller et lerret, uten bord. Det gir mange plasser per kvadratmeter, derfor er det ofte det høyeste sittende tallet et lokale oppgir.",
+    },
+    {
+      question: "Hvorfor får færre plass når det er dekket?",
+      answer:
+        "Bord, stoler og servering tar mer gulv. Som planleggingstall regnes 1,5 til 2,0 kvadratmeter per gjest ved runde bord, mot 0,8 til 1,2 i stolrader.",
+    },
+    {
+      question: "Hvor mye plass trenger hver gjest?",
+      answer:
+        "Som planleggingstall regnes 0,8 til 1,2 kvadratmeter i stolrader, 0,8 til 1,0 stående, 1,5 til 2,0 ved runde bord og 2,0 til 2,5 i klasserom. Tallene er en pekepinn, ikke en fasit.",
+    },
+    {
+      question: "Hva betyr maks kapasitet?",
+      answer:
+        "Det er taket utleieren oppgir for lokalet. Spør hvilket oppsett tallet gjelder, og om det gjelder hele lokalet eller ett rom.",
+    },
+    {
+      question: "Hva bør jeg spørre utleieren om?",
+      answer:
+        "Hvilket oppsett det oppgitte tallet gjelder, hva maks er for hele lokalet, og om det er plass til scene, buffé og garderobe i tillegg.",
+    },
+  ],
 };
