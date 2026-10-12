@@ -3476,17 +3476,17 @@ export const POST_FAQ = {
     {
       question: "Leier jeg per dag eller per helg?",
       answer:
-        "Begge deler. Mange utleiere har helgepris som ofte er rimeligere enn to enkeltdager, og du ser totalprisen for dine datoer før du bekrefter.",
+        "Begge deler. Mange utleiere har helgepris som ofte er rimeligere enn to enkeltdager. Spør om totalprisen for dine datoer før du bekrefter.",
     },
     {
       question: "Hvordan vet jeg om maskinen er ledig?",
       answer:
-        "Hver maskin har en sanntidskalender. Du ser med en gang om den er ledig for datoene dine, og kan booke direkte uten å vente på svar.",
+        "Sjekk om utleieren har en kalender som viser ledige datoer. Hvis ikke, spør om maskinen er ledig for datoene dine før du planlegger rundt den.",
     },
     {
       question: "Kan jeg få utstyret levert?",
       answer:
-        "Det varierer per annonse. Annonsen sier om du henter selv eller kan få utstyret levert, med tidspunkt og eventuell kostnad oppgitt på forhånd.",
+        "Det varierer fra utleier til utleier. Spør om du henter selv eller kan få utstyret levert, og om tidspunkt og eventuell kostnad på forhånd.",
     },
     {
       question: "Hva bør jeg lese på annonsen før jeg booker?",
@@ -3495,7 +3495,7 @@ export const POST_FAQ = {
     },
     {
       question: "Hvem bestemmer avbestillingsreglene?",
-      answer: "Utleieren. Reglene står på hvert utstyr før du booker.",
+      answer: "Utleieren. Spør etter reglene og les dem før du booker.",
     },
   ],
   "leie-band-til-fest-les-profilen": [
@@ -3534,21 +3534,21 @@ export const POST_FAQ = {
     {
       question: "Er servering og oppdekking inkludert?",
       answer:
-        "Det avhenger av leverandøren. Servering og oppdekking er tilvalg, og prisen for hvert tilvalg står synlig før du bekrefter.",
+        "Det avhenger av leverandøren. Servering og oppdekking er ofte tilvalg. Spør om prisen for hvert tilvalg før du bekrefter.",
     },
     {
       question: "Hvordan sier jeg fra om allergier?",
       answer:
-        "Allergener er merket på menyen. Allergier og spesialkost skriver du direkte i bestillingen, og leverandøren får beskjeden sammen med den.",
+        "Se etter merkede allergener på menyen. Skriv allergier og spesialkost direkte i bestillingen, og sjekk at leverandøren får beskjeden sammen med den.",
     },
     {
       question: "Er det et minimum antall gjester?",
       answer:
-        "Det varierer fra leverandør til leverandør. Et eventuelt minimum står tydelig på leverandøren før du bestiller.",
+        "Det varierer fra leverandør til leverandør. Spør om et eventuelt minimum før du bestiller.",
     },
     {
       question: "Hvem bestemmer avbestillingsreglene?",
-      answer: "Leverandøren. Reglene står på hver meny før du bestiller.",
+      answer: "Leverandøren. Be om reglene og les dem før du bestiller.",
     },
   ],
   "kinooppsett-dekket-staende-ordliste": [

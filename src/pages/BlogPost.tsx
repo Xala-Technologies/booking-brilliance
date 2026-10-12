@@ -21,40 +21,13 @@ import { getFraunces } from "@/lib/fonts";
 import { openChatbot } from "@/lib/chatbot/open";
 import { POST_FAQ } from "@/content/blogFaq.mjs";
 import { PricingSummaryBlock } from "@/components/PricingSummaryBlock";
+import { relatedSolutions } from "@/lib/blogRelatedSolutions";
 
 const CHAT_HREFS = new Set([
   "mailto:kontakt@digilist.no",
   "#chat",
   "#snakk-med-oss",
 ]);
-
-// Internal-link the commercial landing ("money") pages from every blog post,
-// mapped by the post's keywords/slug/tag. Blog posts rank on page 1; the money
-// pages don't yet rank for their head terms — this passes them link equity.
-const SOLUTION_PAGES: Array<{ href: string; labelKey: string; match: RegExp }> = [
-  { href: "/bookingsystem-kommune", labelKey: "blog.crumbMunicipal", match: /kommun|bookingsystem|it-leder|anbud|ssa-l|innkjøp|leverand/i },
-  { href: "/bruksomrader/idrettshaller-gymsaler", labelKey: "blog.crumbHalls", match: /idrettshall|gymsal|sesong|hall|forening|trening|anlegg/i },
-  { href: "/bruksomrader/moterom", labelKey: "blog.crumbMeeting", match: /m(ø|o)terom|mote-?rom/i },
-  { href: "/bruksomrader/selskapslokaler", labelKey: "blog.crumbFunction", match: /selskapslokale|bryllup|fest|selskap/i },
-  { href: "/bruksomrader/kulturhus-kantiner", labelKey: "blog.crumbCulture", match: /kulturhus|kantine|konferanse|kultursal|arrangement/i },
-];
-
-function relatedSolutions(post: {
-  slug: string;
-  title: string;
-  tag?: string;
-  keywords?: string[];
-}): Array<{ href: string; labelKey: string }> {
-  const hay = [post.slug, post.title, post.tag ?? "", ...(post.keywords ?? [])]
-    .join(" ")
-    .toLowerCase();
-  const hits = SOLUTION_PAGES.filter((s) => s.match.test(hay)).map(
-    ({ href, labelKey }) => ({ href, labelKey }),
-  );
-  return hits.length
-    ? hits.slice(0, 2)
-    : [{ href: "/booking-av-lokaler-og-moterom", labelKey: "blog.crumbVenues" }];
-}
 
 /** URL-safe anchor slug from a heading's text (matches the TOC to the H2 ids). */
 function slugify(s: string): string {
@@ -123,6 +96,7 @@ const BlogPost = () => {
   ]
     .filter((p, i, arr) => arr.findIndex((x) => x.slug === p.slug) === i)
     .slice(0, 3);
+  const solutionLinks = relatedSolutions(post);
   // Strip a trailing "book a demo" CTA from the body — the CTA band below the
   // article already provides one, so an in-article copy is a duplicate. Only
   // pops CTA paragraph(s) at the very end, so mid-article mentions are safe.
@@ -301,31 +275,33 @@ const BlogPost = () => {
                   </ReactMarkdown>
                 </div>
 
-                <aside
-                  aria-label="Relevante løsninger"
-                  className="mt-12 pt-8 border-t border-rule max-w-[68ch]"
-                >
-                  <p className="editorial-mono-caption text-accent-text mb-4">
-                    Relevante løsninger
-                  </p>
-                  <ul className="flex flex-col gap-2.5">
-                    {relatedSolutions(post).map((s) => (
-                      <li key={s.href}>
-                        <Link
-                          to={s.href}
-                          className="group inline-flex items-baseline gap-2 text-ink hover:text-accent-text transition-colors"
-                        >
-                          <span className="text-accent-text font-mono text-xs">
-                            →
-                          </span>
-                          <span className="font-serif text-lg border-b border-rule group-hover:border-accent-text pb-0.5">
-                            {t(locale, s.labelKey)}
-                          </span>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </aside>
+                {solutionLinks.length > 0 && (
+                  <aside
+                    aria-label="Relevante løsninger"
+                    className="mt-12 pt-8 border-t border-rule max-w-[68ch]"
+                  >
+                    <p className="editorial-mono-caption text-accent-text mb-4">
+                      Relevante løsninger
+                    </p>
+                    <ul className="flex flex-col gap-2.5">
+                      {solutionLinks.map((s) => (
+                        <li key={s.href}>
+                          <Link
+                            to={s.href}
+                            className="group inline-flex items-baseline gap-2 text-ink hover:text-accent-text transition-colors"
+                          >
+                            <span className="text-accent-text font-mono text-xs">
+                              →
+                            </span>
+                            <span className="font-serif text-lg border-b border-rule group-hover:border-accent-text pb-0.5">
+                              {t(locale, s.labelKey)}
+                            </span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </aside>
+                )}
               </div>
 
               {/* Sticky sidebar — reading meta, TOC, related, share */}
