@@ -3578,4 +3578,31 @@ export const POST_FAQ = {
         "Hvilket oppsett det oppgitte tallet gjelder, hva maks er for hele lokalet, og om det er plass til scene, buffé og garderobe i tillegg.",
     },
   ],
+  "konferanselokale-eller-kulturhus-til-seminar": [
+    {
+      question: "Kan jeg holde seminar i et kulturhus?",
+      answer:
+        "Ja. Kulturhuset passer når dagen trenger sal, scene eller plass til mange. Spør om grupperom og møteutstyr finnes.",
+    },
+    {
+      question: "Hva har et konferanselokale som et kulturhus ofte mangler?",
+      answer:
+        "Ofte grupperom til parallellsesjoner og møteutstyr som prosjektor, mikrofoner og wifi. Spør hva som følger med.",
+    },
+    {
+      question: "Hva bør jeg spørre om før jeg leier?",
+      answer:
+        "Hva som er med av teknikk og servering, når dagen må være slutt, hvem som rydder, og hva du må rigge selv.",
+    },
+    {
+      question: "Hva kommer ofte i tillegg til leien?",
+      answer:
+        "Rengjøring, bemanning, AV-utstyr, servering og depositum. Be om totalen, ikke bare grunnleien.",
+    },
+    {
+      question: "Hva påvirker prisen mest?",
+      answer:
+        "Lokaltype og størrelse, deretter sted, ukedag og sesong.",
+    },
+  ],
 };
