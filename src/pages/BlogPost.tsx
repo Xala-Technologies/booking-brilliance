@@ -21,40 +21,13 @@ import { getFraunces } from "@/lib/fonts";
 import { openChatbot } from "@/lib/chatbot/open";
 import { POST_FAQ } from "@/content/blogFaq.mjs";
 import { PricingSummaryBlock } from "@/components/PricingSummaryBlock";
+import { relatedSolutions } from "@/lib/blogRelatedSolutions";
 
 const CHAT_HREFS = new Set([
   "mailto:kontakt@digilist.no",
   "#chat",
   "#snakk-med-oss",
 ]);
-
-// Internal-link the commercial landing ("money") pages from every blog post,
-// mapped by the post's keywords/slug/tag. Blog posts rank on page 1; the money
-// pages don't yet rank for their head terms — this passes them link equity.
-const SOLUTION_PAGES: Array<{ href: string; labelKey: string; match: RegExp }> = [
-  { href: "/bookingsystem-kommune", labelKey: "blog.crumbMunicipal", match: /kommun|bookingsystem|it-leder|anbud|ssa-l|innkjøp|leverand/i },
-  { href: "/bruksomrader/idrettshaller-gymsaler", labelKey: "blog.crumbHalls", match: /idrettshall|gymsal|sesong|hall|forening|trening|anlegg/i },
-  { href: "/bruksomrader/moterom", labelKey: "blog.crumbMeeting", match: /m(ø|o)terom|mote-?rom/i },
-  { href: "/bruksomrader/selskapslokaler", labelKey: "blog.crumbFunction", match: /selskapslokale|bryllup|fest|selskap/i },
-  { href: "/bruksomrader/kulturhus-kantiner", labelKey: "blog.crumbCulture", match: /kulturhus|kantine|konferanse|kultursal|arrangement/i },
-];
-
-function relatedSolutions(post: {
-  slug: string;
-  title: string;
-  tag?: string;
-  keywords?: string[];
-}): Array<{ href: string; labelKey: string }> {
-  const hay = [post.slug, post.title, post.tag ?? "", ...(post.keywords ?? [])]
-    .join(" ")
-    .toLowerCase();
-  const hits = SOLUTION_PAGES.filter((s) => s.match.test(hay)).map(
-    ({ href, labelKey }) => ({ href, labelKey }),
-  );
-  return hits.length ? hits.slice(0, 2) : [];
-}
-
-export { relatedSolutions };
 
 /** URL-safe anchor slug from a heading's text (matches the TOC to the H2 ids). */
 function slugify(s: string): string {
