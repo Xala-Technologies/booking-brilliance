@@ -1,7 +1,7 @@
 ---
 slug: hvordan-digitalisere-booking-av-kommunale-lokaler
 title: "Hvordan digitalisere booking av kommunale lokaler"
-seoTitle: "Hvordan digitalisere booking av kommunale lokaler"
+seoTitle: "Hvordan digitalisere booking av kommunale lokaler | Digilist"
 description: "Å digitalisere booking av kommunale lokaler erstatter telefon, e-post og papirskjema med sanntidskalender; innbyggere booker selv, kommunen godkjenner og fakturerer."
 date: 2026-08-03
 updated: 2026-10-13

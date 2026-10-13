@@ -81,20 +81,11 @@ Merk: opplysningene om Aktiv Kommune, BookUp og Gibbs er basert på offentlig ti
 
 Det som tydeligst skiller Digilist fra de tre andre, er at samme plattform også dekker privat utleie. Det er relevant for kommuner som leier ut til både lag og enkeltpersoner, og for private utleiere som sammenligner løsninger uavhengig av kommunemarkedet.
 
-## Hva Digilist koster, og hva vi ikke tar
+Prismodellen er den delen kommuner oftest spør om: Digilist er et abonnement, ikke en provisjon, og nivået følger antall anlegg og brukere, ikke antall bookinger eller omsetningen i lokalene.
 
-Prismodellen er den delen kommuner og private utleiere oftest spør om, og den er kort å forklare: **Digilist er et abonnement, ikke en provisjon.**
+<!-- price-block: shared -->
 
-- **Vi tar ingen andel av bookinginntektene.** Går dere fra tjue utleier i året til seksti, koster ikke Digilist mer. Et system som tjener mer når dere lykkes, straffer nettopp den som får det til.
-- **Ingen transaksjonsavgift per booking.** Dere betaler for å bruke plattformen og administrasjonspanelet — ikke per reservasjon, og ikke som en prosent av leien.
-- **Nivået følger behovet, ikke omsetningen.** Prisen avhenger av antall anlegg, hvor mange som skal bruke systemet, og hvilke integrasjoner dere trenger. Å gå fra ett anlegg til fem endrer abonnementet; flere bookinger i samme anlegg gjør det ikke.
-- **Integrasjonene er inkludert.** Betaling, ID-porten, EHF/Peppol og de vanlige regnskapssystemene er en del av abonnementet. Egne integrasjoner mot deres egne fagsystemer prises separat etter omfang.
-- **Ingen skjulte gebyrer.** Det som står i tilbudet, er det dere betaler.
-- **Egne priser for de små.** Lag, foreninger, grendehus og private utleiere med ett lokale får tilpassede priser. Det skal ikke ligne på det en stor kommune med mange bygg betaler, fordi behovet ikke ligner heller.
-
-Vi publiserer ingen prisliste, og grunnen er ærlig nok: spennet mellom et grendehus med én sal og en fylkeskommune med tjueto skoler gjør ett enkelt tall feil for nesten alle som leser det. Vi publiserer i stedet alt som avgjør prisen, og gir et konkret tilbud etter en kort samtale.
-
-**De 100 første kundene får 6 måneder gratis.** Vi hjelper med oppsett og publisering i prøveperioden, og dere får egen administrativ tilgang for videre drift. Ingen binding underveis.
+[Se priser](https://digilist.no/priser)
 
 ## Hvilket bookingsystem bør en norsk kommune velge?
 

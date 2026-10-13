@@ -3504,10 +3504,15 @@ ${sitemapEntries
   // Each loser's unique content was merged into the winner (see the winner's
   // .md file), and the loser's .md was deleted, so the normal per-post
   // prerender loop never writes dist/blogg/<loser>/ any more. Without a stub
-  // here that path would 404 in dist/ instead of redirecting — the server/
-  // nginx.snippet.conf block below is the real HTTP 301 once deployed, this
-  // stub is the same crawler-visible fallback the renter-intent redirects
-  // above use, and a safety net for a dist/ build without nginx in front.
+  // here that path would 404 in dist/ instead of redirecting. The matching
+  // server/nginx.snippet.conf blocks are the real HTTP 301, but deploy.sh
+  // only rsyncs server/ as the chatbot API source, it does not install nginx
+  // config: those blocks are pasted into
+  // /etc/nginx/sites-enabled/digilist-apps.conf by hand, same as every other
+  // snippet in that file (see NGINX_DEPLOY.md). Until that manual step runs,
+  // this stub is the only redirect that is actually live, and it stays the
+  // crawler-visible fallback afterwards too, same as the renter-intent
+  // redirects above and a safety net for a dist/ build without nginx in front.
   const blogTwinConsolidationRedirects = [
     { from: "/blogg/hvilket-bookingsystem-bor-en-norsk-kommune-velge", to: "/blogg/beste-bookingsystem-kommune-norge" },
     { from: "/blogg/hvordan-digitalisere-booking-kommunale-lokaler", to: "/blogg/hvordan-digitalisere-booking-av-kommunale-lokaler" },

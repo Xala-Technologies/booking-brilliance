@@ -154,10 +154,11 @@ describe("blog twin consolidation: FAQ parity on the winners", () => {
     ).toMatch(/#.*Hvilket bookingsystem bør en norsk kommune velge/i);
   });
 
-  it("uses a comma, not an em dash, in the price H2 (fix pinned by the brief)", () => {
+  it("drops the duplicate price H2 in favor of the shared price block (PR reviewer fix: it echoed PricingSummaryBlock's own heading)", () => {
     const raw = readFileSync(join(BLOG_DIR, "beste-bookingsystem-kommune-norge.md"), "utf-8");
-    expect(raw).toContain("## Hva Digilist koster, og hva vi ikke tar");
-    expect(raw).not.toContain("Hva Digilist koster — og hva vi ikke tar");
+    expect(raw).not.toMatch(/^##\s*Hva Digilist koster/m);
+    expect(raw).toContain("<!-- price-block: shared -->");
+    expect(raw).not.toContain("—");
   });
 });
 
@@ -179,6 +180,59 @@ describe("blog twin consolidation: excluded content stayed out of the winners", 
     const raw = readFileSync(join(BLOG_DIR, "beste-plattform-private-utleiere-leie-ut-lokale.md"), "utf-8");
     expect(raw).toContain("<!-- price-block: shared -->");
     expect(raw).not.toMatch(/\d[\d .]*\s*kr\b/);
+  });
+
+  it("the import/parallel-running claim merged into the A winner is the brief's own quoted text, not a new product claim", () => {
+    const raw = readFileSync(join(BLOG_DIR, "beste-bookingsystem-kommune-norge.md"), "utf-8");
+    expect(raw).toContain(
+      "Digilist importerer eksisterende lokaler, ressurser og faste avtaler, som sesongleie for lag og foreninger, fra regneark eller eksport fra det gamle systemet. Overgangen gjøres med en kort periode med parallell drift.",
+    );
+  });
+});
+
+describe("blog twin consolidation: seoTitle added to the B and C winners (PR reviewer fix)", () => {
+  const TITLE_LIMIT = 60;
+
+  for (const slug of [
+    "hvordan-digitalisere-booking-av-kommunale-lokaler",
+    "beste-plattform-private-utleiere-leie-ut-lokale",
+  ]) {
+    it(`${slug} has a seoTitle ending " | Digilist" at or under ${TITLE_LIMIT} chars`, () => {
+      const raw = readFileSync(join(BLOG_DIR, `${slug}.md`), "utf-8");
+      const match = raw.match(/^seoTitle:\s*"([^"]*)"/m);
+      expect(match, `${slug}.md is missing a seoTitle frontmatter field`).not.toBeNull();
+      const seoTitle = match![1];
+      expect(seoTitle.endsWith(" | Digilist")).toBe(true);
+      expect(seoTitle.length).toBeLessThanOrEqual(TITLE_LIMIT);
+    });
+  }
+});
+
+describe("blog twin consolidation: internal links no longer promise a step-by-step walkthrough (PR reviewer fix)", () => {
+  it("kommunalt-bookingsystem-hva-er-det.md does not claim 'steg for steg' / 'steg-for-steg' for the B winner link", () => {
+    const raw = readFileSync(join(BLOG_DIR, "kommunalt-bookingsystem-hva-er-det.md"), "utf-8");
+    expect(raw).not.toMatch(/steg[\s-]for[\s-]steg/i);
+  });
+
+  it("bookingsystem-kommunale-lokaler-guide-it-leder.md does not claim 'steg for steg' / 'steg-for-steg' for the B winner link", () => {
+    const raw = readFileSync(join(BLOG_DIR, "bookingsystem-kommunale-lokaler-guide-it-leder.md"), "utf-8");
+    expect(raw).not.toMatch(/steg[\s-]for[\s-]steg/i);
+  });
+});
+
+describe("blog twin consolidation: nginx deploy is manual, not automated (PR reviewer fix)", () => {
+  it("prerender.mjs does not claim the nginx snippet is deployed automatically", () => {
+    expect(PRERENDER_SRC).not.toMatch(/once deployed/i);
+    expect(PRERENDER_SRC).toMatch(/deploy\.sh only rsyncs server\/|pasted into[\s\S]{0,120}by hand/i);
+  });
+
+  it("NGINX_DEPLOY.md documents the blog-twin-consolidation merge gate with curl checks", () => {
+    const nginxDeployDoc = readFileSync(join(__dirname, "..", "..", "NGINX_DEPLOY.md"), "utf-8");
+    expect(nginxDeployDoc).toContain("Merge gate");
+    expect(nginxDeployDoc).toContain("lines 21-49");
+    for (const { loser } of REDIRECTS) {
+      expect(nginxDeployDoc).toContain(`/blogg/${loser}`);
+    }
   });
 });
 
