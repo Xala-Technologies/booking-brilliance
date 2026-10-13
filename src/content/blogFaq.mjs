@@ -3605,4 +3605,31 @@ export const POST_FAQ = {
         "Lokaltype og størrelse, deretter sted, ukedag og sesong.",
     },
   ],
+  "lokale-til-julemarked-tre-scenarier": [
+    {
+      question: "Hvor stort lokale trenger et julemarked?",
+      answer:
+        "Det avhenger av antall boder og hvor mange som er inne samtidig. Lokalets oppgitte kapasitet gjelder.",
+    },
+    {
+      question: "Må selgerne ha strøm?",
+      answer:
+        "Noen må, særlig de med varm drikke eller lys. Spør utleieren hvor kontaktene sitter.",
+    },
+    {
+      question: "Kan vi selge mat?",
+      answer:
+        "Spør utleieren om kjøkken og regler for servering før dere planlegger matsalg.",
+    },
+    {
+      question: "Hvem rydder etterpå?",
+      answer:
+        "Avtal det skriftlig med utleieren, sammen med tidspunktet lokalet skal være tomt.",
+    },
+    {
+      question: "Bør vi leie bord og telt i tillegg?",
+      answer:
+        "Sjekk først hva lokalet har, og lei bare det som mangler.",
+    },
+  ],
 };
