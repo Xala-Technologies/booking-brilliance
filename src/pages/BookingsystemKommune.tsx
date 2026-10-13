@@ -327,7 +327,7 @@ const BookingsystemKommune = () => {
                 <>
                   Klar for å gå i gang? Se{" "}
                   <Link
-                    to="/blogg/hvordan-digitalisere-booking-kommunale-lokaler"
+                    to="/blogg/hvordan-digitalisere-booking-av-kommunale-lokaler"
                     className="text-accent-text hover:underline underline-offset-4 decoration-[0.5px]"
                   >
                     hvordan digitalisere booking av kommunale lokaler
