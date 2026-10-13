@@ -1,10 +1,10 @@
 ---
 slug: hvordan-digitalisere-booking-av-kommunale-lokaler
 title: "Hvordan digitalisere booking av kommunale lokaler"
-seoTitle: "Hvordan digitalisere booking av kommunale lokaler"
+seoTitle: "Hvordan digitalisere booking av kommunale lokaler | Digilist"
 description: "Å digitalisere booking av kommunale lokaler erstatter telefon, e-post og papirskjema med sanntidskalender; innbyggere booker selv, kommunen godkjenner og fakturerer."
 date: 2026-08-03
-updated: 2026-09-21
+updated: 2026-10-13
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7
@@ -31,7 +31,7 @@ Norge har 356 kommuner (Kommunal- og distriktsdepartementet, 2024), og de fleste
 
 ## Slik fungerer digitalisert booking i praksis: tall og funksjoner
 
-I praksis handler digitalisering av kommunal lokalutleie om tre trinn: publisere ledig kapasitet, la brukeren bestille selv, og automatisere det administrative etterarbeidet.
+Digitalisering av lokalbooking løser tre konkrete problemer: dobbeltbooking, manuell saksbehandling og manglende oversikt over kapasitet. I praksis handler digitalisering av kommunal lokalutleie om tre trinn: publisere ledig kapasitet, la brukeren bestille selv, og automatisere det administrative etterarbeidet.
 
 ### Fra søknad til vedtak
 

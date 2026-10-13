@@ -50,3 +50,32 @@ Two ordering rules, both load-bearing:
 
 - It must be a **regex** location, not `location ^~ /en/`. A `^~` prefix match wins over regex locations, so it would swallow all the `return 301` blocks above it.
 - Regex locations are matched in source order, so it must stay **last** of the `/en` blocks.
+
+## Blog twin consolidation (2026-10-13): merge gate
+
+`nginx.snippet.conf` lines 21-49 add eight `location =` blocks (four loser
+slugs, each with and without a trailing slash) that 301 three pairs of
+near-duplicate blog posts onto their winner. Same as the `/en` blocks above,
+`deploy.sh` never touches this file — it rsyncs `server/` as the chatbot API
+source only. These eight blocks are **not live** until someone pastes them in
+by hand.
+
+**Merge gate:** paste `nginx.snippet.conf` lines 21-49 into
+`/etc/nginx/sites-enabled/digilist-apps.conf` (before the `try_files`
+fallback, same placement rule as every other block in this file), run
+`nginx -t && systemctl reload nginx`, then curl each loser URL and expect a
+single 301 straight to its winner:
+
+```bash
+curl -sI https://digilist.no/blogg/hvilket-bookingsystem-bor-en-norsk-kommune-velge
+curl -sI https://digilist.no/blogg/hvordan-digitalisere-booking-kommunale-lokaler
+curl -sI https://digilist.no/blogg/digitalisere-booking-kommunale-lokaler
+curl -sI https://digilist.no/blogg/beste-plattform-private-utleiere-leie-ut-lokalet
+```
+
+Each must answer `HTTP/2 301` with a `location:` header pointing directly at
+its winner, not at another loser or at a second redirect. Until this step
+runs, those four URLs still answer via the prerendered `dist/blogg/<loser>/`
+stub (a `noindex, follow` HTML meta-refresh, not a true 301), which is enough
+to keep them out of the index but does not consolidate their link equity onto
+the winner the way the nginx 301 does.

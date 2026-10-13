@@ -3500,6 +3500,47 @@ ${sitemapEntries
   }
   console.log(`  ✓ Generated ${renterIntentRedirects.length} redirect stub(s) for renter-intent consolidation`);
 
+  // Generate redirect stubs for the 2026-10-13 blog twin consolidation.
+  // Each loser's unique content was merged into the winner (see the winner's
+  // .md file), and the loser's .md was deleted, so the normal per-post
+  // prerender loop never writes dist/blogg/<loser>/ any more. Without a stub
+  // here that path would 404 in dist/ instead of redirecting. The matching
+  // server/nginx.snippet.conf blocks are the real HTTP 301, but deploy.sh
+  // only rsyncs server/ as the chatbot API source, it does not install nginx
+  // config: those blocks are pasted into
+  // /etc/nginx/sites-enabled/digilist-apps.conf by hand, same as every other
+  // snippet in that file (see NGINX_DEPLOY.md). Until that manual step runs,
+  // this stub is the only redirect that is actually live, and it stays the
+  // crawler-visible fallback afterwards too, same as the renter-intent
+  // redirects above and a safety net for a dist/ build without nginx in front.
+  const blogTwinConsolidationRedirects = [
+    { from: "/blogg/hvilket-bookingsystem-bor-en-norsk-kommune-velge", to: "/blogg/beste-bookingsystem-kommune-norge" },
+    { from: "/blogg/hvordan-digitalisere-booking-kommunale-lokaler", to: "/blogg/hvordan-digitalisere-booking-av-kommunale-lokaler" },
+    { from: "/blogg/digitalisere-booking-kommunale-lokaler", to: "/blogg/hvordan-digitalisere-booking-av-kommunale-lokaler" },
+    { from: "/blogg/beste-plattform-private-utleiere-leie-ut-lokalet", to: "/blogg/beste-plattform-private-utleiere-leie-ut-lokale" },
+  ];
+
+  for (const { from, to } of blogTwinConsolidationRedirects) {
+    const targetUrl = `${BASE_URL}${to}`;
+    const outDir = join(DIST, from.replace(/^\//, ""));
+    await fs.mkdir(outDir, { recursive: true });
+    const redirectHtml = `<!doctype html>
+<html lang="nb-NO">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="refresh" content="0; url=${targetUrl}">
+<link rel="canonical" href="${targetUrl}">
+<meta name="robots" content="noindex, follow">
+<title>Redirect</title>
+</head>
+<body>
+<p>Redirecting to <a href="${targetUrl}">${targetUrl}</a>…</p>
+</body>
+</html>`;
+    await fs.writeFile(join(outDir, "index.html"), redirectHtml, "utf-8");
+  }
+  console.log(`  ✓ Generated ${blogTwinConsolidationRedirects.length} redirect stub(s) for blog twin consolidation`);
+
   // Inline critical CSS on every prerendered page and load the full 107KB
   // stylesheet asynchronously. Without this, first paint waits on the
   // render-blocking <link rel="stylesheet">, which on slow 4G is starved

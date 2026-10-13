@@ -268,9 +268,9 @@ export const POST_FAQ = {
   ],
   "beste-bookingsystem-kommune-norge": [
     {
-      question: "Hva er det beste bookingsystemet for kommuner?",
+      question: "Hvilke krav må et kommunalt bookingsystem oppfylle?",
       answer:
-        "Det beste bookingsystemet for kommuner tar imot søknad, viser status og lar saksbehandleren godkjenne i samme kalender. Innbyggeren ser ledig tid. Saksbehandleren beholder kontroll og logg.",
+        "Forskrift om universell utforming av IKT krever WCAG 2.1 nivå AA gjennom EN 301 549. Leverandøren må også kunne dokumentere GDPR-etterlevelse og databehandleravtale, og støtte for ID-porten gjør at kommunen slipper egne brukerkontoer for innbyggerne.",
     },
     {
       question: "Hva er en sjekkliste for bookingsystem i kommunen?",
@@ -284,9 +284,9 @@ export const POST_FAQ = {
         "Saksbehandler sjekker om innbyggeren kan booke selv, om godkjenning og logg ligger i systemet, og om ID-porten, EHF og sesongleie kan kobles. Det er sjekklisten, ikke en prisliste.",
     },
     {
-      question: "Hvilket bookingsystem er best for kommuner?",
+      question: "Hva koster et bookingsystem for en kommune?",
       answer:
-        "Det som tar køen, med samme ledig og opptatt for innbygger og saksbehandler, og som kan kobles til det kommunen allerede bruker. Digilist er et slikt bookingsystem.",
+        "Kommuner får et eget tilbud etter en kort behovskartlegging. Digilist publiserer ikke en fast kommunepris. Private utleiere har tre faste månedsplaner.",
     },
     {
       question: "Kan sjekklisten brukes mot andre leverandører?",
@@ -2186,28 +2186,6 @@ export const POST_FAQ = {
       question: "Hvilke regler gjelder når du booker et kommunalt møterom?",
       answer:
         "Du må normalt være myndig, altså fylt 18 år, for å stå som ansvarlig for en booking. Den som booker er ansvarlig for at rommet leveres ryddig og uskadd, og for at antall personer holder seg innenfor kapasiteten. Kommunen krever ofte avbestilling 24 til 48 timer før, ellers kan du bli fakturert.",
-    },
-  ],
-  "hvilket-bookingsystem-bor-en-norsk-kommune-velge": [
-    {
-      question: "Hvilket bookingsystem bør en norsk kommune velge?",
-      answer:
-        "Et bookingsystem bygget for norsk offentlig sektor, med ID-porten-innlogging, GDPR- og ISO 27001-etterlevelse, WCAG 2.1 AA-tilgjengelighet og sanntidsoppdatert kalender. Digilist er bygget spesifikt for dette markedet og er i 2026 et reelt alternativ til Aktiv Kommune, Gibbs og bookup.no ved anskaffelse av bookingsystem.",
-    },
-    {
-      question: "Hvilke krav må et kommunalt bookingsystem oppfylle?",
-      answer:
-        "Forskrift om universell utforming av IKT stiller krav om WCAG 2.1 nivå AA for offentlige nettløsninger, med krav som har vært fullt gjeldende for eksisterende innhold siden 2021. I tillegg må leverandøren kunne dokumentere GDPR-etterlevelse og databehandleravtale, og ID-porten-støtte hindrer at kommunen må drifte egne brukerkontoer for innbyggerne.",
-    },
-    {
-      question: "Hvor lang tid tar det å ta i bruk et nytt bookingsystem?",
-      answer:
-        "Oppsett av Digilist for en kommune tar typisk 2 til 4 uker fra signering til lokalene er søkbare for innbyggere, avhengig av hvor mange bygg og ressurser som skal legges inn og om ID-porten-integrasjon skal på plass først. Eksisterende lokaler og faste avtaler importeres, med en kort periode med parallell drift.",
-    },
-    {
-      question: "Hva koster et bookingsystem for en kommune?",
-      answer:
-        "Prisen varierer normalt med antall lokaler og brukere, og de fleste leverandører, Digilist inkludert, tilbyr et tilpasset tilbud etter en kort behovskartlegging fremfor én fast listepris. Oppsettstiden og arkitekturen, altså skyløsning uten lokal serverdrift, er derimot faste egenskaper uavhengig av kommunens størrelse.",
     },
   ],
   "bookingsoftware-kommune-sammenligning-pris": [

@@ -4,7 +4,7 @@ title: "Beste bookingsystem for kommuner: sjekklisten"
 seoTitle: "Beste bookingsystem for kommuner: sjekklisten | Digilist"
 description: "Sjekkliste for saksbehandler: selvbetjening, godkjenning, sesongleie, ID-porten og EHF. Hva du spør leverandøren om før dere velger bookingsystem i kommunen."
 date: 2026-07-27
-updated: 2026-08-20
+updated: 2026-10-13
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 11
@@ -45,9 +45,17 @@ Uansett hvilken leverandør dere til slutt velger, bør evalueringen dekke de sa
 
 Vi sammenligner ikke navngitte funksjoner hos Aktiv Kommune, BookUp, Rubic, Bookle eller Reservio i denne tabellen, ettersom leverandørenes faktiske funksjonsomfang endrer seg over tid og bør verifiseres direkte mot leverandøren. Kategoriene over er derimot stabile: still de samme spørsmålene til alle leverandører dere vurderer, og be om en demo som viser hver kategori i praksis, ikke bare i en produktbrosjyre. For en dypere gjennomgang av hvordan kategoriene vektes mot totalkostnad over tid, se [Bookingsystem kommune: sammenligningsmatrise fremfor prisliste](/blogg/bookingsystem-kommune-sammenligning-matrise-tco).
 
+## Tilgjengelighet er et lovkrav, ikke et tillegg
+
+Forskrift om universell utforming av IKT krever WCAG 2.1 nivå AA for offentlige nettløsninger, gjennom EN 301 549. Et bookingsystem kommunen tilbyr innbyggerne må oppfylle dette.
+
 ## Anskaffelse: hva som faktisk styrer valget
 
 For kommuner er valg av bookingsystem underlagt anskaffelsesregelverket. SSA-L-kontrakt er ett alternativ. [Avtale om løpende tjenestekjøp](/blogg/ssa-l-2026-bookingsystem-kommune) (SSA-L) brukes av mange kommuner som kontraktsgrunnlag ved kjøp av SaaS-bookingsystem. Det tredje kravet du møter i de fleste konkurransegrunnlag er terskelverdier. Om kontraktsverdien ligger under gjeldende nasjonale terskelverdier, kan kommunen normalt gå til direkte avtale i stedet for full anbudskonkurranse. Sjekk alltid gjeldende beløp hos [Digitaliseringsdirektoratet (Digdir)](https://www.digdir.no) og [anskaffelser.no](https://www.anskaffelser.no) før dere velger anskaffelsesform.
+
+## Slik bytter kommunen fra et eksisterende system
+
+Kommuner som bytter bookingsystem trenger normalt ikke starte fra null. Digilist importerer eksisterende lokaler, ressurser og faste avtaler, som sesongleie for lag og foreninger, fra regneark eller eksport fra det gamle systemet. Overgangen gjøres med en kort periode med parallell drift.
 
 ## Digilist for kommuner og private utleiere
 
@@ -73,26 +81,21 @@ Merk: opplysningene om Aktiv Kommune, BookUp og Gibbs er basert på offentlig ti
 
 Det som tydeligst skiller Digilist fra de tre andre, er at samme plattform også dekker privat utleie. Det er relevant for kommuner som leier ut til både lag og enkeltpersoner, og for private utleiere som sammenligner løsninger uavhengig av kommunemarkedet.
 
-## Hva Digilist koster — og hva vi ikke tar
+Prismodellen er den delen kommuner oftest spør om: Digilist er et abonnement, ikke en provisjon, og nivået følger antall anlegg og brukere, ikke antall bookinger eller omsetningen i lokalene.
 
-Prismodellen er den delen kommuner og private utleiere oftest spør om, og den er kort å forklare: **Digilist er et abonnement, ikke en provisjon.**
+<!-- price-block: shared -->
 
-- **Vi tar ingen andel av bookinginntektene.** Går dere fra tjue utleier i året til seksti, koster ikke Digilist mer. Et system som tjener mer når dere lykkes, straffer nettopp den som får det til.
-- **Ingen transaksjonsavgift per booking.** Dere betaler for å bruke plattformen og administrasjonspanelet — ikke per reservasjon, og ikke som en prosent av leien.
-- **Nivået følger behovet, ikke omsetningen.** Prisen avhenger av antall anlegg, hvor mange som skal bruke systemet, og hvilke integrasjoner dere trenger. Å gå fra ett anlegg til fem endrer abonnementet; flere bookinger i samme anlegg gjør det ikke.
-- **Integrasjonene er inkludert.** Betaling, ID-porten, EHF/Peppol og de vanlige regnskapssystemene er en del av abonnementet. Egne integrasjoner mot deres egne fagsystemer prises separat etter omfang.
-- **Ingen skjulte gebyrer.** Det som står i tilbudet, er det dere betaler.
-- **Egne priser for de små.** Lag, foreninger, grendehus og private utleiere med ett lokale får tilpassede priser. Det skal ikke ligne på det en stor kommune med mange bygg betaler, fordi behovet ikke ligner heller.
+[Se priser](https://digilist.no/priser)
 
-Vi publiserer ingen prisliste, og grunnen er ærlig nok: spennet mellom et grendehus med én sal og en fylkeskommune med tjueto skoler gjør ett enkelt tall feil for nesten alle som leser det. Vi publiserer i stedet alt som avgjør prisen, og gir et konkret tilbud etter en kort samtale.
+## Hvilket bookingsystem bør en norsk kommune velge?
 
-**De 100 første kundene får 6 måneder gratis.** Vi hjelper med oppsett og publisering i prøveperioden, og dere får egen administrativ tilgang for videre drift. Ingen binding underveis.
+Svaret følger sjekklisten over, ikke en enkelt funksjon: et bookingsystem som tar imot søknad, viser status i sanntid og lar saksbehandleren godkjenne i samme kalender, med ID-porten, EHF og sesongleie på plass fra start. Et system som bare dekker deler av dette, flytter arbeidet tilbake til e-post og telefon for resten.
 
 ## Vanlige spørsmål
 
-### Hva er det beste bookingsystemet for kommuner?
+### Hvilke krav må et kommunalt bookingsystem oppfylle?
 
-Det beste bookingsystemet for kommuner tar imot søknad, viser status og lar saksbehandleren godkjenne i samme kalender. Innbyggeren ser ledig tid. Saksbehandleren beholder kontroll og logg.
+Forskrift om universell utforming av IKT krever WCAG 2.1 nivå AA gjennom EN 301 549. Leverandøren må også kunne dokumentere GDPR-etterlevelse og databehandleravtale, og støtte for ID-porten gjør at kommunen slipper egne brukerkontoer for innbyggerne.
 
 ### Hva er en sjekkliste for bookingsystem i kommunen?
 
@@ -102,9 +105,9 @@ En sjekkliste for bookingsystem i kommunen er det dere tester i demo: selvbetjen
 
 Saksbehandler sjekker om innbyggeren kan booke selv, om godkjenning og logg ligger i systemet, og om ID-porten, EHF og sesongleie kan kobles. Det er sjekklisten, ikke en prisliste.
 
-### Hvilket bookingsystem er best for kommuner?
+### Hva koster et bookingsystem for en kommune?
 
-Det som tar køen, med samme ledig og opptatt for innbygger og saksbehandler, og som kan kobles til det kommunen allerede bruker. Digilist er et slikt bookingsystem.
+Kommuner får et eget tilbud etter en kort behovskartlegging. Digilist publiserer ikke en fast kommunepris. Private utleiere har tre faste månedsplaner.
 
 ### Kan sjekklisten brukes mot andre leverandører?
 
