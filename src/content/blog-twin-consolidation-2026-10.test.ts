@@ -171,6 +171,32 @@ describe("blog twin consolidation: excluded content stayed out of the winners", 
     expect(raw).not.toContain("200 ukentlige bookinger");
   });
 
+  it("cluster B winner does not mention bookup.no, Origo or Bifrost Booking", () => {
+    const raw = readFileSync(
+      join(BLOG_DIR, "hvordan-digitalisere-booking-av-kommunale-lokaler.md"),
+      "utf-8",
+    );
+    expect(raw).not.toMatch(/bookup\.no/i);
+    expect(raw).not.toMatch(/\bOrigo\b/);
+    expect(raw).not.toMatch(/Bifrost Booking/i);
+    const faq = POST_FAQ["hvordan-digitalisere-booking-av-kommunale-lokaler"];
+    const faqText = JSON.stringify(faq);
+    expect(faqText).not.toMatch(/bookup\.no/i);
+    expect(faqText).not.toMatch(/\bOrigo\b/);
+    expect(faqText).not.toMatch(/Bifrost Booking/i);
+  });
+
+  it("cluster B winner FAQ avoids kommune price figures, /priser and timeline promises", () => {
+    const faq = POST_FAQ["hvordan-digitalisere-booking-av-kommunale-lokaler"];
+    const cost = faq.find((f) => f.question.includes("Hva koster Digilist for en kommune"));
+    expect(cost).toBeDefined();
+    expect(cost!.answer).not.toMatch(/\/priser/);
+    expect(cost!.answer).not.toMatch(/kroner/i);
+    const timeline = faq.find((f) => f.question.includes("Hvor lang tid tar det"));
+    expect(timeline).toBeDefined();
+    expect(timeline!.answer).not.toMatch(/uker, ikke måneder/i);
+  });
+
   it("cluster C winner never claims the loser's 1-3 day setup timeline", () => {
     const raw = readFileSync(join(BLOG_DIR, "beste-plattform-private-utleiere-leie-ut-lokale.md"), "utf-8");
     expect(raw).not.toMatch(/1 til 3 dager/);
@@ -204,6 +230,33 @@ describe("blog twin consolidation: seoTitle added to the B and C winners (PR rev
       const seoTitle = match![1];
       expect(seoTitle.endsWith(" | Digilist")).toBe(true);
       expect(seoTitle.length).toBeLessThanOrEqual(TITLE_LIMIT);
+    });
+  }
+});
+
+const B_WINNER = "/blogg/hvordan-digitalisere-booking-av-kommunale-lokaler";
+const B_LOSER_SLUGS = [
+  "hvordan-digitalisere-booking-kommunale-lokaler",
+  "digitalisere-booking-kommunale-lokaler",
+];
+
+describe("blog twin consolidation: cluster B internal links point at the winner", () => {
+  const SOURCES: Array<{ slug: string; kind: "in-text" | "card" }> = [
+    { slug: "bookingsystem-kommunale-lokaler-guide-it-leder", kind: "in-text" },
+    { slug: "digitale-soknadsskjemaer-kommune", kind: "card" },
+    { slug: "digitalt-bookingsystem-hva-er-det", kind: "card" },
+    { slug: "kommunalt-bookingsystem-hva-er-det", kind: "in-text" },
+  ];
+
+  for (const { slug, kind } of SOURCES) {
+    it(`${slug}.md (${kind}) never links to a cluster B loser`, () => {
+      const raw = readFileSync(join(BLOG_DIR, `${slug}.md`), "utf-8");
+      for (const loser of B_LOSER_SLUGS) {
+        expect(raw, `still points at loser /blogg/${loser}`).not.toContain(`/blogg/${loser}`);
+      }
+      if (kind === "in-text") {
+        expect(raw, `in-text source must link to ${B_WINNER}`).toContain(B_WINNER);
+      }
     });
   }
 });
@@ -275,4 +328,25 @@ describe.skipIf(!existsSync(DIST))("blog twin consolidation: built dist/ output"
       expect(h1Count, `${winner} rendered ${h1Count} <h1> tags, expected exactly 1`).toBe(1);
     }
   });
+
+  const DIST_B_LINK_SOURCES = [
+    "bookingsystem-kommunale-lokaler-guide-it-leder",
+    "digitale-soknadsskjemaer-kommune",
+    "digitalt-bookingsystem-hva-er-det",
+    "kommunalt-bookingsystem-hva-er-det",
+  ];
+
+  for (const slug of DIST_B_LINK_SOURCES) {
+    it(`dist/blogg/${slug}/ links to ${B_WINNER}, never a cluster B loser`, () => {
+      const path = join(DIST, "blogg", slug, "index.html");
+      expect(existsSync(path), `dist/blogg/${slug}/index.html is missing`).toBe(true);
+      const html = readFileSync(path, "utf-8");
+      expect(html).toContain(B_WINNER);
+      for (const loser of B_LOSER_SLUGS) {
+        expect(html, `prerendered page still hrefs loser /blogg/${loser}`).not.toContain(
+          `/blogg/${loser}`,
+        );
+      }
+    });
+  }
 });

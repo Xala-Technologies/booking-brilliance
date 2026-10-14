@@ -67,3 +67,18 @@ export function translatedPost(post: Post): Post | null {
   }
   return all.find((p) => p.lang === "en" && p.translationOf === post.slug) ?? null;
 }
+
+/**
+ * 2026-10 blog twin consolidation: a few posts used to recommend the cluster B
+ * loser in the sidebar. The loser is gone, so pin the canonical winner instead.
+ */
+const TWIN_SIDEBAR_WINNER_PIN: Record<string, string> = {
+  "digitale-soknadsskjemaer-kommune": "hvordan-digitalisere-booking-av-kommunale-lokaler",
+  "digitalt-bookingsystem-hva-er-det": "hvordan-digitalisere-booking-av-kommunale-lokaler",
+};
+
+export function twinConsolidationSidebarPin(currentSlug: string): Post | undefined {
+  const winnerSlug = TWIN_SIDEBAR_WINNER_PIN[currentSlug];
+  if (!winnerSlug) return undefined;
+  return getAllPosts().find((p) => p.slug === winnerSlug);
+}

@@ -3019,7 +3019,7 @@ export const POST_FAQ = {
     {
       question: "Hvor lang tid tar det å digitalisere booking av kommunale lokaler?",
       answer:
-        "For en enkelt kommune handler oppsettet vanligvis om uker, ikke måneder: kartlegging av lokaler, konfigurering av regler og en kort opplæringsøkt for saksbehandlerne. Hvor lang tid det tar i praksis avhenger av hvor mange lokaltyper og godkjenningsregler kommunen har fra før.",
+        "Det avhenger av hvor mange lokaltyper og godkjenningsregler kommunen har fra før. Kartlegging av lokaler, oppsett av regler og opplæring av saksbehandlere er arbeidet som tar tid, og omfanget varierer fra kommune til kommune.",
     },
     {
       question: "Må kommunen ut på anbud for å bytte bookingsystem?",
@@ -3034,7 +3034,7 @@ export const POST_FAQ = {
     {
       question: "Hva koster Digilist for en kommune?",
       answer:
-        "Kommune får eget tilbud. Digilist publiserer ikke kommune-kroner på bloggen. Book demo eller kontakt oss. Private utleiere har tre publiserte månedsplaner på /priser.",
+        "Kommuner får pris avtalt direkte med oss etter en kort behovskartlegging. Ta kontakt for tilbud. Private utleiere har tre faste månedsplaner.",
     },
   ],
   "hvordan-unnga-dobbeltbooking-utleie": [
