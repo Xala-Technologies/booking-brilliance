@@ -60,21 +60,9 @@ Ikke alle bookingsystemer dekker de samme behovene. Før valg av leverandør er 
 - **Avtaleform**: er leverandøren vant til SSA-L, eller krever anskaffelsen særskilt tilpasning?
 - **Bredde**: dekker systemet også utstyrsutleie og private leietakere, eller kun rene kommunale lokaler?
 
-## Digilist sammenlignet med bookup.no, Origo og Bifrost Booking
+## Én plattform for kommune og private utleiere
 
-Alle fire leverandører tilbyr digital booking av kommunale lokaler, men de skiller seg på markedsbredde og hva som er dokumentert offentlig.
-
-| | Digilist | bookup.no | Origo | Bifrost Booking |
-|---|---|---|---|---|
-| Marked | Privat og offentlig | Primært offentlig | Primært offentlig | Primært offentlig |
-| Sanntidskalender | Ja | Ja | Ja | Ja |
-| ID-porten-innlogging | Ja | Ikke offentlig dokumentert | Ikke offentlig dokumentert | Ikke offentlig dokumentert |
-| GDPR / ISO 27001 | Ja | Ikke offentlig dokumentert | Ikke offentlig dokumentert | Ikke offentlig dokumentert |
-| SSA-L-kompatibel avtale | Ja | Ikke offentlig dokumentert | Ikke offentlig dokumentert | Ikke offentlig dokumentert |
-| Sesongleie for lag/foreninger | Ja | Ikke offentlig dokumentert | Ikke offentlig dokumentert | Ikke offentlig dokumentert |
-| Statistikk/rapportering | Ja | Ikke offentlig dokumentert | Ikke offentlig dokumentert | Ikke offentlig dokumentert |
-
-Der bookup.no, Origo og Bifrost Booking er bygget spesifikt rundt kommunal saksbehandling, er Digilists forskjell at samme plattform dekker private utleiere, bedrifter og arrangementer i tillegg til kommunen. En kommune som også har behov utenfor ren lokalutleie, for eksempel utleie av utstyr til lag og foreninger, trenger dermed ikke to systemer. Feltene merket «ikke offentlig dokumentert» betyr at Digilist ikke har funnet dette bekreftet i leverandørenes egen dokumentasjon, ikke at funksjonen mangler hos dem.
+Digilist er bygget for både offentlig sektor og private utleiere, bedrifter og arrangementer i samme plattform. En kommune som også har behov utenfor ren lokalutleie, for eksempel utleie av utstyr til lag og foreninger, kan samle det i ett system i stedet for å drifte flere parallelle løsninger.
 
 ## Ofte stilte spørsmål
 
@@ -85,7 +73,7 @@ Der bookup.no, Origo og Bifrost Booking er bygget spesifikt rundt kommunal saksb
 I praksis publiserer kommunen ledig kapasitet, lar brukeren bestille selv i kalenderen, og automatiserer godkjenning, varsling og etterarbeid. Oppsettet kobles typisk til ID-porten, godkjenningsregler og lokalene kommunen allerede forvalter.
 
 **Hvor lang tid tar det å digitalisere booking av kommunale lokaler?**
-For en enkelt kommune handler oppsettet vanligvis om uker, ikke måneder: kartlegging av lokaler, konfigurering av regler og en kort opplæringsøkt for saksbehandlerne. Hvor lang tid det tar i praksis avhenger av hvor mange lokaltyper og godkjenningsregler kommunen har fra før.
+Det avhenger av hvor mange lokaltyper og godkjenningsregler kommunen har fra før. Kartlegging av lokaler, oppsett av regler og opplæring av saksbehandlere er arbeidet som tar tid, og omfanget varierer fra kommune til kommune.
 
 **Må kommunen ut på anbud for å bytte bookingsystem?**
 Det avhenger av kontraktens verdi og kommunens egne anskaffelsesregler. Systemer som allerede er tilpasset SSA-L, Statens standardavtale for løpende tjenestekjøp, gjør normalt selve avtaleinngåelsen enklere, men terskelverdiene for konkurranse følger regelverket uavhengig av leverandør.
@@ -94,13 +82,13 @@ Det avhenger av kontraktens verdi og kommunens egne anskaffelsesregler. Systemer
 Ja, forutsatt at systemet støtter ID-porten. Da logger innbyggeren inn med den digitale identiteten de allerede har fra BankID eller MinID, og kommunen slipper å forvalte et eget passordregister.
 
 **Hva koster Digilist for en kommune?**
-Kommune får eget tilbud. Digilist publiserer ikke kommune-kroner på bloggen. Book demo eller kontakt oss. Private utleiere har tre publiserte månedsplaner på /priser.
+Kommuner får pris avtalt direkte med oss etter en kort behovskartlegging. Ta kontakt for tilbud. Private utleiere har tre faste månedsplaner.
 
 ## Pris, oppsett og kilder
 
 Oppsett hos Digilist går typisk gjennom fire steg: kartlegging av hvilke lokaler og ressurser som skal inn i kalenderen, konfigurering av godkjenningsregler, integrasjon mot ID-porten, og en kort opplæringsøkt for saksbehandlerne før lansering. Prismodellen tilpasses antall lokaler og brukere, og kommunen får et konkret tilbud etter en kort behovsgjennomgang, i tråd med hvordan SSA-L-baserte avtaler normalt prissettes.
 
-Denne artikkelen er skrevet av Ibrahim Rahmani, grunnlegger av Digilist, og sist oppdatert 3. august 2026. Fakta om antall norske kommuner er hentet fra Kommunal- og distriktsdepartementet, og folketall for Lillestrøm fra SSB. Funksjonsopplysninger om Digilist er hentet fra selskapets egen produktdokumentasjon; opplysninger om konkurrenter er markert der de ikke er offentlig dokumentert.
+Denne artikkelen er skrevet av Ibrahim Rahmani, grunnlegger av Digilist, og sist oppdatert 3. august 2026. Fakta om antall norske kommuner er hentet fra Kommunal- og distriktsdepartementet, og folketall for Lillestrøm fra SSB. Funksjonsopplysninger om Digilist er hentet fra selskapets egen produktdokumentasjon.
 
 ## Prøv Digilist
 

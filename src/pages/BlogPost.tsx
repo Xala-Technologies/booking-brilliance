@@ -15,7 +15,7 @@ import {
   ProgressRail,
   EditorialButton,
 } from "@/components/editorial";
-import { postsForLocale, getAllPosts, formatPostDate } from "@/lib/posts";
+import { postsForLocale, getAllPosts, formatPostDate, twinConsolidationSidebarPin } from "@/lib/posts";
 import { getPostBySlug } from "@/lib/postContent";
 import { getFraunces } from "@/lib/fonts";
 import { openChatbot } from "@/lib/chatbot/open";
@@ -88,7 +88,9 @@ const BlogPost = () => {
   // Sidebar recommendations: same-tag articles first (topically relevant while
   // reading), backfilled with the newest others. Distinct from the "Fortsett å
   // lese" latest strip at the foot of the page.
+  const pinnedWinner = twinConsolidationSidebarPin(post.slug);
   const sidebarRelated = [
+    ...(pinnedWinner ? [pinnedWinner] : []),
     ...postsForLocale(post?.lang === "en" ? "en" : "nb").filter(
       (p) => p.slug !== post.slug && p.tag && p.tag === post.tag,
     ),
