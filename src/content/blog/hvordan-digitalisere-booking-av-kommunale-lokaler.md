@@ -4,7 +4,7 @@ title: "Hvordan digitalisere booking av kommunale lokaler"
 seoTitle: "Hvordan digitalisere booking av kommunale lokaler | Digilist"
 description: "Å digitalisere booking av kommunale lokaler erstatter telefon, e-post og papirskjema med sanntidskalender; innbyggere booker selv, kommunen godkjenner og fakturerer."
 date: 2026-08-03
-updated: 2026-10-13
+updated: 2026-10-14
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 7
@@ -43,7 +43,7 @@ Hver booking registreres med lokale, tidspunkt og bruker, noe som gir kommunen l
 
 ### Innlogging og sikkerhet
 
-Innbyggere kan logge inn med ID-porten, som gjør at kommunen slipper å bygge egne brukerregistre. Plattformen er bygget for GDPR-etterlevelse og ISO 27001-praksis, noe som er en forutsetning når en kommune skal behandle personopplysninger i en anskaffelse.
+Innbyggere kan logge inn med ID-porten, som gjør at kommunen slipper å bygge egne brukerregistre. Plattformen er bygget for GDPR-etterlevelse, noe som er en forutsetning når en kommune skal behandle personopplysninger i en anskaffelse.
 
 ### Anskaffelse
 
