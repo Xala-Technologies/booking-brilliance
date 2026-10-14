@@ -3583,6 +3583,33 @@ export const POST_FAQ = {
         "Lokaltype og størrelse, deretter sted, ukedag og sesong.",
     },
   ],
+  "lokale-til-lan-party-hva-driver-prisen": [
+    {
+      question: "Hvilket lokale passer til LAN-party?",
+      answer:
+        "Et lokale med nok strømkapasitet, bord og stoler til alle og lov til å være der over natten.",
+    },
+    {
+      question: "Må lokalet ha internett?",
+      answer:
+        "Ikke alltid, men spør om fast linje og om dere kan koble til egen switch.",
+    },
+    {
+      question: "Kan vi sove i lokalet?",
+      answer:
+        "Det avgjør utleieren og brannreglene for lokalet, så spør før du booker.",
+    },
+    {
+      question: "Hvorfor koster rengjøring ekstra?",
+      answer:
+        "Mange utleiere tar rengjøring og depositum som egne poster utenom grunnleien.",
+    },
+    {
+      question: "Hvordan får jeg et prisestimat?",
+      answer:
+        "Bruk et veiledende estimat som utgangspunkt, og be utleieren om skriftlig pris for akkurat deres arrangement.",
+    },
+  ],
   "lokale-til-julemarked-tre-scenarier": [
     {
       question: "Hvor stort lokale trenger et julemarked?",
