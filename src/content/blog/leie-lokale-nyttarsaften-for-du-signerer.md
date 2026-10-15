@@ -4,6 +4,7 @@ title: "Leie lokale nyttårsaften: før du signerer"
 seoTitle: "Leie lokale nyttårsaften: før du signerer | Digilist"
 description: "Skal du leie lokale til nyttårsfesten? Disse punktene i avtalen bør du sjekke før du signerer: sluttid, fyrverkeri, høytidstillegg, rengjøring og depositum."
 date: 2026-10-15
+updated: 2026-10-15
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 tag: "Privatperson"
@@ -21,7 +22,7 @@ h1InBody: true
 
 Hva skjer klokken ett, når festen er i full gang og utleieren har skrevet at lokalet skal være tomt?
 
-Nyttårsaften er ingen vanlig lørdag. Kvelden varer lenger, folk vil ut ved midnatt, og dagen etter er en helligdag. Derfor er det noen punkter i leieavtalen som bør få deg til å stoppe opp før du signerer. Under går vi gjennom varselflaggene, hvorfor de betyr mer akkurat denne kvelden, og hva du bør be om å få skriftlig.
+Nyttårsaften er ingen vanlig festkveld. Kvelden varer lenger, folk vil ut ved midnatt, og dagen etter er en helligdag. Derfor er det noen punkter i leieavtalen som bør få deg til å stoppe opp før du signerer. Under går vi gjennom varselflaggene, hvorfor de betyr mer akkurat denne kvelden, og hva du bør be om å få skriftlig.
 
 ## Sluttiden står ikke i avtalen, eller den står før midnatt
 
@@ -37,7 +38,7 @@ Hva som gjelder for fyrverkeri, varierer fra sted til sted. Spør utleieren hva 
 
 ## Prisen er for en vanlig lørdag, men datoen er nyttårsaften
 
-Varselflagget er et tilbud som ser ut som en vanlig helgepris, uten at det står noe om høytidstillegg. [Leiepriskalkulatoren](https://digilist.no/verktoy/leiepriskalkulator) peker på at ukedag og sesong påvirker prisen, og nyttårsaften er blant de mest ettertraktede kveldene i året.
+Varselflagget er et tilbud som ser ut som en vanlig helgepris, uten at det står noe om høytidstillegg. [Leiepriskalkulatoren](https://digilist.no/verktoy/leiepriskalkulator) peker på at ukedag og sesong påvirker prisen, og lokaler til nyttårsaften er ofte booket tidlig.
 
 Be om en skriftlig totalpris for akkurat denne datoen, med alle tillegg. Et estimat er et estimat, ikke et tilbud, og det er tilbudet du signerer på.
 
