@@ -126,7 +126,11 @@ describe("blog twin consolidation: no internal link still points at a loser", ()
 });
 
 describe("blog twin consolidation: FAQ parity on the winners", () => {
-  const faqWinners = ["beste-bookingsystem-kommune-norge", "hvordan-digitalisere-booking-av-kommunale-lokaler"];
+  const faqWinners = [
+    "beste-bookingsystem-kommune-norge",
+    "hvordan-digitalisere-booking-av-kommunale-lokaler",
+    "beste-plattform-private-utleiere-leie-ut-lokale",
+  ];
 
   for (const slug of faqWinners) {
     it(`POST_FAQ["${slug}"] mirrors a matching Vanlige spørsmål / Ofte stilte spørsmål section in the body`, () => {

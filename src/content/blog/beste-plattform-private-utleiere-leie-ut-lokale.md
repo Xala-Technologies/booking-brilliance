@@ -4,7 +4,7 @@ title: "Beste plattform for private utleiere som leier ut lokale"
 seoTitle: "Beste plattform for private utleiere | Digilist"
 description: "Hva kjennetegner den beste plattformen for private utleiere: sanntidskalender, Vipps-betaling, differensiert pris og rapportering samlet ett sted."
 date: 2026-07-27
-updated: 2026-10-13
+updated: 2026-10-15
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 readingMinutes: 5
@@ -64,6 +64,23 @@ Leier du selv ut et lokale, er Digilist et abonnement, ikke en provisjon.
 <!-- price-block: shared -->
 
 [Se priser](https://digilist.no/priser)
+
+## Ofte stilte spørsmål
+
+**Hva kjennetegner den beste plattformen for en privat utleier?**
+Den beste løsningen er en samlet bookingplattform med sanntidskalender som hindrer dobbeltbooking, betaling i samme flyt som bookingen (Vipps eller kort), differensiert pris etter ukedag og sesong, og rapportering på belegg og inntekt uten manuell innsamling. En ren katalog eller annonse viser at lokalet finnes, men håndterer verken kalender eller betaling.
+
+**Hva er forskjellen på en katalogside og en samlet bookingplattform?**
+En katalogside kan synliggjøre lokalet, men har normalt ikke sanntidskalender, betaling i bookingflyten eller innebygd rapportering. En samlet bookingplattform samler søkbarhet, kalender, Vipps- og kortbetaling, differensiert pris og kalendersynk i samme system.
+
+**Når passer en annonseside, og når trenger du en bookingplattform?**
+En annonseside passer når målet er å nå mange leietakere for én transaksjon. Timebestillingsverktøy passer for tjenester og timeavtaler. Skal lokalet leies ut fast, med sesong og faste ukedager, trenger du kalender og betaling i samme flyt. Spør leverandøren om dette før du velger.
+
+**Hvilke funksjoner bør en privat utleier prioritere i en bookingplattform?**
+Sanntidskalender, betaling ved booking med Vipps eller kort, pris etter ukedag, sesong og kapasitet med tillegg som egne linjer, kalendersynk med Outlook, Google og andre kalendere (iCal/CalDAV), og rapportering der belegg og inntekt følger av driften. Data om leietakere og bookinger bør ligge i Norge og EU, i tråd med GDPR.
+
+**Hvordan prises Digilist når du leier ut som privatperson?**
+Leier du selv ut et lokale, er Digilist et abonnement, ikke en provisjon. Private utleiere har tre faste månedsplaner.
 
 Se hvordan Digilist samler booking av lokaler og ressurser i én plattform for private utleiere:
 

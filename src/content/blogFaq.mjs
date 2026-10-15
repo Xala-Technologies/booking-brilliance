@@ -294,6 +294,36 @@ export const POST_FAQ = {
         "Ja. Still de samme spørsmålene til alle dere vurderer, og be om en demo som viser hver kategori.",
     },
   ],
+  "beste-plattform-private-utleiere-leie-ut-lokale": [
+    {
+      question: "Hva kjennetegner den beste plattformen for en privat utleier?",
+      answer:
+        "Den beste løsningen er en samlet bookingplattform med sanntidskalender som hindrer dobbeltbooking, betaling i samme flyt som bookingen (Vipps eller kort), differensiert pris etter ukedag og sesong, og rapportering på belegg og inntekt uten manuell innsamling. En ren katalog eller annonse viser at lokalet finnes, men håndterer verken kalender eller betaling.",
+    },
+    {
+      question:
+        "Hva er forskjellen på en katalogside og en samlet bookingplattform?",
+      answer:
+        "En katalogside kan synliggjøre lokalet, men har normalt ikke sanntidskalender, betaling i bookingflyten eller innebygd rapportering. En samlet bookingplattform samler søkbarhet, kalender, Vipps- og kortbetaling, differensiert pris og kalendersynk i samme system.",
+    },
+    {
+      question:
+        "Når passer en annonseside, og når trenger du en bookingplattform?",
+      answer:
+        "En annonseside passer når målet er å nå mange leietakere for én transaksjon. Timebestillingsverktøy passer for tjenester og timeavtaler. Skal lokalet leies ut fast, med sesong og faste ukedager, trenger du kalender og betaling i samme flyt. Spør leverandøren om dette før du velger.",
+    },
+    {
+      question:
+        "Hvilke funksjoner bør en privat utleier prioritere i en bookingplattform?",
+      answer:
+        "Sanntidskalender, betaling ved booking med Vipps eller kort, pris etter ukedag, sesong og kapasitet med tillegg som egne linjer, kalendersynk med Outlook, Google og andre kalendere (iCal/CalDAV), og rapportering der belegg og inntekt følger av driften. Data om leietakere og bookinger bør ligge i Norge og EU, i tråd med GDPR.",
+    },
+    {
+      question: "Hvordan prises Digilist når du leier ut som privatperson?",
+      answer:
+        "Leier du selv ut et lokale, er Digilist et abonnement, ikke en provisjon. Private utleiere har tre faste månedsplaner.",
+    },
+  ],
   "hva-er-bookingsystem-kommunale-lokaler": [
     {
       question: "Hva er et bookingsystem for kommunale lokaler?",
