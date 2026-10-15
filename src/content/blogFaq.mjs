@@ -1621,6 +1621,33 @@ export const POST_FAQ = {
         "Telt med tett tak, gulv og varmeovner koster typisk 20 000–50 000 kroner ekstra avhengig av størrelse og sesong, mens gårder med egen låve slipper denne kostnaden helt siden bygningen allerede er der. Noen utearealer krever egen forsikring for teltoppsett, og enkelte kommunale parker som Frognerparken krever i tillegg søknad om arrangement i god tid før dato.",
     },
   ],
+  "leie-lokale-nyttarsaften-for-du-signerer": [
+    {
+      question: "Er det dyrere å leie lokale nyttårsaften?",
+      answer:
+        "Ofte, fordi det er en ettertraktet kveld, så be om totalpris skriftlig før du signerer.",
+    },
+    {
+      question: "Kan vi skyte opp fyrverkeri fra lokalet?",
+      answer:
+        "Det avgjør utleieren og reglene som gjelder der, så spør før du signerer.",
+    },
+    {
+      question: "Hvem rydder etter festen?",
+      answer:
+        "Avtal det skriftlig, og avklar om rengjøring er med i prisen.",
+    },
+    {
+      question: "Når får vi depositumet tilbake?",
+      answer:
+        "Avtalen bør si det, sammen med hva som kan trekkes fra.",
+    },
+    {
+      question: "Hvor sent kan vi holde på?",
+      answer:
+        "Det står i avtalen, og står det ikke der, bør du be om å få det inn.",
+    },
+  ],
   "leie-lokale-privat-fest-og-bedriftsevent": [
     {
       question: "Hva koster et julebordlokale?",
