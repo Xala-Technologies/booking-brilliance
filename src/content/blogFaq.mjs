@@ -3640,6 +3640,33 @@ export const POST_FAQ = {
         "Lokaltype og størrelse, deretter sted, ukedag og sesong.",
     },
   ],
+  "lokale-til-babyshower-for-under-og-etter": [
+    {
+      question: "Hvor stort lokale trenger vi til babyshower?",
+      answer:
+        "Det avhenger av antall gjester og om de sitter eller går rundt, og lokalets oppgitte kapasitet gjelder.",
+    },
+    {
+      question: "Kan vi holde babyshower hjemme i stedet?",
+      answer:
+        "Ja, men et leid lokale gir mer plass og mindre rydding for den som venter barn.",
+    },
+    {
+      question: "Må lokalet ha kjøkken?",
+      answer:
+        "Det er nyttig hvis dere skal servere varm drikke og kaker, så spør utleieren hva som følger med.",
+    },
+    {
+      question: "Hvem bør booke lokalet?",
+      answer:
+        "Den som arrangerer, ofte en venn eller et familiemedlem, særlig hvis det er en overraskelse.",
+    },
+    {
+      question: "Kan vi pynte lokalet?",
+      answer:
+        "Spør utleieren hva som er lov å feste på vegger og tak før dere kjøper pynt.",
+    },
+  ],
   "lokale-til-lan-party-hva-driver-prisen": [
     {
       question: "Hvilket lokale passer til LAN-party?",
