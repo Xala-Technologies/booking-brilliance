@@ -3694,6 +3694,33 @@ export const POST_FAQ = {
         "Bruk et veiledende estimat som utgangspunkt, og be utleieren om skriftlig pris for akkurat deres arrangement.",
     },
   ],
+  "lokale-til-pop-up-butikk-5-sporsmal": [
+    {
+      question: "Hva koster det å leie butikklokale til pop-up?",
+      answer:
+        "Det avhenger av sted, ukedag, sesong og hva som er med, så be om en skriftlig totalpris.",
+    },
+    {
+      question: "Kan jeg leie et lokale for bare én helg?",
+      answer:
+        "Mange utleiere tilbyr korttidsleie, så spør direkte om helg eller uke.",
+    },
+    {
+      question: "Trenger jeg egen forsikring?",
+      answer:
+        "Spør utleieren hva deres forsikring dekker, og avklar resten før du flytter inn varer.",
+    },
+    {
+      question: "Må lokalet være et butikklokale?",
+      answer:
+        "Nei, det viktigste er at det har inngang folk ser, plass til varer og lov til å selge der.",
+    },
+    {
+      question: "Hvem rydder etter pop-up butikken?",
+      answer:
+        "Avtal det skriftlig, sammen med om rengjøring og depositum er med i prisen.",
+    },
+  ],
   "lokale-til-julemarked-tre-scenarier": [
     {
       question: "Hvor stort lokale trenger et julemarked?",
