@@ -1,5 +1,11 @@
 # Cursor Updates
 
+## 2026-10-19: Blog post lokale til sesongavslutning for laget
+
+- Added Bokmål post at /blogg/lokale-til-sesongavslutning-for-laget with seoTitle, h1InBody, shared price block and five FAQ items in POST_FAQ
+- Cover and 640w preview committed from daily draft tarball
+- Prerendered title length 48, meta description length 151
+
 ## 2026-09-28: Blog post leie ut lokale til filminnspilling
 
 - Added Bokmål guide at /blogg/leie-ut-lokale-filminnspilling-vanlige-feil with seoTitle, h1InBody and six FAQ items in POST_FAQ
