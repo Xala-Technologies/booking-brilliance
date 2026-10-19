@@ -49,7 +49,7 @@ Så er det prisutdelingen. Treneren skal si noen ord, og hver spiller skal fram 
 
 ## Pris og dato: hverdag, helg og hva som kommer i tillegg
 
-Den første datoen alle foreslår, er en lørdag. Det er også den dagen flest andre vil ha. Lørdag er mest ettertraktet, og det kan merkes på prisen. Laget ser på en fredag og en søndag i tillegg, og spør om pris for alle tre.
+Den første datoen alle foreslår, er en lørdag. Lørdag er mest ettertraktet, og det kan merkes på prisen. Laget ser på en fredag og en søndag i tillegg, og spør om pris for alle tre.
 
 Den som booker, bruker leiepriskalkulatoren for å få et grovt bilde før samtalen med utleieren. Et grendehus eller foreningslokale er den nærmeste lokaltypen for en slik fest. Kalkulatoren justerer for antall gjester, ukedag og sesong, og gir et estimat, ikke et tilbud. Den minner også om det som ofte kommer i tillegg til grunnleien: rengjøring, bemanning, utstyr, catering og depositum.
 
