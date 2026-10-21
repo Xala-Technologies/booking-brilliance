@@ -3775,4 +3775,31 @@ export const POST_FAQ = {
         "Sjekk først hva lokalet har, og lei bare det som mangler.",
     },
   ],
+  "leie-grendehus-rom-for-rom": [
+    {
+      question: "Hva følger som regel med når du leier et grendehus?",
+      answer:
+        "Sal, kjøkken, bord og stoler, mens mat og rydding som regel er ditt ansvar.",
+    },
+    {
+      question: "Hvor mange får plass i et grendehus?",
+      answer:
+        "Det står i husets oppgitte kapasitet, og det er ulike tall for sittende og stående.",
+    },
+    {
+      question: "Er grendehus billigere enn et selskapslokale?",
+      answer:
+        "Ofte, men be om pris for akkurat din dato og spør hva som kommer i tillegg.",
+    },
+    {
+      question: "Må jeg vaske etter meg?",
+      answer:
+        "Som regel ja, så spør utleieren hva som forventes og om vask kan kjøpes.",
+    },
+    {
+      question: "Hvem leier ut grendehuset?",
+      answer:
+        "Ofte en bygdelagsforening eller stiftelse, men avklar alltid hvem avtalen inngås med.",
+    },
+  ],
 };

@@ -53,11 +53,7 @@ Et døgn med mange folk, pizzaesker og ledninger på gulvet gir mer rengjøring 
 
 Spør om rengjøring er med i leien eller må bestilles, hva som må være gjort for at dere får depositumet tilbake, og når lokalet skal være tomt.
 
-Leier du selv ut et lokale, er Digilist et abonnement, ikke en provisjon.
-
 <!-- price-block: shared -->
-
-[Se priser](https://digilist.no/priser)
 
 ## Ukedag og sesong: når det er lettest å få lokalet
 

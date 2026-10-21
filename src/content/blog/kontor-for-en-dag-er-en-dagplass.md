@@ -56,8 +56,6 @@ Driver du et kontorfellesskap: skriv telefonboks og stille sone på plassen, så
 
 <!-- price-block: shared -->
 
-[Se priser](/priser)
-
 ## Ofte stilte spørsmål
 
 **Må jeg bli medlem for å sitte der én dag?**

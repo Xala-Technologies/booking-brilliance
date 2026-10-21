@@ -47,11 +47,7 @@ Lokalet bør ha kjøkken eller i det minste vask og strøm til vaffeljern og kaf
 
 Spør utleieren: om kjøkkenet er med, om det finnes vask, hvem som rydder, og om det er regler for matsalg. Vil du leie utstyr til serveringen, har vi samlet det i [leie utstyr til fest](https://digilist.no/blogg/leie-utstyr-til-fest-telt-bord-lyd-servering).
 
-Leier du selv ut et lokale, er Digilist et abonnement, ikke en provisjon.
-
 <!-- price-block: shared -->
-
-[Se priser](https://digilist.no/priser)
 
 ## Det alle tre har felles: strøm, flyt og opprydding
 

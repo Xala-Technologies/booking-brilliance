@@ -64,11 +64,7 @@ Planer endrer seg. Avbestillingsreglene settes av utleier og står på hver går
 
 Les dem før du bekrefter. Er datoen ikke helt spikret, eller er gjestelisten fortsatt i bevegelse, er reglene like viktige som selve låven. Vit hva som gjelder før dere sender ut invitasjonen.
 
-Leier du ut en låve selv, er Digilist et abonnement, ikke en provisjon.
-
 <!-- price-block: shared -->
-
-[Se priser](https://digilist.no/priser)
 
 ## Sju svar før du booker låven
 

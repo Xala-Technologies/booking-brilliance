@@ -41,11 +41,7 @@ Grunnleien dekker sjelden alt. Rengjøring, bemanning, lyd og bilde, catering og
 
 Trenger dere ekstra bord, stoler eller servise, kan du se på [festutstyr](https://digilist.no/utstyr/festutstyr). Skal noen andre lage maten, finner du [catering](https://digilist.no/tjenester/catering) her.
 
-Leier du selv ut et lokale, er Digilist et abonnement, ikke en provisjon.
-
 <!-- price-block: shared -->
-
-[Se priser](https://digilist.no/priser)
 
 ## Under: når gjestene kommer, og hvor aktivitetene skal være
 

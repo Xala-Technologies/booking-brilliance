@@ -59,11 +59,7 @@ Digilist tilbyr 11+ lokaltyper å leie ut på plattformen, fra selskapslokaler o
 
 **Kilde for tallene i denne artikkelen:** lokaltyper, integrasjoner, sertifisering og datalokasjon er hentet fra [Digilists bookingsystem for utleie](/bookingsystem-utleie), oppdatert av leverandøren løpende.
 
-Leier du selv ut et lokale, er Digilist et abonnement, ikke en provisjon.
-
 <!-- price-block: shared -->
-
-[Se priser](https://digilist.no/priser)
 
 ## Ofte stilte spørsmål
 

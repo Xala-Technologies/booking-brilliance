@@ -63,11 +63,7 @@ Kulturhus og samfunnshus leies ofte ut via kommunens sider, e-post til kulturkon
 
 Rådet: still de samme spørsmålene til begge, slik at svarene faktisk kan sammenlignes.
 
-Leier du selv ut et lokale, er Digilist et abonnement, ikke en provisjon.
-
 <!-- price-block: shared -->
-
-[Se priser](https://digilist.no/priser)
 
 ## Når konferanselokalet passer, og når kulturhuset passer
 
