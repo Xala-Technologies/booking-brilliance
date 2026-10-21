@@ -70,13 +70,20 @@ function PricingSummaryBody({ isPricingPage }: { isPricingPage: boolean }) {
  *
  * `variant="inline"` drops the full-bleed `<section>`/`container` wrapper
  * (center-aligned, with its own `mx-auto` + `md:px-8 lg:px-12` padding) for a
- * plain block capped at the blog body's own `max-w-[68ch]` — used when a post
+ * plain block capped at the blog body's own `max-w-[68ch]`, used when a post
  * marks `<!-- price-block: shared -->` mid-article, inside the `.post-body`
  * column. Without this variant the full-width section's heading and border
  * land at the container's padded edge, not the narrower body column's edge,
  * so the two visibly misalign (e.g. at 1366px the section's left edge sits at
  * x=96 against the body's x=48). The footer usage after `</article>` keeps
  * the default `variant="section"`, where that full-bleed width is correct.
+ *
+ * `max-w-[68ch]` alone is not enough: `ch` is relative to the element's own
+ * font-size, and this component's ambient font-size differs from
+ * `.post-body`'s, so the same `68ch` resolved to a different (narrower)
+ * pixel width than the body around it. `.post-body-measure` (src/index.css)
+ * repeats just `.post-body`'s font-size, without its h2/p/a prose rules, so
+ * the two `max-w-[68ch]`s compute to the same width.
  */
 export function PricingSummaryBlock({
   variant = "section",
@@ -91,10 +98,13 @@ export function PricingSummaryBlock({
 
   if (variant === "inline") {
     return (
-      <div aria-labelledby="pricing-summary-heading" className="max-w-[68ch] py-10 border-t border-rule">
+      <section
+        aria-labelledby="pricing-summary-heading"
+        className="post-body-measure max-w-[68ch] py-10 border-t border-rule"
+      >
         <PricingSummaryHeading />
         <PricingSummaryBody isPricingPage={isPricingPage} />
-      </div>
+      </section>
     );
   }
 

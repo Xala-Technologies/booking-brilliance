@@ -45,3 +45,12 @@ jobs:
           GITHUB_EVENT_NAME: pull_request
       - name: Build
         run: pnpm build
+      # The dist-gated price-block test in BlogPostPriceBlock.test.tsx reads
+      # dist/blogg, which only exists after the Build step above. Running it
+      # here, after build, with REQUIRE_DIST_BLOGG=1, turns its normal
+      # skip-when-missing behavior into a hard failure, so the check actually
+      # runs on every PR instead of silently always skipping.
+      - name: Dist price-block check
+        run: pnpm exec vitest run src/pages/BlogPostPriceBlock.test.tsx
+        env:
+          REQUIRE_DIST_BLOGG: "1"

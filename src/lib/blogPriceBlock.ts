@@ -39,8 +39,8 @@ export function splitBodyAtPriceBlock(markdown: string): SplitBodyAtPriceBlock {
     .slice(markerIndex + match[0].length)
     .replace(PRICE_MARKER_RE_GLOBAL, "")
     // A stripped marker can leave behind the blank lines that separated it
-    // from its neighbors (e.g. "Middle.\n\n<marker>\n\nAfter." → "Middle.\n\n\n\nAfter."
-    // once just the marker is removed) — collapse those back to a single
+    // from its neighbors (e.g. "Middle.\n\n<marker>\n\nAfter." becomes "Middle.\n\n\n\nAfter."
+    // once just the marker is removed), so collapse those back to a single
     // markdown paragraph break.
     .replace(/\n{3,}/g, "\n\n")
     .trim();

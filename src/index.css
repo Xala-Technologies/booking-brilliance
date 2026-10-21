@@ -260,6 +260,21 @@
       font-size: 1.25rem;
     }
   }
+
+  /* `ch` is relative to the element's own font-size, so a sibling with a
+   * different ambient font-size computes a different pixel width from the
+   * same `max-w-[68ch]`. This repeats only `.post-body`'s font-size (not its
+   * h2/p/a prose rules) on a non-`.post-body` sibling, e.g. the inline
+   * PricingSummaryBlock, so its own `max-w-[68ch]` lands on the exact same
+   * right edge as the article body around it. */
+  .post-body-measure {
+    font-size: 1.1875rem;
+  }
+  @media (min-width: 1024px) {
+    .post-body-measure {
+      font-size: 1.25rem;
+    }
+  }
   .post-body h1 {
     font-family: "Newsreader", "Iowan Old Style", Georgia, serif;
     font-size: 2.25rem;

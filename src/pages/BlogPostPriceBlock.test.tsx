@@ -10,8 +10,8 @@ import { splitBodyAtPriceBlock } from "@/lib/blogPriceBlock";
 
 /** Mirrors BlogPost.tsx's own render shape closely enough to exercise the
  * split + inline-render path end to end, without needing a real post with
- * two markers (no such post exists in the corpus — this is the regression
- * guard for one that someday does). */
+ * two markers. No such post exists in the corpus, this is the regression
+ * guard for one that someday does. */
 function renderBodyWithPriceBlock(markdown: string): string {
   const { bodyBefore, bodyAfter, hasInlinePriceBlock } = splitBodyAtPriceBlock(markdown);
   return renderToStaticMarkup(
@@ -47,7 +47,7 @@ describe("BlogPost inline price block (SSR)", () => {
     expect(articleClosePos).toBeGreaterThan(-1);
     expect(headingPos).toBeLessThan(articleClosePos);
 
-    // And it lands at the marker's actual position in the body — between the
+    // And it lands at the marker's actual position in the body, between the
     // "Lageret" section above it and the "Ute" section below it.
     const lagerPos = html.indexOf("Lageret: bord, stoler");
     const utePos = html.indexOf("Ute: parkering, lys og naboer");
@@ -57,17 +57,29 @@ describe("BlogPost inline price block (SSR)", () => {
     expect(headingPos).toBeLessThan(utePos);
   });
 
-  it("the inline block is not wrapped in the full-bleed section/container used in the footer", async () => {
+  it("the inline block's own <section> carries max-w-[68ch] directly, not the footer's container/mx-auto wrapper", async () => {
     const html = await render("/blogg/leie-grendehus-rom-for-rom");
     const headingPos = html.indexOf('id="pricing-summary-heading"');
-    // Walk back from the heading to its own wrapper's opening tag and check
-    // it is the narrow aria-labelledby div, not the full-width <section>.
+    // Both variants wrap their heading in a <section>, so distinguish them by
+    // their own class attribute: the inline variant puts max-w-[68ch]
+    // directly on that <section> (no container/mx-auto); the footer variant
+    // puts container/mx-auto on an inner <div> instead, one level deeper.
     const before = html.slice(Math.max(0, headingPos - 400), headingPos);
     const lastSectionOpen = before.lastIndexOf("<section");
-    const lastDivOpen = before.lastIndexOf("<div");
-    expect(lastDivOpen).toBeGreaterThan(lastSectionOpen);
-    expect(before.slice(lastDivOpen)).toContain("max-w-[68ch]");
-    expect(before.slice(lastDivOpen)).not.toContain("container mx-auto");
+    expect(lastSectionOpen).toBeGreaterThan(-1);
+    const sectionTag = before.slice(lastSectionOpen);
+    expect(sectionTag).toContain("max-w-[68ch]");
+    expect(sectionTag).toContain("post-body-measure");
+    expect(sectionTag).not.toContain("container mx-auto");
+  });
+
+  it("the inline block's <section> gets an implicit region landmark from aria-labelledby", async () => {
+    const html = await render("/blogg/leie-grendehus-rom-for-rom");
+    const headingPos = html.indexOf('id="pricing-summary-heading"');
+    const before = html.slice(Math.max(0, headingPos - 400), headingPos);
+    const lastSectionOpen = before.lastIndexOf("<section");
+    expect(lastSectionOpen).toBeGreaterThan(-1);
+    expect(before.slice(lastSectionOpen)).toContain('aria-labelledby="pricing-summary-heading"');
   });
 
   it("a non-marker post renders the block exactly once, only in the footer", async () => {
@@ -118,14 +130,25 @@ describe("splitBodyAtPriceBlock + inline render, double-marker regression", () =
 });
 
 const DIST_BLOGG = join("dist", "blogg");
+const DIST_EXISTS = existsSync(DIST_BLOGG);
 
-// dist/ only exists after `pnpm build`. Skipping (rather than failing) keeps
-// `vitest` usable on a clean checkout — the build step runs it for real where
-// it matters (pr-check.yml builds, then tests).
-describe.skipIf(!existsSync(DIST_BLOGG))(
+// dist/ only exists after `pnpm build`, and pr-check.yml's `test` step (plain
+// `pnpm test`) runs before its `build` step, so on a clean checkout this
+// suite would always skip and never actually run in CI. REQUIRE_DIST_BLOGG=1
+// is set by pr-check.yml's dedicated post-build step, where dist/ is
+// guaranteed to exist, to turn "skip when missing" into "fail when missing"
+// so a regression here cannot silently stay unskipped forever. Plain
+// `pnpm test` on a clean checkout (no env flag) still skips, which keeps
+// `vitest` usable without requiring a build first.
+describe.skipIf(!DIST_EXISTS && process.env.REQUIRE_DIST_BLOGG !== "1")(
   "every built /blogg/* page has exactly one pricing-summary-heading",
   () => {
     it("never zero (missing block) and never more than one (duplicate/leaked block)", () => {
+      if (!DIST_EXISTS) {
+        throw new Error(
+          "dist/blogg is missing but REQUIRE_DIST_BLOGG=1. Run `pnpm build` before this check (see pr-check.yml's post-build step).",
+        );
+      }
       const slugs = readdirSync(DIST_BLOGG, { withFileTypes: true }).filter((e) => e.isDirectory());
       expect(slugs.length).toBeGreaterThan(0);
       for (const entry of slugs) {
@@ -133,8 +156,8 @@ describe.skipIf(!existsSync(DIST_BLOGG))(
         if (!existsSync(htmlPath)) continue;
         const html = readFileSync(htmlPath, "utf-8");
         // A consolidated/merged slug prerenders as a <meta http-equiv="refresh">
-        // redirect stub with no article body at all — correctly zero pricing
-        // blocks, not a regression. Only real article pages are in scope.
+        // redirect stub with no article body at all, so zero pricing blocks
+        // there is correct, not a regression. Only real article pages are in scope.
         if (html.includes('<meta http-equiv="refresh"')) continue;
         const occurrences = html.split('id="pricing-summary-heading"').length - 1;
         expect(occurrences, `dist/blogg/${entry.name}/index.html has ${occurrences} pricing blocks`).toBe(
