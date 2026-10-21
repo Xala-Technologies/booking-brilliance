@@ -3772,7 +3772,7 @@ export const POST_FAQ = {
     {
       question: "Hvem leier ut grendehuset?",
       answer:
-        "Oftest en bygdelagsforening eller stiftelse, så avtalen inngås med dem.",
+        "Ofte en bygdelagsforening eller stiftelse, men avklar alltid hvem avtalen inngås med.",
     },
   ],
 };

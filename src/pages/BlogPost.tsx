@@ -23,6 +23,7 @@ import { openChatbot } from "@/lib/chatbot/open";
 import { POST_FAQ } from "@/content/blogFaq.mjs";
 import { PricingSummaryBlock } from "@/components/PricingSummaryBlock";
 import { relatedSolutions } from "@/lib/blogRelatedSolutions";
+import { splitBodyAtPriceBlock } from "@/lib/blogPriceBlock";
 
 const CHAT_HREFS = new Set([
   "mailto:kontakt@digilist.no",
@@ -111,19 +112,13 @@ const BlogPost = () => {
   while (bodyParas.length > 1 && isCta(bodyParas[bodyParas.length - 1]))
     bodyParas.pop();
   const joinedBody = bodyParas.join("\n\n");
-  const PRICE_MARKER = /<!--\s*price-block:\s*shared\s*-->/i;
-  const markerIndex = joinedBody.search(PRICE_MARKER);
-  const hasInlinePriceBlock = markerIndex >= 0;
-  let bodyBefore: string;
-  let bodyAfter = "";
-  if (hasInlinePriceBlock) {
-    const marker = joinedBody.match(PRICE_MARKER)![0];
-    bodyBefore = joinedBody.slice(0, markerIndex).trimEnd();
-    bodyAfter = joinedBody.slice(markerIndex + marker.length).trimStart();
-  } else {
-    bodyBefore = joinedBody.replace(/<!--\s*price-block:\s*shared\s*-->\s*/gi, "");
-  }
+  const { bodyBefore, bodyAfter, hasInlinePriceBlock } = splitBodyAtPriceBlock(joinedBody);
   const markdownComponents = {
+    // Blog posts do not render tables. `.post-body` carried no table
+    // styling at all, so a markdown table fell back to the browser
+    // default: three columns of prose crushed inside a 68ch measure on
+    // desktop, overflowing the viewport on a phone. BlogTable renders
+    // measurements as a bar chart and prose rows as stacked blocks.
     table: ({ children }: { children?: React.ReactNode }) => (
       <BlogTable>{children}</BlogTable>
     ),
@@ -298,7 +293,7 @@ const BlogPost = () => {
                   </ReactMarkdown>
                 </div>
 
-                {hasInlinePriceBlock && <PricingSummaryBlock />}
+                {hasInlinePriceBlock && <PricingSummaryBlock variant="inline" />}
 
                 {bodyAfter && (
                   <div className="post-body max-w-[68ch]">

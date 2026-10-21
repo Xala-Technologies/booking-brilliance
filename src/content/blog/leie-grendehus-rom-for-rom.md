@@ -20,7 +20,7 @@ h1InBody: true
 
 # Leie grendehus: rom for rom
 
-De fleste grendehus eies av en bygdelagsforening eller stiftelse, og de leies ut med det som står i huset, ikke mer.
+Mange grendehus eies av en bygdelagsforening eller stiftelse, og de leies ut med det som står i huset, ikke mer.
 
 Det er det som gjør dem rimelige, og det er også det som gjør at du bør vite hva som står der før du booker. Som vi skrev i [Selskapslokaler: typer, pris og hvordan du velger riktig](https://digilist.no/blogg/selskapslokaler-typer-og-hvordan-velge), får du som regel kjøkken, bord og stoler, men ordner catering og rydding selv. Her går vi gjennom et typisk grendehus som en befaring, fra døren til parkeringsplassen.
 
@@ -34,7 +34,7 @@ Spør utleieren hvordan nøkkelutleveringen foregår, og når du kan komme inn f
 
 ## Salen: sittende og stående er to ulike tall
 
-Salen er grunnen til at du leier huset. Kapasiteten oppgis nesten alltid i to tall: sittende ved bord og stående. Forskjellen er stor, så spør hvilket tall som gjelder for ditt oppsett.
+Salen er grunnen til at du leier huset. Kapasiteten oppgis ofte i to tall: sittende ved bord og stående. Forskjellen er stor, så spør hvilket tall som gjelder for ditt oppsett.
 
 Bruk [kapasitetskalkulatoren](https://digilist.no/verktoy/kapasitetskalkulator) med lokaltypen grendehus eller foreningslokale for å få et planleggingstall. Det er likevel husets oppgitte kapasitet som gjelder. Se også etter scene, stikkontakter og om det er lov å henge opp pynt på veggene.
 
@@ -100,4 +100,4 @@ Som regel ja, så spør utleieren hva som forventes og om vask kan kjøpes.
 
 ### Hvem leier ut grendehuset?
 
-Oftest en bygdelagsforening eller stiftelse, så avtalen inngås med dem.
+Ofte en bygdelagsforening eller stiftelse, men avklar alltid hvem avtalen inngås med.
