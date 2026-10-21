@@ -3802,4 +3802,31 @@ export const POST_FAQ = {
         "Ofte en bygdelagsforening eller stiftelse, men avklar alltid hvem avtalen inngås med.",
     },
   ],
+  "leie-menighetshus-husreglene-forklart": [
+    {
+      question: "Kan alle leie et menighetshus?",
+      answer:
+        "Mange menighetshus leies ut til både medlemmer og andre, men reglene for bosted og formål varierer, så spør utleieren.",
+    },
+    {
+      question: "Er alkohol lov i et menighetshus?",
+      answer:
+        "Det avgjør husreglene, og mange har egne regler for alkohol, så få svaret skriftlig før du booker.",
+    },
+    {
+      question: "Hva er som regel med i leien?",
+      answer:
+        "Ofte sal, kjøkken, bord og stoler, men spør hvilke rom og hvilket utstyr som faktisk inngår.",
+    },
+    {
+      question: "Kan jeg ha med egen mat?",
+      answer:
+        "Ofte ja, men spør om kjøkkenet kan brukes og hvem som vasker etterpå.",
+    },
+    {
+      question: "Hva skjer hvis menigheten trenger huset samme dag?",
+      answer:
+        "Be om at det står i avtalen hvordan en slik endring håndteres og hvordan du får beskjed.",
+    },
+  ],
 };
