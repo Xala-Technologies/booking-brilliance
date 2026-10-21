@@ -23,7 +23,7 @@ h1InBody: true
 
 Du leier et menighetshus av menigheten eller fellesrådet, og husreglene deres er en del av leieavtalen.
 
-Det betyr at reglene ikke er pynt på nettsiden. De bestemmer hvem som kan leie, hva som kan serveres og hva som skjer hvis huset trengs til noe annet. Hvert hus har sine egne regler, så les dette som en liste over hva du bør spørre om, ikke som en fasit for ett bestemt sted. Vil du sammenligne med andre lokaltyper først, har vi skrevet om det i [Selskapslokaler: typer, pris og hvordan du velger riktig](https://digilist.no/blogg/selskapslokaler-typer-og-hvordan-velge).
+Det betyr at reglene ikke er pynt på nettsiden. De bestemmer hvem som kan leie, hva som kan serveres og hva som skjer hvis huset trengs til noe annet. Hvert hus har sine egne regler, så les dette som en liste over hva du bør spørre om, ikke som en fasit for ett bestemt sted. Vil du sammenligne med andre lokaltyper først, har vi skrevet om det i [Selskapslokaler: typer, pris og hvordan du velger riktig](/blogg/selskapslokaler-typer-og-hvordan-velge).
 
 ## Hvem som kan leie: bosted og formål i reglene
 
@@ -35,7 +35,7 @@ Dette sier ikke noe om hvem du er, bare om hvordan huset prioriterer. Spør derf
 
 ## Alkohol og skjenking: regelen du må ha svart på først
 
-Dette er spørsmålet som oftest avgjør om huset passer. Mange menighetshus har egne regler for alkohol. Noen sier nei, noen sier ja med vilkår, og noen krever en egen avtale.
+Dette er spørsmålet som ofte avgjør om huset passer. Mange menighetshus har egne regler for alkohol. Noen sier nei, noen sier ja med vilkår, og noen krever en egen avtale.
 
 Spør tidlig, før du sender invitasjoner. Spør også om det gjelder alt, eller om det er forskjell på vin til maten og en åpen bar. Får du et ja, bør det stå i avtalen.
 
@@ -45,7 +45,7 @@ Spør tidlig, før du sender invitasjoner. Spør også om det gjelder alt, eller
 
 Et menighetshus har ofte en storsal og en lillesal, noen ganger i ulike etasjer. Spør hvilke rom som faktisk inngår i leien, og om andre kan bruke resten av huset samtidig.
 
-Bruk [kapasitetskalkulatoren](https://digilist.no/verktoy/kapasitetskalkulator) for å få et planleggingstall. Det er likevel husets oppgitte kapasitet som gjelder. Spør også om bord, stoler, duker og lydanlegg er med.
+Bruk [kapasitetskalkulatoren](/verktoy/kapasitetskalkulator) for å få et planleggingstall. Det er likevel husets oppgitte kapasitet som gjelder. Spør også om bord, stoler, duker og lydanlegg er med.
 
 *Få en liste over rom og utstyr som inngår.*
 
@@ -53,7 +53,7 @@ Bruk [kapasitetskalkulatoren](https://digilist.no/verktoy/kapasitetskalkulator) 
 
 Mange menighetshus har et stort kjøkken med kjøkkenutstyr til mange. Spør om du kan bruke det fritt, eller om noen fra huset må være til stede.
 
-Lager du maten selv, bør du vite hva som står i skapene. Vil du slippe, kan du se på hva [catering](https://digilist.no/tjenester/catering) typisk innebærer, og spørre om leverandøren får bruke kjøkkenet. Avtal også hvem som vasker opp og rydder, og hva som skjer med depositumet hvis det ikke blir gjort.
+Lager du maten selv, bør du vite hva som står i skapene. Vil du slippe, kan du se på hva [catering](/tjenester/catering) typisk innebærer, og spørre om leverandøren får bruke kjøkkenet. Avtal også hvem som vasker opp og rydder, og hva som skjer med depositumet hvis det ikke blir gjort.
 
 *Skriv ned hvem som vasker, og hvordan kjøkkenet skal se ut når du går.*
 
@@ -65,21 +65,17 @@ Spør også om pynt. Noen hus tillater ikke tape eller stifter på veggene, og n
 
 *Spør hva som er lov på veggene før du kjøper pynt.*
 
-Leier du selv ut et lokale, er Digilist et abonnement, ikke en provisjon.
-
 <!-- price-block: shared -->
-
-[Se priser](https://digilist.no/priser)
 
 ## Når kirkens egne aktiviteter går foran
 
 Et menighetshus er først og fremst menighetens hus. Gudstjenester, begravelser og egne arrangementer kan gå foran en privat leie, og det er greit å vite før du planlegger.
 
-Spør hvordan en slik endring håndteres, og hvordan du får beskjed. Spør også om du får tilbud om en annen dato eller pengene tilbake. Skal du ha et minnesamvær, har det andre behov enn en fest, og det har vi skrevet om i [Leie sal: konfirmasjon, minnestund og møte i én oversikt](https://digilist.no/blogg/leie-sal-konfirmasjon-minnestund-mote-sammenligning).
+Spør hvordan en slik endring håndteres, og hvordan du får beskjed. Spør også om du får tilbud om en annen dato eller pengene tilbake. Skal du ha et minnesamvær, har det andre behov enn en fest, og det har vi skrevet om i [Leie sal: konfirmasjon, minnestund og møte i én oversikt](/blogg/leie-sal-konfirmasjon-minnestund-mote-sammenligning).
 
 *Be om at regelen for endringer står i avtalen.*
 
-Når du kjenner reglene, er det lettere å vurdere prisen. [Få et veiledende prisintervall før du ber menighetshuset om pris, med selskapslokale eller foreningslokale som lokaltype](https://digilist.no/verktoy/leiepriskalkulator). Det er et estimat, ikke et tilbud.
+Når du kjenner reglene, er det lettere å vurdere prisen. [Få et veiledende prisintervall før du ber menighetshuset om pris, med selskapslokale eller foreningslokale som lokaltype](/verktoy/leiepriskalkulator). Det er et estimat, ikke et tilbud.
 
 ## Ofte stilte spørsmål
 
