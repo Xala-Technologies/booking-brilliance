@@ -1,3 +1,4 @@
+import type React from "react";
 import { Link, useLocation, useParams, Navigate } from "react-router-dom";
 import { blogHreflang, blogPath, localeFromPath, localeHref } from "@/lib/i18n";
 import { t } from "@/lib/copy";
@@ -109,12 +110,67 @@ const BlogPost = () => {
   const bodyParas = post.content.trimEnd().split(/\n{2,}/);
   while (bodyParas.length > 1 && isCta(bodyParas[bodyParas.length - 1]))
     bodyParas.pop();
-  // Author markers like `<!-- price-block: shared -->` document where the
-  // shared PricingSummaryBlock below the article belongs; strip them so
-  // ReactMarkdown does not emit raw HTML that breaks the following markdown.
-  const body = bodyParas
-    .join("\n\n")
-    .replace(/<!--\s*price-block:\s*shared\s*-->\s*/gi, "");
+  const joinedBody = bodyParas.join("\n\n");
+  const PRICE_MARKER = /<!--\s*price-block:\s*shared\s*-->/i;
+  const markerIndex = joinedBody.search(PRICE_MARKER);
+  const hasInlinePriceBlock = markerIndex >= 0;
+  let bodyBefore: string;
+  let bodyAfter = "";
+  if (hasInlinePriceBlock) {
+    const marker = joinedBody.match(PRICE_MARKER)![0];
+    bodyBefore = joinedBody.slice(0, markerIndex).trimEnd();
+    bodyAfter = joinedBody.slice(markerIndex + marker.length).trimStart();
+  } else {
+    bodyBefore = joinedBody.replace(/<!--\s*price-block:\s*shared\s*-->\s*/gi, "");
+  }
+  const markdownComponents = {
+    table: ({ children }: { children?: React.ReactNode }) => (
+      <BlogTable>{children}</BlogTable>
+    ),
+    h2: ({
+      children,
+      node: _node,
+      ...props
+    }: {
+      children?: React.ReactNode;
+      node?: unknown;
+    } & React.ComponentPropsWithoutRef<"h2">) => (
+      <h2
+        id={slugify(nodeText(children))}
+        style={{ scrollMarginTop: "7rem" }}
+        {...props}
+      >
+        {children}
+      </h2>
+    ),
+    a: ({
+      href,
+      children,
+      node: _node,
+      ...props
+    }: {
+      href?: string;
+      children?: React.ReactNode;
+      node?: unknown;
+    } & React.ComponentPropsWithoutRef<"a">) => {
+      if (href && CHAT_HREFS.has(href)) {
+        return (
+          <button
+            type="button"
+            onClick={() => openChatbot({ mode: "chat" })}
+            className="underline underline-offset-4 decoration-[0.5px] text-accent-text hover:text-ink transition-colors"
+          >
+            {children}
+          </button>
+        );
+      }
+      return (
+        <a href={href} {...props}>
+          {children}
+        </a>
+      );
+    },
+  };
   const pageTitle =
     post.seoTitle ??
     (post.title.length > 50 ? post.title : `${post.title} · Digilist`);
@@ -236,46 +292,24 @@ const BlogPost = () => {
                 <div className="post-body max-w-[68ch]">
                   <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
-                    components={{
-                      // Blog posts do not render tables. `.post-body` carried
-                      // no table styling at all, so a markdown table fell back
-                      // to the browser default: three columns of prose crushed
-                      // inside a 68ch measure on desktop, overflowing the
-                      // viewport on a phone. BlogTable renders measurements as
-                      // a bar chart and prose rows as stacked blocks.
-                      table: ({ children }) => <BlogTable>{children}</BlogTable>,
-                      h2: ({ children, node: _node, ...props }) => (
-                        <h2
-                          id={slugify(nodeText(children))}
-                          style={{ scrollMarginTop: "7rem" }}
-                          {...props}
-                        >
-                          {children}
-                        </h2>
-                      ),
-                      a: ({ href, children, node: _node, ...props }) => {
-                        if (href && CHAT_HREFS.has(href)) {
-                          return (
-                            <button
-                              type="button"
-                              onClick={() => openChatbot({ mode: "chat" })}
-                              className="underline underline-offset-4 decoration-[0.5px] text-accent-text hover:text-ink transition-colors"
-                            >
-                              {children}
-                            </button>
-                          );
-                        }
-                        return (
-                          <a href={href} {...props}>
-                            {children}
-                          </a>
-                        );
-                      },
-                    }}
+                    components={markdownComponents}
                   >
-                    {body}
+                    {bodyBefore}
                   </ReactMarkdown>
                 </div>
+
+                {hasInlinePriceBlock && <PricingSummaryBlock />}
+
+                {bodyAfter && (
+                  <div className="post-body max-w-[68ch]">
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={markdownComponents}
+                    >
+                      {bodyAfter}
+                    </ReactMarkdown>
+                  </div>
+                )}
 
                 {solutionLinks.length > 0 && (
                   <aside
@@ -390,8 +424,7 @@ const BlogPost = () => {
           </div>
         </article>
 
-        {/* Pricing summary block appears on all blogs */}
-        <PricingSummaryBlock />
+        {!hasInlinePriceBlock && <PricingSummaryBlock />}
 
         {/* End-of-article call to action */}
         <section
