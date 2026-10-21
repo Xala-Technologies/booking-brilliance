@@ -61,11 +61,7 @@ Les dem før du bekrefter, særlig hvis planene kan endre seg. Skal flere famili
 
 De fem antakelsene gjelder ikke bare hytter. Ser du på [feriehus](https://digilist.no/overnatting/feriehus) eller [leilighet](https://digilist.no/overnatting/leilighet), still de samme spørsmålene: Hvilke netter er ledige? Hvor mange sengeplasser er det? Hvor mange gjester kan være med? Hva er totalprisen?
 
-Er det du som leier ut, er Digilist et abonnement, ikke en provisjon.
-
 <!-- price-block: shared -->
-
-[Se priser](https://digilist.no/priser)
 
 ## Se totalprisen før du booker
 

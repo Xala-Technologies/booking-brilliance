@@ -42,11 +42,7 @@ Spør også om det er heis eller trinnfri inngang, både for varene og for kunde
 
 Et godt svar sier konkret når nøkkelen kan hentes, hvilken vei varene går inn, og hvor de står trygt.
 
-Leier du selv ut et lokale, er Digilist et abonnement, ikke en provisjon.
-
 <!-- price-block: shared -->
-
-[Se priser](https://digilist.no/priser)
 
 ## Tredje spørsmål: Kan vi skilte ute og pynte vinduene?
 

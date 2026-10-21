@@ -71,11 +71,7 @@ Det siste laget er det færrest leser. Planer endrer seg, og antallet gjester ka
 
 Avbestillingsreglene settes av leverandøren. Be om dem før du bestiller, og les dem på samme måte som du leser prisen. To menyer som ligner hverandre, kan ha ulike regler. Er datoen usikker, kan det avgjøre hvilken du velger.
 
-Leier du selv ut et lokale, er Digilist et abonnement, ikke en provisjon.
-
 <!-- price-block: shared -->
-
-[Se priser](https://digilist.no/priser)
 
 ## Sjekk at hele svaret står i bestillingen før du bekrefter
 

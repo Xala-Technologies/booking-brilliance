@@ -23,7 +23,7 @@ function PricingSummaryHeading() {
         lineHeight: 1.2,
       }}
     >
-      Hva Digilist koster — og hva vi ikke tar
+      Hva Digilist koster, og hva vi ikke tar
     </h2>
   );
 }

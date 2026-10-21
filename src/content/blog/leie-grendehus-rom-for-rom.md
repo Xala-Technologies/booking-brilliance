@@ -64,11 +64,7 @@ Mangler huset noe, lønner det seg å sjekke hva du trenger av [festutstyr](http
 
 *Fordel ryddingen før festen, og skriv ned hvordan lageret skal se ut.*
 
-Leier du selv ut et lokale, er Digilist et abonnement, ikke en provisjon.
-
 <!-- price-block: shared -->
-
-[Se priser](https://digilist.no/priser)
 
 ## Ute: parkering, lys og naboer
 

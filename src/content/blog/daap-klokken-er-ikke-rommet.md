@@ -51,8 +51,6 @@ Finn [rom til dåpen](/leie/daap).
 
 <!-- price-block: shared -->
 
-[Se priser](/priser)
-
 ## Ofte stilte spørsmål
 
 **Skal dåpen avslås fordi klokken er feil?**

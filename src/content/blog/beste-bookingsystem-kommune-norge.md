@@ -81,11 +81,9 @@ Merk: opplysningene om Aktiv Kommune, BookUp og Gibbs er basert på offentlig ti
 
 Det som tydeligst skiller Digilist fra de tre andre, er at samme plattform også dekker privat utleie. Det er relevant for kommuner som leier ut til både lag og enkeltpersoner, og for private utleiere som sammenligner løsninger uavhengig av kommunemarkedet.
 
-Prismodellen er den delen kommuner oftest spør om: Digilist er et abonnement, ikke en provisjon, og nivået følger antall anlegg og brukere, ikke antall bookinger eller omsetningen i lokalene.
+Prismodellen er den delen kommuner oftest spør om: nivået følger antall anlegg og brukere, ikke antall bookinger eller omsetningen i lokalene.
 
 <!-- price-block: shared -->
-
-[Se priser](https://digilist.no/priser)
 
 ## Hvilket bookingsystem bør en norsk kommune velge?
 

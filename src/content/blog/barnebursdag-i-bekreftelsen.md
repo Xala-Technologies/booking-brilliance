@@ -46,8 +46,6 @@ Se [ledige datoer for bursdag](/leie/bursdagslokale).
 
 <!-- price-block: shared -->
 
-[Se priser](/priser)
-
 ## Ofte stilte spørsmål
 
 **Skal bookingen avvises når setningen sier selskap?**

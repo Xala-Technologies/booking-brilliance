@@ -48,11 +48,7 @@ Varselflagget er en avtale som sier at lokalet skal leveres rengjort, uten å si
 
 Spør om rengjøring er med i prisen eller må bestilles, og få skriftlig når lokalet skal være ryddet. Rengjøring kommer ofte i tillegg til grunnleien.
 
-Leier du selv ut et lokale, er Digilist et abonnement, ikke en provisjon.
-
 <!-- price-block: shared -->
-
-[Se priser](https://digilist.no/priser)
 
 ## Depositumet har ingen tydelig frist for tilbakebetaling
 

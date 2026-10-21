@@ -77,11 +77,7 @@ Planleggingstallene dekker bare gjestene. Skal du ha scene, buffé, bar eller ga
 
 Spør hva maks er for hele lokalet, og hvilket oppsett det tallet gjelder.
 
-Leier du selv ut et lokale, er Digilist et abonnement, ikke en provisjon.
-
 <!-- price-block: shared -->
-
-[Se priser](https://digilist.no/priser)
 
 ## Spør utleieren om tallet for ditt oppsett
 

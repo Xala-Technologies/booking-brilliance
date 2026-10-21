@@ -81,11 +81,7 @@ Les så avbestillingsreglene. De settes av musikeren og står på profilen før 
 
 Til slutt kan du lese omtaler fra andre som har booket samme band. De sier noe om det profilen ikke kan vise selv. Mangler festen mer enn musikk, finner du [andre tjenester til festen](https://digilist.no/tjenester) på samme sted.
 
-Leier du ut lokalet festen holdes i, er Digilist et abonnement, ikke en provisjon.
-
 <!-- price-block: shared -->
-
-[Se priser](https://digilist.no/priser)
 
 ## Les hele profilen før du booker bandet
 

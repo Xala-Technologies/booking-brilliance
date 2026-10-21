@@ -63,11 +63,7 @@ Mange leser avbestillingsreglene først når det har skjedd. Da er det for sent 
 
 Avbestillingsreglene settes av utleier. Spør etter dem og les dem før du booker, på samme måte som du leser prisen. Er datoen usikker, er reglene like viktige som selve maskinen.
 
-Leier du selv ut et lokale, er Digilist et abonnement, ikke en provisjon.
-
 <!-- price-block: shared -->
-
-[Se priser](https://digilist.no/priser)
 
 ## Les annonsen før helgen, ikke på lørdag morgen
 
