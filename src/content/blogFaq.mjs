@@ -3748,6 +3748,33 @@ export const POST_FAQ = {
         "Avtal det skriftlig, og avklar om rengjøring er med i prisen.",
     },
   ],
+  "lokale-til-sesongavslutning-for-laget": [
+    {
+      question: "Hvor stort lokale trenger laget til sesongavslutning?",
+      answer:
+        "Det avhenger av hvor mange som kommer og om de sitter eller står, og det er lokalets oppgitte kapasitet som gjelder.",
+    },
+    {
+      question: "Er det billigere å holde avslutningen på en hverdag?",
+      answer:
+        "Ofte, siden lørdag er mest ettertraktet, men be om pris for akkurat deres dato.",
+    },
+    {
+      question: "Trenger vi kjøkken?",
+      answer:
+        "Det er nyttig hvis foreldrene skal servere mat, så spør hva som følger med i leien.",
+    },
+    {
+      question: "Kan vi ta med egen mat?",
+      answer:
+        "Spør utleieren hva som er lov, og om det er regler for kjøkkenet.",
+    },
+    {
+      question: "Hvem bør booke lokalet?",
+      answer:
+        "Én person fra laget eller foreldregruppen, slik at utleieren har én kontakt.",
+    },
+  ],
   "lokale-til-julemarked-tre-scenarier": [
     {
       question: "Hvor stort lokale trenger et julemarked?",
