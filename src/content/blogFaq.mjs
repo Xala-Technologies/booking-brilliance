@@ -3721,6 +3721,33 @@ export const POST_FAQ = {
         "Avtal det skriftlig, sammen med om rengjøring og depositum er med i prisen.",
     },
   ],
+  "lokale-til-quizkveld-vanlige-feil": [
+    {
+      question: "Hvor stort lokale trenger vi til quizkveld?",
+      answer:
+        "Nok til at lagene kan sitte ved egne bord med litt avstand, og det er lokalets oppgitte kapasitet som gjelder.",
+    },
+    {
+      question: "Trenger vi mikrofon?",
+      answer:
+        "I de fleste rom med mer enn noen få lag, ja, så spør om lydanlegg følger med.",
+    },
+    {
+      question: "Kan vi selge mat og drikke på quizkvelden?",
+      answer:
+        "Spør utleieren hva som er lov i lokalet, og om kjøkkenet er med i leien.",
+    },
+    {
+      question: "Er det billigere å leie på en hverdag?",
+      answer:
+        "Ofte, siden helgene er mest ettertraktet, men be om pris for akkurat deres kveld.",
+    },
+    {
+      question: "Hvem rydder etter quizen?",
+      answer:
+        "Avtal det skriftlig, og avklar om rengjøring er med i prisen.",
+    },
+  ],
   "lokale-til-julemarked-tre-scenarier": [
     {
       question: "Hvor stort lokale trenger et julemarked?",
