@@ -23,7 +23,7 @@ h1InBody: true
 
 Festen er over, musikken er slått av, og stolene står fortsatt rundt bordene. Ved oppvaskbenken står noen fra gjengen og ser på hverandre. Alle trodde noen andre hadde ansvaret.
 
-Et julebord i leid lokale har mange deler, og hver del bør ha et navn. Her er hva utleieren, du som arrangør, cateringen, musikken, pynten og ryddingen ofte står for, og hva du bør avtale så ingen oppgave faller mellom to stoler. Vil du først se på hvilke lokaltyper som passer, har vi skrevet om det i [Selskapslokaler: typer, pris og hvordan du velger riktig](/blogg/selskapslokaler-typer-og-hvordan-velge).
+Et julebord i leid lokale har mange deler, og hver del bør ha et navn. Her er hva utleieren, du som arrangør, cateringen, musikken, pynten og ryddingen ofte står for, og hva du bør avtale så ingen oppgave faller mellom to stoler. Vil du først se på hvilke lokaltyper som passer, er det skrevet om i [Selskapslokaler: typer, pris og hvordan du velger riktig](/blogg/selskapslokaler-typer-og-hvordan-velge).
 
 ## Utleieren: lokalet, nøkkelen og husets regler
 
@@ -49,7 +49,7 @@ Plassbehovet avhenger av bord, dansegulv, buffé og garderobe. Et planleggingsta
 
 Cateringen står for maten. Om de også dekker på, serverer og rydder av bordet, er ofte et tilvalg. Det er her mange julebord får en overraskelse.
 
-Spør hva som er med i bestillingen, og hva som koster ekstra. Spør også om leverandøren får bruke kjøkkenet i lokalet, og om utleieren har regler for det. Hva en bestilling vanligvis inneholder, har vi skrevet om i [Cateringbestilling: hva er med, hva er tilvalg?](/blogg/cateringbestilling-hva-er-med). Skal du bestille mat, kan du også se på hva [catering](/tjenester/catering) typisk innebærer.
+Spør hva som er med i bestillingen, og hva som koster ekstra. Spør også om leverandøren får bruke kjøkkenet i lokalet, og om utleieren har regler for det. Hva en bestilling vanligvis inneholder, er det skrevet om i [Cateringbestilling: hva er med, hva er tilvalg?](/blogg/cateringbestilling-hva-er-med). Skal du bestille mat, kan du også se på hva [catering](/tjenester/catering) typisk innebærer.
 
 *Avtal hvem som dekker på, og hvem som tar oppvasken.*
 
@@ -78,6 +78,8 @@ Avtal med utleieren hva «ryddet» betyr. Skal bordene settes tilbake, skal gulv
 *Skriv i avtalen hva ryddet betyr.*
 
 Når hver oppgave har et navn, er det lettere å finne riktig lokale. [Regn ut hvor stort lokale julebordet trenger før du spør utleieren.](/verktoy/kapasitetskalkulator)
+
+[Regn ut hva lokalet til julebordet bør koste før du spør utleieren.](/verktoy/leiepriskalkulator)
 
 ## Ofte stilte spørsmål
 
