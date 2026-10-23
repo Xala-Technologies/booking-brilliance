@@ -3829,6 +3829,33 @@ export const POST_FAQ = {
         "Ofte en bygdelagsforening eller stiftelse, men avklar alltid hvem avtalen inngås med.",
     },
   ],
+  "leie-gymsal-myter-og-fakta": [
+    {
+      question: "Kan jeg leie en gymsal til bursdag?",
+      answer:
+        "Ofte ja, men noen saler leies bare ut til idrett, så spør utleieren om formålet er tillatt.",
+    },
+    {
+      question: "Hvor mange gjester er det plass til i en gymsal?",
+      answer:
+        "Det avgjør salens oppgitte kapasitet, ikke gulvets størrelse, så sjekk den før du booker.",
+    },
+    {
+      question: "Er garderobe og kjøkken med i leien?",
+      answer:
+        "Det varierer fra sal til sal, så spør og få svaret skriftlig.",
+    },
+    {
+      question: "Kan vi sette opp bord på sportsgulvet?",
+      answer:
+        "Ofte, men mange utleiere krever beskyttelse under bordbein og stoler, så avklar det på forhånd.",
+    },
+    {
+      question: "Hvem rydder etter at vi har leid gymsalen?",
+      answer:
+        "Det gjør vanligvis leietakeren, og det lønner seg å avtale hva ryddet betyr før dagen.",
+    },
+  ],
   "leie-menighetshus-husreglene-forklart": [
     {
       question: "Kan alle leie et menighetshus?",
