@@ -1,14 +1,14 @@
 ---
 slug: lokale-til-klassetreff-planen-baklengs
 title: "Lokale til klassetreff: planen baklengs fra treffdagen"
-seoTitle: "Lokale til klassetreff: planen baklengs fra treffdagen | Digilist"
+seoTitle: "Lokale til klassetreff: planen baklengs | Digilist"
 description: "Start med treffdagen og regn baklengs: først gjestetall og lokale, så utstyr, mat og rydding. Slik planlegges lokale til klassetreff uten overraskelser."
 date: 2026-10-24
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 tag: "Privatperson"
 cover: "/images/blog/lokale-til-klassetreff-planen-baklengs.webp"
-coverAlt: "Krem infografikk av en filmstripe som spoles fra høyre mot venstre med fem ruter: rydding, overlevering, mat og utstyr, plass og avtale, under overskriften Klassetreff: planen baklengs."
+coverAlt: "Krem infografikk av en filmstripe som spoles fra høyre mot venstre med fem ruter: avtale, plass, mat og utstyr, overlevering og rydding, under overskriften Klassetreff: planen baklengs."
 priceBlock: shared
 keywords:
   - lokale til klassetreff
@@ -44,7 +44,7 @@ Spør utleieren hvordan overleveringen skjer, og avtal hvem som henter nøkkelen
 
 Mange tar for gitt at bord, stoler og kjøkken følger med lokalet. Ofte gjør de ikke det, eller bare delvis.
 
-Spør konkret hva som er med i leien, og få svaret skriftlig. Vilkår, depositum og avbestilling er samlet i [Leie lokale i kommunen: vilkår, depositum og avbestilling](/blogg/leie-lokale-kommune-vilkar-depositum-avbestilling). Mangler dere bord, lyd eller serveringsutstyr, kan det lønne seg å vurdere å leie det, eller å bestille mat i stedet for å lage alt selv. Se [Leie utstyr til fest: telt, bord, lyd og servering samlet](/blogg/leie-utstyr-til-fest-telt-bord-lyd-servering).
+Spør konkret hva som er med i leien, og få svaret skriftlig. Vilkår, depositum og avbestilling er samlet i [Leie lokale i kommunen: vilkår, depositum og avbestilling](/blogg/leie-lokale-kommune-vilkar-depositum-avbestilling). Mangler dere bord, lyd eller serveringsutstyr, kan det lønne seg å leie det, eller å bestille mat i stedet for å lage alt selv. Se [Leie utstyr til fest: telt, bord, lyd og servering samlet](/blogg/leie-utstyr-til-fest-telt-bord-lyd-servering).
 
 *Det som ikke står i avtalen, må dere ordne selv.*
 
