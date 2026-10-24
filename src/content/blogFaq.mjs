@@ -3856,4 +3856,31 @@ export const POST_FAQ = {
         "Be om at det står i avtalen hvordan en slik endring håndteres og hvordan du får beskjed.",
     },
   ],
+  "lokale-til-klassetreff-planen-baklengs": [
+    {
+      question: "Hvor stort lokale trenger vi til klassetreff?",
+      answer:
+        "Det avgjør lokalets oppgitte kapasitet, så regn med margin fordi ikke alle svarer.",
+    },
+    {
+      question: "Hvem bør stå som leietaker?",
+      answer:
+        "Én person som tar ansvaret i avtalen, og som klassen er enig om på forhånd.",
+    },
+    {
+      question: "Hvordan deler vi kostnaden?",
+      answer:
+        "Bli enige om fordelingen før noen signerer, så ingen sitter igjen med regningen.",
+    },
+    {
+      question: "Hva bør være med i leien?",
+      answer:
+        "Spør om bord, stoler, kjøkken og rydding er med, og få svaret skriftlig.",
+    },
+    {
+      question: "Hvem rydder etter klassetreffet?",
+      answer:
+        "Vanligvis leietakeren, så fordel oppgavene og avtal hva ryddet betyr med utleieren.",
+    },
+  ],
 };
