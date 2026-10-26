@@ -8,7 +8,7 @@ author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 tag: "Privatperson"
 cover: "/images/blog/lokale-til-halloweenfest-foresporselen.webp"
-coverAlt: "Infografikk på kremfarget bakgrunn: åpnet konvolutt med brev og fem nummererte linjer merket dato, antall gjester, rom og utstyr, pynt og rydding og pris og depositum, med oransje gresskarsegl på konvolutten. Overskrift «HALLOWEEN FORESPØRSELEN»."
+coverAlt: "Infografikk på kremfarget bakgrunn: åpnet konvolutt med brev og fem nummererte linjer merket dato, antall gjester, rom og utstyr, pynt og rydding og pris og depositum, med et oransje voksegl på brevet. Overskrift HALLOWEEN FORESPØRSELEN."
 priceBlock: shared
 keywords:
   - lokale til halloweenfest
