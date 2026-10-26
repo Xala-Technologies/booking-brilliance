@@ -2,13 +2,13 @@
 slug: lokale-til-halloweenfest-foresporselen
 title: "Lokale til halloweenfest: forespørselen til utleier"
 seoTitle: "Lokale til halloweenfest: forespørsel til utleier | Digilist"
-description: "Send utleieren én forespørsel som svarer på alt før de rekker å spørre: hva festen er, antall, pynt, levende lys, lyd og rydding. Her er forespørselen, avsnitt for avsnitt."
+description: "Send utleieren én forespørsel som svarer på alt: hva festen er, antall, pynt, levende lys, lyd og rydding. Her er forespørselen, avsnitt for avsnitt."
 date: 2026-10-25
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 tag: "Privatperson"
 cover: "/images/blog/lokale-til-halloweenfest-foresporselen.webp"
-coverAlt: "Åpnet konvolutt med et brev med fem merkede linjer: dato, antall gjester, rom og utstyr, pynt og rydding, pris og depositum, og et lite gresskarfrimerke"
+coverAlt: "Infografikk på kremfarget bakgrunn: åpnet konvolutt med brev og fem nummererte linjer merket dato, antall gjester, rom og utstyr, pynt og rydding og pris og depositum, med oransje gresskarsegl på konvolutten. Overskrift «HALLOWEEN FORESPØRSELEN»."
 priceBlock: shared
 keywords:
   - lokale til halloweenfest
@@ -48,11 +48,9 @@ Tape, festemidler og falsk spindelvev kan skade vegger og tak. Mange lokaler har
 
 Pynt og lys bør avklares før handlelisten er skrevet.
 
-For den som leier ut et lokale, er Digilist et abonnement, ikke en provisjon.
-
 <!-- price-block: shared -->
 
-[Se priser](https://digilist.no/priser)
+[Regn ut hva lokalet til festen bør koste før forespørselen sendes.](/verktoy/leiepriskalkulator)
 
 ## Røykmaskin og lyd er spørsmålet som oftest glemmes
 

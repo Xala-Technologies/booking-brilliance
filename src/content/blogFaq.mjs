@@ -3775,6 +3775,34 @@ export const POST_FAQ = {
         "Én person fra laget eller foreldregruppen, slik at utleieren har én kontakt.",
     },
   ],
+  "lokale-til-halloweenfest-foresporselen": [
+    {
+      question:
+        "Hva bør stå i en forespørsel om lokale til halloweenfest?",
+      answer:
+        "Hva festen er, omtrent hvor mange som kommer, pynt, lys, lyd og hvem som rydder.",
+    },
+    {
+      question: "Er levende lys tillatt i lokalet?",
+      answer:
+        "Det avgjør utleieren, så avklaring bør innhentes før innkjøp.",
+    },
+    {
+      question: "Er røykmaskin lov i et leid lokale?",
+      answer:
+        "Ofte ikke uten avtale, fordi den kan utløse brannalarmen. Svaret bør innhentes skriftlig.",
+    },
+    {
+      question: "Hvor stort lokale trengs?",
+      answer:
+        "Det avgjør lokalets oppgitte kapasitet, så det bør regnes med litt margin for kostymer og dans.",
+    },
+    {
+      question: "Hvem fjerner pynten etter festen?",
+      answer:
+        "Vanligvis leietakeren, så leveringsformen for lokalet bør avtales på forhånd.",
+    },
+  ],
   "lokale-til-julemarked-tre-scenarier": [
     {
       question: "Hvor stort lokale trenger et julemarked?",
