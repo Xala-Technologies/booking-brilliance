@@ -8,7 +8,7 @@ author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 tag: "Arrangement"
 cover: "/images/blog/lokale-med-kinostoler-test-tre-seter.webp"
-coverAlt: "Infografikk på kremfarget bakgrunn i perspektiv: projektor på sokkel til venstre med gul stråle mot lerretet, teknikerbord under merket «Teknikerplass», tre kinorader med seter 1, 2 og 3 markert i turkis med oransje tall, og tekstene «Første rad», «Midten» og «Ytterst bak»; oransje stiplet siktlinje fra setene 2 og 3 mot lerretet."
+coverAlt: "Infografikk på kremfarget bakgrunn: plantegning ovenfra av kinosal med turkis lerret øverst i beige ramme og hvite seter i rutenett. Sete 1 i turkis med oransje «1» og stiplet linje til «Første rad» til venstre sitter i første rad; sete 2 med «Midten» til høyre i midtre rad nær sentrum; sete 3 med «Ytterst bak» over bakerste rad helt til høyre. Bak salen teknikerkonsoll, mørkeblå projektor og «Teknikerplass», med svak gul stråle mot konsollen."
 priceBlock: shared
 keywords:
   - leie lokale med kinostoler
