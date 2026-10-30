@@ -3884,4 +3884,31 @@ export const POST_FAQ = {
         "Be om at det står i avtalen hvordan en slik endring håndteres og hvordan du får beskjed.",
     },
   ],
+  "lokale-til-julebord-hvem-gjor-hva": [
+    {
+      question: "Hva bør være med når jeg leier lokale til julebord?",
+      answer:
+        "Spør om bord, stoler, kjøkken og lydanlegg er med i leien, og få svaret skriftlig.",
+    },
+    {
+      question: "Hvem dekker på bordene?",
+      answer:
+        "Det avtaler du, enten med cateringen som et tilvalg eller med noen fra gjengen.",
+    },
+    {
+      question: "Kan jeg ta med egen DJ?",
+      answer:
+        "Ofte ja, men spør utleieren om reglene for lyd før du booker noen.",
+    },
+    {
+      question: "Hvor stort lokale trenger vi?",
+      answer:
+        "Det avhenger av gjestetall, bord, dansegulv og buffé, så sjekk lokalets oppgitte kapasitet.",
+    },
+    {
+      question: "Hvem rydder etter julebordet?",
+      answer:
+        "Avtal det med utleieren og gi oppgaven til én bestemt person, slik at det ikke blir stående.",
+    },
+  ],
 };
