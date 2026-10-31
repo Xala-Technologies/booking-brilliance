@@ -3775,6 +3775,38 @@ export const POST_FAQ = {
         "Én person fra laget eller foreldregruppen, slik at utleieren har én kontakt.",
     },
   ],
+  "selvbetjent-utleie-smartlas-nokkelens-livslop": [
+    {
+      question: "Hva er selvbetjent utleie?",
+      answer:
+        "At leietakeren kan booke, få tilgang og komme inn i lokalet uten at utleieren må møte opp med nøkkel.",
+    },
+    {
+      question: "Trengs smartlås for å leie ut selvbetjent?",
+      answer:
+        "Nei, men en smartlås eller kodelås gjør det mulig å gi tidsbegrenset tilgang uten å dele ut fysiske nøkler.",
+    },
+    {
+      question: "Bør alle leietakere få samme kode?",
+      answer:
+        "Nei. Gi én kode per booking, slik at den kan slutte å virke når leietiden er over.",
+    },
+    {
+      question: "Når bør koden sendes?",
+      answer:
+        "Når bookingen er bekreftet og husreglene er sendt, ikke når forespørselen kommer inn.",
+    },
+    {
+      question: "Hva skjer med koden hvis bookingen avbestilles?",
+      answer:
+        "Den bør stoppes med en gang, slik at tilgangen følger kalenderen.",
+    },
+    {
+      question: "Er selvbetjent utleie trygt?",
+      answer:
+        "Det er tryggere enn utlånte nøkler når hver kode er tidsbegrenset og knyttet til én booking.",
+    },
+  ],
   "lokale-til-halloweenfest-foresporselen": [
     {
       question:
