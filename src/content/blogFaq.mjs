@@ -3775,6 +3775,34 @@ export const POST_FAQ = {
         "Én person fra laget eller foreldregruppen, slik at utleieren har én kontakt.",
     },
   ],
+  "lokale-for-50-personer-regn-for-du-booker": [
+    {
+      question: "Hvor stort lokale trenger femti personer?",
+      answer:
+        "Omtrent syttifem til hundre kvadratmeter til sittende middag ved runde bord, og førti til femti kvadratmeter hvis gjestene står.",
+    },
+    {
+      question: "Hvor mye ekstra plass trenger buffé og dansegulv?",
+      answer:
+        "Regn med femten til tjuefem prosent i tillegg til arealet for gjestene.",
+    },
+    {
+      question: "Hva betyr det når lokalet har plass til femti?",
+      answer:
+        "Det kommer an på oppsettet, så utleieren bør spørres hvilket oppsett tallet gjelder for.",
+    },
+    {
+      question:
+        "Trenger et klasseromsoppsett for femti personer større lokale enn en fest?",
+      answer:
+        "Ja, bord på rekker trenger to til to og en halv kvadratmeter per person.",
+    },
+    {
+      question: "Er planleggingstallene en fasit?",
+      answer:
+        "Nei, de er en pekepinn. Lokalets oppgitte kapasitet gjelder alltid.",
+    },
+  ],
   "lokale-til-halloweenfest-foresporselen": [
     {
       question:
