@@ -3784,7 +3784,7 @@ export const POST_FAQ = {
     {
       question: "Hvor mye ekstra plass trenger buffé og dansegulv?",
       answer:
-        "Legg inn buffer utover arealet for gjestene. Hvor mye avhenger av oppsett og utstyr — kalkulatoren gir et utgangspunkt.",
+        "Legg inn buffer utover arealet for gjestene. Hvor mye avhenger av oppsett og utstyr, og kalkulatoren gir et utgangspunkt.",
     },
     {
       question: "Hva betyr det når lokalet har plass til femti?",

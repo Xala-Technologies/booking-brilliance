@@ -2,7 +2,7 @@
 slug: lokale-for-50-personer-regn-for-du-booker
 title: "Lokale for 50 personer: regn før booking"
 seoTitle: "Lokale for 50 personer: regn før booking | Digilist"
-description: "Femti gjester ved runde bord trenger mer gulv enn annonsen antyder når buffé og dansegulv skal med. Regn romslig, legg inn buffer, og bruk kalkulatoren før utleieren spørres."
+description: "Femti gjester ved runde bord trenger mer gulv enn annonsen antyder. Regn romslig, legg inn buffer og bruk kalkulatoren før booking."
 date: 2026-10-27
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
@@ -66,7 +66,7 @@ Det avhenger av oppsettet. Sittende middag ved runde bord trenger mer gulv enn s
 
 ### Hvor mye ekstra plass trenger buffé og dansegulv?
 
-Legg inn buffer utover arealet for gjestene. Hvor mye avhenger av oppsett og utstyr — kalkulatoren gir et utgangspunkt.
+Legg inn buffer utover arealet for gjestene. Hvor mye avhenger av oppsett og utstyr, og kalkulatoren gir et utgangspunkt.
 
 ### Hva betyr det når lokalet har plass til femti?
 
