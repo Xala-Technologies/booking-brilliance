@@ -60,11 +60,9 @@ Når koder sendes for hånd fra e-posten, går det bra helt til utleieren er bor
 
 Rengjøring og eventuelt utstyr avtales for seg, og bookingen bør si hva som er inkludert.
 
-For utleiere er Digilist et abonnement, ikke en provisjon.
-
 <!-- price-block: shared -->
 
-[Se priser](/priser)
+[Regn ut hva utleien bør koste i leiepriskalkulatoren.](/verktoy/leiepriskalkulator)
 
 [Se hvordan én kalender for lokalet holder booking, bekreftelse og påminnelse samlet.](/bookingsystem-utleie)
 
@@ -92,6 +90,6 @@ Den bør stoppes med en gang, slik at tilgangen følger kalenderen.
 
 ### Er selvbetjent utleie trygt?
 
-Det er tryggere enn utlånte nøkler når hver kode er tidsbegrenset og knyttet til én booking.
+Det gir bedre oversikt enn utlånte nøkler når hver kode er tidsbegrenset og knyttet til én booking.
 
 [Book en demo](/book-demo)

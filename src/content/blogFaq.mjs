@@ -3804,7 +3804,7 @@ export const POST_FAQ = {
     {
       question: "Er selvbetjent utleie trygt?",
       answer:
-        "Det er tryggere enn utlånte nøkler når hver kode er tidsbegrenset og knyttet til én booking.",
+        "Det gir bedre oversikt enn utlånte nøkler når hver kode er tidsbegrenset og knyttet til én booking.",
     },
   ],
   "lokale-til-halloweenfest-foresporselen": [
