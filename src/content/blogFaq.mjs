@@ -3775,6 +3775,34 @@ export const POST_FAQ = {
         "Én person fra laget eller foreldregruppen, slik at utleieren har én kontakt.",
     },
   ],
+  "lokale-til-halloweenfest-foresporselen": [
+    {
+      question:
+        "Hva bør stå i en forespørsel om lokale til halloweenfest?",
+      answer:
+        "Hva festen er, omtrent hvor mange som kommer, pynt, lys, lyd og hvem som rydder.",
+    },
+    {
+      question: "Er levende lys tillatt i lokalet?",
+      answer:
+        "Det avgjør utleieren, så avklaring bør innhentes før innkjøp.",
+    },
+    {
+      question: "Er røykmaskin lov i et leid lokale?",
+      answer:
+        "Ofte ikke uten avtale, fordi den kan utløse brannalarmen. Svaret bør innhentes skriftlig.",
+    },
+    {
+      question: "Hvor stort lokale trengs?",
+      answer:
+        "Det avgjør lokalets oppgitte kapasitet, så det bør regnes med litt margin for kostymer og dans.",
+    },
+    {
+      question: "Hvem fjerner pynten etter festen?",
+      answer:
+        "Vanligvis leietakeren, så leveringsformen for lokalet bør avtales på forhånd.",
+    },
+  ],
   "lokale-til-julemarked-tre-scenarier": [
     {
       question: "Hvor stort lokale trenger et julemarked?",
@@ -3829,6 +3857,33 @@ export const POST_FAQ = {
         "Ofte en bygdelagsforening eller stiftelse, men avklar alltid hvem avtalen inngås med.",
     },
   ],
+  "leie-gymsal-myter-og-fakta": [
+    {
+      question: "Kan jeg leie en gymsal til bursdag?",
+      answer:
+        "Ofte ja, men noen saler leies bare ut til idrett, så spør utleieren om formålet er tillatt.",
+    },
+    {
+      question: "Hvor mange gjester er det plass til i en gymsal?",
+      answer:
+        "Det avgjør salens oppgitte kapasitet, ikke gulvets størrelse, så sjekk den før du booker.",
+    },
+    {
+      question: "Er garderobe og kjøkken med i leien?",
+      answer:
+        "Det varierer fra sal til sal, så spør og få svaret skriftlig.",
+    },
+    {
+      question: "Kan vi sette opp bord på sportsgulvet?",
+      answer:
+        "Ofte, men mange utleiere krever beskyttelse under bordbein og stoler, så avklar det på forhånd.",
+    },
+    {
+      question: "Hvem rydder etter at vi har leid gymsalen?",
+      answer:
+        "Det gjør vanligvis leietakeren, og det lønner seg å avtale hva ryddet betyr før dagen.",
+    },
+  ],
   "leie-menighetshus-husreglene-forklart": [
     {
       question: "Kan alle leie et menighetshus?",
@@ -3881,6 +3936,33 @@ export const POST_FAQ = {
       question: "Hvem rydder etter klassetreffet?",
       answer:
         "Vanligvis leietakeren, så fordel oppgavene og avtal hva ryddet betyr med utleieren.",
+    },
+  ],
+  "lokale-til-julebord-hvem-gjor-hva": [
+    {
+      question: "Hva bør være med når jeg leier lokale til julebord?",
+      answer:
+        "Spør om bord, stoler, kjøkken og lydanlegg er med i leien, og få svaret skriftlig.",
+    },
+    {
+      question: "Hvem dekker på bordene?",
+      answer:
+        "Det avtaler du, enten med cateringen som et tilvalg eller med noen fra gjengen.",
+    },
+    {
+      question: "Kan jeg ta med egen DJ?",
+      answer:
+        "Ofte ja, men spør utleieren om reglene for lyd før du booker noen.",
+    },
+    {
+      question: "Hvor stort lokale trenger vi?",
+      answer:
+        "Det avhenger av gjestetall, bord, dansegulv og buffé, så sjekk lokalets oppgitte kapasitet.",
+    },
+    {
+      question: "Hvem rydder etter julebordet?",
+      answer:
+        "Avtal det med utleieren og gi oppgaven til én bestemt person, slik at det ikke blir stående.",
     },
   ],
 };
