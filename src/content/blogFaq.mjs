@@ -3775,6 +3775,33 @@ export const POST_FAQ = {
         "Én person fra laget eller foreldregruppen, slik at utleieren har én kontakt.",
     },
   ],
+  "sentral-beliggenhet-sjekk-lokalet-ring-for-ring": [
+    {
+      question: "Hva betyr sentral beliggenhet for et lokale?",
+      answer:
+        "At lokalet er lett å nå for gjestene, ikke bare at det ligger midt i sentrum på kartet.",
+    },
+    {
+      question: "Hvordan sjekkes beliggenheten før booking?",
+      answer:
+        "Se på inngangen i gatevisning, sjekk ruten i en ruteplanlegger for samme ukedag og tid, og spør utleieren om parkering og varelevering.",
+    },
+    {
+      question: "Er et sentralt lokale alltid dyrere?",
+      answer:
+        "Sentrale strøk ligger ofte høyere i pris, men tillegg som rengjøring og utstyr kan bety like mye for totalen.",
+    },
+    {
+      question: "Hva bør utleieren spørres om adkomst?",
+      answer:
+        "Hvilken dør gjestene bruker, om den er trinnfri, hvor det kan parkeres og hvor mat og utstyr leveres.",
+    },
+    {
+      question: "Er et lokale utenfor sentrum et dårlig valg?",
+      answer:
+        "Nei. Med god kollektivforbindelse eller parkering kan det fungere bedre enn et sentralt lokale med vanskelig adkomst.",
+    },
+  ],
   "lokale-til-halloweenfest-foresporselen": [
     {
       question:
