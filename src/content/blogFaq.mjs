@@ -3911,6 +3911,33 @@ export const POST_FAQ = {
         "Be om at det står i avtalen hvordan en slik endring håndteres og hvordan du får beskjed.",
     },
   ],
+  "lokale-med-kinostoler-test-tre-seter": [
+    {
+      question: "Hva bør sjekkes ved leie av lokale med kinostoler?",
+      answer:
+        "Første rad, midten i salen og ytterst bakerst bør testes med bilde, lyd og lys fra hver plass.",
+    },
+    {
+      question: "Hva er forskjellen på kinostoler og kinooppsett?",
+      answer:
+        "Kinostoler er faste seter i en sal, ofte på trinn. Kinooppsett er løse stoler satt på rekker i et flatt rom.",
+    },
+    {
+      question: "Kan egen bærbar PC brukes mot projektoren?",
+      answer:
+        "Utleieren bør opplyse om hvilke innganger anlegget har, og en overgang bør tas med i tilfelle.",
+    },
+    {
+      question: "Passer en kinosal til annet enn film?",
+      answer:
+        "Ja, til foredrag, visninger og premierer, så lenge alle skal se samme vei.",
+    },
+    {
+      question: "Hvor mange gjester får plass?",
+      answer:
+        "Faste seter gir et fast tall; utleieren bør opplyse om antallet og om noen plasser er sperret.",
+    },
+  ],
   "lokale-til-julebord-hvem-gjor-hva": [
     {
       question: "Hva bør være med når jeg leier lokale til julebord?",
