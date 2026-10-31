@@ -266,6 +266,39 @@ export const POST_FAQ = {
         "Ikke nødvendigvis, det avhenger av arrangementet, men for arrangement med publikumsbetalt inngang og bar er det ofte en forutsetning.",
     },
   ],
+  "billettlosning-pamelding-offentlig-arrangement": [
+    {
+      question: "Hvordan tar jeg betalt for et arrangement?",
+      answer:
+        "Velg etter hvem som betaler: Vipps eller kort for publikum, rabattkode for medlemmer, faktura for lag og bedrifter og påmelding når det er gratis.",
+    },
+    {
+      question: "Må deltakerne lage en konto for å betale?",
+      answer:
+        "Nei. Kjøperen betaler med Vipps eller kort i samme flyt og får billetten med en gang, uten konto hos en ekstern billettleverandør.",
+    },
+    {
+      question: "Kan medlemmer få lavere pris?",
+      answer:
+        "Ja, med en rabattkode. Gi koden et tak på antall bruk og en gyldighetsperiode.",
+    },
+    {
+      question: "Kan et lag eller en bedrift betale med faktura?",
+      answer:
+        "Ja. Faktura via EHF passer for organisasjoner, lag, foreninger og bedrifter.",
+    },
+    {
+      question: "Trenger jeg påmelding hvis arrangementet er gratis?",
+      answer:
+        "Ja. Påmelding gir en deltakerliste og hindrer at flere kommer enn lokalet har plass til.",
+    },
+    {
+      question:
+        "Hvordan unngår jeg å selge flere billetter enn det er plass til?",
+      answer:
+        "Sett en kvote per billetttype, så stopper salget når kapasiteten er nådd.",
+    },
+  ],
   "beste-bookingsystem-kommune-norge": [
     {
       question: "Hvilke krav må et kommunalt bookingsystem oppfylle?",

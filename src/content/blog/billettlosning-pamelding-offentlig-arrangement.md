@@ -1,48 +1,115 @@
 ---
 slug: billettlosning-pamelding-offentlig-arrangement
 title: "Billettsystem for arrangement: salg, påmelding og oppgjør"
-description: "Digital billettlevering og påmelding for offentlige og betalte arrangementer: billettsalg med Vipps og kort, kapasitetsstyring, innsjekk og oppgjør i én løsning."
+seoTitle: "Billettsystem: salg, påmelding og oppgjør | Digilist"
+description: "Ta betalt etter hvem som betaler: Vipps eller kort for publikum, rabattkode for medlemmer, faktura for lag og påmelding når arrangementet er gratis."
 date: 2026-08-07
+updated: 2026-10-30
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
-readingMinutes: 7
 tag: "Plattform"
-cover: "/images/blog/somlos_betaling_hero_no.webp"
-keywords: ["billettløsning arrangement", "digital billettlevering", "påmelding offentlig arrangement", "billettsystem kommune", "selge billetter arrangement", "eventledelse", "inntektsgenerering arrangement"]
+cover: "/images/blog/billettlosning-pamelding-offentlig-arrangement.webp"
+coverAlt: "Teknisk infografikk på kremfarget bakgrunn: fire rør merket Vipps og kort, Rabattkode, Faktura og Påmelding som samles i ett oransje rør og ender i én deltakerliste."
+priceBlock: shared
+keywords:
+  - hvordan ta betalt for arrangement
+  - billettsystem arrangement
+  - påmelding og betaling
+  - billettsalg på nett
 ---
 
-Et arrangement er sjelden bare ett system. Kulturhuset har sin bookingkalender for salen, kommunen sender ut en Google-skjema-lenke for påmelding til folkemøtet, og billettene til det betalte kveldsarrangementet selges gjennom en ekstern billettleverandør som tar en andel av hvert salg. Tre systemer, tre datasett, og ingen av dem snakker sammen når du skal telle hvor mange som faktisk kommer, eller avstemme hva arrangementet satt igjen med. Digilist samler billettlevering, påmelding og oppgjør i den samme plattformen som booker selve lokalet, slik at arrangementet driftes fra én kalender i stedet for tre.
+Et arrangement er sjelden bare ett system. Kulturhuset har sin bookingkalender for salen, kommunen sender ut en skjemalenke for påmelding til folkemøtet, og billettene til det betalte kveldsarrangementet selges gjennom en ekstern billettleverandør som tar en andel av hvert salg. Tre systemer, tre datasett, og ingen av dem snakker sammen når du skal telle hvor mange som faktisk kommer, eller avstemme hva arrangementet satt igjen med. Digilist samler billettlevering, påmelding og oppgjør i den samme plattformen som booker selve lokalet, slik at arrangementet driftes fra én kalender i stedet for tre.
 
 ## Billettlevering og påmelding er to forskjellige behov
 
-De fleste tenker "billettsystem" når temaet er arrangement, men i praksis dekker kommuner og arrangører to ulike behov. **Billettlevering** gjelder betalte arrangementer: konsert, festival, kurs med deltakeravgift, der publikum kjøper en billett med pris, billettype og kvote. **Påmelding** gjelder ofte gratis eller offentlige arrangementer: folkemøte, åpen dag, informasjonsmøte, der målet ikke er inntekt, men en pålitelig deltakerliste og riktig kapasitetsstyring på rommet.
+De fleste tenker billettsystem når temaet er arrangement, men i praksis dekker kommuner og arrangører to ulike behov. Billettlevering gjelder betalte arrangementer: konsert, festival eller et foredrag med deltakeravgift, der publikum kjøper en billett med pris, billetttype og kvote. Påmelding gjelder ofte gratis eller offentlige arrangementer: folkemøte, åpen dag, informasjonsmøte, der målet ikke er inntekt, men en pålitelig deltakerliste og riktig kapasitetsstyring på rommet.
 
 Forskjellen har betydning for hvordan løsningen settes opp. Et betalt arrangement trenger billettyper, priser, rabattkoder og betalingsflyt. Et offentlig påmeldingsarrangement trenger et enkelt skjema, en kapasitetsgrense og en oppdatert liste saksbehandler kan hente ut når møtet nærmer seg. Digilist dekker begge deler i samme verktøy, slik at et kulturhus kan bruke betalt billettsalg til konserten om kvelden og gratis påmelding til foredraget om ettermiddagen, uten å sette opp to forskjellige systemer.
 
 ## Digital billettlevering for betalte arrangementer
 
-For betalte arrangementer handler billettløsningen om å gjøre salget forutsigbart for arrangøren og enkelt for kjøperen. Du oppretter flere billettyper med hver sin pris og kvote (ordinær, honnør, barn, VIP), og beholdningen oppdateres i sanntid slik at det aldri selges flere billetter enn kapasiteten på lokalet tillater. Kjøperen betaler med Vipps eller kort i samme flyt og får billetten med QR-kode med en gang, uten å opprette konto hos en ekstern billettleverandør.
+For betalte arrangementer handler billettløsningen om å gjøre salget forutsigbart for arrangøren og enkelt for kjøperen. Du oppretter flere billettyper med hver sin pris og kvote (ordinær, honnør, barn, VIP), og kvoten sørger for at det ikke selges flere billetter enn kapasiteten på lokalet tillater. Kjøperen betaler med Vipps eller kort i samme flyt og får billetten med QR-kode med en gang, uten å opprette konto hos en ekstern billettleverandør.
 
-Rabattkoder og kuponger lar deg kjøre tidligfugl-priser eller medlemsrabatter uten manuelt arbeid, og gavekort kan løses inn direkte mot billettkjøpet. Ved inngangen skanner du QR-koden fra mobilen, billetten merkes som brukt umiddelbart, og du følger innsjekk og fyllingsgrad live gjennom hele arrangementet. Se hele funksjonsoversikten på [billettsystem](/billettsystem)-siden.
+Rabattkoder lar deg kjøre tidligfuglpriser eller medlemsrabatter uten manuelt arbeid. Ved inngangen skanner du QR-koden fra mobilen, og billetten merkes som brukt.
 
 ## Påmelding til offentlige arrangementer
 
-Kommuner arrangerer langt flere møter, foredrag og åpne dager enn betalte arrangementer, og disse har egne krav. Det viktigste er ikke betaling, men å vite hvor mange som faktisk kommer, slik at rommet, stolene og eventuell servering stemmer med oppmøtet. En digital påmelding erstatter e-post- og Excel-listen med et skjema som oppdaterer kapasiteten i sanntid, slik at antall påmeldte aldri overstiger det rommet faktisk har plass til.
+Kommuner arrangerer langt flere møter, foredrag og åpne dager enn betalte arrangementer, og disse har egne krav. Det viktigste er ikke betaling, men å vite hvor mange som faktisk kommer, slik at rommet, stolene og eventuell servering stemmer med oppmøtet. En digital påmelding erstatter lister i e-post og regneark med et skjema som har en kapasitetsgrense, slik at antall påmeldte ikke overstiger det rommet faktisk har plass til.
 
 Fordi påmeldingen ligger i samme plattform som bookingen av selve lokalet, ser saksbehandler kapasitet og påmeldte i samme oversikt, ikke i to systemer som må avstemmes manuelt før møtet. Deltakerlisten er samlet ett sted og kan hentes ut når den trengs til møtet, i stedet for å ligge spredt i innbokser og regneark hos ulike ansatte.
 
-## Betaling, oppgjør og regnskap: inntektsgenereringen i løsningen
+## Publikum betaler best med Vipps eller kort når de kjøper billetten
 
-Billettsalg er ikke ferdig når kjøperen har betalt. Pengene skal frem til arrangøren, og bilagene skal frem til regnskapet. Oppgjøret fra Vipps- og kortbetalinger utbetales til arrangørens konto etter avtalte vilkår, med bilag og EHF-fakturagrunnlag der det trengs, slik at hver transaksjon er sporbar fra billettkjøp til bokført inntekt. Det samme gjelder refusjon: setter du reglene for avlysning, ombooking og navnebytte selv, håndteres kanselleringer digitalt i stedet for manuelt over telefon.
+Korpset har leid salen til vårkonsert. Noen betaler med Vipps i en kommentartråd, noen med kontanter i døra, og sponsoren vil ha faktura. Kvelden etter vet ingen hvor mange som betalte.
 
-For kommuner som allerede bruker Digilist til fakturering av lokalleie, går billettinntektene inn i samme økonomiflyt som resten av bookingvirksomheten, med samme kontoplan og samme regnskapsintegrasjon. Detaljene rundt fakturering, refusjon og avstemming er beskrevet nærmere i [Fakturering, refusjoner og avstemming](/blogg/faktura-refusjon-avstemming).
+Velg betalingsmåte etter hvem som betaler, og samle alt på ett sted. For publikum betyr det betaling i samme flyt som billetten: billettype med pris og kvote, Vipps eller kort, kvittering med en gang og QR-billett i døra.
+
+Kontanter i døra er den eneste betalingen du ikke kan telle i forkant.
+
+## Medlemmer får rabattkode, ikke egen betalingsmåte
+
+Medlemmer og tidligfugler trenger ikke en egen kasse. Gi dem en rabattkode med tak på antall bruk og en gyldighetsperiode.
+
+Samme kasse, annen pris. Da havner medlemmene i den samme oversikten som alle andre.
+
+## Lag og bedrifter vil ha faktura, og det bør du tilby
+
+Et lag som kjøper billetter til hele gruppa, eller en bedrift som sponser kvelden, betaler sjelden med mobilen. De vil ha faktura, gjerne som EHF, slik at den går rett inn i regnskapet deres.
+
+Tilby faktura som en egen betalingsmåte, men la den ende i samme deltakerliste. Mer om hvordan Vipps, kort og EHF henger sammen finner du i [Sømløs betaling med Vipps, kort og EHF](/blogg/somlos-betaling-vipps-ehf).
+
+## Gratis arrangementer trenger påmelding, ikke betaling
+
+Et gratis arrangement har ingen å ta betalt av, men det har fortsatt en kapasitet. Påmelding gir deg en deltakerliste og stopper når lokalet er fullt.
+
+Uten påmelding vet du først i døra hvor mange som kommer.
+
+## Betalingene samlet i én oversikt
+
+Billettsalg er ikke ferdig når kjøperen har betalt. Arrangøren må også vite hva som kom inn, og fra hvem. Når Vipps, kort og faktura samles på samme sted, ser du betalingene i én oversikt i stedet for å lete i kommentartråder og innbokser.
+
+For en kommune som allerede booker lokaler i Digilist, ligger billettsalget da i samme plattform som resten av bookingene.
 
 ## Én kalender for lokale, arrangement og billetter
 
-Den reelle gevinsten kommer når billettløsningen ikke er et sidesystem for eventledelse, men henger sammen med bookingen av lokalet arrangementet skal foregå i. Når salen bookes og billettsalget åpnes i samme plattform, kan to arrangementer aldri kollidere på samme dato og rom, og kapasiteten på billettene kan aldri overstige det fysiske rommet faktisk har plass til. Arrangøren ser i én oversikt hvor mange som er påmeldt eller har billett, hvilke billettyper som selger, og hva arrangementet har generert i inntekt, i sanntid mens salget pågår.
+Den reelle gevinsten kommer når billettløsningen ikke er et sidesystem for eventledelse, men henger sammen med bookingen av lokalet arrangementet skal foregå i. Når salen bookes og billettsalget åpnes i samme plattform, kan to arrangementer aldri kollidere på samme dato og rom, og kapasiteten på billettene kan aldri overstige det fysiske rommet faktisk har plass til. Arrangøren ser i én oversikt hvor mange som er påmeldt eller har billett, hvilke billettyper som selger, og hva arrangementet har solgt.
 
-Det gjelder enten arrangementet er en kommunal kulturkveld i et flerbrukslokale, en konsert i kulturhuset eller et betalt kurs i et møterom. Slik ser billettkjøperen resultatet fra sin side: konserter, festivaler og andre arrangementer samlet med pris og ledige billetter under [arrangementer](/arrangementer).
+Trenger du lyd, scene eller servering, kan det være lurt å se på [utstyr](/utstyr) og [tjenester](/tjenester) før du setter billettprisen, så kostnaden er med.
 
-## Book demo
+Det gjelder enten arrangementet er en kommunal kulturkveld i et flerbrukslokale, en konsert i kulturhuset eller et betalt foredrag i et møterom. Slik ser billettkjøperen resultatet fra sin side: konserter, festivaler og andre arrangementer samlet med pris og ledige billetter under [arrangementer](/arrangementer).
 
-Vil du se hvordan billettsalg, påmelding og oppgjør kan samles med bookingen av lokalet i én løsning? Book en demo, så viser vi hvordan et betalt arrangement og et gratis påmeldingsmøte settes opp i samme plattform, fra første billett til ferdig oppgjør.
+For utleiere er Digilist et abonnement, ikke en provisjon.
+
+<!-- price-block: shared -->
+
+[Se priser](/priser)
+
+## Se hvordan det settes opp
+
+Vil du se hvordan billetter, rabattkoder og påmelding samles på samme sted som bookingen av lokalet? [Se billettsystemet](/billettsystem).
+
+## Ofte stilte spørsmål
+
+### Hvordan tar jeg betalt for et arrangement?
+
+Velg etter hvem som betaler: Vipps eller kort for publikum, rabattkode for medlemmer, faktura for lag og bedrifter og påmelding når det er gratis.
+
+### Må deltakerne lage en konto for å betale?
+
+Nei. Kjøperen betaler med Vipps eller kort i samme flyt og får billetten med en gang, uten konto hos en ekstern billettleverandør.
+
+### Kan medlemmer få lavere pris?
+
+Ja, med en rabattkode. Gi koden et tak på antall bruk og en gyldighetsperiode.
+
+### Kan et lag eller en bedrift betale med faktura?
+
+Ja. Faktura via EHF passer for organisasjoner, lag, foreninger og bedrifter.
+
+### Trenger jeg påmelding hvis arrangementet er gratis?
+
+Ja. Påmelding gir en deltakerliste og hindrer at flere kommer enn lokalet har plass til.
+
+### Hvordan unngår jeg å selge flere billetter enn det er plass til?
+
+Sett en kvote per billetttype, så stopper salget når kapasiteten er nådd.
