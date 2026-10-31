@@ -270,12 +270,12 @@ export const POST_FAQ = {
     {
       question: "Hvordan tar jeg betalt for et arrangement?",
       answer:
-        "Velg etter hvem som betaler: Vipps eller kort for publikum, rabattkode for medlemmer, faktura for lag og bedrifter og påmelding når det er gratis.",
+        "Velg etter hvem som betaler: kort for publikum, rabattkode for medlemmer, faktura for lag og bedrifter og påmelding når det er gratis.",
     },
     {
       question: "Må deltakerne lage en konto for å betale?",
       answer:
-        "Nei. Kjøperen betaler med Vipps eller kort i samme flyt og får billetten med en gang, uten konto hos en ekstern billettleverandør.",
+        "Nei. Kjøperen betaler i samme flyt som billetten og får billetten med en gang.",
     },
     {
       question: "Kan medlemmer få lavere pris?",
@@ -285,7 +285,7 @@ export const POST_FAQ = {
     {
       question: "Kan et lag eller en bedrift betale med faktura?",
       answer:
-        "Ja. Faktura via EHF passer for organisasjoner, lag, foreninger og bedrifter.",
+        "Ja. Faktura passer når en gruppe eller bedrift skal betale samlet.",
     },
     {
       question: "Trenger jeg påmelding hvis arrangementet er gratis?",
@@ -296,7 +296,7 @@ export const POST_FAQ = {
       question:
         "Hvordan unngår jeg å selge flere billetter enn det er plass til?",
       answer:
-        "Sett en kvote per billetttype, så stopper salget når kapasiteten er nådd.",
+        "Sett en kvote per billettype, så stopper salget når kapasiteten er nådd.",
     },
   ],
   "beste-bookingsystem-kommune-norge": [
