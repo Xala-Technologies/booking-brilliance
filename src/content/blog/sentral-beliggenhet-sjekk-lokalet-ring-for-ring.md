@@ -34,7 +34,7 @@ Finner ikke gjestene døra, hjelper det ikke at lokalet ligger midt i byen.
 
 Den andre ringen er gata og kvartalet. Maten, bordene og lydanlegget skal også inn. Utleieren bør spørres hvor en bil kan stoppe, og hvor langt det er å bære. Bestilles [catering](/tjenester/catering), bør leverandøren spørres hvor de trenger å parkere.
 
-Utleieren bør også spørres om naboene, og om det er noe som bør vite om lyd ut mot gata.
+Utleieren bør også spørres om naboene, og om det er noe leietakeren bør vite om lyd ut mot gata.
 
 Et lokale er ikke sentralt for den som bærer kasser rundt hele kvartalet.
 
@@ -50,15 +50,11 @@ Den fjerde ringen er veien tilbake. Når går siste avgang? Er det lett å få t
 
 Et lokale litt utenfor sentrum med god vei hjem kan slå et sentralt lokale med dårlig.
 
-For utleiere er Digilist et abonnement, ikke en provisjon.
-
 <!-- price-block: shared -->
-
-[Se priser](/priser)
 
 ## Sentralt koster mer, så velg hvilken ring som betales for
 
-Sentrale strøk ligger høyere i pris. Rengjøring, utstyr og bemanning kommer ofte i tillegg til grunnleien. Det lønner seg å velge hvilken ring som betyr mest for arrangementet: døra, kvartalet, reisen hit eller reisen hjem. Betal for den ringen, og vær fleksibel på resten.
+Sentrale strøk ligger ofte høyere i pris. Rengjøring, utstyr og bemanning kommer ofte i tillegg til grunnleien. Det lønner seg å velge hvilken ring som betyr mest for arrangementet: døra, kvartalet, reisen hit eller reisen hjem. Betal for den ringen, og vær fleksibel på resten.
 
 [Se hva beliggenhet og type lokale betyr for prisen i leiepriskalkulatoren.](/verktoy/leiepriskalkulator)
 
