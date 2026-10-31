@@ -3779,12 +3779,12 @@ export const POST_FAQ = {
     {
       question: "Hvor stort lokale trenger femti personer?",
       answer:
-        "Omtrent syttifem til hundre kvadratmeter til sittende middag ved runde bord, og førti til femti kvadratmeter hvis gjestene står.",
+        "Det avhenger av oppsettet. Sittende middag ved runde bord trenger mer gulv enn stående mottakelse. Bruk kapasitetskalkulatoren for konkrete tall.",
     },
     {
       question: "Hvor mye ekstra plass trenger buffé og dansegulv?",
       answer:
-        "Regn med femten til tjuefem prosent i tillegg til arealet for gjestene.",
+        "Legg inn buffer utover arealet for gjestene. Hvor mye avhenger av oppsett og utstyr — kalkulatoren gir et utgangspunkt.",
     },
     {
       question: "Hva betyr det når lokalet har plass til femti?",
@@ -3795,7 +3795,7 @@ export const POST_FAQ = {
       question:
         "Trenger et klasseromsoppsett for femti personer større lokale enn en fest?",
       answer:
-        "Ja, bord på rekker trenger to til to og en halv kvadratmeter per person.",
+        "Ofte ja, fordi bord på rekker tar mer gulv per gjest enn runde bord til middag.",
     },
     {
       question: "Er planleggingstallene en fasit?",
