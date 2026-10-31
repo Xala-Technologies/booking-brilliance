@@ -9,7 +9,7 @@ author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 tag: "Plattform"
 cover: "/images/blog/billettlosning-pamelding-offentlig-arrangement.webp"
-coverAlt: "Infografikk på kremfarget bakgrunn med overskriften Fire betalere, én liste: fire innstrømmer merket kort, rabattkode, faktura og påmelding samles i ett oransje rør og ender i én deltakerliste."
+coverAlt: "Teknisk infografikk på kremfarget bakgrunn: fire rør merket Betaling, Rabattkode, Faktura og Påmelding som samles i ett oransje rør og ender i én deltakerliste."
 priceBlock: shared
 keywords:
   - hvordan ta betalt for arrangement
