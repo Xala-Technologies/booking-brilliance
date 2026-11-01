@@ -8,7 +8,7 @@ author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 tag: "Utleier"
 cover: "/images/blog/leieavtale-utleie-av-lokale-etter-ryddingen.webp"
-coverAlt: "Infografikk på kremfarget bakgrunn: en stiplet oransje rute gjennom et lokale med fire stopp, skade, rydding, antall gjester og Sluttid og lyd, koblet til fire linjer i en leieavtale."
+coverAlt: "Infografikk på kremfarget bakgrunn: en stiplet oransje rute gjennom et lokale med fire stopp, skade, rydding, antall gjester og sluttid med lyd, koblet til fire linjer i en leieavtale."
 priceBlock: shared
 keywords:
   - leieavtale lokale
@@ -39,7 +39,7 @@ Søppelsekkene står ved døra. Leietakeren mener lokalet er ryddet. Utleier men
 
 «Lokalet skal ryddes» er et ønske. «Søppel ut, stoler tilbake på plass, kjøkkenbenken tørket» er en tilstand. Den første kan tolkes. Den andre kan sjekkes når døra låses opp.
 
-Tilstanden bør beskrives, ikke ønsket. Leies utstyr i tillegg, bør det avtales hvem som leverer det tilbake. Det kan minnes om når leietakeren pekes mot [utstyr](/utstyr). Trengs hjelp med renhold eller servering, kan [tjenester](/tjenester) være aktuelt.
+Tilstanden bør beskrives, ikke ønsket. Leies utstyr i tillegg, bør det avtales hvem som leverer det tilbake. Det er en god påminnelse å gi når leietakeren ser på [utstyr](/utstyr). Trengs hjelp med renhold eller servering, kan [tjenester](/tjenester) være aktuelt.
 
 ## Maks antall gjester hører hjemme i avtalen, ikke bare i annonsen
 
@@ -51,11 +51,11 @@ Kapasiteten bør vises sittende og stående i annonsen, så leietakeren kan velg
 
 Det fjerde funnet ligger ikke i salen. Det er en melding fra naboen om musikk sent på natta. Klagen kommer til utleier, ikke til leietakeren.
 
-Derfor hører sluttid og lydnivå hjemme i avtalen. I avtalen bør stå når lokalet skal være tomt, og når musikken skal ned. Valg av tid er opp til utleier og huset. Det viktige er at tiden står skrevet, så leietakeren kjenner den før festen starter.
+Derfor hører sluttid og lydnivå hjemme i avtalen. I avtalen bør det stå når lokalet skal være tomt, og når musikken skal ned. Valg av tid er opp til utleier og huset. Det viktige er at tiden står skrevet, så leietakeren kjenner den før festen starter.
 
 ## Fire linjer i leieavtalen før neste booking
 
-En lang kontrakt er unødvendig. Fire linjer holder: depositumet og når det frigjøres, hva ryddet betyr, maks antall gjester, og sluttid med lyd. Avbestillingsreglene bør tas med; [avbestilling, depositum og ansvar ved skade](/blogg/sal-kommune-vilkar-avbestilling-depositum-ansvar) henger ofte sammen i kontrakten, også utenfor kommunen.
+En lang kontrakt er sjelden nødvendig. Fire linjer holder: depositumet og når det frigjøres, hva ryddet betyr, maks antall gjester, og sluttid med lyd. Avbestillingsreglene bør tas med; [avbestilling, depositum og ansvar ved skade](/blogg/sal-kommune-vilkar-avbestilling-depositum-ansvar) henger ofte sammen i kontrakten, også utenfor kommunen.
 
 Linjene virker bare hvis leietakeren ser dem før bookingen er bekreftet. Vilkårene bør ligge på lokalet, slik at leietakeren leser dem før forespørselen sendes. I Digilist blir en forespørsel først en booking når utleier har sjekket den mot husreglene og bekreftet. Da vet begge parter hva som gjelder før tiden er tatt.
 
