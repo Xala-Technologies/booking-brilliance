@@ -3940,10 +3940,9 @@ export const POST_FAQ = {
   ],
   "leieavtale-utleie-av-lokale-etter-ryddingen": [
     {
-      question:
-        "Trenger jeg en skriftlig leieavtale når jeg leier ut et lokale?",
+      question: "Trengs skriftlig leieavtale ved utleie av lokale?",
       answer:
-        "Ja. Skriftlige vilkår gjør det enkelt å vise hva leietakeren sa ja til hvis noe går galt.",
+        "Det er ikke alltid et krav, men skriftlige vilkår gjør det enkelt å vise hva leietakeren sa ja til hvis noe går galt.",
     },
     {
       question: "Hva bør stå i en leieavtale for korttidsutleie?",
@@ -3956,20 +3955,20 @@ export const POST_FAQ = {
         "Før bookingen blir bekreftet, slik at vilkårene er kjent før tiden er tatt.",
     },
     {
-      question: "Hvordan håndterer jeg skader etter et arrangement?",
+      question: "Hvordan håndteres skader etter et arrangement?",
       answer:
-        "Avtal depositum på forhånd og frigi det når lokalet er levert i orden.",
+        "Depositum bør avtales på forhånd og frigis når lokalet er levert i orden.",
     },
     {
-      question: "Dekker forsikringen min utleie?",
+      question: "Dekker forsikringen utleie?",
       answer:
-        "Ikke alltid, så sjekk med forsikringsselskapet før første booking.",
+        "Ikke alltid; forsikringsselskapet bør kontaktes før første booking.",
     },
     {
       question:
         "Er en leieavtale for et selskapslokale det samme som en næringsleieavtale?",
       answer:
-        "Nei. En næringsleieavtale gjelder langvarig leie, mens korttidsutleie trenger korte vilkår for ett arrangement.",
+        "Som regel ikke. En næringsleieavtale gjelder leie av lokaler til næringsvirksomhet over tid, mens utleie til ett arrangement normalt løses med korte vilkår. Ved tvil er det lurt å spørre en jurist.",
     },
   ],
 };
