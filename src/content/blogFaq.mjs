@@ -3938,4 +3938,38 @@ export const POST_FAQ = {
         "Avtal det med utleieren og gi oppgaven til én bestemt person, slik at det ikke blir stående.",
     },
   ],
+  "leieavtale-utleie-av-lokale-etter-ryddingen": [
+    {
+      question:
+        "Trenger jeg en skriftlig leieavtale når jeg leier ut et lokale?",
+      answer:
+        "Ja. Skriftlige vilkår gjør det enkelt å vise hva leietakeren sa ja til hvis noe går galt.",
+    },
+    {
+      question: "Hva bør stå i en leieavtale for korttidsutleie?",
+      answer:
+        "Depositum, hva ryddet betyr, maks antall gjester, sluttid og lyd, og hvilke avbestillingsregler som gjelder.",
+    },
+    {
+      question: "Når bør leietaker godta vilkårene?",
+      answer:
+        "Før bookingen blir bekreftet, slik at vilkårene er kjent før tiden er tatt.",
+    },
+    {
+      question: "Hvordan håndterer jeg skader etter et arrangement?",
+      answer:
+        "Avtal depositum på forhånd og frigi det når lokalet er levert i orden.",
+    },
+    {
+      question: "Dekker forsikringen min utleie?",
+      answer:
+        "Ikke alltid, så sjekk med forsikringsselskapet før første booking.",
+    },
+    {
+      question:
+        "Er en leieavtale for et selskapslokale det samme som en næringsleieavtale?",
+      answer:
+        "Nei. En næringsleieavtale gjelder langvarig leie, mens korttidsutleie trenger korte vilkår for ett arrangement.",
+    },
+  ],
 };
