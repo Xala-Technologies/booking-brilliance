@@ -10,6 +10,20 @@ export interface ByFaq {
   answer: string;
 }
 
+export interface ByH1 {
+  /** Text before the emphasized segment. */
+  lead: string;
+  /** Emphasized segment (usually the city phrase). */
+  em: string;
+  /** Optional trailing text after the emphasis (include leading space or punctuation as needed). */
+  tail?: string;
+}
+
+export interface ByReadingLink {
+  label: string;
+  to: string;
+}
+
 export interface ByData {
   slug: string;
   name: string; // "Oslo"
@@ -19,6 +33,19 @@ export interface ByData {
   title?: string;
   /** Override the default templated meta description. Use when the templated description exceeds ~160 chars for this city name. */
   description?: string;
+  /** Override the default H1 («Lokaler til leie {inName}.»). */
+  h1?: ByH1;
+  /** Override the first content H2 under venue-landskapet (default: «Venue-landskapet i {name}.»). */
+  landscapeHeading?: string;
+  /** Sidebar «Tilgjengelighet» row; default is «Sanntid». */
+  availabilitySpec?: string;
+  /** Sidebar «Betaling» row; default is «Vipps · kort». */
+  paymentSpec?: string;
+  /** Article JSON-LD overrides (defaults mention «book»). */
+  articleHeadline?: string;
+  articleDescription?: string;
+  /** Extra internal links (hub, blog) shown before FAQ. */
+  readingLinks?: ByReadingLink[];
   intro: string;
   landscape: string;
   types: { label: string; to: string }[];
@@ -53,10 +80,31 @@ export const BYER: Record<string, ByData> = {
     name: "Oslo",
     inName: "i Oslo",
     region: "Oslo",
+    title: "Leie lokale i Oslo – ledige lokaler til leie | Digilist",
+    description:
+      "Leie lokale i Oslo? Se ledige selskapslokaler, festlokaler, møterom og kulturhus. Sammenlign private og kommunale lokaler, og send forespørsel på Digilist.",
+    h1: {
+      lead: "Leie lokale",
+      em: "i Oslo",
+      tail: ": ledige lokaler til fest og møter.",
+    },
+    landscapeHeading:
+      "Ledige lokaler i Oslo: selskapslokale, festlokale og møterom",
+    availabilitySpec: "Varierer per lokale",
+    paymentSpec: "Vipps · kort når utleier er aktiv",
+    articleHeadline: "Leie lokale i Oslo: ledige lokaler til leie og sammenligning",
+    articleDescription:
+      "Praktisk guide til å leie lokale i Oslo: bydeler, selskaps- og festlokaler, kapasitet, pris og hvordan du finner ledige lokaler på Digilist.",
+    readingLinks: [
+      { label: "Leie lokaler (oversikt over lokaltyper)", to: "/leie" },
+      { label: "Selskapslokaler: typer og hvordan du velger", to: "/blogg/selskapslokaler-typer-og-hvordan-velge" },
+      { label: "Lokale til julebord: hvem gjør hva", to: "/blogg/lokale-til-julebord-hvem-gjor-hva" },
+      { label: "Leie lokale til privat fest og bedriftsarrangement", to: "/blogg/leie-lokale-privat-fest-og-bedriftsevent" },
+    ],
     intro:
-      "Oslo har det største og mest varierte markedet for lokaler til leie i Norge – fra selskapslokaler og festlokaler til møterom, konferanselokaler, kulturhus og idrettshaller. På Digilist ser du ledige tider i sanntid og booker direkte, i stedet for å ringe rundt til lokaler på tvers av bydelene.",
+      "Oslo har det største og mest varierte utvalget av lokaler til leie i Norge, fra selskapslokaler og festlokaler til møterom, konferanselokaler, kulturhus og idrettshaller. På Digilist ser du private og kommunale lokaler samlet. Der utleier har aktivert booking, kan du se ledig tid og sende forespørsel eller betale med Vipps eller kort. Lokaler uten aktiv utleier ligger fortsatt i oversikten, men er ikke Vipps-bookbare før eier har tatt over oppføringen.",
     landscape:
-      "Etterspørselen er høyest i sentrum og de sentrale bydelene som Grünerløkka, Frogner, St. Hanshaugen og Gamle Oslo, hvor du finner alt fra restaurantlokaler og selskapslokaler til møterom og kulturhus. Bydeler som Nordre Aker, Østensjø, Nordstrand og Alna har mange grendehus, bydelshus og kommunale lokaler som leies ut til private arrangementer, ofte til lavere pris enn sentrumslokalene. Kontor- og konferansemiljøet er sterkt rundt Skøyen, Nydalen og Kvadraturen.",
+      "Etterspørselen er høyest i sentrum og bydelene Grünerløkka, Frogner, St. Hanshaugen og Gamle Oslo, med selskapslokaler, festlokaler, møterom og kulturhus. I Nordre Aker, Østensjø, Nordstrand og Alna finner du ofte grendehus og kommunale lokaler til lavere pris enn sentrum. Konferanse- og møtemiljøet er sterkt rundt Skøyen, Nydalen og Kvadraturen. Når du leier selskapslokale eller festlokale i Oslo, lønner det seg å sammenligne kapasitet, kjøkken og kollektivdekning, ikke bare grunnpris.",
     types: SHARED_TYPES,
     local: [
       "Selskaps- og festlokaler til bryllup, jubileum og firmafest",
@@ -66,35 +114,55 @@ export const BYER: Record<string, ByData> = {
       "Både private utleielokaler og kommunale lokaler i Oslo kommune",
     ],
     planning: [
-      "Vær tidlig ute: i Oslo bookes populære festlokaler til lørdager i mai–september ofte 6–12 måneder i forveien.",
-      "Sjekk kollektivdekning og parkering – i sentrale bydeler er offentlig transport ofte viktigere for gjestene enn parkeringsplasser.",
-      "Vurder bydelene utenfor sentrum (Nordre Aker, Østensjø, Nordstrand) for grendehus og bydelshus til lavere pris.",
-      "Book hverdager eller utenfor høysesong hvis du er fleksibel – da er både utvalget større og prisen lavere.",
+      "Vær tidlig ute: populære festlokaler til lørdager i mai–september er ofte reservert 6–12 måneder i forveien.",
+      "Sjekk kollektivdekning og parkering. I sentrale bydeler er ofte T-bane og trikk viktigere for gjestene enn parkeringsplasser.",
+      "Vurder bydeler utenfor sentrum (Nordre Aker, Østensjø, Nordstrand) for grendehus og bydelshus til lavere pris.",
+      "Er du fleksibel på ukedag og sesong, er utvalget større og prisen ofte lavere enn i høysesong.",
     ],
     example: {
       title: "Eksempel: bryllup for 90 i Oslo",
-      body: "Skal du arrangere bryllup for 90 gjester en lørdag i juni, bør du starte søket 9–12 måneder før. Filtrer på kapasitet fra 90, kjøkken og universell utforming, sammenlign selskapslokaler i sentrum mot rimeligere bydelshus lenger ut, og sjekk sanntidskalenderen for de aktuelle lørdagene før du bekrefter.",
+      body: "Skal du arrangere bryllup for 90 gjester en lørdag i juni, bør du starte søket 9–12 måneder før. Filtrer på kapasitet fra 90, kjøkken og universell utforming, sammenlign selskapslokaler i sentrum mot rimeligere bydelshus lenger ut, og sjekk ledige datoer på de aktuelle lokalene før du sender forespørsel.",
     },
     faq: [
       {
         question: "Hvor finner jeg lokaler til leie i Oslo?",
         answer:
-          "Du finner lokaler til leie i Oslo ved å søke på Digilist, der både private festlokaler, møterom og kulturhus og kommunale lokaler i Oslo kommune ligger samlet med ledige tider i sanntid. Du filtrerer på lokaltype, bydel og fasiliteter og booker den datoen du trenger direkte.",
+          "På Digilist søker du etter lokaler til leie i Oslo og filtrerer på lokaltype, kapasitet og fasiliteter. Du ser private og kommunale steder i samme oversikt, med pris og ledighet der utleier har lagt inn kalender. Usikker på lokaltype? Start fra oversikten «Leie lokaler» på digilist.no/leie.",
       },
       {
-        question: "Hvor tidlig bør jeg booke lokale i Oslo?",
+        question: "Hva er forskjellen på kommunale og private lokaler i Oslo?",
         answer:
-          "I Oslo er etterspørselen høy, og populære selskaps- og festlokaler til store arrangementer bookes ofte 6–12 måneder i forveien, særlig for lørdager i høysesongen. Møterom og mindre lokaler kan gjerne bookes med noen dagers eller ukers varsel. Med sanntidskalenderen ser du med én gang om datoen din er ledig.",
+          "Kommunale lokaler i Oslo kommune, som grendehus, bydelshus og kulturhus, følger ofte kommunens prisregulativ og kan kreve godkjenning eller lengre saksbehandling. Private selskaps- og festlokaler setter egne priser og vilkår, og mange har raskere svar når de bruker digital booking. På Digilist kan du sammenligne begge typene side om side og se hva som gjelder for det enkelte lokalet før du sender forespørsel.",
+      },
+      {
+        question: "Kan jeg leie selskapslokale eller festlokale i Oslo?",
+        answer:
+          "Ja. I Oslo finnes både selskapslokaler til middag og mingling og festlokaler til større feiringer. Filtrer på selskapslokale eller festlokale, sett minimum kapasitet, og sammenlign sentrum mot bydeler hvis du vil holde kostnaden nede. Les alltid hva som er inkludert av kjøkken, bord, stoler og rydding på oppføringen før du bestemmer deg.",
       },
       {
         question: "Kan jeg leie kommunale lokaler i Oslo til privat fest?",
         answer:
-          "Ja. Mange grendehus, bydelshus og kulturhus i Oslo leies ut til private arrangementer som bryllup, konfirmasjon og bursdag. På Digilist ligger både private og kommunale lokaler i samme oversikt, slik at du kan sammenligne dem på ett sted.",
+          "Ja. Mange grendehus, bydelshus og kulturhus i Oslo leies ut til private arrangementer som bryllup, konfirmasjon og bursdag. Reglene og prisen følger kommunens vilkår. På Digilist ligger kommunale og private lokaler i samme oversikt, slik at du kan sammenligne dem uten å søke på flere nettsteder.",
+      },
+      {
+        question: "Hvor tidlig bør jeg reservere lokale i Oslo?",
+        answer:
+          "Populære selskaps- og festlokaler til lørdager i mai–september er ofte tatt 6–12 måneder i forveien. Møterom og mindre lokaler kan du ofte få med kortere varsel. Når utleier har lagt inn kalender på Digilist, ser du med én gang om datoen er ledig eller opptatt.",
       },
       {
         question: "Hva koster det å leie lokale i Oslo?",
         answer:
-          "Prisen varierer med lokaltype, kapasitet, bydel, ukedag og sesong. Grendehus og bydelshus ligger ofte lavere enn sentrale selskaps- og restaurantlokaler, og lørdager i høysesong koster mer enn hverdager. Se alltid prisen på det enkelte lokalet på Digilist før du booker.",
+          "Prisen varierer med lokaltype, kapasitet, bydel, ukedag og sesong. Grendehus og bydelshus ligger ofte lavere enn sentrale selskaps- og restaurantlokaler, og lørdager i høysesong koster mer enn hverdager. Tabellen lenger opp på siden er en grov pekepinn. Se alltid prisen på det enkelte lokalet før du bekrefter.",
+      },
+      {
+        question: "Hvordan tar jeg over oppføringen som utleier i Oslo?",
+        answer:
+          "Digilist kan vise lokaler som offentlig informasjon før en utleier er koblet til. Finner du stedet ditt i oversikten, oppretter du konto på app.digilist.no, tar over oppføringen og fyller ut det som mangler. Du kan starte fra en eksisterende annonse med Listing Importer (/ai-agenter/importer-oppforing) eller legge inn lokalet manuelt. Når du har satt opp kalender, pris og betaling, kan leietakere booke og betale med Vipps eller kort. Uten aktiv utleier er lokalet ikke Vipps-bookbart. Les mer under bookingsystem for utleie (/bookingsystem-utleie).",
+      },
+      {
+        question: "Hva koster Digilist for utleiere?",
+        answer:
+          "Private utleiere betaler et månedlig abonnement uten provisjon på bookinger: Small 490 kr/mnd for ett lokale, Medium 790 kr/mnd for 2–3 lokaler og Large 1 290 kr/mnd for fire eller flere. Kommune og skreddersøm får tilbud etter behov. De 100 første kundene får 6 måneder gratis. Full oversikt står på /priser.",
       },
     ],
   },

@@ -48,8 +48,12 @@ const LokalerTilLeieBy = () => {
           { name: `Lokaler til leie i ${data.name}`, url },
         ]}
         article={{
-          headline: `Lokaler til leie i ${data.name}: finn, sammenlign og book`,
-          description: `Praktisk guide til å leie lokaler i ${data.name}: bydeler og venue-landskap, kapasitet, pris, når du bør booke, og hvordan du booker på nett.`,
+          headline:
+            data.articleHeadline ??
+            `Lokaler til leie i ${data.name}: finn, sammenlign og book`,
+          description:
+            data.articleDescription ??
+            `Praktisk guide til å leie lokaler i ${data.name}: bydeler og venue-landskap, kapasitet, pris, når du bør booke, og hvordan du booker på nett.`,
           datePublished: "2026-07-23",
           dateModified: "2026-07-23",
           author: "Ibrahim Rahmani",
@@ -68,14 +72,29 @@ const LokalerTilLeieBy = () => {
             <div className="grid lg:grid-cols-12 gap-8 lg:gap-gutter items-start">
               <div className="lg:col-span-8">
                 <EditorialHeading as="h1" size="hero" className="mb-6">
-                  Lokaler til leie{" "}
-                  <em
-                    className="italic"
-                    style={{ fontVariationSettings: getFraunces("hero") }}
-                  >
-                    {data.inName}
-                  </em>
-                  .
+                  {data.h1 ? (
+                    <>
+                      {data.h1.lead}{" "}
+                      <em
+                        className="italic"
+                        style={{ fontVariationSettings: getFraunces("hero") }}
+                      >
+                        {data.h1.em}
+                      </em>
+                      {data.h1.tail ?? "."}
+                    </>
+                  ) : (
+                    <>
+                      Lokaler til leie{" "}
+                      <em
+                        className="italic"
+                        style={{ fontVariationSettings: getFraunces("hero") }}
+                      >
+                        {data.inName}
+                      </em>
+                      .
+                    </>
+                  )}
                 </EditorialHeading>
                 <p className="text-xl text-ink-soft measure leading-relaxed mb-6">
                   {data.intro}
@@ -106,8 +125,8 @@ const LokalerTilLeieBy = () => {
                   </h2>
                   <SpecRow label="Region" value={data.region} />
                   <SpecRow label="Marked" value="Privat · offentlig" />
-                  <SpecRow label="Tilgjengelighet" value="Sanntid" />
-                  <SpecRow label="Betaling" value="Vipps · kort" />
+                  <SpecRow label="Tilgjengelighet" value={data.availabilitySpec ?? "Sanntid"} />
+                  <SpecRow label="Betaling" value={data.paymentSpec ?? "Vipps · kort"} />
                 </EditorialCard>
               </div>
             </div>
@@ -120,8 +139,14 @@ const LokalerTilLeieBy = () => {
             <div className="grid lg:grid-cols-12 gap-8">
               <div className="lg:col-span-7">
                 <EditorialHeading as="h2" size="section" className="mb-6">
-                  Venue-landskapet i{" "}
-                  <em className="italic">{data.name}</em>.
+                  {data.landscapeHeading ? (
+                    data.landscapeHeading
+                  ) : (
+                    <>
+                      Venue-landskapet i{" "}
+                      <em className="italic">{data.name}</em>.
+                    </>
+                  )}
                 </EditorialHeading>
                 <p className="text-lg text-ink-soft leading-relaxed measure">
                   {data.landscape}
@@ -253,11 +278,44 @@ const LokalerTilLeieBy = () => {
           </div>
         </section>
 
+        {data.readingLinks && data.readingLinks.length > 0 ? (
+          <section className="py-14 lg:py-20 bg-paper-tinted border-y border-rule">
+            <div className="container mx-auto md:px-8 lg:px-12">
+              <SectionRule label="V. MER Å LESE" />
+              <EditorialHeading as="h2" size="section" className="mb-6">
+                Guider og oversikter om å leie lokale {data.inName}.
+              </EditorialHeading>
+              <ul className="space-y-3 max-w-3xl">
+                {data.readingLinks.map((link) => (
+                  <li key={link.to}>
+                    <Link
+                      to={link.to}
+                      className="text-base text-accent-text hover:underline underline-offset-4 decoration-[0.5px] inline-flex items-center gap-2"
+                    >
+                      {link.label}
+                      <ArrowRight className="h-4 w-4 shrink-0" strokeWidth={1.5} aria-hidden="true" />
+                    </Link>
+                  </li>
+                ))}
+                <li>
+                  <Link
+                    to="/priser"
+                    className="text-base text-accent-text hover:underline underline-offset-4 decoration-[0.5px] inline-flex items-center gap-2"
+                  >
+                    Priser for utleiere på Digilist
+                    <ArrowRight className="h-4 w-4 shrink-0" strokeWidth={1.5} aria-hidden="true" />
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </section>
+        ) : null}
+
         <PilotInvitationSection />
 
         <section className="py-14 lg:py-20 bg-paper">
           <div className="container mx-auto md:px-8 lg:px-12">
-            <SectionRule label="V. SPØRSMÅL OG SVAR" />
+            <SectionRule label={data.readingLinks?.length ? "VI. SPØRSMÅL OG SVAR" : "V. SPØRSMÅL OG SVAR"} />
             <EditorialHeading as="h2" size="section" className="mb-10">
               Vanlige spørsmål om lokaler til leie {data.inName}.
             </EditorialHeading>
