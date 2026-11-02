@@ -80,29 +80,29 @@ export const BYER: Record<string, ByData> = {
     name: "Oslo",
     inName: "i Oslo",
     region: "Oslo",
-    title: "Leie lokale i Oslo – ledige lokaler til leie | Digilist",
+    title: "Leie lokale i Oslo: ledige lokaler til leie | Digilist",
     description:
-      "Leie lokale i Oslo? Se ledige selskapslokaler, festlokaler, møterom og kulturhus. Sammenlign private og kommunale lokaler, og send forespørsel på Digilist.",
+      "Leie lokale i Oslo? Se selskapslokaler, festlokaler, møterom og kulturhus. Sammenlign private og kommunale lokaler, og send forespørsel på Digilist.",
     h1: {
       lead: "Leie lokale",
       em: "i Oslo",
-      tail: ": ledige lokaler til fest og møter.",
+      tail: ": lokaler til fest og møter.",
     },
     landscapeHeading:
-      "Ledige lokaler i Oslo: selskapslokale, festlokale og møterom",
+      "Ledige lokaler i Oslo: selskapslokale, festlokale og møterom.",
     availabilitySpec: "Varierer per lokale",
     paymentSpec: "Vipps · kort når utleier er aktiv",
-    articleHeadline: "Leie lokale i Oslo: ledige lokaler til leie og sammenligning",
+    articleHeadline: "Leie lokale i Oslo: lokaler til leie og sammenligning",
     articleDescription:
-      "Praktisk guide til å leie lokale i Oslo: bydeler, selskaps- og festlokaler, kapasitet, pris og hvordan du finner ledige lokaler på Digilist.",
+      "Praktisk guide til å leie lokale i Oslo: bydeler, selskaps- og festlokaler, kapasitet, pris og hvordan du finner lokaler på Digilist.",
     readingLinks: [
       { label: "Leie lokaler (oversikt over lokaltyper)", to: "/leie" },
       { label: "Selskapslokaler: typer og hvordan du velger", to: "/blogg/selskapslokaler-typer-og-hvordan-velge" },
       { label: "Lokale til julebord: hvem gjør hva", to: "/blogg/lokale-til-julebord-hvem-gjor-hva" },
-      { label: "Leie lokale til privat fest og bedriftsarrangement", to: "/blogg/leie-lokale-privat-fest-og-bedriftsevent" },
+      { label: "Lokale til privat fest og bedriftsarrangement", to: "/blogg/leie-lokale-privat-fest-og-bedriftsevent" },
     ],
     intro:
-      "Oslo har det største og mest varierte utvalget av lokaler til leie i Norge, fra selskapslokaler og festlokaler til møterom, konferanselokaler, kulturhus og idrettshaller. På Digilist ser du private og kommunale lokaler samlet. Der utleier har aktivert booking, kan du se ledig tid og sende forespørsel eller betale med Vipps eller kort. Lokaler uten aktiv utleier ligger fortsatt i oversikten, men er ikke Vipps-bookbare før eier har tatt over oppføringen.",
+      "I Oslo finner du mange typer lokaler til leie, fra selskapslokaler og festlokaler til møterom, konferanselokaler, kulturhus og idrettshaller. På Digilist ser du private og kommunale lokaler samlet. Der utleier har aktivert booking, kan du se ledig tid og sende forespørsel eller betale med Vipps eller kort. Lokaler uten aktiv utleier ligger fortsatt i oversikten, men er ikke Vipps-bookbare før eier har tatt over oppføringen.",
     landscape:
       "Etterspørselen er høyest i sentrum og bydelene Grünerløkka, Frogner, St. Hanshaugen og Gamle Oslo, med selskapslokaler, festlokaler, møterom og kulturhus. I Nordre Aker, Østensjø, Nordstrand og Alna finner du ofte grendehus og kommunale lokaler til lavere pris enn sentrum. Konferanse- og møtemiljøet er sterkt rundt Skøyen, Nydalen og Kvadraturen. Når du leier selskapslokale eller festlokale i Oslo, lønner det seg å sammenligne kapasitet, kjøkken og kollektivdekning, ikke bare grunnpris.",
     types: SHARED_TYPES,
@@ -127,12 +127,12 @@ export const BYER: Record<string, ByData> = {
       {
         question: "Hvor finner jeg lokaler til leie i Oslo?",
         answer:
-          "På Digilist søker du etter lokaler til leie i Oslo og filtrerer på lokaltype, kapasitet og fasiliteter. Du ser private og kommunale steder i samme oversikt, med pris og ledighet der utleier har lagt inn kalender. Usikker på lokaltype? Start fra oversikten «Leie lokaler» på digilist.no/leie.",
+          "På Digilist søker du etter lokaler til leie i Oslo og filtrerer på lokaltype, kapasitet og fasiliteter. Du ser private og kommunale steder i samme oversikt, med pris og ledighet der utleier har lagt inn kalender. Usikker på lokaltype? Start fra oversikten over lokaltyper.",
       },
       {
         question: "Hva er forskjellen på kommunale og private lokaler i Oslo?",
         answer:
-          "Kommunale lokaler i Oslo kommune, som grendehus, bydelshus og kulturhus, følger ofte kommunens prisregulativ og kan kreve godkjenning eller lengre saksbehandling. Private selskaps- og festlokaler setter egne priser og vilkår, og mange har raskere svar når de bruker digital booking. På Digilist kan du sammenligne begge typene side om side og se hva som gjelder for det enkelte lokalet før du sender forespørsel.",
+          "Kommunale lokaler i Oslo kommune, som grendehus, bydelshus og kulturhus, følger ofte kommunens prisregulativ og kan kreve godkjenning eller lengre saksbehandling. Private selskaps- og festlokaler setter egne priser og vilkår, og svartiden varierer fra lokale til lokale. På Digilist kan du sammenligne begge typene side om side og se hva som gjelder for det enkelte lokalet før du sender forespørsel.",
       },
       {
         question: "Kan jeg leie selskapslokale eller festlokale i Oslo?",
@@ -157,12 +157,12 @@ export const BYER: Record<string, ByData> = {
       {
         question: "Hvordan tar jeg over oppføringen som utleier i Oslo?",
         answer:
-          "Digilist kan vise lokaler som offentlig informasjon før en utleier er koblet til. Finner du stedet ditt i oversikten, oppretter du konto på app.digilist.no, tar over oppføringen og fyller ut det som mangler. Du kan starte fra en eksisterende annonse med Listing Importer (/ai-agenter/importer-oppforing) eller legge inn lokalet manuelt. Når du har satt opp kalender, pris og betaling, kan leietakere booke og betale med Vipps eller kort. Uten aktiv utleier er lokalet ikke Vipps-bookbart. Les mer under bookingsystem for utleie (/bookingsystem-utleie).",
+          "Digilist kan vise lokaler som offentlig informasjon før en utleier er koblet til. Finner du stedet ditt i oversikten, oppretter du konto på app.digilist.no, tar over oppføringen og fyller ut det som mangler. Du kan starte fra en eksisterende annonse med importverktøyet for oppføringer eller legge inn lokalet manuelt. Når du har satt opp kalender, pris og betaling, kan leietakere booke og betale med Vipps eller kort. Uten aktiv utleier er lokalet ikke Vipps-bookbart. Les mer om bookingsystem for utleie på Digilist.",
       },
       {
         question: "Hva koster Digilist for utleiere?",
         answer:
-          "Private utleiere betaler et månedlig abonnement uten provisjon på bookinger: Small 490 kr/mnd for ett lokale, Medium 790 kr/mnd for 2–3 lokaler og Large 1 290 kr/mnd for fire eller flere. Kommune og skreddersøm får tilbud etter behov. De 100 første kundene får 6 måneder gratis. Full oversikt står på /priser.",
+          "Private utleiere betaler et månedlig abonnement uten provisjon på bookinger: Small 490 kr/mnd for ett lokale, Medium 790 kr/mnd for 2–3 lokaler og Large 1 290 kr/mnd for fire eller flere. Kommuner og tilpassede løsninger får tilbud etter behov. De 100 første kundene får 6 måneder gratis. Full oversikt står på /priser.",
       },
     ],
   },
