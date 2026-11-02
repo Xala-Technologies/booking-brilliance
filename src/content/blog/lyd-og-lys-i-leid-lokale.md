@@ -87,7 +87,7 @@ Mikrofonen fanger opp lyd fra høyttalerne og forsterker den på nytt. Harde fla
 
 ### Kan jeg spille høyt så lenge jeg vil i et leid lokale?
 
-Nei. Utleiers husregler for lyd og sluttid gjelder, og de bør stå skriftlig før du booker, og lokale regler om støy kan også gjelde.
+Nei. Utleiers husregler for lyd og sluttid gjelder, og de bør stå skriftlig før du booker. Lokale regler om støy kan også gjelde.
 
 ### Når bør jeg bestille lyd og lys?
 
