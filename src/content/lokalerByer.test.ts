@@ -40,6 +40,7 @@ describe("lokaler-til-leie/oslo CTR overrides (2026-11-02)", () => {
 
   it("has meta description at most 155 characters without sanntid/book claims", () => {
     expect(oslo.description).toBeDefined();
+    expect(oslo.description!.length).toBeGreaterThanOrEqual(140);
     expect(oslo.description!.length).toBeLessThanOrEqual(155);
     expect(oslo.description).not.toMatch(/sanntid/i);
     expect(oslo.description).not.toMatch(/book direkte/i);
