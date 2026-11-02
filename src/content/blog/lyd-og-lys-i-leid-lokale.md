@@ -1,7 +1,11 @@
 ---
 slug: lyd-og-lys-i-leid-lokale
 title: "Lyd og lys i leid lokale: spør før du leier utstyr"
+<<<<<<< HEAD
 seoTitle: "Lyd og lys i leid lokale: spør før du leier | Digilist"
+=======
+seoTitle: "Lyd og lys i leid lokale: spør før du leier utstyr | Digilist"
+>>>>>>> f7de3ee (Add blog post: lyd og lys i leid lokale)
 description: "Før du leier lyd og lys, spør utleier om strøm, hva lokalet har, lydregler og sluttid. Da passer utstyret rommet, og du leier ikke noe du ikke bruker."
 date: 2026-11-02
 author: "Ibrahim Rahmani"
@@ -35,13 +39,21 @@ Spør utleier hvor stikkontaktene er, og om de ved scenen deler sikring med kjø
 
 Mange leier et komplett anlegg og finner høyttalere i taket når de kommer. Andre regner med en prosjektor som aldri var der.
 
+<<<<<<< HEAD
 Be om utleiers utstyrsliste før du bestiller noe: høyttalere, prosjektor, skjerm og mikrofon. Det samme rådet går igjen i guiden om å [leie utstyr til fest](https://digilist.no/blogg/leie-utstyr-til-fest-telt-bord-lyd-servering). Mangler noe, kan du se etter [lyd og lys](https://digilist.no/utstyr) i nærområdet, med spesifikasjoner og tekniker som tilvalg.
+=======
+Be om utleiers utstyrsliste før du bestiller noe: høyttalere, prosjektor, skjerm og mikrofon. Det samme rådet går igjen i guiden om å [leie utstyr til fest](/blogg/leie-utstyr-til-fest-telt-bord-lyd-servering). Mangler noe, kan du se etter [lyd og lys](/utstyr) i nærområdet, med spesifikasjoner og tekniker som tilvalg.
+>>>>>>> f7de3ee (Add blog post: lyd og lys i leid lokale)
 
 ## En mikrofon som virker i stua kan pipe i salen
 
 Hjemme går det fint. I en sal med harde vegger og høyt tak kaster lyden seg tilbake, mikrofonen fanger den opp, og det piper midt i talen.
 
+<<<<<<< HEAD
 Spør hvordan rommet låter når det er fullt, og om andre leietakere har hatt problemer med ekko. En trådløs mikrofon gjør det lettere å flytte seg bort fra høyttalerne. Test alltid før gjestene kommer. Trenger du noen til å styre lyden, kan en DJ eller musiker fra [tjenester](https://digilist.no/tjenester) være verdt å vurdere.
+=======
+Spør hvordan rommet låter når det er fullt, og om andre leietakere har hatt problemer med ekko. En trådløs mikrofon gjør det lettere å flytte seg bort fra høyttalerne. Test alltid før gjestene kommer. Trenger du noen til å styre lyden, kan en DJ eller musiker fra [tjenester](/tjenester) være verdt å vurdere.
+>>>>>>> f7de3ee (Add blog post: lyd og lys i leid lokale)
 
 ## Rommet og naboene setter grensen for hvor høyt det kan være
 
@@ -53,7 +65,11 @@ Spør utleier om lydregler, når musikken må ned, og når lokalet skal være to
 
 En presentasjon som så skarp ut i går kveld, kan forsvinne i ettermiddagssola. Fargerike lys blir borte på mørke vegger.
 
+<<<<<<< HEAD
 Spør om lokalet kan mørklegges, om veggene er hvite eller om det finnes lerret, og om skjermen synes fra bakerste rad. Trenger du hjelp til å velge rom etter bruk, se oversikten over [selskapslokaler og hvordan du velger](https://digilist.no/blogg/selskapslokaler-typer-og-hvordan-velge).
+=======
+Spør om lokalet kan mørklegges, om veggene er hvite eller om det finnes lerret, og om skjermen synes fra bakerste rad. Trenger du hjelp til å velge rom etter bruk, se oversikten over [selskapslokaler og hvordan du velger](/blogg/selskapslokaler-typer-og-hvordan-velge).
+>>>>>>> f7de3ee (Add blog post: lyd og lys i leid lokale)
 
 [Få et veiledende prisintervall med selskapslokale som lokaltype før du leier lyd og utstyr](/verktoy/leiepriskalkulator). Det er et estimat, ikke et tilbud.
 
@@ -61,6 +77,7 @@ Spør om lokalet kan mørklegges, om veggene er hvite eller om det finnes lerret
 
 Leier du selv ut et lokale, får du de samme spørsmålene igjen og igjen. Hvor er strømmen? Har dere høyttalere? Hvor høyt kan vi spille?
 
+<<<<<<< HEAD
 Skriv svarene i annonsen: strøm, utstyr som følger med og lydregler. Legg husreglene for sluttid og lyd der alle ser dem, slik det står i [steg for steg til første booking](https://digilist.no/blogg/leie-ut-selskapslokale-steg-for-steg). Da vet leietakeren hva rommet tåler før de booker.
 
 [Legg strøm, utstyr og lydregler på lokalet, så ser leietaker svarene før de booker.](https://digilist.no/bookingsystem-utleie)
@@ -68,6 +85,15 @@ Skriv svarene i annonsen: strøm, utstyr som følger med og lydregler. Legg husr
 Leier du selv ut et lokale, er Digilist et abonnement, ikke en provisjon.
 <!-- price-block: shared -->
 [Se priser](https://digilist.no/priser)
+=======
+Skriv svarene i annonsen: strøm, utstyr som følger med og lydregler. Legg husreglene for sluttid og lyd der alle ser dem, slik det står i [steg for steg til første booking](/blogg/leie-ut-selskapslokale-steg-for-steg). Da vet leietakeren hva rommet tåler før de booker.
+
+[Legg strøm, utstyr og lydregler på lokalet, så ser leietaker svarene før de booker.](/bookingsystem-utleie)
+
+Leier du selv ut et lokale, er Digilist et abonnement, ikke en provisjon.
+
+<!-- price-block: shared -->
+>>>>>>> f7de3ee (Add blog post: lyd og lys i leid lokale)
 
 ## Ofte stilte spørsmål
 
