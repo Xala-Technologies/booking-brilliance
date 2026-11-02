@@ -3938,4 +3938,36 @@ export const POST_FAQ = {
         "Avtal det med utleieren og gi oppgaven til én bestemt person, slik at det ikke blir stående.",
     },
   ],
+  "lyd-og-lys-i-leid-lokale": [
+    {
+      question: "Hva bør jeg spørre utleier om før jeg leier lyd og lys?",
+      answer:
+        "Hvor strømmen er, hva lokalet allerede har, om det finnes lydregler og når arrangementet må slutte.",
+    },
+    {
+      question: "Har lokalet som regel eget lydanlegg?",
+      answer:
+        "Noen har, mange har ikke. Be om utstyrslisten før du bestiller noe selv.",
+    },
+    {
+      question: "Trenger jeg en tekniker når jeg leier lyd og lys?",
+      answer:
+        "Til tale og bakgrunnsmusikk klarer mange seg selv. Til band, flere mikrofoner eller scenelys kan en tekniker spare deg for problemer.",
+    },
+    {
+      question: "Hvorfor piper mikrofonen i noen lokaler?",
+      answer:
+        "Harde flater og høyt tak gir ekko, så mikrofonen fanger opp lyden fra høyttalerne. Test før gjestene kommer.",
+    },
+    {
+      question: "Kan jeg spille høyt så lenge jeg vil i et leid lokale?",
+      answer:
+        "Nei. Utleiers husregler for lyd og sluttid gjelder, og de bør stå skriftlig før du booker.",
+    },
+    {
+      question: "Når bør jeg bestille lyd og lys?",
+      answer:
+        "Når lokalet er bekreftet og du vet hva rommet har, så du ikke leier dobbelt.",
+    },
+  ],
 };
