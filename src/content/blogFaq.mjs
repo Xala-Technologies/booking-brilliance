@@ -3957,12 +3957,12 @@ export const POST_FAQ = {
     {
       question: "Hvorfor piper mikrofonen i noen lokaler?",
       answer:
-        "Harde flater og høyt tak gir ekko, så mikrofonen fanger opp lyden fra høyttalerne. Test før gjestene kommer.",
+        "Mikrofonen fanger opp lyd fra høyttalerne og forsterker den på nytt. Harde flater og høyt tak kan gjøre det verre. Test før gjestene kommer.",
     },
     {
       question: "Kan jeg spille høyt så lenge jeg vil i et leid lokale?",
       answer:
-        "Nei. Utleiers husregler for lyd og sluttid gjelder, og de bør stå skriftlig før du booker.",
+        "Nei. Utleiers husregler for lyd og sluttid gjelder, og de bør stå skriftlig før du booker, og lokale regler om støy kan også gjelde.",
     },
     {
       question: "Når bør jeg bestille lyd og lys?",
