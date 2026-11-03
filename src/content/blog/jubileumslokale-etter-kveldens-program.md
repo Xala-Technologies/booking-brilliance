@@ -40,7 +40,7 @@ Spør om lokalet har kjøkken eller mottakskjøkken, og om det finnes langbord, 
 
 Talene er ofte det gjestene husker best. Da må de som sitter lengst bak, se ansiktet til den som snakker.
 
-Spør hvordan bordene kan settes. Runde bord eller en hestesko gir bedre sikt enn lange rader. Spør også om det finnes en mikrofon. Spør også om lyden når helt bak. Er svaret nei, bør taleren stå der flest ser, gjerne midt i rommet og ikke i et hjørne.
+Spør hvordan bordene kan settes. Runde bord eller en hestesko gir bedre sikt enn lange rader. Spør også om det finnes en mikrofon. Er svaret nei, bør taleren stå der flest ser og hører, gjerne midt i rommet og ikke i et hjørne.
 
 ## Mimring med bilder trenger en vegg og litt mørke
 
