@@ -1,14 +1,14 @@
 ---
 slug: jubileumslokale-etter-kveldens-program
 title: "Jubileumslokale: velg rommet etter kveldens program"
-seoTitle: "Jubileumslokale: velg rommet etter kveldens program | Digilist"
+seoTitle: "Jubileumslokale: velg rom etter kveldens program | Digilist"
 description: "Et godt jubileumslokale passer kveldens program: mottakelse, middag, taler, mimring og dans. Skriv programmet, og spør om rommet takler hver post."
 date: 2026-11-04
 author: "Ibrahim Rahmani"
 role: "Grunnlegger, Digilist"
 tag: "Privatperson"
 cover: "/images/blog/jubileumslokale-etter-kveldens-program.webp"
-coverAlt: "Infografikk på kremfarget bakgrunn: en avgangstavle med fem programposter for et jubileum, mottakelse, middag, taler, mimring og dans og kaffe, hver med et ikon for hva rommet må klare og taler markert i oransje."
+coverAlt: "Infografikk på kremfarget bakgrunn: en sjekkliste med fem programposter for et jubileum, mottakelse, middag, taler, mimring og dans og kaffe, hver med et ikon og en hake, og taler markert i oransje."
 keywords:
   - jubileumslokale
   - lokale til jubileum
@@ -34,13 +34,13 @@ Spør utleier om kapasitet både stående og sittende. Det er to ulike tall, og 
 
 Maten skal varmes, serveres og ryddes uten at noen går i veien for hverandre. Bordene skal gi plass til alle og samtidig gjøre det lett å snakke på tvers.
 
-Spør om lokalet har kjøkken eller mottakskjøkken, og om det finnes langbord, runde bord eller begge deler. Se hva som faktisk følger med i en [cateringbestilling](https://digilist.no/blogg/cateringbestilling-hva-er-med) før du bestemmer deg. Mangler rommet kjøkken og maten må leveres ferdig, kan [tjenester](https://digilist.no/tjenester) være et sted å se.
+Spør om lokalet har kjøkken eller mottakskjøkken, og om det finnes langbord, runde bord eller begge deler. Se hva som faktisk følger med i en [cateringbestilling](/blogg/cateringbestilling-hva-er-med) før du bestemmer deg. Mangler rommet kjøkken og maten må leveres ferdig, kan [tjenester](/tjenester) være et sted å se.
 
 ## Talene krever at alle ser og hører den som står
 
 Talene er ofte det gjestene husker best. Da må de som sitter lengst bak, se ansiktet til den som snakker.
 
-Spør hvordan bordene kan settes. Runde bord eller en hestesko gir bedre sikt enn lange rader. Spør også om det finnes en mikrofon. Er svaret nei, bør taleren stå der flest ser, gjerne midt i rommet og ikke i et hjørne.
+Spør hvordan bordene kan settes. Runde bord eller en hestesko gir bedre sikt enn lange rader. Spør også om det finnes en mikrofon. Spør også om lyden når helt bak. Er svaret nei, bør taleren stå der flest ser, gjerne midt i rommet og ikke i et hjørne.
 
 ## Mimring med bilder trenger en vegg og litt mørke
 
@@ -52,17 +52,17 @@ Spør om det finnes en lys vegg eller et lerret, og om rommet kan gjøres mørkt
 
 Etter middagen vil noen danse, mens andre vil sitte med kaffe og prate. Rommet må kunne bli to ting på en kveld.
 
-Spør om bordene kan ryddes til side, hvor de kan stå, og om leietiden gir rom for ombygging. Et jubileum varer gjerne lenger enn en kort familiefeiring, så sjekk hva som gjelder i guiden om [sal til bursdag, dåp og jubileum](https://digilist.no/blogg/sal-familiefeiring-bursdag-dap-jubileum-privatperson). Mangler det bord eller stoler, se [utstyr](https://digilist.no/utstyr).
+Spør om bordene kan ryddes til side, hvor de kan stå, og om leietiden gir rom for ombygging. Et jubileum varer gjerne lenger enn en kort familiefeiring, så les guiden om [sal til bursdag, dåp og jubileum](/blogg/sal-familiefeiring-bursdag-dap-jubileum-privatperson) for leietid og sluttid. Mangler det bord eller stoler, se [utstyr](/utstyr).
 
 ## Når du leier ut lokalet: vis rommet med programmet i
 
 Leier du selv ut et lokale, får du de samme spørsmålene fra alle som planlegger jubileum. Hvor mange får plass stående? Kan bordene flyttes? Når må det være stille?
 
-Legg ut bilder av rommet dekket for fest, oppgi kapasitet sittende og stående, og skriv husreglene for sluttid der alle ser dem, slik det står i [steg for steg til første booking](https://digilist.no/blogg/leie-ut-selskapslokale-steg-for-steg). Da kan leietakeren se programmet sitt i rommet før de booker.
+Legg ut bilder av rommet dekket for fest, oppgi kapasitet sittende og stående, og skriv husreglene for sluttid der alle ser dem, slik det står i [steg for steg til første booking](/blogg/leie-ut-selskapslokale-steg-for-steg). Da kan leietakere se programmet sitt i rommet før de booker.
 
-[Vis kapasitet sittende og stående og husreglene på lokalet, så kan leietaker planlegge programmet før de booker.](https://digilist.no/bookingsystem-utleie)
+[Regn ut hva lokalet ditt kan leies ut for i leiepriskalkulatoren.](/verktoy/leiepriskalkulator)
 
-Leier du selv ut et lokale, er Digilist et abonnement, ikke en provisjon.
+[Vis kapasitet sittende og stående og husreglene på lokalet, så kan leietakere planlegge programmet før de booker.](/bookingsystem-utleie)
 
 <!-- price-block: shared -->
 
