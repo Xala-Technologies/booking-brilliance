@@ -3244,6 +3244,39 @@ export const POST_FAQ = {
         "Nei, Digilist er et fast abonnement uten provisjon. Se prisene over, eller gå til /priser.",
     },
   ],
+  "jubileumslokale-etter-kveldens-program": [
+    {
+      question: "Hva bør jeg se etter i et jubileumslokale?",
+      answer:
+        "At rommet passer programmet, med plass til mottakelse, riktig bordform til middag, sikt til talene og mulighet til å flytte bord etterpå.",
+    },
+    {
+      question: "Hvor stort lokale trenger jeg til jubileum?",
+      answer:
+        "Spør om kapasitet både sittende og stående, siden mottakelsen og middagen bruker rommet ulikt.",
+    },
+    {
+      question: "Hvilken bordform er best når det skal holdes taler?",
+      answer:
+        "Runde bord eller en hestesko gir bedre sikt enn lange rader, men passer ikke alle rom.",
+    },
+    {
+      question: "Trenger jeg kjøkken i lokalet?",
+      answer:
+        "Det kommer an på om maten lages på stedet eller leveres ferdig, så avklar det før du booker.",
+    },
+    {
+      question: "Kan bordene flyttes for å danse?",
+      answer:
+        "Spør utleier om det er lov og hvor bordene kan stå, og om leietiden gir tid til ombygging.",
+    },
+    {
+      question:
+        "Hva er forskjellen på et jubileum og en vanlig fest når du velger lokale?",
+      answer:
+        "Et jubileum har ofte et fast program med taler og mimring, så rommet må passe hver del av kvelden.",
+    },
+  ],
   "kurslokaler-hele-kursdagen": [
     {
       question: "Er et kurslokale det samme som et konferanselokale?",
